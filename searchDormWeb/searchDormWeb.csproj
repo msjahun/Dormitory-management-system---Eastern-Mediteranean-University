@@ -20,6 +20,7 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\shared\" />
     <Folder Include="Migrations\" />
+    <Folder Include="Models\" />
     <Folder Include="Views\Home\" />
     <Folder Include="Views\Shared\" />
   </ItemGroup>
@@ -27,6 +28,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Dau.Core\Dau.Core.csproj" />
     <ProjectReference Include="..\Dau.Data\Dau.Data.csproj" />
+    <ProjectReference Include="..\Dau.Services\Dau.Services.csproj" />
   </ItemGroup>
 
 </Project>

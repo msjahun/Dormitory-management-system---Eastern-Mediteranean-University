@@ -3,12 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using searchDormWeb.Models;
+
 using System.Collections;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Globalization;
-
+using Dau.Services.SearchService;
 using Microsoft.Extensions.Localization;
 using Dau.Data;
 
@@ -20,6 +20,7 @@ namespace searchDormWeb.Controllers
     {
         private readonly IStringLocalizer<HomeController> _localizer;
         private fees_and_facilitiesContext _context = new fees_and_facilitiesContext();
+        private SearchService _searchService = new SearchService();
 
         public HomeController(IStringLocalizer<HomeController> localizer)
         {
@@ -120,64 +121,43 @@ namespace searchDormWeb.Controllers
             return View("Index");
         }
 
-        public ActionResult GetView(PostData2 data)
+        public ActionResult GetView(PostedDormitoryFilters data)
         {
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
             }
 
-            String name_of_dormitoryPosted = " ";
-            int dormitory_typePosted = 1;
-            double min_price_of_roomPosted = 0;
-            double max_price_of_roomPosted = 10000;
-            int room_areaPostedMin = 0;
-            int room_areaPostedMax = 10000;
-            int langIDPosted = 0;
-
-            String facility_TVPosted = " ";
-            String facility_InternetPosted = " ";
-            String facility_Wc_showerPosted = " ";
-            String facility_KitchenettePosted = " ";
-            String facility_bedPosted = " ";
-          
-            String facility_air_conditionPosted = " ";
-            String facility_central_acPosted = " ";
-            String facility_refrigeratorPosted = " ";
-            String facility_laundryPosted = " ";
-            String facility_cafeteriaPosted = " ";
-            String facility_room_telPosted = " ";
-            String facility_generatorPosted = " ";
-            String sort_byPosted = " ";
-
+            PostedDormitoryFilters filter = new PostedDormitoryFilters();
+            
             //  var data=  
             var obj = data;
-            name_of_dormitoryPosted = obj.name_of_dormitory==null?"": obj.name_of_dormitory;
+            filter.name_of_dormitory = obj.name_of_dormitory==null?"": obj.name_of_dormitory;
 
-            dormitory_typePosted = obj.dormitory_type;
-            min_price_of_roomPosted = obj.min_price_of_room;
-            max_price_of_roomPosted = obj.max_price_of_room;
-            room_areaPostedMin = obj.room_areaMin;
-            room_areaPostedMax = obj.room_areaMax;
-            langIDPosted = obj.langId;
+            filter.dormitory_type = obj.dormitory_type;
+            filter.min_price_of_room= obj.min_price_of_room;
+            filter.max_price_of_room = obj.max_price_of_room;
+            filter.room_areaMin= obj.room_areaMin;
+            filter.room_areaMax = obj.room_areaMax;
+            filter.langId = obj.langId;
 
-            facility_TVPosted = obj.facility_TV == null ? "" : obj.facility_TV;
-            facility_InternetPosted = obj.facility_Internet == null ? "" : obj.facility_Internet;
-            facility_Wc_showerPosted = obj.facility_Wc_shower == null ? "" : obj.facility_Wc_shower;
-            facility_KitchenettePosted = obj.facility_Kitchenette == null ? "" : obj.facility_Kitchenette;
-            facility_bedPosted = obj.facility_bed == null ? "" : obj.facility_bed;
-            sort_byPosted = obj.sort_by == null ? "" : obj.sort_by;
-            facility_air_conditionPosted = obj.facility_air_condition == null ? "" : obj.facility_air_condition;
-            facility_central_acPosted = obj.facility_central_ac == null ? "" : obj.facility_central_ac;
-            facility_refrigeratorPosted = obj.facility_refrigerator == null ? "" : obj.facility_refrigerator;
-            facility_laundryPosted = obj.facility_laundry == null ? "" : obj.facility_laundry;
-            facility_cafeteriaPosted = obj.facility_cafeteria == null ? "" : obj.facility_cafeteria;
-            facility_room_telPosted = obj.facility_room_tel == null ? "" : obj.facility_room_tel;
-            facility_generatorPosted = obj.facility_generator == null ? "" : obj.facility_generator;
+            filter.facility_TV = obj.facility_TV == null ? "" : obj.facility_TV;
+            filter.facility_Internet = obj.facility_Internet == null ? "" : obj.facility_Internet;
+            filter.facility_Wc_shower= obj.facility_Wc_shower == null ? "" : obj.facility_Wc_shower;
+            filter.facility_Kitchenette = obj.facility_Kitchenette == null ? "" : obj.facility_Kitchenette;
+            filter.facility_bed = obj.facility_bed == null ? "" : obj.facility_bed;
+            filter.sort_by= obj.sort_by == null ? "" : obj.sort_by;
+            filter.facility_air_condition = obj.facility_air_condition == null ? "" : obj.facility_air_condition;
+            filter.facility_central_ac = obj.facility_central_ac == null ? "" : obj.facility_central_ac;
+            filter.facility_refrigerator = obj.facility_refrigerator == null ? "" : obj.facility_refrigerator;
+            filter.facility_laundry = obj.facility_laundry == null ? "" : obj.facility_laundry;
+            filter.facility_cafeteria = obj.facility_cafeteria == null ? "" : obj.facility_cafeteria;
+            filter.facility_room_tel = obj.facility_room_tel == null ? "" : obj.facility_room_tel;
+            filter.facility_generator = obj.facility_generator == null ? "" : obj.facility_generator;
 
             string locale = "en";
 
-            if (langIDPosted == 2)
+            if (filter.langId == 2)
             {
                 locale = "tr";
             }
@@ -186,331 +166,47 @@ namespace searchDormWeb.Controllers
             Thread.CurrentThread.CurrentCulture = ci;
             Thread.CurrentThread.CurrentUICulture = ci;
             ViewBag.ContentFormat_account_number_text = _localizer["account_number_text"];
-            ViewBag.LangId = langIDPosted;
+            ViewBag.LangId = filter.langId;
             ViewBag.ContentFormat_sort_by_price = _localizer["sort_by_price"];
             ViewBag.ContentFormat_sort_by_az = _localizer["sort_by_az"];
             ViewBag.ContentFormat_sort_by_area = _localizer["sort_by_area"];
             ViewBag.ContentFormat_rooms_found = _localizer["rooms_found"];
-            //name_of_dormitoryPosted = "";
-            //dormitory_typePosted = 0;
-            //min_price_of_roomPosted = 0;
-            //max_price_of_roomPosted = 4992;
-            //room_areaPostedMin = 100000;
-            //room_areaPostedMax = 0;
-            //langIDPosted = 1;
 
-            //facility_TVPosted = "";
-            //facility_InternetPosted = "";
-            //facility_Wc_showerPosted = "";
-            //facility_KitchenettePosted = "";
-            //facility_bedPosted = "";
-            //sort_byPosted = "";
-            //facility_air_conditionPosted = "";
-            //facility_central_acPosted = "";
-            //facility_refrigeratorPosted = "";
-            //facility_laundryPosted = "";
-            //facility_cafeteriaPosted = "";
-            //facility_room_telPosted = "";
-            //facility_generatorPosted = "";
 
 
-            List<SearchResultData> arr = new List<SearchResultData>();
-            List<string> tr_acct_num, usd_acct_num;
-            List<Facility> faci = new List<Facility>();
-            List<string> listDormitories = new List<string>();
-            List<string> listRoom = new List<string>();
+           
 
 
-            using (var context = _context)
-            {
-                var dormitories = context.DormitoriesTable
-                                    .Include(dormitory_trans => dormitory_trans.DormitoriesTableTranslation)
-                                    .Include(dormitory_room => dormitory_room.RoomTable)
-
-                                    .ToList();
-
-
-
-
-                usd_acct_num = new List<string>();
-                usd_acct_num.Add("Account No: 6820-57259db");
-                usd_acct_num.Add("IBAN: TR04 0006 4000 0026 8200 057259db");
-
-                context.DormitoriesTable.ToList().ForEach(dorm =>
-                {
-                    dorm.DormitoriesTableTranslation.Where(r => r.LanguageId == langIDPosted).ToList().ForEach(dorm_trans =>
-                    {
-
-
-
-
-                        context.RoomTable.Where(r => r.DormitoryId == dorm.Id).Include(r => r.RoomTableTranslation).Include(r => r.RoomFacility).ToList().ForEach(room_t =>
-                        {
-
-
-                            room_t.RoomTableTranslation.Where(r => r.LanguageId == langIDPosted).ToList().ForEach(room_trans =>
-                            {
-                                tr_acct_num = new List<string>();
-                                ///  tr_acct_num.Add("Account No: 6820-174392db");
-                                //tr_acct_num.Add("IBAN: TR39 0006 4000 0016 8200 174392db");
-                                usd_acct_num = new List<string>();
-                                string usdd = "";
-                                string trr = "";
-                                //usd_acct_num.Add("Account No: 6820-57259db");
-                                //usd_acct_num.Add("IBAN: TR04 0006 4000 0026 8200 057259db");
-
-                                context.DormitoryBankAccountTable.Include(r => r.BankCurrencyTable).Where(c => c.DormitoryId == room_t.DormitoryId && room_trans.RoomTableNonTransId == room_t.Id).ToList().ForEach(dorm_bank_acc =>
-                                {
-                                    dorm_bank_acc.BankCurrencyTable.Where(c => c.CurrencyName == "USD").ToList().ForEach(bk_curr =>
-                                    {
-                                        usdd += dorm_bank_acc.BankName + "  ";
-                                        context.AccountParameterValues.Where(c => c.CurrencyId == bk_curr.Id).Include(c => c.AccountParameterValuesTranslation).ToList().ForEach(acct_param_val =>
-                                        {
-                                            acct_param_val.AccountParameterValuesTranslation.Where(c => c.LanguageId == langIDPosted).ToList().ForEach(acc_param_val_trans =>
-                                            {
-                                                // acc_param_val_trans.Value;
-
-                                                context.AccountInformationParameter.Include(c => c.AccountInformationParameterTranslation).Where(c => c.Id == acct_param_val.ParameterId).ToList().ForEach(acc_info_param =>
-                                                {
-                                                    acc_info_param.AccountInformationParameterTranslation.Where(c => c.LanguageId == langIDPosted).ToList().ForEach(acc_info_param_trans =>
-                                                    {
-                                                        usdd += "  " + acc_info_param_trans.Parameter + ":" + acc_param_val_trans.Value;
-                                                        //acc_info_param_trans.Parameter;
-                                                    });
-                                                });
-                                            });
-                                        });
-
-                                        usd_acct_num.Add(usdd);
-                                        usdd = "";
-
-                                    });
-
-
-
-                                    dorm_bank_acc.BankCurrencyTable.Where(c => c.CurrencyName == "TL").ToList().ForEach(bk_curr =>
-                                    {
-                                        trr += dorm_bank_acc.BankName + "  ";
-
-                                        context.AccountParameterValues.Where(c => c.CurrencyId == bk_curr.Id).Include(c => c.AccountParameterValuesTranslation).ToList().ForEach(acct_param_val =>
-                                        {
-                                            acct_param_val.AccountParameterValuesTranslation.Where(c => c.LanguageId == langIDPosted).ToList().ForEach(acc_param_val_trans =>
-                                            {
-                                                // acc_param_val_trans.Value;
-
-                                                context.AccountInformationParameter.Include(c => c.AccountInformationParameterTranslation).Where(c => c.Id == acct_param_val.ParameterId).ToList().ForEach(acc_info_param =>
-                                                {
-                                                    acc_info_param.AccountInformationParameterTranslation.Where(c => c.LanguageId == langIDPosted).ToList().ForEach(acc_info_param_trans =>
-                                                    {
-                                                        trr += "  " + acc_info_param_trans.Parameter + ":" + acc_param_val_trans.Value;
-                                                        //acc_info_param_trans.Parameter;
-                                                    });
-                                                });
-                                            });
-                                        });
-
-                                        tr_acct_num.Add(trr);
-                                        trr = "";
-
-                                    });
-                                });
-
-                                faci = new List<Facility>();
-                                //I smell desaster from this part
-                                context.RoomFacility.Where(r => r.RoomId == room_t.Id).Include(r => r.Facility).ToList().ForEach(room_faci =>
-                                {
-                                    context.FacilityTable.Where(r => r.Id == room_faci.FacilityId).Include(r => r.FacilityTableTranslation).ToList().ForEach(facii =>
-                                    {
-                                        facii.FacilityTableTranslation.Where(r => r.LanguageId == langIDPosted).ToList().ForEach(faci_trans =>
-                                        {
-                                            string facility_o = "";
-                                            context.FacilityOption.Where(r => r.FacilityId == room_faci.FacilityId && facii.Id == room_faci.FacilityId)
-                                                        .Include(r => r.FacilityOptionTranslation).ToList().ForEach(faci_op =>
-                                                        {
-                                                            faci_op.FacilityOptionTranslation
-                                                                        .Where(r => r.LanguageId == langIDPosted && r.FacilityOptionNonTransId == room_faci.FacilityOptionId)
-
-                                                                    .ToList().ForEach(faci_op_trans =>
-                                                                    {
-                                                                        facility_o += " | " + faci_op_trans.FacilityOption;
-
-                                                                    });
-
-                                                        });
-
-                                            faci.Add(new Facility { facility_name = faci_trans.FacilityTitle + facility_o, facility_icon_url = facii.FacilityIconUrl});
-
-
-
-
-                                        });
-                                    });
-
-
-                                });
-
-
-
-
-
-
-                                //faci.Add(new Facility { facility_name = "Room Area: " + room_t.room_area + " m" + "<sup style=\"font-size: smaller; \">2</sup>", facility_icon_url = "../../Content/Dormitories_files/room_area.jpg" });
-                                //faci.Add(new Facility { facility_name = "<b style=\"color:#0ab21b\">Price: " + dorm.room_price_currency + " " + room_t.room_price + "</b>", facility_icon_url = "../../Content/Dormitories_files/price.png" });
-
-
-
-
-                                //if (langIDPosted == 1)
-
-
-                                //    if (room_t.num_rooms_left > 1)
-                                //    {
-                                //        faci.Add(new Facility { facility_name = "<b  onMouseOver=\"this.style.color = '#0F0' onMouseOut = \"this.style.color='#00F'\">Only " + room_t.num_rooms_left + "  rooms left</b>", facility_icon_url = "../../Content/Dormitories_files/image_key.png" });
-                                //    }
-                                //    else
-                                //    {
-                                //        faci.Add(new Facility { facility_name = "<b  onMouseOver=\"this.style.color = '#0F0' onMouseOut = \"this.style.color='#00F'\">Only " + room_t.num_rooms_left + "  room left</b>", facility_icon_url = "../../Content/Dormitories_files/image_key.png" });
-
-                                //    }
-
-                                //else
-
-                                //       if (room_t.num_rooms_left > 1)
-                                //{
-
-
-                                //    faci.Add(new Facility { facility_name = "<b  onMouseOver=\"this.style.color = '#0F0' onMouseOut = \"this.style.color='#00F'\">Sadece " + room_t.num_rooms_left + "  Oda  kaldı </b>", facility_icon_url = "../../Content/Dormitories_files/image_key.png" });
-                                //}
-                                //else
-                                //{
-                                //    faci.Add(new Facility { facility_name = "<b  onMouseOver=\"this.style.color = '#0F0' onMouseOut = \"this.style.color='#00F'\">Sadece " + room_t.num_rooms_left + " oda kaldı </b>", facility_icon_url = "../../Content/Dormitories_files/image_key.png" });
-                                //}
-
-
-                                arr.Add(new SearchResultData
-                                {
-                                    name_of_dormitory = dorm_trans.DormitoryName,
-                                    dormitory_address = dorm_trans.DormitoryAddress,
-                                    name_of_room = room_trans.RoomTitle,
-                                    gender_allocation = dorm_trans.GenderAllocation,
-                                    room_price_currency = dorm.RoomPriceCurrency,
-                                    map_latitude = dorm.MapLatitude,
-                                    map_longitude = dorm.MapLongitude,
-                                    url_of_room_image = room_t.RoomPictureUrl,
-                                    facility = faci,
-                                    dormitory_type = dorm.DormitoryTypeId,
-                                    price_of_room = room_t.RoomPrice,
-                                    room_area = room_t.RoomArea,
-                                    num_rooms_left = room_t.NumRoomsLeft,
-                                    dormitory_account = dorm_trans.DormitoryName,
-                                    bank_name = "bank name",
-                                    turkish_lira_account_number = tr_acct_num,
-                                    usd_account_number = usd_acct_num,
-                                    dormitory_website = dorm_trans.DormitoryAddress
-                                });
-                            });
-
-                        });
-
-
-
-
-                    });
-                });
-
-
-
-
-
-
-
-
-
-
-            }
-            //tr_acct_num = new List<string>();
-            //tr_acct_num.Add("Account No: 6820-174392db");
-            //tr_acct_num.Add("IBAN: TR39 0006 4000 0016 8200 174392db");
-
-            //usd_acct_num = new List<string>();
-            //usd_acct_num.Add("Account No: 6820-57259db");
-            //usd_acct_num.Add("IBAN: TR04 0006 4000 0026 8200 057259db");
-
-            //faci = new List<Facility>();
-            //faci.Add(new Facility { facility_name = "buckets", facility_icon_url = "./Dormitories_files/thumbnail(3).png" });
-            //faci.Add(new Facility { facility_name = "broom", facility_icon_url = "./Dormitories_files/thumbnail(3).png" });
-            //faci.Add(new Facility { facility_name = "broom", facility_icon_url = "./Dormitories_files/thumbnail(5).png" });
-            //faci.Add(new Facility { facility_name = "broom", facility_icon_url = "./Dormitories_files/thumbnail(4).png" });
-            //faci.Add(new Facility { facility_name = "broom", facility_icon_url = "./Dormitories_files/thumbnail(4).png" });
-
-            //arr.Add(new PostData
-            //{
-            //    name_of_dormitory = "Sample dormitory",
-            //    name_of_room = "Sample room",
-            //    url_of_room_image = "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/popart/TEK%20K%C4%B0%C5%9E%C4%B0L%C4%B0K%20EXCLUS%C4%B0VE.jpg?RenditionID=7",
-            //    facility = faci,
-            //    room_area = 25,
-            //    dormitory_type = 1,
-            //    dormitory_account = "dormitory_account",
-            //    bank_name = "bank name",
-            //    price_of_room = 2700,
-            //    turkish_lira_account_number = tr_acct_num,
-            //    usd_account_number = usd_acct_num,
-            //    dormitory_website = "dormitory website"
-            //});
-
-            //var faci_query = from Facility f in arr
-            //                 where (f.facility_name.Contains("TV"))
-            //                 select f;
-            //var query = from PostData s in arr
-            //            where (s.facility.
-            //            select s;
-
-            //var query = from s in arr
-            //            where s.Facility.Any(c => c.facility_name.contains("TV"))
-            //            select s;
-
-            //  PostData query = arr.fin
             ArrayList sa = new ArrayList();
-            //sa.Add("Kitchenette | Flats");
-            //sa.Add("TV | In room");
-            //sa.Add("Central conditioning system | Cooling");
-
-            sa.Add(facility_TVPosted);
-            sa.Add(facility_InternetPosted);
-            sa.Add(facility_Wc_showerPosted);
-            sa.Add(facility_KitchenettePosted);
-            sa.Add(facility_bedPosted);
-
-            sa.Add(facility_air_conditionPosted);
-            sa.Add(facility_central_acPosted);
-            sa.Add(facility_refrigeratorPosted);
-            sa.Add(facility_laundryPosted);
-            sa.Add(facility_cafeteriaPosted);
-            sa.Add(facility_room_telPosted);
-            sa.Add(facility_generatorPosted);
-
-            //string name_of_dormitoryPosted = " ";
-
-            if (name_of_dormitoryPosted == " ")
-                name_of_dormitoryPosted = "";
-
-            if (name_of_dormitoryPosted == null)
-                name_of_dormitoryPosted = "";
             
+            sa.Add(filter.facility_TV);
+            sa.Add(filter.facility_Internet);
+            sa.Add(filter.facility_Wc_shower);
+            sa.Add(filter.facility_Kitchenette);
+            sa.Add(filter.facility_bed);
+            sa.Add(filter.facility_air_condition);
+            sa.Add(filter.facility_central_ac);
+            sa.Add(filter.facility_refrigerator);
+            sa.Add(filter.facility_laundry);
+            sa.Add(filter.facility_cafeteria);
+            sa.Add(filter.facility_room_tel);
+            sa.Add(filter.facility_generator);
+            
+            if (filter.name_of_dormitory == " ")
+                filter.name_of_dormitory = "";
+            
+            var query = _searchService.GetSearchData(filter.langId);
 
-            var query = arr;
-
-
-            if (dormitory_typePosted == 0)
+            //filtering
+            if (filter.dormitory_type == 0)
             {
                 foreach (var q in sa)
                     query = query
                    .Where(item =>
-                     item.name_of_dormitory.Contains(name_of_dormitoryPosted) &&
+                     item.name_of_dormitory.Contains(filter.name_of_dormitory) &&
 
-                    item.room_area >= room_areaPostedMin && item.room_area <= room_areaPostedMax &&
-                      item.price_of_room >= min_price_of_roomPosted && item.price_of_room <= max_price_of_roomPosted
+                    item.room_area >= filter.room_areaMin&& item.room_area <= filter.room_areaMax &&
+                      item.price_of_room >=  filter.min_price_of_room && item.price_of_room <= filter.max_price_of_room
                       &&
                      item.facility.Any(fac => fac.facility_name.Contains(q.ToString()))
                       )
@@ -521,93 +217,70 @@ namespace searchDormWeb.Controllers
                 foreach (var q in sa)
                     query = query
                    .Where(item =>
-                      item.name_of_dormitory.Contains(name_of_dormitoryPosted) &&
-                      item.dormitory_type == dormitory_typePosted &&
-                      item.room_area >= room_areaPostedMin && item.room_area <= room_areaPostedMax &&
-                      item.price_of_room >= min_price_of_roomPosted && item.price_of_room <= max_price_of_roomPosted &&
+                      item.name_of_dormitory.Contains(filter.name_of_dormitory) &&
+                      item.dormitory_type == filter.dormitory_type &&
+                      item.room_area >= filter.room_areaMin&& item.room_area <= filter.room_areaMax &&
+                      item.price_of_room >= filter.min_price_of_room  && item.price_of_room <= filter.max_price_of_room &&
                       item.facility.Any(fac => fac.facility_name.Contains(q.ToString())))
                    .ToList();
             }
 
 
 
-
-            if (sort_byPosted == "Price")
+            //sorting
+            if (filter.sort_by== "Price")
                 query = query.OrderBy(s => s.price_of_room).ToList();
-            else if (sort_byPosted == "a-z")
+            else if (filter.sort_by== "a-z")
                 query = query.OrderBy(s => s.name_of_dormitory).ToList();
-            else if (sort_byPosted == "area")
+            else if (filter.sort_by== "area")
                 query = query.OrderBy(s => s.room_area).ToList();
-
-            //ViewBag.PaginationCountCount = Math.Ceiling((decimal)(query.Count / 8));
+            
             return PartialView("SearchResultParialView", query);
 
 
         }
 
 
-        public ActionResult GetMapView(PostData2 data)
+        public ActionResult GetMapView(PostedDormitoryFilters data)
         {
 
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
             }
-
-            string name_of_dormitoryPosted = " ";
-            int dormitory_typePosted = 1;
-            double min_price_of_roomPosted = 0;
-            double max_price_of_roomPosted = 10000;
-            int room_areaPostedMin = 0;
-            int room_areaPostedMax = 10000;
-            int langIDPosted = 0;
-
-            string facility_TVPosted = " ";
-            string facility_InternetPosted = " ";
-            string facility_Wc_showerPosted = " ";
-            string facility_KitchenettePosted = " ";
-            string facility_bedPosted = " ";
-
-            string facility_air_conditionPosted = " ";
-            string facility_central_acPosted = " ";
-            string facility_refrigeratorPosted = " ";
-            string facility_laundryPosted = " ";
-            string facility_cafeteriaPosted = " ";
-            string facility_room_telPosted = " ";
-            string facility_generatorPosted = " ";
-            string sort_byPosted = " ";
-
+            PostedDormitoryFilters filter = new PostedDormitoryFilters();
+          
             //  var data=  
             var obj = data;
-            name_of_dormitoryPosted = obj.name_of_dormitory == null ? "" : obj.name_of_dormitory;
+            filter.name_of_dormitory = obj.name_of_dormitory == null ? "" : obj.name_of_dormitory;
 
-            dormitory_typePosted = obj.dormitory_type;
-            min_price_of_roomPosted = obj.min_price_of_room;
-            max_price_of_roomPosted = obj.max_price_of_room;
-            room_areaPostedMin = obj.room_areaMin;
-            room_areaPostedMax = obj.room_areaMax;
-            langIDPosted = obj.langId;
+            filter.dormitory_type = obj.dormitory_type;
+            filter.min_price_of_room  = obj.min_price_of_room;
+            filter.max_price_of_room = obj.max_price_of_room;
+            filter.room_areaMin= obj.room_areaMin;
+            filter.room_areaMax = obj.room_areaMax;
+            filter.langId = obj.langId;
 
-            facility_TVPosted = obj.facility_TV == null ? "" : obj.facility_TV;
-            facility_InternetPosted = obj.facility_Internet == null ? "" : obj.facility_Internet;
-            facility_Wc_showerPosted = obj.facility_Wc_shower == null ? "" : obj.facility_Wc_shower;
-            facility_KitchenettePosted = obj.facility_Kitchenette == null ? "" : obj.facility_Kitchenette;
-            facility_bedPosted = obj.facility_bed == null ? "" : obj.facility_bed;
-            sort_byPosted = obj.sort_by == null ? "" : obj.sort_by;
-            facility_air_conditionPosted = obj.facility_air_condition == null ? "" : obj.facility_air_condition;
-            facility_central_acPosted = obj.facility_central_ac == null ? "" : obj.facility_central_ac;
-            facility_refrigeratorPosted = obj.facility_refrigerator == null ? "" : obj.facility_refrigerator;
-            facility_laundryPosted = obj.facility_laundry == null ? "" : obj.facility_laundry;
-            facility_cafeteriaPosted = obj.facility_cafeteria == null ? "" : obj.facility_cafeteria;
-            facility_room_telPosted = obj.facility_room_tel == null ? "" : obj.facility_room_tel;
-            facility_generatorPosted = obj.facility_generator == null ? "" : obj.facility_generator;
+            filter.facility_TV = obj.facility_TV == null ? "" : obj.facility_TV;
+            filter.facility_Internet = obj.facility_Internet == null ? "" : obj.facility_Internet;
+            filter.facility_Wc_shower= obj.facility_Wc_shower == null ? "" : obj.facility_Wc_shower;
+            filter.facility_Kitchenette = obj.facility_Kitchenette == null ? "" : obj.facility_Kitchenette;
+            filter.facility_bed = obj.facility_bed == null ? "" : obj.facility_bed;
+            filter.sort_by= obj.sort_by == null ? "" : obj.sort_by;
+            filter.facility_air_condition = obj.facility_air_condition == null ? "" : obj.facility_air_condition;
+            filter.facility_central_ac = obj.facility_central_ac == null ? "" : obj.facility_central_ac;
+            filter.facility_refrigerator = obj.facility_refrigerator == null ? "" : obj.facility_refrigerator;
+            filter.facility_laundry = obj.facility_laundry == null ? "" : obj.facility_laundry;
+            filter.facility_cafeteria = obj.facility_cafeteria == null ? "" : obj.facility_cafeteria;
+            filter.facility_room_tel = obj.facility_room_tel == null ? "" : obj.facility_room_tel;
+            filter.facility_generator = obj.facility_generator == null ? "" : obj.facility_generator;
 
 
 
 
             string locale = "en";
 
-            if (langIDPosted == 2)
+            if (filter.langId == 2)
             {
                 locale = "tr";
             }
@@ -623,322 +296,40 @@ namespace searchDormWeb.Controllers
             ViewBag.ContentFormat_loading_gender_allocation = _localizer["loading_gender_allocation"];
             ViewBag.ContentFormat_loading_room_type = _localizer["loading_room_type"];
             ViewBag.ContentFormat_rooms_found = _localizer["rooms_found"];
-            //name_of_dormitoryPosted = "";
-            //dormitory_typePosted = 0;
-            //min_price_of_roomPosted = 0;
-            //max_price_of_roomPosted = 4992;
-            //room_areaPostedMin = 100000;
-            //room_areaPostedMax = 0;
-            //langIDPosted = 1;
+         
 
-            //facility_TVPosted = "";
-            //facility_InternetPosted = "";
-            //facility_Wc_showerPosted = "";
-            //facility_KitchenettePosted = "";
-            //facility_bedPosted = "";
-            //sort_byPosted = "";
-            //facility_air_conditionPosted = "";
-            //facility_central_acPosted = "";
-            //facility_refrigeratorPosted = "";
-            //facility_laundryPosted = "";
-            //facility_cafeteriaPosted = "";
-            //facility_room_telPosted = "";
-            //facility_generatorPosted = "";
-
-
-            List<SearchResultData> arr = new List<SearchResultData>();
-            List<string> tr_acct_num, usd_acct_num;
-            List<Facility> faci = new List<Facility>();
-            List<string> listDormitories = new List<string>();
-            List<string> listRoom = new List<string>();
-
-
-            using (var context = _context)
-            {
-                var dormitories = context.DormitoriesTable
-                                    .Include(dormitory_trans => dormitory_trans.DormitoriesTableTranslation)
-                                    .Include(dormitory_room => dormitory_room.RoomTable)
-
-                                    .ToList();
-
-
-
-
-                usd_acct_num = new List<string>();
-                usd_acct_num.Add("Account No: 6820-57259db");
-                usd_acct_num.Add("IBAN: TR04 0006 4000 0026 8200 057259db");
-
-                context.DormitoriesTable.ToList().ForEach(dorm =>
-                {
-                    dorm.DormitoriesTableTranslation.Where(r => r.LanguageId == langIDPosted).ToList().ForEach(dorm_trans =>
-                    {
-
-
-
-
-                        context.RoomTable.Where(r => r.DormitoryId == dorm.Id).Include(r => r.RoomTableTranslation).Include(r => r.RoomFacility).ToList().ForEach(room_t =>
-                        {
-
-
-                            room_t.RoomTableTranslation.Where(r => r.LanguageId == langIDPosted).ToList().ForEach(room_trans =>
-                            {
-                                tr_acct_num = new List<string>();
-                                ///  tr_acct_num.Add("Account No: 6820-174392db");
-                                //tr_acct_num.Add("IBAN: TR39 0006 4000 0016 8200 174392db");
-                                usd_acct_num = new List<string>();
-                                string usdd = "";
-                                string trr = "";
-                                //usd_acct_num.Add("Account No: 6820-57259db");
-                                //usd_acct_num.Add("IBAN: TR04 0006 4000 0026 8200 057259db");
-
-                                context.DormitoryBankAccountTable.Include(r => r.BankCurrencyTable).Where(c => c.DormitoryId == room_t.DormitoryId && room_trans.RoomTableNonTransId == room_t.Id).ToList().ForEach(dorm_bank_acc =>
-                                {
-                                    dorm_bank_acc.BankCurrencyTable.Where(c => c.CurrencyName == "USD").ToList().ForEach(bk_curr =>
-                                    {
-                                        usdd += dorm_bank_acc.BankName;
-                                        context.AccountParameterValues.Where(c => c.CurrencyId == bk_curr.Id).Include(c => c.AccountParameterValuesTranslation).ToList().ForEach(acct_param_val =>
-                                        {
-                                            acct_param_val.AccountParameterValuesTranslation.Where(c => c.LanguageId == langIDPosted).ToList().ForEach(acc_param_val_trans =>
-                                            {
-                                                // acc_param_val_trans.Value;
-
-                                                context.AccountInformationParameter.Include(c => c.AccountInformationParameterTranslation).Where(c => c.Id == acct_param_val.ParameterId).ToList().ForEach(acc_info_param =>
-                                                {
-                                                    acc_info_param.AccountInformationParameterTranslation.Where(c => c.LanguageId == langIDPosted).ToList().ForEach(acc_info_param_trans =>
-                                                    {
-                                                        usdd += " | " + acc_info_param_trans.Parameter + ":" + acc_param_val_trans.Value;
-                                                        //acc_info_param_trans.Parameter;
-                                                    });
-                                                });
-                                            });
-                                        });
-
-                                        usd_acct_num.Add(usdd);
-                                        usdd = "";
-
-                                    });
-
-
-
-                                    dorm_bank_acc.BankCurrencyTable.Where(c => c.CurrencyName == "TL").ToList().ForEach(bk_curr =>
-                                    {
-                                        trr += dorm_bank_acc.BankName;
-
-                                        context.AccountParameterValues.Where(c => c.CurrencyId == bk_curr.Id).Include(c => c.AccountParameterValuesTranslation).ToList().ForEach(acct_param_val =>
-                                        {
-                                            acct_param_val.AccountParameterValuesTranslation.Where(c => c.LanguageId == langIDPosted).ToList().ForEach(acc_param_val_trans =>
-                                            {
-                                                // acc_param_val_trans.Value;
-
-                                                context.AccountInformationParameter.Include(c => c.AccountInformationParameterTranslation).Where(c => c.Id == acct_param_val.ParameterId).ToList().ForEach(acc_info_param =>
-                                                {
-                                                    acc_info_param.AccountInformationParameterTranslation.Where(c => c.LanguageId == langIDPosted).ToList().ForEach(acc_info_param_trans =>
-                                                    {
-                                                        trr += " | " + acc_info_param_trans.Parameter + ":" + acc_param_val_trans.Value;
-                                                        //acc_info_param_trans.Parameter;
-                                                    });
-                                                });
-                                            });
-                                        });
-
-                                        tr_acct_num.Add(trr);
-                                        trr = "";
-
-                                    });
-                                });
-
-                                faci = new List<Facility>();
-                                //I smell desaster from this part
-                                context.RoomFacility.Where(r => r.RoomId == room_t.Id).Include(r => r.Facility).ToList().ForEach(room_faci =>
-                                {
-                                    context.FacilityTable.Where(r => r.Id == room_faci.FacilityId).Include(r => r.FacilityTableTranslation).ToList().ForEach(facii =>
-                                    {
-                                        facii.FacilityTableTranslation.Where(r => r.LanguageId == langIDPosted).ToList().ForEach(faci_trans =>
-                                        {
-                                            string facility_o = "";
-                                            context.FacilityOption.Where(r => r.FacilityId == room_faci.FacilityId && facii.Id == room_faci.FacilityId)
-                                                        .Include(r => r.FacilityOptionTranslation).ToList().ForEach(faci_op =>
-                                                        {
-                                                            faci_op.FacilityOptionTranslation
-                                                                        .Where(r => r.LanguageId == langIDPosted && r.FacilityOptionNonTransId == room_faci.FacilityOptionId)
-
-                                                                    .ToList().ForEach(faci_op_trans =>
-                                                                    {
-                                                                        facility_o += " | " + faci_op_trans.FacilityOption;
-
-                                                                    });
-
-                                                        });
-
-                                            faci.Add(new Facility { facility_name = faci_trans.FacilityTitle + facility_o, facility_icon_url = facii.FacilityIconUrl });
-
-
-
-
-                                        });
-                                    });
-
-
-                                });
-
-
-
-
-
-
-                                //faci.Add(new Facility { facility_name = "Room Area: " + room_t.room_area + " m" + "<sup style=\"font-size: smaller; \">2</sup>", facility_icon_url = "../../Content/Dormitories_files/room_area.jpg" });
-                                //faci.Add(new Facility { facility_name = "<b style=\"color:#0ab21b\">Price: " + dorm.room_price_currency + " " + room_t.room_price + "</b>", facility_icon_url = "../../Content/Dormitories_files/price.png" });
-
-
-
-
-                                //if (langIDPosted == 1)
-
-
-                                //    if (room_t.num_rooms_left > 1)
-                                //    {
-                                //        faci.Add(new Facility { facility_name = "<b  onMouseOver=\"this.style.color = '#0F0' onMouseOut = \"this.style.color='#00F'\">Only " + room_t.num_rooms_left + "  rooms left</b>", facility_icon_url = "../../Content/Dormitories_files/image_key.png" });
-                                //    }
-                                //    else
-                                //    {
-                                //        faci.Add(new Facility { facility_name = "<b  onMouseOver=\"this.style.color = '#0F0' onMouseOut = \"this.style.color='#00F'\">Only " + room_t.num_rooms_left + "  room left</b>", facility_icon_url = "../../Content/Dormitories_files/image_key.png" });
-
-                                //    }
-
-                                //else
-
-                                //       if (room_t.num_rooms_left > 1)
-                                //{
-
-
-                                //    faci.Add(new Facility { facility_name = "<b  onMouseOver=\"this.style.color = '#0F0' onMouseOut = \"this.style.color='#00F'\">Sadece " + room_t.num_rooms_left + "  Oda  kaldı </b>", facility_icon_url = "../../Content/Dormitories_files/image_key.png" });
-                                //}
-                                //else
-                                //{
-                                //    faci.Add(new Facility { facility_name = "<b  onMouseOver=\"this.style.color = '#0F0' onMouseOut = \"this.style.color='#00F'\">Sadece " + room_t.num_rooms_left + " oda kaldı </b>", facility_icon_url = "../../Content/Dormitories_files/image_key.png" });
-                                //}
-
-
-                                arr.Add(new SearchResultData
-                                {
-                                    name_of_dormitory = dorm_trans.DormitoryName,
-                                    dormitory_address = dorm_trans.DormitoryAddress,
-                                    name_of_room = room_trans.RoomTitle,
-                                    gender_allocation = dorm_trans.GenderAllocation,
-                                    room_price_currency = dorm.RoomPriceCurrency,
-                                    map_latitude = dorm.MapLatitude,
-                                    map_longitude = dorm.MapLongitude,
-                                    url_of_room_image = room_t.RoomPictureUrl,
-                                    facility = faci,
-                                    dormitory_type = dorm.DormitoryTypeId,
-                                    price_of_room = room_t.RoomPrice,
-                                    room_area = room_t.RoomArea,
-                                    num_rooms_left = room_t.NumRoomsLeft,
-                                    dormitory_account = dorm_trans.DormitoryName,
-                                    bank_name = "bank name",
-                                    turkish_lira_account_number = tr_acct_num,
-                                    usd_account_number = usd_acct_num,
-                                    dormitory_website = dorm_trans.DormitoryAddress
-                                });
-                            });
-
-                        });
-
-
-
-
-                    });
-                });
-
-
-
-
-
-
-
-
-
-
-            }
-            //tr_acct_num = new List<string>();
-            //tr_acct_num.Add("Account No: 6820-174392db");
-            //tr_acct_num.Add("IBAN: TR39 0006 4000 0016 8200 174392db");
-
-            //usd_acct_num = new List<string>();
-            //usd_acct_num.Add("Account No: 6820-57259db");
-            //usd_acct_num.Add("IBAN: TR04 0006 4000 0026 8200 057259db");
-
-            //faci = new List<Facility>();
-            //faci.Add(new Facility { facility_name = "buckets", facility_icon_url = "./Dormitories_files/thumbnail(3).png" });
-            //faci.Add(new Facility { facility_name = "broom", facility_icon_url = "./Dormitories_files/thumbnail(3).png" });
-            //faci.Add(new Facility { facility_name = "broom", facility_icon_url = "./Dormitories_files/thumbnail(5).png" });
-            //faci.Add(new Facility { facility_name = "broom", facility_icon_url = "./Dormitories_files/thumbnail(4).png" });
-            //faci.Add(new Facility { facility_name = "broom", facility_icon_url = "./Dormitories_files/thumbnail(4).png" });
-
-            //arr.Add(new PostData
-            //{
-            //    name_of_dormitory = "Sample dormitory",
-            //    name_of_room = "Sample room",
-            //    url_of_room_image = "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/popart/TEK%20K%C4%B0%C5%9E%C4%B0L%C4%B0K%20EXCLUS%C4%B0VE.jpg?RenditionID=7",
-            //    facility = faci,
-            //    room_area = 25,
-            //    dormitory_type = 1,
-            //    dormitory_account = "dormitory_account",
-            //    bank_name = "bank name",
-            //    price_of_room = 2700,
-            //    turkish_lira_account_number = tr_acct_num,
-            //    usd_account_number = usd_acct_num,
-            //    dormitory_website = "dormitory website"
-            //});
-
-            //var faci_query = from Facility f in arr
-            //                 where (f.facility_name.Contains("TV"))
-            //                 select f;
-            //var query = from PostData s in arr
-            //            where (s.facility.
-            //            select s;
-
-            //var query = from s in arr
-            //            where s.Facility.Any(c => c.facility_name.contains("TV"))
-            //            select s;
-
-            //  PostData query = arr.fin
             ArrayList sa = new ArrayList();
-            //sa.Add("Kitchenette | Flats");
-            //sa.Add("TV | In room");
-            //sa.Add("Central conditioning system | Cooling");
+            
+            sa.Add(filter.facility_TV);
+            sa.Add(filter.facility_Internet);
+            sa.Add(filter.facility_Wc_shower);
+            sa.Add(filter.facility_Kitchenette);
+            sa.Add(filter.facility_bed);
 
-            sa.Add(facility_TVPosted);
-            sa.Add(facility_InternetPosted);
-            sa.Add(facility_Wc_showerPosted);
-            sa.Add(facility_KitchenettePosted);
-            sa.Add(facility_bedPosted);
+            sa.Add(filter.facility_air_condition);
+            sa.Add(filter.facility_central_ac);
+            sa.Add(filter.facility_refrigerator);
+            sa.Add(filter.facility_laundry);
+            sa.Add(filter.facility_cafeteria);
+            sa.Add(filter.facility_room_tel);
+            sa.Add(filter.facility_generator);
 
-            sa.Add(facility_air_conditionPosted);
-            sa.Add(facility_central_acPosted);
-            sa.Add(facility_refrigeratorPosted);
-            sa.Add(facility_laundryPosted);
-            sa.Add(facility_cafeteriaPosted);
-            sa.Add(facility_room_telPosted);
-            sa.Add(facility_generatorPosted);
+       
+            if (filter.name_of_dormitory == " ")
+                filter.name_of_dormitory = "";
 
-            //string name_of_dormitoryPosted = " ";
-
-            if (name_of_dormitoryPosted == " ")
-                name_of_dormitoryPosted = "";
-
-            var query = arr;
+            var query = _searchService.GetSearchData(filter.langId);
 
 
-            if (dormitory_typePosted == 0)
+            if (filter.dormitory_type == 0)
             {
                 foreach (var q in sa)
                     query = query
                    .Where(item =>
-                     item.name_of_dormitory.Contains(name_of_dormitoryPosted) &&
+                     item.name_of_dormitory.Contains(filter.name_of_dormitory) &&
 
-                    item.room_area >= room_areaPostedMin && item.room_area <= room_areaPostedMax &&
-                      item.price_of_room >= min_price_of_roomPosted && item.price_of_room <= max_price_of_roomPosted
+                    item.room_area >= filter.room_areaMin&& item.room_area <= filter.room_areaMax &&
+                      item.price_of_room >= filter.min_price_of_room  && item.price_of_room <= filter.max_price_of_room
                       &&
                      item.facility.Any(fac => fac.facility_name.Contains(q.ToString()))
                       )
@@ -949,10 +340,10 @@ namespace searchDormWeb.Controllers
                 foreach (var q in sa)
                     query = query
                    .Where(item =>
-                      item.name_of_dormitory.Contains(name_of_dormitoryPosted) &&
-                      item.dormitory_type == dormitory_typePosted &&
-                      item.room_area >= room_areaPostedMin && item.room_area <= room_areaPostedMax &&
-                      item.price_of_room >= min_price_of_roomPosted && item.price_of_room <= max_price_of_roomPosted &&
+                      item.name_of_dormitory.Contains(filter.name_of_dormitory) &&
+                      item.dormitory_type == filter.dormitory_type &&
+                      item.room_area >= filter.room_areaMin&& item.room_area <= filter.room_areaMax &&
+                      item.price_of_room >= filter.min_price_of_room  && item.price_of_room <= filter.max_price_of_room &&
                       item.facility.Any(fac => fac.facility_name.Contains(q.ToString())))
                    .ToList();
             }
@@ -960,11 +351,11 @@ namespace searchDormWeb.Controllers
 
 
 
-            if (sort_byPosted == "Price")
+            if (filter.sort_by== "Price")
                 query = query.OrderBy(s => s.price_of_room).ToList();
-            else if (sort_byPosted == "a-z")
+            else if (filter.sort_by== "a-z")
                 query = query.OrderBy(s => s.name_of_dormitory).ToList();
-            else if (sort_byPosted == "area")
+            else if (filter.sort_by== "area")
                 query = query.OrderBy(s => s.room_area).ToList();
 
             //ViewBag.PaginationCountCount = Math.Ceiling((decimal)(query.Count / 8));
@@ -976,13 +367,12 @@ namespace searchDormWeb.Controllers
         }
 
 
-        public ActionResult GetMainSearchLoader(dormitory_struct data)
+        public ActionResult GetMainSearchLoader(PostedDormitoryTypeLang data)
         {
             var obj = data;
-            var langIDPosted = obj.langId;
             string locale = "en";
 
-            if (langIDPosted == 2)
+            if (obj.langId == 2)
             {
                 locale = "tr";
             }
@@ -1002,13 +392,12 @@ namespace searchDormWeb.Controllers
             return PartialView("MapAreaLoaderView");
         }
 
-        public ActionResult GetMiniSearchMapLoader(dormitory_struct data)
+        public ActionResult GetMiniSearchMapLoader(PostedDormitoryTypeLang data)
         {
             var obj = data;
-            var langIDPosted = obj.langId;
             string locale = "en";
 
-            if (langIDPosted == 2)
+            if (obj.langId == 2)
             {
                 locale = "tr";
             }
@@ -1030,131 +419,38 @@ namespace searchDormWeb.Controllers
 
 
 
-        public ActionResult GetSearchResultResponsive(PostDataResponsive data)
+        public ActionResult GetSearchResultResponsive(PostedDormitoryFiltersResponsive data)
         {
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
             }
 
-            string name_of_dormitoryPosted = " ";
-            int dormitory_typePosted = 1;
-
-
-            int price_2000_to_2499Posted_min = 0;
-            int price_2000_to_2499Posted_max = 0;
-
-            int price_2500_to_2999Posted_min = 0;
-            int price_2500_to_2999Posted_max = 0;
-
-            int price_3000_to_3499Posted_min = 0;
-            int price_3000_to_3499Posted_max = 0;
-
-            int price_4000_to_4999Posted_min = 0;
-            int price_4000_to_4999Posted_max = 0;
-
-            int price_5000_to_6000Posted_min = 0;
-            int price_5000_to_6000Posted_max = 0;
-
-            int price_greater_thanPosted_min = 0;
-            int price_greater_thanPosted_max = 0;
-
-            int room_area_10_to_20Posted_min = 0;
-            int room_area_10_to_20Posted_max = 0;
-
-            int room_area_21_to_25Posted_min = 0;
-            int room_area_21_to_25Posted_max = 0;
-
-            int room_area_26_to_30Posted_min = 0;
-            int room_area_26_to_30Posted_max = 0;
-
-            int room_area_greater_than_30Posted_min = 0;
-            int room_area_greater_than_30Posted_max = 0;
-
-
-
-            int langIDPosted = 0;
-
-            string facility_TVPosted = " ";
-            string facility_InternetPosted = " ";
-            string facility_Wc_showerPosted = " ";
-            string facility_KitchenettePosted = " ";
-            string facility_bedPosted = " ";
-
-            string facility_air_conditionPosted = " ";
-            string facility_central_acPosted = " ";
-            string facility_refrigeratorPosted = " ";
-            string facility_laundryPosted = " ";
-            string facility_cafeteriaPosted = " ";
-            string facility_room_telPosted = " ";
-            string facility_generatorPosted = " ";
-            string sort_byPosted = " ";
-
+            PostedDormitoryFiltersResponsive filter = new PostedDormitoryFiltersResponsive();
+          
             //  var data=  
             var obj = data;
-           
-    name_of_dormitoryPosted = obj.name_of_dormitory == null ? "" : obj.name_of_dormitory;
-            dormitory_typePosted = obj.dormitory_type;
+            filter = obj;
 
-
-            price_2000_to_2499Posted_min = obj.price_2000_to_2499.min;
-            price_2000_to_2499Posted_max = obj.price_2000_to_2499.max;
-
-            price_2500_to_2999Posted_min = obj.price_2500_to_2999.min;
-            price_2500_to_2999Posted_max = obj.price_2500_to_2999.max;
-
-            price_3000_to_3499Posted_min = obj.price_3000_to_3499.min;
-            price_3000_to_3499Posted_max = obj.price_3000_to_3499.max;
-
-            price_4000_to_4999Posted_min = obj.price_4000_to_4999.min;
-            price_4000_to_4999Posted_max = obj.price_4000_to_4999.max;
-
-            price_5000_to_6000Posted_min = obj.price_5000_to_6000.min;
-            price_5000_to_6000Posted_max = obj.price_5000_to_6000.max;
-
-            price_greater_thanPosted_min = obj.price_greater_than_6000.min;
-            price_greater_thanPosted_max = obj.price_greater_than_6000.max;
-
-            room_area_10_to_20Posted_min = obj.room_area_10_to_20.min;
-            room_area_10_to_20Posted_max = obj.room_area_10_to_20.max;
-
-            room_area_21_to_25Posted_min = obj.room_area_21_to_25.min;
-            room_area_21_to_25Posted_max = obj.room_area_21_to_25.max;
-
-            room_area_26_to_30Posted_min = obj.room_area_26_to_30.min;
-            room_area_26_to_30Posted_max = obj.room_area_26_to_30.max;
-
-            room_area_greater_than_30Posted_min = obj.room_area_greater_than_30.min;
-            room_area_greater_than_30Posted_max = obj.room_area_greater_than_30.max;
-
-
-
-            langIDPosted = obj.langId;
-
-        
-
-           
-         
-        
-
-            facility_TVPosted = obj.facility_TV == null ? "" : obj.facility_TV;
-            facility_InternetPosted = obj.facility_Internet == null ? "" : obj.facility_Internet;
-            facility_Wc_showerPosted = obj.facility_Wc_shower == null ? "" : obj.facility_Wc_shower;
-            facility_KitchenettePosted = obj.facility_Kitchenette == null ? "" : obj.facility_Kitchenette;
-            facility_bedPosted = obj.facility_bed == null ? "" : obj.facility_bed;
-            sort_byPosted = obj.sort_by == null ? "" : obj.sort_by;
-            facility_air_conditionPosted = obj.facility_air_condition == null ? "" : obj.facility_air_condition;
-            facility_central_acPosted = obj.facility_central_ac == null ? "" : obj.facility_central_ac;
-            facility_refrigeratorPosted = obj.facility_refrigerator == null ? "" : obj.facility_refrigerator;
-            facility_laundryPosted = obj.facility_laundry == null ? "" : obj.facility_laundry;
-            facility_cafeteriaPosted = obj.facility_cafeteria == null ? "" : obj.facility_cafeteria;
-            facility_room_telPosted = obj.facility_room_tel == null ? "" : obj.facility_room_tel;
-            facility_generatorPosted = obj.facility_generator == null ? "" : obj.facility_generator;
+            filter.name_of_dormitory = obj.name_of_dormitory == null ? "" : obj.name_of_dormitory;
+            filter.facility_TV = obj.facility_TV == null ? "" : obj.facility_TV;
+            filter.facility_Internet = obj.facility_Internet == null ? "" : obj.facility_Internet;
+            filter.facility_Wc_shower= obj.facility_Wc_shower == null ? "" : obj.facility_Wc_shower;
+            filter.facility_Kitchenette = obj.facility_Kitchenette == null ? "" : obj.facility_Kitchenette;
+            filter.facility_bed = obj.facility_bed == null ? "" : obj.facility_bed;
+            filter.sort_by= obj.sort_by == null ? "" : obj.sort_by;
+            filter.facility_air_condition = obj.facility_air_condition == null ? "" : obj.facility_air_condition;
+            filter.facility_central_ac = obj.facility_central_ac == null ? "" : obj.facility_central_ac;
+            filter.facility_refrigerator = obj.facility_refrigerator == null ? "" : obj.facility_refrigerator;
+            filter.facility_laundry = obj.facility_laundry == null ? "" : obj.facility_laundry;
+            filter.facility_cafeteria = obj.facility_cafeteria == null ? "" : obj.facility_cafeteria;
+            filter.facility_room_tel = obj.facility_room_tel == null ? "" : obj.facility_room_tel;
+            filter.facility_generator = obj.facility_generator == null ? "" : obj.facility_generator;
 
 
             string locale = "en";
 
-            if (langIDPosted == 2)
+            if (filter.langId == 2)
             {
                 locale = "tr";
             }
@@ -1163,335 +459,46 @@ namespace searchDormWeb.Controllers
             Thread.CurrentThread.CurrentCulture = ci;
             Thread.CurrentThread.CurrentUICulture = ci;
             ViewBag.ContentFormat_account_number_text = _localizer["account_number_text"];
-            ViewBag.LangId = langIDPosted;
+            ViewBag.LangId = filter.langId;
             ViewBag.ContentFormat_sort_by_price = _localizer["sort_by_price"];
             ViewBag.ContentFormat_sort_by_az = _localizer["sort_by_az"];
             ViewBag.ContentFormat_sort_by_area = _localizer["sort_by_area"];
             ViewBag.ContentFormat_rooms_found = _localizer["rooms_found"];
-            //name_of_dormitoryPosted = "";
-            //dormitory_typePosted = 0;
-            //min_price_of_roomPosted = 0;
-            //max_price_of_roomPosted = 4992;
-            //room_areaPostedMin = 100000;
-            //room_areaPostedMax = 0;
-            //langIDPosted = 1;
+            
 
-            //facility_TVPosted = "";
-            //facility_InternetPosted = "";
-            //facility_Wc_showerPosted = "";
-            //facility_KitchenettePosted = "";
-            //facility_bedPosted = "";
-            //sort_byPosted = "";
-            //facility_air_conditionPosted = "";
-            //facility_central_acPosted = "";
-            //facility_refrigeratorPosted = "";
-            //facility_laundryPosted = "";
-            //facility_cafeteriaPosted = "";
-            //facility_room_telPosted = "";
-            //facility_generatorPosted = "";
 
-
-            List<SearchResultData> arr = new List<SearchResultData>();
-            List<string> tr_acct_num, usd_acct_num;
-            List<Facility> faci = new List<Facility>();
-            List<string> listDormitories = new List<string>();
-            List<string> listRoom = new List<string>();
-
-
-            using (var context = _context)
-            {
-                var dormitories = context.DormitoriesTable
-                                    .Include(dormitory_trans => dormitory_trans.DormitoriesTableTranslation)
-                                    .Include(dormitory_room => dormitory_room.RoomTable)
-
-                                    .ToList();
-
-
-
-
-                usd_acct_num = new List<string>();
-                usd_acct_num.Add("Account No: 6820-57259db");
-                usd_acct_num.Add("IBAN: TR04 0006 4000 0026 8200 057259db");
-
-                context.DormitoriesTable.ToList().ForEach(dorm =>
-                {
-                    dorm.DormitoriesTableTranslation.Where(r => r.LanguageId == langIDPosted).ToList().ForEach(dorm_trans =>
-                    {
-
-
-
-
-                        context.RoomTable.Where(r => r.DormitoryId == dorm.Id).Include(r => r.RoomTableTranslation).Include(r => r.RoomFacility).ToList().ForEach(room_t =>
-                        {
-
-
-                            room_t.RoomTableTranslation.Where(r => r.LanguageId == langIDPosted).ToList().ForEach(room_trans =>
-                            {
-                                tr_acct_num = new List<string>();
-                                ///  tr_acct_num.Add("Account No: 6820-174392db");
-                                //tr_acct_num.Add("IBAN: TR39 0006 4000 0016 8200 174392db");
-                                usd_acct_num = new List<string>();
-                                string usdd = "";
-                                string trr = "";
-                                //usd_acct_num.Add("Account No: 6820-57259db");
-                                //usd_acct_num.Add("IBAN: TR04 0006 4000 0026 8200 057259db");
-
-                                context.DormitoryBankAccountTable.Include(r => r.BankCurrencyTable).Where(c => c.DormitoryId == room_t.DormitoryId && room_trans.RoomTableNonTransId == room_t.Id).ToList().ForEach(dorm_bank_acc =>
-                                {
-                                    dorm_bank_acc.BankCurrencyTable.Where(c => c.CurrencyName == "USD").ToList().ForEach(bk_curr =>
-                                    {
-                                        usdd += dorm_bank_acc.BankName;
-                                        context.AccountParameterValues.Where(c => c.CurrencyId == bk_curr.Id).Include(c => c.AccountParameterValuesTranslation).ToList().ForEach(acct_param_val =>
-                                        {
-                                            acct_param_val.AccountParameterValuesTranslation.Where(c => c.LanguageId == langIDPosted).ToList().ForEach(acc_param_val_trans =>
-                                            {
-                                                // acc_param_val_trans.Value;
-
-                                                context.AccountInformationParameter.Include(c => c.AccountInformationParameterTranslation).Where(c => c.Id == acct_param_val.ParameterId).ToList().ForEach(acc_info_param =>
-                                                {
-                                                    acc_info_param.AccountInformationParameterTranslation.Where(c => c.LanguageId == langIDPosted).ToList().ForEach(acc_info_param_trans =>
-                                                    {
-                                                        usdd += " | " + acc_info_param_trans.Parameter + ":" + acc_param_val_trans.Value;
-                                                        //acc_info_param_trans.Parameter;
-                                                    });
-                                                });
-                                            });
-                                        });
-
-                                        usd_acct_num.Add(usdd);
-                                        usdd = "";
-
-                                    });
-
-
-
-                                    dorm_bank_acc.BankCurrencyTable.Where(c => c.CurrencyName== "TL").ToList().ForEach(bk_curr =>
-                                    {
-                                        trr += dorm_bank_acc.BankName;
-
-                                        context.AccountParameterValues.Where(c => c.CurrencyId == bk_curr.Id).Include(c => c.AccountParameterValuesTranslation).ToList().ForEach(acct_param_val =>
-                                        {
-                                            acct_param_val.AccountParameterValuesTranslation.Where(c => c.LanguageId == langIDPosted).ToList().ForEach(acc_param_val_trans =>
-                                            {
-                                                // acc_param_val_trans.Value;
-
-                                                context.AccountInformationParameter.Include(c => c.AccountInformationParameterTranslation).Where(c => c.Id == acct_param_val.ParameterId).ToList().ForEach(acc_info_param =>
-                                                {
-                                                    acc_info_param.AccountInformationParameterTranslation.Where(c => c.LanguageId == langIDPosted).ToList().ForEach(acc_info_param_trans =>
-                                                    {
-                                                        trr += " | " + acc_info_param_trans.Parameter + ":" + acc_param_val_trans.Value;
-                                                        //acc_info_param_trans.Parameter;
-                                                    });
-                                                });
-                                            });
-                                        });
-
-                                        tr_acct_num.Add(trr);
-                                        trr = "";
-
-                                    });
-                                });
-
-                                faci = new List<Facility>();
-                                //I smell desaster from this part
-                                context.RoomFacility.Where(r => r.RoomId == room_t.Id).Include(r => r.Facility).ToList().ForEach(room_faci =>
-                                {
-                                    context.FacilityTable.Where(r => r.Id == room_faci.FacilityId).Include(r => r.FacilityTableTranslation).ToList().ForEach(facii =>
-                                    {
-                                        facii.FacilityTableTranslation.Where(r => r.LanguageId == langIDPosted).ToList().ForEach(faci_trans =>
-                                        {
-                                            string facility_o = "";
-                                            context.FacilityOption.Where(r => r.FacilityId == room_faci.FacilityId && facii.Id == room_faci.FacilityId)
-                                                        .Include(r => r.FacilityOptionTranslation).ToList().ForEach(faci_op =>
-                                                        {
-                                                            faci_op.FacilityOptionTranslation
-                                                                        .Where(r => r.LanguageId == langIDPosted && r.FacilityOptionNonTransId == room_faci.FacilityOptionId)
-
-                                                                    .ToList().ForEach(faci_op_trans =>
-                                                                    {
-                                                                        facility_o += " | " + faci_op_trans.FacilityOption;
-
-                                                                    });
-
-                                                        });
-
-                                            faci.Add(new Facility { facility_name = faci_trans.FacilityTitle + facility_o, facility_icon_url = facii.FacilityIconUrl });
-
-
-
-
-                                        });
-                                    });
-
-
-                                });
-
-
-
-
-
-
-                                //faci.Add(new Facility { facility_name = "Room Area: " + room_t.room_area + " m" + "<sup style=\"font-size: smaller; \">2</sup>", facility_icon_url = "../../Content/Dormitories_files/room_area.jpg" });
-                                //faci.Add(new Facility { facility_name = "<b style=\"color:#0ab21b\">Price: " + dorm.room_price_currency + " " + room_t.room_price + "</b>", facility_icon_url = "../../Content/Dormitories_files/price.png" });
-
-
-
-
-                                //if (langIDPosted == 1)
-
-
-                                //    if (room_t.num_rooms_left > 1)
-                                //    {
-                                //        faci.Add(new Facility { facility_name = "<b  onMouseOver=\"this.style.color = '#0F0' onMouseOut = \"this.style.color='#00F'\">Only " + room_t.num_rooms_left + "  rooms left</b>", facility_icon_url = "../../Content/Dormitories_files/image_key.png" });
-                                //    }
-                                //    else
-                                //    {
-                                //        faci.Add(new Facility { facility_name = "<b  onMouseOver=\"this.style.color = '#0F0' onMouseOut = \"this.style.color='#00F'\">Only " + room_t.num_rooms_left + "  room left</b>", facility_icon_url = "../../Content/Dormitories_files/image_key.png" });
-
-                                //    }
-
-                                //else
-
-                                //       if (room_t.num_rooms_left > 1)
-                                //{
-
-
-                                //    faci.Add(new Facility { facility_name = "<b  onMouseOver=\"this.style.color = '#0F0' onMouseOut = \"this.style.color='#00F'\">Sadece " + room_t.num_rooms_left + "  Oda  kaldı </b>", facility_icon_url = "../../Content/Dormitories_files/image_key.png" });
-                                //}
-                                //else
-                                //{
-                                //    faci.Add(new Facility { facility_name = "<b  onMouseOver=\"this.style.color = '#0F0' onMouseOut = \"this.style.color='#00F'\">Sadece " + room_t.num_rooms_left + " oda kaldı </b>", facility_icon_url = "../../Content/Dormitories_files/image_key.png" });
-                                //}
-
-
-                                arr.Add(new SearchResultData
-                                {
-                                    name_of_dormitory = dorm_trans.DormitoryName,
-                                    dormitory_address = dorm_trans.DormitoryAddress,
-                                    name_of_room = room_trans.RoomTitle,
-                                    gender_allocation = dorm_trans.GenderAllocation,
-                                    room_price_currency = dorm.RoomPriceCurrency,
-                                    map_latitude = dorm.MapLatitude,
-                                    map_longitude = dorm.MapLongitude,
-                                    url_of_room_image = room_t.RoomPictureUrl,
-                                    facility = faci,
-                                    dormitory_type = dorm.DormitoryTypeId,
-                                    price_of_room = room_t.RoomPrice,
-                                    room_area = room_t.RoomArea,
-                                    num_rooms_left = room_t.NumRoomsLeft,
-                                    dormitory_account = dorm_trans.DormitoryName,
-                                    bank_name = "bank name",
-                                    turkish_lira_account_number = tr_acct_num,
-                                    usd_account_number = usd_acct_num,
-                                    dormitory_website = dorm_trans.DormitoryAddress
-                                });
-                            });
-
-                        });
-
-
-
-
-                    });
-                });
-
-
-
-
-
-
-
-
-
-
-            }
-            //tr_acct_num = new List<string>();
-            //tr_acct_num.Add("Account No: 6820-174392db");
-            //tr_acct_num.Add("IBAN: TR39 0006 4000 0016 8200 174392db");
-
-            //usd_acct_num = new List<string>();
-            //usd_acct_num.Add("Account No: 6820-57259db");
-            //usd_acct_num.Add("IBAN: TR04 0006 4000 0026 8200 057259db");
-
-            //faci = new List<Facility>();
-            //faci.Add(new Facility { facility_name = "buckets", facility_icon_url = "./Dormitories_files/thumbnail(3).png" });
-            //faci.Add(new Facility { facility_name = "broom", facility_icon_url = "./Dormitories_files/thumbnail(3).png" });
-            //faci.Add(new Facility { facility_name = "broom", facility_icon_url = "./Dormitories_files/thumbnail(5).png" });
-            //faci.Add(new Facility { facility_name = "broom", facility_icon_url = "./Dormitories_files/thumbnail(4).png" });
-            //faci.Add(new Facility { facility_name = "broom", facility_icon_url = "./Dormitories_files/thumbnail(4).png" });
-
-            //arr.Add(new PostData
-            //{
-            //    name_of_dormitory = "Sample dormitory",
-            //    name_of_room = "Sample room",
-            //    url_of_room_image = "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/popart/TEK%20K%C4%B0%C5%9E%C4%B0L%C4%B0K%20EXCLUS%C4%B0VE.jpg?RenditionID=7",
-            //    facility = faci,
-            //    room_area = 25,
-            //    dormitory_type = 1,
-            //    dormitory_account = "dormitory_account",
-            //    bank_name = "bank name",
-            //    price_of_room = 2700,
-            //    turkish_lira_account_number = tr_acct_num,
-            //    usd_account_number = usd_acct_num,
-            //    dormitory_website = "dormitory website"
-            //});
-
-            //var faci_query = from Facility f in arr
-            //                 where (f.facility_name.Contains("TV"))
-            //                 select f;
-            //var query = from PostData s in arr
-            //            where (s.facility.
-            //            select s;
-
-            //var query = from s in arr
-            //            where s.Facility.Any(c => c.facility_name.contains("TV"))
-            //            select s;
-
-            //  PostData query = arr.fin
+           
             ArrayList sa = new ArrayList();
-            //sa.Add("Kitchenette | Flats");
-            //sa.Add("TV | In room");
-            //sa.Add("Central conditioning system | Cooling");
+           
 
-            sa.Add(facility_TVPosted);
-            sa.Add(facility_InternetPosted);
-            sa.Add(facility_Wc_showerPosted);
-            sa.Add(facility_KitchenettePosted);
-            sa.Add(facility_bedPosted);
+            sa.Add(filter.facility_TV);
+            sa.Add(filter.facility_Internet);
+            sa.Add(filter.facility_Wc_shower);
+            sa.Add(filter.facility_Kitchenette);
+            sa.Add(filter.facility_bed);
 
-            sa.Add(facility_air_conditionPosted);
-            sa.Add(facility_central_acPosted);
-            sa.Add(facility_refrigeratorPosted);
-            sa.Add(facility_laundryPosted);
-            sa.Add(facility_cafeteriaPosted);
-            sa.Add(facility_room_telPosted);
-            sa.Add(facility_generatorPosted);
+            sa.Add(filter.facility_air_condition);
+            sa.Add(filter.facility_central_ac);
+            sa.Add(filter.facility_refrigerator);
+            sa.Add(filter.facility_laundry);
+            sa.Add(filter.facility_cafeteria);
+            sa.Add(filter.facility_room_tel);
+            sa.Add(filter.facility_generator);
 
-            //string name_of_dormitoryPosted = " ";
+           
 
-            if (name_of_dormitoryPosted == " ")
-                name_of_dormitoryPosted = "";
+            if (filter.name_of_dormitory == " ")
+                filter.name_of_dormitory = "";
 
-            var query = arr;
+            var query = _searchService.GetSearchData(filter.langId);
 
-
-
-
-
-
-
-
-
-
-            if (dormitory_typePosted == 0)
+            
+            if (filter.dormitory_type == 0)
             {
-
-
-
                 foreach (var q in sa)
                     query = query
                    .Where(item =>
-                     item.name_of_dormitory.Contains(name_of_dormitoryPosted) &&
+                     item.name_of_dormitory.Contains(filter.name_of_dormitory) &&
                      item.facility.Any(fac => fac.facility_name.Contains(q.ToString()))
                       )
                    .ToList();
@@ -1504,30 +511,18 @@ namespace searchDormWeb.Controllers
                 foreach (var q in sa)
                     query = query
                    .Where(item =>
-                      item.name_of_dormitory.Contains(name_of_dormitoryPosted) &&
-                      item.dormitory_type == dormitory_typePosted &&
+                      item.name_of_dormitory.Contains(filter.name_of_dormitory) &&
+                      item.dormitory_type == filter.dormitory_type &&
                       item.facility.Any(fac => fac.facility_name.Contains(q.ToString())))
                    .ToList();
             }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+            
             ///highest to lowest
             foreach (var q in sa)
                 query = query
                .Where(item =>
-                  (item.price_of_room >= price_greater_thanPosted_min && item.price_of_room <= price_greater_thanPosted_max)
+                  (item.price_of_room >= filter.price_greater_than_6000.min && item.price_of_room <= filter.price_greater_than_6000.max)
 
                   )
                .ToList();
@@ -1535,7 +530,7 @@ namespace searchDormWeb.Controllers
             foreach (var q in sa)
                 query = query
                .Where(item =>
-                  (item.price_of_room >= price_5000_to_6000Posted_min && item.price_of_room <= price_5000_to_6000Posted_max)
+                  (item.price_of_room >= filter.price_5000_to_6000.min&& item.price_of_room <= filter.price_5000_to_6000.max)
 
                   )
                .ToList();
@@ -1544,7 +539,7 @@ namespace searchDormWeb.Controllers
                 query = query
                .Where(item =>
 
-                  (item.price_of_room >= price_4000_to_4999Posted_min && item.price_of_room <= price_4000_to_4999Posted_max)
+                  (item.price_of_room >= filter.price_4000_to_4999.min && item.price_of_room <= filter.price_4000_to_4999.max)
 
                   )
                .ToList();
@@ -1553,7 +548,7 @@ namespace searchDormWeb.Controllers
             foreach (var q in sa)
                 query = query
                .Where(item =>
-                  (item.price_of_room >= price_3000_to_3499Posted_min && item.price_of_room <= price_3000_to_3499Posted_max)
+                  (item.price_of_room >= filter.price_3000_to_3499.min&& item.price_of_room <= filter.price_3000_to_3499.max)
 
                   )
                .ToList();
@@ -1565,7 +560,7 @@ namespace searchDormWeb.Controllers
                 query = query
                .Where(item =>
 
-                 (item.price_of_room >= price_2500_to_2999Posted_min && item.price_of_room <= price_2500_to_2999Posted_max)
+                 (item.price_of_room >= filter.price_2500_to_2999.min && item.price_of_room <= filter.price_2500_to_2999.max)
 
                   )
                .ToList();
@@ -1577,7 +572,7 @@ namespace searchDormWeb.Controllers
                .Where(item =>
 
 
-                  item.price_of_room >= price_2000_to_2499Posted_min && item.price_of_room <= price_2000_to_2499Posted_max
+                  item.price_of_room >= filter.price_2000_to_2499.min && item.price_of_room <= filter.price_2000_to_2499.max
 
                   )
                .ToList();
@@ -1593,7 +588,7 @@ namespace searchDormWeb.Controllers
                 query = query
                .Where(item =>
 
-                  (item.room_area >= room_area_greater_than_30Posted_min && item.room_area <= room_area_greater_than_30Posted_max)
+                  (item.room_area >= filter.room_area_greater_than_30.min&& item.room_area <= filter.room_area_greater_than_30.max)
 
                   )
                .ToList();
@@ -1604,7 +599,7 @@ namespace searchDormWeb.Controllers
                 query = query
                .Where(item =>
 
-                  (item.room_area >= room_area_26_to_30Posted_min && item.room_area <= room_area_26_to_30Posted_max)
+                  (item.room_area >= filter.room_area_26_to_30.min && item.room_area <= filter.room_area_26_to_30.max)
 
                   )
                .ToList();
@@ -1613,7 +608,7 @@ namespace searchDormWeb.Controllers
                 query = query
                .Where(item =>
 
-                  (item.room_area >= room_area_21_to_25Posted_min && item.room_area <= room_area_21_to_25Posted_max)
+                  (item.room_area >= filter.room_area_21_to_25.min && item.room_area <= filter.room_area_21_to_25.max)
 
                   )
                .ToList();
@@ -1624,18 +619,18 @@ namespace searchDormWeb.Controllers
                .Where(item =>
 
 
-               (item.room_area >= room_area_10_to_20Posted_min && item.room_area <= room_area_10_to_20Posted_max)
+               (item.room_area >= filter.room_area_10_to_20.min && item.room_area <= filter.room_area_10_to_20.max )
 
                   )
                .ToList();
 
 
 
-            if (sort_byPosted == "Price")
+            if (filter.sort_by== "Price")
                 query = query.OrderBy(s => s.price_of_room).ToList();
-            else if (sort_byPosted == "a-z")
+            else if (filter.sort_by== "a-z")
                 query = query.OrderBy(s => s.name_of_dormitory).ToList();
-            else if (sort_byPosted == "area")
+            else if (filter.sort_by== "area")
                 query = query.OrderBy(s => s.room_area).ToList();
 
             //ViewBag.PaginationCountCount = Math.Ceiling((decimal)(query.Count / 8));
@@ -1644,488 +639,86 @@ namespace searchDormWeb.Controllers
 
         }
         
-        public ActionResult GetSearchResultMapViewResponsive(PostDataResponsive data)
+        public ActionResult GetSearchResultMapViewResponsive(PostedDormitoryFiltersResponsive data)
         {
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
             }
 
-            string name_of_dormitoryPosted = " ";
-            int dormitory_typePosted = 1;
-
-
-            int price_2000_to_2499Posted_min = 0;
-            int price_2000_to_2499Posted_max = 0;
-
-            int price_2500_to_2999Posted_min = 0;
-            int price_2500_to_2999Posted_max = 0;
-
-            int price_3000_to_3499Posted_min = 0;
-            int price_3000_to_3499Posted_max = 0;
-
-            int price_4000_to_4999Posted_min = 0;
-            int price_4000_to_4999Posted_max = 0;
-
-            int price_5000_to_6000Posted_min = 0;
-            int price_5000_to_6000Posted_max = 0;
-
-            int price_greater_thanPosted_min = 0;
-            int price_greater_thanPosted_max = 0;
-
-            int room_area_10_to_20Posted_min = 0;
-            int room_area_10_to_20Posted_max = 0;
-
-            int room_area_21_to_25Posted_min = 0;
-            int room_area_21_to_25Posted_max = 0;
-
-            int room_area_26_to_30Posted_min = 0;
-            int room_area_26_to_30Posted_max = 0;
-
-            int room_area_greater_than_30Posted_min = 0;
-            int room_area_greater_than_30Posted_max = 0;
-
-
-
-            int langIDPosted = 0;
-
-            string facility_TVPosted = " ";
-            string facility_InternetPosted = " ";
-            string facility_Wc_showerPosted = " ";
-            string facility_KitchenettePosted = " ";
-            string facility_bedPosted = " ";
-
-            string facility_air_conditionPosted = " ";
-            string facility_central_acPosted = " ";
-            string facility_refrigeratorPosted = " ";
-            string facility_laundryPosted = " ";
-            string facility_cafeteriaPosted = " ";
-            string facility_room_telPosted = " ";
-            string facility_generatorPosted = " ";
-            string sort_byPosted = " ";
-
+            PostedDormitoryFiltersResponsive filter = new PostedDormitoryFiltersResponsive();
+            
             //  var data=  
             var obj = data;
-            
-name_of_dormitoryPosted = obj.name_of_dormitory == null ? "" : obj.name_of_dormitory;
-            dormitory_typePosted = obj.dormitory_type;
+            filter = obj;
+            filter.name_of_dormitory = obj.name_of_dormitory == null ? "" : obj.name_of_dormitory;
+            filter.facility_TV = obj.facility_TV == null ? "" : obj.facility_TV;
+            filter.facility_Internet = obj.facility_Internet == null ? "" : obj.facility_Internet;
+            filter.facility_Wc_shower= obj.facility_Wc_shower == null ? "" : obj.facility_Wc_shower;
+            filter.facility_Kitchenette = obj.facility_Kitchenette == null ? "" : obj.facility_Kitchenette;
+            filter.facility_bed = obj.facility_bed == null ? "" : obj.facility_bed;
+            filter.sort_by= obj.sort_by == null ? "" : obj.sort_by;
+            filter.facility_air_condition = obj.facility_air_condition == null ? "" : obj.facility_air_condition;
+            filter.facility_central_ac = obj.facility_central_ac == null ? "" : obj.facility_central_ac;
+            filter.facility_refrigerator = obj.facility_refrigerator == null ? "" : obj.facility_refrigerator;
+            filter.facility_laundry = obj.facility_laundry == null ? "" : obj.facility_laundry;
+            filter.facility_cafeteria = obj.facility_cafeteria == null ? "" : obj.facility_cafeteria;
+            filter.facility_room_tel = obj.facility_room_tel == null ? "" : obj.facility_room_tel;
+            filter.facility_generator = obj.facility_generator == null ? "" : obj.facility_generator;
 
 
-            price_2000_to_2499Posted_min = obj.price_2000_to_2499.min;
-            price_2000_to_2499Posted_max = obj.price_2000_to_2499.max;
 
-            price_2500_to_2999Posted_min = obj.price_2500_to_2999.min;
-            price_2500_to_2999Posted_max = obj.price_2500_to_2999.max;
 
-            price_3000_to_3499Posted_min = obj.price_3000_to_3499.min;
-            price_3000_to_3499Posted_max = obj.price_3000_to_3499.max;
-
-            price_4000_to_4999Posted_min = obj.price_4000_to_4999.min;
-            price_4000_to_4999Posted_max = obj.price_4000_to_4999.max;
-
-            price_5000_to_6000Posted_min = obj.price_5000_to_6000.min;
-            price_5000_to_6000Posted_max = obj.price_5000_to_6000.max;
-
-            price_greater_thanPosted_min = obj.price_greater_than_6000.min;
-            price_greater_thanPosted_max = obj.price_greater_than_6000.max;
-
-            room_area_10_to_20Posted_min = obj.room_area_10_to_20.min;
-            room_area_10_to_20Posted_max = obj.room_area_10_to_20.max;
-
-            room_area_21_to_25Posted_min = obj.room_area_21_to_25.min;
-            room_area_21_to_25Posted_max = obj.room_area_21_to_25.max;
-
-            room_area_26_to_30Posted_min = obj.room_area_26_to_30.min;
-            room_area_26_to_30Posted_max = obj.room_area_26_to_30.max;
-
-            room_area_greater_than_30Posted_min = obj.room_area_greater_than_30.min;
-            room_area_greater_than_30Posted_max = obj.room_area_greater_than_30.max;
-
-
-
-            langIDPosted = obj.langId;
-
-            
-
-        
-
-            facility_TVPosted = obj.facility_TV == null ? "" : obj.facility_TV;
-            facility_InternetPosted = obj.facility_Internet == null ? "" : obj.facility_Internet;
-            facility_Wc_showerPosted = obj.facility_Wc_shower == null ? "" : obj.facility_Wc_shower;
-            facility_KitchenettePosted = obj.facility_Kitchenette == null ? "" : obj.facility_Kitchenette;
-            facility_bedPosted = obj.facility_bed == null ? "" : obj.facility_bed;
-            sort_byPosted = obj.sort_by == null ? "" : obj.sort_by;
-            facility_air_conditionPosted = obj.facility_air_condition == null ? "" : obj.facility_air_condition;
-            facility_central_acPosted = obj.facility_central_ac == null ? "" : obj.facility_central_ac;
-            facility_refrigeratorPosted = obj.facility_refrigerator == null ? "" : obj.facility_refrigerator;
-            facility_laundryPosted = obj.facility_laundry == null ? "" : obj.facility_laundry;
-            facility_cafeteriaPosted = obj.facility_cafeteria == null ? "" : obj.facility_cafeteria;
-            facility_room_telPosted = obj.facility_room_tel == null ? "" : obj.facility_room_tel;
-            facility_generatorPosted = obj.facility_generator == null ? "" : obj.facility_generator;
-
-
-
-
-            //name_of_dormitoryPosted = "";
-            //dormitory_typePosted = 0;
-            //min_price_of_roomPosted = 0;
-            //max_price_of_roomPosted = 4992;
-            //room_areaPostedMin = 100000;
-            //room_areaPostedMax = 0;
-            //langIDPosted = 1;
-
-            //facility_TVPosted = "";
-            //facility_InternetPosted = "";
-            //facility_Wc_showerPosted = "";
-            //facility_KitchenettePosted = "";
-            //facility_bedPosted = "";
-            //sort_byPosted = "";
-            //facility_air_conditionPosted = "";
-            //facility_central_acPosted = "";
-            //facility_refrigeratorPosted = "";
-            //facility_laundryPosted = "";
-            //facility_cafeteriaPosted = "";
-            //facility_room_telPosted = "";
-            //facility_generatorPosted = "";
-
-
-            List<SearchResultData> arr = new List<SearchResultData>();
-            List<string> tr_acct_num, usd_acct_num;
-            List<Facility> faci = new List<Facility>();
-            List<string> listDormitories = new List<string>();
-            List<string> listRoom = new List<string>();
-
-
-            using (var context = _context)
-            {
-                var dormitories = context.DormitoriesTable
-                                    .Include(dormitory_trans => dormitory_trans.DormitoriesTableTranslation)
-                                    .Include(dormitory_room => dormitory_room.RoomTable)
-
-                                    .ToList();
-
-
-
-
-                usd_acct_num = new List<string>();
-                usd_acct_num.Add("Account No: 6820-57259db");
-                usd_acct_num.Add("IBAN: TR04 0006 4000 0026 8200 057259db");
-
-                context.DormitoriesTable.ToList().ForEach(dorm =>
-                {
-                    dorm.DormitoriesTableTranslation.Where(r => r.LanguageId == langIDPosted).ToList().ForEach(dorm_trans =>
-                    {
-
-
-
-
-                        context.RoomTable.Where(r => r.DormitoryId == dorm.Id).Include(r => r.RoomTableTranslation).Include(r => r.RoomFacility).ToList().ForEach(room_t =>
-                        {
-
-
-                            room_t.RoomTableTranslation.Where(r => r.LanguageId == langIDPosted).ToList().ForEach(room_trans =>
-                            {
-                                tr_acct_num = new List<string>();
-                                ///  tr_acct_num.Add("Account No: 6820-174392db");
-                                //tr_acct_num.Add("IBAN: TR39 0006 4000 0016 8200 174392db");
-                                usd_acct_num = new List<string>();
-                                string usdd = "";
-                                string trr = "";
-                                //usd_acct_num.Add("Account No: 6820-57259db");
-                                //usd_acct_num.Add("IBAN: TR04 0006 4000 0026 8200 057259db");
-
-                                context.DormitoryBankAccountTable.Include(r => r.BankCurrencyTable).Where(c => c.DormitoryId == room_t.DormitoryId && room_trans.RoomTableNonTransId == room_t.Id).ToList().ForEach(dorm_bank_acc =>
-                                {
-                                    dorm_bank_acc.BankCurrencyTable.Where(c => c.CurrencyName == "USD").ToList().ForEach(bk_curr =>
-                                    {
-                                        usdd += dorm_bank_acc.BankName;
-                                        context.AccountParameterValues.Where(c => c.CurrencyId == bk_curr.Id).Include(c => c.AccountParameterValuesTranslation).ToList().ForEach(acct_param_val =>
-                                        {
-                                            acct_param_val.AccountParameterValuesTranslation.Where(c => c.LanguageId == langIDPosted).ToList().ForEach(acc_param_val_trans =>
-                                            {
-                                                // acc_param_val_trans.Value;
-
-                                                context.AccountInformationParameter.Include(c => c.AccountInformationParameterTranslation).Where(c => c.Id == acct_param_val.ParameterId).ToList().ForEach(acc_info_param =>
-                                                {
-                                                    acc_info_param.AccountInformationParameterTranslation.Where(c => c.LanguageId == langIDPosted).ToList().ForEach(acc_info_param_trans =>
-                                                    {
-                                                        usdd += " | " + acc_info_param_trans.Parameter + ":" + acc_param_val_trans.Value;
-                                                        //acc_info_param_trans.Parameter;
-                                                    });
-                                                });
-                                            });
-                                        });
-
-                                        usd_acct_num.Add(usdd);
-                                        usdd = "";
-
-                                    });
-
-
-
-                                    dorm_bank_acc.BankCurrencyTable.Where(c => c.CurrencyName == "TL").ToList().ForEach(bk_curr =>
-                                    {
-                                        trr += dorm_bank_acc.BankName;
-
-                                        context.AccountParameterValues.Where(c => c.CurrencyId == bk_curr.Id).Include(c => c.AccountParameterValuesTranslation).ToList().ForEach(acct_param_val =>
-                                        {
-                                            acct_param_val.AccountParameterValuesTranslation.Where(c => c.LanguageId == langIDPosted).ToList().ForEach(acc_param_val_trans =>
-                                            {
-                                                // acc_param_val_trans.Value;
-
-                                                context.AccountInformationParameter.Include(c => c.AccountInformationParameterTranslation).Where(c => c.Id == acct_param_val.ParameterId).ToList().ForEach(acc_info_param =>
-                                                {
-                                                    acc_info_param.AccountInformationParameterTranslation.Where(c => c.LanguageId == langIDPosted).ToList().ForEach(acc_info_param_trans =>
-                                                    {
-                                                        trr += " | " + acc_info_param_trans.Parameter + ":" + acc_param_val_trans.Value;
-                                                        //acc_info_param_trans.Parameter;
-                                                    });
-                                                });
-                                            });
-                                        });
-
-                                        tr_acct_num.Add(trr);
-                                        trr = "";
-
-                                    });
-                                });
-
-                                faci = new List<Facility>();
-                                //I smell desaster from this part
-                                context.RoomFacility.Where(r => r.RoomId == room_t.Id).Include(r => r.Facility).ToList().ForEach(room_faci =>
-                                {
-                                    context.FacilityTable.Where(r => r.Id == room_faci.FacilityId).Include(r => r.FacilityTableTranslation).ToList().ForEach(facii =>
-                                    {
-                                        facii.FacilityTableTranslation.Where(r => r.LanguageId == langIDPosted).ToList().ForEach(faci_trans =>
-                                        {
-                                            string facility_o = "";
-                                            context.FacilityOption.Where(r => r.FacilityId == room_faci.FacilityId && facii.Id == room_faci.FacilityId)
-                                                        .Include(r => r.FacilityOptionTranslation).ToList().ForEach(faci_op =>
-                                                        {
-                                                            faci_op.FacilityOptionTranslation
-                                                                        .Where(r => r.LanguageId == langIDPosted && r.FacilityOptionNonTransId == room_faci.FacilityOptionId)
-
-                                                                    .ToList().ForEach(faci_op_trans =>
-                                                                    {
-                                                                        facility_o += " | " + faci_op_trans.FacilityOption;
-
-                                                                    });
-
-                                                        });
-
-                                            faci.Add(new Facility { facility_name = faci_trans.FacilityTitle + facility_o, facility_icon_url = facii.FacilityIconUrl});
-
-
-
-
-                                        });
-                                    });
-
-
-                                });
-
-
-
-
-
-
-                                //faci.Add(new Facility { facility_name = "Room Area: " + room_t.room_area + " m" + "<sup style=\"font-size: smaller; \">2</sup>", facility_icon_url = "../../Content/Dormitories_files/room_area.jpg" });
-                                //faci.Add(new Facility { facility_name = "<b style=\"color:#0ab21b\">Price: " + dorm.room_price_currency + " " + room_t.room_price + "</b>", facility_icon_url = "../../Content/Dormitories_files/price.png" });
-
-
-
-
-                                //if (langIDPosted == 1)
-
-
-                                //    if (room_t.num_rooms_left > 1)
-                                //    {
-                                //        faci.Add(new Facility { facility_name = "<b  onMouseOver=\"this.style.color = '#0F0' onMouseOut = \"this.style.color='#00F'\">Only " + room_t.num_rooms_left + "  rooms left</b>", facility_icon_url = "../../Content/Dormitories_files/image_key.png" });
-                                //    }
-                                //    else
-                                //    {
-                                //        faci.Add(new Facility { facility_name = "<b  onMouseOver=\"this.style.color = '#0F0' onMouseOut = \"this.style.color='#00F'\">Only " + room_t.num_rooms_left + "  room left</b>", facility_icon_url = "../../Content/Dormitories_files/image_key.png" });
-
-                                //    }
-
-                                //else
-
-                                //       if (room_t.num_rooms_left > 1)
-                                //{
-
-
-                                //    faci.Add(new Facility { facility_name = "<b  onMouseOver=\"this.style.color = '#0F0' onMouseOut = \"this.style.color='#00F'\">Sadece " + room_t.num_rooms_left + "  Oda  kaldı </b>", facility_icon_url = "../../Content/Dormitories_files/image_key.png" });
-                                //}
-                                //else
-                                //{
-                                //    faci.Add(new Facility { facility_name = "<b  onMouseOver=\"this.style.color = '#0F0' onMouseOut = \"this.style.color='#00F'\">Sadece " + room_t.num_rooms_left + " oda kaldı </b>", facility_icon_url = "../../Content/Dormitories_files/image_key.png" });
-                                //}
-
-
-                                arr.Add(new SearchResultData
-                                {
-                                    name_of_dormitory = dorm_trans.DormitoryName,
-                                    dormitory_address = dorm_trans.DormitoryAddress,
-                                    name_of_room = room_trans.RoomTitle,
-                                    gender_allocation = dorm_trans.GenderAllocation,
-                                    room_price_currency = dorm.RoomPriceCurrency,
-                                    map_latitude = dorm.MapLatitude,
-                                    map_longitude = dorm.MapLongitude,
-                                    url_of_room_image = room_t.RoomPictureUrl,
-                                    facility = faci,
-                                    dormitory_type = dorm.DormitoryTypeId,
-                                    price_of_room = room_t.RoomPrice,
-                                    room_area = room_t.RoomArea,
-                                    num_rooms_left = room_t.NumRoomsLeft,
-                                    dormitory_account = dorm_trans.DormitoryName,
-                                    bank_name = "bank name",
-                                    turkish_lira_account_number = tr_acct_num,
-                                    usd_account_number = usd_acct_num,
-                                    dormitory_website = dorm_trans.DormitoryAddress
-                                });
-                            });
-
-                        });
-
-
-
-
-                    });
-                });
-
-
-
-
-
-
-
-
-
-
-            }
-            //tr_acct_num = new List<string>();
-            //tr_acct_num.Add("Account No: 6820-174392db");
-            //tr_acct_num.Add("IBAN: TR39 0006 4000 0016 8200 174392db");
-
-            //usd_acct_num = new List<string>();
-            //usd_acct_num.Add("Account No: 6820-57259db");
-            //usd_acct_num.Add("IBAN: TR04 0006 4000 0026 8200 057259db");
-
-            //faci = new List<Facility>();
-            //faci.Add(new Facility { facility_name = "buckets", facility_icon_url = "./Dormitories_files/thumbnail(3).png" });
-            //faci.Add(new Facility { facility_name = "broom", facility_icon_url = "./Dormitories_files/thumbnail(3).png" });
-            //faci.Add(new Facility { facility_name = "broom", facility_icon_url = "./Dormitories_files/thumbnail(5).png" });
-            //faci.Add(new Facility { facility_name = "broom", facility_icon_url = "./Dormitories_files/thumbnail(4).png" });
-            //faci.Add(new Facility { facility_name = "broom", facility_icon_url = "./Dormitories_files/thumbnail(4).png" });
-
-            //arr.Add(new PostData
-            //{
-            //    name_of_dormitory = "Sample dormitory",
-            //    name_of_room = "Sample room",
-            //    url_of_room_image = "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/popart/TEK%20K%C4%B0%C5%9E%C4%B0L%C4%B0K%20EXCLUS%C4%B0VE.jpg?RenditionID=7",
-            //    facility = faci,
-            //    room_area = 25,
-            //    dormitory_type = 1,
-            //    dormitory_account = "dormitory_account",
-            //    bank_name = "bank name",
-            //    price_of_room = 2700,
-            //    turkish_lira_account_number = tr_acct_num,
-            //    usd_account_number = usd_acct_num,
-            //    dormitory_website = "dormitory website"
-            //});
-
-            //var faci_query = from Facility f in arr
-            //                 where (f.facility_name.Contains("TV"))
-            //                 select f;
-            //var query = from PostData s in arr
-            //            where (s.facility.
-            //            select s;
-
-            //var query = from s in arr
-            //            where s.Facility.Any(c => c.facility_name.contains("TV"))
-            //            select s;
-
-            //  PostData query = arr.fin
             ArrayList sa = new ArrayList();
-            //sa.Add("Kitchenette | Flats");
-            //sa.Add("TV | In room");
-            //sa.Add("Central conditioning system | Cooling");
+            sa.Add(filter.facility_TV);
+            sa.Add(filter.facility_Internet);
+            sa.Add(filter.facility_Wc_shower);
+            sa.Add(filter.facility_Kitchenette);
+            sa.Add(filter.facility_bed);
+            sa.Add(filter.facility_air_condition);
+            sa.Add(filter.facility_central_ac);
+            sa.Add(filter.facility_refrigerator);
+            sa.Add(filter.facility_laundry);
+            sa.Add(filter.facility_cafeteria);
+            sa.Add(filter.facility_room_tel);
+            sa.Add(filter.facility_generator);
 
-            sa.Add(facility_TVPosted);
-            sa.Add(facility_InternetPosted);
-            sa.Add(facility_Wc_showerPosted);
-            sa.Add(facility_KitchenettePosted);
-            sa.Add(facility_bedPosted);
+           
 
-            sa.Add(facility_air_conditionPosted);
-            sa.Add(facility_central_acPosted);
-            sa.Add(facility_refrigeratorPosted);
-            sa.Add(facility_laundryPosted);
-            sa.Add(facility_cafeteriaPosted);
-            sa.Add(facility_room_telPosted);
-            sa.Add(facility_generatorPosted);
+            if (filter.name_of_dormitory == " ")
+                filter.name_of_dormitory = "";
 
-            //string name_of_dormitoryPosted = " ";
+            var query = _searchService.GetSearchData(filter.langId);
 
-            if (name_of_dormitoryPosted == " ")
-                name_of_dormitoryPosted = "";
-
-            var query = arr;
-
-
-
-
-
-
-
-
-
-
-            if (dormitory_typePosted == 0)
+            
+            if (filter.dormitory_type == 0)
             {
-
-
-
                 foreach (var q in sa)
                     query = query
                    .Where(item =>
-                     item.name_of_dormitory.Contains(name_of_dormitoryPosted) &&
+                     item.name_of_dormitory.Contains(filter.name_of_dormitory) &&
                      item.facility.Any(fac => fac.facility_name.Contains(q.ToString()))
                       )
                    .ToList();
-
-
-
+                
             }
             else
             {
                 foreach (var q in sa)
                     query = query
                    .Where(item =>
-                      item.name_of_dormitory.Contains(name_of_dormitoryPosted) &&
-                      item.dormitory_type == dormitory_typePosted &&
+                      item.name_of_dormitory.Contains(filter.name_of_dormitory) &&
+                      item.dormitory_type == filter.dormitory_type &&
                       item.facility.Any(fac => fac.facility_name.Contains(q.ToString())))
                    .ToList();
             }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+            
             ///highest to lowest
             foreach (var q in sa)
                 query = query
                .Where(item =>
-                  (item.price_of_room >= price_greater_thanPosted_min && item.price_of_room <= price_greater_thanPosted_max)
+                  (item.price_of_room >= filter.price_greater_than_6000.min && item.price_of_room <= filter.price_greater_than_6000.max)
 
                   )
                .ToList();
@@ -2133,7 +726,7 @@ name_of_dormitoryPosted = obj.name_of_dormitory == null ? "" : obj.name_of_dormi
             foreach (var q in sa)
                 query = query
                .Where(item =>
-                  (item.price_of_room >= price_5000_to_6000Posted_min && item.price_of_room <= price_5000_to_6000Posted_max)
+                  (item.price_of_room >= filter.price_5000_to_6000.min&& item.price_of_room <= filter.price_5000_to_6000.max)
 
                   )
                .ToList();
@@ -2142,7 +735,7 @@ name_of_dormitoryPosted = obj.name_of_dormitory == null ? "" : obj.name_of_dormi
                 query = query
                .Where(item =>
 
-                  (item.price_of_room >= price_4000_to_4999Posted_min && item.price_of_room <= price_4000_to_4999Posted_max)
+                  (item.price_of_room >= filter.price_4000_to_4999.min && item.price_of_room <= filter.price_4000_to_4999.max)
 
                   )
                .ToList();
@@ -2151,7 +744,7 @@ name_of_dormitoryPosted = obj.name_of_dormitory == null ? "" : obj.name_of_dormi
             foreach (var q in sa)
                 query = query
                .Where(item =>
-                  (item.price_of_room >= price_3000_to_3499Posted_min && item.price_of_room <= price_3000_to_3499Posted_max)
+                  (item.price_of_room >= filter.price_3000_to_3499.min&& item.price_of_room <= filter.price_3000_to_3499.max)
 
                   )
                .ToList();
@@ -2163,7 +756,7 @@ name_of_dormitoryPosted = obj.name_of_dormitory == null ? "" : obj.name_of_dormi
                 query = query
                .Where(item =>
 
-                 (item.price_of_room >= price_2500_to_2999Posted_min && item.price_of_room <= price_2500_to_2999Posted_max)
+                 (item.price_of_room >= filter.price_2500_to_2999.min && item.price_of_room <= filter.price_2500_to_2999.max)
 
                   )
                .ToList();
@@ -2175,7 +768,7 @@ name_of_dormitoryPosted = obj.name_of_dormitory == null ? "" : obj.name_of_dormi
                .Where(item =>
 
 
-                  item.price_of_room >= price_2000_to_2499Posted_min && item.price_of_room <= price_2000_to_2499Posted_max
+                  item.price_of_room >= filter.price_2000_to_2499.min && item.price_of_room <= filter.price_2000_to_2499.max
 
                   )
                .ToList();
@@ -2191,7 +784,7 @@ name_of_dormitoryPosted = obj.name_of_dormitory == null ? "" : obj.name_of_dormi
                 query = query
                .Where(item =>
 
-                  (item.room_area >= room_area_greater_than_30Posted_min && item.room_area <= room_area_greater_than_30Posted_max)
+                  (item.room_area >= filter.room_area_greater_than_30.min&& item.room_area <= filter.room_area_greater_than_30.max)
 
                   )
                .ToList();
@@ -2202,7 +795,7 @@ name_of_dormitoryPosted = obj.name_of_dormitory == null ? "" : obj.name_of_dormi
                 query = query
                .Where(item =>
 
-                  (item.room_area >= room_area_26_to_30Posted_min && item.room_area <= room_area_26_to_30Posted_max)
+                  (item.room_area >= filter.room_area_26_to_30.min && item.room_area <= filter.room_area_26_to_30.max)
 
                   )
                .ToList();
@@ -2211,7 +804,7 @@ name_of_dormitoryPosted = obj.name_of_dormitory == null ? "" : obj.name_of_dormi
                 query = query
                .Where(item =>
 
-                  (item.room_area >= room_area_21_to_25Posted_min && item.room_area <= room_area_21_to_25Posted_max)
+                  (item.room_area >= filter.room_area_21_to_25.min && item.room_area <= filter.room_area_21_to_25.max)
 
                   )
                .ToList();
@@ -2222,18 +815,18 @@ name_of_dormitoryPosted = obj.name_of_dormitory == null ? "" : obj.name_of_dormi
                .Where(item =>
 
 
-               (item.room_area >= room_area_10_to_20Posted_min && item.room_area <= room_area_10_to_20Posted_max)
+               (item.room_area >= filter.room_area_10_to_20.min && item.room_area <= filter.room_area_10_to_20.max)
 
                   )
                .ToList();
 
 
 
-            if (sort_byPosted == "Price")
+            if (filter.sort_by== "Price")
                 query = query.OrderBy(s => s.price_of_room).ToList();
-            else if (sort_byPosted == "a-z")
+            else if (filter.sort_by== "a-z")
                 query = query.OrderBy(s => s.name_of_dormitory).ToList();
-            else if (sort_byPosted == "area")
+            else if (filter.sort_by== "area")
                 query = query.OrderBy(s => s.room_area).ToList();
 
             //ViewBag.PaginationCountCount = Math.Ceiling((decimal)(query.Count / 8));
@@ -2246,15 +839,15 @@ name_of_dormitoryPosted = obj.name_of_dormitory == null ? "" : obj.name_of_dormi
 
 
 
-        public ActionResult GetDormitoriesBasedOnType(dormitory_struct data)
+        public ActionResult GetDormitoriesBasedOnType(PostedDormitoryTypeLang data)
         {
+            PostedDormitoryTypeLang filter = new PostedDormitoryTypeLang();
 
-            int dormitory_typePosted = 1;
-            int langIDPosted = 0;
+        
             var obj = data;
-
-            dormitory_typePosted = obj.dormitory_type;
-            langIDPosted = obj.langId;
+            filter = obj;
+            filter.dormitory_type = obj.dormitory_type;
+            filter.langId = obj.langId;
 
             List<string> listDormitories = new List<string>();
 
@@ -2271,9 +864,9 @@ name_of_dormitoryPosted = obj.name_of_dormitory == null ? "" : obj.name_of_dormi
 
 
 
-                context.DormitoriesTable.Where(d => d.DormitoryTypeId == dormitory_typePosted).ToList().ForEach(dorm =>
+                context.DormitoriesTable.Where(d => d.DormitoryTypeId == filter.dormitory_type).ToList().ForEach(dorm =>
                 {
-                    dorm.DormitoriesTableTranslation.Where(r => r.LanguageId == langIDPosted).ToList().ForEach(dorm_trans =>
+                    dorm.DormitoriesTableTranslation.Where(r => r.LanguageId == filter.langId).ToList().ForEach(dorm_trans =>
                     {
                         listDormitories.Add(dorm_trans.DormitoryName);
                     });
@@ -2282,33 +875,25 @@ name_of_dormitoryPosted = obj.name_of_dormitory == null ? "" : obj.name_of_dormi
                 });
 
             }
-
-
-
-            //   listDormitories.Add("Marmara");
-            //listDormitories.Add("Marmara");
-            //listDormitories.Add("Marmara");
-            //listDormitories.Add("Marmara");
-            //listDormitories.Add("Marmara");
-
+            
             return PartialView("OptionsDropdownView", listDormitories);
         }
 
 
 
-        public class PostDummy
+        public class PostedDormitoryBasic
         {
             public string name_of_dormitory { get; set; }
             public int dormitory_type { get; set; }
         }
 
-        public class dormitory_struct
+        public class PostedDormitoryTypeLang
         {
             public int dormitory_type { get; set; }
             public int langId { get; set; }
         }
 
-        public class PostData2
+        public class PostedDormitoryFilters
         {
             public string name_of_dormitory { get; set; }
             public int dormitory_type { get; set; }
@@ -2341,7 +926,8 @@ name_of_dormitoryPosted = obj.name_of_dormitory == null ? "" : obj.name_of_dormi
             public int min { get; set; }
             public int max { get; set; }
         }
-        public class PostDataResponsive
+
+        public class PostedDormitoryFiltersResponsive
         {
             public string name_of_dormitory { get; set; }
             public int dormitory_type { get; set; }
