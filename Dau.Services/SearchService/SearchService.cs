@@ -1,13 +1,14 @@
 ﻿using Dau.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace Dau.Services.SearchService
 {
-   public class SearchService
+   public class SearchService : ISearchService
     {
 
         private fees_and_facilitiesContext _context = new fees_and_facilitiesContext();
@@ -187,6 +188,185 @@ namespace Dau.Services.SearchService
             return arr;
         }
 
-        
+        public List<SearchResultData> SortSeachResult(List<SearchResultData> query, string _sort_by)
+        {
+            if (_sort_by == "Price")
+                query = query.OrderBy(s => s.price_of_room).ToList();
+            else if (_sort_by == "a-z")
+                query = query.OrderBy(s => s.name_of_dormitory).ToList();
+            else if (_sort_by == "area")
+                query = query.OrderBy(s => s.room_area).ToList();
+            return query;
+        }
+
+
+        public List<SearchResultData> Filtering(List<SearchResultData> query, PostedDormitoryFilters filter, ArrayList sa)
+        {
+            if (filter.dormitory_type == 0)
+            {
+                foreach (var q in sa)
+                    query = query
+                   .Where(item =>
+                     item.name_of_dormitory.Contains(filter.name_of_dormitory) &&
+
+                    item.room_area >= filter.room_areaMin && item.room_area <= filter.room_areaMax &&
+                      item.price_of_room >= filter.min_price_of_room && item.price_of_room <= filter.max_price_of_room
+                      &&
+                     item.facility.Any(fac => fac.facility_name.Contains(q.ToString()))
+                      )
+                   .ToList();
+            }
+            else
+            {
+                foreach (var q in sa)
+                    query = query
+                   .Where(item =>
+                      item.name_of_dormitory.Contains(filter.name_of_dormitory) &&
+                      item.dormitory_type == filter.dormitory_type &&
+                      item.room_area >= filter.room_areaMin && item.room_area <= filter.room_areaMax &&
+                      item.price_of_room >= filter.min_price_of_room && item.price_of_room <= filter.max_price_of_room &&
+                      item.facility.Any(fac => fac.facility_name.Contains(q.ToString())))
+                   .ToList();
+            }
+
+            return query;
+        }
+
+        public List<SearchResultData> Filtering(List<SearchResultData> query, PostedDormitoryFiltersResponsive filter, ArrayList sa)
+        {
+            if (filter.dormitory_type == 0)
+            {
+                foreach (var q in sa)
+                    query = query
+                   .Where(item =>
+                     item.name_of_dormitory.Contains(filter.name_of_dormitory) &&
+                     item.facility.Any(fac => fac.facility_name.Contains(q.ToString()))
+                      )
+                   .ToList();
+
+
+
+            }
+            else
+            {
+                foreach (var q in sa)
+                    query = query
+                   .Where(item =>
+                      item.name_of_dormitory.Contains(filter.name_of_dormitory) &&
+                      item.dormitory_type == filter.dormitory_type &&
+                      item.facility.Any(fac => fac.facility_name.Contains(q.ToString())))
+                   .ToList();
+            }
+
+
+            ///highest to lowest
+            foreach (var q in sa)
+                query = query
+               .Where(item =>
+                  (item.price_of_room >= filter.price_greater_than_6000.min && item.price_of_room <= filter.price_greater_than_6000.max)
+
+                  )
+               .ToList();
+
+            foreach (var q in sa)
+                query = query
+               .Where(item =>
+                  (item.price_of_room >= filter.price_5000_to_6000.min && item.price_of_room <= filter.price_5000_to_6000.max)
+
+                  )
+               .ToList();
+
+            foreach (var q in sa)
+                query = query
+               .Where(item =>
+
+                  (item.price_of_room >= filter.price_4000_to_4999.min && item.price_of_room <= filter.price_4000_to_4999.max)
+
+                  )
+               .ToList();
+
+
+            foreach (var q in sa)
+                query = query
+               .Where(item =>
+                  (item.price_of_room >= filter.price_3000_to_3499.min && item.price_of_room <= filter.price_3000_to_3499.max)
+
+                  )
+               .ToList();
+
+
+
+
+            foreach (var q in sa)
+                query = query
+               .Where(item =>
+
+                 (item.price_of_room >= filter.price_2500_to_2999.min && item.price_of_room <= filter.price_2500_to_2999.max)
+
+                  )
+               .ToList();
+
+
+
+            foreach (var q in sa)
+                query = query
+               .Where(item =>
+
+
+                  item.price_of_room >= filter.price_2000_to_2499.min && item.price_of_room <= filter.price_2000_to_2499.max
+
+                  )
+               .ToList();
+
+
+            //end highest to lowest
+
+
+
+
+            //highest to lowest begin
+            foreach (var q in sa)
+                query = query
+               .Where(item =>
+
+                  (item.room_area >= filter.room_area_greater_than_30.min && item.room_area <= filter.room_area_greater_than_30.max)
+
+                  )
+               .ToList();
+
+
+
+            foreach (var q in sa)
+                query = query
+               .Where(item =>
+
+                  (item.room_area >= filter.room_area_26_to_30.min && item.room_area <= filter.room_area_26_to_30.max)
+
+                  )
+               .ToList();
+
+            foreach (var q in sa)
+                query = query
+               .Where(item =>
+
+                  (item.room_area >= filter.room_area_21_to_25.min && item.room_area <= filter.room_area_21_to_25.max)
+
+                  )
+               .ToList();
+
+
+            foreach (var q in sa)
+                query = query
+               .Where(item =>
+
+
+               (item.room_area >= filter.room_area_10_to_20.min && item.room_area <= filter.room_area_10_to_20.max)
+
+                  )
+               .ToList();
+
+
+            return query;
+        }
     }
 }

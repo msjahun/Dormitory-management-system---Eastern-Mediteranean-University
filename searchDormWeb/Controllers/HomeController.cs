@@ -11,6 +11,7 @@ using System.Globalization;
 using Dau.Services.SearchService;
 using Microsoft.Extensions.Localization;
 using Dau.Data;
+using Dau.Services.Dormitory;
 
 namespace searchDormWeb.Controllers
 {
@@ -19,8 +20,9 @@ namespace searchDormWeb.Controllers
     public class HomeController : Controller
     {
         private readonly IStringLocalizer<HomeController> _localizer;
-        private fees_and_facilitiesContext _context = new fees_and_facilitiesContext();
-        private SearchService _searchService = new SearchService();
+        private ISearchService _searchService = new SearchService();
+        private IDormitoryService _dormitoryService = new DormitoryService();
+
 
         public HomeController(IStringLocalizer<HomeController> localizer)
         {
@@ -198,43 +200,12 @@ namespace searchDormWeb.Controllers
             var query = _searchService.GetSearchData(filter.langId);
 
             //filtering
-            if (filter.dormitory_type == 0)
-            {
-                foreach (var q in sa)
-                    query = query
-                   .Where(item =>
-                     item.name_of_dormitory.Contains(filter.name_of_dormitory) &&
-
-                    item.room_area >= filter.room_areaMin&& item.room_area <= filter.room_areaMax &&
-                      item.price_of_room >=  filter.min_price_of_room && item.price_of_room <= filter.max_price_of_room
-                      &&
-                     item.facility.Any(fac => fac.facility_name.Contains(q.ToString()))
-                      )
-                   .ToList();
-            }
-            else
-            {
-                foreach (var q in sa)
-                    query = query
-                   .Where(item =>
-                      item.name_of_dormitory.Contains(filter.name_of_dormitory) &&
-                      item.dormitory_type == filter.dormitory_type &&
-                      item.room_area >= filter.room_areaMin&& item.room_area <= filter.room_areaMax &&
-                      item.price_of_room >= filter.min_price_of_room  && item.price_of_room <= filter.max_price_of_room &&
-                      item.facility.Any(fac => fac.facility_name.Contains(q.ToString())))
-                   .ToList();
-            }
-
-
+            query = _searchService.Filtering(query, filter, sa);
+            
 
             //sorting
-            if (filter.sort_by== "Price")
-                query = query.OrderBy(s => s.price_of_room).ToList();
-            else if (filter.sort_by== "a-z")
-                query = query.OrderBy(s => s.name_of_dormitory).ToList();
-            else if (filter.sort_by== "area")
-                query = query.OrderBy(s => s.room_area).ToList();
-            
+            query = _searchService.SortSeachResult(query, filter.sort_by);
+
             return PartialView("SearchResultParialView", query);
 
 
@@ -320,43 +291,13 @@ namespace searchDormWeb.Controllers
 
             var query = _searchService.GetSearchData(filter.langId);
 
+            //filtering
 
-            if (filter.dormitory_type == 0)
-            {
-                foreach (var q in sa)
-                    query = query
-                   .Where(item =>
-                     item.name_of_dormitory.Contains(filter.name_of_dormitory) &&
+            query = _searchService.Filtering(query, filter, sa);
+            
 
-                    item.room_area >= filter.room_areaMin&& item.room_area <= filter.room_areaMax &&
-                      item.price_of_room >= filter.min_price_of_room  && item.price_of_room <= filter.max_price_of_room
-                      &&
-                     item.facility.Any(fac => fac.facility_name.Contains(q.ToString()))
-                      )
-                   .ToList();
-            }
-            else
-            {
-                foreach (var q in sa)
-                    query = query
-                   .Where(item =>
-                      item.name_of_dormitory.Contains(filter.name_of_dormitory) &&
-                      item.dormitory_type == filter.dormitory_type &&
-                      item.room_area >= filter.room_areaMin&& item.room_area <= filter.room_areaMax &&
-                      item.price_of_room >= filter.min_price_of_room  && item.price_of_room <= filter.max_price_of_room &&
-                      item.facility.Any(fac => fac.facility_name.Contains(q.ToString())))
-                   .ToList();
-            }
-
-
-
-
-            if (filter.sort_by== "Price")
-                query = query.OrderBy(s => s.price_of_room).ToList();
-            else if (filter.sort_by== "a-z")
-                query = query.OrderBy(s => s.name_of_dormitory).ToList();
-            else if (filter.sort_by== "area")
-                query = query.OrderBy(s => s.room_area).ToList();
+            //sorting
+            query = _searchService.SortSeachResult(query, filter.sort_by);
 
             //ViewBag.PaginationCountCount = Math.Ceiling((decimal)(query.Count / 8));
 
@@ -492,146 +433,12 @@ namespace searchDormWeb.Controllers
 
             var query = _searchService.GetSearchData(filter.langId);
 
-            
-            if (filter.dormitory_type == 0)
-            {
-                foreach (var q in sa)
-                    query = query
-                   .Where(item =>
-                     item.name_of_dormitory.Contains(filter.name_of_dormitory) &&
-                     item.facility.Any(fac => fac.facility_name.Contains(q.ToString()))
-                      )
-                   .ToList();
+            //filtering
+            query = _searchService.Filtering(query, filter, sa);
 
 
-
-            }
-            else
-            {
-                foreach (var q in sa)
-                    query = query
-                   .Where(item =>
-                      item.name_of_dormitory.Contains(filter.name_of_dormitory) &&
-                      item.dormitory_type == filter.dormitory_type &&
-                      item.facility.Any(fac => fac.facility_name.Contains(q.ToString())))
-                   .ToList();
-            }
-
-            
-            ///highest to lowest
-            foreach (var q in sa)
-                query = query
-               .Where(item =>
-                  (item.price_of_room >= filter.price_greater_than_6000.min && item.price_of_room <= filter.price_greater_than_6000.max)
-
-                  )
-               .ToList();
-
-            foreach (var q in sa)
-                query = query
-               .Where(item =>
-                  (item.price_of_room >= filter.price_5000_to_6000.min&& item.price_of_room <= filter.price_5000_to_6000.max)
-
-                  )
-               .ToList();
-
-            foreach (var q in sa)
-                query = query
-               .Where(item =>
-
-                  (item.price_of_room >= filter.price_4000_to_4999.min && item.price_of_room <= filter.price_4000_to_4999.max)
-
-                  )
-               .ToList();
-
-
-            foreach (var q in sa)
-                query = query
-               .Where(item =>
-                  (item.price_of_room >= filter.price_3000_to_3499.min&& item.price_of_room <= filter.price_3000_to_3499.max)
-
-                  )
-               .ToList();
-
-
-
-
-            foreach (var q in sa)
-                query = query
-               .Where(item =>
-
-                 (item.price_of_room >= filter.price_2500_to_2999.min && item.price_of_room <= filter.price_2500_to_2999.max)
-
-                  )
-               .ToList();
-
-
-
-            foreach (var q in sa)
-                query = query
-               .Where(item =>
-
-
-                  item.price_of_room >= filter.price_2000_to_2499.min && item.price_of_room <= filter.price_2000_to_2499.max
-
-                  )
-               .ToList();
-
-
-            //end highest to lowest
-
-
-
-
-            //highest to lowest begin
-            foreach (var q in sa)
-                query = query
-               .Where(item =>
-
-                  (item.room_area >= filter.room_area_greater_than_30.min&& item.room_area <= filter.room_area_greater_than_30.max)
-
-                  )
-               .ToList();
-
-
-
-            foreach (var q in sa)
-                query = query
-               .Where(item =>
-
-                  (item.room_area >= filter.room_area_26_to_30.min && item.room_area <= filter.room_area_26_to_30.max)
-
-                  )
-               .ToList();
-
-            foreach (var q in sa)
-                query = query
-               .Where(item =>
-
-                  (item.room_area >= filter.room_area_21_to_25.min && item.room_area <= filter.room_area_21_to_25.max)
-
-                  )
-               .ToList();
-
-
-            foreach (var q in sa)
-                query = query
-               .Where(item =>
-
-
-               (item.room_area >= filter.room_area_10_to_20.min && item.room_area <= filter.room_area_10_to_20.max )
-
-                  )
-               .ToList();
-
-
-
-            if (filter.sort_by== "Price")
-                query = query.OrderBy(s => s.price_of_room).ToList();
-            else if (filter.sort_by== "a-z")
-                query = query.OrderBy(s => s.name_of_dormitory).ToList();
-            else if (filter.sort_by== "area")
-                query = query.OrderBy(s => s.room_area).ToList();
+            //sorting
+            query = _searchService.SortSeachResult(query, filter.sort_by);
 
             //ViewBag.PaginationCountCount = Math.Ceiling((decimal)(query.Count / 8));
             return PartialView("SearchResultParialView", query);
@@ -690,280 +497,26 @@ namespace searchDormWeb.Controllers
 
             var query = _searchService.GetSearchData(filter.langId);
 
-            
-            if (filter.dormitory_type == 0)
-            {
-                foreach (var q in sa)
-                    query = query
-                   .Where(item =>
-                     item.name_of_dormitory.Contains(filter.name_of_dormitory) &&
-                     item.facility.Any(fac => fac.facility_name.Contains(q.ToString()))
-                      )
-                   .ToList();
-                
-            }
-            else
-            {
-                foreach (var q in sa)
-                    query = query
-                   .Where(item =>
-                      item.name_of_dormitory.Contains(filter.name_of_dormitory) &&
-                      item.dormitory_type == filter.dormitory_type &&
-                      item.facility.Any(fac => fac.facility_name.Contains(q.ToString())))
-                   .ToList();
-            }
 
-            
-            ///highest to lowest
-            foreach (var q in sa)
-                query = query
-               .Where(item =>
-                  (item.price_of_room >= filter.price_greater_than_6000.min && item.price_of_room <= filter.price_greater_than_6000.max)
+            //filtering
+            query = _searchService.Filtering(query, filter, sa);
 
-                  )
-               .ToList();
-
-            foreach (var q in sa)
-                query = query
-               .Where(item =>
-                  (item.price_of_room >= filter.price_5000_to_6000.min&& item.price_of_room <= filter.price_5000_to_6000.max)
-
-                  )
-               .ToList();
-
-            foreach (var q in sa)
-                query = query
-               .Where(item =>
-
-                  (item.price_of_room >= filter.price_4000_to_4999.min && item.price_of_room <= filter.price_4000_to_4999.max)
-
-                  )
-               .ToList();
-
-
-            foreach (var q in sa)
-                query = query
-               .Where(item =>
-                  (item.price_of_room >= filter.price_3000_to_3499.min&& item.price_of_room <= filter.price_3000_to_3499.max)
-
-                  )
-               .ToList();
-
-
-
-
-            foreach (var q in sa)
-                query = query
-               .Where(item =>
-
-                 (item.price_of_room >= filter.price_2500_to_2999.min && item.price_of_room <= filter.price_2500_to_2999.max)
-
-                  )
-               .ToList();
-
-
-
-            foreach (var q in sa)
-                query = query
-               .Where(item =>
-
-
-                  item.price_of_room >= filter.price_2000_to_2499.min && item.price_of_room <= filter.price_2000_to_2499.max
-
-                  )
-               .ToList();
-
-
-            //end highest to lowest
-
-
-
-
-            //highest to lowest begin
-            foreach (var q in sa)
-                query = query
-               .Where(item =>
-
-                  (item.room_area >= filter.room_area_greater_than_30.min&& item.room_area <= filter.room_area_greater_than_30.max)
-
-                  )
-               .ToList();
-
-
-
-            foreach (var q in sa)
-                query = query
-               .Where(item =>
-
-                  (item.room_area >= filter.room_area_26_to_30.min && item.room_area <= filter.room_area_26_to_30.max)
-
-                  )
-               .ToList();
-
-            foreach (var q in sa)
-                query = query
-               .Where(item =>
-
-                  (item.room_area >= filter.room_area_21_to_25.min && item.room_area <= filter.room_area_21_to_25.max)
-
-                  )
-               .ToList();
-
-
-            foreach (var q in sa)
-                query = query
-               .Where(item =>
-
-
-               (item.room_area >= filter.room_area_10_to_20.min && item.room_area <= filter.room_area_10_to_20.max)
-
-                  )
-               .ToList();
-
-
-
-            if (filter.sort_by== "Price")
-                query = query.OrderBy(s => s.price_of_room).ToList();
-            else if (filter.sort_by== "a-z")
-                query = query.OrderBy(s => s.name_of_dormitory).ToList();
-            else if (filter.sort_by== "area")
-                query = query.OrderBy(s => s.room_area).ToList();
-
+            //sorting
+            query = _searchService.SortSeachResult(query, filter.sort_by);
             //ViewBag.PaginationCountCount = Math.Ceiling((decimal)(query.Count / 8));
             return PartialView("MapSearchResult_partialView", query);
 
 
         }
 
-
-
-
-
         public ActionResult GetDormitoriesBasedOnType(PostedDormitoryTypeLang data)
         {
             PostedDormitoryTypeLang filter = new PostedDormitoryTypeLang();
-
-        
-            var obj = data;
-            filter = obj;
-            filter.dormitory_type = obj.dormitory_type;
-            filter.langId = obj.langId;
-
+            filter = data;
             List<string> listDormitories = new List<string>();
-
-
-            listDormitories.Add("");
-
-            using (var context = _context)
-            {
-                var dormitories = context.DormitoriesTable
-                                    .Include(dormitory_trans => dormitory_trans.DormitoriesTableTranslation)
-                                    .Include(dormitory_room => dormitory_room.RoomTable)
-
-                                    .ToList();
-
-
-
-                context.DormitoriesTable.Where(d => d.DormitoryTypeId == filter.dormitory_type).ToList().ForEach(dorm =>
-                {
-                    dorm.DormitoriesTableTranslation.Where(r => r.LanguageId == filter.langId).ToList().ForEach(dorm_trans =>
-                    {
-                        listDormitories.Add(dorm_trans.DormitoryName);
-                    });
-
-
-                });
-
-            }
-            
+            listDormitories = _dormitoryService.GetListAllDormitoriesByLangAndType(filter.dormitory_type, filter.langId);
             return PartialView("OptionsDropdownView", listDormitories);
         }
-
-
-
-        public class PostedDormitoryBasic
-        {
-            public string name_of_dormitory { get; set; }
-            public int dormitory_type { get; set; }
-        }
-
-        public class PostedDormitoryTypeLang
-        {
-            public int dormitory_type { get; set; }
-            public int langId { get; set; }
-        }
-
-        public class PostedDormitoryFilters
-        {
-            public string name_of_dormitory { get; set; }
-            public int dormitory_type { get; set; }
-
-            public double min_price_of_room { get; set; }
-            public double max_price_of_room { get; set; }
-            public int room_areaMin { get; set; }
-            public int room_areaMax { get; set; }
-            public int langId { get; set; }
-
-            public string facility_TV { get; set; }
-            public string facility_Internet { get; set; }
-            public string facility_Wc_shower { get; set; }
-            public string facility_Kitchenette { get; set; }
-            public string facility_bed { get; set; }
-
-            public string facility_air_condition { get; set; }
-            public string facility_central_ac { get; set; }
-            public string facility_refrigerator { get; set; }
-            public string facility_laundry { get; set; }
-            public string facility_cafeteria { get; set; }
-            public string facility_room_tel { get; set; }
-            public string facility_generator { get; set; }
-            public string sort_by { get; set; }
-
-        }
-
-        public class MinMaxStruct
-        {
-            public int min { get; set; }
-            public int max { get; set; }
-        }
-
-        public class PostedDormitoryFiltersResponsive
-        {
-            public string name_of_dormitory { get; set; }
-            public int dormitory_type { get; set; }
-
-            public MinMaxStruct price_2000_to_2499 { get; set; }
-            public MinMaxStruct price_2500_to_2999 { get; set; }
-            public MinMaxStruct price_3000_to_3499 { get; set; }
-            public MinMaxStruct price_4000_to_4999 { get; set; }
-            public MinMaxStruct price_5000_to_6000 { get; set; }
-            public MinMaxStruct price_greater_than_6000 { get; set; }
-
-            public MinMaxStruct room_area_10_to_20 { get; set; }
-            public MinMaxStruct room_area_21_to_25 { get; set; }
-            public MinMaxStruct room_area_26_to_30 { get; set; }
-            public MinMaxStruct room_area_greater_than_30 { get; set; }
-
-
-            public int langId { get; set; }
-
-            public string facility_TV { get; set; }
-            public string facility_Internet { get; set; }
-            public string facility_Wc_shower { get; set; }
-            public string facility_Kitchenette { get; set; }
-            public string facility_bed { get; set; }
-
-            public string facility_air_condition { get; set; }
-            public string facility_central_ac { get; set; }
-            public string facility_refrigerator { get; set; }
-            public string facility_laundry { get; set; }
-            public string facility_cafeteria { get; set; }
-            public string facility_room_tel { get; set; }
-            public string facility_generator { get; set; }
-            public string sort_by { get; set; }
-
-        }
-
 
 
     }
