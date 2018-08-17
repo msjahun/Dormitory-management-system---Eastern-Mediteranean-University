@@ -1,0 +1,28 @@
+﻿
+@{
+    var widget_zone = Model;
+
+
+
+
+}<!-- select -->
+
+
+<div class="form-group">
+    <label>@ViewBag.ContentFormat_filter_select_dormitory_type</label>
+    <select class="form-control"  id="selectedDormitoryType_@widget_zone">
+       
+        <option value="0"></option>
+        <option value="1">@ViewBag.ContentFormat_filter_dormitory_type_emu_dormitories</option>
+        <option value="2">@ViewBag.ContentFormat_filter_dormitory_type_bot_dormitories</option>
+    </select>
+</div>
+
+<!-- select -->
+<div class="form-group">
+    <label>@ViewBag.ContentFormat_filter_select_dormitory_name</label>
+    <select class="form-control"   id="selectedDormitoryName_@widget_zone">
+        <option></option>
+        
+    </select>
+</div>

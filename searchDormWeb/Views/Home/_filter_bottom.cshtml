@@ -1,0 +1,238 @@
+﻿@{
+    var widget_zone = Model;
+
+
+    
+
+}
+<div class="visible-lg visible-md">
+    <h4>@ViewBag.ContentFormat_filter_header_price</h4>
+    <input type="text" id="minimal_price_range_@widget_zone" value="" class="slider form-control" data-slider-min="200" data-slider-max="8000"
+           data-slider-step="5" data-slider-value="[1000,7000]" data-slider-orientation="horizontal"
+           data-slider-selection="before" data-slider-id="red">
+</div>
+
+<div class="hidden-md hidden-lg">
+    <h4>@ViewBag.ContentFormat_filter_header_price</h4>
+    <div class="radio">
+        <label>
+            <input type="radio"  id="minimal-price_2000_to_2499_@widget_zone"  name ="minimal-price" class="flat-red">
+            @ViewBag.ContentFormat_filter_options_price_responsive_2000_to_2499
+        </label>
+    </div>
+
+    <div class="radio">
+        <label>
+            <input type="radio" id="minimal-price_2500_to_2999_@widget_zone" name="minimal-price" class="flat-red">
+            @ViewBag.ContentFormat_filter_options_price_responsive_2500_to_2999
+        </label>
+    </div>
+
+    <div class="radio">
+        <label>
+            <input type="radio"  id="minimal-price_3000_to_3499_@widget_zone"  name ="minimal-price" class="flat-red">
+            @ViewBag.ContentFormat_filter_options_price_responsive_3000_to_3499
+        </label>
+    </div>
+
+    <div class="radio">
+        <label>
+            <input type="radio"  id="minimal-price_4000_to_4999_@widget_zone"   name ="minimal-price" class="flat-red">
+            @ViewBag.ContentFormat_filter_options_price_responsive_4000_to_4999
+        </label>
+    </div>
+
+    <div class="radio">
+        <label>
+            <input type="radio"  id="minimal-price_5000_to_6000_@widget_zone"   name ="minimal-price" class="flat-red">
+            @ViewBag.ContentFormat_filter_options_price_responsive_5000_to_6000
+        </label>
+    </div>
+
+    <div class="radio">
+        <label>
+            <input type="radio"  id="minimal-price_greater_than_6000_@widget_zone"  name ="minimal-price" class="flat-red">
+            @ViewBag.ContentFormat_filter_options_price_responsive_greater_than_6000
+        </label>
+    </div>
+</div>
+
+
+<div class="visible-lg visible-md">
+    <h4>@ViewBag.ContentFormat_filter_header_room_area</h4>
+    <input type="text"  id="minimal_room_area_range_@widget_zone" value="" class="slider form-control" data-slider-min="0" data-slider-max="60"
+           data-slider-step="1" data-slider-value="[4,40]" data-slider-orientation="horizontal"
+           data-slider-selection="before" data-slider-id="yellow">
+</div>
+<div class="hidden-md hidden-lg">
+    <h4>@ViewBag.ContentFormat_filter_header_room_area</h4>
+    <div class="radio">
+        <label>
+            <input type="radio" id="minimal-room_area_10_to_20_@widget_zone" name="minimal-room_area" class="flat-red">
+            @ViewBag.ContentFormat_filter_options_room_area_responsive_10m2_to_20m2
+        </label>
+    </div>
+
+
+    <div class="radio">
+        <label>
+            <input type="radio" id="minimal-room_area_21_to_25_@widget_zone"  name ="minimal-room_area" class="flat-red">
+            @ViewBag.ContentFormat_filter_options_room_area_responsive_21m2_to_25m2
+        </label>
+    </div>
+
+    <div class="radio">
+        <label>
+            <input type="radio" id="minimal-room_area_26_to_30_@widget_zone"  name ="minimal-room_area" class="flat-red">
+            @ViewBag.ContentFormat_filter_options_room_area_responsive_26m2_to_30m2
+        </label>
+    </div>
+
+    <div class="radio">
+        <label>
+            <input type="radio" id="minimal-room_area_greater_than_30_@widget_zone"  name ="minimal-room_area" class="flat-red">
+            @ViewBag.ContentFormat_filter_options_room_area_responsive_greater_than_30m2
+        </label>
+    </div>
+
+</div>
+<h4>@ViewBag.ContentFormat_filter_head_tv</h4>
+<div class="form-group">
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" id="minimal-radio-tv-room_@widget_zone" name="minimal-radio-tv" class="flat-red">
+            @ViewBag.ContentFormat_filter_option_tv_room
+        </label>
+    </div>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" id="minimal-radio-tv-hall_@widget_zone" name="minimal-radio-tv" class="flat-red">
+            @ViewBag.ContentFormat_filter_option_tv_hall
+        </label>
+    </div>
+</div>
+
+
+<h4>@ViewBag.ContentFormat_filter_head_internet</h4>
+<div class="form-group">
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" id="minimal-radio-internet-wireless_@widget_zone" name="minimal-radio-internet" class="flat-red">
+            @ViewBag.ContentFormat_filter_option_internet_wireless
+        </label>
+    </div>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" id="minimal-radio-internet-cable_@widget_zone" name="minimal-radio-internet" class="flat-red">
+            @ViewBag.ContentFormat_filter_option_internt_cable
+        </label>
+    </div>
+</div>
+
+<h4>@ViewBag.ContentFormat_filter_header_wc_shower</h4>
+<div class="form-group">
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" id="minimal-radio-wc-room_@widget_zone" name="minimal-radio-wc" class="flat-red">
+           @ViewBag.ContentFormat_filter_option_wc_shower_room
+        </label>
+    </div>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" id="minimal-radio-wc-common_@widget_zone" name="minimal-radio-wc" class="flat-red">
+            @ViewBag.ContentFormat_filter_option_wc_shower_common
+        </label>
+    </div>
+
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" id="minimal-radio-wc-flats_@widget_zone" name="minimal-radio-wc" class="flat-red">
+            @ViewBag.ContentFormat_filter_option_wc_shower_flats
+        </label>
+    </div>
+</div>
+
+<h4>@ViewBag.ContentFormat_filter_header_kitchenette</h4>
+<div class="form-group">
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" id="minimal-radio-kitchenette-room_@widget_zone" name="minimal-radio-kitchenette" class="flat-red">
+            @ViewBag.ContentFormat_filter_option_kitchenette_room
+        </label>
+    </div>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" id="minimal-radio-kitchenette-flats_@widget_zone" name="minimal-radio-kitchenette" class="flat-red">
+            @ViewBag.ContentFormat_filter_option_kitchenette_flats
+        </label>
+    </div>
+</div>
+
+<h4>@ViewBag.ContentFormat_filter_header_bed</h4>
+<div class="form-group">
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" id="minimal-radio-bed-bunk_@widget_zone" name="minimal-radio-bed" class="flat-red">
+           @ViewBag.ContentFormat_filter_option_bed_bunk
+        </label>
+    </div>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" id="minimal-radio-bed-normal_@widget_zone" name="minimal-radio-bed" class="flat-red">
+            @ViewBag.ContentFormat_filter_option_bed_normal
+        </label>
+    </div>
+</div>
+
+<h4>@ViewBag.ContentFormat_filter_header_nececities</h4>
+<div class="checkbox">
+    <label>
+        <input type="checkbox" id="minimal-checkbox-air_condition_@widget_zone" class="flat-red">
+        @ViewBag.ContentFormat_filter_option_air_condition
+    </label>
+</div>
+
+<div class="checkbox">
+    <label>
+        <input type="checkbox" id="minimal-checkbox-central_@widget_zone" class="flat-red">
+       @ViewBag.ContentFormat_filter_option_center_heating_cooling
+    </label>
+</div>
+
+<div class="checkbox">
+    <label>
+        <input type="checkbox" id="minimal-checkbox-refriferator_@widget_zone" class="flat-red">
+        @ViewBag.ContentFormat_filter_option_refrigerator
+    </label>
+</div>
+
+<div class="checkbox">
+    <label>
+        <input type="checkbox" id="minimal-checkbox-Laundry_@widget_zone" class="flat-red">
+        @ViewBag.ContentFormat_filter_option_laundry
+    </label>
+</div>
+
+
+<div class="checkbox">
+    <label>
+        <input type="checkbox" id="minimal-checkbox-cafeteria_@widget_zone" class="flat-red">
+       @ViewBag.ContentFormat_filter_option_cafeteria
+    </label>
+</div>
+
+
+<div class="checkbox">
+    <label>
+        <input type="checkbox" id="minimal-checkbox-room_@widget_zone" class="flat-red">
+        @ViewBag.ContentFormat_filter_option_room_tel
+    </label>
+</div>
+
+
+<div class="checkbox">
+    <label>
+        <input type="checkbox" id="minimal-checkbox-generator_@widget_zone" class="flat-red">
+        @ViewBag.ContentFormat_filter_option_generator
+    </label>
+</div>

@@ -1,0 +1,311 @@
+﻿
+@{
+    ViewBag.Title = "Users";
+    Layout = "../shared/_LayoutAdmin.cshtml";
+}
+
+
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            @ViewBag.Title
+            <small>Optional description</small>
+        </h1>
+        <div class="row">
+            <div class=" col-md-12">
+                <div class="upper_left pull-right">
+
+                    <button type="submit" class="btn btn-primary "> <i class="fa fa-plus-square"></i> Add New</button>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-success btn-flat">Export</button>
+                        <button type="button" class="btn btn-success btn-flat dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main content -->
+    <!-- Main content -->
+    <section class="content container-fluid">
+
+        <!--------------------------
+        | Your Page Content Here |
+        -------------------------->
+
+        <div class="col-md-12">
+            <!-- Horizontal Form -->
+            <div class="box box-primary">
+                <div class="box-header"></div>
+                <!-- /.box-header -->
+                <!-- form start -->
+                <form class="form-horizontal">
+                    <div class="box-body">
+                        <div class="row">
+                            <div class=" col-md-6">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-4 control-label">Email <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                    <div class="col-sm-4">
+                                        <input type="email" class="form-control" id="inpugtEmail3" placeholder="Email">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-4 control-label">First name <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                    <div class="col-sm-3">
+                                        <input type="password" class="form-control" id="inputPassfdword3" placeholder="Password">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-4 control-label">Last name <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                    <div class="col-sm-4">
+                                        <input type="password" class="form-control" id="inputPassfwords3" placeholder="Password">
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-4 control-label">Date of birth <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                    <div class="col-sm-4">
+                                        <input type="password" class="form-control" id="inputPassgwords3" placeholder="Password">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class=" col-md-6">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-4 control-label">Phone <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                    <div class="col-sm-4">
+                                        <input type="email" class="form-control" id="inpugtEmail3" placeholder="Email">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-4 control-label">IP address <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                    <div class="col-sm-4">
+                                        <input type="password" class="form-control" id="inputPassfdword3" placeholder="Password">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-4 control-label">Customer role <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                    <div class="col-sm-4">
+                                        <input type="password" class="form-control" id="inputPassfwords3" placeholder="Password">
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-search"></i> Search</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+
+                </form>
+            </div>
+
+
+
+            <div class="box">
+
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox"></th>
+                                <th>Email</th>
+                                <th>Name</th>
+                                <th>User role</th>
+                                <th>Phone</th>
+                                <th>Active</th>
+                                <th>Created on</th>
+                                <th>Last activity</th>
+                                <th>Edit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td>msjahun@live.com</td>
+                                <td>Musa Suleiman Jahun</td>
+                                <td>Administrator</td>
+                                <td>+905338264432</td>
+                                <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                                <td>12/23/18 10:00AM</td>
+                                <td>12/23/18 11:00AM</td>
+                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td>msjahun@live.com</td>
+                                <td>Musa Suleiman Jahun</td>
+                                <td>Administrator</td>
+                                <td>+905338264432</td>
+                                <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                                <td>12/23/18 10:00AM</td>
+                                <td>12/23/18 11:00AM</td>
+                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td>msjahun@live.com</td>
+                                <td>Musa Suleiman Jahun</td>
+                                <td>Administrator</td>
+                                <td>+905338264432</td>
+                                <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                                <td>12/23/18 10:00AM</td>
+                                <td>12/23/18 11:00AM</td>
+                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td>msjahun@live.com</td>
+                                <td>Musa Suleiman Jahun</td>
+                                <td>Administrator</td>
+                                <td>+905338264432</td>
+                                <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                                <td>12/23/18 10:00AM</td>
+                                <td>12/23/18 11:00AM</td>
+                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td>msjahun@live.com</td>
+                                <td>Musa Suleiman Jahun</td>
+                                <td>Administrator</td>
+                                <td>+905338264432</td>
+                                <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                                <td>12/23/18 10:00AM</td>
+                                <td>12/23/18 11:00AM</td>
+                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td>msjahun@live.com</td>
+                                <td>Musa Suleiman Jahun</td>
+                                <td>Administrator</td>
+                                <td>+905338264432</td>
+                                <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                                <td>12/23/18 10:00AM</td>
+                                <td>12/23/18 11:00AM</td>
+                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td>msjahun@live.com</td>
+                                <td>Musa Suleiman Jahun</td>
+                                <td>Administrator</td>
+                                <td>+905338264432</td>
+                                <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                                <td>12/23/18 10:00AM</td>
+                                <td>12/23/18 11:00AM</td>
+                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td>msjahun@live.com</td>
+                                <td>Musa Suleiman Jahun</td>
+                                <td>Administrator</td>
+                                <td>+905338264432</td>
+                                <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                                <td>12/23/18 10:00AM</td>
+                                <td>12/23/18 11:00AM</td>
+                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                            </tr>
+
+
+                        </tbody>
+
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+
+        </div>
+
+
+    </section>
+    <!-- /.content -->
+    <!-- /.content -->
+</div>
+
+@section styles {
+
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/Ionicons/css/ionicons.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/skins/_all-skins.min.css">
+}
+
+
+@section scripts
+{
+
+    <script src="@Url.Content("~/Content/")bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="@Url.Content("~/Content/")bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="@Url.Content("~/Content/")dist/js/adminlte.min.js"></script>
+    <script src="@Url.Content("~/Content/")bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="@Url.Content("~/Content/")bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="@Url.Content("~/Content/")bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="@Url.Content("~/Content/")bower_components/fastclick/lib/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <!-- AdminLTE for demo purposes -->
+    <script src="@Url.Content("~/Content/")dist/js/demo.js"></script>
+    <!-- page script -->
+    <script>
+        $(function () {
+            $('#example').DataTable()
+            $('#example1').DataTable({
+                'paging': true,
+                'lengthChange': true,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': true
+            })
+        })
+    </script>
+}
+

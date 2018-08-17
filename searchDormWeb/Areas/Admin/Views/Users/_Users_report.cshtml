@@ -1,0 +1,500 @@
+﻿
+@{
+    ViewBag.Title = "Users report";
+    Layout = "../shared/_LayoutAdmin.cshtml";
+}
+
+
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            @ViewBag.Title
+            <small>Optional description</small>
+        </h1>
+        <div class="row">
+            <div class=" col-md-12">
+                <div class="upper_left pull-right">
+
+                    <button type="submit" class="btn btn-danger "> <i class="fa fa-trash"></i> Delete</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main content -->
+    <!-- Main content -->
+    <section class="content container-fluid">
+
+        <!--------------------------
+    | Your Page Content Here |
+    -------------------------->
+
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Custom Tabs -->
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab_1" data-toggle="tab">Users by booking total amount</a></li>
+                        <li><a href="#tab_2" data-toggle="tab">Users by number of reservation</a></li>
+                        <li><a href="#tab_3" data-toggle="tab">Registered users</a></li>
+                     
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab_1">
+                            <div class="">
+                                <!-- Horizontal Form -->
+                                <div class="">
+                                    <div class=""></div>
+                                    <!-- /.box-header -->
+                                    <!-- form start -->
+                                    <form class="form-horizontal">
+                                        <div class="box-body">
+                                            <div class="form-group">
+                                                <label for="inputEmail3" class="col-sm-2 control-label">Start date <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                <div class="col-sm-4">
+                                                    <input type="email" class="form-control" id="inpugtEmail3" placeholder="Email">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="inputPassword3" class="col-sm-2 control-label">End date <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                <div class="col-sm-4">
+                                                    <input type="password" class="form-control" id="inputPassfdword3" placeholder="Password">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="inputPassword3" class="col-sm-2 control-label">Booking status <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                <div class="col-sm-4">
+                                                    <input type="password" class="form-control" id="inputPassfwords3" placeholder="Password">
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label for="inputPassword3" class="col-sm-2 control-label">Payment status <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                <div class="col-sm-4">
+                                                    <input type="password" class="form-control" id="inputPassgwords3" placeholder="Password">
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <div class="col-sm-offset-2 col-sm-10">
+                                                    <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-line-chart"></i> Run report</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.box-body -->
+
+                                    </form>
+                                </div>
+
+
+
+                                <div class="">
+
+                                    <!-- /.box-header -->
+                                    <div class="">
+                                        <table id="table1" class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>User</th>
+                                                    <th>Booking total</th>
+                                                    <th>Number of bookings</th>
+                                                    <th>View</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>info@sampleMail.com</td>
+                                                    <td>$183,53.00</td>
+                                                    <td>1</td>
+                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>msjahun@live.com</td>
+                                                    <td>$183,53.00</td>
+                                                    <td>1</td>
+                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>msjahun@live.com</td>
+                                                    <td>$183,53.00</td>
+                                                    <td>1</td>
+                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>msjahun@live.com</td>
+                                                    <td>$183,53.00</td>
+                                                    <td>1</td>
+                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>msjahun@live.com</td>
+                                                    <td>$183,53.00</td>
+                                                    <td>1</td>
+                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>msjahun@live.com</td>
+                                                    <td>$183,53.00</td>
+                                                    <td>1</td>
+                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>msjahun@live.com</td>
+                                                    <td>$183,53.00</td>
+                                                    <td>1</td>
+                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>msjahun@live.com</td>
+                                                    <td>$183,53.00</td>
+                                                    <td>1</td>
+                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>msjahun@live.com</td>
+                                                    <td>$183,53.00</td>
+                                                    <td>1</td>
+                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>msjahun@live.com</td>
+                                                    <td>$183,53.00</td>
+                                                    <td>1</td>
+                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>msjahun@live.com</td>
+                                                    <td>$183,53.00</td>
+                                                    <td>1</td>
+                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>msjahun@live.com</td>
+                                                    <td>$183,53.00</td>
+                                                    <td>1</td>
+                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                </tr>
+
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                    <!-- /.box-body -->
+                                </div>
+                                <!-- /.box -->
+
+                            </div>
+
+
+                        </div>
+                        <!-- /.tab-pane -->
+
+
+
+
+
+
+
+
+                        <div class="tab-pane" id="tab_2">
+                            <div class="">
+                                <!-- Horizontal Form -->
+                                <div class="">
+                                    <div class=""></div>
+                                    <!-- /.box-header -->
+                                    <!-- form start -->
+                                    <form class="form-horizontal">
+                                        <div class="box-body">
+                                            <div class="form-group">
+                                                <label for="inputEmail3" class="col-sm-2 control-label">Start date <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                <div class="col-sm-4">
+                                                    <input type="email" class="form-control" id="inpugtEmail3" placeholder="Email">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="inputPassword3" class="col-sm-2 control-label">End date <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                <div class="col-sm-4">
+                                                    <input type="password" class="form-control" id="inputPassfdword3" placeholder="Password">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="inputPassword3" class="col-sm-2 control-label">Booking status <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                <div class="col-sm-4">
+                                                    <input type="password" class="form-control" id="inputPassfwords3" placeholder="Password">
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label for="inputPassword3" class="col-sm-2 control-label">Payment status <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                <div class="col-sm-4">
+                                                    <input type="password" class="form-control" id="inputPassgwords3" placeholder="Password">
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <div class="col-sm-offset-2 col-sm-10">
+                                                    <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-line-chart"></i> Run report</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.box-body -->
+
+                                    </form>
+                                </div>
+
+
+
+                                <div class="">
+
+                                    <!-- /.box-header -->
+                                    <div class="">
+                                        <table id="table2" class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>User</th>
+                                                    <th>Booking total</th>
+                                                    <th>Number of bookings</th>
+                                                    <th>View</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>msjahun@live.com</td>
+                                                    <td>$183,53.00</td>
+                                                    <td>1</td>
+                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>msjahun@live.com</td>
+                                                    <td>$183,53.00</td>
+                                                    <td>1</td>
+                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>msjahun@live.com</td>
+                                                    <td>$183,53.00</td>
+                                                    <td>1</td>
+                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>msjahun@live.com</td>
+                                                    <td>$183,53.00</td>
+                                                    <td>1</td>
+                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>msjahun@live.com</td>
+                                                    <td>$183,53.00</td>
+                                                    <td>1</td>
+                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>msjahun@live.com</td>
+                                                    <td>$183,53.00</td>
+                                                    <td>1</td>
+                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>msjahun@live.com</td>
+                                                    <td>$183,53.00</td>
+                                                    <td>1</td>
+                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>msjahun@live.com</td>
+                                                    <td>$183,53.00</td>
+                                                    <td>1</td>
+                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>msjahun@live.com</td>
+                                                    <td>$183,53.00</td>
+                                                    <td>1</td>
+                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>msjahun@live.com</td>
+                                                    <td>$183,53.00</td>
+                                                    <td>1</td>
+                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>msjahun@live.com</td>
+                                                    <td>$183,53.00</td>
+                                                    <td>1</td>
+                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>msjahun@live.com</td>
+                                                    <td>$183,53.00</td>
+                                                    <td>1</td>
+                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                </tr>
+                                                
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                    <!-- /.box-body -->
+                                </div>
+                                <!-- /.box -->
+
+                            </div>
+
+
+                        </div>
+                        <!-- /.tab-pane -->
+
+
+
+
+
+
+
+
+
+
+                        <div class="tab-pane" id="tab_3">
+                            <div class="">
+                                <div class="">
+
+                                    <!-- /.box-header -->
+                                    <div class="">
+                                        <table id="table3" class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Period</th>
+                                                    <th>Count</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>In the last 7 days</td>
+                                                    <td>1</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>In the last 14 days</td>
+                                                    <td>45</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>In the last Month</td>
+                                                    <td>34</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>In the last last year</td>
+                                                    <td>13</td>
+                                                </tr>
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                    <!-- /.box-body -->
+                                </div>
+                                <!-- /.box -->
+
+                            </div>
+
+
+                        </div>
+                        <!-- /.tab-pane -->
+                    </div>
+                    <!-- /.tab-content -->
+                </div>
+                <!-- nav-tabs-custom -->
+            </div>
+            <!-- /.col -->
+
+        </div>
+       
+
+    </section>
+    <!-- /.content -->
+    <!-- /.content -->
+</div>
+
+@section styles {
+
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/Ionicons/css/ionicons.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/skins/_all-skins.min.css">
+}
+
+
+@section scripts
+{
+
+    <script src="@Url.Content("~/Content/")bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="@Url.Content("~/Content/")bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="@Url.Content("~/Content/")dist/js/adminlte.min.js"></script>
+    <script src="@Url.Content("~/Content/")bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="@Url.Content("~/Content/")bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="@Url.Content("~/Content/")bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="@Url.Content("~/Content/")bower_components/fastclick/lib/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <!-- AdminLTE for demo purposes -->
+    <script src="@Url.Content("~/Content/")dist/js/demo.js"></script>
+    <!-- page script -->
+    <script>
+        $(function () {
+            $('#table1').DataTable({
+                'paging': true,
+                'lengthChange': true,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': true
+            });
+
+            $('#table2').DataTable({
+                'paging': true,
+                'lengthChange': true,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': true
+            });
+
+            $('#table3').DataTable({
+                'paging': false,
+                'lengthChange': true,
+                'searching': false,
+                'ordering': false,
+                'info': false,
+                'autoWidth': true
+            });
+        })
+    </script>
+}
+

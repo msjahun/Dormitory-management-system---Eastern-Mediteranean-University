@@ -1,0 +1,301 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<!-- Main content -->
+<!-- Main content -->
+<input type="hidden" id="hiddenLanguageId" value="@ViewBag.ContentFormat_language_id">
+<section class="content">
+    <div class="row">
+        <div class="hidden-xs col-sm-4 col-md-3" id="first_column">
+
+      
+            
+
+
+
+            <div class="">
+                <div class="box box-primary box-solid">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">@ViewBag.Contentfilter_header_filter_by</h3>
+
+
+                        <!-- /.box-tools -->
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-default"> @ViewBag.ContentFormat_btn_clear_filter</button>
+                            <button type="button" id="btnSubmit" class="btn btn-primary pull-right hidden-xs hidden-sm"> @ViewBag.ContentFormat_btn_apply_filter</button>
+                            <button type="button" id="btnSubmitResponsive" class="btn btn-danger pull-right visible-xs visible-sm">@ViewBag.ContentFormat_btn_apply_filter</button>
+                        </div>
+
+                        @if (true)
+                        {
+                            Html.RenderPartial("_filter_top", "main_topside");
+
+                        }
+
+
+
+                        @if (true)
+                        {
+                            Html.RenderPartial("_filter_bottom", "main_topside");
+                        }
+
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+
+            <div class="pull-right dark_hover hidden-xs " data-toggle="modal" data-target="#modal-map" id="map_image_side">
+                <img class="img-responsive " src="@Url.Content("~/Content/")dist/img/Map_icon.png"  alt="Map" />
+               <p>@ViewBag.ContentFormat_map_view</p> 
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-9 col-sm-8" id="second_column">
+
+            <div class="row" id="second_column_first_row">
+                <div class="col-xs-10" id="text_and_search_result_area">
+
+                    <h4>@ViewBag.ContentFormat_emu_intro_text</h4>
+                   @* <label> @ViewBag.ContentFormat_search_result_text 38 rooms found </label>*@
+                    </div>
+
+                <div class="col-xs-2 dark_hover hidden-xs" data-toggle="modal" data-target="#modal-map" id="map_image_top">
+                    <img class="img-responsive " src="@Url.Content("~/Content/")dist/img/Map_icon.png"  alt="Map" />
+                    <p>@ViewBag.ContentFormat_map_view</p>
+                </div>
+
+            </div>
+
+            <!--content-->
+
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h4 class="visible-xs">@ViewBag.ContentFormat_sort_by</h4>
+
+
+                    <div class="btn-group btn-group-justified" data-toggle="buttons">
+                        <label class="btn btn-warning active" id="sort_price_btn_label">
+                            <input type="radio" id="sort_price_btn" name="options" autocomplete="off" checked><i class=" fa fa-sort-amount-asc hidden-xs"></i>  @ViewBag.ContentFormat_sort_by_price
+                        </label>
+                        <label class="btn btn-warning" id="sort_alpha_btn_label">
+                            <input type="radio" name="options" id="sort_alpha_btn" autocomplete="off">  <i class="fa fa-sort-alpha-asc hidden-xs"></i> @ViewBag.ContentFormat_sort_by_az
+                        </label>
+                        <label class="btn btn-warning" id="sort_roomArea_btn_label" >
+                            <input type="radio" name="options" id="sort_roomArea_btn" autocomplete="off"><i class=" fa fa-sort-amount-asc hidden-xs"></i>  @ViewBag.ContentFormat_sort_by_area
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <!-- this is where search results are displayed-->
+
+            <div id="search_results">
+            </div>
+
+
+            <!-- /.box -->
+            <!-- /.box-header -->
+
+
+
+            <div class="modal fade col-md-12 " id="modal-map">
+                <div class="modal-dialog modal-lg modal-dialog-custom hidden-xs">
+                    <div class="modal-content modal-content-custom ">
+
+                        <div class="modal-body ">
+                            <div class="row">
+                                <div class="col-md-3 col-lg-2 hidden-xs hidden-sm" id="map_filter_column">
+
+                                    <div class="box box-primary box-solid">
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title">@ViewBag.Contentfilter_header_filter_by</h3>
+
+
+                                            <!-- /.box-tools -->
+                                        </div>
+                                        <!-- /.box-header -->
+                                        <div class="box-body">
+                                            <div>
+                                                <div class="box-footer">
+                                                    <button type="button" class="btn btn-default ">@ViewBag.ContentFormat_btn_clear_filter</button>
+                                                    <button type="button" id="search_btn_modal_map" class="btn btn-warning pull-right hidden-sm hidden-xs">@ViewBag.ContentFormat_btn_apply_filter</button>
+                                                    <button type="button" id="search_btn_modal_map_responsive" class="btn bg-purple pull-right visible-sm visible-xs">@ViewBag.ContentFormat_btn_apply_filter</button>
+                                                </div>
+                                                @if (true)
+                                                {
+                                                    Html.RenderPartial("_filter_top", "modal_map");
+                                                    Html.RenderPartial("_filter_bottom", "modal_map");
+                                                }
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-3 col-sm-4 col-xs-3 col-lg-3">
+                                    
+
+
+                                    <h3>@ViewBag.ContentFormat_results_from_map_text</h3>
+                                    <div  id="map_result_column">
+                                        <div id="map_list_result">
+                                            @if (true)
+                                            {
+                                                Html.RenderPartial("LoaderMiniSearchMap");
+                                            }
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6 col-lg-7 col-sm-8 col-xs-9 pull-right">
+                                    <div class="modal-header">
+
+
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div id="map_area_column">
+
+
+
+
+
+                                        <!-- /.box-header -->
+
+
+
+                                        <div class="box  col-xs-12 box-solid border_hover" style="display: inline-block; padding: 0px; margin: 0px; width: 100%; height: 94vh;">
+
+                                            <!-- /.box-header -->
+                                            <div class="box-body">
+                                                <img src="@Url.Content("~/Content/")dist/img/map_loader.png" class="cover_map_loader" style="width:100%; height:92vh; " alt="Photo">
+
+                                            </div>
+                                            <div class="overlay">
+                                                <i class="fa fa-refresh fa-spin"></i>
+                                            </div>
+                                            <!-- /.box-body -->
+                                        </div>
+
+                                    </div>
+                                    <!-- /.box-body -->
+                                    <!-- /.box-body -->
+                                </div>
+
+                                <div class="fab visible-sm" id="masterfab" data-toggle="modal" data-target="#modal-default_fab_map">
+                                    <span class="glyphicon glyphicon-filter"> </span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+
+
+            <div class="modal fade" id="modal-default_fab_map">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title">@ViewBag.Contentfilter_header_filter_by</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left">@ViewBag.ContentFormat_btn_clear_filter</button>
+                            <button type="button" id="search_btn_modal-default_fab_map" data-dismiss="modal" class="btn btn-info">@ViewBag.ContentFormat_btn_apply_filter</button>
+                        </div>
+
+                        <div class="modal-body">
+
+
+                            @if (true)
+                            {
+                                Html.RenderPartial("_filter_top", "modal-default_fab_map");
+                                Html.RenderPartial("_filter_bottom", "modal-default_fab_map");
+                            }
+
+
+
+                        </div>
+
+
+
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+
+
+            <div class="modal fade" id="modal-default">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title">@ViewBag.Contentfilter_header_filter_by</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left">@ViewBag.ContentFormat_btn_clear_filter</button>
+                            <button type="button" id="search_btn_responsive_modal" data-dismiss="modal" class="btn btn-success">@ViewBag.ContentFormat_btn_apply_filter</button>
+                        </div>
+
+                        <div class="modal-body">
+
+
+                            @if (true)
+                            {
+                                Html.RenderPartial("_filter_top", "modal_responsive");
+                                Html.RenderPartial("_filter_bottom", "modal_responsive");
+                            }
+
+
+
+                        </div>
+
+
+
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+
+
+            <!-- /.modal -->
+            <div class="fab visible-xs" id="masterfab" data-toggle="modal" data-target="#modal-default">
+                <span class="glyphicon glyphicon-filter"> </span>
+            </div>
+            <!-- /.box-body -->
+        </div>
+
+
+
+    </div>
+
+
+</section>
+<!-- /.content -->
+

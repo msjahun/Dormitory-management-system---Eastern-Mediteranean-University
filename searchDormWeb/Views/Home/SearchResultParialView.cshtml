@@ -1,0 +1,141 @@
+﻿
+@{
+    var items = Model;
+    //item.name_of_dormitory
+    //item.name_of_room
+    //item.price_of_room
+    //item. gender_allocation
+    //item.dormitory_type
+    //item.dormitory_address
+    //item.room_area
+    //item.num_rooms_left
+    //item.url_of_room_image
+    //item.facility
+    //item.dormitory_account
+    //item.bank_name
+    //item.turkish_lira_account_number
+    //item.usd_account_number
+    //item.room_price_currency
+    //item.dormitory_website
+    //facility_name
+    //  facility_icon_url
+
+    int counter = 0;
+}
+
+@if (items.Count > 0)
+{
+<label> @ViewBag.ContentFormat_search_result_text @items.Count @ViewBag.ContentFormat_rooms_found</label>
+        foreach (var item in items)
+        {
+
+            <div class="box box-default box-solid border_hover">
+
+                <!-- /.box-header -->
+                <div class="box-body">
+
+                    <div class="row">
+
+                        <!-- /.col -->
+                        <div class="col-md-5 col-sm-12">
+                            <img class="img-responsive  cover" src="@Url.Content("~/Content/")@item.url_of_room_image" height="300" alt="Photo">
+                            <button type="button" class="btn btn-success btn-block btn-flat" data-toggle="collapse" style="margin-top: 15px" data-target="#accountNumber@(counter)" aria-expanded="false" aria-controls="account_number_table">@ViewBag.ContentFormat_account_number_text </button>
+                        </div>
+
+                        <div class="col-md-7 col-sm-12">
+
+
+                            <a href="@item.dormitory_website" target="_blank"><h3>@item.name_of_dormitory </h3></a>
+                            <p class="green_hover"><span style="color:#fec135">@item.name_of_room  </span> @item.gender_allocation </p>
+
+
+
+
+                            <div class="row ">
+                                @foreach (var facility in item.facility)
+                                {
+
+
+
+                                    <div class="col-xs-6 dark_hover">
+                                        <img src="@Url.Content("~/Content/")@facility.facility_icon_url" alt="Photo"> <label>@facility.facility_name</label>
+                                    </div>}
+
+
+
+                                <div class="col-xs-6 green_hover">
+                                    <img src="@Url.Content("~/Content/")Dormitories_files/room_area.jpg" alt="Photo"> <label>@ViewBag.ContentFormat_sort_by_area: @item.room_area </label>
+                                </div>
+
+
+
+
+
+
+
+                                <div class="col-xs-6 green_hover">
+                                    <img src="@Url.Content("~/Content/")Dormitories_files/price.png" alt="Photo"> <label>@ViewBag.ContentFormat_sort_by_price: @item.room_price_currency @item.price_of_room</label>
+                                </div>
+
+
+
+
+
+
+                            </div>
+
+
+                        </div>
+
+                        <!-- /.col -->
+                        <div id="accountNumber@(counter++)" class="collapse">
+                            <table class="table table-hover">
+                                <tbody>
+
+                                    @foreach (var acct in item.turkish_lira_account_number)
+                                    {
+                                        <tr>
+                                            <td> </td>
+                                            <th>Turkish Liras</th>
+                                            <td>@acct</td>
+
+
+
+                                        </tr>
+                                    }
+
+                                    @foreach (var acct in item.usd_account_number)
+                                    {
+                                        <tr>
+                                            <td> </td>
+                                            <th>USD</th>
+                                            <td>@acct</td>
+
+
+
+                                        </tr>
+                                    }
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+                <!--div class="overlay">
+                    <i class="fa fa-refresh fa-spin"></i>
+                  </div-->
+                <!-- /.box-body -->
+            </div>
+        }
+
+
+        @*if (true)
+            {
+                Html.RenderPartial("PaginationView", (int)Math.Ceiling((double)items.Count/10));
+            }*@
+
+    }
+

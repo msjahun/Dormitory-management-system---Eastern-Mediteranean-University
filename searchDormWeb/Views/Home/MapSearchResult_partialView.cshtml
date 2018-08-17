@@ -1,0 +1,198 @@
+﻿
+@{
+    var items = Model;
+    //item.name_of_dormitory
+    //item.name_of_room
+    //item.price_of_room
+    //item. gender_allocation
+    //item.dormitory_type
+    //item.dormitory_address
+    //item.room_area
+    //item.num_rooms_left
+    //item.url_of_room_image
+    //item.facility
+    //item.dormitory_account
+    //item.bank_name
+    //item.turkish_lira_account_number
+    //item.usd_account_number
+    //item.room_price_currency
+    //item.dormitory_website
+    //facility_name
+    //  facility_icon_url
+    var ending = "},";
+    var count = 0;
+
+}
+
+<label> @ViewBag.ContentFormat_search_result_text @items.Count @ViewBag.ContentFormat_rooms_found</label>
+@foreach (var item in items)
+{
+
+
+<div class="box box-success box-solid green_border_hover" value="@count">
+    @{count++;}
+    <!-- /.box-header -->
+    <div class="box-body">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- /.col -->
+                <div class="col-md-12 col-sm-12 col-lg-5">
+                    <img class="img-responsive border_hover_map" src="@Url.Content("~/Content/")@item.url_of_room_image" height="580" alt="Photo">
+                </div>
+
+                <div class="col-md-12 col-lg-7 col-sm-12">
+
+                    <h4>
+                        <a href="@item.dormitory_website" target="_blank">@item.name_of_dormitory  <small class="visible-sm">| @item.name_of_room</small> <small class="visible-sm"> | @item.gender_allocation</small> </a>
+                    </h4>
+                    <h4 class="hidden-sm">  <small> @item.name_of_room</small></h4>
+
+                    <h4 class="hidden-sm">   <small> @item.gender_allocation</small></h4>
+
+                </div>
+
+            </div>
+            <!-- /.col -->
+            <div class="col-xs-6 col-sm-12 col-md-6 green_hover_no_hover">
+                <span class="hidden-sm hidden-xs ">   <img src="@Url.Content("~/Content/")Dormitories_files/price.png" alt="Photo"> <label> @ViewBag.ContentFormat_sort_by_price: @item.room_price_currency @item.price_of_room</label></span>
+            </div>
+
+            <div class="col-xs-6 col-sm-12 col-md-6 green_hover_no_hover">
+                <span class="hidden-sm hidden-xs ">  <img src="@Url.Content("~/Content/")Dormitories_files/room_area.jpg" alt="Photo"> <label> @ViewBag.ContentFormat_sort_by_area: @item.room_area </label></span>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <!-- /.box-body -->
+
+
+</div>
+
+
+
+
+}
+
+
+@*if (true)
+{
+    Html.RenderPartial("PaginationView", 3);
+}*@
+
+
+
+
+<script>
+
+
+
+        function mapResultInit(map) {
+            //add a parameter for locations array
+            var LatLngArray = [
+            @foreach (var item in items)
+                {
+                   @:{contentString:
+                @:    '<div class="col-lg-12">' +
+                 @: '<!-- /.col -->' +
+                 @: '<div class="col-md-12 ">' +
+                 @:     '<img class="img-responsive border_hover_map" src="@Url.Content("~/Content/")@item.url_of_room_image" style="height: 137px; width: 205px alt="Photo">' +
+                 @: '</div>' +
+
+                  @:'<div class="col-md-12 ">' +
+
+                    @:  '<h4>' +
+                      @:    '<a href="@item.dormitory_website" target="_blank">@item.name_of_dormitory  <small class="visible-sm">| @item.name_of_room</small> <small class="visible-sm"> | @item.gender_allocation</small> </a>' +
+                    @: ' </h4>' +
+                    @:  '<h4 class="hidden-sm">  <small> @item.name_of_room</small></h4>' +
+
+                     @: '<h4 class="hidden-sm">   <small> @item.gender_allocation</small></h4>' +
+
+                 @: '</div>' +
+
+              @:'</div>' +
+              @:'<!-- /.col -->' +
+              @:'<div class="col-md-6 green_hover_no_hover">' +
+                @:  '<span class="hidden-sm hidden-xs ">   <img src="@Url.Content("~/Content/")Dormitories_files/price.png" alt="Photo"> <label> @ViewBag.ContentFormat_sort_by_price: @item.room_price_currency @item.price_of_room</label></span>' +
+            @: ' </div>' +
+
+             @: '<div class="col-md-6 green_hover_no_hover">' +
+              @:   ' <span class="hidden-sm hidden-xs ">  <img src="@Url.Content("~/Content/")Dormitories_files/room_area.jpg" alt="Photo"> <label> @ViewBag.ContentFormat_sort_by_area: @item.room_area </label></span>' +
+             @:' </div>'+
+
+         @:' </div>',
+                     @:  dormitory_name: "@item.name_of_dormitory",
+                   @:position: {lat: @item.map_latitude,
+                     @:lng: @item.map_longitude} @ending
+
+
+}
+
+    {
+                            dormitory_name :"alfam",
+                            position: {
+                                lat: 0,
+                                lng: 0
+                            }
+                        }
+
+
+            ];
+
+            var contentString = '<div id="content">' +
+                '<div id="siteNotice">' +
+                '</div>' +
+                '<h1 id="firstHeading" class="firstHeading"> </h1>' +
+                '<div id="bodyContent">' +
+                '<p> </p>' +
+                '</div>' +
+                '</div>';
+            markers = [];
+                for (var i = 0; i < LatLngArray.length; i++) {
+                    var marker = new google.maps.Marker({
+                        position: LatLngArray[i].position,
+                        animation: google.maps.Animation.DROP,
+                        title: LatLngArray[i].dormitory_name,
+                    });
+
+                    addMarker(marker, map, i * 200, LatLngArray[i].contentString);
+                    markers.push(marker);
+                }
+
+            }
+</script>
+
+<script>
+
+    $('.green_border_hover').click(
+        function () {
+            $(this).toggleClass('box-primary');
+           // alert("I have been clicked" + $(this).attr('value'));
+            new google.maps.event.trigger(markers[parseInt($(this).attr('value'))], 'click');
+        }
+
+    )
+
+    $('.green_border_hover').hover(
+        function () {
+            $(this).addClass('box-warning');
+            new google.maps.event.trigger(markers[parseInt($(this).attr('value'))], 'click');},
+        function () {
+            $(this).removeClass('box-success');
+            new google.maps.event.trigger(markers[parseInt($(this).attr('value'))], 'click');}
+    )
+
+    $('.green_border_hover').mouseleave(
+
+        function () {
+            $(this).addClass('box-success');
+            Console.log("hovering component");
+        },
+        function () { $(this).removeClass('box-warning') }
+    )
+
+
+</script>

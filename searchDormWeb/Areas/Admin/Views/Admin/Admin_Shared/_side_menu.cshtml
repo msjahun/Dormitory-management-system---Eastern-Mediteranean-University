@@ -1,0 +1,359 @@
+﻿
+@{
+
+    var currentController = ViewContext.RouteData.Values["controller"] as string ?? "Dashboard";
+    var currentAction = ViewContext.RouteData.Values["action"] as string ?? "Index";
+}
+
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- Sidebar user panel -->
+        @*<div class="user-panel">
+                <div class="pull-left image">
+                    <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                </div>
+                <div class="pull-left info">
+                    <p>Alexander Pierce</p>
+                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                </div>
+            </div>*@
+        <!-- search form -->
+        <form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search...">
+                <span class="input-group-btn">
+                    <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
+        <!-- /.search form -->
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu" data-widget="tree">
+            <li class="header">MAIN NAVIGATION</li>
+            <li class=" @(currentController=="Dashboard"? "active" : "")">
+                <a href="@Url.Action("DashboardEMUAdmin", "Dashboard")">
+                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                </a>
+                    @*    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="@Url.Action("DashboardEMUAdmin", "Dashboard")"><i class="fa fa-circle-o"></i> Dashboard EMU Admin</a></li>
+                    <li><a href="@Url.Action("DashboardDormManager", "Dashboard")"><i class="fa fa-circle-o"></i> Dashboard Dorm Manager</a></li>
+                </ul>*@
+            </li>
+
+
+
+            <li class="treeview   @(currentController=="Users" || currentController=="ActivityLog" ? "active" : "")">
+                <a href="#">
+                    <i class="fa fa-user"></i> <span>Users</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="@Url.Action("List", "Users")"><i class="fa fa-circle-o"></i> Users</a></li>
+                    <li><a href="@Url.Action("Roles", "Users")"><i class="fa fa-circle-o"></i> User roles</a></li>
+                    <li><a href="@Url.Action("OnlineUsers", "Users")"><i class="fa fa-circle-o"></i> Online Users</a></li>
+                    <li><a href="@Url.Action("UsersReport", "Users")"><i class="fa fa-circle-o"></i> Users report</a></li>
+
+                    @* <li class="treeview  @(currentController=="ActivityLog"? "active" : "")">
+            <a href="#">
+                <i class="fa fa-circle-o"></i> Activity log
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+            <li><a href="@Url.Action("Log", "ActivityLog")"><i class="fa fa-circle-o"></i> Activity log</a></li>
+            <li><a href="@Url.Action("Type", "ActivityLog")"><i class="fa fa-circle-o"></i> Activity type</a></li>
+
+        </ul>
+        </li>*@
+</ul>
+            </li>
+
+
+            <li class="treeview  @(currentController=="Catalog"? "active" : "")">
+                <a href="#">
+                    <i class="fa fa-book"></i> <span>Catalog</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="@Url.Action("Rooms", "Catalog")"><i class="fa fa-circle-o"></i> Rooms</a></li>
+                    <li><a href="@Url.Action("DormitoryBlocks", "Catalog")"><i class="fa fa-circle-o"></i> Dormitory blocks</a></li>
+
+                    <li><a href="@Url.Action("BulkRoomEdit", "Catalog")"><i class="fa fa-circle-o"></i> Bulk edit rooms</a></li>
+                    <li><a href="@Url.Action("RoomReviews", "Catalog")"><i class="fa fa-circle-o"></i> Room reviews</a></li>
+                    <li><a href="@Url.Action("LowQuotaReport", "Catalog")"><i class="fa fa-circle-o"></i> Low quota report</a></li>
+                    <li class="treeview  @(currentAction=="FacilitiesSpecificationAttrs"? "active" : "")">
+                        <a href="#">
+                            <i class="fa fa-circle-o"></i> Facilities
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+
+                            <li><a href="@Url.Action("FacilitiesSpecificationAttrs", "Catalog")"><i class="fa fa-circle-o"></i> Specification attributes</a></li>
+
+                        </ul>
+                    </li>
+
+
+
+                </ul>
+            </li>
+
+
+
+
+
+            @*<li class="treeview  @(currentController=="System"? "active" : "")">
+            <a href="#">
+                <i class="fa fa-cube"></i> <span>System</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="@Url.Action("Information", "System")"><i class="fa fa-circle-o"></i> System information</a></li>
+                <li><a href="@Url.Action("Log", "System")"><i class="fa fa-circle-o"></i> Log</a></li>
+
+                <li><a href="@Url.Action("Warnings", "System")"><i class="fa fa-circle-o"></i> Warnings</a></li>
+                <li><a href="@Url.Action("Maintenance", "System")"><i class="fa fa-circle-o"></i> Maintenance</a></li>
+                <li><a href="@Url.Action("MessageQueues", "System")"><i class="fa fa-circle-o"></i> Message queues</a></li>
+                <li><a href="@Url.Action("ScheduleTasks", "System")"><i class="fa fa-circle-o"></i> Schedule tasks</a></li>
+                <li><a href="@Url.Action("SEOFriendlyPageNames", "System")"><i class="fa fa-circle-o"></i> SEO friendly page names</a></li>
+            </ul>
+        </li>
+            *@
+
+
+
+            @* <li class="treeview  @(currentController=="Promotions"? "active" : "")">
+            <a href="#">
+                <i class="fa fa-tags"></i> <span>Promotions</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="@Url.Action("Discounts", "Promotions")"><i class="fa fa-circle-o"></i> Discounts</a></li>
+                <li><a href="@Url.Action("Affiliates", "Promotions")"><i class="fa fa-circle-o"></i> Affiliates</a></li>
+
+                <li><a href="@Url.Action("NewsLetterSubscribers", "Promotions")"><i class="fa fa-circle-o"></i> News letter subscribers</a></li>
+                <li><a href="@Url.Action("Campaigns", "Promotions")"><i class="fa fa-circle-o"></i> Campigns</a></li>
+            </ul>
+        </li>
+
+
+            *@
+
+            @* <li class="treeview  @(currentController=="Help"? "active" : "")">
+            <a href="#">
+                <i class="fa fa-question-circle"></i> <span>Help</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="@Url.Action("Topics", "Help")"><i class="fa fa-circle-o"></i> Help topics</a></li>
+                <li><a href="@Url.Action("FAQ", "Help")"><i class="fa fa-circle-o"></i> Frequently asked questions</a></li>
+
+            </ul>
+        </li>
+            *@
+
+            <li class="treeview  @(currentController=="ContentManagement"? "active" : "")">
+            <li class="treeview  @(currentController=="Reservations"? "active" : "")">
+                <a href="#">
+                    <i class="fa fa-shopping-cart"></i> <span>Reservations</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="@Url.Action("List", "Reservations")"><i class="fa fa-circle-o"></i> Reservations/bookings</a></li>
+                    <li><a href="@Url.Action("CancelRequest", "Reservations")"><i class="fa fa-circle-o"></i> Cancel reservations requests</a></li>
+
+                    <li><a href="@Url.Action("CurrentWishList", "Reservations")"><i class="fa fa-circle-o"></i> Current booking wishlist</a></li>
+                    <li><a href="@Url.Action("BestSellerRooms", "Reservations")"><i class="fa fa-circle-o"></i> Best seller/reserved rooms</a></li>
+                    <li><a href="@Url.Action("CountryReport", "Reservations")"><i class="fa fa-circle-o"></i> Country report</a></li>
+                    <li><a href="@Url.Action("RoomsNeverReserved", "Reservations")"><i class="fa fa-circle-o"></i> Rooms never reserved</a></li>
+                </ul>
+            </li>
+
+
+
+            <li class="treeview  @(currentController=="Configurations"? "active" : "")">
+                <a href="#">
+                    <i class="fa fa-gears"></i> <span>Configurations</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    @*  <li><a href="@Url.Action("EmailAccounts", "Configurations")"><i class="fa fa-circle-o"></i> Email accounts</a></li>                        *@
+                    <li><a href="@Url.Action("Dormitories", "Configurations")"><i class="fa fa-circle-o"></i> Dormitories</a></li>
+                    @*                                                                                                                                             *@
+                    @*  <li><a href="@Url.Action("Countries", "Configurations")"><i class="fa fa-circle-o"></i> Countries</a></li>                                 *@
+                    @*  <li><a href="@Url.Action("Languages", "Configurations")"><i class="fa fa-circle-o"></i> Languages</a></li>                                 *@
+                    @*  <li><a href="@Url.Action("Currencies", "Configurations")"><i class="fa fa-circle-o"></i> Currencies</a></li>                               *@
+                    @*  <li><a href="@Url.Action("AccessControlList", "Configurations")"><i class="fa fa-circle-o"></i> Access control lists</a></li>              *@
+                </ul>
+            </li>
+
+
+
+            @*     <li class="treeview  @(currentController=="ContentManagement"? "active" : "")">
+            <a href="#">
+                <i class="fa fa-cubes"></i> <span>Content management</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="@Url.Action("Topics", "ContentManagement")"><i class="fa fa-circle-o"></i> Topics(Pages)</a></li>
+                <li><a href="@Url.Action("MessageTemplates", "ContentManagement")"><i class="fa fa-circle-o"></i> Message templates</a></li>
+
+                <li><a href="@Url.Action("Polls", "ContentManagement")"><i class="fa fa-circle-o"></i> Polls</a></li>
+                <li><a href="@Url.Action("Survey", "ContentManagement")"><i class="fa fa-circle-o"></i> Survey</a></li>
+            </ul>
+        </li>*@
+
+
+
+            @*     <li class="treeview  @(currentController=="ContentManagement"? "active" : "")">
+        <li class="treeview  @(currentController=="Reviews"? "active" : "")">
+            <a href="#">
+                <i class="fa fa-comments"></i> <span>Reviews</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="@Url.Action("List", "Reviews")"><i class="fa fa-circle-o"></i> All Reviews</a></li>
+                <li><a href="@Url.Action("Reported", "Reviews")"><i class="fa fa-circle-o"></i> Reported </a></li>
+
+                <li><a href="@Url.Action("Flagged", "Reviews")"><i class="fa fa-circle-o"></i> Flagged </a></li>
+                <li><a href="@Url.Action("Deleted", "Reviews")"><i class="fa fa-circle-o"></i> Deleted </a></li>
+            </ul>
+        </li>*@
+
+
+
+            @*     <li class="treeview  @(currentController=="ContentManagement"? "active" : "")">
+        <li class="treeview  @(currentController=="Notifications"? "active" : "")">
+            <a href="#">
+                <i class="fa fa-bullhorn"></i> <span>Notifications</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="@Url.Action("List", "Notifications")"><i class="fa fa-circle-o"></i> Notifications</a></li>
+
+                <li><a href="@Url.Action("Announcements", "Notifications")"><i class="fa fa-circle-o"></i> Announcements</a></li>
+
+                <li><a href="@Url.Action("ManageAnnouncements", "Notifications")"><i class="fa fa-circle-o"></i> Manage Announcements</a></li>
+            </ul>
+        </li>*@
+
+
+
+
+
+
+
+
+            @*     <li class="treeview  @(currentController=="ContentManagement"? "active" : "")">
+        <li class="treeview  @(currentController=="MobileAppManager"? "active" : "")">
+            <a href="#">
+                <i class="fa fa-mobile"></i> <span>Mobile app Manager</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="@Url.Action("UsageReport", "MobileAppManager")"><i class="fa fa-circle-o"></i>Usage report</a></li>
+                <li><a href="@Url.Action("SendPushNotifications", "MobileAppManager")"><i class="fa fa-circle-o"></i> Send push notifications</a></li>
+
+
+
+
+
+            </ul>
+        </li>
+
+        <li class="treeview  @(currentController=="API"? "active" : "")">
+            <a href="#">
+                <i class="fa fa-plug"></i> APi
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="@Url.Action("Settings", "API")"><i class="fa fa-circle-o"></i> Setting</a></li>
+                <li><a href="@Url.Action("Client", "API")"><i class="fa fa-circle-o"></i> Client</a></li>
+                <li><a href="@Url.Action("Doc", "API")"><i class="fa fa-circle-o"></i> Doc</a></li>
+
+            </ul>
+        </li>*@
+
+
+
+
+            @*     <li class="treeview  @(currentController=="ContentManagement"? "active" : "")">
+            @*<li class="treeview">
+            <a href="#">
+                <i class="fa fa-share"></i> <span>Multilevel</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-circle-o"></i> Level One
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-circle-o"></i> Level Two
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
+            </ul>
+        </li>*@
+            @*<li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
+        <li class="header">LABELS</li>
+        <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
+        <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
+        <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>*@
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>
+
