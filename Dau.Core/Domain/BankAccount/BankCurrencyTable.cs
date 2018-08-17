@@ -13,8 +13,7 @@ namespace Dau.Core.Domain.BankAccount
 
         public int Id { get; set; }
         public int BankId { get; set; }
-        public string BankAddress { get; set; }
-        public string BankRegistrationNo { get; set; }
+    public int exchangeRage { get; set; }
         public string CurrencyName { get; set; }
 
         public DormitoryBankAccountTable Bank { get; set; }
