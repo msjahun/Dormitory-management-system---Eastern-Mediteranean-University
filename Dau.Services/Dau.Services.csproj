@@ -4,4 +4,9 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Dau.Core\Dau.Core.csproj" />
+    <ProjectReference Include="..\Dau.Data\Dau.Data.csproj" />
+  </ItemGroup>
+
 </Project>
