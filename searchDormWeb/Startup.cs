@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Dau.Data;
+using Dau.Services.SearchService;
+using Dau.Services.Dormitory;
+
 namespace searchDormWeb
 {
     public class Startup
@@ -24,10 +27,10 @@ namespace searchDormWeb
         public void ConfigureServices(IServiceCollection services)
         {
 
-            //var connection = @"Data Source=DARK-SHILLA\\SQLEXPRESS;Initial Catalog=fees_and_facilities;Integrated Security=True";
-
-            //services.AddDbContext<fees_and_facilitiesContext>(options => options.UseSqlServer(connection));
-           services.AddDbContext<fees_and_facilitiesContext>();
+           //adding our services to the ioc container
+            services.AddScoped<ISearchService, SearchService>();
+            services.AddScoped<IDormitoryService, DormitoryService>();
+            services.AddDbContext<fees_and_facilitiesContext>();
 
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 

@@ -13,6 +13,10 @@ namespace Dau.Services.SearchService
 
         private fees_and_facilitiesContext _context = new fees_and_facilitiesContext();
 
+        public SearchService(fees_and_facilitiesContext _context)
+        {
+            this._context = _context;
+        }
 
         public List<SearchResultData> GetSearchData(int langIDPosted)
         {
