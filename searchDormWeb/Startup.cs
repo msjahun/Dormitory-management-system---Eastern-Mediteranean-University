@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Globalization;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using searchDormWeb.Models;
-
+using Dau.Data;
 namespace searchDormWeb
 {
     public class Startup
@@ -31,9 +24,10 @@ namespace searchDormWeb
         public void ConfigureServices(IServiceCollection services)
         {
 
-            var connection = @"Data Source=DARK-SHILLA\\SQLEXPRESS;Initial Catalog=fees_and_facilities;Integrated Security=True";
+            //var connection = @"Data Source=DARK-SHILLA\\SQLEXPRESS;Initial Catalog=fees_and_facilities;Integrated Security=True";
 
-            services.AddDbContext<fees_and_facilitiesContext>(options => options.UseSqlServer(connection));
+            //services.AddDbContext<fees_and_facilitiesContext>(options => options.UseSqlServer(connection));
+           services.AddDbContext<fees_and_facilitiesContext>();
 
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 
