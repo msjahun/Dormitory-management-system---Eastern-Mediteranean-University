@@ -2,36 +2,24 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Diagnostics;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using searchDormWeb.Models;
 using System.Collections;
-using System.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Globalization;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.IO;
-using Dau.Core.Domain.BankAccount;
-using Dau.Core.Domain.Dormitory;
-using Dau.Core.Domain.Facility;
-using Dau.Core.Domain.Room;
-using Dau.Core.Domain.Language;
 
 using Microsoft.Extensions.Localization;
-
-using searchDormWeb.Models;
-
+using Dau.Data;
 
 namespace searchDormWeb.Controllers
 {
-    
+
 
     public class HomeController : Controller
     {
         private readonly IStringLocalizer<HomeController> _localizer;
+        private fees_and_facilitiesContext _context = new fees_and_facilitiesContext();
 
         public HomeController(IStringLocalizer<HomeController> localizer)
         {
@@ -233,7 +221,7 @@ namespace searchDormWeb.Controllers
             List<string> listRoom = new List<string>();
 
 
-            using (var context = new fees_and_facilitiesContext())
+            using (var context = _context)
             {
                 var dormitories = context.DormitoriesTable
                                     .Include(dormitory_trans => dormitory_trans.DormitoriesTableTranslation)
@@ -665,7 +653,7 @@ namespace searchDormWeb.Controllers
             List<string> listRoom = new List<string>();
 
 
-            using (var context = new fees_and_facilitiesContext())
+            using (var context = _context)
             {
                 var dormitories = context.DormitoriesTable
                                     .Include(dormitory_trans => dormitory_trans.DormitoriesTableTranslation)
@@ -1210,7 +1198,7 @@ namespace searchDormWeb.Controllers
             List<string> listRoom = new List<string>();
 
 
-            using (var context = new fees_and_facilitiesContext())
+            using (var context = _context)
             {
                 var dormitories = context.DormitoriesTable
                                     .Include(dormitory_trans => dormitory_trans.DormitoriesTableTranslation)
@@ -1808,7 +1796,7 @@ name_of_dormitoryPosted = obj.name_of_dormitory == null ? "" : obj.name_of_dormi
             List<string> listRoom = new List<string>();
 
 
-            using (var context = new fees_and_facilitiesContext())
+            using (var context = _context)
             {
                 var dormitories = context.DormitoriesTable
                                     .Include(dormitory_trans => dormitory_trans.DormitoriesTableTranslation)
@@ -2273,7 +2261,7 @@ name_of_dormitoryPosted = obj.name_of_dormitory == null ? "" : obj.name_of_dormi
 
             listDormitories.Add("");
 
-            using (var context = new fees_and_facilitiesContext())
+            using (var context = _context)
             {
                 var dormitories = context.DormitoriesTable
                                     .Include(dormitory_trans => dormitory_trans.DormitoriesTableTranslation)
