@@ -6,10 +6,12 @@ using Dau.Core.Domain.Dormitory;
 using Dau.Core.Domain.Facility;
 using Dau.Core.Domain.Room;
 using Dau.Core.Domain.Language;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Dau.Core.Domain.User;
 
 namespace Dau.Data
 {
-    public partial class fees_and_facilitiesContext : DbContext
+    public partial class fees_and_facilitiesContext : IdentityDbContext<User, UserRole,string>
     {
       
 
@@ -45,12 +47,15 @@ namespace Dau.Data
 
             
 
-                optionsBuilder.UseSqlServer("Data Source=DARK-SHILLA\\SQLEXPRESS;Initial Catalog=fees_and_facilities;Integrated Security=True");
+               optionsBuilder.UseSqlServer("Data Source=DARK-SHILLA\\SQLEXPRESS;Initial Catalog=fees_and_facilities;Integrated Security=True");
+              //  optionsBuilder.UseSqlServer("data source=193.140.173.173;initial catalog=SearchDormDb;user id=SearchDormUsr;password=ergec.senturk@emu.edu.tr;multipleactiveresultsets=True;");
             
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<AccountInformationParameter>(entity =>
             {
                 entity.ToTable("account_information_parameter");

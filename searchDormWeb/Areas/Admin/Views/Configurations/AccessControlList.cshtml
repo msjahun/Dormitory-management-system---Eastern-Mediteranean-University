@@ -1,11 +1,23 @@
-﻿
+﻿@using Dau.Core.Configuration.AccessControlList
+@using searchDormWeb.Areas.Admin.Models.Configuration
+
+@model RoleViewModel
+
 @{
     ViewBag.Title = "Access Control List";
     Layout = "../shared/_LayoutAdmin.cshtml";
+    var controllers = (IEnumerable<MvcControllerInfo>)ViewData["Controllers"];
+
+    List<SelectListItem> UserRoleList =(List<SelectListItem>) ViewData["CustomerRoles"];
+    var controllerUserRoleList = (List<AclMvcControllerInfo2>) ViewData["controllersList"];
+    var actionsList = (List<MvcActionInfoUserRole>)ViewData["ActionsList"];
 }
 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
+    <div id="alertACL">
+     
+    </div>
     <section class="content-header">
         <h1>
             Access control list
@@ -15,7 +27,8 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" class="btn btn-success "> <i class="fa fa-floppy-o "></i> Save</button>
+                    <button class="btn btn-success " id="saveBtn"> <i class="fa fa-floppy-o "></i> Save</button>
+                    @*<button class="btn btn-success " type="submit" form="aclForm" id="saveBtn"> <i class="fa fa-floppy-o "></i> Save</button>*@
                 </div>
             </div>
         </div>
@@ -30,7 +43,7 @@
         -------------------------->
 
         <div class="col-md-12">
-         
+
             <div class="box box-primary">
                 <div class="box-header">
                     <h3 class="box-title">Access  control list of permissions attached to customer roles. This specifies access rights of users to objects</h3>
@@ -41,64 +54,79 @@
                         <thead>
                             <tr>
                                 <th>Permission name</th>
-                                <th><input type="checkbox" />Administrators</th>
-                                <th><input type="checkbox" />Forum moderators</th>
-                                <th><input type="checkbox" />Guests</th>
-                                <th><input type="checkbox" />Dorm manager</th>
-                                <th><input type="checkbox" />Registered</th>
+                                @foreach (var userRole in UserRoleList)
+                                {
+                                    <th><input id="@userRole.Value" type="checkbox" />@userRole.Text</th>
+                                }
+                                @*<th><input id="allow_1" type="checkbox" />Administrators</th>
+                                    <th><input id="allow_2" type="checkbox" />DormitoryManager</th>
+                                    <th><input id="allow_3" type="checkbox" />Guests</th>
+                                    <th><input id="allow_4" type="checkbox" />Registered</th>*@
 
                             </tr>
                         </thead>
+
                         <tbody>
-                            <tr>
-                                <td>Access control list</td>
-                                <td><input type="checkbox" /></td>
-                                <td><input type="checkbox" /></td>
-                                <td><input type="checkbox" /></td>
-                                <td><input type="checkbox" /></td>
-                                <td><input type="checkbox" /></td>
-                            </tr>
-                            <tr>
-                                <td>Access control list</td>
-                                <td><input type="checkbox" /></td>
-                                <td><input type="checkbox" /></td>
-                                <td><input type="checkbox" /></td>
-                                <td><input type="checkbox" /></td>
-                                <td><input type="checkbox" /></td>
-                            </tr>
-                            <tr>
-                                <td>Access control list</td>
-                                <td><input type="checkbox" /></td>
-                                <td><input type="checkbox" /></td>
-                                <td><input type="checkbox" /></td>
-                                <td><input type="checkbox" /></td>
-                                <td><input type="checkbox" /></td>
-                            </tr>
-                            <tr>
-                                <td>Access control list</td>
-                                <td><input type="checkbox" /></td>
-                                <td><input type="checkbox" /></td>
-                                <td><input type="checkbox" /></td>
-                                <td><input type="checkbox" /></td>
-                                <td><input type="checkbox" /></td>
-                            </tr>
-                            <tr>
-                                <td>Access control list</td>
-                                <td><input type="checkbox" /></td>
-                                <td><input type="checkbox" /></td>
-                                <td><input type="checkbox" /></td>
-                                <td><input type="checkbox" /></td>
-                                <td><input type="checkbox" /></td>
-                            </tr>
-                            <tr>
-                                <td>Access control list</td>
-                                <td><input type="checkbox" /></td>
-                                <td><input type="checkbox" /></td>
-                                <td><input type="checkbox" /></td>
-                                <td><input type="checkbox" /></td>
-                                <td><input type="checkbox" /></td>
-                            </tr>
+                            <form class="form-horizontal" method="post" id="aclForm" asp-controller="Configurations" asp-action="AccessControlList">
+                                @foreach (var controller in controllers)
+                                {
+                                    string ControllerName;
+                                    {
+                                        ControllerName = controller.DisplayName ?? controller.Name;
+                                    }
+                                    @if (controller.Actions.Any())
+                                    {
+
+                                        @foreach (var action in controller.Actions)
+                                        {
+                                            string ActionName;
+
+                                            {
+                                                ActionName = action.DisplayName ?? action.Name;
+                                            }
+                                            <tr>
+                                                <td>
+                                                    @{ string AreaName;
+                                                        AreaName = controller.AreaName ?? "Public";
+                                                    }
+
+                                                    @AreaName.@ControllerName.@ActionName
+                                                </td>
+
+                                                @foreach (var userRole in UserRoleList)
+                                                {
+                                                    string isSelectedtext = "";
+                                                    int count = 0;
+                                                    foreach (var actionsItem in actionsList)
+                                                    {
+                                                        if (actionsItem.UserRole == userRole.Value.ToString() && actionsItem.Name == action.Name && actionsItem.ControllerName == controller.Name && controller.AreaName == actionsItem.AreaName && actionsItem.isSelected == true)
+                                                        {
+                                                            isSelectedtext = "checked";
+                                                            count++;
+                                                        }
+                                                    }
+                                                    <td><input class="_@userRole.Value" value="@controller.AreaName.@controller.Name;@action.Name" @isSelectedtext type="checkbox" /></td>
+                                                }
+                                                @*<td><input class="allow_1" value="@AreaName.@controller.Name;@action.Name" type="checkbox" /></td>
+                                                    <td><input class="allow_2" value="@AreaName.@controller.Name;@action.Name" type="checkbox" /></td>
+                                                    <td><input class="allow_3" value="@AreaName.@controller.Name;@action.Name" type="checkbox" /></td>
+                                                    <td><input class="allow_4" value="@AreaName.@controller.Name;@action.Name" type="checkbox" /></td>*@
+
+                                            </tr>
+
+
+
+
+
+
+                                        }
+
+                                    }
+                                }
+
+                            </form>
                         </tbody>
+
 
                     </table>
                 </div>
@@ -133,7 +161,7 @@
 
 
 @section scripts
-{
+    {
 
     <script src="@Url.Content("~/Content/")bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap 3.3.7 -->
@@ -152,16 +180,101 @@
     <!-- page script -->
     <script>
         $(function () {
-            $('#example').DataTable()
-            $('#example1').DataTable({
-                'paging': false,
-                'lengthChange': true,
-                'searching': false,
-                'ordering': false,
-                'info': false,
-                'autoWidth': true
+            var array = [];
+            var UserRoleArr = [];
+            var mini = [];
+            $('#saveBtn').click(function () {
+              array = [];
             })
-        })
+
+            @foreach (var userRole in UserRoleList)
+                                    {
+
+              @:$("#@userRole.Value").change(function () {
+              @:if (this.checked) { $("._@userRole.Value").prop('checked', true); }
+              @:else { $("._@userRole.Value").prop('checked', false); }
+              @:  });
+
+
+             @:   $('#saveBtn').click(function() {
+
+             @:   $('._@userRole.Value:checkbox:checked').each(function () {
+             @:           var sThisVal = (this.checked ? $(this).val() : "");
+
+        @:  var Area = sThisVal.substr(0, sThisVal.indexOf('.'));
+        @:  var controller = sThisVal.substring(sThisVal.lastIndexOf(".") + 1, sThisVal.lastIndexOf(";"));
+        @: var Action = sThisVal.split(';')[1];
+
+             @: array.push({ "UserRole": "@userRole.Value", "Area": Area, "Controller": controller, "Action": Action});
+             @:       });
+             @:     })
+
+
+
+            }
+
+
+
+
+
+
+
+            //function ReArrangeDate(Role) {
+            //    var row;
+
+            //    for( row in array){
+            //     //   alert(array[row].UserRole + Role);
+
+            //        if (array[row].UserRole == Role) {
+            //          //  alert("i have entered if" + array[row].UserRole+ Role)
+            //            mini.push({ "Area": array[row].Area, "Controller": array[row].Controller, "Action": array[row].Action });
+            //            //    console.log(mini);
+            //             }
+
+            //        }
+            //  UserRoleArr.push({ "UserRole": Role, data: mini});
+
+            //}
+
+
+            $('#saveBtn').click(function () {
+               // console.log(array);
+                UserRoleArr = [];
+                 @*@foreach (var userRole in UserRoleList)
+                 {
+                    @: mini = [];
+                    @:ReArrangeDate( "@userRole.Value");
+
+                 }*@
+
+             var send =   JSON.stringify(UserRoleArr);
+                console.log(UserRoleArr);
+                $.ajax({
+                type: "POST",
+                    url: "/Admin/Configurations/AccessControlList",
+                    data: {
+                        data: array
+                    },
+                    success: function (result) {
+                        //alert("I have returned");
+                        document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-success alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <h4><i class=\"icon fa fa-check\"></i> Success!</h4>Access control list updated successfully.</div>";
+                }
+            })
+
+            })
+
+                $('#example').DataTable()
+                $('#example1').DataTable({
+                         'paging': false,
+                    'lengthChange': true,
+                    'searching': false,
+                    'ordering': false,
+                    'info': false,
+                    'autoWidth': true
+                })
+
+            })
+
     </script>
 }
 

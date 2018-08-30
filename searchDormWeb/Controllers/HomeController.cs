@@ -12,11 +12,13 @@ using Dau.Services.SearchService;
 using Microsoft.Extensions.Localization;
 using Dau.Data;
 using Dau.Services.Dormitory;
+using System.ComponentModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace searchDormWeb.Controllers
 {
 
-
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly IStringLocalizer<HomeController> _localizer;
@@ -37,7 +39,8 @@ namespace searchDormWeb.Controllers
 
 
         // GET: Home
-        public ActionResult Index(string Id = "en")
+        [DisplayName("HomePage")]
+       public ActionResult Index(string Id = "en")
         {
 
 

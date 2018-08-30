@@ -35,13 +35,13 @@
                 <li class="">
                     <!-- Menu toggle button -->
                     <a href="#" class="" >
-                        Musa Jahun
+                       @ViewData["Username"]
                     </a>
                    
                 </li>
                 <li class="">
                     <!-- Menu toggle button -->
-                    <a href="#" class="" >
+                    <a href="@Url.Action("Logout", "Login",new { Area = "" })"  class="" >
                         Logout
                     </a>
                    

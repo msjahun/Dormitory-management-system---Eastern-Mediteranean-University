@@ -11,6 +11,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Dau.Data;
 using Dau.Services.SearchService;
 using Dau.Services.Dormitory;
+using Dau.Core.Domain.User;
+using Microsoft.AspNetCore.Identity;
+using searchDormWeb.Configuration;
+using Dau.Services.Security;
+using Dau.Services.AccessControlList;
+using searchDormWeb.Configuration.SecurityFilter;
 
 namespace searchDormWeb
 {
@@ -26,8 +32,28 @@ namespace searchDormWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //For ACList getting all controller
+            services.AddSingleton<IMvcControllerDiscovery, MvcControllerDiscovery>();
+            //forchecking the roleBased authentication
+           services.AddMvc(options => options.Filters.Add(typeof(DynamicAuthorizationFilter)));
 
-           //adding our services to the ioc container
+            //Add identity
+            services.AddIdentity<User, UserRole>()
+                .AddEntityFrameworkStores<fees_and_facilitiesContext>()
+                .AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Login";
+                options.AccessDeniedPath = "/Error/AccessDenied";
+               
+            });
+            //http accessor for getting ipaddress of user.
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+
+            //adding our services to the ioc container
+            services.AddScoped<IUserRolesService, UserRolesService>();
             services.AddScoped<ISearchService, SearchService>();
             services.AddScoped<IDormitoryService, DormitoryService>();
             services.AddDbContext<fees_and_facilitiesContext>();
@@ -53,15 +79,30 @@ namespace searchDormWeb
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+          
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                //app.UseExceptionHandler("/Error/PageNotFound");
+                //app.UseStatusCodePagesWithReExecute("/Error/Status/{0}");
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Error/PageNotFound");
+                app.UseStatusCodePagesWithReExecute("/Error/Status/{0}");
+
                 app.UseHsts();
             }
+
+            //we're passing RoleManager as a parameter, we declared it above so the service has been instanciated already we just need to call it
+            // new UserRoleSeed(app.ApplicationServices.GetService<RoleManager<IdentityRole>>()).Seed();
+
+            //exception handler 
+
+
+            // identity middleware
+            app.UseAuthentication();
+            //app.UseIdentity();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -103,9 +144,7 @@ namespace searchDormWeb
             });
 
 
-          
-
-            
+           
         }
     }
 }

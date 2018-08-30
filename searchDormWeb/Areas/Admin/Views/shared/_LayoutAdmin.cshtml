@@ -38,7 +38,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
 
-        <!-- Main Header -->
+   @{
+       ViewData["Username"] = "Musa Jahun";
+   }     <!-- Main Header -->
         @Html.Partial("../Admin/Admin_Shared/_header.cshtml", null)
         @*@RenderPage("~/Views/Admin/Admin_Shared/_header.cshtml", null)*@
         <!-- Left side column. contains the logo and sidebar -->

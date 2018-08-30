@@ -1,7 +1,13 @@
 ﻿
+
 @{
     ViewBag.Title = "Users";
     Layout = "../shared/_LayoutAdmin.cshtml";
+
+    var _Users = Model;
+    var space = ",";
+    var count = 0;
+    var countModel = Model.Count;
 }
 
 
@@ -17,7 +23,7 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" class="btn btn-primary "> <i class="fa fa-plus-square"></i> Add New</button>
+                    <a asp-action="Add" asp-controller="Users" class="btn btn-primary "> <i class="fa fa-plus-square"></i> Add New</a>
                     <div class="btn-group">
                         <button type="button" class="btn btn-success btn-flat">Export</button>
                         <button type="button" class="btn btn-success btn-flat dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -152,95 +158,53 @@
                             </tr>
                         </thead>
                         <tbody>
+
+                            @foreach (var item in _Users)
+                            {
+
+
                             <tr>
                                 <td><input type="checkbox"></td>
-                                <td>msjahun@live.com</td>
-                                <td>Musa Suleiman Jahun</td>
-                                <td>Administrator</td>
-                                <td>+905338264432</td>
-                                <td><i class="fa fa-check" aria-hidden="true"></i></td>
-                                <td>12/23/18 10:00AM</td>
-                                <td>12/23/18 11:00AM</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>msjahun@live.com</td>
-                                <td>Musa Suleiman Jahun</td>
-                                <td>Administrator</td>
-                                <td>+905338264432</td>
-                                <td><i class="fa fa-check" aria-hidden="true"></i></td>
-                                <td>12/23/18 10:00AM</td>
-                                <td>12/23/18 11:00AM</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>msjahun@live.com</td>
-                                <td>Musa Suleiman Jahun</td>
-                                <td>Administrator</td>
-                                <td>+905338264432</td>
-                                <td><i class="fa fa-check" aria-hidden="true"></i></td>
-                                <td>12/23/18 10:00AM</td>
-                                <td>12/23/18 11:00AM</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>msjahun@live.com</td>
-                                <td>Musa Suleiman Jahun</td>
-                                <td>Administrator</td>
-                                <td>+905338264432</td>
-                                <td><i class="fa fa-check" aria-hidden="true"></i></td>
-                                <td>12/23/18 10:00AM</td>
-                                <td>12/23/18 11:00AM</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>msjahun@live.com</td>
-                                <td>Musa Suleiman Jahun</td>
-                                <td>Administrator</td>
-                                <td>+905338264432</td>
-                                <td><i class="fa fa-check" aria-hidden="true"></i></td>
-                                <td>12/23/18 10:00AM</td>
-                                <td>12/23/18 11:00AM</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>msjahun@live.com</td>
-                                <td>Musa Suleiman Jahun</td>
-                                <td>Administrator</td>
-                                <td>+905338264432</td>
-                                <td><i class="fa fa-check" aria-hidden="true"></i></td>
-                                <td>12/23/18 10:00AM</td>
-                                <td>12/23/18 11:00AM</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>msjahun@live.com</td>
-                                <td>Musa Suleiman Jahun</td>
-                                <td>Administrator</td>
-                                <td>+905338264432</td>
-                                <td><i class="fa fa-check" aria-hidden="true"></i></td>
-                                <td>12/23/18 10:00AM</td>
-                                <td>12/23/18 11:00AM</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>msjahun@live.com</td>
-                                <td>Musa Suleiman Jahun</td>
-                                <td>Administrator</td>
-                                <td>+905338264432</td>
-                                <td><i class="fa fa-check" aria-hidden="true"></i></td>
-                                <td>12/23/18 10:00AM</td>
-                                <td>12/23/18 11:00AM</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                                <td>@item.User.UserName</td>
+                                <td>@item.User.FirstName @item.User.LastName</td>
+                                <td>
+
+                                    @foreach (var role in item.userRoles)
+                                    {
+                                        count++;
+
+                                        @role @if (count != item.userRoles.Count)
+                                        {@space
+
+                                        @:&#160;
+                                    }
+                                    else { count = 0; }
+
+
+                                    }
+
+
+                                </td>
+
+                                <td>@item.User.PhoneNumber</td>
+                                <td>
+                                    @if (item.User.Active == true)
+                                    {
+                                        <i class="fa fa-check" aria-hidden="true"></i>                }
+                                </td>
+                                <td>@item.User.CreatedOnUtc</td>
+                                <td>@item.User.LastActivityDateUtc</td>
+                               
+                                @{
+                                    var parms = new Dictionary<string, string>
+                                {
+                                    { "UserID", item.User.Id }
+                                };
+                                }
+                                <td> <a asp-action="Edit" asp-controller="Users" asp-all-route-data="parms" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</a></td>
                             </tr>
 
+                        }
 
                         </tbody>
 
@@ -277,7 +241,7 @@
 
 
 @section scripts
-{
+    {
 
     <script src="@Url.Content("~/Content/")bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap 3.3.7 -->

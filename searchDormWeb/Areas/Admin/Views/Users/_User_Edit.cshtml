@@ -1,0 +1,343 @@
+﻿@using searchDormWeb.Areas.Admin.Models.User
+@model UserEditViewModel
+
+@{
+    var modelx = Model;
+    ViewData["Title"] = "Edit User";
+    Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+
+}
+
+
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                @ViewData["Title"]
+                <small><a asp-action="List" asp-controller="Users"><i class="fa fa-arrow-circle-left"></i> back to Users list</a></small>
+            </h1>
+            <div class="row">
+                <div class=" col-md-12">
+                    <div class="upper_left pull-right">
+
+
+                        @{
+                            var parms = new Dictionary<string, string>
+                                                {
+                                                    { "UserID",modelx.Id }
+
+                            };
+                        }
+
+                        <button type="submit" form="editForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save</button>
+                        <button type="submit" form="editForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save and Continue Edit</button>
+                        <button type="submit" class="btn btn-success"> <i class="fa fa-at"></i> Send Email</button>
+                        <a asp-action="Delete" asp-controller="Users" asp-all-route-data="parms" class="btn btn-danger"> <i class="fa fa-trash-o"></i> Delete</a>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main content -->
+        <!-- Main content -->
+        <section class="content container-fluid">
+
+            <!--------------------------
+            | Your Page Content Here |
+            -------------------------->
+
+            <div class="col-md-12">
+                <!-- Horizontal Form -->
+
+
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="false">Customer info</a></li>
+
+
+
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab_1">
+                            <div class="">
+
+                                <!-- /.box-header -->
+                                <!-- form start -->
+                                <form class="form-horizontal" method="post" id="editForm" asp-controller="Users" asp-action="Edit">
+
+                                    <input type="hidden" asp-for="Id" />
+                                    <input type="hidden" id="hiddenInputPassword" asp-for="isChangePassword" />
+
+                                    <div style="color:red;" asp-validation-summary="All"></div>
+                                    <div class="">
+
+
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label"><label asp-for="Email"></label> <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                            <div class="col-sm-6">
+                                                <input type="email" class="form-control" asp-for="Email">
+                                            </div>
+                                            <span class="help-block" style="color:red;" asp-validation-for="Email"></span>
+                                        </div>
+
+
+
+                                        <div class="form-group">
+                                            <label for="inputPassword3" class="col-sm-3 control-label"><label asp-for="Password"></label> <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                            <div class="col-sm-6">
+                                                <input type="password" class="form-control" asp-for="Password">
+                                            </div>
+                                            <button id="changePasswordBtn" class="btn btn-primary "> <i class="fa fa-pencil-square-o"></i> Change Password</button>
+
+                                            <span class="help-block" style="color:red;" asp-validation-for="Password"></span>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label for="inputPassword3" class="col-sm-3 control-label"><label asp-for="CustomerRoles"></label> <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                            <div class="col-sm-6">
+                                                <select asp-for="CustomerRole" asp-items="modelx.CustomerRoles" class="form-control select2 select2-hidden-accessible" multiple="" style="width: 100%;" tabindex="-1" aria-hidden="true"></select>
+                                            </div>
+
+                                            <span class="help-block" style="color:red;" asp-validation-for="CustomerRoles"></span>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label for="inputPassword3" class="col-sm-3 control-label"><label asp-for="ManagerOfDormitory"></label><i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                            <div class="col-sm-6">
+                                                <select asp-for="ManagerOfDormitory" asp-items="modelx.Dormitories" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true"></select>
+                                            </div>
+
+                                            <span class="help-block" style="color:red;" asp-validation-for="ManagerOfDormitory"></span>
+                                        </div>
+
+
+
+                                        <div class="form-group">
+                                            <label for="inputPassword3" class="col-sm-3 control-label"><label asp-for="FirstName"></label> <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                            <div class="col-sm-6">
+                                                <input type="text" asp-for="FirstName" class="form-control">
+                                            </div>
+
+                                            <span class="help-block" style="color:red;" asp-validation-for="FirstName"></span>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label for="inputPassword3" class="col-sm-3 control-label"><label asp-for="LastName"></label> <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                            <div class="col-sm-6">
+                                                <input asp-for="LastName" type="text" class="form-control">
+                                            </div>
+
+                                            <span class="help-block" style="color:red;" asp-validation-for="LastName"></span>
+
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label for="inputPassword3" class="col-sm-3 control-label"><label asp-for="PhoneNumber"></label> <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                            <div class="col-sm-6">
+                                                <input asp-for="PhoneNumber" type="text" class="form-control">
+                                            </div>
+
+                                            <span class="help-block" style="color:red;" asp-validation-for="PhoneNumber"></span>
+
+                                        </div>
+
+
+
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label"><label asp-for="Gender"></label>  <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                            <div class="col-sm-6">
+
+                                                <select asp-for="Gender" asp-items="modelx.Genders" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true"></select>
+
+
+                                            </div>
+
+                                            <span class="help-block" style="color:red;" asp-validation-for="Gender"></span>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label for="inputPassword3" class="col-sm-3 control-label"><label asp-for="DateOfBirth"></label>  <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                            <div class="col-sm-6">
+                                                <input asp-for="DateOfBirth" type="text" class="form-control pull-right" id="datepicker">
+                                            </div>
+
+                                            <span class="help-block" style="color:red;" asp-validation-for="DateOfBirth"></span>
+                                        </div>
+
+
+
+                                        <div class="form-group">
+                                            <label for="inputPassword3" class="col-sm-3 control-label"><label asp-for="City"></label> <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                            <div class="col-sm-6">
+                                                <select asp-for="City" asp-items="modelx.Cities" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true"></select>
+                                            </div>
+
+                                            <span class="help-block" style="color:red;" asp-validation-for="City"></span>
+                                        </div>
+
+
+
+                                        <div class="form-group">
+                                            <label for="inputPassword3" class="col-sm-3 control-label"><label asp-for="Country"></label> <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                            <div class="col-sm-6">
+                                                <select asp-for="Country" asp-items="modelx.Countries" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true"></select>
+                                            </div>
+
+                                            <span class="help-block" style="color:red;" asp-validation-for="Country"></span>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label for="inputPassword3" class="col-sm-3 control-label"><label asp-for="AdminComment"></label> <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                            <div class="col-sm-6">
+                                                <textarea asp-for="AdminComment" class="form-control" rows="3"></textarea>
+                                            </div>
+                                            <span class="help-block" style="color:red;" asp-validation-for="AdminComment"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="inputPassword3" class="col-sm-3 control-label"><label asp-for="NewsletterSubscription"></label> <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                            <div class="col-sm-6">
+                                                <input asp-for="NewsletterSubscription" type="checkbox">
+                                            </div>
+                                            <span class="help-block" style="color:red;" asp-validation-for="NewsletterSubscription"></span>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label for="inputPassword3" class="col-sm-3 control-label"><label asp-for="Active"></label><i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                            <div class="col-sm-6">
+                                                <input asp-for="Active" type="checkbox">
+                                            </div>
+                                            <span class="help-block" style="color:red;" asp-validation-for="Active"></span>
+                                        </div>
+
+
+
+
+
+
+
+                                    </div>
+                                    <!-- /.box-body -->
+                                    <!-- /.box-footer -->
+                                </form>
+                            </div>
+
+                        </div>
+                        <!-- /.tab-pane -->
+
+                    </div>
+                    <!-- /.tab-content -->
+                </div>
+
+
+
+            </div>
+
+
+        </section>
+        <!-- /.content -->
+        <!-- /.content -->
+    </div>
+
+    @section styles {
+
+
+        <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/font-awesome/css/font-awesome.min.css">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/Ionicons/css/ionicons.min.css">
+        <!-- DataTables -->
+        <!--Select2-->
+        <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/select2/dist/css/select2.min.css">
+
+        <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+
+        <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/AdminLTE.min.css">
+        <!-- AdminLTE Skins. Choose a skin from the css/skins
+             folder instead of downloading all of them to reduce the load. -->
+        <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/skins/_all-skins.min.css">
+    }
+
+
+    @section scripts
+        {
+
+        <script src="@Url.Content("~/Content/")bower_components/jquery/dist/jquery.min.js"></script>
+        <!-- Bootstrap 3.3.7 -->
+        <script src="@Url.Content("~/Content/")bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="@Url.Content("~/Content/")dist/js/adminlte.min.js"></script>
+
+
+        <script src="@Url.Content("~/Content/")bower_components/select2/dist/js/select2.full.min.js"></script>
+        @*<script src="@Url.Content("~/Content/")bower_components/datatables.net/js/jquery.dataTables.min.js"></script>*@
+
+        <script src="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+
+        <script src="@Url.Content("~/Content/")bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+        <!-- SlimScroll -->
+        <script src="@Url.Content("~/Content/")bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+        <!-- FastClick -->
+        <script src="@Url.Content("~/Content/")bower_components/fastclick/lib/fastclick.js"></script>
+        <!-- AdminLTE App -->
+        <!-- AdminLTE for demo purposes -->
+        <script src="@Url.Content("~/Content/")dist/js/demo.js"></script>
+        <!-- page script -->
+        <script>
+            $(function () {
+
+                $("#changePasswordBtn").click(function () {
+                    //  alert("I have been called");
+                    $("#hiddenInputPassword").val(true);
+                    $("#editForm").submit();
+                });
+
+
+                //Initialize Select2 Elements
+                $('.select2').select2()
+
+                ///Intialize datepicker
+                $('#datepicker').datepicker({
+                    autoclose: true
+                })
+
+
+                $('#example').DataTable()
+                $('#example1').DataTable({
+                    'paging': false,
+                    'lengthChange': true,
+                    'searching': true,
+                    'ordering': true,
+                    'info': true,
+                    'autoWidth': true
+                })
+            })
+        </script>
+    }
+

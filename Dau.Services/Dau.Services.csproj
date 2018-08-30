@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Dau.Core\Dau.Core.csproj" />
     <ProjectReference Include="..\Dau.Data\Dau.Data.csproj" />
   </ItemGroup>

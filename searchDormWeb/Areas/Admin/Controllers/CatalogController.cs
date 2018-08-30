@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
 
 namespace searchDormWeb.Areas.Admin.Controllers
 {
+    [Authorize]
     [Area("Admin")]
     [Route("admin/[controller]")]
     public class CatalogController : Controller
@@ -24,6 +26,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
         [HttpGet("[action]")]
         public ActionResult Rooms()
         {
+            var Claims = User.Claims;
             return View("Rooms");
         }
 

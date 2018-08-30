@@ -1,0 +1,83 @@
+﻿@using searchDormWeb.Models
+@model RegisterViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+
+<div class="login-box">
+    <div class="login-logo"  style="margin-bottom:0%;">
+        <a href=""><img src="@Url.Content("~/Content/")dist/img/DauLogoBlueBg.png" style="width: 100%; height: 100%"></a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+        <p class="login-box-msg">Register to start your session</p>
+
+        <form asp-controller="Register" asp-action="Index" method ="post">
+            <div style="color:red;" asp-validation-summary="All"></div>
+
+
+            <div class="form-group has-feedback">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" type="email" class="form-control" placeholder="Email">
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                <span  style="color:red;"  asp-validation-for="Email"></span>
+            </div>
+
+
+            <div class="form-group has-feedback">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" type="password" class="form-control" placeholder="Password">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                <span style="color:red;"  asp-validation-for="Password"></span>
+            </div>
+
+
+            <div class="form-group has-feedback">
+                <label asp-for="ConfirmPassword"></label>
+                <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Password">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                <span  style="color:red;" asp-validation-for="ConfirmPassword"></span>
+            </div>
+
+
+            <div class="row">
+                <div class="col-xs-8">
+                    <div class="checkbox icheck">
+                        <label>
+                            <input type="checkbox"> Remember Me
+                        </label>
+                    </div>
+
+
+                </div>
+                <!-- /.col -->
+                <div class="col-xs-4">
+                    @*@Html.ActionLink("Register", "Index", @"Admin/Dashboard", null, new { @class = "btn btn-default btn-flat" })*@
+                    <input type="submit" class="btn btn-default btn-flat" value="Register"/>
+                </div>
+                <!-- /.col -->
+            </div>
+        </form>
+
+        @*<div class="social-auth-links text-center">
+            <p>- OR -</p>
+            <a href="#" class="btn btn-block btn-social btn-facebook btn-flat">
+                <i class="fa fa-facebook"></i> Sign in using
+                Facebook
+            </a>
+            <a href="#" class="btn btn-block btn-social btn-google btn-flat">
+                <i class="fa fa-google-plus"></i> Sign in using
+                Google+
+            </a>
+        </div>*@
+        <!-- /.social-auth-links -->
+        <p>- OR -</p>
+        @*<a href="#">I forgot my password</a><br>*@
+        <a asp-controller="Login" class="text-center">Already have a user account, Sign in</a>
+
+    </div>
+    <!-- /.login-box-body -->
+</div>
