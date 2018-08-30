@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewData["Title"] = "PageNotFound";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    var error_id = Model;
+}
+
+
+
+<!-- Main content -->
+<section class="content">
+    <div class="error-page" style="margin-top:35vh;">
+        <h2 class="headline text-yellow" style="margin-top:-20px;"> 404</h2>
+
+        <div class="error-content">
+            <h3><i class="fa fa-warning text-yellow"></i> Oops! Page not found.</h3>
+
+            <p>
+                We could not find the page you were looking for.
+                Meanwhile, you may <a href="@Url.Content("/")">return to Home Page</a> or to login in the <a href="@Url.Content("/Login")"> Login page</a>
+            </p>
+
+       
+        </div>
+        <!-- /.error-content -->
+    </div>
+    <!-- /.error-page -->
+</section>
+<!-- /.content -->
