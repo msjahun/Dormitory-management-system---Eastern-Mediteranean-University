@@ -16,7 +16,7 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" class="btn btn-primary "> <i class="fa fa-plus-square"></i> Add new</button>
+                    <a asp-action="PollAdd" asp-controller="ContentManagement" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-plus-square"></i> Add new</a>
                 </div>
             </div>
         </div>
@@ -59,7 +59,7 @@
                                 <td><i class="fa fa-times"></i></td>
                                 <td>11/12/2009 10:23:23AM</td>
                                 <td>11/12/2009 10:23:23AM</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                                <td> <a asp-action="PollEdit" asp-controller="ContentManagement" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</a></td>
                             </tr>
                             <tr>
                                 <td>Do you like this site?</td>

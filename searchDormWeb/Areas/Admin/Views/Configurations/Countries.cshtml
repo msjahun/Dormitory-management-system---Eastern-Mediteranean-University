@@ -16,7 +16,7 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" class="btn btn-primary "> <i class="fa fa-plus-square"></i> Add new</button>
+                    <a asp-action="CountryAdd" asp-controller="Configurations" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-plus-square"></i> Add new</a>
                     <button type="submit" class="btn btn-primary "> <i class="fa fa-file-pdf-o"></i> Published selected</button>
                     <button type="submit" class="btn btn-danger "> <i class="fa fa-trash"></i> Unpublished selected</button>
                     <div class="btn-group">
@@ -74,7 +74,7 @@
                             <tr>
                                 <td><input type="checkbox"></td>
                                 <td>Turkey</td>
-                                
+
                                 <td><i class="fa fa-check" aria-hidden="true"></i></td>
                                 <td><i class="fa fa-check" aria-hidden="true"></i></td>
                                 <td>US</td>
@@ -82,7 +82,7 @@
                                 <td>63</td>
                                 <td>1</td>
                                 <td><i class="fa fa-check" aria-hidden="true"></i></td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                                <td> <a asp-action="CountryEdit" asp-controller="Configurations" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</a></td>
                             </tr>
                             <tr>
                                 <td><input type="checkbox"></td>

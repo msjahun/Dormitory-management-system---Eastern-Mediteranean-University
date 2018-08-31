@@ -15,7 +15,7 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" class="btn btn-primary "> <i class="fa fa-plus-square"></i> Add new</button>
+                    <a asp-action="AffiliateAdd" asp-controller="Promotions" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-plus-square"></i> Add new</a>
                 </div>
             </div>
         </div>
@@ -99,7 +99,14 @@
                                 <th>Edit</th>
                             </tr>
                         </thead>
-                        <tbody></tbody>
+                        <tbody>
+                            <tr>
+                                <td>First name</td>
+                                <td>Last name</td>
+                                <td>Active</td>
+                                <td>  <a asp-action="AffiliateEdit" asp-controller="Promotions" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-plus-square"></i> Edit</a></td>
+                            </tr>
+                        </tbody>
 
                     </table>
                 </div>

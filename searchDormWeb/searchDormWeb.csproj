@@ -5,6 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Admin\Views\Reviews\**" />
+    <Content Remove="Areas\Admin\Views\Reviews\**" />
+    <EmbeddedResource Remove="Areas\Admin\Views\Reviews\**" />
+    <None Remove="Areas\Admin\Views\Reviews\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\Admin\Controllers\ReviewsController.cs" />
     <Compile Remove="Resources\Content.Designer.cs" />
   </ItemGroup>
 
