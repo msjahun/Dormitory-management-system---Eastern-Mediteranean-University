@@ -84,7 +84,7 @@
 
 
             @{ SubActions = new List<MenuSubItems>(new MenuSubItems[] {
-                  new MenuSubItems {ActionName = "FacilitiesSpecificationAttrs", ActionDisplayName = " Specification attributes" }
+                  new MenuSubItems {ActionName = "Facilities", ActionDisplayName = "Facilities" }
                                                                                       });
 
 
@@ -195,7 +195,7 @@
 
 
 
-            @{ actions = new List<MenuSubItems>(new MenuSubItems[] {
+            @*@{ actions = new List<MenuSubItems>(new MenuSubItems[] {
                 new MenuSubItems { ActionName = "List", ActionDisplayName = "All Reviews" },
                 new MenuSubItems { ActionName = "Reported", ActionDisplayName = "Reported" },
                 new MenuSubItems { ActionName = "Flagged", ActionDisplayName = "Flagged" },
@@ -218,7 +218,7 @@
             }
 
             <Menu-item menu-item="item">
-            </Menu-item>
+            </Menu-item>*@
 
 
 
@@ -342,7 +342,7 @@
 
             @{ actions = new List<MenuSubItems>(new MenuSubItems[] {
                           new MenuSubItems { ActionName = "UsageReport", ActionDisplayName = "Usage report" },
-                          new MenuSubItems { ActionName = "SendPushNotifications", ActionDisplayName = "Send push notifications" }
+                          new MenuSubItems { ActionName = "PushNotifications", ActionDisplayName = "Push notifications" }
                                                });
 
 
@@ -369,7 +369,7 @@
 
             @{ actions = new List<MenuSubItems>(new MenuSubItems[] {
                           new MenuSubItems { ActionName = "Settings", ActionDisplayName = "Settings" },
-                          new MenuSubItems { ActionName = "Client", ActionDisplayName = "Clients" },
+                          new MenuSubItems { ActionName = "Clients", ActionDisplayName = "Clients" },
                           new MenuSubItems { ActionName = "Documentation", ActionDisplayName = "Documentation" }
                                                });
 
