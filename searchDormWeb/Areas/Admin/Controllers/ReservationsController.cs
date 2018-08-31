@@ -17,7 +17,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
     {
 
 
-
+        #region Reservations
         [HttpGet("[action]")]
         [HttpGet("")]
         public ActionResult List()
@@ -26,34 +26,59 @@ namespace searchDormWeb.Areas.Admin.Controllers
         }
 
         [HttpGet("[action]")]
+        public ActionResult ReservationEdit()
+        {
+            return View("_ReservationEdit");
+
+        }
+
+
+        #endregion
+
+        #region CancelRequests
+        [HttpGet("[action]")]
         public ActionResult CancelRequest()
         {
             return View("CancelRequest");
 
         }
 
+        #endregion
+
+        #region CurrentWishList
         [HttpGet("[action]")]
         public ActionResult CurrentWishList()
         {
             return View("CurrentWishList");
         }
+        #endregion
 
+        #region BestSellerRooms
         [HttpGet("[action]")]
         public ActionResult BestSellerRooms()
         {
             return View("BestSellerRooms");
         }
+        #endregion
 
+
+        #region RoomsNeverReserved
         [HttpGet("[action]")]
         public ActionResult RoomsNeverReserved()
         {
             return View("RoomsNeverReserved");
         }
+        #endregion
+
+
+        #region CountryReport
 
         [HttpGet("[action]")]
         public ActionResult CountryReport()
         {
             return View("CountryReport");
         }
+
+        #endregion
     }
 }

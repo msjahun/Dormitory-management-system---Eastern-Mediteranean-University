@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
     {
         // GET: Admin
         [Authorize]
+        [DisplayName("AdminAreaRedirect")]
         public ActionResult Index()
         {
 

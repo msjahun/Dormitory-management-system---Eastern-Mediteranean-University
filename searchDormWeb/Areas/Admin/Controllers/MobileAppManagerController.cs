@@ -14,22 +14,35 @@ namespace searchDormWeb.Areas.Admin.Controllers
     public class MobileAppManagerController : Controller
     {
         // GET: MobileAppManager
+      
+        #region PushNotifications
         [HttpGet("[action]")]
-        public IActionResult Index()
+        public IActionResult PushNotifications()
         {
-            return View();
+            return View("_PushNotifications");
         }
 
         [HttpGet("[action]")]
-        public IActionResult SendPushNotifications()
+        public IActionResult PushNotificationAdd()
         {
-            return View("_SendPushNotifications");
+            return View("_PushNotificationAdd");
         }
 
+        [HttpGet("[action]")]
+        public IActionResult PushNotificationEdit()
+        {
+            return View("_PushNotificationEdit");
+        }
+
+        #endregion
+
+        #region UsageReport
         [HttpGet("[action]")]
         public IActionResult UsageReport()
         {
             return View("_UsageReport");
         }
+
+        #endregion
     }
 }

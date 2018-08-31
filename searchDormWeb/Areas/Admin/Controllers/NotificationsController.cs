@@ -14,18 +14,14 @@ namespace searchDormWeb.Areas.Admin.Controllers
     public class NotificationsController : Controller
     {
         // GET: Notifications
-        [HttpGet("[action]")]
-        public IActionResult Index()
-        {
-            return View();
-        }
-
+     
         [HttpGet("[action]")]
         public IActionResult List()
         {
             return View("_List");
         }
 
+        #region Announcements
         [HttpGet("[action]")]
         public IActionResult Announcements()
         {
@@ -33,9 +29,19 @@ namespace searchDormWeb.Areas.Admin.Controllers
         }
 
         [HttpGet("[action]")]
-        public IActionResult ManageAnnouncements()
+        public IActionResult AnnouncementAdd()
         {
-            return View("_ManageAnnouncements");
+            return View("_AnnouncementAdd");
         }
+
+
+        [HttpGet("[action]")]
+        public IActionResult AnnouncementEdit()
+        {
+            return View("_AnnouncementEdit");
+        }
+
+        #endregion
+
     }
 }

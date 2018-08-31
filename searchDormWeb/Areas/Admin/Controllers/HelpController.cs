@@ -12,12 +12,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
     [Authorize]
     public class HelpController : Controller
     {
-        // GET: Help
-        [HttpGet("[action]")]
-        public IActionResult Index()
-        {
-            return View();
-        }
+     
 
         [HttpGet("[action]")]
         public IActionResult Topics()

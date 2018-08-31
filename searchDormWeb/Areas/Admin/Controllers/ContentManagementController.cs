@@ -13,13 +13,8 @@ namespace searchDormWeb.Areas.Admin.Controllers
     public class ContentManagementController : Controller
     {
 
-        // GET: ContentManagement
-        [HttpGet("[action]")]
-        public IActionResult Index()
-        {
-            return View();
-        }
 
+        #region Topics
         [HttpGet("[action]")]
         public IActionResult Topics()
         {
@@ -27,11 +22,39 @@ namespace searchDormWeb.Areas.Admin.Controllers
         }
 
         [HttpGet("[action]")]
+        public IActionResult TopicAdd()
+        {
+            return View("_TopicAdd");
+        }
+
+
+        [HttpGet("[action]")]
+        public IActionResult TopicEdit()
+        {
+            return View("_TopicEdit");
+        }
+
+        #endregion
+
+
+        #region MessageTemplates
+        [HttpGet("[action]")]
         public IActionResult MessageTemplates()
         {
             return View("_MessageTemplates");
         }
 
+        [HttpGet("[action]")]
+        public IActionResult MessageTemplateEdit()
+        {
+            return View("_MessageTemplateEdit");
+        }
+
+
+        #endregion
+
+
+        #region Polls
         [HttpGet("[action]")]
         public IActionResult Polls()
         {
@@ -39,9 +62,44 @@ namespace searchDormWeb.Areas.Admin.Controllers
         }
 
         [HttpGet("[action]")]
+        public IActionResult PollAdd()
+        {
+            return View("_PollAdd");
+        }
+
+        [HttpGet("[action]")]
+        public IActionResult PollEdit()
+        {
+            return View("_PollEdit");
+        }
+        #endregion
+
+
+        #region Survey
+
+        [HttpGet("[action]")]
         public IActionResult Survey()
         {
             return View("_Survey");
         }
+
+        [HttpGet("[action]")]
+        public IActionResult SurveyAdd()
+        {
+            return View("_SurveyAdd");
+        }
+
+
+
+        [HttpGet("[action]")]
+        public IActionResult SurveyEdit()
+        {
+            return View("_SurveyEdit");
+        }
+
+
+
+
+        #endregion
     }
 }

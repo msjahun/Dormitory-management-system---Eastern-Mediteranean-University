@@ -14,13 +14,8 @@ namespace searchDormWeb.Areas.Admin.Controllers
     public class PromotionsController : Controller
     {
         // GET: Promotions
-        [HttpGet("[action]")]
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-
+    
+        #region Discounts
         [HttpGet("[action]")]
         public IActionResult Discounts()
         {
@@ -29,6 +24,24 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
         [HttpGet("[action]")]
+        public IActionResult DiscountAdd()
+        {
+            return View("_DiscountAdd");
+        }
+
+
+
+        [HttpGet("[action]")]
+        public IActionResult DiscountEdit()
+        {
+            return View("_DiscountEdit");
+        }
+
+        #endregion
+
+
+        #region Affiliates
+        [HttpGet("[action]")]
         public IActionResult Affiliates()
         {
             return View("_Affiliates");
@@ -36,16 +49,50 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
         [HttpGet("[action]")]
+        public IActionResult AffiliateAdd()
+        {
+            return View("_AffiliateAdd");
+        }
+
+
+
+        [HttpGet("[action]")]
+        public IActionResult AffiliateEdit()
+        {
+            return View("_AffiliateEdit");
+        }
+
+
+
+        #endregion 
+
+        [HttpGet("[action]")]
         public IActionResult NewsLetterSubscribers()
         {
             return View("_NewsLetterSubscribers");
         }
 
+
+        #region Campaigns
         [HttpGet("[action]")]
         public IActionResult Campaigns()
         {
             return View("_Campaigns");
         }
 
+
+        [HttpGet("[action]")]
+        public IActionResult CampaignAdd()
+        {
+            return View("_CampaignAdd");
+        }
+
+        [HttpGet("[action]")]
+        public IActionResult CampaignEdit()
+        {
+            return View("_CampaignEdit");
+        }
+
+        #endregion
     }
 }

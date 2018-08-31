@@ -12,12 +12,8 @@ namespace searchDormWeb.Areas.Admin.Controllers
     [Authorize]
     public class APIController : Controller
     {
-        // GET: API
-        [HttpGet("[action]")]
-        public IActionResult Index()
-        {
-            return View();
-        }
+    
+        #region Settings
 
         [HttpGet("[action]")]
         public IActionResult Settings()
@@ -25,16 +21,39 @@ namespace searchDormWeb.Areas.Admin.Controllers
             return View("Settings");
         }
 
+        #endregion
+
+        #region Client
+
         [HttpGet("[action]")]
-        public IActionResult Client()
+        public IActionResult Clients()
         {
-            return View("Client");
+            return View("Clients");
         }
 
+        [HttpGet("[action]")]
+        public IActionResult ClientAdd()
+        {
+            return View("_ClientAdd");
+        }
+
+
+        [HttpGet("[action]")]
+        public IActionResult ClientEdit()
+        {
+            return View("_ClientEdit");
+        }
+
+
+        #endregion
+
+        #region Documentation
         [HttpGet("[action]")]
         public IActionResult Documentation()
         {
             return View("Documentation");
         }
+
+        #endregion
     }
 }

@@ -35,13 +35,10 @@ namespace searchDormWeb.Areas.Admin.Controllers
         }
 
 
-        [HttpGet("[action]")]
-        [HttpGet("")]// GET: Configurations
-        public ActionResult Index()
-        {
-            return View();
-        }
+       
 
+
+        #region EmailAccounts
 
         [HttpGet("[action]")]
        
@@ -50,13 +47,46 @@ namespace searchDormWeb.Areas.Admin.Controllers
             return View("EmailAccounts");
         }
 
+        [HttpGet("[action]")]
 
+        public ActionResult EmailAccountAdd()
+        {
+            return View("_EmailAccountAdd");
+        }
+
+        [HttpGet("[action]")]
+
+        public ActionResult EmailAccountEdit()
+        {
+            return View("_EmailAccountEdit");
+        }
+
+        #endregion
+
+        #region Dormitories
         [HttpGet("[action]")]
         public ActionResult Dormitories()
         {
             return View("Dormitories");
         }
 
+        [HttpGet("[action]")]
+        public ActionResult DormitoryAdd()
+        {
+            return View("_DormitoryAdd");
+        }
+
+
+        [HttpGet("[action]")]
+        public ActionResult DormitoryEdit()
+        {
+            return View("_DormitoryEdit");
+        }
+
+
+        #endregion
+
+        #region Countries
 
         [HttpGet("[action]")]
         public ActionResult Countries()
@@ -66,12 +96,44 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
         [HttpGet("[action]")]
+        public ActionResult CountryAdd()
+        {
+            return View("_CountryAdd");
+        }
+
+        [HttpGet("[action]")]
+        public ActionResult CountryEdit()
+        {
+            return View("_CountryEdit");
+        }
+
+        #endregion
+
+
+        #region Languagues
+        [HttpGet("[action]")]
         public ActionResult Languages()
         {
             return View("Languages");
         }
 
 
+
+        [HttpGet("[action]")]
+        public ActionResult LanguageAdd()
+        {
+            return View("_LanguageAdd");
+        }
+
+
+        [HttpGet("[action]")]
+        public ActionResult LanguageEdit()
+        {
+            return View("_LanguageEdit");
+        }
+        #endregion
+
+        #region AccessControl
         [HttpGet("[action]")]
         public ActionResult AccessControlList()
         { ViewData["CustomerRoles"]= _userRolesService.GetUserRolesItems();
@@ -259,16 +321,31 @@ namespace searchDormWeb.Areas.Admin.Controllers
             return Content("{success:true}");
         }
 
+        #endregion
 
-     
 
-
+        #region Currencies
         [HttpGet("[action]")]
         public ActionResult Currencies()
         {
             return View("Currencies");
         }
 
+
+        [HttpGet("[action]")]
+        public ActionResult CurrencyAdd()
+        {
+            return View("_CurrencyAdd");
+        }
+
+
+        [HttpGet("[action]")]
+        public ActionResult CurrencyEdit()
+        {
+            return View("_CurrencyEdit");
+        }
+
+        #endregion
 
 
     }

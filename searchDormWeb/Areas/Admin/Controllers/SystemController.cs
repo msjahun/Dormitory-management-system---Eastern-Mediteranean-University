@@ -14,12 +14,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
     public class SystemController : Controller
     {
         // GET: System
-        [HttpGet("[action]")]
-        public IActionResult Index()
-        {
-            return View();
-        }
-
+    
 
         [HttpGet("[action]")]
         public IActionResult Information()
@@ -37,6 +32,15 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
         [HttpGet("[action]")]
+        public IActionResult LogView()
+        {
+
+            return View("_LogView");
+        }
+
+
+
+        [HttpGet("[action]")]
         public IActionResult Warnings()
         {
             return View("_Warnings");
@@ -50,11 +54,22 @@ namespace searchDormWeb.Areas.Admin.Controllers
         }
 
 
+
+
         [HttpGet("[action]")]
         public IActionResult MessageQueues()
         {
             return View("_MessageQueues");
         }
+
+
+
+        [HttpGet("[action]")]
+        public IActionResult MessageQueueEdit()
+        {
+            return View("_MessageQueueEdit");
+        }
+
 
         [HttpGet("[action]")]
         public IActionResult ScheduleTasks()

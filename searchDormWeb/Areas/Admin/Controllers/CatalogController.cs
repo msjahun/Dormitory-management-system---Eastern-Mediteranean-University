@@ -15,21 +15,35 @@ namespace searchDormWeb.Areas.Admin.Controllers
     [Route("admin/[controller]")]
     public class CatalogController : Controller
     {
-        // GET: Catalog
-        [HttpGet("[action]")]
-        [HttpGet("")]
-        public ActionResult Index()
-        {
-            return View();
-        }
+        
 
+        #region Rooms
         [HttpGet("[action]")]
         public ActionResult Rooms()
         {
-            var Claims = User.Claims;
+          //  var Claims = User.Claims;
             return View("Rooms");
         }
 
+
+        [HttpGet("[action]")]
+        public ActionResult RoomAdd()
+        {
+            return View("_RoomAdd");
+        }
+
+
+        [HttpGet("[action]")]
+        public ActionResult RoomEdit()
+        {
+           
+            return View("_RoomEdit");
+        }
+
+
+        #endregion
+
+        #region DormitoryBlocks
         [HttpGet("[action]")]
         public ActionResult DormitoryBlocks()
         {
@@ -37,17 +51,37 @@ namespace searchDormWeb.Areas.Admin.Controllers
         }
 
         [HttpGet("[action]")]
+        public ActionResult DormitoryBlockAdd()
+        {
+            return View("_DormitoryBlockAdd");
+        }
+
+        [HttpGet("[action]")]
+        public ActionResult DormitoryBlockEdit()
+        {
+            return View("_DormitoryBlockEdit");
+        }
+        #endregion
+
+        #region BulkRoomEdit
+        [HttpGet("[action]")]
         public ActionResult BulkRoomEdit()
         {
             return View("BulkRoomEdit");
         }
 
+
+        #endregion
+
+        #region LowQuotaReport
         [HttpGet("[action]")]
         public ActionResult LowQuotaReport()
         {
             return View("LowQuotaReport");
         }
+        #endregion
 
+        #region RoomReviews
         [HttpGet("[action]")]
         public ActionResult RoomReviews()
         {
@@ -55,9 +89,32 @@ namespace searchDormWeb.Areas.Admin.Controllers
         }
 
         [HttpGet("[action]")]
-        public ActionResult FacilitiesSpecificationAttrs()
+        public ActionResult RoomReviewEdit()
         {
-            return View("FacilitiesSpecificationAttrs");
+            return View("_RoomReviewEdit");
         }
+
+        #endregion
+
+        #region Facilities
+        [HttpGet("[action]")]
+        public ActionResult Facilities()
+        {
+            return View("Facilities");
+        }
+
+        [HttpGet("[action]")]
+        public ActionResult FacilityAdd()
+        {
+            return View("_FacilityAdd");
+        }
+
+        [HttpGet("[action]")]
+        public ActionResult FacilityEdit()
+        {
+            return View("_FacilityEdit");
+        }
+
+        #endregion
     }
 }

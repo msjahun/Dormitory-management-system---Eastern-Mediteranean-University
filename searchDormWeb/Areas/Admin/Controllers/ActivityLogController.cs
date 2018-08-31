@@ -12,13 +12,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
     [Authorize]
     public class ActivityLogController : Controller
     {// GET: ActivityLog
-
-        [HttpGet("[action]")]
-        public IActionResult Index()
-        {
-            return View("_ActivityLog_Log");
-        }
-
+        
 
         [HttpGet("[action]")]
         public IActionResult Log()
