@@ -8,8 +8,9 @@ namespace searchDormWeb.Controllers
 {
     public class ErrorController : Controller
     {
-        public IActionResult AccessDenied()
+        public IActionResult AccessDenied(string ReturnUrl)
         {
+            ViewData["ReturnUrl"] = ReturnUrl;
             return View("AccessDenied");
         }
 

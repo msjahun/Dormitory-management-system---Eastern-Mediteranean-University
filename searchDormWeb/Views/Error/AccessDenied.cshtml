@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "AccessDenied";
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+
 }
 
 
@@ -15,8 +16,17 @@
             <h3><i class="fa fa-warning text-red"></i> Oops! Access denied</h3>
 
             <p>
-                It's like you do not have permission to view Access this area
+                It's like you do not have permission to Access   @if (ViewData["ReturnUrl"] != null)
+                {
+                    @: <a href="@ViewData["ReturnUrl"]">@ViewData["ReturnUrl"]</a> Page.
+                }
+                else
+                { 
+                    @:this Area.
+                }
+
                 Meanwhile, you may <a href="@Url.Content("/")">return to Home Page</a> or to login with the an account that has proper permissions in the <a href="@Url.Content("/Login")"> Login page</a>
+
             </p>
 
 
