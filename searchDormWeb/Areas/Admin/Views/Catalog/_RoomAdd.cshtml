@@ -4,15 +4,22 @@
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
-
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
             @ViewData["Title"]
-            <small>Optional description</small>
+            <small><a asp-action="List" asp-controller="Users"><i class="fa fa-arrow-circle-left"></i> back to Users list</a></small>
         </h1>
+        <div class="row">
+            <div class=" col-md-12">
+                <div class="upper_left pull-right">
 
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save</button>
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save and Continue Edit</button>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Main content -->
@@ -23,18 +30,111 @@
         | Your Page Content Here |
         -------------------------->
 
+        <div class="col-md-12">
+            <!-- Horizontal Form -->
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab_3" data-toggle="tab" aria-expanded="true">Tab 3</a></li>
+                    <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">Tab 1</a></li>
+                    <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">Tab 2</a></li>
+                </ul>
+                <div class="tab-content">
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane active" id="tab_3">
+                        tab 3
+                    </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="tab_1">
+                        tab 1
+                    </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="tab_2">
+                        tab 2
+                    </div>
+
+                </div>
+                <!-- /.tab-content -->
+            </div>
 
 
+
+        </div>
     </section>
     <!-- /.content -->
     <!-- /.content -->
 </div>
 
+@section styles {
+
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/Ionicons/css/ionicons.min.css">
+    <!-- DataTables -->
+    <!--Select2-->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/select2/dist/css/select2.min.css">
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/skins/_all-skins.min.css">
+}
+
+
 @section scripts
     {
+
     <script src="@Url.Content("~/Content/")bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap 3.3.7 -->
     <script src="@Url.Content("~/Content/")bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- AdminLTE App -->
     <script src="@Url.Content("~/Content/")dist/js/adminlte.min.js"></script>
+
+
+    <script src="@Url.Content("~/Content/")bower_components/select2/dist/js/select2.full.min.js"></script>
+    @*<script src="@Url.Content("~/Content/")bower_components/datatables.net/js/jquery.dataTables.min.js"></script>*@
+
+    <script src="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+
+    <script src="@Url.Content("~/Content/")bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="@Url.Content("~/Content/")bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="@Url.Content("~/Content/")bower_components/fastclick/lib/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <!-- AdminLTE for demo purposes -->
+    <script src="@Url.Content("~/Content/")dist/js/demo.js"></script>
+    <!-- page script -->
+    <script>
+        $(function () {
+
+
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
+            ///Intialize datepicker
+            $('#datepicker').datepicker({
+                autoclose: true
+            })
+
+
+            $('#example').DataTable()
+            $('#example1').DataTable({
+                'paging': false,
+                'lengthChange': true,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': true
+            })
+        })
+    </script>
 }
+

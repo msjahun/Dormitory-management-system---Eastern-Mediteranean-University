@@ -4,17 +4,17 @@
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
+
+
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Page Header
-            <small>Optional description</small>
+            @ViewData["Title"]
+            <small></small>
         </h1>
-        <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-            <li class="active">Here</li>
-        </ol>
+
     </section>
 
     <!-- Main content -->
@@ -24,8 +24,583 @@
         <!--------------------------
         | Your Page Content Here |
         -------------------------->
+        <!-- Main content -->
+        <section class="content">
+            <!-- Small boxes (Stat box) -->
 
-        <h2>UsageReport</h2>
+     
+
+            <div class="col">
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Common statistics</h3>
+
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                        <!-- /.box-tools -->
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body" style="">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-6">
+                                <!-- small box -->
+                                <div class="small-box bg-aqua">
+                                    <div class="inner">
+                                        <h3>150</h3>
+
+                                        <p>Active users</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-bag"></i>
+                                    </div>
+                                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                            <!-- ./col -->
+                            <div class="col-lg-3 col-xs-6">
+                                <!-- small box -->
+                                <div class="small-box bg-green">
+                                    <div class="inner">
+                                        <h3>53<sup style="font-size: 20px">%</sup></h3>
+
+                                        <p>Idle Users</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-stats-bars"></i>
+                                    </div>
+                                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                            <!-- ./col -->
+                            <div class="col-lg-3 col-xs-6">
+                                <!-- small box -->
+                                <div class="small-box bg-yellow">
+                                    <div class="inner">
+                                        <h3>44</h3>
+
+                                        <p>App installations</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-person-add"></i>
+                                    </div>
+                                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                            <!-- ./col -->
+                            <div class="col-lg-3 col-xs-6">
+                                <!-- small box -->
+                                <div class="small-box bg-red">
+                                    <div class="inner">
+                                        <h3>65</h3>
+
+                                        <p>App uninstalls</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-pie-graph"></i>
+                                    </div>
+                                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                            <!-- ./col -->
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Bookings/orders</h3>
+
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-xs btn-info btn-flat">Day</button>
+                                <button type="button" class="btn btn-xs btn-info btn-flat">Month</button>
+                                <button type="button" class="btn btn-xs btn-info btn-flat">Year</button>
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                            <!-- /.box-tools -->
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body" style="">
+                            <canvas id="bookingsChart"></canvas>
+
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+
+                <div class="col-md-6">
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">New customers</h3>
+
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-xs btn-info btn-flat">Day</button>
+                                <button type="button" class="btn btn-xs btn-info btn-flat">Month</button>
+                                <button type="button" class="btn btn-xs btn-info btn-flat">Year</button>
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                            <!-- /.box-tools -->
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body" style="">
+                            <canvas id="newCustomersChart"></canvas>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+
+            </div>
+
+
+            <div class="row">
+
+                <div class="col-md-8">
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"><i class="fa fa-money"></i> Booking totals</h3>
+
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                            <!-- /.box-tools -->
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <table id="bookingTotalsDt" class="table table-bordered table-hover pull-right">
+                                <thead>
+                                    <tr>
+                                        <th>Order Status</th>
+                                        <th>Today</th>
+                                        <th>This Week</th>
+                                        <th>This Month</th>
+                                        <th>This Year</th>
+                                        <th>All Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Pending</td>
+                                        <td>0,00 tl</td>
+                                        <td>0,00 tl</td>
+                                        <td>0,00 tl</td>
+                                        <td>0,00 tl</td>
+                                        <td>0,00 tl</td>
+
+                                    </tr>
+
+                                    <tr>
+                                        <td>Processing</td>
+                                        <td>0,00 tl</td>
+                                        <td>0,00 tl</td>
+                                        <td>456,00 tl</td>
+                                        <td>456,00 tl</td>
+                                        <td>345,03 tl</td>
+
+                                    </tr>
+
+                                    <tr>
+                                        <td>Complete</td>
+                                        <td>0,00 tl</td>
+                                        <td>34,00 tl</td>
+                                        <td>0,00 tl</td>
+                                        <td>33,344 tl</td>
+                                        <td>34,50 tl</td>
+
+                                    </tr>
+
+                                    <tr>
+                                        <td>Cancelled</td>
+                                        <td>0,00 tl</td>
+                                        <td>55,00 tl</td>
+                                        <td>34,00 tl</td>
+                                        <td>23,34 tl</td>
+                                        <td>34,50 tl</td>
+
+                                    </tr>
+
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+
+                <div class="col-md-4">
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"><i class="fa fa-hourglass-start"></i> Incomplete bookings</h3>
+
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                            <!-- /.box-tools -->
+                        </div>
+                        <!-- /.box-header -->
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <table id="incompleteBookingsDt" class="table table-bordered table-hover pull-right">
+                                <thead>
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Total</th>
+                                        <th>Count</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Total unpain Orders(pending payment status)</td>
+                                        <td>328,97 tl</td>
+                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> 7-view all</button></td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>Total awaiting comfirmation</td>
+                                        <td>328,97 tl</td>
+                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> 2-view all</button></td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>Total incomplete orders (pending order status)</td>
+                                        <td>328,97 tl</td>
+                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> 0-view all</button></td>
+                                    </tr>
+
+
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+
+            </div>
+
+
+
+            <div class="row">
+
+                <div class="col-md-8">
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"><i class="fa fa-cart-plus"></i> Latest bookings</h3>
+
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                            <!-- /.box-tools -->
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <table id="latestBookingsDt" class="table table-bordered table-hover pull-right">
+                                <thead>
+                                    <tr>
+                                        <th>Order #</th>
+                                        <th>Order status</th>
+                                        <th>Customer</th>
+                                        <th>Created on</th>
+                                        <th>View</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1232343</td>
+                                        <td><span class=" label label-success  label-lg green ">Complete</span></td>
+                                        <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
+                                        <td> 8/31/2018 5:13:24AM</td>
+                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>1232343</td>
+                                        <td><span class=" label label-success  label-lg green ">Complete</span></td>
+                                        <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
+                                        <td> 8/31/2018 5:13:24AM</td>
+                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1232343</td>
+                                        <td><span class=" label label-success  label-lg green ">Complete</span></td>
+                                        <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
+                                        <td> 8/31/2018 5:13:24AM</td>
+                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1232343</td>
+                                        <td><span class=" label label-success  label-lg green ">Complete</span></td>
+                                        <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
+                                        <td> 8/31/2018 5:13:24AM</td>
+                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1232343</td>
+                                        <td><span class=" label label-success  label-lg green ">Complete</span></td>
+                                        <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
+                                        <td> 8/31/2018 5:13:24AM</td>
+                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1232343</td>
+                                        <td><span class=" label label-success  label-lg green ">Complete</span></td>
+                                        <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
+                                        <td> 8/31/2018 5:13:24AM</td>
+                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1232343</td>
+                                        <td><span class=" label label-success  label-lg green ">Complete</span></td>
+                                        <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
+                                        <td> 8/31/2018 5:13:24AM</td>
+                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1232343</td>
+                                        <td><span class=" label label-success  label-lg green ">Complete</span></td>
+                                        <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
+                                        <td> 8/31/2018 5:13:24AM</td>
+                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1232343</td>
+                                        <td><span class=" label label-success  label-lg green ">Complete</span></td>
+                                        <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
+                                        <td> 8/31/2018 5:13:24AM</td>
+                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                    </tr>
+
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+
+                <div class="col-md-4">
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"><i class="fa fa-search"></i> Popular filters</h3>
+
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                            <!-- /.box-tools -->
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <table id="popularFiltersDt" class="table table-bordered table-hover pull-right">
+                                <thead>
+                                    <tr>
+                                        <th>Filter</th>
+                                        <th>Count</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>TV-in room</td>
+                                        <td>45</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Kitchen shared</td>
+                                        <td>21</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>TV-in room</td>
+                                        <td>45</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>TV-in room</td>
+                                        <td>45</td>
+                                    </tr>
+
+
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"><i class="fa fa-star"></i> Bestsellers(rooms) by quantity</h3>
+
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                            <!-- /.box-tools -->
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <table id="bestSellersByQtyDt" class="table table-bordered table-hover pull-right">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Total quantity</th>
+                                        <th>Total amount</th>
+                                        <th>View</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Ramen suits</td>
+                                        <td>23</td>
+                                        <td>82,000 USD</td>
+
+                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Prime living suits</td>
+                                        <td>23</td>
+                                        <td>82,000 USD</td>
+
+                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>EMU 1</td>
+                                        <td>23</td>
+                                        <td>82,000 USD</td>
+
+                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Alfam studio suits</td>
+                                        <td>23</td>
+                                        <td>82,000 USD</td>
+
+                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                    </tr>
+
+
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+
+                <div class="col-md-6">
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"><i class="fa fa-star-o"></i> Bestsellers(rooms) by amount</h3>
+
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                            <!-- /.box-tools -->
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <table id="bestSellersByAmtDt" class="table table-bordered table-hover ">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Total quantity</th>
+                                        <th>Total amount</th>
+                                        <th>View</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr>
+                                        <td>EMU 1</td>
+                                        <td>233</td>
+                                        <td>82,000 USD</td>
+
+                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Alfam studio suits</td>
+                                        <td>21</td>
+                                        <td>12,000 USD</td>
+
+                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ramen suits</td>
+                                        <td>13</td>
+                                        <td>2,000 USD</td>
+
+                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Prime living suits</td>
+                                        <td>3</td>
+                                        <td>1,000 USD</td>
+
+                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                    </tr>
+
+
+                                </tbody>
+
+
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+
+            </div>
+
+            <!-- /.row -->
+            <!-- Main row -->
+            <!-- /.row (main row) -->
+
+        </section>
+        <!-- /.content -->
 
 
     </section>
@@ -33,11 +608,256 @@
     <!-- /.content -->
 </div>
 
+
+@section styles{
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/skins/_all-skins.min.css">
+    <!-- Morris chart -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/morris.js/morris.css">
+    <!-- jvectormap -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/jvectormap/jquery-jvectormap.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
+    <!-- Date Picker -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap-daterangepicker/daterangepicker.css">
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+
+
+}
+
+
 @section scripts
+
     {
+    <!-- daterangepicker -->
+    <script src="@Url.Content("~/Content/")bower_components/moment/min/moment.min.js"></script>
+    <script src="@Url.Content("~/Content/")bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- datepicker -->
+    <script src="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <script src="@Url.Content("~/Content/")bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap 3.3.7 -->
+    <!-- jQuery UI 1.11.4 -->
+    <script src="@Url.Content("~/Content/")bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button);
+    </script>
     <script src="@Url.Content("~/Content/")bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- AdminLTE App -->
+    <script src="@Url.Content("~/Content/")bower_components/raphael/raphael.min.js"></script>
+    <script src="@Url.Content("~/Content/")bower_components/morris.js/morris.min.js"></script>
+    <!-- Sparkline -->
+    <script src="@Url.Content("~/Content/")bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+    <!-- jvectormap -->
+    <script src="@Url.Content("~/Content/")plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="@Url.Content("~/Content/")plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="@Url.Content("~/Content/")bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
+    <!-- Chart js-->
+    <script src="@Url.Content("~/Content/")bower_components/Chart-js/Chart.js"></script>
+    <script src="@Url.Content("~/Content/")bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="@Url.Content("~/Content/")bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <!-- Bootstrap WYSIHTML5 -->
+    <script src="@Url.Content("~/Content/")plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+    <!-- Slimscroll -->
+    <script src="@Url.Content("~/Content/")bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="@Url.Content("~/Content/")bower_components/fastclick/lib/fastclick.js"></script>
+
     <script src="@Url.Content("~/Content/")dist/js/adminlte.min.js"></script>
+
+    <!-- AdminLTE App -->
+    <script src="@Url.Content("~/Content/")dist/js/pages/dashboard.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="@Url.Content("~/Content/")dist/js/demo.js"></script>
+
+    <script>
+
+        $(function () {
+
+            $('#bookingTotalsDt').DataTable({
+                'paging': false,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false,
+
+                "lengthMenu": [[5, 25, 50, -1], [10, 25, 50, "All"]]
+            })
+
+
+            $('#latestBookingsDt').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false,
+
+                "lengthMenu": [[5, 25, 50, -1], [10, 25, 50, "All"]]
+            })
+
+
+
+            $('#bestSellersByQtyDt').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false,
+
+                "lengthMenu": [[5, 25, 50, -1], [10, 25, 50, "All"]]
+            })
+
+
+            $('#bestSellersByAmtDt').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false,
+
+                "lengthMenu": [[5, 25, 50, -1], [10, 25, 50, "All"]]
+            })
+
+            $('#incompleteBookingsDt').DataTable({
+                'paging': false,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false,
+
+                "lengthMenu": [[5, 25, 50, -1], [10, 25, 50, "All"]]
+            })
+
+
+            $('#popularFiltersDt').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false,
+
+                "lengthMenu": [[5, 25, 50, -1], [10, 25, 50, "All"]]
+            })
+
+
+
+
+        })
+
+
+        var ctx = document.getElementById("bookingsChart").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                datasets: [{
+
+                    data: [2, 3, 3, 5, 2, 3],
+
+                    backgroundColor: [
+                        'rgba(		60, 141, 188,0.5)'
+
+                    ],
+                    borderColor: [
+                        'rgba(		60, 141, 188,1)'
+
+                    ],
+                    borderWidth: 3
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function (tooltipItem) {
+                            return tooltipItem.yLabel;
+                        }
+                    }
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            userCallback: function (label, index, labels) {
+                                // when the floored value is the same as the value we have a whole number
+                                if (Math.floor(label) === label) {
+                                    return label;
+                                }
+                            }
+                        }
+                    }]
+                }
+            }
+        });
+
+
+
+        var ctx2 = document.getElementById("newCustomersChart").getContext('2d');
+        var myChart = new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "Purple", "Orange"],
+                datasets: [{
+
+                    data: [0, 0, 0, 3, 2, 2, 3, 2],
+                    backgroundColor: [
+                        'rgba(			221, 75, 57,0.5)'
+
+                    ],
+                    borderColor: [
+                        'rgba(		221, 75, 57,1)'
+
+                    ],
+                    borderWidth: 3
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function (tooltipItem) {
+                            return tooltipItem.yLabel;
+                        }
+                    }
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            userCallback: function (label, index, labels) {
+                                // when the floored value is the same as the value we have a whole number
+                                if (Math.floor(label) === label) {
+                                    return label;
+                                }
+                            }
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+
 }

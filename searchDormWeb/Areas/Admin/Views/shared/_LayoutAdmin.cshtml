@@ -17,6 +17,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/Ionicons/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="@Url.Content("~/Content/")plugins/pace/pace.min.css">
     <link rel="stylesheet" href="@Url.Content("~/Content/")CustomStyle.css">
     @RenderSection("styles", false)
     <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
@@ -38,9 +39,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
 
-   @{
-       ViewData["Username"] = "Musa Jahun";
-   }     <!-- Main Header -->
+        @{
+            ViewData["Username"] = "Musa Jahun";
+        }     <!-- Main Header -->
         @Html.Partial("../Admin/Admin_Shared/_header.cshtml", null)
         @*@RenderPage("~/Views/Admin/Admin_Shared/_header.cshtml", null)*@
         <!-- Left side column. contains the logo and sidebar -->
@@ -71,6 +72,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     @RenderSection("scripts", false)
     <!-- Optionally, you can add Slimscroll and FastClick plugins.
     Both of these plugins are recommended to enhance the
+
     user experience. -->
+    <script src="@Url.Content("~/Content/")bower_components/PACE/pace.min.js"></script>
 </body>
 </html>

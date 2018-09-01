@@ -41,6 +41,7 @@ namespace searchDormWeb.Controllers
              
                 if (result.Succeeded)
                 {
+                  
                     var st = vm.ReturnUrl;
                     if (st!=null) 
                     return Redirect(vm.ReturnUrl);

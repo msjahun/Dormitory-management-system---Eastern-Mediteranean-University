@@ -32,6 +32,7 @@
     <Content Include="wwwroot\Content\bower_components\bootstrap\dist\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="wwwroot\Content\bower_components\bootstrap\dist\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="wwwroot\Content\bower_components\bootstrap\dist\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="wwwroot\Content\bower_components\datatables.net-bs\css\dataTables.bootstrap.min.css" />
     <Content Include="wwwroot\Content\bower_components\font-awesome\.bower.json" />
     <Content Include="wwwroot\Content\bower_components\font-awesome\bower.json" />
     <Content Include="wwwroot\Content\bower_components\font-awesome\css\font-awesome.css" />
@@ -792,6 +793,10 @@
     <None Include="wwwroot\Content\bower_components\bootstrap\dist\js\bootstrap.js" />
     <None Include="wwwroot\Content\bower_components\bootstrap\dist\js\bootstrap.min.js" />
     <None Include="wwwroot\Content\bower_components\bootstrap\dist\js\npm.js" />
+    <None Include="wwwroot\Content\bower_components\Chart-js\Chart.js" />
+    <None Include="wwwroot\Content\bower_components\Chart-js\Chart.min.js" />
+    <None Include="wwwroot\Content\bower_components\datatables.net-bs\js\dataTables.bootstrap.min.js" />
+    <None Include="wwwroot\Content\bower_components\datatables.net\js\jquery.dataTables.min.js" />
     <None Include="wwwroot\Content\bower_components\fastclick\lib\fastclick.js" />
     <None Include="wwwroot\Content\bower_components\font-awesome\.gitignore" />
     <None Include="wwwroot\Content\bower_components\font-awesome\.npmignore" />
@@ -1591,6 +1596,7 @@
     <None Include="wwwroot\Content\bower_components\moment\min\moment-with-locales.min.js" />
     <None Include="wwwroot\Content\bower_components\moment\min\moment.min.js" />
     <None Include="wwwroot\Content\bower_components\morris.js\morris.min.js" />
+    <None Include="wwwroot\Content\bower_components\PACE\pace.min.js" />
     <None Include="wwwroot\Content\bower_components\raphael\raphael.min.js" />
     <None Include="wwwroot\Content\bower_components\select2\dist\js\i18n\af.js" />
     <None Include="wwwroot\Content\bower_components\select2\dist\js\i18n\ar.js" />

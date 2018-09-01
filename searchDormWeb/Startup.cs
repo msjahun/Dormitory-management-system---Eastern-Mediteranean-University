@@ -15,6 +15,7 @@ using Dau.Core.Domain.User;
 using Microsoft.AspNetCore.Identity;
 using searchDormWeb.Configuration;
 using Dau.Services.Security;
+using Dau.Services.Users;
 using Dau.Services.AccessControlList;
 using searchDormWeb.Configuration.SecurityFilter;
 
@@ -53,6 +54,7 @@ namespace searchDormWeb
 
 
             //adding our services to the ioc container
+            services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IUserRolesService, UserRolesService>();
             services.AddScoped<ISearchService, SearchService>();
             services.AddScoped<IDormitoryService, DormitoryService>();
