@@ -195,31 +195,6 @@
 
 
 
-            @*@{ actions = new List<MenuSubItems>(new MenuSubItems[] {
-                new MenuSubItems { ActionName = "List", ActionDisplayName = "All Reviews" },
-                new MenuSubItems { ActionName = "Reported", ActionDisplayName = "Reported" },
-                new MenuSubItems { ActionName = "Flagged", ActionDisplayName = "Flagged" },
-                new MenuSubItems { ActionName = "Deleted", ActionDisplayName = "Deleted" }
-                                               });
-
-
-
-                item = new MenuItemViewModel
-                {
-                    ControllerDisplayName = "Reviews",
-                    ControllerName = "Reviews",
-                    icon = "fa fa-comments",
-                    CurrentController = currentController,
-                    CurrentAction = currentAction,
-                    AreaName = "Admin",
-                    Actions = actions,
-                    subMenu = null
-                };
-            }
-
-            <Menu-item menu-item="item">
-            </Menu-item>*@
-
 
 
 
@@ -312,7 +287,7 @@
 
 
                 actions = new List<MenuSubItems>(new MenuSubItems[] {
-                       new MenuSubItems { ActionName = "Information", ActionDisplayName = "systemp information" },
+                       new MenuSubItems { ActionName = "Information", ActionDisplayName = "System information" },
                        new MenuSubItems { ActionName = "Log", ActionDisplayName = "Log" },
                        new MenuSubItems { ActionName = "Warning", ActionDisplayName = "Warning" },
                        new MenuSubItems { ActionName = "Maintenance", ActionDisplayName = "Maintenance" },
