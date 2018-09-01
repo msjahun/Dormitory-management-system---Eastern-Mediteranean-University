@@ -1,4 +1,9 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity
+@using Dau.Core.Domain.User;
+@using Dau.Services.Users;
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@inject IUsersService _userService
 
 <header class="main-header">
 
@@ -7,7 +12,7 @@
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini "><img src="@Url.Content("~/Content/")dist/img/DauLogoMini.png" style="width: 100%; height: 100%"></span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg "><img src="@Url.Content("~/Content/")dist/img/EmuLogo.png" style="width: 100%; height: 100%" ></span>
+        <span class="logo-lg "><img src="@Url.Content("~/Content/")dist/img/EmuLogo.png" style="width: 100%; height: 100%"></span>
     </a>
 
     <!-- Header Navbar -->
@@ -22,41 +27,44 @@
                 <!-- Messages: style can be found in dropdown.less-->
                 <li class="">
                     <!-- Menu toggle button -->
-                 
-                        <select class="form-control" id="language_select" style="margin-top:10px">
 
-                            <option value="0">English</option>
-                            <option value="0">Turkish</option>
+                    <select class="form-control" id="language_select" style="margin-top:10px">
 
-                        </select>
-                   
+                        <option value="0">English</option>
+                        <option value="0">Turkish</option>
+
+                    </select>
+
 
                 </li>
                 <li class="">
                     <!-- Menu toggle button -->
-                    <a href="#" class="" >
-                       @ViewData["Username"]
+                    <a href="#" class="">
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                           @_userService.GetFirstLastNames(UserManager.GetUserId(User).ToString())
+                            
+                        }
                     </a>
-                   
+
                 </li>
                 <li class="">
                     <!-- Menu toggle button -->
-                    <a href="@Url.Action("Logout", "Login",new { Area = "" })"  class="" >
+                    <a href="@Url.Action("Logout", "Login",new { Area = "" })" class="">
                         Logout
                     </a>
-                   
+
                 </li>
                 <li class="">
                     <!-- Menu toggle button -->
-                    <a href="@Url.Action("Index", "Home",new { Area = "" })" class="" >
+                    <a href="@Url.Action("Index", "Home",new { Area = "" })" class="">
                         Public site
                     </a>
-                   
+
                 </li>
                 <li>
                     <a href="#"
-                       @*data-toggle="control-sidebar"*@
-                       ><i class="fa fa-gears"></i></a>
+                       @*data-toggle="control-sidebar" *@><i class="fa fa-gears"></i></a>
                 </li>
             </ul>
         </div>
