@@ -21,7 +21,7 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/skins/_all-skins.min.css">
-
+    <link rel="stylesheet" href="@Url.Content("~/Content/")plugins/pace/pace.min.css">
     <link rel="stylesheet" href="@Url.Content("~/Content/")custom/style.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -158,7 +158,7 @@
     <script src="@Url.Content("~/Content/")dist/js/demo.js"></script>
     <!-- Bootstrap slider -->
     <script src="@Url.Content("~/Content/")plugins/bootstrap-slider/bootstrap-slider.js"></script>
-
+    <script src="@Url.Content("~/Content/")bower_components/PACE/pace.min.js"></script>
     <script src="@Url.Content("~/Content/")dist/customScript.js"></script>
     <script>
         $(function () {
@@ -212,7 +212,7 @@
 
 
     <script>
-        var marker; 
+        var marker;
         var markers = [];
         var contentString = "<h3>Hello World </h3>";
         function myMap() {
@@ -222,25 +222,25 @@
                 mapTypeId: 'terrain'
             }
             var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-           
-          
+
+
 
         }
 
-        function addMarker(marker, map, timeout,contentString) {
+        function addMarker(marker, map, timeout, contentString) {
             window.setTimeout(function () {
 
-           
-            marker.setMap(map);
+
+                marker.setMap(map);
                 marker.addListener('click', toggleBounce);
             }, timeout);
-          
 
 
-          
+
+
 
             var infowindow = new google.maps.InfoWindow({
-                content: contentString , maxWidth: 250
+                content: contentString, maxWidth: 250
             });
 
             function toggleBounce() {
@@ -257,12 +257,12 @@
 
         }
 
-    
 
-      
-        // var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-        
+
+            // var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+
     </script>
 
     @if (ViewBag.ContentFormat_language_id == "2")
