@@ -10,9 +10,17 @@
     <section class="content-header">
         <h1>
             @ViewData["Title"]
-            <small>Optional description</small>
+            <small><a asp-action="Survey" asp-controller="ContentManagement"><i class="fa fa-arrow-circle-left"></i> back to Survey list</a></small>
         </h1>
+        <div class="row">
+            <div class=" col-md-12">
+                <div class="upper_left pull-right">
 
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save</button>
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save and Continue Edit</button>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Main content -->
@@ -23,12 +31,167 @@
         | Your Page Content Here |
         -------------------------->
 
+        <div class="col-md-12">
+            <!-- Horizontal Form -->
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab_3" data-toggle="tab" aria-expanded="true">Survey info</a></li>
+                    <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">Survey questions and answers</a></li>
+
+                </ul>
+                <div class="tab-content">
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane active" id="tab_3">
+                        <div class="box ">
+                            <div class="box-header"></div>
+                            <form class="form-horizontal">
+                                <div class="box-body">
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Language <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <input type="password" class="form-control" id="inputPassfdword3">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Name <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <input type="password" class="form-control" id="inputPassfwords3">
+                                        </div>
+                                        <span style="color:red;">*</span>
+                                    </div>
 
 
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">System keyword<i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <input type="password" class="form-control" id="inputPassfwords3">
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Published <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <input type="checkbox">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Show on home page <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <input type="checkbox">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Allow guests to participate<i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <input type="checkbox">
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Display order <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <input type="number" class="form-control" id="inputPassgwords3">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Start date <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <input type="date" class="form-control" id="inputPassgwords3">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">End date <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <input type="date" class="form-control" id="inputPassgwords3">
+                                        </div>
+
+                                    </div>
+
+
+
+
+                                </div>
+                                <!-- /.box-body -->
+
+                            </form>
+                        </div>
+
+                    </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="tab_1">
+                        <div class="box ">
+                            <div class="box-header">
+
+                            </div>
+                            <!-- /.box-header -->
+                            <!-- form start -->
+
+                            <div class="box-body">
+                                <p>You need to save the suvey before you can add questions and answers for this survey.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.tab-pane -->
+
+
+                </div>
+                <!-- /.tab-content -->
+            </div>
+
+
+
+        </div>
     </section>
     <!-- /.content -->
     <!-- /.content -->
 </div>
+
+@section styles {
+
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/Ionicons/css/ionicons.min.css">
+    <!-- DataTables -->
+    <!--Select2-->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/select2/dist/css/select2.min.css">
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/skins/_all-skins.min.css">
+}
+
 
 @section scripts
     {
@@ -37,4 +200,32 @@
     <script src="@Url.Content("~/Content/")bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- AdminLTE App -->
     <script src="@Url.Content("~/Content/")dist/js/adminlte.min.js"></script>
+    <script src="@Url.Content("~/Content/")bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="@Url.Content("~/Content/")bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="@Url.Content("~/Content/")bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="@Url.Content("~/Content/")bower_components/fastclick/lib/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <!-- AdminLTE for demo purposes -->
+    <script src="@Url.Content("~/Content/")dist/js/demo.js"></script>
+    <!-- page script -->
+    <script>
+        $(function () {
+
+
+
+
+
+            $('#example2').DataTable({
+                'paging': false,
+                'lengthChange': true,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': true
+            })
+        })
+    </script>
 }
+
