@@ -795,6 +795,7 @@
     <None Include="wwwroot\Content\bower_components\bootstrap\dist\js\npm.js" />
     <None Include="wwwroot\Content\bower_components\Chart-js\Chart.js" />
     <None Include="wwwroot\Content\bower_components\Chart-js\Chart.min.js" />
+    <None Include="wwwroot\Content\bower_components\ckeditor\ckeditor.js" />
     <None Include="wwwroot\Content\bower_components\datatables.net-bs\js\dataTables.bootstrap.min.js" />
     <None Include="wwwroot\Content\bower_components\datatables.net\js\jquery.dataTables.min.js" />
     <None Include="wwwroot\Content\bower_components\fastclick\lib\fastclick.js" />
