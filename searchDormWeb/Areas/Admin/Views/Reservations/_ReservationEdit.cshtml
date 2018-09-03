@@ -10,7 +10,7 @@
     <section class="content-header">
         <h1>
             @ViewData["Title"]
-            <small><a asp-action="List" asp-controller="Users"><i class="fa fa-arrow-circle-left"></i> back to Users list</a></small>
+            <small><a asp-action="List" asp-controller="Reservations"><i class="fa fa-arrow-circle-left"></i> back to Reservations list</a></small>
         </h1>
         <div class="row">
             <div class=" col-md-12">
@@ -43,20 +43,377 @@
                 <div class="tab-content">
                     <!-- /.tab-pane -->
                     <div class="tab-pane active" id="tab_3">
-                        tab 3
+                        <form class="form-horizontal">
+                            <div class="box">
+                                <div class="box-header"></div>
+                                <!-- /.box-header -->
+                                <!-- form start -->
+
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-3 control-label">Booking / status <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <bold>Pending</bold>
+                                            <button class="btn btn-danger btn-flat"> Cancel booking</button>
+                                            <button class="btn btn-primary btn-flat"> Change status</button>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Booking/Order # <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <p>123343443</p>
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Dormitory <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <p>Alfam dormitories</p>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.box-->
+                            <div class="box">
+                                <div class="box-header"></div>
+                                <!-- /.box-header -->
+                                <!-- form start -->
+
+                                <div class="box-body">
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Customer <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <a>thandisilen@gmail.com</a>
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Customer IP address <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <p>194.27.73.30</p>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Booking/Order subtotal <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <p>$18.00</p>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Booking fee <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <p>$0.00</p>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Order total<i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <p>$18.00</p>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Profit <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <p>$4.30</p><button class="btn btn-primary">Edit order totals</button>
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Payment method <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <p>Upload payment method (UPM)</p>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.box-->
+
+
+
+                            <div class="box">
+                                <div class="box-header"></div>
+                                <!-- /.box-header -->
+                                <!-- form start -->
+
+                                <div class="box-body">
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Payment status <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <p>Pending </p><button class="btn btn-primary">Mark as paid</button>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Created on<i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <p>8/22/2018 2:33:16 AM</p>
+                                        </div>
+
+                                    </div>
+
+
+
+                                </div>
+                                <!-- /.box-body -->
+
+
+                            </div>
+                        </form>
                     </div>
+
+                   
+
+
+
+
+
+
+
+
                     <!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_1">
-                        tab 1
+                        <div class="box">
+                            <div class="box-header"></div>
+                            <!-- /.box-header -->
+                            <!-- form start -->
+                            <form class="form-horizontal">
+                                <div class="box-body">
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Billing address <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-4">
+                                            <table id="example2" class="table table-bordered table-striped">
+
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Full name</td>
+                                                        <td>Musa Jahun</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>Email </td>
+                                                        <td>msjahun@live.com</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>Phone </td>
+                                                        <td>+905338264432</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Address 1 </td>
+                                                        <td>Eastern Mediterranean University</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>Address 2 </td>
+                                                        <td>North Cyprus</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>City </td>
+                                                        <td>Famagusta</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>State/ province </td>
+                                                        <td></td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>Zip / postal code </td>
+                                                        <td>99450</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>Country </td>
+                                                        <td>Turkey</td>
+                                                    </tr>
+                                                </tbody>
+
+                                            </table>
+                                            <button type="submit" form="addForm" class="btn btn-primary">  Edit</button>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+
+
                     </div>
                     <!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_2">
-                        tab 2
+                        <div class="box ">
+                            <div class="box-header">
+
+                            </div>
+                            <!-- /.box-header -->
+                            <!-- form start -->
+
+                            <div class="box-body">
+                                <table id="example22" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Picture</th>
+                                            <th>Room name</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th>Discount</th>
+                                            <th>Total</th>
+                                            <th>Edit</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+
+                                </table>
+                                <button type="submit" form="addForm" class="btn btn-primary"> <i class="fa fa-plus-square"></i> Add room</button>
+
+                            </div>
+                        </div>
                     </div>
 
                     <!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_4">
-                        tab 4
+                        <div class="box ">
+                            <div class="box-header">
+
+                            </div>
+                            <!-- /.box-header -->
+                            <!-- form start -->
+
+                            <div class="box-body">
+                                <table id="example24" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Created on</th>
+                                            <th>Note</th>
+                                            <th>Attached file</th>
+                                            <th>Display to customer</th>
+                                            <th>Delete</th>
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>8/22/2018 2:33:20 AM</td>
+                                            <td>"Order placed" email(to customer) has been queued. Queued email identifier: 466</td>
+                                            <td>No file attached</td>
+                                            <td><i style="color:red;" class="fa fa-times"></i></td>
+                                            <td><button class="btn btn-default"><i class="fa fa-times"></i> Delete</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>8/22/2018 2:33:20 AM</td>
+                                            <td>"Order placed" email(to customer) has been queued. Queued email identifier: 466</td>
+                                            <td>No file attached</td>
+                                            <td><i style="color:red;" class="fa fa-times"></i></td>
+                                            <td><button class="btn btn-default"><i class="fa fa-times"></i> Delete</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>8/22/2018 2:33:20 AM</td>
+                                            <td>"Order placed" email(to customer) has been queued. Queued email identifier: 466</td>
+                                            <td>No file attached</td>
+                                            <td><i style="color:red;" class="fa fa-times"></i></td>
+                                            <td><button class="btn btn-default"><i class="fa fa-times"></i> Delete</button></td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+                        </div>
+
+                        <div class="box ">
+                            <div class="box-header">
+                                <p>Add order note</p>
+                            </div>
+                            <!-- /.box-header -->
+                            <!-- form start -->
+
+                            <div class="box-body">
+
+                                <form class="form-horizontal">
+
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Note <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <input type="password" class="form-control" id="inputPassfwords3">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Attached file <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <input type="checkbox"> <p>(Check to upload file)</p>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Display to customer <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <input type="checkbox"> <br />
+                                            <button class="btn btn-primary">Add order note</button>
+                                        </div>
+
+                                    </div>
+
+
+
+                                </form>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -102,46 +459,38 @@
     <script src="@Url.Content("~/Content/")bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- AdminLTE App -->
     <script src="@Url.Content("~/Content/")dist/js/adminlte.min.js"></script>
-
-
-    <script src="@Url.Content("~/Content/")bower_components/select2/dist/js/select2.full.min.js"></script>
-    @*<script src="@Url.Content("~/Content/")bower_components/datatables.net/js/jquery.dataTables.min.js"></script>*@
-
-    <script src="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-
-
+    <script src="@Url.Content("~/Content/")bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="@Url.Content("~/Content/")bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <!-- SlimScroll -->
     <script src="@Url.Content("~/Content/")bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
     <script src="@Url.Content("~/Content/")bower_components/fastclick/lib/fastclick.js"></script>
     <!-- AdminLTE App -->
+    <script src="@Url.Content("~/Content/")bower_components/ckeditor/ckeditor.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="@Url.Content("~/Content/")dist/js/demo.js"></script>
-    <!-- page script -->
     <script>
         $(function () {
 
 
-            //Initialize Select2 Elements
-            $('.select2').select2()
 
-            ///Intialize datepicker
-            $('#datepicker').datepicker({
-                autoclose: true
+            $('#example22').DataTable({
+                'paging': true,
+                'lengthChange': true,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': true
             })
 
-
-            $('#example').DataTable()
-            $('#example1').DataTable({
-                'paging': false,
+            $('#example24').DataTable({
+                'paging': true,
                 'lengthChange': true,
-                'searching': true,
+                'searching': false,
                 'ordering': true,
                 'info': true,
                 'autoWidth': true
             })
         })
     </script>
-}
-
+        }

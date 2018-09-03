@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using Dau.Core.Domain.User;
+@using Dau.Services.Users;
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@inject IUsersService _userService
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -35,10 +42,18 @@
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
 <body class="hold-transition skin-blue layout-top-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {<secure-content asp-action="Index" asp-controller="Admin" asp-area="">
+    <div class="text-center">  <a asp-action="Index" asp-controller="Admin">Administration</a></div>
+</secure-content>
+    }
+
+
     <div class="wrapper">
 
         <header class="main-header">
             <nav class="navbar navbar-static-top">
+
                 <div class="container">
                     <div class="navbar-header">
                         <a href="#"><b>  <img src="@Url.Content("~/Content/")dist/img/@ViewBag.ContentFormat_logo_image_url" class="navbar-brand visible-xs" style="width: 60%; height: 60%;" alt="User Image">  <img src="@Url.Content("~/Content/")dist/img/@ViewBag.ContentFormat_logo_image_url" style="width: 30%; height: 30%" class="hidden-xs navbar-brand" alt="User Image"></a>
@@ -260,7 +275,7 @@
 
 
 
-            // var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+                            // var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
 
     </script>
