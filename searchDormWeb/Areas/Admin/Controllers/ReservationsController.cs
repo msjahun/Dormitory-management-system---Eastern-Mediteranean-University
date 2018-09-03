@@ -43,13 +43,6 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
         }
 
-        [HttpGet("[action]")]
-        public ActionResult CancelRequestEdit()
-        {
-            return View("_CancelRequestEdit");
-
-        }
-
         #endregion
 
         #region CurrentWishList

@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace searchDormWeb.Controllers
 {
 
-    //[Authorize]
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly IStringLocalizer<HomeController> _localizer;
