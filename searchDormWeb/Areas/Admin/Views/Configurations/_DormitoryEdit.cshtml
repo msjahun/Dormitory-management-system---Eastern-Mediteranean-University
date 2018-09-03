@@ -10,9 +10,20 @@
     <section class="content-header">
         <h1>
             @ViewData["Title"]
-            <small>Optional description</small>
+            <small><a asp-action="Dormitories" asp-controller="Configurations"><i class="fa fa-arrow-circle-left"></i> back to dormitories list</a></small>
         </h1>
+        <div class="row">
+            <div class=" col-md-12">
+                <div class="upper_left pull-right">
 
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-eye"></i> Preview</button>
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save</button>
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save and Continue Edit</button>
+                    <button type="submit" form="addForm" class="btn btn-success "> <i class="fa fa-clone"></i> Copy product</button>
+                    <button type="submit" form="addForm" class="btn btn-danger "> <i class="fa fa-trash-o"></i> Delete</button>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Main content -->
@@ -23,18 +34,782 @@
         | Your Page Content Here |
         -------------------------->
 
+        <div class="col-md-12">
+            <!-- Horizontal Form -->
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab_3" data-toggle="tab" aria-expanded="true">Dormitory info</a></li>
+                    <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">SEO</a></li>
+                    <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">Pictures</a></li>
+                    <li class=""><a href="#tab_5" data-toggle="tab" aria-expanded="false">Specification attributes</a></li>
+                </ul>
+                <div class="tab-content">
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane active" id="tab_3">
+                        <div class="row">
+
+                            <div class="col-md-6" id="first_column">
+
+                                <div class="box ">
+                                    <div class="box-header">General information</div>
+                                    <!-- /.box-header -->
+                                    <!-- form start -->
+
+                                    <div class="box-body">
+                                        <form class="form-horizontal">
+
+                                            <div class="form-group">
+                                                <label for="inputPassword3" class="col-sm-3 control-label">ID <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                <div class="col-sm-9">
+                                                    <p>190</p>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="inputPassword3" class="col-sm-3 control-label">Dormitory type <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" />
+                                                </div>
+
+                                            </div>
 
 
+
+
+                                            <div class="nav-tabs-custom">
+                                                <ul class="nav nav-tabs">
+                                                    <li class="active"><a href="#tab_31" data-toggle="tab" aria-expanded="true">Standard</a></li>
+                                                    <li class=""><a href="#tab_32" data-toggle="tab" aria-expanded="false">English</a></li>
+                                                    <li class=""><a href="#tab_33" data-toggle="tab" aria-expanded="false">Turkish</a></li>
+
+                                                </ul>
+                                                <div class="tab-content">
+                                                    <!-- /.tab-pane -->
+                                                    <div class="tab-pane active" id="tab_31">
+
+
+                                                        <div class="form-group">
+                                                            <label for="inputPassword3" class="col-sm-3 control-label">Dormitory name <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                            <div class="col-sm-9">
+                                                                <input type="text" class="form-control" />
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="inputPassword3" class="col-sm-3 control-label">Short description <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                            <div class="col-sm-9">
+                                                                <textarea class="form-control"></textarea>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="inputPassword3" class="col-sm-3 control-label">Full description <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                            <div class="col-sm-9">
+                                                                <textarea id="editor1" class="form-control" name="editor1" rows="10" cols="80">
+                                            This is my textarea to be replaced with CKEditor.
+                                                          </textarea>
+                                                            </div>
+
+                                                        </div>
+
+
+                                                    </div>
+                                                    <!-- /.tab-pane -->
+                                                    <div class="tab-pane" id="tab_32">
+
+
+                                                        <div class="form-group">
+                                                            <label for="inputPassword3" class="col-sm-3 control-label">Dormitory name <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                            <div class="col-sm-9">
+                                                                <input type="text" class="form-control" />
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="inputPassword3" class="col-sm-3 control-label">Short description <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                            <div class="col-sm-9">
+                                                                <textarea class="form-control"></textarea>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="inputPassword3" class="col-sm-3 control-label">Full description <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                            <div class="col-sm-9">
+                                                                <textarea id="editor2" class="form-control" name="editor2" rows="10" cols="80">
+                                            This is my textarea to be replaced with CKEditor.
+                                                          </textarea>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                    <!-- /.tab-pane -->
+                                                    <!-- /.tab-pane -->
+                                                    <div class="tab-pane" id="tab_33">
+
+
+                                                        <div class="form-group">
+                                                            <label for="inputPassword3" class="col-sm-3 control-label">Dormitory name <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                            <div class="col-sm-9">
+                                                                <input type="text" class="form-control" />
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="inputPassword3" class="col-sm-3 control-label">Short description <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                            <div class="col-sm-9">
+                                                                <textarea class="form-control"></textarea>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="inputPassword3" class="col-sm-3 control-label">Full description <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                            <div class="col-sm-9">
+                                                                <textarea id="editor3" class="form-control" name="editor3" rows="10" cols="80">
+                                            This is my textarea to be replaced with CKEditor.
+                                                          </textarea>
+                                                            </div>
+
+                                                        </div>
+
+
+                                                    </div>
+                                                    <!-- /.tab-pane -->
+
+
+                                                </div>
+                                                <!-- /.tab-content -->
+                                            </div>
+                                            <!-- /.nav-tabs -->
+
+
+
+
+
+
+
+
+
+
+
+
+                                            <div class="form-group">
+                                                <label for="inputPassword3" class="col-sm-3 control-label">Dormitory URL <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" />
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="inputPassword3" class="col-sm-3 control-label">Display order <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                <div class="col-sm-9">
+                                                    <input type="number" class="form-control" />
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="inputPassword3" class="col-sm-3 control-label">Company name <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" />
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="inputPassword3" class="col-sm-3 control-label">Company address <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" />
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="inputPassword3" class="col-sm-3 control-label">Company phone number <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" />
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="inputPassword3" class="col-sm-3 control-label">Published <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                <div class="col-sm-8">
+                                                    <input type="checkbox" />
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label for="inputPassword3" class="col-sm-3 control-label">Show on home page <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                <div class="col-sm-8">
+                                                    <input type="checkbox" />
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label for="inputPassword3" class="col-sm-3 control-label">Allow customer reviews <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                <div class="col-sm-8">
+                                                    <input type="checkbox" />
+                                                </div>
+
+                                            </div>
+
+
+
+
+
+                                            <div class="form-group">
+                                                <label for="inputPassword3" class="col-sm-3 control-label">Mark as new <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                <div class="col-sm-8">
+                                                    <input type="checkbox" />
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label for="inputPassword3" class="col-sm-3 control-label">Admin comment <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                <div class="col-sm-8">
+                                                    <textarea class="form-control"></textarea>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="inputPassword3" class="col-sm-3 control-label">Created on <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                <div class="col-sm-8">
+                                                    <p>Monday, April 2, 2018 8:32:36 AM</p>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="inputPassword3" class="col-sm-3 control-label">Updated on <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                <div class="col-sm-8">
+                                                    <p>Monday, April 2, 2018 8:32:36 AM</p>
+                                                </div>
+
+                                            </div>
+
+
+
+                                        </form>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+
+
+                            <div class="col-md-6" id="second_column">
+
+
+
+
+
+                                <div class="box ">
+                                    <div class="box-header">Access control list</div>
+                                    <!-- /.box-header -->
+                                    <!-- form start -->
+
+                                    <div class="box-body">
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label for="inputPassword3" class="col-sm-3 control-label">User roles <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" />
+                                                </div>
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <!-- /.tab-pane -->
+
+
+
+
+
+
+                    <div class="tab-pane" id="tab_1">
+                        <div class="box ">
+                            <div class="box-header"></div>
+                            <!-- /.box-header -->
+                            <!-- form start -->
+
+                            <div class="box-body">
+                                <form class="form-horizontal">
+                                    <div class="nav-tabs-custom">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active"><a href="#tab_431" data-toggle="tab" aria-expanded="true">Standard</a></li>
+                                            <li class=""><a href="#tab_432" data-toggle="tab" aria-expanded="false">English</a></li>
+                                            <li class=""><a href="#tab_433" data-toggle="tab" aria-expanded="false">Turkish</a></li>
+
+                                        </ul>
+                                        <div class="tab-content">
+                                            <!-- /.tab-pane -->
+                                            <div class="tab-pane active" id="tab_431">
+
+                                                <div class="form-group">
+                                                    <label for="inputPassword3" class="col-sm-3 control-label">Meta keywords<i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                    <div class="col-sm-8">
+                                                        <input type="password" class="form-control" id="inputPassfwords3">
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="inputPassword3" class="col-sm-3 control-label">Meta description<i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                    <div class="col-sm-8">
+                                                        <textarea class="form-control"></textarea>
+                                                    </div>
+
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <label for="inputPassword3" class="col-sm-3 control-label">Meta title<i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                    <div class="col-sm-8">
+                                                        <input type="password" class="form-control" id="inputPassfwords3">
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="inputPassword3" class="col-sm-3 control-label">Search engine friendly page name<i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                    <div class="col-sm-8">
+                                                        <input type="password" class="form-control" id="inputPassfwords3">
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                            <!-- /.tab-pane -->
+                                            <div class="tab-pane" id="tab_432">
+
+                                                <div class="form-group">
+                                                    <label for="inputPassword3" class="col-sm-3 control-label">Meta keywords<i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                    <div class="col-sm-8">
+                                                        <input type="password" class="form-control" id="inputPassfwords3">
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="inputPassword3" class="col-sm-3 control-label">Meta description<i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                    <div class="col-sm-8">
+                                                        <textarea class="form-control"></textarea>
+                                                    </div>
+
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <label for="inputPassword3" class="col-sm-3 control-label">Meta title<i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                    <div class="col-sm-8">
+                                                        <input type="password" class="form-control" id="inputPassfwords3">
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="inputPassword3" class="col-sm-3 control-label">Search engine friendly page name<i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                    <div class="col-sm-8">
+                                                        <input type="password" class="form-control" id="inputPassfwords3">
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                            <!-- /.tab-pane -->
+
+                                            <div class="tab-pane" id="tab_433">
+
+                                                <div class="form-group">
+                                                    <label for="inputPassword3" class="col-sm-3 control-label">Meta keywords<i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                    <div class="col-sm-8">
+                                                        <input type="password" class="form-control" id="inputPassfwords3">
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="inputPassword3" class="col-sm-3 control-label">Meta description<i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                    <div class="col-sm-8">
+                                                        <textarea class="form-control"></textarea>
+                                                    </div>
+
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <label for="inputPassword3" class="col-sm-3 control-label">Meta title<i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                    <div class="col-sm-8">
+                                                        <input type="password" class="form-control" id="inputPassfwords3">
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="inputPassword3" class="col-sm-3 control-label">Search engine friendly page name<i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                                    <div class="col-sm-8">
+                                                        <input type="password" class="form-control" id="inputPassfwords3">
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                            <!-- /.tab-pane -->
+
+
+
+
+
+                                        </div>
+                                        <!-- /.tab-content -->
+                                    </div>
+                                    <!-- /.nav-tabs -->
+
+
+                                </form>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                    </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="tab_2">
+                        <div class="box ">
+                            <div class="box-header"> </div>
+
+                            <div class="box-body">
+
+                                <table id="example22" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Picture</th>
+                                            <th>Display order</th>
+                                            <th>Alt</th>
+                                            <th>Title</th>
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+
+                                </table>
+
+                            </div>
+                        </div>
+
+                        <div class="box ">
+                            <div class="box-header">Add a new picture </div>
+
+                            <div class="box-body">
+                                <form class="form-horizontal">
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Picture <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <img src="~/Content/dist/img/default-image_100.png" /><br />
+                                            <button class="btn btn-success">Upload a file</button>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Alt <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" />
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Title <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" />
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Display order <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <input type="number" class="form-control" /><br />
+                                            <button class="btn btn-primary">Add dormitory picture</button>
+                                        </div>
+
+                                    </div>
+                                </form>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="tab-pane" id="tab_5">
+                        <div class="box ">
+                            <div class="box-header"> </div>
+
+                            <div class="box-body">
+                                <p>
+                                    Specificatino attributes are room features i.e, Bed size, room size and so on. Specification attributes can be used for filtering rooms
+                                    on the Dormitory detail page. Unlike room attributes, specification attributes are used for information purpose only.
+                                </p>
+
+                                <table id="example24" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Attribute type</th>
+                                            <th>Attribute</th>
+                                            <th>Value</th>
+                                            <th>Allow filtering</th>
+                                            <th>Show on room page</th>
+                                            <th>Display order</th>
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+
+                                </table>
+
+                            </div>
+                        </div>
+
+                        <div class="box ">
+                            <div class="box-header">Add a new room specification attribute </div>
+
+                            <div class="box-body">
+                                <form class="form-horizontal">
+
+
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Attribute type <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" />
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Attribute  <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" />
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Attribute option <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" />
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Allow filtering <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <input type="checkbox" />
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Show on room page <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <input type="checkbox" />
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label">Display order <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                        <div class="col-sm-8">
+                                            <input type="number" class="form-control" /><br />
+                                            <button class="btn btn-primary">Add attribute</button>
+                                        </div>
+
+                                    </div>
+                                </form>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.tab-content -->
+            </div>
+
+
+
+        </div>
     </section>
     <!-- /.content -->
     <!-- /.content -->
 </div>
 
+@section styles {
+
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/Ionicons/css/ionicons.min.css">
+    <!-- DataTables -->
+    <!--Select2-->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/select2/dist/css/select2.min.css">
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/skins/_all-skins.min.css">
+}
+
+
 @section scripts
     {
+
     <script src="@Url.Content("~/Content/")bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap 3.3.7 -->
     <script src="@Url.Content("~/Content/")bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- AdminLTE App -->
     <script src="@Url.Content("~/Content/")dist/js/adminlte.min.js"></script>
+    <script src="@Url.Content("~/Content/")bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="@Url.Content("~/Content/")bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="@Url.Content("~/Content/")bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="@Url.Content("~/Content/")bower_components/fastclick/lib/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <script src="@Url.Content("~/Content/")bower_components/ckeditor/ckeditor.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="@Url.Content("~/Content/")dist/js/demo.js"></script>
+    <!-- page script -->
+    <script>
+        $(function () {
+
+            CKEDITOR.replace('editor1')
+
+            CKEDITOR.replace('editor2')
+
+            CKEDITOR.replace('editor3')
+
+
+
+
+
+            $('#example').DataTable()
+            $('#example23').DataTable({
+                'paging': true,
+                'lengthChange': true,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': true
+            })
+            $('#example22').DataTable({
+                'paging': false,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': false,
+                'info': false,
+                'autoWidth': true
+            })
+
+            $('#example24').DataTable({
+                'paging': false,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': false,
+                'info': false,
+                'autoWidth': true
+            })
+        })
+    </script>
 }

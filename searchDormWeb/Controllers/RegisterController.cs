@@ -10,7 +10,7 @@ using searchDormWeb.Models;
 
 namespace searchDormWeb.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class RegisterController : Controller
     {
         private readonly UserManager<User> userManager;
