@@ -38,19 +38,45 @@
 
 
 
+
+
+            @{ actions = new List<MenuSubItems>(new MenuSubItems[] {
+                                  new MenuSubItems { ActionName = "TagHelpers", ActionDisplayName = "TagHelpers" }
+                                                               });
+
+
+
+                item = new MenuItemViewModel
+                {
+                    ControllerDisplayName = "Debug",
+                    ControllerName = "Debug",
+                    icon = "fa fa-bug",
+                    CurrentController = currentController,
+                    CurrentAction = currentAction,
+                    AreaName = "Admin",
+                    Actions = actions,
+                    subMenu = null
+                };
+            }
+
+            <Menu-item menu-item="item">
+            </Menu-item>
+
+
+
             @{SubActions = new List<MenuSubItems>(new MenuSubItems[] {
-                new MenuSubItems {ActionName = "Log", ActionDisplayName = "Activity Log" },
-                new MenuSubItems { ActionName = "Type", ActionDisplayName = "Activity Log Type" }
-                                                                                      });
+                                new MenuSubItems {ActionName = "Log", ActionDisplayName = "Activity Log" },
+                                new MenuSubItems { ActionName = "Type", ActionDisplayName = "Activity Log Type" }
+                                                                                                      });
 
 
                 actions = new List<MenuSubItems>(new MenuSubItems[] {
-                       new MenuSubItems { ActionName = "List", ActionDisplayName = "Users" },
-                       new MenuSubItems { ActionName = "Roles", ActionDisplayName = "User roles" },
-                       new MenuSubItems { ActionName = "OnlineUsers", ActionDisplayName = "Online Users" },
-                       new MenuSubItems { ActionName = "UsersReport", ActionDisplayName = "Users report" }
+                                       new MenuSubItems { ActionName = "List", ActionDisplayName = "Users" },
+                                       new MenuSubItems { ActionName = "Roles", ActionDisplayName = "User roles" },
+                                       new MenuSubItems { ActionName = "OnlineUsers", ActionDisplayName = "Online Users" },
+                                       new MenuSubItems { ActionName = "UsersReport", ActionDisplayName = "Users report" }
 
-                                                                    });
+                                                                                    });
 
                 subItem = new MenuItemViewModel
                 {
@@ -83,20 +109,23 @@
 
 
 
+
+
+
             @{ SubActions = new List<MenuSubItems>(new MenuSubItems[] {
-                  new MenuSubItems {ActionName = "Facilities", ActionDisplayName = "Facilities" }
-                                                                                      });
+                                  new MenuSubItems {ActionName = "Facilities", ActionDisplayName = "Facilities" }
+                                                                                                      });
 
 
                 actions = new List<MenuSubItems>(new MenuSubItems[] {
-                       new MenuSubItems { ActionName = "Rooms", ActionDisplayName = "Rooms" },
-                       new MenuSubItems { ActionName = "DormitoryBlocks", ActionDisplayName = "Dormitory blocks" },
-                       new MenuSubItems { ActionName = "BulkRoomEdit", ActionDisplayName = "Bulk edit rooms" },
-                       new MenuSubItems { ActionName = "RoomReviews", ActionDisplayName = "Room reviews" },
-                       new MenuSubItems { ActionName = "LowQuotaReport", ActionDisplayName = "Low quota report" }
+                                       new MenuSubItems { ActionName = "Rooms", ActionDisplayName = "Rooms" },
+                                       new MenuSubItems { ActionName = "DormitoryBlocks", ActionDisplayName = "Dormitory blocks" },
+                                       new MenuSubItems { ActionName = "BulkRoomEdit", ActionDisplayName = "Bulk edit rooms" },
+                                       new MenuSubItems { ActionName = "RoomReviews", ActionDisplayName = "Room reviews" },
+                                       new MenuSubItems { ActionName = "LowQuotaReport", ActionDisplayName = "Low quota report" }
 
 
-                                                                    });
+                                                                                    });
 
                 subItem = new MenuItemViewModel
                 {
@@ -133,15 +162,15 @@
 
 
             @{ actions = new List<MenuSubItems>(new MenuSubItems[] {
-                      new MenuSubItems { ActionName = "List", ActionDisplayName = "Reservations/bookings" },
-                      new MenuSubItems { ActionName = "CancelRequest", ActionDisplayName = "Cancel reservations request" },
-                      new MenuSubItems { ActionName = "CurrentWishList", ActionDisplayName = "Current booking wishlist" },
-                      new MenuSubItems { ActionName = "BestSellerRooms", ActionDisplayName = "Best seller/reserved rooms" },
-                      new MenuSubItems { ActionName = "CountryReport", ActionDisplayName = "Country report" },
-                      new MenuSubItems { ActionName = "RoomsNeverReserved", ActionDisplayName = "Rooms never reserved" }
+                                      new MenuSubItems { ActionName = "List", ActionDisplayName = "Reservations/bookings" },
+                                      new MenuSubItems { ActionName = "CancelRequest", ActionDisplayName = "Cancel reservations request" },
+                                      new MenuSubItems { ActionName = "CurrentWishList", ActionDisplayName = "Current booking wishlist" },
+                                      new MenuSubItems { ActionName = "BestSellerRooms", ActionDisplayName = "Best seller/reserved rooms" },
+                                      new MenuSubItems { ActionName = "CountryReport", ActionDisplayName = "Country report" },
+                                      new MenuSubItems { ActionName = "RoomsNeverReserved", ActionDisplayName = "Rooms never reserved" }
 
 
-                                                                    });
+                                                                                    });
 
 
 
@@ -166,11 +195,11 @@
 
 
             @{ actions = new List<MenuSubItems>(new MenuSubItems[] {
-                  new MenuSubItems { ActionName = "Discounts", ActionDisplayName = "Discounts" },
-                  new MenuSubItems { ActionName = "Affiliates", ActionDisplayName = "Affiliates" },
-                  new MenuSubItems { ActionName = "NewsLetterSubscribers", ActionDisplayName = "News letter subsribers" },
-                  new MenuSubItems { ActionName = "Campaigns", ActionDisplayName = "Campaigns" }
-                                               });
+                                  new MenuSubItems { ActionName = "Discounts", ActionDisplayName = "Discounts" },
+                                  new MenuSubItems { ActionName = "Affiliates", ActionDisplayName = "Affiliates" },
+                                  new MenuSubItems { ActionName = "NewsLetterSubscribers", ActionDisplayName = "News letter subsribers" },
+                                  new MenuSubItems { ActionName = "Campaigns", ActionDisplayName = "Campaigns" }
+                                                               });
 
 
 
@@ -199,11 +228,11 @@
 
 
             @{ actions = new List<MenuSubItems>(new MenuSubItems[] {
-                  new MenuSubItems { ActionName = "Topics", ActionDisplayName = "Topics(Pages)" },
-                  new MenuSubItems { ActionName = "MessageTemplates", ActionDisplayName = "Message templates" },
-                  new MenuSubItems { ActionName = "Polls", ActionDisplayName = "Polls" },
-                  new MenuSubItems { ActionName = "Survey", ActionDisplayName = "Survey" }
-                                               });
+                                  new MenuSubItems { ActionName = "Topics", ActionDisplayName = "Topics(Pages)" },
+                                  new MenuSubItems { ActionName = "MessageTemplates", ActionDisplayName = "Message templates" },
+                                  new MenuSubItems { ActionName = "Polls", ActionDisplayName = "Polls" },
+                                  new MenuSubItems { ActionName = "Survey", ActionDisplayName = "Survey" }
+                                                               });
 
 
 
@@ -227,10 +256,10 @@
 
 
             @{ actions = new List<MenuSubItems>(new MenuSubItems[] {
-                    new MenuSubItems { ActionName = "List", ActionDisplayName = "Notifications" },
-                    new MenuSubItems { ActionName = "Announcements", ActionDisplayName = "Announcements" },
-                    new MenuSubItems { ActionName = "ManageAnnouncements", ActionDisplayName = "Manage Announcements" }
-                                               });
+                                    new MenuSubItems { ActionName = "List", ActionDisplayName = "Notifications" },
+                                    new MenuSubItems { ActionName = "Announcements", ActionDisplayName = "Announcements" },
+                                    new MenuSubItems { ActionName = "ManageAnnouncements", ActionDisplayName = "Manage Announcements" }
+                                                               });
 
 
 
@@ -253,13 +282,13 @@
 
 
             @{ actions = new List<MenuSubItems>(new MenuSubItems[] {
-                   new MenuSubItems { ActionName = "EmailAccounts", ActionDisplayName = "EmailAccounts" },
-                   new MenuSubItems { ActionName = "Dormitories", ActionDisplayName = "Dormitories" },
-                   new MenuSubItems { ActionName = "Countries", ActionDisplayName = "Countries" },
-                   new MenuSubItems { ActionName = "Languages", ActionDisplayName = "Languages" },
-                   new MenuSubItems { ActionName = "Currencies", ActionDisplayName = "Currencies" },
-                   new MenuSubItems { ActionName = "AccessControlList", ActionDisplayName = "Access control lists" }
-                                               });
+                                   new MenuSubItems { ActionName = "EmailAccounts", ActionDisplayName = "EmailAccounts" },
+                                   new MenuSubItems { ActionName = "Dormitories", ActionDisplayName = "Dormitories" },
+                                   new MenuSubItems { ActionName = "Countries", ActionDisplayName = "Countries" },
+                                   new MenuSubItems { ActionName = "Languages", ActionDisplayName = "Languages" },
+                                   new MenuSubItems { ActionName = "Currencies", ActionDisplayName = "Currencies" },
+                                   new MenuSubItems { ActionName = "AccessControlList", ActionDisplayName = "Access control lists" }
+                                                               });
 
 
 
@@ -287,14 +316,14 @@
 
 
                 actions = new List<MenuSubItems>(new MenuSubItems[] {
-                       new MenuSubItems { ActionName = "Information", ActionDisplayName = "System information" },
-                       new MenuSubItems { ActionName = "Log", ActionDisplayName = "Log" },
-                       new MenuSubItems { ActionName = "Warning", ActionDisplayName = "Warning" },
-                       new MenuSubItems { ActionName = "Maintenance", ActionDisplayName = "Maintenance" },
-                       new MenuSubItems { ActionName = "MessageQueues", ActionDisplayName = "Message queue" },
-                       new MenuSubItems { ActionName = "ScheduleTasks", ActionDisplayName = "Schedule tasks" },
-                       new MenuSubItems { ActionName = "SEOFriendlyPageNames", ActionDisplayName = "SEO friendly page names" }
-                                                                    });
+                                       new MenuSubItems { ActionName = "Information", ActionDisplayName = "System information" },
+                                       new MenuSubItems { ActionName = "Log", ActionDisplayName = "Log" },
+                                       new MenuSubItems { ActionName = "Warning", ActionDisplayName = "Warning" },
+                                       new MenuSubItems { ActionName = "Maintenance", ActionDisplayName = "Maintenance" },
+                                       new MenuSubItems { ActionName = "MessageQueues", ActionDisplayName = "Message queue" },
+                                       new MenuSubItems { ActionName = "ScheduleTasks", ActionDisplayName = "Schedule tasks" },
+                                       new MenuSubItems { ActionName = "SEOFriendlyPageNames", ActionDisplayName = "SEO friendly page names" }
+                                                                                    });
 
                 item = new MenuItemViewModel
                 {
@@ -316,9 +345,9 @@
 
 
             @{ actions = new List<MenuSubItems>(new MenuSubItems[] {
-                          new MenuSubItems { ActionName = "UsageReport", ActionDisplayName = "Usage report" },
-                          new MenuSubItems { ActionName = "PushNotifications", ActionDisplayName = "Push notifications" }
-                                               });
+                                          new MenuSubItems { ActionName = "UsageReport", ActionDisplayName = "Usage report" },
+                                          new MenuSubItems { ActionName = "PushNotifications", ActionDisplayName = "Push notifications" }
+                                                               });
 
 
 
@@ -343,10 +372,10 @@
 
 
             @{ actions = new List<MenuSubItems>(new MenuSubItems[] {
-                          new MenuSubItems { ActionName = "Settings", ActionDisplayName = "Settings" },
-                          new MenuSubItems { ActionName = "Clients", ActionDisplayName = "Clients" },
-                          new MenuSubItems { ActionName = "Documentation", ActionDisplayName = "Documentation" }
-                                               });
+                                          new MenuSubItems { ActionName = "Settings", ActionDisplayName = "Settings" },
+                                          new MenuSubItems { ActionName = "Clients", ActionDisplayName = "Clients" },
+                                          new MenuSubItems { ActionName = "Documentation", ActionDisplayName = "Documentation" }
+                                                               });
 
 
 
@@ -369,9 +398,9 @@
 
 
             @{ actions = new List<MenuSubItems>(new MenuSubItems[] {
-                          new MenuSubItems { ActionName = "Topics", ActionDisplayName = "Help topics" },
-                          new MenuSubItems { ActionName = "FAQ", ActionDisplayName = "FAQ" }
-                                               });
+                                          new MenuSubItems { ActionName = "Topics", ActionDisplayName = "Help topics" },
+                                          new MenuSubItems { ActionName = "FAQ", ActionDisplayName = "FAQ" }
+                                                               });
 
 
 
