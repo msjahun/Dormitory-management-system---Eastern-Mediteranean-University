@@ -61,7 +61,7 @@
             <div class="col">
                 <div class="box box-info">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Dormitories News & Important Announcements</h3>
+                        <h3 class="box-title"><i class="fa fa-newspaper-o"></i> Dormitories News & Important Announcements</h3>
 
                         <div class="box-tools pull-right">
                             <button type="button" class="btn btn-box-tool" data-widget="collapse">
@@ -153,7 +153,7 @@
             <div class="col">
                 <div class="box box-info">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Common statistics</h3>
+                        <h3 class="box-title"><i class="fa ion-stats-bars"></i> Common statistics</h3>
 
                         <div class="box-tools pull-right">
                             <button type="button" class="btn btn-box-tool" data-widget="collapse">
@@ -171,33 +171,33 @@
                                     <div class="inner">
                                         <h3>150</h3>
 
-                                        <p>Bookings/Reservations</p>
+                                        <p>Bookings</p>
                                     </div>
                                     <div class="icon">
-                                        <i class="ion ion-bag"></i>
+                                        <i class="ion ion-ios-bookmarks"></i>
                                     </div>
-                                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                    <a asp-action="List" asp-controller="Reservations" asp-area="Admin" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                            <!-- ./col -->
+                            <div class="col-lg-3 col-xs-6">
+                                <!-- small box -->
+                                <div class="small-box bg-yellow ">
+                                    <div class="inner">
+                                        <h3>3</h3>
+
+                                        <p>Pending cancellation requests</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-stats-bars"></i>
+                                    </div>
+                                    <a asp-action="CancelRequest" asp-controller="Reservations" asp-area="Admin"  class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
                             <!-- ./col -->
                             <div class="col-lg-3 col-xs-6">
                                 <!-- small box -->
                                 <div class="small-box bg-green">
-                                    <div class="inner">
-                                        <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-                                        <p>Pending booking cancellation requests</p>
-                                    </div>
-                                    <div class="icon">
-                                        <i class="ion ion-stats-bars"></i>
-                                    </div>
-                                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                                </div>
-                            </div>
-                            <!-- ./col -->
-                            <div class="col-lg-3 col-xs-6">
-                                <!-- small box -->
-                                <div class="small-box bg-yellow">
                                     <div class="inner">
                                         <h3>44</h3>
 
@@ -206,7 +206,7 @@
                                     <div class="icon">
                                         <i class="ion ion-person-add"></i>
                                     </div>
-                                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                    <a asp-action="List" asp-controller="Users" asp-area="Admin" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
                             <!-- ./col -->
@@ -221,7 +221,7 @@
                                     <div class="icon">
                                         <i class="ion ion-pie-graph"></i>
                                     </div>
-                                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                    <a asp-action="LowQuotaReport" asp-controller="Catalog" asp-area="Admin" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
                             <!-- ./col -->
@@ -237,7 +237,7 @@
                 <div class="col-md-6">
                     <div class="box box-info">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Bookings/orders</h3>
+                            <h3 class="box-title"><i class="fa fa-shopping-cart"></i> Bookings/orders</h3>
 
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-xs btn-info btn-flat">Day</button>
@@ -262,7 +262,7 @@
                 <div class="col-md-6">
                     <div class="box box-info">
                         <div class="box-header with-border">
-                            <h3 class="box-title">New customers</h3>
+                            <h3 class="box-title"><i class="fa fa-user"></i> New customers</h3>
 
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-xs btn-info btn-flat">Day</button>
@@ -429,7 +429,7 @@
                 <div class="col-md-8">
                     <div class="box box-info">
                         <div class="box-header with-border">
-                            <h3 class="box-title"><i class="fa fa-cart-plus"></i> Latest bookings</h3>
+                            <h3 class="box-title"><i class="fa fa-cart-plus"></i> Latest bookings </h3> <a asp-action="List" asp-controller="Reservations" asp-area="Admin" class="btn btn-info btn-flat btn-xs">View All Bookings</a>
 
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse">
