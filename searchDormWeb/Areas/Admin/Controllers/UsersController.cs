@@ -306,6 +306,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
                 //create user role and redirect to edit_userRole page
                 var role = new UserRole();
                 role.Name = vm.Name;
+                role.Access ="[{\"Id\":\":\",\"Name\":\"\",\"DisplayName\":null,\"AreaName\":\"\",\"Actions\":[]}]";
                 role.IsActive = vm.ISActive;
                 await _roleManager.CreateAsync(role);
 
