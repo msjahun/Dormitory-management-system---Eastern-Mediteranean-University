@@ -44,7 +44,7 @@
 <body class="hold-transition skin-blue layout-top-nav">
     @if (SignInManager.IsSignedIn(User))
     {<secure-content asp-action="Index" asp-controller="Admin" asp-area="">
-    <div class="text-center">  <a asp-action="Index" asp-controller="Admin">Administration</a></div>
+         <div class="text-center"> <strong><a asp-action="Index" asp-controller="Admin">Administration</a></strong> </div>
 </secure-content>
     }
 
