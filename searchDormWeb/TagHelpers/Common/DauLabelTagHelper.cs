@@ -36,7 +36,7 @@ namespace searchDormWeb.TagHelpers.Common
             if (For.Metadata.Description != null) { 
 
             var hint = new TagBuilder("i");
-            hint.Attributes.Add("class", "fa fa-question-circle");
+            hint.Attributes.Add("class", "fa fa-question-circle hidden-xs hidden-sm");
             hint.Attributes.Add("style", "color:#134b88;");
             hint.Attributes.Add("data-toggle", "tooltip");
             hint.Attributes.Add("data-placement", "bottom");
