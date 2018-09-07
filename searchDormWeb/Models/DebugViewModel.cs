@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -24,7 +25,27 @@ namespace searchDormWeb.Models
         [Required, Display(Description = "Read only text")]
         public string TextReadOnlyNotRequired { get; }
 
+        [Display(Name = "Gender", Description = "Gender ")]
+        public string Gender { get; }
 
+           [Display(Name = "Gender", Description = "Gender readonly")]
+        public string GenderReadOnly { get; }
+
+        [Display(Name = "Gender Multi-select", Description = "Gender multiselect")]
+        public string GenderMultiSelect { get; set; }
+
+        public List<SelectListItem> Genders { get; } = new List<SelectListItem>
+        {
+
+            new SelectListItem { Value = "M", Text = "Male" },
+            new SelectListItem { Value = "F", Text = "Female" },
+            new SelectListItem { Value = "F", Text = "Female" },
+            new SelectListItem { Value = "F", Text = "Female" },
+            new SelectListItem {Disabled= true, Value = "F", Text = "Female" },
+            new SelectListItem { Value = "F", Text = "Female" },
+            new SelectListItem {Disabled= true, Value = "F", Text = "Female" },
+            new SelectListItem { Value = "F", Text = "Female" }
+        };
 
         [Required, EmailAddress, MaxLength(256), Display(Name = "Text area", Description = "Field fortext area addresses")]
         public string TextArea { get; set; }
