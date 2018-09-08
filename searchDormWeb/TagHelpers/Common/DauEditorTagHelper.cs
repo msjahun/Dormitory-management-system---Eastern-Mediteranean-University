@@ -21,8 +21,12 @@ namespace searchDormWeb.TagHelpers.Common
 
            
             output.Attributes.Add("id", For.Name + "Id");
-        
-            
+
+            output.PreElement.SetHtmlContent("<div class=\"col-sm-9\">");
+            output.PostElement.SetHtmlContent("</div>");
+
+            //if (For.Metadata.IsRequired && !For.Metadata.IsReadOnly)
+            //    output.PostElement.AppendHtml("</div><div><i class=\"required hidden-xs \" style=\"color:red; \">*</i></div>");
         }
     }
 }
