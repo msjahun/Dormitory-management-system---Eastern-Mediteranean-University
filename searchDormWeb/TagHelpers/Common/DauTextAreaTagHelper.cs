@@ -26,11 +26,12 @@ namespace searchDormWeb.TagHelpers.Common
             output.Attributes.Add("id", For.Name + "_id");
             output.Attributes.Add("rows","10");
             output.Attributes.Add("cols", "80");
+        
+            output.PreElement.SetHtmlContent("<div class=\"col-sm-9\">");
+            output.PostElement.SetHtmlContent("</div>");
+
             //if (For.Metadata.IsRequired && !For.Metadata.IsReadOnly)
-            //    output.PostContent.SetHtmlContent("</div><div><i class=\"required hidden-xs \" style=\"color:red; \">*</i>");
-
-
-           
+            //    output.PostElement.AppendHtml("</div><div><i class=\"required hidden-xs \" style=\"color:red; \">*</i>");
         }
     }
 }
