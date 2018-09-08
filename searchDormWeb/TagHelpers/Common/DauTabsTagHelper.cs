@@ -16,7 +16,7 @@ namespace searchDormWeb.TagHelpers.Common
 
         //modal context typeof itself, but this time a modalContext parameter is passed
         //probably context.Items is a shared tagHelper memory space or something
-     
+     public string Id { get; set; }
 
 public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
@@ -41,7 +41,7 @@ public override async Task ProcessAsync(TagHelperContext context, TagHelperOutpu
                 var DisplayName = tab.TabId;
                 if (tab.DisplayName != null)
                     DisplayName = tab.DisplayName;
-                ulNavTabs.InnerHtml.AppendHtml($"<li class=\"{isActive }\"><a href=\"#{tab.TabId}\" data-toggle=\"tab\" aria-expanded=\"false\">{imgTag} {DisplayName}</a></li>");
+                ulNavTabs.InnerHtml.AppendHtml($"<li class=\"{isActive }\"><a href=\"#{Id+tab.TabId}\" data-toggle=\"tab\" aria-expanded=\"false\">{imgTag} {DisplayName}</a></li>");
 
             }
             navTabsCustom.InnerHtml.AppendHtml(ulNavTabs);
@@ -57,7 +57,7 @@ public override async Task ProcessAsync(TagHelperContext context, TagHelperOutpu
                 tabPane.Attributes.Add("class", $"tab-pane {isActive}");
                
 
-                tabPane.Attributes.Add("id", tab.TabId);
+                tabPane.Attributes.Add("id", Id + tab.TabId);
                 tabPane.InnerHtml.AppendHtml(tab.TabContent);
 
                 tabContent.InnerHtml.AppendHtml(tabPane);
