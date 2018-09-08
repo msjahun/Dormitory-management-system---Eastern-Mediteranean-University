@@ -60,6 +60,8 @@ namespace searchDormWeb.TagHelpers.Common
 
 
             output.Content.SetHtmlContent(selectTag);
+            if (For.Metadata.IsRequired && !For.Metadata.IsReadOnly)
+                output.PostContent.SetHtmlContent("</div><div><i class=\"required hidden-xs \" style=\"color:red; \">*</i>");
         }
     }
 }
