@@ -28,8 +28,8 @@ namespace searchDormWeb.Models
         [Display(Name = "Gender", Description = "Gender ")]
         public string Gender { get; }
 
-           [Display(Name = "Gender", Description = "Gender readonly")]
-        public string GenderReadOnly { get; }
+           [Required,Display(Name = "Gender", Description = "Gender readonly")]
+        public string GenderReadOnly { get; set; }
 
         [Display(Name = "Gender Multi-select", Description = "Gender multiselect")]
         public string GenderMultiSelect { get; set; }
