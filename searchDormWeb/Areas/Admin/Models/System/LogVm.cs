@@ -7,5 +7,11 @@ namespace searchDormWeb.Areas.Admin.Models.System
 {
     public class LogVm
     {
+
+        public DateTime CreatedFrom { get; set; }
+        public DateTime CreatedTo { get; set; }
+        public string Message { get; set; }
+        public int LogLevel { get; set; }
+
     }
 }

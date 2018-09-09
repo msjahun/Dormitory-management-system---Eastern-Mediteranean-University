@@ -688,7 +688,6 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\Dashboard\" />
-    <Folder Include="Areas\Admin\Models\Notifications\" />
     <Folder Include="Areas\Admin\Views\shared\" />
     <Folder Include="Migrations\" />
     <Folder Include="Views\Home\" />

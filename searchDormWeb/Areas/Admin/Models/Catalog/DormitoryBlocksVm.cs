@@ -7,5 +7,6 @@ namespace searchDormWeb.Areas.Admin.Models.Catalog
 {
     public class DormitoryBlocksVm
     {
+        public string BlockName { get; set; }
     }
 }

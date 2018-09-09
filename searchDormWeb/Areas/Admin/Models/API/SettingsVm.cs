@@ -7,5 +7,9 @@ namespace searchDormWeb.Areas.Admin.Models.API
 {
     public class SettingsVm
     {
+
+        public bool EnableAPI { get; set; }
+        public bool AllowRequestsFromSwagger { get; set; }
+
     }
 }

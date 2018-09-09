@@ -7,5 +7,8 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
 {
     public class CurrenciesVm
     {
+        public int CurrentExchangeRateProvider { get; set; }
+        public int AutoEnabled { get; set; }
+
     }
 }

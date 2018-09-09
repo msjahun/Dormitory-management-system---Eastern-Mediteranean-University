@@ -7,5 +7,11 @@ namespace searchDormWeb.Areas.Admin.Models.Reservation
 {
     public class CancelReservationsRequestsVm
     {
+            public int ID { get; set; }
+            public int BookingId { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public int CancelationStatus { get; set; }
+
     }
 }

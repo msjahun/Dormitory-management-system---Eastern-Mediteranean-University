@@ -7,5 +7,11 @@ namespace searchDormWeb.Areas.Admin.Models.User
 {
     public class UsersReportVm
     {
+            public DateTime StartDate { get; set; }
+            public DateTime EndDate { get; set; }
+        public int[] BookingStatus { get; set; }
+        public int[] PaymentStatus { get; set; }
+
+
     }
 }

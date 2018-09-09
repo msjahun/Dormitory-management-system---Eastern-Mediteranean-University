@@ -7,5 +7,10 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
 {
     public class DormitoriesVm
     {
+        public string  DormitoryName { get; set; }
+        public int DormitoryType { get; set; }
+        public string GoDirectlyToSKU { get; set; }
+
+
     }
 }

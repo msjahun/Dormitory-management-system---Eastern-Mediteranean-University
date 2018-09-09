@@ -7,5 +7,10 @@ namespace searchDormWeb.Areas.Admin.Models.Reservation
 {
     public class RoomsNeverReservedVm
     {
+        public int DormitoryBlock { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+
+
     }
 }

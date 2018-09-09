@@ -7,5 +7,7 @@ namespace searchDormWeb.Areas.Admin.Models.System
 {
     public class SEOFriendlyPageNamesVm
     {
+
+        public string Name { get; set; }
     }
 }

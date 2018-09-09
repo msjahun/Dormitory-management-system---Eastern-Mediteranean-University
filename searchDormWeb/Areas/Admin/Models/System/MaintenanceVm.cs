@@ -7,5 +7,11 @@ namespace searchDormWeb.Areas.Admin.Models.System
 {
     public class MaintenanceVm
     {
+
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public bool OnlyWithoutWishList { get; set; }
+        public DateTime CreatedBefore { get; set; }
+
     }
 }

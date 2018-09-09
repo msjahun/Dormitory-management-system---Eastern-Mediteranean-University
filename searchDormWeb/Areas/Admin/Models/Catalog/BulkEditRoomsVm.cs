@@ -7,5 +7,8 @@ namespace searchDormWeb.Areas.Admin.Models.Catalog
 {
     public class BulkEditRoomsVm
     {
+        public string RoomName { get; set; }
+        public string DormitoryBlock { get; set; }
+
     }
 }
