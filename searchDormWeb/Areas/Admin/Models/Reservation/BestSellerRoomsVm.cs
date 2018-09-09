@@ -9,8 +9,8 @@ namespace searchDormWeb.Areas.Admin.Models.Reservation
     {
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public int[] BookingStatus { get; set; }
-        public int PaymentStatus { get; set; }
+        public IEnumerable<int> BookingStatus { get; set; }
+        public IEnumerable<int> PaymentStatus { get; set; }
         public int DormitoryBlock { get; set; }
         public int BillingCountry { get; set; }
         public int Dormitory { get; set; }
