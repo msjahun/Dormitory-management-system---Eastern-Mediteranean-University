@@ -1,13 +1,11 @@
-﻿
+﻿@using searchDormWeb.Areas.Admin.Models.User
+    @model UsersVm
 
 @{
     ViewBag.Title = "Users";
     Layout = "../shared/_LayoutAdmin.cshtml";
 
-    var _Users = Model;
-    var space = ",";
-    var count = 0;
-    var countModel = Model.Count;
+
 }
 
 
@@ -62,64 +60,48 @@
                         <div class="row">
                             <div class=" col-md-6">
                                 <div class="form-group">
-                                    <label for="inputEmail3" class="col-sm-4 control-label">Email <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="Email address of a customer used for filtering Email address of a customer used for filteringEmail address of a customer used for filteringEmail address of a customer used for filteringEmail address of a customer used for filteringEmail address of a customer used for filteringEmail address of a customer used for filteringEmail address of a customer used for filteringEmail address of a customer used for filteringEmail address of a customer used for filteringEmail address of a customer used for filteringEmail address of a customer used for filtering" aria-hidden="true"></i></label>
-
-                                    <div class="col-sm-4">
-                                        <input type="email" class="form-control" id="inpugtEmail3" placeholder="Email">
-                                    </div>
+                                    <dau-label asp-for="Email"></dau-label>
+                                    <dau-input asp-for="Email" type="email"></dau-input>
+                                    <span asp-validation-for="Email"></span>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-4 control-label">First name <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                    <div class="col-sm-3">
-                                        <input type="password" class="form-control" id="inputPassfdword3" placeholder="Password">
-                                    </div>
+                                    <dau-label asp-for="FirstName"></dau-label>
+                                    <dau-input asp-for="FirstName" type="text"></dau-input>
+                                    <span asp-validation-for="FirstName"></span>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-4 control-label">Last name <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                    <div class="col-sm-4">
-                                        <input type="password" class="form-control" id="inputPassfwords3" placeholder="Password">
-                                    </div>
+                                    <dau-label asp-for="LastName"></dau-label>
+                                    <dau-input asp-for="LastName" type="text"></dau-input>
+                                    <span asp-validation-for="LastName"></span>
                                 </div>
 
-
                                 <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-4 control-label">Date of birth <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                    <div class="col-sm-4">
-                                        <input type="password" class="form-control" id="inputPassgwords3" placeholder="Password">
-                                    </div>
+                                    <dau-label asp-for="DateOfBirth"></dau-label>
+                                    <dau-date asp-for="DateOfBirth"></dau-date>
+                                    <span asp-validation-for="DateOfBirth"></span>
                                 </div>
                             </div>
 
                             <div class=" col-md-6">
                                 <div class="form-group">
-                                    <label for="inputEmail3" class="col-sm-4 control-label">Phone <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                    <div class="col-sm-4">
-                                        <input type="email" class="form-control" id="inpugtEmail3" placeholder="Email">
-                                    </div>
+                                    <dau-label asp-for="Phone"></dau-label>
+                                    <dau-input asp-for="Phone" type="tel"></dau-input>
+                                    <span asp-validation-for="Phone"></span>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-4 control-label">IP address <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                    <div class="col-sm-4">
-                                        <input type="password" class="form-control" id="inputPassfdword3" placeholder="Password">
-                                    </div>
+                                    <dau-label asp-for="IpAddress"></dau-label>
+                                    <dau-input asp-for="IpAddress" type="text"></dau-input>
+                                    <span asp-validation-for="IpAddress"></span>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-4 control-label">Customer role <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                    <div class="col-sm-4">
-                                        <input type="password" class="form-control" id="inputPassfwords3" placeholder="Password">
-                                    </div>
+                                    <dau-label asp-for="CustomerRole"></dau-label>
+                                    <dau-select asp-for="CustomerRole" ></dau-select>
+                                    <span asp-validation-for="CustomerRole"></span>
                                 </div>
-
 
 
                             </div>
@@ -143,72 +125,26 @@
 
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th><input type="checkbox"></th>
-                                <th>Email</th>
-                                <th>Name</th>
-                                <th>User role</th>
-                                <th>Phone</th>
-                                <th>Active</th>
-                                <th>Created on</th>
-                                <th>Last activity</th>
-                                <th>Edit</th>
-                            </tr>
-                        </thead>
-                        <tbody>
 
-                            @foreach (var item in _Users)
-                            {
-
-
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>@item.User.UserName</td>
-                                <td>@item.User.FirstName @item.User.LastName</td>
-                                <td>
-
-                                    @foreach (var role in item.userRoles)
-                                    {
-                                        count++;
-
-                                        @role @if (count != item.userRoles.Count)
-                                        {@space
-
-                                        @:&#160;
-                                    }
-                                    else { count = 0; }
+                    <div class="overflow">
+                        <table id="UsersListTable" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox"></th>
+                                    <th>Email</th>
+                                    <th>Name</th>
+                                    <th>User role</th>
+                                    <th>Phone</th>
+                                    <th>Active</th>
+                                    <th>Created on</th>
+                                    <th>Last activity</th>
+                                    <th>Edit</th>
+                                </tr>
+                            </thead>
+                        </table>
 
 
-                                    }
-
-
-                                </td>
-
-                                <td>@item.User.PhoneNumber</td>
-                                <td>
-                                    @if (item.User.Active == true)
-                                    {
-                                        <i class="fa fa-check" aria-hidden="true"></i>                }
-                                </td>
-                                <td>@item.User.CreatedOnUtc</td>
-                                <td>@item.User.LastActivityDateUtc</td>
-                               
-                                @{
-                                    var parms = new Dictionary<string, string>
-                                {
-                                    { "UserID", item.User.Id }
-                                };
-                                }
-                                <td> <a asp-action="Edit" asp-controller="Users" asp-all-route-data="parms" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</a></td>
-                            </tr>
-
-                        }
-
-                        </tbody>
-
-                    </table>
+                    </div>
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -260,16 +196,76 @@
     <!-- page script -->
     <script>
         $(function () {
-            $('#example').DataTable()
-            $('#example1').DataTable({
+
+            $('#UsersListTable').on('processing.dt', function (e, settings, processing) {
+                if (processing) {
+                    Pace.start();
+                } else {
+                    Pace.stop();
+                }
+            }).DataTable({
                 'paging': true,
                 'lengthChange': true,
-                'searching': true,
-                'ordering': true,
+                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
+                'searching': false,
+                'ordering': false,
                 'info': true,
-                'autoWidth': true
+                'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+                    "url": "/Admin/Users/List",
+                    "type": "POST",
+                    "data": function (d) {
+                        d.myKey = "myValue";
+                        d.DiscountName = "myValue";
+                        d.CouponCode = "myValue";
+                        d.DiscountType = "myValue";
+                    },
+                    "datatype": "json"
+                },
+                "columns": [
+
+                    {"render": function (data, type, full, meta) {
+                            return '<input type="checkbox">'; } },
+                    { "data": "email" },
+
+                    {
+                        "render": function (data, type, full, meta) {
+                            return full.firstName+' '+full.lastName;
+                        }
+                    },
+                    {
+                        "data": "userRoles" },
+                    { "data": "phoneNumber" },
+                    {
+                        "render": function (data, type, full, meta) {
+                            if (full.active == true)
+                                return '<i class="fa fa-check" aria-hidden="true"></i>';
+                            else
+                                return '<i class="fa fa-times" aria-hidden="true"></i>';
+
+                        }
+                    },
+                    { "data": "createdOnUtc" },
+                    { "data": "lastActivityDateUtc" },
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<a class="btn btn-primary" href="/Admin/Users/Edit/?UserId=' + full.id + '"><i class="fa fa-pencil"></i> Edit</a>'; }
+                    }
+                    
+                    
+                ]
+
+
             })
+
+
+
+
+
         })
     </script>
 }
-
