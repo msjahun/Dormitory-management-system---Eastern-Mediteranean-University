@@ -34,7 +34,8 @@ namespace searchDormWeb.TagHelpers.Common
 
             var selectTag = new TagBuilder("select");
             selectTag.Attributes.Add("class", "form-control select2");
-            selectTag.Attributes.Add("style=","width: 100%;");
+            //selectTag.Attributes.Add("style=","width: 100%;");
+          selectTag.Attributes.Add("data-width","100%");
             if (MultipleSelect == true)
                 selectTag.Attributes.Add("multiple", "multiple");
             if(Disabled == true||For.Metadata.IsReadOnly)
@@ -60,8 +61,8 @@ namespace searchDormWeb.TagHelpers.Common
 
 
             output.Content.SetHtmlContent(selectTag);
-            if (For.Metadata.IsRequired && !For.Metadata.IsReadOnly)
-                output.PostContent.SetHtmlContent("</div><div><i class=\"required hidden-xs \" style=\"color:red; \">*</i>");
+            //if (For.Metadata.IsRequired && !For.Metadata.IsReadOnly)
+            //    output.PostContent.SetHtmlContent("</div><div><i class=\"required hidden-xs \" style=\"color:red; \">*</i>");
         }
     }
 }
