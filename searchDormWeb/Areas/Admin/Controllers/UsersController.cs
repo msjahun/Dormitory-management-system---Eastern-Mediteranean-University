@@ -48,27 +48,82 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
         [HttpGet("[action]")]
         [HttpGet("")]
-        public async Task<ActionResult> List()
+        public IActionResult List()
         {
-            List<UserListViewModel> model = new List<UserListViewModel>();
 
-            List<User> users = _userManager.Users.OrderByDescending (c => c.CreatedOnUtc).ToList();
-           
-
-            foreach (var item in users)
-            {
-                model.Add(new UserListViewModel
-                {
-                    User = item,
-                    userRoles = (List<string>)await _userManager.GetRolesAsync(item)
-                    //  userRoles = _userRolesService.GetUserRoles(item)
-                });
-                           }
-
-
-            return View("_Users_list", model);
+            return View("_Users_list");
         }
 
+
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult> List(int temp)
+        {
+            try
+            {
+                var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                var start = Request.Form["start"].FirstOrDefault(); // Skip number of Rows count
+                var passedParam = Request.Form["myKey"].FirstOrDefault();//passed parameter
+                var length = Request.Form["length"].FirstOrDefault();  // Paging Length 10,20  
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault(); // Sort Column Name  
+                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();// Sort Column Direction (asc, desc)  
+                var searchValue = Request.Form["search[value]"].FirstOrDefault();// Search Value from (Search box) 
+                int pageSize = length != null ? Convert.ToInt32(length) : 0; //Paging Size (10, 20, 50,100)  
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+                int recordsTotal = 0;
+
+
+                 List<UserListViewModel> model = new List<UserListViewModel>();
+                 var users = _userManager.Users.OrderByDescending(c => c.CreatedOnUtc).ToList();
+                 foreach (var item in users)
+                     {
+                           model.Add(new UserListViewModel
+                           {
+                               User = item,
+                               userRoles = (List<string>)await _userManager.GetRolesAsync(item)
+                               //  userRoles = _userRolesService.GetUserRoles(item)
+                                         });
+                     }
+
+              
+                // getting all Discount data  
+                var Data = model.Select(c => new {
+                    c.User.FirstName,
+                    c.User.LastActivityDateUtc,
+                    c.User.CreatedOnUtc,
+                    c.User.Email,
+                    c.User.LastName,
+                    c.User.PhoneNumber,
+                    c.User.Active,
+                    c.User.Id,
+                    c.userRoles
+                }).ToList();
+
+                ////Sorting  
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                //{
+                //    DiscountData = DiscountData.OrderBy(c => c.sortColumn sortColumnDirection);
+                //}
+                ////Search  
+                //if (!string.IsNullOrEmpty(searchValue))
+                //{
+                //    DiscountData = DiscountData.Where(m => m.Name == searchValue);
+                //}
+
+                
+                //total number of rows counts   
+                recordsTotal = Data.Count();
+                //Paging   
+                var data = Data.Skip(skip).Take(pageSize).ToList();
+                //Returning Json Data  
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
 
 
