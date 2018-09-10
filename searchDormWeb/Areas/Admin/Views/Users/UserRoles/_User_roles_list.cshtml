@@ -41,69 +41,72 @@
 
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Active</th>
-                                <th>Is system role</th>
 
-                                <secure-content asp-area="Admin" asp-controller="Users" asp-action="UserRoleEdit">
-                                    <th>Edit</th>
-                                </secure-content>
-                             
-                            </tr>
-                        </thead>
-                        <tbody>
+                    <div class="overflow">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Active</th>
+                                    <th>Is system role</th>
 
-                            @foreach (var item in model)
-                            {
+                                    <secure-content asp-area="Admin" asp-controller="Users" asp-action="UserRoleEdit">
+                                        <th>Edit</th>
+                                    </secure-content>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var item in model)
+                                {
 
 
-                            <tr>
-                                <td>@item.Id</td>
-                                <td>@item.Name</td>
-                                <td>
-                                    @if (item.IsActive == true)
-                                    {
-                                        <i class="fa fa-check" aria-hidden="true"></i>}
-                                    else
-                                    {
-                                        <i class="fa fa-times" aria-hidden="true"></i>
-                                    }
-                                </td>
-                                <td>
-                                    @if (item.IsSystemRole == true)
-                                    {
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td>@item.Name</td>
+                                        <td>
+                                            @if (item.IsActive == true)
+                                            {
+                                                <i class="fa fa-check" aria-hidden="true"></i>}
+                                            else
+                                            {
+                                                <i class="fa fa-times" aria-hidden="true"></i>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (item.IsSystemRole == true)
+                                            {
 
-                                        <i class="fa fa-check" aria-hidden="true"></i>
-                                    }
-                                    else
-                                    {
-                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                                <i class="fa fa-check" aria-hidden="true"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fa fa-times" aria-hidden="true"></i>
 
-                                    }
+                                            }
 
-                                </td>
+                                        </td>
 
-                                @{
-                                    var parms = new Dictionary<string, string>
-                                                                        {
-                                                                            { "User_role_id", item.Id}
-                                                                        };
+                                        @{
+                                            var parms = new Dictionary<string, string>
+                                                                                                    {
+                                                                                                        { "User_role_id", item.Id}
+                                                                                                    };
+                                        }
+
+                                        <secure-content asp-area="Admin" asp-controller="Users" asp-action="UserRoleEdit">
+                                            <td> <a asp-action="UserRoleEdit" asp-controller="Users" asp-all-route-data="parms" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</a></td>
+                                        </secure-content>
+
+
+                                    </tr>
                                 }
+                            </tbody>
 
-                                <secure-content asp-area="Admin" asp-controller="Users" asp-action="UserRoleEdit">
-                                    <td> <a asp-action="UserRoleEdit" asp-controller="Users" asp-all-route-data="parms" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</a></td>
-                                </secure-content>
-                             
-
-                            </tr>
-                            }
-                        </tbody>
-
-                    </table>
+                        </table>
+                    </div>
                 </div>
                 <!-- /.box-body -->
             </div>
