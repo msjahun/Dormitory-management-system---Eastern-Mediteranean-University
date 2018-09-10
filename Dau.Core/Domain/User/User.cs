@@ -69,6 +69,6 @@ namespace Dau.Core.Domain.User
         /// </summary>
         public int? ShippingAddressId { get; set; }
 
-
+     
     }
 }
