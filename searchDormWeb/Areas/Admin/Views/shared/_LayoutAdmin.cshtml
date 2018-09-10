@@ -35,11 +35,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <style>
-        .tooltip-inner {
-    max-width: 200px;
-    /* If max-width does not work, try using width instead */
-    width: 200px; 
+        @@media screen and (max-width: 1260px) {
+            .overflow {
+                overflow: auto;
+            }
 }
+      
+
+        .tooltip-inner {
+            max-width: 200px;
+            /* If max-width does not work, try using width instead */
+            width: 200px;
+        }
         .required {
             color: red;
             display: inline-block;
@@ -52,10 +59,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
-
-        @{
-            ViewData["Username"] = "Musa Jahun";
-        }     <!-- Main Header -->
+    <!-- Main Header -->
         @Html.Partial("../Admin/Admin_Shared/_header.cshtml", null)
         @*@RenderPage("~/Views/Admin/Admin_Shared/_header.cshtml", null)*@
         <!-- Left side column. contains the logo and sidebar -->
