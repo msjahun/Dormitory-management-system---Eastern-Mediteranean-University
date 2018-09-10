@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -61,8 +62,8 @@ namespace searchDormWeb.TagHelpers.Common
             output.PreContent.SetHtmlContent(inputGroup);
 
 
-            if (For.Metadata.IsRequired && !For.Metadata.IsReadOnly)
-                output.PostContent.SetHtmlContent("</div><div><i class=\"required hidden-xs \" style=\"color:red; \">*</i>");
+            //if (For.Metadata.ModelType.IsValueType  && For.Metadata.IsRequired && !For.Metadata.IsReadOnly)
+            //    output.PostContent.SetHtmlContent("</div><div><i class=\"required hidden-xs \" style=\"color:red; \">*</i>");
 
         }
     }
