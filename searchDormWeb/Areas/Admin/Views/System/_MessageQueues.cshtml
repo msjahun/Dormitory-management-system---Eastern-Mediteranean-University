@@ -1,4 +1,5 @@
-﻿
+﻿@using searchDormWeb.Areas.Admin.Models.System
+@model MessageQueuesVm
 @{
     ViewData["Title"] = "_MessageQueues";
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
@@ -40,63 +41,51 @@
                     <div class="box-body">
                         <div class="row">
                             <div class=" col-md-6">
-                                <div class="form-group">
-                                    <label for="inputEmail3" class="col-sm-4 control-label">Start date <i class="fa fa-question-circle" aria-hidden="true"></i></label>
 
-                                    <div class="col-sm-4">
-                                        <input type="email" class="form-control" id="inpugtEmail3" placeholder="Email">
-                                    </div>
+                                <div class="form-group">
+                                    <dau-label asp-for="StartDate"></dau-label>
+                                    <dau-date asp-for="StartDate"></dau-date>
+                                    <span asp-validation-for="StartDate"></span>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-4 control-label">End date <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                    <div class="col-sm-3">
-                                        <input type="password" class="form-control" id="inputPassfdword3" placeholder="Password">
-                                    </div>
+                                    <dau-label asp-for="EndDate"></dau-label>
+                                    <dau-date asp-for="EndDate"></dau-date>
+                                    <span asp-validation-for="EndDate"></span>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-4 control-label">From address <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                    <div class="col-sm-4">
-                                        <input type="password" class="form-control" id="inputPassfwords3" placeholder="Password">
-                                    </div>
+                                    <dau-label asp-for="FromAddress"></dau-label>
+                                    <dau-input type="email" asp-for="FromAddress"></dau-input>
+                                    <span asp-validation-for="FromAddress"></span>
                                 </div>
-
 
                                 <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-4 control-label">To address <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                    <div class="col-sm-4">
-                                        <input type="password" class="form-control" id="inputPassgwords3" placeholder="Password">
-                                    </div>
+                                    <dau-label asp-for="ToAddress"></dau-label>
+                                    <dau-input type="email" asp-for="ToAddress"></dau-input>
+                                    <span asp-validation-for="ToAddress"></span>
                                 </div>
+
                             </div>
 
                             <div class=" col-md-6">
+                               
                                 <div class="form-group">
-                                    <label for="inputEmail3" class="col-sm-4 control-label">Load not sent emails only <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                    <div class="col-sm-4">
-                                        <input type="email" class="form-control" id="inpugtEmail3" placeholder="Email">
-                                    </div>
+                                    <dau-label asp-for="LoadNotSentEmailsOnly"></dau-label>
+                                    <div class="col-sm-9"><input type="checkbox" asp-for="LoadNotSentEmailsOnly"></div>
+                                    <span asp-validation-for="LoadNotSentEmailsOnly"></span>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-4 control-label">Maximum sent attempts <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                    <div class="col-sm-4">
-                                        <input type="password" class="form-control" id="inputPassfdword3" placeholder="Password">
-                                    </div>
+                                    <dau-label asp-for="MaximumSentAttempts"></dau-label>
+                                    <dau-input type="number" asp-for="MaximumSentAttempts"></dau-input>
+                                    <span asp-validation-for="MaximumSentAttempts"></span>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-4 control-label">Go directly to email <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                    <div class="col-sm-4">
-                                        <input type="password" class="form-control" id="inputPassfwords3" placeholder="Password">
-                                    </div>
+                                    <dau-label asp-for="GoDirectlyToEmail"></dau-label>
+                                    <dau-inputaddon type="number" addon-type="button" text="Go" asp-for="GoDirectlyToEmail"></dau-inputaddon>
+                                    <span asp-validation-for="GoDirectlyToEmail"></span>
                                 </div>
 
 
@@ -120,7 +109,9 @@
             <div class="box">
 
                 <!-- /.box-header -->
-                <div class="box-body">
+                <div class="box-body
+
+                       <div class="overflow">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -232,6 +223,7 @@
                         </tbody>
 
                     </table>
+                </div>
                 </div>
                 <!-- /.box-body -->
             </div>

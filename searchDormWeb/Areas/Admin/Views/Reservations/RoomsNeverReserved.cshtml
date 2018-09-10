@@ -1,4 +1,5 @@
-﻿
+﻿@using searchDormWeb.Areas.Admin.Models.Reservation
+@model RoomsNeverReservedVm
 @{
     ViewBag.Title = "Rooms Never Booked/Reserved";
     Layout = "../shared/_LayoutAdmin.cshtml";
@@ -18,7 +19,7 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    
+
                 </div>
             </div>
         </div>
@@ -43,37 +44,24 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="inputEmail3" class="col-sm-4 control-label">Room type <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                    <div class="col-sm-4">
-                                        <input type="email" class="form-control" id="inpugtEmail3" placeholder="Email">
-                                    </div>
+                                    <dau-label asp-for="DormitoryBlock"></dau-label>
+                                    <dau-select asp-for="DormitoryBlock"></dau-select>
+                                    <span asp-validation-for="DormitoryBlock"></span>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-4 control-label">Dormitory block <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                    <div class="col-sm-3">
-                                        <input type="password" class="form-control" id="inputPassfdword3" placeholder="Password">
-                                    </div>
+                                    <dau-label asp-for="StartDate"></dau-label>
+                                    <dau-date asp-for="StartDate"></dau-date>
+                                    <span asp-validation-for="StartDate"></span>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-4 control-label">Start date <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                    <div class="col-sm-4">
-                                        <input type="password" class="form-control" id="inputPassfwords3" placeholder="Password">
-                                    </div>
+                                    <dau-label asp-for="EndDate"></dau-label>
+                                    <dau-date asp-for="EndDate"></dau-date>
+                                    <span asp-validation-for="EndDate"></span>
                                 </div>
 
 
-                                <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-4 control-label">End date <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                    <div class="col-sm-4">
-                                        <input type="password" class="form-control" id="inputPassgwords3" placeholder="Password">
-                                    </div>
-                                </div>
                             </div>
 
                         </div>
@@ -97,57 +85,59 @@
 
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>View</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Alfam B block 113</td>
-                                <td><a asp-action="RoomEdit" asp-controller="Catalog" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-eye"></i> View</a></td>
-                            </tr>
-                            <tr>
-                                <td>Alfam B block 113</td>
-                                <td><button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                            </tr>
-                            <tr>
-                                <td>Alfam B block 113</td>
-                                <td><button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                            </tr>
-                            <tr>
-                                <td>Alfam B block 113</td>
-                                <td><button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                            </tr>
-                            <tr>
-                                <td>Alfam B block 113</td>
-                                <td><button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                            </tr>
-                            <tr>
-                                <td>Alfam B block 113</td>
-                                <td><button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                            </tr>
-                            <tr>
-                                <td>Alfam B block 113</td>
-                                <td><button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                            </tr>
-                            <tr>
-                                <td>Alfam B block 113</td>
-                                <td><button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                            </tr>
-                            <tr>
-                                <td>Alfam B block 113</td>
-                                <td><button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                            </tr>
-                            <tr>
-                                <td>Alfam B block 113</td>
-                                <td><button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                            </tr>
-                        </tbody>
+                    <div class="overflow">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>View</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Alfam B block 113</td>
+                                    <td><a asp-action="RoomEdit" asp-controller="Catalog" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-eye"></i> View</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Alfam B block 113</td>
+                                    <td><button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Alfam B block 113</td>
+                                    <td><button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Alfam B block 113</td>
+                                    <td><button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Alfam B block 113</td>
+                                    <td><button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Alfam B block 113</td>
+                                    <td><button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Alfam B block 113</td>
+                                    <td><button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Alfam B block 113</td>
+                                    <td><button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Alfam B block 113</td>
+                                    <td><button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Alfam B block 113</td>
+                                    <td><button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                </tr>
+                            </tbody>
 
-                    </table>
+                        </table>
+                    </div>
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -167,6 +157,8 @@
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/select2/dist/css/select2.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/Ionicons/css/ionicons.min.css">
     <!-- DataTables -->
@@ -180,7 +172,7 @@
 
 
 @section scripts
-{
+    {
 
     <script src="@Url.Content("~/Content/")bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap 3.3.7 -->
@@ -189,6 +181,10 @@
     <script src="@Url.Content("~/Content/")dist/js/adminlte.min.js"></script>
     <script src="@Url.Content("~/Content/")bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="@Url.Content("~/Content/")bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+
+    <!-- Select2 -->
+    <script src="@Url.Content("~/Content/")bower_components/select2/dist/js/select2.full.min.js"></script>
     <!-- SlimScroll -->
     <script src="@Url.Content("~/Content/")bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
@@ -199,6 +195,10 @@
     <!-- page script -->
     <script>
         $(function () {
+
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
             $('#example').DataTable()
             $('#example1').DataTable({
                 'paging': true,

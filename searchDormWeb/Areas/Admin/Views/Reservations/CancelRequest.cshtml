@@ -1,4 +1,5 @@
-﻿
+﻿@using searchDormWeb.Areas.Admin.Models.Reservation
+@model CancelReservationsRequestsVm
 @{
     ViewBag.Title = "Cancel booking/reservation Request";
     Layout = "../shared/_LayoutAdmin.cshtml";
@@ -18,7 +19,7 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                   
+
                 </div>
             </div>
         </div>
@@ -41,47 +42,34 @@
                 <form class="form-horizontal">
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-2 control-label">Cancel request Id <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                            <div class="col-sm-4">
-                                <input type="email" class="form-control" id="inpugtEmail3" placeholder="Email">
-                            </div>
+                            <dau-label asp-for="ID"></dau-label>
+                            <dau-input type="number" asp-for="ID"></dau-input>
+                            <span asp-validation-for="ID"></span>
                         </div>
 
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">Booking Id <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                            <div class="col-sm-4">
-                                <input type="password" class="form-control" id="inputPassfdword3" placeholder="Password">
-                            </div>
+                            <dau-label asp-for="BookingId"></dau-label>
+                            <dau-input type="number" asp-for="BookingId"></dau-input>
+                            <span asp-validation-for="BookingId"></span>
                         </div>
 
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">Start date <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                            <div class="col-sm-4">
-                                <input type="password" class="form-control" id="inputPassfwords3" placeholder="Password">
-                            </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">End date <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                            <div class="col-sm-4">
-                                <input type="password" class="form-control" id="inputPassgwords3" placeholder="Password">
-                            </div>
+                            <dau-label asp-for="StartDate"></dau-label>
+                            <dau-date asp-for="StartDate"></dau-date>
+                            <span asp-validation-for="StartDate"></span>
                         </div>
 
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">Cancelation status <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                            <div class="col-sm-4">
-                                <input type="password" class="form-control" id="inputPassgwords3" placeholder="Password">
-                            </div>
+                            <dau-label asp-for="EndDate"></dau-label>
+                            <dau-date asp-for="EndDate"></dau-date>
+                            <span asp-validation-for="EndDate"></span>
                         </div>
 
-                        
+                        <div class="form-group">
+                            <dau-label asp-for="CancellationStatus"></dau-label>
+                            <dau-select asp-for="CancellationStatus"></dau-select>
+                            <span asp-validation-for="CancellationStatus"></span>
+                        </div>
 
 
                         <div class="form-group">
@@ -101,94 +89,96 @@
 
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Room</th>
-                                <th>User</th>
-                                <th>Booking #</th>
-                                <th>Cancelation request status</th>
-                                <th>Date</th>
-                                <th>Edit</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>#133</td>
-                                <td>Alfam B block 112</td>
-                                <td>msjahun@live.com</td>
-                                <td>#213</td>
-                                <td>Approved</td>
-                                <td>12/10/10 12:11:01AM</td>
-                                <td> <a asp-controller="Reservations" asp-action="CancelRequestEdit" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</a></td>
-                            </tr>
-                            <tr>
-                                <td>#133</td>
-                                <td>Alfam B block 112</td>
-                                <td>msjahun@live.com</td>
-                                <td>#213</td>
-                                <td>Approved</td>
-                                <td>12/10/10 12:11:01AM</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                            </tr>
-                            <tr>
-                                <td>#133</td>
-                                <td>Alfam B block 112</td>
-                                <td>msjahun@live.com</td>
-                                <td>#213</td>
-                                <td>Approved</td>
-                                <td>12/10/10 12:11:01AM</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                            </tr>
-                            <tr>
-                                <td>#133</td>
-                                <td>Alfam B block 112</td>
-                                <td>msjahun@live.com</td>
-                                <td>#213</td>
-                                <td>Approved</td>
-                                <td>12/10/10 12:11:01AM</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                            </tr>
-                            <tr>
-                                <td>#133</td>
-                                <td>Alfam B block 112</td>
-                                <td>msjahun@live.com</td>
-                                <td>#213</td>
-                                <td>Approved</td>
-                                <td>12/10/10 12:11:01AM</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                            </tr>
-                            <tr>
-                                <td>#133</td>
-                                <td>Alfam B block 112</td>
-                                <td>msjahun@live.com</td>
-                                <td>#213</td>
-                                <td>Approved</td>
-                                <td>12/10/10 12:11:01AM</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                            </tr>
-                            <tr>
-                                <td>#133</td>
-                                <td>Alfam B block 112</td>
-                                <td>msjahun@live.com</td>
-                                <td>#213</td>
-                                <td>Approved</td>
-                                <td>12/10/10 12:11:01AM</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                            </tr>
-                            <tr>
-                                <td>#133</td>
-                                <td>Alfam B block 112</td>
-                                <td>msjahun@live.com</td>
-                                <td>#213</td>
-                                <td>Approved</td>
-                                <td>12/10/10 12:11:01AM</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                            </tr>
-                        </tbody>
+                    <div class="overflow">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Room</th>
+                                    <th>User</th>
+                                    <th>Booking #</th>
+                                    <th>Cancelation request status</th>
+                                    <th>Date</th>
+                                    <th>Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#133</td>
+                                    <td>Alfam B block 112</td>
+                                    <td>msjahun@live.com</td>
+                                    <td>#213</td>
+                                    <td>Approved</td>
+                                    <td>12/10/10 12:11:01AM</td>
+                                    <td> <a asp-controller="Reservations" asp-action="CancelRequestEdit" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</a></td>
+                                </tr>
+                                <tr>
+                                    <td>#133</td>
+                                    <td>Alfam B block 112</td>
+                                    <td>msjahun@live.com</td>
+                                    <td>#213</td>
+                                    <td>Approved</td>
+                                    <td>12/10/10 12:11:01AM</td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                                </tr>
+                                <tr>
+                                    <td>#133</td>
+                                    <td>Alfam B block 112</td>
+                                    <td>msjahun@live.com</td>
+                                    <td>#213</td>
+                                    <td>Approved</td>
+                                    <td>12/10/10 12:11:01AM</td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                                </tr>
+                                <tr>
+                                    <td>#133</td>
+                                    <td>Alfam B block 112</td>
+                                    <td>msjahun@live.com</td>
+                                    <td>#213</td>
+                                    <td>Approved</td>
+                                    <td>12/10/10 12:11:01AM</td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                                </tr>
+                                <tr>
+                                    <td>#133</td>
+                                    <td>Alfam B block 112</td>
+                                    <td>msjahun@live.com</td>
+                                    <td>#213</td>
+                                    <td>Approved</td>
+                                    <td>12/10/10 12:11:01AM</td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                                </tr>
+                                <tr>
+                                    <td>#133</td>
+                                    <td>Alfam B block 112</td>
+                                    <td>msjahun@live.com</td>
+                                    <td>#213</td>
+                                    <td>Approved</td>
+                                    <td>12/10/10 12:11:01AM</td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                                </tr>
+                                <tr>
+                                    <td>#133</td>
+                                    <td>Alfam B block 112</td>
+                                    <td>msjahun@live.com</td>
+                                    <td>#213</td>
+                                    <td>Approved</td>
+                                    <td>12/10/10 12:11:01AM</td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                                </tr>
+                                <tr>
+                                    <td>#133</td>
+                                    <td>Alfam B block 112</td>
+                                    <td>msjahun@live.com</td>
+                                    <td>#213</td>
+                                    <td>Approved</td>
+                                    <td>12/10/10 12:11:01AM</td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                                </tr>
+                            </tbody>
 
-                    </table>
+                        </table>
+                    </div>
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -210,6 +200,8 @@
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/select2/dist/css/select2.min.css">
     <!-- DataTables -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <!-- Theme style -->
@@ -221,7 +213,7 @@
 
 
 @section scripts
-{
+    {
 
     <script src="@Url.Content("~/Content/")bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap 3.3.7 -->
@@ -230,6 +222,9 @@
     <script src="@Url.Content("~/Content/")dist/js/adminlte.min.js"></script>
     <script src="@Url.Content("~/Content/")bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="@Url.Content("~/Content/")bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+    <!-- Select2 -->
+    <script src="@Url.Content("~/Content/")bower_components/select2/dist/js/select2.full.min.js"></script>
     <!-- SlimScroll -->
     <script src="@Url.Content("~/Content/")bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
@@ -240,6 +235,10 @@
     <!-- page script -->
     <script>
         $(function () {
+
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
             $('#example').DataTable()
             $('#example1').DataTable({
                 'paging': true,

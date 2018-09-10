@@ -1,4 +1,5 @@
-﻿
+﻿@using searchDormWeb.Areas.Admin.Models.Promotions
+@model NewsLetterSubscribersVm
 @{
     ViewData["Title"] = "_NewsLetterSubscribers";
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
@@ -40,46 +41,36 @@
                 <form class="form-horizontal">
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-2 control-label">Start date <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                            <div class="col-sm-4">
-                                <input type="email" class="form-control" id="inpugtEmail3" placeholder="Email">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">End date <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                            <div class="col-sm-4">
-                                <input type="password" class="form-control" id="inputPassfdword3" placeholder="Password">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">Email <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                            <div class="col-sm-4">
-                                <input type="password" class="form-control" id="inputPassfwords3" placeholder="Password">
-                            </div>
+                            <dau-label asp-for="StartDate"></dau-label>
+                            <dau-date asp-for="StartDate"></dau-date>
+                            <span asp-validation-for="StartDate"></span>
                         </div>
 
 
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">Active <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+                            <dau-label asp-for="EndDate"></dau-label>
+                            <dau-date asp-for="EndDate"></dau-date>
+                            <span asp-validation-for="EndDate"></span>
+                        </div>
 
-                            <div class="col-sm-4">
-                                <input type="password" class="form-control" id="inputPassgwords3" placeholder="Password">
-                            </div>
+
+                        <div class="form-group">
+                            <dau-label asp-for="Email"></dau-label>
+                            <dau-input asp-for="Email" type="email"></dau-input>
+                            <span asp-validation-for="Email"></span>
                         </div>
 
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">Customer roles <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                            <div class="col-sm-4">
-                                <input type="password" class="form-control" id="inputPassgwords3" placeholder="Password">
-                            </div>
+                            <dau-label asp-for="Active"></dau-label>
+                            <dau-select asp-for="Active"></dau-select>
+                            <span asp-validation-for="Active"></span>
                         </div>
 
+                        <div class="form-group">
+                            <dau-label asp-for="CustomerRoles"></dau-label>
+                            <dau-select asp-for="CustomerRoles"></dau-select>
+                            <span asp-validation-for="CustomerRoles"></span>
+                        </div>
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
@@ -98,43 +89,48 @@
 
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>Email</th>
-                                <th>Active</th>
-                                <th>Subscribed on</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>msjahun@live.com</td>
-                                <td><i class="fa fa-check" aria-hidden="true"></i></td>
-                                <td>3/2/2018 12:22:10AM</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button> <button type="submit" class="btn btn-danger "> <i class="fa fa-times"></i> Delete</button></td>
-                            </tr>
-                            <tr>
-                                <td>msjahun@live.com</td>
-                                <td><i class="fa fa-check" aria-hidden="true"></i></td>
-                                <td>3/2/2018 12:22:10AM</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button> <button type="submit" class="btn btn-danger "> <i class="fa fa-times"></i> Delete</button></td>
-                            </tr>
-                            <tr>
-                                <td>msjahun@live.com</td>
-                                <td><i class="fa fa-check" aria-hidden="true"></i></td>
-                                <td>3/2/2018 12:22:10AM</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button> <button type="submit" class="btn btn-danger "> <i class="fa fa-times"></i> Delete</button></td>
-                            </tr>
-                            <tr>
-                                <td>msjahun@live.com</td>
-                                <td><i class="fa fa-check" aria-hidden="true"></i></td>
-                                <td>3/2/2018 12:22:10AM</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button> <button type="submit" class="btn btn-danger "> <i class="fa fa-times"></i> Delete</button></td>
-                            </tr>
-                        </tbody>
 
-                    </table>
+                    <div class="overflow">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Email</th>
+                                    <th>Active</th>
+                                    <th>Subscribed on</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>msjahun@live.com</td>
+                                    <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                                    <td>3/2/2018 12:22:10AM</td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button> <button type="submit" class="btn btn-danger "> <i class="fa fa-times"></i> Delete</button></td>
+                                </tr>
+                                <tr>
+                                    <td>msjahun@live.com</td>
+                                    <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                                    <td>3/2/2018 12:22:10AM</td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button> <button type="submit" class="btn btn-danger "> <i class="fa fa-times"></i> Delete</button></td>
+                                </tr>
+                                <tr>
+                                    <td>msjahun@live.com</td>
+                                    <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                                    <td>3/2/2018 12:22:10AM</td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button> <button type="submit" class="btn btn-danger "> <i class="fa fa-times"></i> Delete</button></td>
+                                </tr>
+                                <tr>
+                                    <td>msjahun@live.com</td>
+                                    <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                                    <td>3/2/2018 12:22:10AM</td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button> <button type="submit" class="btn btn-danger "> <i class="fa fa-times"></i> Delete</button></td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+
+
+                    </div>
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -156,6 +152,8 @@
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/select2/dist/css/select2.min.css">
     <!-- DataTables -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <!-- Theme style -->
@@ -176,6 +174,10 @@
     <script src="@Url.Content("~/Content/")dist/js/adminlte.min.js"></script>
     <script src="@Url.Content("~/Content/")bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="@Url.Content("~/Content/")bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+
+    <!-- Select2 -->
+    <script src="@Url.Content("~/Content/")bower_components/select2/dist/js/select2.full.min.js"></script>
     <!-- SlimScroll -->
     <script src="@Url.Content("~/Content/")bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
@@ -186,6 +188,10 @@
     <!-- page script -->
     <script>
         $(function () {
+
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
             $('#example').DataTable()
             $('#example1').DataTable({
                 'paging': true,

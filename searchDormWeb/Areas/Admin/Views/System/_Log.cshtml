@@ -1,4 +1,5 @@
-﻿
+﻿@using searchDormWeb.Areas.Admin.Models.System
+@model LogVm
 @{
     ViewData["Title"] = "_Log";
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
@@ -40,37 +41,32 @@
                 <form class="form-horizontal">
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-2 control-label">Created from <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                            <div class="col-sm-4">
-                                <input type="email" class="form-control" id="inpugtEmail3" placeholder="Email">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">Created to <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                            <div class="col-sm-4">
-                                <input type="password" class="form-control" id="inputPassfdword3" placeholder="Password">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">Message <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                            <div class="col-sm-4">
-                                <input type="password" class="form-control" id="inputPassfwords3" placeholder="Password">
-                            </div>
+                            <dau-label asp-for="CreatedFrom"></dau-label>
+                            <dau-date asp-for="CreatedFrom"></dau-date>
+                            <span asp-validation-for="CreatedFrom"></span>
                         </div>
 
 
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">Log level <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                            <div class="col-sm-4">
-                                <input type="password" class="form-control" id="inputPassgwords3" placeholder="Password">
-                            </div>
+                            <dau-label asp-for="CreatedTo"></dau-label>
+                            <dau-date asp-for="CreatedTo"></dau-date>
+                            <span asp-validation-for="CreatedTo"></span>
                         </div>
+
+
+                        <div class="form-group">
+                            <dau-label asp-for="Message"></dau-label>
+                            <dau-input type="text" asp-for="Message"></dau-input>
+                            <span asp-validation-for="Message"></span>
+                        </div>
+
+
+                        <div class="form-group">
+                            <dau-label asp-for="LogLevel"></dau-label>
+                            <dau-select asp-for="LogLevel"></dau-select>
+                            <span asp-validation-for="LogLevel"></span>
+                        </div>
+
 
 
                         <div class="form-group">
@@ -90,55 +86,58 @@
 
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th><input type="checkbox"></th>
-                                <th>Log level</th>
-                                <th>Short message</th>
-                                <th>Created on</th>
-                                <th>View</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>Warning</td>
-                                <td>Resource string (admin.system.system) not found</td>
-                                <td>7/12/2018 11:26:17AM</td>
-                                <td> <a asp-action="LogView" asp-controller="System" asp-area="Admin" class="btn btn-default"> <i class="fa fa-eye"></i> View</a></td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>Error</td>
-                                <td>Error 404. The requested page is not found</td>
-                                <td>7/12/2018 11:26:17AM</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>Warning</td>
-                                <td>Resource string (admin.system.system) not found</td>
-                                <td>7/12/2018 11:26:17AM</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>Warning</td>
-                                <td>Resource string (admin.system.system) not found</td>
-                                <td>7/12/2018 11:26:17AM</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>Warning</td>
-                                <td>Resource string (admin.system.system) not found</td>
-                                <td>7/12/2018 11:26:17AM</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                            </tr>
-                        </tbody>
 
-                    </table>
+                    <div class="overflow">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox"></th>
+                                    <th>Log level</th>
+                                    <th>Short message</th>
+                                    <th>Created on</th>
+                                    <th>View</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>Warning</td>
+                                    <td>Resource string (admin.system.system) not found</td>
+                                    <td>7/12/2018 11:26:17AM</td>
+                                    <td> <a asp-action="LogView" asp-controller="System" asp-area="Admin" class="btn btn-default"> <i class="fa fa-eye"></i> View</a></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>Error</td>
+                                    <td>Error 404. The requested page is not found</td>
+                                    <td>7/12/2018 11:26:17AM</td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>Warning</td>
+                                    <td>Resource string (admin.system.system) not found</td>
+                                    <td>7/12/2018 11:26:17AM</td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>Warning</td>
+                                    <td>Resource string (admin.system.system) not found</td>
+                                    <td>7/12/2018 11:26:17AM</td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>Warning</td>
+                                    <td>Resource string (admin.system.system) not found</td>
+                                    <td>7/12/2018 11:26:17AM</td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -160,6 +159,9 @@
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/select2/dist/css/select2.min.css">
+    
     <!-- DataTables -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <!-- Theme style -->
@@ -180,6 +182,10 @@
     <script src="@Url.Content("~/Content/")dist/js/adminlte.min.js"></script>
     <script src="@Url.Content("~/Content/")bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="@Url.Content("~/Content/")bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+    <!-- Select2 -->
+    <script src="@Url.Content("~/Content/")bower_components/select2/dist/js/select2.full.min.js"></script>
+
     <!-- SlimScroll -->
     <script src="@Url.Content("~/Content/")bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
@@ -190,6 +196,10 @@
     <!-- page script -->
     <script>
         $(function () {
+
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
             $('#example').DataTable()
             $('#example1').DataTable({
                 'paging': true,

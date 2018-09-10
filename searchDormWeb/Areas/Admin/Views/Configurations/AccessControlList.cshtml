@@ -50,85 +50,89 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>Permission name</th>
-                                @foreach (var userRole in UserRoleList)
-                                {
-                                    <th><input id="@userRole.Value" type="checkbox" />@userRole.Text</th>
-                                }
-                                @*<th><input id="allow_1" type="checkbox" />Administrators</th>
-                                    <th><input id="allow_2" type="checkbox" />DormitoryManager</th>
-                                    <th><input id="allow_3" type="checkbox" />Guests</th>
-                                    <th><input id="allow_4" type="checkbox" />Registered</th>*@
+                    <div class="overflow">
 
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <form class="form-horizontal" method="post" id="aclForm" asp-controller="Configurations" asp-action="AccessControlList">
-                                @foreach (var controller in controllers)
-                                {
-                                    string ControllerName;
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Permission name</th>
+                                    @foreach (var userRole in UserRoleList)
                                     {
-                                        ControllerName = controller.DisplayName ?? controller.Name;
+                                        <th><input id="@userRole.Value" type="checkbox" />@userRole.Text</th>
                                     }
-                                    @if (controller.Actions.Any())
+                                    @*<th><input id="allow_1" type="checkbox" />Administrators</th>
+                        <th><input id="allow_2" type="checkbox" />DormitoryManager</th>
+                        <th><input id="allow_3" type="checkbox" />Guests</th>
+                        <th><input id="allow_4" type="checkbox" />Registered</th>*@
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <form class="form-horizontal" method="post" id="aclForm" asp-controller="Configurations" asp-action="AccessControlList">
+                                    @foreach (var controller in controllers)
                                     {
-
-                                        @foreach (var action in controller.Actions)
+                                        string ControllerName;
                                         {
-                                            string ActionName;
+                                            ControllerName = controller.DisplayName ?? controller.Name;
+                                        }
+                                        @if (controller.Actions.Any())
+                                        {
 
+                                            @foreach (var action in controller.Actions)
                                             {
-                                                ActionName = action.DisplayName ?? action.Name;
-                                            }
-                                            <tr>
-                                                <td>
-                                                    @{ string AreaName;
-                                                        AreaName = controller.AreaName ?? "Public";
-                                                    }
+                                                string ActionName;
 
-                                                    @AreaName.@ControllerName.@ActionName
-                                                </td>
-
-                                                @foreach (var userRole in UserRoleList)
                                                 {
-                                                    string isSelectedtext = "";
-                                                    int count = 0;
-                                                    foreach (var actionsItem in actionsList)
-                                                    {
-                                                        if (actionsItem.UserRole == userRole.Value.ToString() && actionsItem.Name == action.Name && actionsItem.ControllerName == controller.Name && controller.AreaName == actionsItem.AreaName && actionsItem.isSelected == true)
-                                                        {
-                                                            isSelectedtext = "checked";
-                                                            count++;
-                                                        }
-                                                    }
-                                                    <td><input class="_@userRole.Value" value="@controller.AreaName.@controller.Name;@action.Name" @isSelectedtext type="checkbox" /></td>
+                                                    ActionName = action.DisplayName ?? action.Name;
                                                 }
-                                                @*<td><input class="allow_1" value="@AreaName.@controller.Name;@action.Name" type="checkbox" /></td>
-                                                    <td><input class="allow_2" value="@AreaName.@controller.Name;@action.Name" type="checkbox" /></td>
-                                                    <td><input class="allow_3" value="@AreaName.@controller.Name;@action.Name" type="checkbox" /></td>
-                                                    <td><input class="allow_4" value="@AreaName.@controller.Name;@action.Name" type="checkbox" /></td>*@
+                                                <tr>
+                                                    <td>
+                                                        @{ string AreaName;
+                                                            AreaName = controller.AreaName ?? "Public";
+                                                        }
 
-                                            </tr>
+                                                        @AreaName.@ControllerName.@ActionName
+                                                    </td>
+
+                                                    @foreach (var userRole in UserRoleList)
+                                                    {
+                                                        string isSelectedtext = "";
+                                                        int count = 0;
+                                                        foreach (var actionsItem in actionsList)
+                                                        {
+                                                            if (actionsItem.UserRole == userRole.Value.ToString() && actionsItem.Name == action.Name && actionsItem.ControllerName == controller.Name && controller.AreaName == actionsItem.AreaName && actionsItem.isSelected == true)
+                                                            {
+                                                                isSelectedtext = "checked";
+                                                                count++;
+                                                            }
+                                                        }
+                                                        <td><input class="_@userRole.Value" value="@controller.AreaName.@controller.Name;@action.Name" @isSelectedtext type="checkbox" /></td>
+                                                    }
+                                                    @*<td><input class="allow_1" value="@AreaName.@controller.Name;@action.Name" type="checkbox" /></td>
+                                        <td><input class="allow_2" value="@AreaName.@controller.Name;@action.Name" type="checkbox" /></td>
+                                        <td><input class="allow_3" value="@AreaName.@controller.Name;@action.Name" type="checkbox" /></td>
+                                        <td><input class="allow_4" value="@AreaName.@controller.Name;@action.Name" type="checkbox" /></td>*@
+
+                                                </tr>
 
 
 
 
 
+
+                                            }
 
                                         }
-
                                     }
-                                }
 
-                            </form>
-                        </tbody>
+                                </form>
+                            </tbody>
 
 
-                    </table>
+                        </table>
+
+                    </div>
                 </div>
                 <!-- /.box-body -->
             </div>

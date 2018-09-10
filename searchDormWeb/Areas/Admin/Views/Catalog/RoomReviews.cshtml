@@ -1,4 +1,5 @@
-﻿
+﻿@using searchDormWeb.Areas.Admin.Models.Catalog
+@model RoomReviewsVm
 @{
     ViewBag.Title = "RoomReviews";
     Layout = "../shared/_LayoutAdmin.cshtml";
@@ -39,48 +40,37 @@
                 <!-- form start -->
                 <form class="form-horizontal">
                     <div class="box-body">
-                        <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-2 control-label">Created from <i class="fa fa-question-circle" aria-hidden="true"></i></label>
 
-                            <div class="col-sm-4">
-                                <input type="email" class="form-control" id="inpugtEmail3" placeholder="Email">
-                            </div>
+                        <div class="form-group">
+                            <dau-label asp-for="CreatedFrom"></dau-label>
+                            <dau-date asp-for="CreatedFrom"></dau-date>
+                            <span asp-validation-for="CreatedFrom"></span>
                         </div>
 
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">Created to <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                            <div class="col-sm-4">
-                                <input type="password" class="form-control" id="inputPassfdword3" placeholder="Password">
-                            </div>
+                            <dau-label asp-for="CreatedTo"></dau-label>
+                            <dau-date asp-for="CreatedTo"></dau-date>
+                            <span asp-validation-for="CreatedTo"></span>
                         </div>
 
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">Message <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                            <div class="col-sm-4">
-                                <input type="password" class="form-control" id="inputPassfwords3" placeholder="Password">
-                            </div>
+                            <dau-label asp-for="Message"></dau-label>
+                            <dau-input type="text" asp-for="Message"></dau-input>
+                            <span asp-validation-for="Message"></span>
                         </div>
-
 
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">Approve <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                            <div class="col-sm-4">
-                                <input type="password" class="form-control" id="inputPassgwords3" placeholder="Password">
-                            </div>
+                            <dau-label asp-for="Approved"></dau-label>
+                            <dau-select asp-for="Approved"></dau-select>
+                            <span asp-validation-for="Approved"></span>
                         </div>
-
-
 
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">Room <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                            <div class="col-sm-4">
-                                <input type="password" class="form-control" id="inputPassgwords3" placeholder="Password">
-                            </div>
+                            <dau-label asp-for="RoomName"></dau-label>
+                            <dau-input type="text" asp-for="RoomName"></dau-input>
+                            <span asp-validation-for="RoomName"></span>
                         </div>
+
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
@@ -99,79 +89,83 @@
 
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th><input type="checkbox" /></th>
-                                <th>Room</th>
-                                <th>User</th>
-                                <th>Title</th>
-                                <th>Review text</th>
-                                <th>Rating</th>
-                                <th>Is approved</th>
-                                <th>Created on</th>
-                                <th>Edit</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><input type="checkbox" /></td>
-                                <td>Alfam B block 113</td>
-                                <td>msjahun@live.com</td>
-                                <td>I like this room</td>
-                                <td>I enjoyed my stay during this semester</td>
-                                <td>5</td>
-                                <td><i class="fa fa-check"></i></td>
-                                <td>12/3/15 10:23:21AM</td>
-                                <td> <a asp-action="RoomReviewEdit" asp-controller="Catalog" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</a></td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" /></td>
-                                <td>Alfam B block 113</td>
-                                <td>msjahun@live.com</td>
-                                <td>I like this room</td>
-                                <td>I enjoyed my stay during this semester</td>
-                                <td>5</td>
-                                <td><i class="fa fa-check"></i></td>
-                                <td>12/3/15 10:23:21AM</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" /></td>
-                                <td>Alfam B block 113</td>
-                                <td>msjahun@live.com</td>
-                                <td>I like this room</td>
-                                <td>I enjoyed my stay during this semester</td>
-                                <td>5</td>
-                                <td><i class="fa fa-check"></i></td>
-                                <td>12/3/15 10:23:21AM</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" /></td>
-                                <td>Alfam B block 113</td>
-                                <td>msjahun@live.com</td>
-                                <td>I like this room</td>
-                                <td>I enjoyed my stay during this semester</td>
-                                <td>5</td>
-                                <td><i class="fa fa-check"></i></td>
-                                <td>12/3/15 10:23:21AM</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" /></td>
-                                <td>Alfam B block 113</td>
-                                <td>msjahun@live.com</td>
-                                <td>I like this room</td>
-                                <td>I enjoyed my stay during this semester</td>
-                                <td>5</td>
-                                <td><i class="fa fa-check"></i></td>
-                                <td>12/3/15 10:23:21AM</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                            </tr>
-                        </tbody>
+                    <div class="overflow">
 
-                    </table>
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" /></th>
+                                    <th>Room</th>
+                                    <th>User</th>
+                                    <th>Title</th>
+                                    <th>Review text</th>
+                                    <th>Rating</th>
+                                    <th>Is approved</th>
+                                    <th>Created on</th>
+                                    <th>Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="checkbox" /></td>
+                                    <td>Alfam B block 113</td>
+                                    <td>msjahun@live.com</td>
+                                    <td>I like this room</td>
+                                    <td>I enjoyed my stay during this semester</td>
+                                    <td>5</td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td>12/3/15 10:23:21AM</td>
+                                    <td> <a asp-action="RoomReviewEdit" asp-controller="Catalog" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</a></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" /></td>
+                                    <td>Alfam B block 113</td>
+                                    <td>msjahun@live.com</td>
+                                    <td>I like this room</td>
+                                    <td>I enjoyed my stay during this semester</td>
+                                    <td>5</td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td>12/3/15 10:23:21AM</td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" /></td>
+                                    <td>Alfam B block 113</td>
+                                    <td>msjahun@live.com</td>
+                                    <td>I like this room</td>
+                                    <td>I enjoyed my stay during this semester</td>
+                                    <td>5</td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td>12/3/15 10:23:21AM</td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" /></td>
+                                    <td>Alfam B block 113</td>
+                                    <td>msjahun@live.com</td>
+                                    <td>I like this room</td>
+                                    <td>I enjoyed my stay during this semester</td>
+                                    <td>5</td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td>12/3/15 10:23:21AM</td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" /></td>
+                                    <td>Alfam B block 113</td>
+                                    <td>msjahun@live.com</td>
+                                    <td>I like this room</td>
+                                    <td>I enjoyed my stay during this semester</td>
+                                    <td>5</td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td>12/3/15 10:23:21AM</td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+
+                    </div>
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -191,6 +185,9 @@
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/font-awesome/css/font-awesome.min.css">
+
+    <!-- Select2 -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/select2/dist/css/select2.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/Ionicons/css/ionicons.min.css">
     <!-- DataTables -->
@@ -204,7 +201,7 @@
 
 
 @section scripts
-{
+    {
 
     <script src="@Url.Content("~/Content/")bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap 3.3.7 -->
@@ -213,6 +210,10 @@
     <script src="@Url.Content("~/Content/")dist/js/adminlte.min.js"></script>
     <script src="@Url.Content("~/Content/")bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="@Url.Content("~/Content/")bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+
+    <!-- Select2 -->
+    <script src="@Url.Content("~/Content/")bower_components/select2/dist/js/select2.full.min.js"></script>
     <!-- SlimScroll -->
     <script src="@Url.Content("~/Content/")bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
@@ -223,6 +224,10 @@
     <!-- page script -->
     <script>
         $(function () {
+
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
             $('#example').DataTable()
             $('#example1').DataTable({
                 'paging': true,

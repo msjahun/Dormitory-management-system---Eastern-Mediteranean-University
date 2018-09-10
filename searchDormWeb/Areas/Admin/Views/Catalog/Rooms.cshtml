@@ -1,4 +1,5 @@
-﻿
+﻿@using searchDormWeb.Areas.Admin.Models.Catalog
+@model RoomsVm
 @{
     ViewBag.Title = "Rooms";
     Layout = "../shared/_LayoutAdmin.cshtml";
@@ -58,51 +59,34 @@
                         <div class="row">
                             <div class=" col-md-6">
                                 <div class="form-group">
-                                    <label for="inputEmail3" class="col-sm-4 control-label">Room name <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                    <div class="col-sm-4">
-                                        <input type="email" class="form-control" id="inpugtEmail3" placeholder="Email">
-                                    </div>
+                                    <dau-label asp-for="RoomName"></dau-label>
+                                    <dau-input asp-for="RoomName" type="text"></dau-input>
+                                    <span asp-validation-for="RoomName"></span>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-4 control-label">Dormitory block <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                    <div class="col-sm-3">
-                                        <input type="password" class="form-control" id="inputPassfdword3" placeholder="Password">
-                                    </div>
+                                    <dau-label asp-for="DormitoryBlock"></dau-label>
+                                    <dau-select asp-for="DormitoryBlock"></dau-select>
+                                    <span asp-validation-for="DormitoryBlock"></span>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-4 control-label">Room type <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                    <div class="col-sm-4">
-                                        <input type="password" class="form-control" id="inputPassfwords3" placeholder="Password">
-                                    </div>
+                                    <dau-label asp-for="Published"></dau-label>
+                                    <dau-select asp-for="Published"></dau-select>
+                                    <span asp-validation-for="Published"></span>
                                 </div>
 
 
-                              
                             </div>
 
                             <div class=" col-md-6">
-                                <div class="form-group">
-                                    <label for="inputEmail3" class="col-sm-4 control-label">Published <i class="fa fa-question-circle" aria-hidden="true"></i></label>
 
-                                    <div class="col-sm-4">
-                                        <input type="email" class="form-control" id="inpugtEmail3" placeholder="Email">
-                                    </div>
-                                </div>
 
                                 <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-4 control-label">Go directly to room SKU <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                    <div class="col-sm-4">
-                                        <input type="password" class="form-control" id="inputPassfdword3" placeholder="Password">
-                                    </div>
+                                    <dau-label asp-for="GoDirectoryToRoomSKU"></dau-label>
+                                    <dau-inputaddon addon-type="button" text="Go" type="text" asp-for="GoDirectoryToRoomSKU"></dau-inputaddon>
+                                    <span asp-validation-for="GoDirectoryToRoomSKU"></span>
                                 </div>
-
-                               
 
 
                             </div>
@@ -127,90 +111,94 @@
 
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th><input type="checkbox" /></th>
-                                <th>Picture</th>
-                                <th>Room name</th>
-                                <th>SKU</th>
-                                <th>Price</th>
-                                <th>Quota</th>
-                                <th>Room type</th>
-                                <th>Published</th>
-                                <th>Edit</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><input type="checkbox" /></td>
-                                <td>Picure</td>
-                                <td>Alfam B block 113</td>
-                                <td>k2jh34</td>
-                                <td>$12,000</td>
-                                <td>59</td>
-                                <td>Double room</td>
-                                <td><i class="fa fa-check"></i></td>
-                                <td> <a asp-action="RoomEdit" asp-controller="Catalog" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</a></td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" /></td>
-                                <td>Picure</td>
-                                <td>Alfam B block 113</td>
-                                <td>k2jh34</td>
-                                <td>$12,000</td>
-                                <td>59</td>
-                                <td>Double room</td>
-                                <td><i class="fa fa-check"></i></td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" /></td>
-                                <td>Picure</td>
-                                <td>Alfam B block 113</td>
-                                <td>k2jh34</td>
-                                <td>$12,000</td>
-                                <td>59</td>
-                                <td>Double room</td>
-                                <td><i class="fa fa-check"></i></td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" /></td>
-                                <td>Picure</td>
-                                <td>Alfam B block 113</td>
-                                <td>k2jh34</td>
-                                <td>$12,000</td>
-                                <td>59</td>
-                                <td>Double room</td>
-                                <td><i class="fa fa-check"></i></td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" /></td>
-                                <td>Picure</td>
-                                <td>Alfam B block 113</td>
-                                <td>k2jh34</td>
-                                <td>$12,000</td>
-                                <td>59</td>
-                                <td>Double room</td>
-                                <td><i class="fa fa-check"></i></td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" /></td>
-                                <td>Picure</td>
-                                <td>Alfam B block 113</td>
-                                <td>k2jh34</td>
-                                <td>$12,000</td>
-                                <td>59</td>
-                                <td>Double room</td>
-                                <td><i class="fa fa-check"></i></td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                            </tr>
-                        </tbody>
 
-                    </table>
+                    <div class="overflow">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" /></th>
+                                    <th>Picture</th>
+                                    <th>Room name</th>
+                                    <th>SKU</th>
+                                    <th>Price</th>
+                                    <th>Quota</th>
+                                    <th>Room type</th>
+                                    <th>Published</th>
+                                    <th>Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="checkbox" /></td>
+                                    <td>Picure</td>
+                                    <td>Alfam B block 113</td>
+                                    <td>k2jh34</td>
+                                    <td>$12,000</td>
+                                    <td>59</td>
+                                    <td>Double room</td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td> <a asp-action="RoomEdit" asp-controller="Catalog" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</a></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" /></td>
+                                    <td>Picure</td>
+                                    <td>Alfam B block 113</td>
+                                    <td>k2jh34</td>
+                                    <td>$12,000</td>
+                                    <td>59</td>
+                                    <td>Double room</td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" /></td>
+                                    <td>Picure</td>
+                                    <td>Alfam B block 113</td>
+                                    <td>k2jh34</td>
+                                    <td>$12,000</td>
+                                    <td>59</td>
+                                    <td>Double room</td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" /></td>
+                                    <td>Picure</td>
+                                    <td>Alfam B block 113</td>
+                                    <td>k2jh34</td>
+                                    <td>$12,000</td>
+                                    <td>59</td>
+                                    <td>Double room</td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" /></td>
+                                    <td>Picure</td>
+                                    <td>Alfam B block 113</td>
+                                    <td>k2jh34</td>
+                                    <td>$12,000</td>
+                                    <td>59</td>
+                                    <td>Double room</td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" /></td>
+                                    <td>Picure</td>
+                                    <td>Alfam B block 113</td>
+                                    <td>k2jh34</td>
+                                    <td>$12,000</td>
+                                    <td>59</td>
+                                    <td>Double room</td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -230,6 +218,8 @@
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/select2/dist/css/select2.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/Ionicons/css/ionicons.min.css">
     <!-- DataTables -->
@@ -243,7 +233,7 @@
 
 
 @section scripts
-{
+    {
 
     <script src="@Url.Content("~/Content/")bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap 3.3.7 -->
@@ -252,6 +242,9 @@
     <script src="@Url.Content("~/Content/")dist/js/adminlte.min.js"></script>
     <script src="@Url.Content("~/Content/")bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="@Url.Content("~/Content/")bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+    <!-- Select2 -->
+    <script src="@Url.Content("~/Content/")bower_components/select2/dist/js/select2.full.min.js"></script>
     <!-- SlimScroll -->
     <script src="@Url.Content("~/Content/")bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
@@ -262,6 +255,12 @@
     <!-- page script -->
     <script>
         $(function () {
+
+
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
+
             $('#example').DataTable()
             $('#example1').DataTable({
                 'paging': true,

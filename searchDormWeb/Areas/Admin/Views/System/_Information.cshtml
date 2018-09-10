@@ -1,4 +1,5 @@
-﻿
+﻿@using searchDormWeb.Areas.Admin.Models.System
+@model SystemInformationVm
 @{
     ViewData["Title"] = "_Information";
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
@@ -38,24 +39,21 @@
                 <form class="form-horizontal">
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-6 control-label">EMU dormitory reservation webapp version <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
+                            <dau-label asp-for="Version"></dau-label>
                             <div class="col-sm-6">
                                 <label for="inputEmail3" class="col-sm-6">v.1.0.0</label>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-6 control-label">Operating system <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
+                            <dau-label asp-for="OperatingSystem"></dau-label>
                             <div class="col-sm-6">
                                 <label for="inputEmail3" class="col-sm-6 ">Microsoft windows NT.6 </label>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-6 control-label">ASP.net info <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
+                            <dau-label asp-for="AspDotNetInfo"></dau-label>
                             <div class="col-sm-6">
                                 <label for="inputEmail3" class="col-sm-6 ">v4.0.30319 </label>
                             </div>
@@ -63,8 +61,7 @@
 
 
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-6 control-label">Is full trust level<i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
+                            <dau-label asp-for="IsFullTrustLevel"></dau-label>
                             <div class="col-sm-6">
                                 <label for="inputEmail3" class="col-sm-6">True </label>
                             </div>
@@ -73,8 +70,7 @@
 
 
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-6 control-label">Server time zone<i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
+                            <dau-label asp-for="ServerTimeZone"></dau-label>
                             <div class="col-sm-6">
                                 <label for="inputEmail3" class="col-sm-6">W.Europe standard time</label>
                             </div>
@@ -83,8 +79,7 @@
 
 
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-6 control-label">Server local time<i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
+                            <dau-label asp-for="ServerLocalTime"></dau-label>
                             <div class="col-sm-6">
                                 <label for="inputEmail3" class="col-sm-6">Wednessday, July 3</label>
                             </div>
@@ -93,8 +88,7 @@
 
 
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-6 control-label">Coordinate universal time<i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
+                            <dau-label asp-for="CoordinateUniversalTime"></dau-label>
                             <div class="col-sm-6">
                                 <label for="inputEmail3" class="col-sm-6">Tuesday, July 3</label>
                             </div>
@@ -103,8 +97,7 @@
 
 
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-6 control-label">Current user time<i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
+                            <dau-label asp-for="CurrentUserTime"></dau-label>
                             <div class="col-sm-6">
                                 <label for="inputEmail3" class="col-sm-6">Tuesday </label>
                             </div>
@@ -112,8 +105,7 @@
 
 
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-6 control-label">HTTP-HOST<i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
+                            <dau-label asp-for="HttpHost"></dau-label>
                             <div class="col-sm-6">
                                 <label for="inputEmail3" class="col-sm-6">dormitories.emu.edu.tr </label>
                             </div>

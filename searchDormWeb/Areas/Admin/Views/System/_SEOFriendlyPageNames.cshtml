@@ -1,4 +1,5 @@
-﻿
+﻿@using searchDormWeb.Areas.Admin.Models.System
+@model SEOFriendlyPageNamesVm
 @{
     ViewData["Title"] = "_SEOFriendlyPageNames";
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
@@ -38,12 +39,11 @@
                 <!-- form start -->
                 <form class="form-horizontal">
                     <div class="box-body">
-                        <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-2 control-label">Name<i class="fa fa-question-circle" aria-hidden="true"></i></label>
 
-                            <div class="col-sm-4">
-                                <input type="email" class="form-control" id="inpugtEmail3" placeholder="Email">
-                            </div>
+                        <div class="form-group">
+                            <dau-label asp-for="Name"></dau-label>
+                            <dau-input type="text" asp-for="Name"></dau-input>
+                            <span asp-validation-for="Name"></span>
                         </div>
 
 
@@ -66,100 +66,105 @@
 
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th><input type="checkbox"></th>
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>Entity id</th>
-                                <th>Entity name</th>
-                                <th>Is active</th>
-                                <th>Language</th>
-                                <th>Edit page</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>513</td>
-                                <td>Alfam-b-block</td>
-                                <td>128</td>
-                                <td>Room</td>
-                                <td><i class="fa fa-check" aria-hidden="true"></i></td>
-                                <td>Standard</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit page</button></td>
 
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>513</td>
-                                <td>Alfam-b-block</td>
-                                <td>128</td>
-                                <td>Room</td>
-                                <td><i class="fa fa-check" aria-hidden="true"></i></td>
-                                <td>Standard</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit page</button></td>
+                    <div class="overflow">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox"></th>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Entity id</th>
+                                    <th>Entity name</th>
+                                    <th>Is active</th>
+                                    <th>Language</th>
+                                    <th>Edit page</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>513</td>
+                                    <td>Alfam-b-block</td>
+                                    <td>128</td>
+                                    <td>Room</td>
+                                    <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                                    <td>Standard</td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit page</button></td>
 
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>513</td>
-                                <td>Alfam-b-block</td>
-                                <td>128</td>
-                                <td>Room</td>
-                                <td><i class="fa fa-check" aria-hidden="true"></i></td>
-                                <td>Standard</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit page</button></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>513</td>
+                                    <td>Alfam-b-block</td>
+                                    <td>128</td>
+                                    <td>Room</td>
+                                    <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                                    <td>Standard</td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit page</button></td>
 
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>513</td>
-                                <td>Alfam-b-block</td>
-                                <td>128</td>
-                                <td>Room</td>
-                                <td><i class="fa fa-check" aria-hidden="true"></i></td>
-                                <td>Standard</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit page</button></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>513</td>
+                                    <td>Alfam-b-block</td>
+                                    <td>128</td>
+                                    <td>Room</td>
+                                    <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                                    <td>Standard</td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit page</button></td>
 
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>513</td>
-                                <td>Alfam-b-block</td>
-                                <td>128</td>
-                                <td>Room</td>
-                                <td><i class="fa fa-check" aria-hidden="true"></i></td>
-                                <td>Standard</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit page</button></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>513</td>
+                                    <td>Alfam-b-block</td>
+                                    <td>128</td>
+                                    <td>Room</td>
+                                    <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                                    <td>Standard</td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit page</button></td>
 
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>513</td>
-                                <td>Alfam-b-block</td>
-                                <td>128</td>
-                                <td>Room</td>
-                                <td><i class="fa fa-check" aria-hidden="true"></i></td>
-                                <td>Standard</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit page</button></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>513</td>
+                                    <td>Alfam-b-block</td>
+                                    <td>128</td>
+                                    <td>Room</td>
+                                    <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                                    <td>Standard</td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit page</button></td>
 
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>513</td>
-                                <td>Alfam-b-block</td>
-                                <td>128</td>
-                                <td>Room</td>
-                                <td><i class="fa fa-check" aria-hidden="true"></i></td>
-                                <td>Standard</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit page</button></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>513</td>
+                                    <td>Alfam-b-block</td>
+                                    <td>128</td>
+                                    <td>Room</td>
+                                    <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                                    <td>Standard</td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit page</button></td>
 
-                            </tr>
-                        </tbody>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>513</td>
+                                    <td>Alfam-b-block</td>
+                                    <td>128</td>
+                                    <td>Room</td>
+                                    <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                                    <td>Standard</td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit page</button></td>
 
-                    </table>
+                                </tr>
+                            </tbody>
+
+                        </table>
+
+
+                    </div>
                 </div>
                 <!-- /.box-body -->
             </div>

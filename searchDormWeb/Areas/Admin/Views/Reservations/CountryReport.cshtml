@@ -1,4 +1,5 @@
-﻿
+﻿@using searchDormWeb.Areas.Admin.Models.Reservation
+@model CountryReportVm
 @{
     ViewBag.Title = "Country Report";
     Layout = "../shared/_LayoutAdmin.cshtml";
@@ -16,7 +17,7 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    
+
                 </div>
             </div>
         </div>
@@ -39,38 +40,28 @@
                 <form class="form-horizontal">
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-2 control-label">Start date <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                            <div class="col-sm-4">
-                                <input type="email" class="form-control" id="inpugtEmail3" placeholder="Email">
-                            </div>
+                            <dau-label asp-for="StartDate"></dau-label>
+                            <dau-date asp-for="StartDate"></dau-date>
+                            <span asp-validation-for="StartDate"></span>
                         </div>
 
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">End date <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                            <div class="col-sm-4">
-                                <input type="password" class="form-control" id="inputPassfdword3" placeholder="Password">
-                            </div>
+                            <dau-label asp-for="EndDate"></dau-label>
+                            <dau-date asp-for="EndDate"></dau-date>
+                            <span asp-validation-for="EndDate"></span>
                         </div>
 
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">Booking status <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                            <div class="col-sm-4">
-                                <input type="password" class="form-control" id="inputPassfwords3" placeholder="Password">
-                            </div>
+                            <dau-label asp-for="BookingStatus"></dau-label>
+                            <dau-select asp-for="BookingStatus"></dau-select>
+                            <span asp-validation-for="BookingStatus"></span>
                         </div>
-
 
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">Payment status <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                            <div class="col-sm-4">
-                                <input type="password" class="form-control" id="inputPassgwords3" placeholder="Password">
-                            </div>
+                            <dau-label asp-for="PaymentStatus"></dau-label>
+                            <dau-select asp-for="PaymentStatus"></dau-select>
+                            <span asp-validation-for="PaymentStatus"></span>
                         </div>
-
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
@@ -89,48 +80,50 @@
 
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>Country</th>
-                                <th>Number of orders</th>
-                                <th>Order total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Cyprus</td>
-                                <td>5</td>
-                                <td>$22,800</td>
-                            </tr>
-                            <tr>
-                                <td>Turkey</td>
-                                <td>52</td>
-                                <td>$22,800</td>
-                            </tr>
-                            <tr>
-                                <td>Nigeria</td>
-                                <td>54</td>
-                                <td>$232,800</td>
-                            </tr>
-                            <tr>
-                                <td>Cyprus</td>
-                                <td>5</td>
-                                <td>$22,800</td>
-                            </tr>
-                            <tr>
-                                <td>Cyprus</td>
-                                <td>5</td>
-                                <td>$22,800</td>
-                            </tr>
-                            <tr>
-                                <td>Cyprus</td>
-                                <td>5</td>
-                                <td>$22,800</td>
-                            </tr>
-                        </tbody>
+                    <div class="overflow">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Country</th>
+                                    <th>Number of orders</th>
+                                    <th>Order total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Cyprus</td>
+                                    <td>5</td>
+                                    <td>$22,800</td>
+                                </tr>
+                                <tr>
+                                    <td>Turkey</td>
+                                    <td>52</td>
+                                    <td>$22,800</td>
+                                </tr>
+                                <tr>
+                                    <td>Nigeria</td>
+                                    <td>54</td>
+                                    <td>$232,800</td>
+                                </tr>
+                                <tr>
+                                    <td>Cyprus</td>
+                                    <td>5</td>
+                                    <td>$22,800</td>
+                                </tr>
+                                <tr>
+                                    <td>Cyprus</td>
+                                    <td>5</td>
+                                    <td>$22,800</td>
+                                </tr>
+                                <tr>
+                                    <td>Cyprus</td>
+                                    <td>5</td>
+                                    <td>$22,800</td>
+                                </tr>
+                            </tbody>
 
-                    </table>
+                        </table>
+                    </div>
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -152,6 +145,8 @@
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/select2/dist/css/select2.min.css">
     <!-- DataTables -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <!-- Theme style -->
@@ -163,7 +158,7 @@
 
 
 @section scripts
-{
+    {
 
     <script src="@Url.Content("~/Content/")bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap 3.3.7 -->
@@ -172,6 +167,9 @@
     <script src="@Url.Content("~/Content/")dist/js/adminlte.min.js"></script>
     <script src="@Url.Content("~/Content/")bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="@Url.Content("~/Content/")bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+    <!-- Select2 -->
+    <script src="@Url.Content("~/Content/")bower_components/select2/dist/js/select2.full.min.js"></script>
     <!-- SlimScroll -->
     <script src="@Url.Content("~/Content/")bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
@@ -182,6 +180,10 @@
     <!-- page script -->
     <script>
         $(function () {
+
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
             $('#example').DataTable()
             $('#example1').DataTable({
                 'paging': true,

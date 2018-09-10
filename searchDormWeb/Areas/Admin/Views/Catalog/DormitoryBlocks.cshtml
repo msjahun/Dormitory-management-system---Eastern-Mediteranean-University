@@ -1,4 +1,5 @@
-﻿
+﻿@using searchDormWeb.Areas.Admin.Models.Catalog
+@model DormitoryBlocksVm
 @{
     ViewBag.Title = "Dormitory Blocks";
     Layout = "../shared/_LayoutAdmin.cshtml";
@@ -55,14 +56,12 @@
                 <form class="form-horizontal">
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-2 control-label">Dormitory block name <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                            <div class="col-sm-4">
-                                <input type="email" class="form-control" id="inpugtEmail3" placeholder="Email">
-                            </div>
+                            <dau-label asp-for="BlockName"></dau-label>
+                            <dau-input asp-for="BlockName" type="text"></dau-input>
+                            <span asp-validation-for="BlockName"></span>
                         </div>
 
-                        
+
 
 
 
@@ -85,49 +84,53 @@
 
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Published</th>
-                                <th>Display order</th>
-                                <th>Edit</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>B Block</td>
-                                <td><i class="fa fa-check"></i></td>
-                                <td>2</td>
-                                <td> <a asp-action="DormitoryBlockEdit" asp-controller="Catalog" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</a></td>
-                            </tr>
-                            <tr>
-                                <td>C Block</td>
-                                <td><i class="fa fa-check"></i></td>
-                                <td>2</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                            </tr>
-                            <tr>
-                                <td>Office apartment</td>
-                                <td><i class="fa fa-check"></i></td>
-                                <td>2</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                            </tr>
-                            <tr>
-                                <td>OfficeTel</td>
-                                <td><i class="fa fa-check"></i></td>
-                                <td>2</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                            </tr>
-                            <tr>
-                                <td>B Block</td>
-                                <td><i class="fa fa-check"></i></td>
-                                <td>2</td>
-                                <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                            </tr>
-                        </tbody>
 
-                    </table>
+                    <div class="overflow">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Published</th>
+                                    <th>Display order</th>
+                                    <th>Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>B Block</td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td>2</td>
+                                    <td> <a asp-action="DormitoryBlockEdit" asp-controller="Catalog" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</a></td>
+                                </tr>
+                                <tr>
+                                    <td>C Block</td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td>2</td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Office apartment</td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td>2</td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                                </tr>
+                                <tr>
+                                    <td>OfficeTel</td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td>2</td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                                </tr>
+                                <tr>
+                                    <td>B Block</td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td>2</td>
+                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -179,6 +182,9 @@
     <!-- page script -->
     <script>
         $(function () {
+
+         
+
             $('#example').DataTable()
             $('#example1').DataTable({
                 'paging': true,

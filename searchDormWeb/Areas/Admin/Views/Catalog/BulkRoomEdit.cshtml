@@ -1,4 +1,5 @@
-﻿
+﻿@using searchDormWeb.Areas.Admin.Models.Catalog
+@model BulkEditRoomsVm
 @{
     ViewBag.Title = "BulkRoomEdit";
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
@@ -16,7 +17,7 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                  
+
                 </div>
             </div>
         </div>
@@ -39,22 +40,18 @@
                 <form class="form-horizontal">
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-2 control-label">Room name <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                            <div class="col-sm-4">
-                                <input type="email" class="form-control" id="inpugtEmail3" placeholder="Email">
-                            </div>
+                            <dau-label asp-for="RoomName"></dau-label>
+                            <dau-input asp-for="RoomName" type="text"></dau-input>
+                            <span asp-validation-for="RoomName"></span>
                         </div>
 
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">Room type/Dormitory block <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                            <div class="col-sm-4">
-                                <input type="password" class="form-control" id="inputPassfdword3" placeholder="Password">
-                            </div>
+                            <dau-label asp-for="DormitoryBlock"></dau-label>
+                            <dau-select asp-for="DormitoryBlock" type="text"></dau-select>
+                            <span asp-validation-for="DormitoryBlock"></span>
                         </div>
 
-                        
+
 
 
 
@@ -78,123 +75,127 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>View</th>
-                                <th>SKU</th>
-                                <th>Price</th>
-                                <th>Old price</th>
-                                <th>Quota</th>
-                                <th>Published</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Alfam B block</td>
-                                <td>  <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                <td>23tjo3i4jt</td>
-                                <td>$123,299.00</td>
-                                <td>$123,299.00</td>
-                                <td>23</td>
-                                <td><i class="fa fa-check"></i></td>
-                                <td>  <button type="submit" class="btn btn-danger "> <i class="fa fa-times"></i> Delete</button></td>
-                            </tr>
-                            <tr>
-                                <td>Alfam B block</td>
-                                <td>  <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                <td>23tjo3i4jt</td>
-                                <td>$123,299.00</td>
-                                <td>$123,299.00</td>
-                                <td>23</td>
-                                <td><i class="fa fa-check"></i></td>
-                                <td>  <button type="submit" class="btn btn-danger "> <i class="fa fa-times"></i> Delete</button></td>
-                            </tr>
-                            <tr>
-                                <td>Alfam B block</td>
-                                <td>  <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                <td>23tjo3i4jt</td>
-                                <td>$123,299.00</td>
-                                <td>$123,299.00</td>
-                                <td>23</td>
-                                <td><i class="fa fa-check"></i></td>
-                                <td>  <button type="submit" class="btn btn-danger "> <i class="fa fa-times"></i> Delete</button></td>
-                            </tr>
-                            <tr>
-                                <td>Alfam B block</td>
-                                <td>  <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                <td>23tjo3i4jt</td>
-                                <td>$123,299.00</td>
-                                <td>$123,299.00</td>
-                                <td>23</td>
-                                <td><i class="fa fa-check"></i></td>
-                                <td>  <button type="submit" class="btn btn-danger "> <i class="fa fa-times"></i> Delete</button></td>
-                            </tr>
-                            <tr>
-                                <td>Alfam B block</td>
-                                <td>  <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                <td>23tjo3i4jt</td>
-                                <td>$123,299.00</td>
-                                <td>$123,299.00</td>
-                                <td>23</td>
-                                <td><i class="fa fa-check"></i></td>
-                                <td>  <button type="submit" class="btn btn-danger "> <i class="fa fa-times"></i> Delete</button></td>
-                            </tr>
-                            <tr>
-                                <td>Alfam B block</td>
-                                <td>  <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                <td>23tjo3i4jt</td>
-                                <td>$123,299.00</td>
-                                <td>$123,299.00</td>
-                                <td>23</td>
-                                <td><i class="fa fa-check"></i></td>
-                                <td>  <button type="submit" class="btn btn-danger "> <i class="fa fa-times"></i> Delete</button></td>
-                            </tr>
-                            <tr>
-                                <td>Alfam B block</td>
-                                <td>  <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                <td>23tjo3i4jt</td>
-                                <td>$123,299.00</td>
-                                <td>$123,299.00</td>
-                                <td>23</td>
-                                <td><i class="fa fa-check"></i></td>
-                                <td>  <button type="submit" class="btn btn-danger "> <i class="fa fa-times"></i> Delete</button></td>
-                            </tr>
-                            <tr>
-                                <td>Alfam B block</td>
-                                <td>  <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                <td>23tjo3i4jt</td>
-                                <td>$123,299.00</td>
-                                <td>$123,299.00</td>
-                                <td>23</td>
-                                <td><i class="fa fa-check"></i></td>
-                                <td>  <button type="submit" class="btn btn-danger "> <i class="fa fa-times"></i> Delete</button></td>
-                            </tr>
-                            <tr>
-                                <td>Alfam B block</td>
-                                <td>  <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                <td>23tjo3i4jt</td>
-                                <td>$123,299.00</td>
-                                <td>$123,299.00</td>
-                                <td>23</td>
-                                <td><i class="fa fa-check"></i></td>
-                                <td>  <button type="submit" class="btn btn-danger "> <i class="fa fa-times"></i> Delete</button></td>
-                            </tr>
-                            <tr>
-                                <td>Alfam B block</td>
-                                <td>  <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                <td>23tjo3i4jt</td>
-                                <td>$123,299.00</td>
-                                <td>$123,299.00</td>
-                                <td>23</td>
-                                <td><i class="fa fa-check"></i></td>
-                                <td>  <button type="submit" class="btn btn-danger "> <i class="fa fa-times"></i> Delete</button></td>
-                            </tr>
-                        </tbody>
 
-                    </table>
+                    <div class="overflow">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>View</th>
+                                    <th>SKU</th>
+                                    <th>Price</th>
+                                    <th>Old price</th>
+                                    <th>Quota</th>
+                                    <th>Published</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Alfam B block</td>
+                                    <td>  <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                    <td>23tjo3i4jt</td>
+                                    <td>$123,299.00</td>
+                                    <td>$123,299.00</td>
+                                    <td>23</td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td>  <button type="submit" class="btn btn-danger "> <i class="fa fa-times"></i> Delete</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Alfam B block</td>
+                                    <td>  <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                    <td>23tjo3i4jt</td>
+                                    <td>$123,299.00</td>
+                                    <td>$123,299.00</td>
+                                    <td>23</td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td>  <button type="submit" class="btn btn-danger "> <i class="fa fa-times"></i> Delete</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Alfam B block</td>
+                                    <td>  <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                    <td>23tjo3i4jt</td>
+                                    <td>$123,299.00</td>
+                                    <td>$123,299.00</td>
+                                    <td>23</td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td>  <button type="submit" class="btn btn-danger "> <i class="fa fa-times"></i> Delete</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Alfam B block</td>
+                                    <td>  <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                    <td>23tjo3i4jt</td>
+                                    <td>$123,299.00</td>
+                                    <td>$123,299.00</td>
+                                    <td>23</td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td>  <button type="submit" class="btn btn-danger "> <i class="fa fa-times"></i> Delete</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Alfam B block</td>
+                                    <td>  <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                    <td>23tjo3i4jt</td>
+                                    <td>$123,299.00</td>
+                                    <td>$123,299.00</td>
+                                    <td>23</td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td>  <button type="submit" class="btn btn-danger "> <i class="fa fa-times"></i> Delete</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Alfam B block</td>
+                                    <td>  <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                    <td>23tjo3i4jt</td>
+                                    <td>$123,299.00</td>
+                                    <td>$123,299.00</td>
+                                    <td>23</td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td>  <button type="submit" class="btn btn-danger "> <i class="fa fa-times"></i> Delete</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Alfam B block</td>
+                                    <td>  <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                    <td>23tjo3i4jt</td>
+                                    <td>$123,299.00</td>
+                                    <td>$123,299.00</td>
+                                    <td>23</td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td>  <button type="submit" class="btn btn-danger "> <i class="fa fa-times"></i> Delete</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Alfam B block</td>
+                                    <td>  <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                    <td>23tjo3i4jt</td>
+                                    <td>$123,299.00</td>
+                                    <td>$123,299.00</td>
+                                    <td>23</td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td>  <button type="submit" class="btn btn-danger "> <i class="fa fa-times"></i> Delete</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Alfam B block</td>
+                                    <td>  <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                    <td>23tjo3i4jt</td>
+                                    <td>$123,299.00</td>
+                                    <td>$123,299.00</td>
+                                    <td>23</td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td>  <button type="submit" class="btn btn-danger "> <i class="fa fa-times"></i> Delete</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Alfam B block</td>
+                                    <td>  <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                    <td>23tjo3i4jt</td>
+                                    <td>$123,299.00</td>
+                                    <td>$123,299.00</td>
+                                    <td>23</td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td>  <button type="submit" class="btn btn-danger "> <i class="fa fa-times"></i> Delete</button></td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+
+                    </div>
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -216,6 +217,8 @@
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/select2/dist/css/select2.min.css">
     <!-- DataTables -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <!-- Theme style -->
@@ -227,7 +230,7 @@
 
 
 @section scripts
-{
+    {
 
     <script src="@Url.Content("~/Content/")bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap 3.3.7 -->
@@ -236,6 +239,10 @@
     <script src="@Url.Content("~/Content/")dist/js/adminlte.min.js"></script>
     <script src="@Url.Content("~/Content/")bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="@Url.Content("~/Content/")bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+
+    <!-- Select2 -->
+    <script src="@Url.Content("~/Content/")bower_components/select2/dist/js/select2.full.min.js"></script>
     <!-- SlimScroll -->
     <script src="@Url.Content("~/Content/")bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
@@ -246,6 +253,10 @@
     <!-- page script -->
     <script>
         $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
+
             $('#example').DataTable()
             $('#example1').DataTable({
                 'paging': true,

@@ -1,4 +1,5 @@
-﻿
+﻿@using searchDormWeb.Areas.Admin.Models.Notifications
+@model AnnoucementsVm
 @{
     ViewData["Title"] = "_ManageAnnouncements";
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
@@ -39,38 +40,28 @@
                 <form class="form-horizontal">
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-2 control-label">Created on <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                            <div class="col-sm-4">
-                                <input type="email" class="form-control" id="inpugtEmail3" placeholder="Email">
-                            </div>
+                            <dau-label asp-for="CreatedOn"></dau-label>
+                            <dau-date asp-for="CreatedOn"></dau-date>
+                            <span asp-validation-for="CreatedOn"></span>
                         </div>
 
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">Priority <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                            <div class="col-sm-4">
-                                <input type="password" class="form-control" id="inputPassfdword3" placeholder="Password">
-                            </div>
+                            <dau-label asp-for="Priority"></dau-label>
+                            <dau-select asp-for="Priority"></dau-select>
+                            <span asp-validation-for="Priority"></span>
                         </div>
 
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">Start date <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                            <div class="col-sm-4">
-                                <input type="password" class="form-control" id="inputPassfwords3" placeholder="Password">
-                            </div>
+                            <dau-label asp-for="StartDate"></dau-label>
+                            <dau-date asp-for="StartDate"></dau-date>
+                            <span asp-validation-for="StartDate"></span>
                         </div>
-
 
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">Is active <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                            <div class="col-sm-4">
-                                <input type="password" class="form-control" id="inputPassgwords3" placeholder="Password">
-                            </div>
+                            <dau-label asp-for="Active"></dau-label>
+                            <dau-select asp-for="Active"></dau-select>
+                            <span asp-validation-for="Active"></span>
                         </div>
-
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
@@ -89,63 +80,67 @@
 
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Title</th>
-                                <th>Priority</th>
-                                <th>Message</th>
-                                <th>Start date</th>
-                                <th>Is active</th>
-                                <th>Created on</th>
-                                <th>Edit</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>12</td>
-                                <td>Update dormitory information</td>
-                                <td>Urgent</td>
-                                <td>Please all dormitory should update their contact information</td>
-                                <td>12/11/2018 12:10:20AM</td>
-                                <td><i class="fa fa-check"></i></td>
-                                <td>12/10/11 19:12:10AM</td>
-                                <td> <a asp-action="AnnouncementEdit" asp-controller="Notifications" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</a></td>
-                            </tr>
-                            <tr>
-                                <td>12</td>
-                                <td>Update dormitory information</td>
-                                <td>Urgent</td>
-                                <td>Please all dormitory should update their contact information</td>
-                                <td>12/11/2018 12:10:20AM</td>
-                                <td><i class="fa fa-check"></i></td>
-                                <td>12/10/11 19:12:10AM</td>
-                                <td><button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                            </tr>
-                            <tr>
-                                <td>12</td>
-                                <td>Update dormitory information</td>
-                                <td>Urgent</td>
-                                <td>Please all dormitory should update their contact information</td>
-                                <td>12/11/2018 12:10:20AM</td>
-                                <td><i class="fa fa-check"></i></td>
-                                <td>12/10/11 19:12:10AM</td>
-                                <td><button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                            </tr>
-                            <tr>
-                                <td>12</td>
-                                <td>Update dormitory information</td>
-                                <td>Urgent</td>
-                                <td>Please all dormitory should update their contact information</td>
-                                <td>12/11/2018 12:10:20AM</td>
-                                <td><i class="fa fa-check"></i></td>
-                                <td>12/10/11 19:12:10AM</td>
-                                <td><button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                            </tr>
-                        </tbody>
 
-                    </table>
+                    <div class="overflow">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Title</th>
+                                    <th>Priority</th>
+                                    <th>Message</th>
+                                    <th>Start date</th>
+                                    <th>Is active</th>
+                                    <th>Created on</th>
+                                    <th>Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>12</td>
+                                    <td>Update dormitory information</td>
+                                    <td>Urgent</td>
+                                    <td>Please all dormitory should update their contact information</td>
+                                    <td>12/11/2018 12:10:20AM</td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td>12/10/11 19:12:10AM</td>
+                                    <td> <a asp-action="AnnouncementEdit" asp-controller="Notifications" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</a></td>
+                                </tr>
+                                <tr>
+                                    <td>12</td>
+                                    <td>Update dormitory information</td>
+                                    <td>Urgent</td>
+                                    <td>Please all dormitory should update their contact information</td>
+                                    <td>12/11/2018 12:10:20AM</td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td>12/10/11 19:12:10AM</td>
+                                    <td><button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                                </tr>
+                                <tr>
+                                    <td>12</td>
+                                    <td>Update dormitory information</td>
+                                    <td>Urgent</td>
+                                    <td>Please all dormitory should update their contact information</td>
+                                    <td>12/11/2018 12:10:20AM</td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td>12/10/11 19:12:10AM</td>
+                                    <td><button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                                </tr>
+                                <tr>
+                                    <td>12</td>
+                                    <td>Update dormitory information</td>
+                                    <td>Urgent</td>
+                                    <td>Please all dormitory should update their contact information</td>
+                                    <td>12/11/2018 12:10:20AM</td>
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td>12/10/11 19:12:10AM</td>
+                                    <td><button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+
+                    </div>
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -167,6 +162,8 @@
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/select2/dist/css/select2.min.css"> 
     <!-- DataTables -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <!-- Theme style -->
@@ -187,6 +184,10 @@
     <script src="@Url.Content("~/Content/")dist/js/adminlte.min.js"></script>
     <script src="@Url.Content("~/Content/")bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="@Url.Content("~/Content/")bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+
+    <!-- Select2 -->
+    <script src="@Url.Content("~/Content/")bower_components/select2/dist/js/select2.full.min.js"></script>
     <!-- SlimScroll -->
     <script src="@Url.Content("~/Content/")bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
@@ -197,6 +198,10 @@
     <!-- page script -->
     <script>
         $(function () {
+
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
             $('#example').DataTable()
             $('#example1').DataTable({
                 'paging': true,

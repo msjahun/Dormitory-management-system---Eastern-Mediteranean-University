@@ -1,4 +1,5 @@
-﻿
+﻿@using searchDormWeb.Areas.Admin.Models.Promotions
+@model DiscountsVm
 @{
     ViewData["Title"] = "_Discounts";
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
@@ -38,31 +39,22 @@
                 <form class="form-horizontal">
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-2 control-label">Discount name <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                            <div class="col-sm-4">
-                                <input type="email" class="form-control" id="inpugtEmail3" placeholder="Email">
-                            </div>
+                            <dau-label asp-for="DiscountName"></dau-label>
+                            <dau-input asp-for="DiscountName" type="text"></dau-input>
+                            <span asp-validation-for="DiscountName"></span>
                         </div>
 
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">Coupon code <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                            <div class="col-sm-4">
-                                <input type="password" class="form-control" id="inputPassfdword3" placeholder="Password">
-                            </div>
+                            <dau-label asp-for="CouponCode"></dau-label>
+                            <dau-input asp-for="CouponCode" type="text"></dau-input>
+                            <span asp-validation-for="CouponCode"></span>
                         </div>
 
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">Discount type <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                            <div class="col-sm-4">
-                                <input type="password" class="form-control" id="inputPassfwords3" placeholder="Password">
-                            </div>
+                            <dau-label asp-for="DiscountType"></dau-label>
+                            <dau-select asp-for="DiscountType"></dau-select>
+                            <span asp-validation-for="DiscountType"></span>
                         </div>
-
-
-
 
 
                         <div class="form-group">
@@ -82,33 +74,36 @@
 
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Discount type</th>
-                                <th>Discount </th>
-                                <th>Start date</th>
-                                <th>End date</th>
-                                <th>Times used</th>
-                                <th>Edit</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Discount name</td>
-                                <td>Discount Type</td>
-                                <td>Discount </td>
-                                <td>Start date</td>
-                                <td>End date</td>
-                                <td>Times used</td>
-                                <td> <a asp-action="DiscountEdit" asp-controller="Promotions" asp-area="Admin" class="btn btn-default"> <i class="fa fa-pencil"></i> Edit</a></td>
-                            </tr>
+
+                    <div class="overflow">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Discount type</th>
+                                    <th>Discount </th>
+                                    <th>Start date</th>
+                                    <th>End date</th>
+                                    <th>Times used</th>
+                                    <th>Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Discount name</td>
+                                    <td>Discount Type</td>
+                                    <td>Discount </td>
+                                    <td>Start date</td>
+                                    <td>End date</td>
+                                    <td>Times used</td>
+                                    <td> <a asp-action="DiscountEdit" asp-controller="Promotions" asp-area="Admin" class="btn btn-default"> <i class="fa fa-pencil"></i> Edit</a></td>
+                                </tr>
 
 
-                        </tbody>
+                            </tbody>
 
-                    </table>
+                        </table>
+                    </div>
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -130,6 +125,8 @@
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/select2/dist/css/select2.min.css"> 
     <!-- DataTables -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <!-- Theme style -->
@@ -150,6 +147,10 @@
     <script src="@Url.Content("~/Content/")dist/js/adminlte.min.js"></script>
     <script src="@Url.Content("~/Content/")bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="@Url.Content("~/Content/")bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+
+    <!-- Select2 -->
+    <script src="@Url.Content("~/Content/")bower_components/select2/dist/js/select2.full.min.js"></script>
     <!-- SlimScroll -->
     <script src="@Url.Content("~/Content/")bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
@@ -160,6 +161,10 @@
     <!-- page script -->
     <script>
         $(function () {
+
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
             $('#example').DataTable()
             $('#example1').DataTable({
                 'paging': true,
