@@ -24,5 +24,6 @@ namespace Dau.Core.Domain.Dormitory
         public ICollection<DormitoriesTableTranslation> DormitoriesTableTranslation { get; set; }
         public ICollection<DormitoryBankAccountTable> DormitoryBankAccountTable { get; set; }
         public ICollection<RoomTable> RoomTable { get; set; }
+        public string Room_price_currency_symbol { get; set; }
     }
 }
