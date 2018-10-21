@@ -18,6 +18,8 @@ using Dau.Services.Security;
 using Dau.Services.Users;
 using Dau.Services.AccessControlList;
 using searchDormWeb.Configuration.SecurityFilter;
+using Dau.Services.Facility;
+using Dau.Services.Room;
 
 namespace searchDormWeb
 {
@@ -54,6 +56,8 @@ namespace searchDormWeb
 
 
             //adding our services to the ioc container
+            services.AddScoped<IRoomService, RoomService>();
+            services.AddScoped<IFacilityService, FacilityService>();
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IUserRolesService, UserRolesService>();
             services.AddScoped<ISearchService, SearchService>();
