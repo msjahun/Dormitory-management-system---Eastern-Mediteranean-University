@@ -18,7 +18,7 @@ using searchDormWeb.Areas.Admin.Models.User;
 
 namespace searchDormWeb.Areas.Admin.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Area("Admin")]
     [Route("admin/[controller]")]
     public class UsersController : Controller
@@ -46,6 +46,8 @@ namespace searchDormWeb.Areas.Admin.Controllers
           
         }
 
+
+        #region users
         [HttpGet("[action]")]
         [HttpGet("")]
         public IActionResult List()
@@ -70,7 +72,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
                 var searchValue = Request.Form["search[value]"].FirstOrDefault();// Search Value from (Search box) 
                 int pageSize = length != null ? Convert.ToInt32(length) : 0; //Paging Size (10, 20, 50,100)  
                 int skip = start != null ? Convert.ToInt32(start) : 0;
-                int recordsTotal = 0;
+             
 
 
                  List<UserListViewModel> model = new List<UserListViewModel>();
@@ -110,8 +112,9 @@ namespace searchDormWeb.Areas.Admin.Controllers
                 //    DiscountData = DiscountData.Where(m => m.Name == searchValue);
                 //}
 
-                
+
                 //total number of rows counts   
+                int recordsTotal = 0;
                 recordsTotal = Data.Count();
                 //Paging   
                 var data = Data.Skip(skip).Take(pageSize).ToList();
@@ -158,14 +161,15 @@ namespace searchDormWeb.Areas.Admin.Controllers
                 };
                 var result = await _userManager.CreateAsync(user, vm.Password);
 
-                foreach (var item in vm.CustomerRole)
-                {
-                    var result_AddRole = await _userManager.AddToRoleAsync(user, item);
-                }
               
 
                 if (result.Succeeded)
                 {
+                    if (vm.CustomerRole != null)
+                        foreach (var item in vm.CustomerRole)
+                        {
+                            var result_AddRole = await _userManager.AddToRoleAsync(user, item);
+                        }
 
                     return RedirectToAction("List", "Users");
                 }
@@ -321,18 +325,79 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
         }
 
+        #endregion
 
 
 
-
-
+        #region UserRoles
         [HttpGet("[action]")]
-
         public ActionResult Roles()
         {
 
-            var model = _userRolesService.GetUserRoleModels();
-            return View("UserRoles/_User_roles_list", model);
+         
+            return View("UserRoles/_User_roles_list");
+        }
+
+         [HttpPost("[action]")]
+        public ActionResult Roles(int dummy)
+        {
+
+            try
+            {
+                var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                var start = Request.Form["start"].FirstOrDefault(); // Skip number of Rows count
+                var passedParam = Request.Form["myKey"].FirstOrDefault();//passed parameter
+                var length = Request.Form["length"].FirstOrDefault();  // Paging Length 10,20  
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault(); // Sort Column Name  
+                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();// Sort Column Direction (asc, desc)  
+                var searchValue = Request.Form["search[value]"].FirstOrDefault();// Search Value from (Search box) 
+                int pageSize = length != null ? Convert.ToInt32(length) : 0; //Paging Size (10, 20, 50,100)  
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+
+
+
+                var roleModels = _userRolesService.GetUserRoleModels();
+                List<UserRolesTable> List = new List<UserRolesTable>();
+                foreach (var item in roleModels)
+                {
+                    List.Add(new UserRolesTable
+                    {
+                        Id = item.Id,
+                        Name = item.Name,
+                        Active = item.IsActive,
+                        IsSystemRole = item.IsSystemRole
+                    });
+
+                }
+
+                // getting all Discount data  
+                var Data = List;
+
+                ////Sorting  
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                //{
+                //    DiscountData = DiscountData.OrderBy(c => c.sortColumn sortColumnDirection);
+                //}
+                ////Search  
+                //if (!string.IsNullOrEmpty(searchValue))
+                //{
+                //    DiscountData = DiscountData.Where(m => m.Name == searchValue);
+                //}
+
+
+                //total number of rows counts   
+                int recordsTotal = 0;
+                recordsTotal = Data.Count();
+                //Paging   
+                var data = Data.Skip(skip).Take(pageSize).ToList();
+                //Returning Json Data  
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
 
@@ -446,29 +511,278 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
           return  Content("{Reponse:Success}");
         }
+        #endregion
 
-
-
+        #region Online Users
 
         [HttpGet("[action]")]
-
         public ActionResult OnlineUsers()
         {
             return View("_Users_online_users_list");
         }
 
-        [HttpGet("[action]")]
-
-        public ActionResult UsersReport()
+        
+        [HttpPost("[action]")]
+        public ActionResult OnlineUsers(int dummy)
         {
-            return View("_Users_report");
+            try
+            {
+                var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                var start = Request.Form["start"].FirstOrDefault(); // Skip number of Rows count
+                var passedParam = Request.Form["myKey"].FirstOrDefault();//passed parameter
+                var length = Request.Form["length"].FirstOrDefault();  // Paging Length 10,20  
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault(); // Sort Column Name  
+                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();// Sort Column Direction (asc, desc)  
+                var searchValue = Request.Form["search[value]"].FirstOrDefault();// Search Value from (Search box) 
+                int pageSize = length != null ? Convert.ToInt32(length) : 0; //Paging Size (10, 20, 50,100)  
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+
+
+
+
+
+
+                // getting all Discount data  
+                var Data = new List<int>();
+
+                ////Sorting  
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                //{
+                //    DiscountData = DiscountData.OrderBy(c => c.sortColumn sortColumnDirection);
+                //}
+                ////Search  
+                //if (!string.IsNullOrEmpty(searchValue))
+                //{
+                //    DiscountData = DiscountData.Where(m => m.Name == searchValue);
+                //}
+
+
+                //total number of rows counts   
+                int recordsTotal = 0;
+                recordsTotal = Data.Count();
+                //Paging   
+                var data = Data.Skip(skip).Take(pageSize).ToList();
+                //Returning Json Data  
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
 
 
 
+        #endregion
+
+        #region UsersReport
+        [HttpGet("[action]")]
+        public ActionResult UsersReport()
+        {
+            return View("_Users_report");
+        }
+
+        [HttpPost("[action]")]
+        public ActionResult UsersReportByRegistration(int dummy)
+        {
+            try
+            {
+                var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                var start = Request.Form["start"].FirstOrDefault(); // Skip number of Rows count
+                var passedParam = Request.Form["myKey"].FirstOrDefault();//passed parameter
+                var length = Request.Form["length"].FirstOrDefault();  // Paging Length 10,20  
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault(); // Sort Column Name  
+                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();// Sort Column Direction (asc, desc)  
+                var searchValue = Request.Form["search[value]"].FirstOrDefault();// Search Value from (Search box) 
+                int pageSize = length != null ? Convert.ToInt32(length) : 0; //Paging Size (10, 20, 50,100)  
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+
+
+
+
+
+
+                // getting all Discount data  
+                var Data = new List<int>();
+
+                ////Sorting  
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                //{
+                //    DiscountData = DiscountData.OrderBy(c => c.sortColumn sortColumnDirection);
+                //}
+                ////Search  
+                //if (!string.IsNullOrEmpty(searchValue))
+                //{
+                //    DiscountData = DiscountData.Where(m => m.Name == searchValue);
+                //}
+
+
+                //total number of rows counts   
+                int recordsTotal = 0;
+                recordsTotal = Data.Count();
+                //Paging   
+                var data = Data.Skip(skip).Take(pageSize).ToList();
+                //Returning Json Data  
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost("[action]")]
+        public ActionResult UsersReportByBookingTotal(int dummy)
+        {
+            try
+            {
+                var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                var start = Request.Form["start"].FirstOrDefault(); // Skip number of Rows count
+                var passedParam = Request.Form["myKey"].FirstOrDefault();//passed parameter
+                var length = Request.Form["length"].FirstOrDefault();  // Paging Length 10,20  
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault(); // Sort Column Name  
+                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();// Sort Column Direction (asc, desc)  
+                var searchValue = Request.Form["search[value]"].FirstOrDefault();// Search Value from (Search box) 
+                int pageSize = length != null ? Convert.ToInt32(length) : 0; //Paging Size (10, 20, 50,100)  
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+
+
+
+
+
+
+                // getting all Discount data  
+                var Data = new List<int>();
+
+                ////Sorting  
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                //{
+                //    DiscountData = DiscountData.OrderBy(c => c.sortColumn sortColumnDirection);
+                //}
+                ////Search  
+                //if (!string.IsNullOrEmpty(searchValue))
+                //{
+                //    DiscountData = DiscountData.Where(m => m.Name == searchValue);
+                //}
+
+
+                //total number of rows counts   
+                int recordsTotal = 0;
+                recordsTotal = Data.Count();
+                //Paging   
+                var data = Data.Skip(skip).Take(pageSize).ToList();
+                //Returning Json Data  
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+           [HttpPost("[action]")]
+        public ActionResult UsersReportRegistered()
+        {
+            try
+            {
+                var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                var start = Request.Form["start"].FirstOrDefault(); // Skip number of Rows count
+                var passedParam = Request.Form["myKey"].FirstOrDefault();//passed parameter
+                var length = Request.Form["length"].FirstOrDefault();  // Paging Length 10,20  
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault(); // Sort Column Name  
+                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();// Sort Column Direction (asc, desc)  
+                var searchValue = Request.Form["search[value]"].FirstOrDefault();// Search Value from (Search box) 
+                int pageSize = length != null ? Convert.ToInt32(length) : 0; //Paging Size (10, 20, 50,100)  
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+
+
+
+
+
+
+                // getting all Discount data  
+                var Data = new List<int>();
+
+                ////Sorting  
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                //{
+                //    DiscountData = DiscountData.OrderBy(c => c.sortColumn sortColumnDirection);
+                //}
+                ////Search  
+                //if (!string.IsNullOrEmpty(searchValue))
+                //{
+                //    DiscountData = DiscountData.Where(m => m.Name == searchValue);
+                //}
+
+
+                //total number of rows counts   
+                int recordsTotal = 0;
+                recordsTotal = Data.Count();
+                //Paging   
+                var data = Data.Skip(skip).Take(pageSize).ToList();
+                //Returning Json Data  
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+        #endregion
+
 
 
 
     }
+
+
+
+    public class UsersListTable {
+        public string Email { get; set; }
+        public string Name { get; set; }
+        public string UserRole { get; set; }
+        public string Phone { get; set; }
+        public string Active { get; set; }
+        public string CreatedOn { get; set; }
+        public string LastActivity { get; set; }
+        //public button Edit { get; set; }
+    }
+
+    public class UserRolesTable {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public bool Active { get; set; }
+        public bool IsSystemRole { get; set; }
+        //public button Edit { get; set; }
+    }
+
+    public class OnlineUsersTable {
+        public string UserInfo { get; set; }
+        public string IpAddress { get; set; }
+        public string Location { get; set; }
+        public string LastActivity { get; set; }
+        public string LastVisitedPage { get; set; }
+    }
+
+
+    public class UserReportTable {
+        public string User { get; set; }
+        public string BookingTotal { get; set; }
+        public string NumberOfBookings { get; set; }
+        public string View { get; set; }
+    }
+
+    public class UserReportRegisteredTable {
+        public string Period { get; set; }
+        public string Count { get; set; }
+    }
+
+
 }

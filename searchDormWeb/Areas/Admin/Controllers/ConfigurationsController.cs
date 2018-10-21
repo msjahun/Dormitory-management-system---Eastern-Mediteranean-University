@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Dau.Core.Configuration.AccessControlList;
 using Dau.Core.Domain.User;
 using Dau.Services.AccessControlList;
+using Dau.Services.Dormitory;
 using Dau.Services.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -18,7 +19,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 {
    
   
-    [Authorize]
+   // [Authorize]
     [Area("Admin")]
     [Route("admin/[controller]")]
     public class ConfigurationsController : Controller
@@ -26,12 +27,14 @@ namespace searchDormWeb.Areas.Admin.Controllers
         private readonly RoleManager<UserRole> _roleManager;
         private readonly IUserRolesService _userRolesService;
         private readonly IMvcControllerDiscovery _mvcControllerDiscovery;
-        
-        public ConfigurationsController(IMvcControllerDiscovery mvcControllerDiscovery, IUserRolesService userRolesService, RoleManager<UserRole> roleManager)
+        private readonly IDormitoryService _DormitoryService;
+
+        public ConfigurationsController(IDormitoryService dormitoryService, IMvcControllerDiscovery mvcControllerDiscovery, IUserRolesService userRolesService, RoleManager<UserRole> roleManager)
         {
             _roleManager = roleManager;
             _userRolesService = userRolesService;
             _mvcControllerDiscovery = mvcControllerDiscovery;
+            _DormitoryService = dormitoryService;
         }
 
 
@@ -45,6 +48,57 @@ namespace searchDormWeb.Areas.Admin.Controllers
         public ActionResult EmailAccounts()
         {
             return View("EmailAccounts");
+        }
+
+        [HttpPost("[action]")]
+       
+        public ActionResult EmailAccounts(int dummy)
+        {
+            try
+            {
+                var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                var start = Request.Form["start"].FirstOrDefault(); // Skip number of Rows count
+                var passedParam = Request.Form["myKey"].FirstOrDefault();//passed parameter
+                var length = Request.Form["length"].FirstOrDefault();  // Paging Length 10,20  
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault(); // Sort Column Name  
+                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();// Sort Column Direction (asc, desc)  
+                var searchValue = Request.Form["search[value]"].FirstOrDefault();// Search Value from (Search box) 
+                int pageSize = length != null ? Convert.ToInt32(length) : 0; //Paging Size (10, 20, 50,100)  
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+
+
+
+
+
+
+                // getting all Discount data  
+                var Data = new List<int>();
+
+                ////Sorting  
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                //{
+                //    DiscountData = DiscountData.OrderBy(c => c.sortColumn sortColumnDirection);
+                //}
+                ////Search  
+                //if (!string.IsNullOrEmpty(searchValue))
+                //{
+                //    DiscountData = DiscountData.Where(m => m.Name == searchValue);
+                //}
+
+
+                //total number of rows counts   
+                int recordsTotal = 0;
+                recordsTotal = Data.Count();
+                //Paging   
+                var data = Data.Skip(skip).Take(pageSize).ToList();
+                //Returning Json Data  
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         [HttpGet("[action]")]
@@ -68,6 +122,55 @@ namespace searchDormWeb.Areas.Admin.Controllers
         public ActionResult Dormitories()
         {
             return View("Dormitories");
+        }
+
+        [HttpPost("[action]")]
+        public ActionResult Dormitories(int dummy)
+        {
+            try
+            {
+                var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                var start = Request.Form["start"].FirstOrDefault(); // Skip number of Rows count
+                var passedParam = Request.Form["myKey"].FirstOrDefault();//passed parameter
+                var length = Request.Form["length"].FirstOrDefault();  // Paging Length 10,20  
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault(); // Sort Column Name  
+                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();// Sort Column Direction (asc, desc)  
+                var searchValue = Request.Form["search[value]"].FirstOrDefault();// Search Value from (Search box) 
+                int pageSize = length != null ? Convert.ToInt32(length) : 0; //Paging Size (10, 20, 50,100)  
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+
+
+                List<DormitoriesDataTable> List = _DormitoryService.GetAllDormitoriesForTable();
+              
+
+                // getting all Discount data  
+                var Data = List;
+
+                ////Sorting  
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                //{
+                //    DiscountData = DiscountData.OrderBy(c => c.sortColumn sortColumnDirection);
+                //}
+                ////Search  
+                //if (!string.IsNullOrEmpty(searchValue))
+                //{
+                //    DiscountData = DiscountData.Where(m => m.Name == searchValue);
+                //}
+
+
+                //total number of rows counts   
+                int recordsTotal = 0;
+                recordsTotal = Data.Count();
+                //Paging   
+                var data = Data.Skip(skip).Take(pageSize).ToList();
+                //Returning Json Data  
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         [HttpGet("[action]")]
@@ -95,6 +198,57 @@ namespace searchDormWeb.Areas.Admin.Controllers
         }
 
 
+         [HttpPost("[action]")]
+        public ActionResult Countries(int dummy)
+        {
+            try
+            {
+                var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                var start = Request.Form["start"].FirstOrDefault(); // Skip number of Rows count
+                var passedParam = Request.Form["myKey"].FirstOrDefault();//passed parameter
+                var length = Request.Form["length"].FirstOrDefault();  // Paging Length 10,20  
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault(); // Sort Column Name  
+                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();// Sort Column Direction (asc, desc)  
+                var searchValue = Request.Form["search[value]"].FirstOrDefault();// Search Value from (Search box) 
+                int pageSize = length != null ? Convert.ToInt32(length) : 0; //Paging Size (10, 20, 50,100)  
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+
+
+
+
+
+
+                // getting all Discount data  
+                var Data = new List<int>();
+
+                ////Sorting  
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                //{
+                //    DiscountData = DiscountData.OrderBy(c => c.sortColumn sortColumnDirection);
+                //}
+                ////Search  
+                //if (!string.IsNullOrEmpty(searchValue))
+                //{
+                //    DiscountData = DiscountData.Where(m => m.Name == searchValue);
+                //}
+
+
+                //total number of rows counts   
+                int recordsTotal = 0;
+                recordsTotal = Data.Count();
+                //Paging   
+                var data = Data.Skip(skip).Take(pageSize).ToList();
+                //Returning Json Data  
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
         [HttpGet("[action]")]
         public ActionResult CountryAdd()
         {
@@ -115,6 +269,57 @@ namespace searchDormWeb.Areas.Admin.Controllers
         public ActionResult Languages()
         {
             return View("Languages");
+        }
+
+
+        [HttpPost("[action]")]
+        public ActionResult Languages(int dummy)
+        {
+            try
+            {
+                var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                var start = Request.Form["start"].FirstOrDefault(); // Skip number of Rows count
+                var passedParam = Request.Form["myKey"].FirstOrDefault();//passed parameter
+                var length = Request.Form["length"].FirstOrDefault();  // Paging Length 10,20  
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault(); // Sort Column Name  
+                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();// Sort Column Direction (asc, desc)  
+                var searchValue = Request.Form["search[value]"].FirstOrDefault();// Search Value from (Search box) 
+                int pageSize = length != null ? Convert.ToInt32(length) : 0; //Paging Size (10, 20, 50,100)  
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+
+
+
+
+
+
+                // getting all Discount data  
+                var Data = new List<int>();
+
+                ////Sorting  
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                //{
+                //    DiscountData = DiscountData.OrderBy(c => c.sortColumn sortColumnDirection);
+                //}
+                ////Search  
+                //if (!string.IsNullOrEmpty(searchValue))
+                //{
+                //    DiscountData = DiscountData.Where(m => m.Name == searchValue);
+                //}
+
+
+                //total number of rows counts   
+                int recordsTotal = 0;
+                recordsTotal = Data.Count();
+                //Paging   
+                var data = Data.Skip(skip).Take(pageSize).ToList();
+                //Returning Json Data  
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
 
@@ -199,6 +404,8 @@ namespace searchDormWeb.Areas.Admin.Controllers
         }
 
          [HttpPost("[action]")]
+
+       
         public async Task<ActionResult> AccessControlList( List<AclPostData> data)
         {
            
@@ -331,6 +538,57 @@ namespace searchDormWeb.Areas.Admin.Controllers
             return View("Currencies");
         }
 
+        
+        [HttpPost("[action]")]
+        public ActionResult Currencies(int dummy)
+        {
+            try
+            {
+                var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                var start = Request.Form["start"].FirstOrDefault(); // Skip number of Rows count
+                var passedParam = Request.Form["myKey"].FirstOrDefault();//passed parameter
+                var length = Request.Form["length"].FirstOrDefault();  // Paging Length 10,20  
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault(); // Sort Column Name  
+                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();// Sort Column Direction (asc, desc)  
+                var searchValue = Request.Form["search[value]"].FirstOrDefault();// Search Value from (Search box) 
+                int pageSize = length != null ? Convert.ToInt32(length) : 0; //Paging Size (10, 20, 50,100)  
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+
+
+
+
+
+
+                // getting all Discount data  
+                var Data = new List<int>();
+
+                ////Sorting  
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                //{
+                //    DiscountData = DiscountData.OrderBy(c => c.sortColumn sortColumnDirection);
+                //}
+                ////Search  
+                //if (!string.IsNullOrEmpty(searchValue))
+                //{
+                //    DiscountData = DiscountData.Where(m => m.Name == searchValue);
+                //}
+
+
+                //total number of rows counts   
+                int recordsTotal = 0;
+                recordsTotal = Data.Count();
+                //Paging   
+                var data = Data.Skip(skip).Take(pageSize).ToList();
+                //Returning Json Data  
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
 
         [HttpGet("[action]")]
         public ActionResult CurrencyAdd()
@@ -349,4 +607,53 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
     }
+
+
+    public class EmailAccontsTable {
+        public string EmailAddress { get; set; }
+        public string EmailDisplayName { get; set; }
+        public string IsDefaultEmailAccount { get; set; }
+        public string MarkAsDefault { get; set; }
+        public string Edit { get; set; }
+    }
+ 
+    public class CountriesListTable {
+        public string Name { get; set; }
+        public string AllowBilling { get; set; }
+        public string AllowBooking { get; set; }
+        public string TwoLettersIsoCode { get; set; }
+        public string ThreeLettersIsoCode { get; set; }
+        public string NumberOfStates { get; set; }
+        public string DisplayOrder { get; set; }
+        public string Published { get; set; }
+        public string Edit { get; set; }
+    }
+    public class LanguagesTable {
+        public string Name { get; set; }
+        public string FlagImage { get; set; }
+        public string LanguageCulture { get; set; }
+        public string DisplayOrder { get; set; }
+        public string Published { get; set; }
+        public string Edit { get; set; }
+    }
+    public class CurrenciesTable {
+        public string Name { get; set; }
+        public string CurrencyCode { get; set; }
+        public string Rate { get; set; }
+        public string IsPrimaryExchangeRateCurrecy { get; set; }
+        public string MarkAsPrimaryExchangeRateCurrency { get; set; }
+        public string IsPrimaryDormtoryCurrency { get; set; }
+        public string MarkAsPrimaryDormitoryCurrency { get; set; }
+        public string Published { get; set; }
+        public string DisplayOrder { get; set; }
+        public string Edit { get; set; }
+    }
+    //public class AccessControlListTable {
+    //    public string PermissionName { get; set; }
+    //    public string Registered { get; set; }
+    //    public string Guest { get; set; }
+    //    public string DormAdmin { get; set; }
+    //    public string Administrator { get; set; }
+    //}
+
 }
