@@ -15,8 +15,9 @@ namespace searchDormWeb.Areas.Admin.Models.Reservation
         MaxLength(256)]
         public DateTime StartDate { get; set; }
 
-
-        [Display(Name = "End date",
+       
+        [Required,
+            Display(Name = "End date",
         Description = "The end date of the search."),
         DataType(DataType.Date),
         MaxLength(256)]
