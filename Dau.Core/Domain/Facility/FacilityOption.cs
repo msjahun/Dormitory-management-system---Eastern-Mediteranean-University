@@ -13,6 +13,8 @@ namespace Dau.Core.Domain.Facility
         public int Id { get; set; }
         public int FacilityId { get; set; }
 
+
+
         public FacilityTable Facility { get; set; }
         public ICollection<FacilityOptionTranslation> FacilityOptionTranslation { get; set; }
     }
