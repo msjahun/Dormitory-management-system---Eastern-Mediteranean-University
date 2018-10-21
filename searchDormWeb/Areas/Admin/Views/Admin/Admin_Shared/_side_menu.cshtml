@@ -30,12 +30,15 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MAIN NAVIGATION</li>
-            <li class=" @(currentController=="Dashboard"? "active" : "")">
-                <a href="@Url.Action("", "Dashboard")">
-                    <i class="fa fa-desktop"></i> <span>Dashboard</span>
-                </a>
-            </li>
 
+
+            <secure-content asp-action="Index" asp-area="Admin" asp-controller="Dashboard">
+                <li class=" @(currentController=="Dashboard"? "active" : "")">
+                    <a href="@Url.Action("", "Dashboard")">
+                        <i class="fa fa-desktop"></i> <span>Dashboard</span>
+                    </a>
+                </li>
+            </secure-content>
 
 
 
@@ -163,12 +166,12 @@
 
 
             @{ actions = new List<MenuSubItems>(new MenuSubItems[] {
-                                      new MenuSubItems { ActionName = "List", ActionDisplayName = "Reservations/bookings" },
-                                      new MenuSubItems { ActionName = "CancelRequest", ActionDisplayName = "Cancel reservations request" },
+                                      new MenuSubItems { ActionName = "List", ActionDisplayName = "Bookings" },
+                                      new MenuSubItems { ActionName = "CancelRequest", ActionDisplayName = "Cancel bookings request" },
                                       new MenuSubItems { ActionName = "CurrentWishList", ActionDisplayName = "Current booking wishlist" },
-                                      new MenuSubItems { ActionName = "BestSellerRooms", ActionDisplayName = "Best seller/reserved rooms" },
+                                      new MenuSubItems { ActionName = "BestSellerRooms", ActionDisplayName = "Best seller rooms" },
                                       new MenuSubItems { ActionName = "CountryReport", ActionDisplayName = "Country report" },
-                                      new MenuSubItems { ActionName = "RoomsNeverReserved", ActionDisplayName = "Rooms never reserved" }
+                                      new MenuSubItems { ActionName = "RoomsNeverReserved", ActionDisplayName = "Rooms never booked" }
 
 
                                                                                     });
@@ -177,7 +180,7 @@
 
                 item = new MenuItemViewModel
                 {
-                    ControllerDisplayName = "Reservations",
+                    ControllerDisplayName = "Bookings",
                     ControllerName = "Reservations",
                     icon = "fa fa-shopping-cart",
                     CurrentController = currentController,
