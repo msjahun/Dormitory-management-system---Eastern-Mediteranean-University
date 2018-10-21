@@ -25,7 +25,7 @@ namespace searchDormWeb.TagHelpers.Common
         [HtmlAttributeName(ValueAttributeName)]
         public string Value { get; set; }
 
-        
+        public string DateRange { get; set; }
 
         public string Disabled { get; set; }
         public int Cols { get; set; }
@@ -38,7 +38,7 @@ namespace searchDormWeb.TagHelpers.Common
             if (Cols > 0 && Cols <= 12)
                 output.Attributes.Add("class", "col-sm-" + Cols);
             else
-                output.Attributes.Add("class", "col-sm-4");
+                output.Attributes.Add("class", "col-sm-8 col-md-8 col-lg-4");
             output.Content.Clear();
 
             var inputGroup = new TagBuilder("div");
@@ -47,7 +47,11 @@ namespace searchDormWeb.TagHelpers.Common
             var disabled = " ";
             if (For.Metadata.IsReadOnly || Disabled == "true")
                 disabled = "disabled";
-            var input = $"<input class=\"form-control\" {disabled} type=\"Text\" id=\"{For.Name+"DateID"}\" >";
+
+            var classType = "date-control";
+            if (DateRange == "true")
+                classType = "date-range-control";
+            var input = $"<input class=\"form-control {classType}\" {disabled} type=\"Text\" id=\"{For.Name+"DateID"}\" >";
           
             inputGroup.InnerHtml.AppendHtml(input);
           
