@@ -27,5 +27,8 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
         public string GoDirectlyToSKU { get; set; }
 
 
+
+
+
     }
 }
