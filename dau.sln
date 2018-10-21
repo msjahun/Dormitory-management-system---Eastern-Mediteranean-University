@@ -5,11 +5,11 @@ VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "searchDormWeb", "searchDormWeb\searchDormWeb.csproj", "{5B0F5B1F-2A11-4B21-AC4F-AD02970FC24A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dau.Core", "Dau.Core\Dau.Core.csproj", "{8B37F831-E133-4171-AD53-3D459A71ECDC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dau.Core", "Dau.Core\Dau.Core.csproj", "{8B37F831-E133-4171-AD53-3D459A71ECDC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dau.Data", "Dau.Data\Dau.Data.csproj", "{9B2F281E-B2CB-4C72-866F-59F89A57F696}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dau.Data", "Dau.Data\Dau.Data.csproj", "{9B2F281E-B2CB-4C72-866F-59F89A57F696}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dau.Services", "Dau.Services\Dau.Services.csproj", "{64EF74E4-30A2-4AA8-BC2B-C68E61EE2FCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dau.Services", "Dau.Services\Dau.Services.csproj", "{64EF74E4-30A2-4AA8-BC2B-C68E61EE2FCE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
