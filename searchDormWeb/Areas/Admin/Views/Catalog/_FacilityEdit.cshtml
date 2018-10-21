@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "_FacilityEdit";
+    ViewData["Title"] = "Edit facility";
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -43,66 +43,47 @@
                 <div class="tab-content">
                     <!-- /.tab-pane -->
                     <div class="tab-pane active" id="tab_3">
-                        <div class="box ">
+                        <div class="box box-solid">
                             <div class="box-header"></div>
 
                             <div class="box-body">
 
                                 <form class="form-horizontal">
-                                    <div class="nav-tabs-custom">
-                                        <ul class="nav nav-tabs">
-                                            <li class="active"><a href="#tab_31" data-toggle="tab" aria-expanded="true">Standard</a></li>
-                                            <li class=""><a href="#tab_32" data-toggle="tab" aria-expanded="false">English</a></li>
-                                            <li class=""><a href="#tab_33" data-toggle="tab" aria-expanded="false">Turkish</a></li>
+                                    <dau-tabs id="LanguageTab">
+                                        <dau-tab id="tab1" name="Standard" active="true">
+                                            <div class="form-group">
+                                                <label for="inputPassword3" class="col-sm-3 control-label">Name <i class="fa fa-question-circle" aria-hidden="true"></i></label>
 
-                                        </ul>
-                                        <div class="tab-content">
-                                            <!-- /.tab-pane -->
-                                            <div class="tab-pane active" id="tab_31">
-
-                                                <div class="form-group">
-                                                    <label for="inputPassword3" class="col-sm-3 control-label">Name <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                    <div class="col-sm-8">
-                                                        <input type="password" class="form-control" id="inputPassfwords3">
-                                                    </div>
-                                                    <span style="color:red;">*</span>
+                                                <div class="col-sm-8">
+                                                    <input type="password" class="form-control" id="inputPassfwords3">
                                                 </div>
-
+                                                <span style="color:red;">*</span>
                                             </div>
-                                            <!-- /.tab-pane -->
-                                            <div class="tab-pane" id="tab_32">
+                                        </dau-tab>
+                                        <dau-tab id="tab2" name="English" flag="@Url.Content("~/Content/")dist/img/us.png">
+                                            <div class="form-group">
+                                                <label for="inputPassword3" class="col-sm-3 control-label">Name <i class="fa fa-question-circle" aria-hidden="true"></i></label>
 
-                                                <div class="form-group">
-                                                    <label for="inputPassword3" class="col-sm-3 control-label">Name <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                    <div class="col-sm-8">
-                                                        <input type="password" class="form-control" id="inputPassfwords3">
-                                                    </div>
-                                                    <span style="color:red;">*</span>
+                                                <div class="col-sm-8">
+                                                    <input type="password" class="form-control" id="inputPassfwords3">
                                                 </div>
-
+                                                <span style="color:red;">*</span>
                                             </div>
-                                            <!-- /.tab-pane -->
-                                            <!-- /.tab-pane -->
-                                            <div class="tab-pane" id="tab_33">
+                                        </dau-tab>
+                                        <dau-tab id="tab3" name="Turkish" flag="@Url.Content("~/Content/")dist/img/tr.png">
+                                            <div class="form-group">
+                                                <label for="inputPassword3" class="col-sm-3 control-label">Name <i class="fa fa-question-circle" aria-hidden="true"></i></label>
 
-                                                <div class="form-group">
-                                                    <label for="inputPassword3" class="col-sm-3 control-label">Name <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                    <div class="col-sm-8">
-                                                        <input type="password" class="form-control" id="inputPassfwords3">
-                                                    </div>
-                                                    <span style="color:red;">*</span>
+                                                <div class="col-sm-8">
+                                                    <input type="password" class="form-control" id="inputPassfwords3">
                                                 </div>
-
+                                                <span style="color:red;">*</span>
                                             </div>
-                                            <!-- /.tab-pane -->
+                                        </dau-tab>
+                                    </dau-tabs>
 
 
-                                        </div>
-                                        <!-- /.tab-content -->
-                                    </div>
+
                                     <!-- /.nav-tabs -->
 
 
@@ -126,7 +107,7 @@
                     </div>
                     <!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_1">
-                        <div class="box ">
+                        <div class="box box-solid">
                             <div class="box-header"></div>
 
                             <div class="box-body">
