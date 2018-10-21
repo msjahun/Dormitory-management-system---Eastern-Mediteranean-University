@@ -38,43 +38,81 @@
 
                         <!-- /.col -->
                         <div class="col-md-5 col-sm-12">
-                            <img class="img-responsive  cover" src="@Url.Content("~/Content/")@item.url_of_room_image" height="300" alt="Photo">
+                            <img class="img-responsive  cover"  asp-append-version="true" src="@Url.Content("~/Content/")@item.url_of_room_image" height="300" alt="Photo">
                             <button type="button" class="btn btn-success btn-block btn-flat" data-toggle="collapse" style="margin-top: 15px" data-target="#accountNumber@(counter)" aria-expanded="false" aria-controls="account_number_table">@ViewBag.ContentFormat_account_number_text </button>
                         </div>
 
                         <div class="col-md-7 col-sm-12">
 
-
+                            <div class="pull-right dark_hover hidden-xs " data-toggle="modal" data-target="#modal-map" id="map_image_side">
+                                <img class="img-responsive "  asp-append-version="true" style="width:50px;" src="@Url.Content("~/Content/")dist/img/Map_icon.png" alt="Map" />
+                                <p>@ViewBag.ContentFormat_map_view</p>
+                            </div>
                             <a href="@item.dormitory_website" target="_blank"><h3>@item.name_of_dormitory </h3></a>
-                            <p class="green_hover"><span style="color:#fec135">@item.name_of_room  </span> @item.gender_allocation </p>
+                            <p class="green_hover">
+                                <span class="badge bg-light-blue">@item.name_of_room  </span>
+
+                                <span class="badge  bg-orange">@ViewBag.ContentFormat_sort_by_area: @item.room_area m2 </span>
+
+
+                              <span class="b-blue" > @item.gender_allocation</span>
+                            </p>
 
 
 
 
                             <div class="row ">
+                                <div class="col-xs-12 dark_hover">
+                                    <p>List of room facilities</p>
+                                </div>
                                 @foreach (var facility in item.facility)
                                 {
 
 
 
                                     <div class="col-xs-6 dark_hover">
-                                        <img src="@Url.Content("~/Content/")@facility.facility_icon_url" alt="Photo"> <label>@facility.facility_name</label>
+                                        <img class="img_icon"  asp-append-version="true" src="@Url.Content("~/Content/")@facility.facility_icon_url" alt="Photo"> <label>@facility.facility_name</label>
                                     </div>}
 
 
 
-                                <div class="col-xs-6 green_hover">
-                                    <img src="@Url.Content("~/Content/")Dormitories_files/room_area.jpg" alt="Photo"> <label>@ViewBag.ContentFormat_sort_by_area: @item.room_area </label>
+                                @*<div class="col-xs-6 green_hover">
+                <img class="img_icon" src="@Url.Content("~/Content/")Dormitories_files/room_area.jpg" alt="Photo"> <label>@ViewBag.ContentFormat_sort_by_area: @item.room_area m2 </label>
+            </div>*@
+
+
+
+
+                                <div class="col-xs-12">
+
+                                    <p>
+
+
+                                        @if (item.room_price_currency == "USD")
+                                        {
+
+                                            <span class="badge bg-light-blue">Room pricing per year</span>
+
+
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-green">Room pricing per semester</span>
+
+
+
+                                        }
+
+                                    </p>
                                 </div>
 
 
-
-
-
-
+                                <div class="col-xs-6 green_hover">
+                                    <img class="img_icon"  asp-append-version="true" src="@Url.Content("~/Content/")Dormitories_files/price.png" alt="Photo"> <label  >One time: @item.room_price_currency @item.price_of_room</label>
+                                </div>
 
                                 <div class="col-xs-6 green_hover">
-                                    <img src="@Url.Content("~/Content/")Dormitories_files/price.png" alt="Photo"> <label>@ViewBag.ContentFormat_sort_by_price: @item.room_price_currency @item.price_of_room</label>
+                                    <img class="img_icon"  asp-append-version="true" src="@Url.Content("~/Content/")Dormitories_files/price.png" alt="Photo"> <label  >Installment price: @item.room_price_currency @item.price_of_room</label>
                                 </div>
 
 
@@ -91,6 +129,7 @@
                         <div id="accountNumber@(counter++)" class="collapse">
                             <table class="table table-hover">
                                 <tbody>
+                                    
 
                                     @foreach (var acct in item.turkish_lira_account_number)
                                     {
@@ -102,6 +141,7 @@
 
 
                                         </tr>
+                                        
                                     }
 
                                     @foreach (var acct in item.usd_account_number)
@@ -116,6 +156,18 @@
                                         </tr>
                                     }
 
+                                    @if(item.usd_account_number.Count ==0 && item.turkish_lira_account_number.Count ==0)
+                                    {
+                                        <tr>
+                                            <td> </td>
+                                          
+                                    
+                                    <td>
+                                            <p>No account number found for this dormitory</p>
+                                                    </td>
+                                        <td> </td>
+                                        </tr>
+                                    }
 
 
                                 </tbody>
