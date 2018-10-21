@@ -1,0 +1,919 @@
+﻿@using searchDormWeb.Areas.Admin.Models.Debug
+@model DebugViewModel
+@{
+    ViewData["Title"] = "TagHelpers";
+    Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+    var vm = new DebugViewModel();
+}
+
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            @ViewData["Title"]
+            <small></small>
+        </h1>
+        <div class="row">
+            <div class=" col-md-12">
+                <div class="upper_left pull-right">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main content -->
+    <!-- Main content -->
+    <section class="content container-fluid">
+
+        <!--------------------------
+        | Your Page Content Here |
+        -------------------------->
+
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Horizontal Form -->
+                <div class="box box-solid">
+                    <div class="box-header">Label Normal markup</div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form class="form-horizontal">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">Email <i style="color:#134b88;" class="fa fa-question-circle" data-toggle="tooltip" data-placement="bottom" title="Email address of a customer use" aria-hidden="true"></i></label>
+
+                                <div class="col-sm-8">
+                                    <input type="email" class="form-control">
+                                </div>
+                            </div>
+
+
+
+
+
+                        </div>
+                        <!-- /.box-body -->
+
+                    </form>
+                </div>
+
+
+
+
+
+            </div>
+
+            <div class="col-md-6">
+                <!-- Horizontal Form -->
+                <div class="box box-solid">
+                    <div class="box-header">Label TagHelpers</div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form class="form-horizontal">
+                        <div class="box-body">
+
+
+
+                            <div class="form-group">
+
+                                <dau-label asp-for="Email"></dau-label>
+
+                                <div class="col-sm-4">
+                                    <input type="email" class="form-control">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <dau-label asp-for="Password"></dau-label>
+                                <div class="col-sm-4">
+                                    <input type="email" class="form-control">
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <!-- /.box-body -->
+
+                    </form>
+                </div>
+
+
+
+
+
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Horizontal Form -->
+                <div class="box box-solid">
+                    <div class="box-header">Input Normal markup</div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form class="form-horizontal">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">Email <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                <div class="col-sm-8">
+                                    <input type="email" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">Disabled <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                <div class="col-sm-8">
+                                    <input type="email" disabled class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-3 control-label">Password <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                <div class="col-sm-8">
+                                    <input type="password" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-3 control-label">Text<i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-3 control-label">Number <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                <div class="col-sm-8">
+                                    <input type="number" class="form-control">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-3 control-label">Button <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-info btn-flat">button</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-3 control-label">Price <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" min="0" value="0.00" step="1.00">
+                                        <span class="input-group-addon">USD</span>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-3 control-label">Checkbox <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                <div class="col-sm-8">
+
+                                    <input type="checkbox">
+
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+                        </div>
+                        <!-- /.box-body -->
+
+                    </form>
+                </div>
+
+
+
+
+
+            </div>
+
+            <div class="col-md-6">
+                <!-- Horizontal Form -->
+                <div class="box box-solid">
+                    <div class="box-header">Input TagHelpers</div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form class="form-horizontal">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <dau-label asp-for="Email"></dau-label>
+                                <dau-input asp-for="Email" type="email" disabled="true"></dau-input>
+                                <span asp-validation-for="Email"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <dau-label asp-for="Password"></dau-label>
+                                <dau-input asp-for="Password" type="password"></dau-input>
+
+                            </div>
+
+                            <div class="form-group">
+                                <dau-label asp-for="TextReadOnly"></dau-label>
+                                <dau-input asp-for="TextReadOnly" type="text"></dau-input>
+
+                            </div>
+
+                            <div class="form-group">
+                                <dau-label asp-for="TextReadOnlyNotRequired"></dau-label>
+                                <dau-input asp-for="TextReadOnlyNotRequired" type="text"></dau-input>
+
+                            </div>
+
+                            <div class="form-group">
+                                <dau-label asp-for="Email"></dau-label>
+                                <dau-input asp-for="Password" type="number"></dau-input>
+                            </div>
+
+                            <div class="form-group">
+                                <dau-label asp-for="Email"></dau-label>
+                                <dau-inputaddon type="number" asp-for="Email"></dau-inputaddon>
+                            </div>
+
+
+                            <div class="form-group">
+                                <dau-label asp-for="Email"></dau-label>
+                                <dau-inputaddon type="number" asp-for="Email" cols="4" text="TRY"></dau-inputaddon>
+                            </div>
+
+
+                            <div class="form-group">
+                                <dau-label asp-for="Email"></dau-label>
+                                <dau-inputaddon type="number" asp-for="Email" addon-type="button" text="click me!" cols="4"></dau-inputaddon>
+                            </div>
+
+
+                            <div class="form-group">
+                                <dau-label asp-for="Email"></dau-label>
+                                <dau-inputaddon type="number" asp-for="Email" addon-type="icon" icon="fa fa-trash-o" text="click me!" cols="4"></dau-inputaddon>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+
+                    </form>
+                </div>
+
+
+
+
+
+            </div>
+
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Horizontal Form -->
+                <div class="box box-solid">
+                    <div class="box-header">DateTime Normal markup</div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form class="form-horizontal">
+                        <div class="box-body">
+                            <!-- Date -->
+
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-3 control-label">Date<i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                <div class="col-sm-4">
+                                    <div class="input-group date">
+
+                                        <input type="text" class="form-control pull-right" id="datepicker">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-3 control-label">Date range<i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+
+                                        <input type="text" class="form-control pull-right" id="reservation">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-3 control-label">Date range<i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+
+                                        <input type="text" class="form-control pull-right" id="reservationtime">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-clock-o"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- /.form group -->
+                            <!-- Date range -->
+                            <!-- /.form group -->
+                            <!-- Date and time range -->
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-3 control-label">Date range button<i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <button type="button" class="btn btn-default pull-right" id="daterange-btn">
+                                            <span>
+                                                <i class="fa fa-calendar"></i> Date range picker
+                                            </span>
+                                            <i class="fa fa-caret-down"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- /.form group -->
+                            <!-- Date and time range -->
+                            <!-- /.form group -->
+
+                        </div>
+                        <!-- /.box-body -->
+
+                    </form>
+                </div>
+
+
+
+
+
+            </div>
+
+            <div class="col-md-6">
+                <!-- Horizontal Form -->
+                <div class="box box-solid">
+                    <div class="box-header">DateTime TagHelpers</div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form class="form-horizontal">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <dau-label asp-for="Email"></dau-label>
+                                <dau-date asp-for="Email"></dau-date>
+                            </div>
+
+                            <div class="form-group">
+                                <dau-label asp-for="TextArea"></dau-label>
+                                <dau-date date-range="true" asp-for="TextArea"></dau-date>
+                            </div>
+
+                            <div class="form-group">
+                                <dau-label asp-for="TextAreaEditor"></dau-label>
+                                <dau-date date-range="true" asp-for="TextAreaEditor"></dau-date>
+                            </div>
+
+
+                            <div class="form-group">
+                                <dau-label asp-for="Password"></dau-label>
+                                <dau-date asp-for="Password" disabled="true"></dau-date>
+                            </div>
+
+                        </div>
+                        <!-- /.box-body -->
+
+                    </form>
+                </div>
+
+
+
+
+
+            </div>
+
+        </div>
+
+
+
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Horizontal Form -->
+                <div class="box box-solid">
+                    <div class="box-header">Editor/TextArea Normal markup</div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form class="form-horizontal">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-3 control-label">Editor <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                <div class="col-sm-9">
+                                    <textarea id="editor1" class="form-control" name="editor1" rows="10" cols="80">
+                                            This is my textarea to be replaced with CKEditor.
+                                                          </textarea>
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-3 control-label">Textarea<i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                <div class="col-sm-9">
+                                    <textarea class="form-control" name="editor1" rows="10" cols="80">
+                                            
+                                                          </textarea>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <!-- /.box-body -->
+
+                    </form>
+                </div>
+
+
+
+
+
+            </div>
+
+            <div class="col-md-6">
+                <!-- Horizontal Form -->
+                <div class="box box-solid">
+                    <div class="box-header">Editor/TextArea TagHelpers</div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form class="form-horizontal">
+                        <div class="box-body">
+
+
+
+                            <div class="form-group">
+                                <dau-label asp-for="TextAreaEditor"> </dau-label>
+                                <dau-editor asp-for="TextAreaEditor"></dau-editor>
+                                <span asp-validation-for="TextAreaEditor"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <dau-label asp-for="TextArea"> </dau-label>
+                                <dau-textarea asp-for="TextArea"></dau-textarea>
+                                <span asp-validation-for="TextArea"></span>
+                            </div>
+
+                        </div>
+                        <!-- /.box-body -->
+
+                    </form>
+                </div>
+
+
+
+
+
+            </div>
+
+        </div>
+
+
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Horizontal Form -->
+                <div class="box box-solid">
+                    <div class="box-header">Select/Multiselect Normal markup</div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form class="form-horizontal">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">Select <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                <div class="col-sm-8">
+                                    <select class="form-control select2" style="width: 100%;">
+                                        <option selected="selected">Alabama</option>
+                                        <option>Alaska</option>
+                                        <option>California</option>
+                                        <option disabled>Delaware</option>
+                                        <option>Tennessee</option>
+                                        <option>Texas</option>
+                                        <option>Washington</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">Multi-Select <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                <div class="col-sm-8">
+                                    <select class="form-control select2" multiple="multiple" data-placeholder="Select a State"
+                                            style="width: 100%;">
+                                        <option>Alabama</option>
+                                        <option selected="selected">Alaska</option>
+                                        <option selected="selected">California</option>
+                                        <option disabled>Delaware</option>
+                                        <option selected="selected">Tennessee</option>
+                                        <option>Texas</option>
+                                        <option>Washington</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">Disabled select <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                <div class="col-sm-8">
+                                    <select class="form-control select2" disabled="disabled" style="width: 100%;">
+                                        <option selected="selected">Alabama</option>
+                                        <option>Alaska</option>
+                                        <option>California</option>
+                                        <option>Delaware</option>
+                                        <option>Tennessee</option>
+                                        <option>Texas</option>
+                                        <option>Washington</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+
+
+
+                        </div>
+                        <!-- /.box-body -->
+
+                    </form>
+                </div>
+
+
+
+
+
+            </div>
+
+            <div class="col-md-6">
+                <!-- Horizontal Form -->
+                <div class="box box-solid">
+                    <div class="box-header">Select/Multiselect TagHelpers</div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form class="form-horizontal">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <dau-label asp-for="Gender"></dau-label>
+                                <dau-select asp-for="Gender" asp-items="vm.Genders"></dau-select>
+                            </div>
+
+
+
+                            <div class="form-group">
+                                <dau-label asp-for="GenderMultiSelect"></dau-label>
+                                <dau-select asp-for="GenderMultiSelect" asp-items="vm.Genders" multiple-select="true"></dau-select>
+                            </div>
+
+
+                            <div class="form-group">
+                                <dau-label asp-for="GenderReadOnly"></dau-label>
+                                <dau-select asp-for="GenderReadOnly" asp-items="vm.Genders" multiple-select="true"></dau-select>
+                            </div>
+
+
+                            <div class="form-group">
+                                <dau-label asp-for="GenderMultiSelect"></dau-label>
+                                <dau-select asp-for="GenderMultiSelect" asp-items="vm.Genders" multiple-select="true" disabled="true"></dau-select>
+                            </div>
+
+
+
+
+                        </div>
+                        <!-- /.box-body -->
+
+                    </form>
+                </div>
+
+
+
+
+
+            </div>
+
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Horizontal Form -->
+                <div class="box box-solid">
+                    <div class="box-header">Tabs Normal markup</div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form class="form-horizontal">
+                        <div class="box-body">
+
+                            <div class="nav-tabs-custom">
+                                <ul class="nav nav-tabs">
+                                    <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">Tab 1</a></li>
+                                    <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">Tab 2</a></li>
+                                    <li class="active"><a href="#tab_3" data-toggle="tab" aria-expanded="true">Tab 3</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane" id="tab_1">
+                                        <b>How to use:</b>
+                                        at the present moment; and yet I feel that I never was a greater artist than now.
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                    <div class="tab-pane" id="tab_2">
+                                        The European languages are members of the same family. Their separate existence is a myth.
+                                        and regular than that of the individual languages.
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                    <div class="tab-pane active" id="tab_3">
+                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                </div>
+                                <!-- /.tab-content -->
+                            </div>
+
+
+
+                            <div class="nav-tabs-custom">
+                                <ul class="nav nav-tabs">
+                                    <li class=""><a href="#tab_21" data-toggle="tab" aria-expanded="false">Standard</a></li>
+                                    <li class=""><a href="#tab_22" data-toggle="tab" aria-expanded="false"><img alt="" src="@Url.Content("~/Content/")dist/img/us.png"> English</a></li>
+                                    <li class="active"><a href="#tab_23" data-toggle="tab" aria-expanded="true"><img alt="" src="@Url.Content("~/Content/")dist/img/tr.png"> Turkce</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane" id="tab_21">
+                                        <b>How to use:</b>
+                                        at the present moment; and yet I feel that I never was a greater artist than now.
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                    <div class="tab-pane" id="tab_22">
+                                        The European languages are members of the same family. Their separate existence is a myth.
+                                        and regular than that of the individual languages.
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                    <div class="tab-pane active" id="tab_23">
+                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                </div>
+                                <!-- /.tab-content -->
+                            </div>
+
+
+                        </div>
+                        <!-- /.box-body -->
+
+                    </form>
+                </div>
+
+
+
+
+
+            </div>
+
+            <div class="col-md-6">
+                <!-- Horizontal Form -->
+                <div class="box box-solid">
+                    <div class="box-header">Tabs TagHelpers</div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form class="form-horizontal">
+                        <div class="box-body">
+
+
+                            <dau-tabs id="newTab">
+                                <dau-tab id="tab1" active="true"> musa jahun tab 1</dau-tab>
+                                <dau-tab id="tab2" flag=""> tab 2 here we go</dau-tab>
+                                <dau-tab id="tab3" flag="">tab 3 here i am</dau-tab>
+                            </dau-tabs>
+
+                            <dau-tabs id="LanguageTab">
+                                <dau-tab id="tab1" name="Standard" active="true"> musa jahun tab 1</dau-tab>
+                                <dau-tab id="tab2" name="English" flag="@Url.Content("~/Content/")dist/img/us.png"> tab 2 here we go</dau-tab>
+                                <dau-tab id="tab3" name="Turkish" flag="@Url.Content("~/Content/")dist/img/tr.png">
+
+                                    <div class="form-group">
+                                        <dau-label asp-for="Email"></dau-label>
+                                        <dau-input asp-for="Password" type="number"></dau-input>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <dau-label asp-for="Email"></dau-label>
+                                        <dau-inputaddon type="number" asp-for="Email"></dau-inputaddon>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <dau-label asp-for="Email"></dau-label>
+                                        <dau-inputaddon type="number" asp-for="Email" cols="4" text="TRY"></dau-inputaddon>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <dau-label asp-for="Email"></dau-label>
+                                        <dau-inputaddon type="number" asp-for="Email" addon-type="button" text="click me!" cols="4"></dau-inputaddon>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <dau-label asp-for="Email"></dau-label>
+                                        <dau-inputaddon type="number" asp-for="Email" addon-type="icon" icon="fa fa-trash-o" text="click me!" cols="4"></dau-inputaddon>
+                                    </div>
+                                </dau-tab>
+                            </dau-tabs>
+
+
+                        </div>
+                        <!-- /.box-body -->
+
+                    </form>
+                </div>
+
+
+
+
+
+            </div>
+
+        </div>
+
+    </section>
+    <!-- /.content -->
+    <!-- /.content -->
+</div>
+
+@section styles {
+
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/Ionicons/css/ionicons.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/select2/dist/css/select2.min.css">
+    <!-- Bootstrap time Picker -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")plugins/timepicker/bootstrap-timepicker.min.css">
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap-daterangepicker/daterangepicker.css">
+    <!-- bootstrap datepicker -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/skins/_all-skins.min.css">
+}
+
+
+@section scripts
+    {
+
+    <script src="@Url.Content("~/Content/")bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="@Url.Content("~/Content/")bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="@Url.Content("~/Content/")dist/js/adminlte.min.js"></script>
+    <script src="@Url.Content("~/Content/")bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="@Url.Content("~/Content/")bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="@Url.Content("~/Content/")bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+
+    <script src="@Url.Content("~/Content/")bower_components/ckeditor/ckeditor.js"></script>
+
+    <!-- date-range-picker -->
+    <script src="@Url.Content("~/Content/")bower_components/moment/min/moment.min.js"></script>
+
+    <script src="@Url.Content("~/Content/")bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap datepicker -->
+    <script src="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <!-- bootstrap time picker -->
+    <script src="@Url.Content("~/Content/")plugins/timepicker/bootstrap-timepicker.min.js"></script>
+
+
+    <!-- Select2 -->
+    <script src="@Url.Content("~/Content/")bower_components/select2/dist/js/select2.full.min.js"></script>
+    <!-- FastClick -->
+    <script src="@Url.Content("~/Content/")bower_components/fastclick/lib/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <!-- AdminLTE for demo purposes -->
+    <script src="@Url.Content("~/Content/")dist/js/demo.js"></script>
+
+
+
+    <!-- page script -->
+    <script>
+        $(function () {
+
+            CKEDITOR.replace('editor1')
+            //CKEDITOR.replace('editor11')
+            CKEDITOR.replace('TextAreaEditorId')
+
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
+            //Date range picker
+            $('#reservation').daterangepicker()
+            $('#TextAreaDateID').daterangepicker()
+
+
+            //Date range picker with time picker
+            $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' })
+            $('#TextAreaEditorDateID').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' })
+
+
+
+
+            //Date range as a button
+            $('#daterange-btn').daterangepicker(
+                {
+                    ranges: {
+                        'Today': [moment(), moment()],
+                        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                        'This Month': [moment().startOf('month'), moment().endOf('month')],
+                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                    },
+                    startDate: moment().subtract(29, 'days'),
+                    endDate: moment()
+                },
+                function (start, end) {
+                    $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+                }
+            )
+
+            //Date picker
+            $('#datepicker').datepicker({
+                autoclose: true
+            })            //Date picker
+
+
+            $('.date-control').datepicker({
+                autoclose: true
+            })
+
+
+            //Timepicker
+            $('.timepicker').timepicker({
+                showInputs: false
+            })
+            $('#example').DataTable()
+            $('#example1').DataTable({
+                'paging': true,
+                'lengthChange': true,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': true
+            })
+        })
+    </script>
+}
+
+

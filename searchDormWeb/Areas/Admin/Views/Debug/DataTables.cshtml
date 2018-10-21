@@ -1,0 +1,219 @@
+﻿
+@using searchDormWeb.Areas.Admin.Models.Debug
+@model DebugDataTablesVm
+@{
+    ViewData["Title"] = "DataTables";
+    Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            @ViewBag.Title
+           
+        </h1>
+        <div class="row">
+            <div class=" col-md-12">
+                <div class="upper_left pull-right">
+
+                    <a asp-action="DiscountAdd" asp-controller="Promotions" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-plus-square"></i> Add new</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main content -->
+    <!-- Main content -->
+    <section class="content container-fluid">
+
+        <!--------------------------
+        | Your Page Content Here |
+        -------------------------->
+
+        <div class="col-md-12">
+            <!-- Horizontal Form -->
+            <div class="box box-solid">
+                <div class="box-header"></div>
+                <!-- /.box-header -->
+                <!-- form start -->
+                <form class="form-horizontal">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <dau-label asp-for="DiscountName"></dau-label>
+                            <dau-input asp-for="DiscountName" type="text"></dau-input>
+                            <span asp-validation-for="DiscountName"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <dau-label asp-for="CouponCode"></dau-label>
+                            <dau-input asp-for="CouponCode" type="text"></dau-input>
+                            <span asp-validation-for="CouponCode"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <dau-label asp-for="DiscountType"></dau-label>
+                            <dau-select asp-for="DiscountType"></dau-select>
+                            <span asp-validation-for="DiscountType"></span>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-search"></i> Search</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+
+                </form>
+            </div>
+
+
+
+            <div class="box box-solid">
+
+                <!-- /.box-header -->
+                <div class="box-body">
+
+                    <div class="overflow">
+                        <table id="Discounts" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Discount Type</th>
+                                    <th>Discount</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Times Used</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+
+                        </table>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+
+        </div>
+
+
+    </section>
+    <!-- /.content -->
+    <!-- /.content -->
+</div>
+
+@section styles {
+
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/select2/dist/css/select2.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/skins/_all-skins.min.css">
+}
+
+
+@section scripts
+    {
+
+    <script src="@Url.Content("~/Content/")bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="@Url.Content("~/Content/")bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="@Url.Content("~/Content/")dist/js/adminlte.min.js"></script>
+    <script src="@Url.Content("~/Content/")bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="@Url.Content("~/Content/")bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+
+    <!-- Select2 -->
+    <script src="@Url.Content("~/Content/")bower_components/select2/dist/js/select2.full.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="@Url.Content("~/Content/")bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="@Url.Content("~/Content/")bower_components/fastclick/lib/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <!-- AdminLTE for demo purposes -->
+    <script src="@Url.Content("~/Content/")dist/js/demo.js"></script>
+    <!-- page script -->
+    @*<tr>
+            <td>Discount name</td>
+            <td>Discount Type</td>
+            <td>Discount </td>
+            <td>Start date</td>
+            <td>End date</td>
+            <td>Times used</td>
+            <td> <a asp-action="DiscountEdit" asp-controller="Promotions" asp-area="Admin" class="btn btn-default"> <i class="fa fa-pencil"></i> Edit</a></td>
+        </tr>*@
+
+
+    <script>
+        $(function () {
+            //window.onresize = function (event) {
+            //    alert("i have been resized");
+            //}
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
+
+            $('#Discounts').DataTable({
+                'paging': true,
+                'lengthChange': true,
+                "aLengthMenu": [[20 ,3,5], [20, 3, 5]],
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+                    "url": "/Admin/Debug/LoadData",
+                    "type": "POST",
+                    "data": function (d) {
+                        d.myKey = "myValue";
+                        d.DiscountName = "myValue";
+                        d.CouponCode = "myValue";
+                        d.DiscountType = "myValue";
+                    },
+                    "datatype": "json"
+                },
+                "columns": [
+                    
+                    { "data": "discountId"},
+                    { "data": "namee"},
+                    { "data": "discountType"},
+                    { "data": "startDate"},
+                    { "data": "startDate" },
+                    { "data": "endDate"},
+                    { "data": "timesUsed" },
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<a class="btn btn-primary" href="/Admin/Debug/Edit/' + full.discountId + '"><i class="fa fa-pencil"></i> Edit</a>'; }
+                    },
+                    {
+                        data: null, render: function (data, type, row) {
+                            return "<a href='#' class='btn btn-danger' onclick=DeleteData('" + row.discountId+ "'); ><i class=\"fa fa-trash-o\"></i> Delete</a>";
+                        }
+                    },
+                ]
+
+
+            })
+        })
+    </script>
+}
