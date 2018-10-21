@@ -14,4 +14,12 @@ namespace searchDormWeb.Areas.Admin.Models.Catalog
            MaxLength(256)]
         public string BlockName { get; set; }
     }
+
+    public class DormitoryBlockAdd
+    {
+    }
+
+    public class DormitoryBlockEdit
+    {
+    }
 }

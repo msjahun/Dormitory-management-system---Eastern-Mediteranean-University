@@ -13,7 +13,7 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
         Description = "A Dormitory name"),
         DataType(DataType.Text),
         MaxLength(256)]
-        public string  DormitoryName { get; set; }
+        public string DormitoryName { get; set; }
 
         [Display(Name = "Dormitory type",
         Description = "Search by a specific Dormitory Type"),
@@ -30,5 +30,14 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
 
 
 
+    }
+
+    public class DormitoryAdd
+    {
+    }
+
+
+    public class DormitoryEdit
+    {
     }
 }

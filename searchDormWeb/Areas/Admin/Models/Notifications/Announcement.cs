@@ -31,4 +31,12 @@ namespace searchDormWeb.Areas.Admin.Models.Notifications
         public int Active { get; set; }
 
     }
+    public class AnnouncementAdd
+    {
+    }
+
+    public class AnnouncementEdit
+    {
+    }
+
 }

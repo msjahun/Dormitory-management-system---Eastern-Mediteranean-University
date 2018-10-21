@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace searchDormWeb.Areas.Admin.Models.System
 {
+
     public class MessageQueuesVm
     {
 
@@ -54,5 +55,10 @@ namespace searchDormWeb.Areas.Admin.Models.System
 
 
 
+    }
+
+
+    public class MessageQueueEdit
+    {
     }
 }

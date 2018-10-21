@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace searchDormWeb.Areas.Admin.Models.Reservation
 {
+    public class CancelReservationRequestEdit
+    {
+    }
+
     public class CancelReservationsRequestsVm
     {
         [Display(Name = "ID",
@@ -38,4 +42,5 @@ namespace searchDormWeb.Areas.Admin.Models.Reservation
         public int CancellationStatus { get; set; }
 
     }
+
 }

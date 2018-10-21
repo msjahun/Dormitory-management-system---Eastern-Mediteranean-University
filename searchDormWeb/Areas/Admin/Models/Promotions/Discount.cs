@@ -26,4 +26,13 @@ namespace searchDormWeb.Areas.Admin.Models.Promotions
         public int DiscountType { get; set; }
 
     }
+    public class DiscountAdd
+    {
+
+    }
+
+    public class DiscountEdit
+    {
+
+    }
 }

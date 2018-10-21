@@ -71,4 +71,8 @@ namespace searchDormWeb.Areas.Admin.Models.Reservation
         public int GoDirectlyToBookingNumber { get; set; }
 
     }
+
+    public class ReservationEdit
+    {
+    }
 }

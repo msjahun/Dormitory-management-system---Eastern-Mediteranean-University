@@ -31,4 +31,12 @@ namespace searchDormWeb.Areas.Admin.Models.Catalog
         public string GoDirectoryToRoomSKU { get; set; }
 
     }
+
+    public class RoomAdd
+    {
+    }
+
+    public class RoomEdit
+    {
+    }
 }

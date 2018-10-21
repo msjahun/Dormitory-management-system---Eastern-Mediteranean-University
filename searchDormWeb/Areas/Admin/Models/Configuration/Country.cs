@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace searchDormWeb.Areas.Admin.Models.Configuration
 {
+
     public class CurrenciesVm
     {
         [Display(Name = "Current exchange rate provider",
@@ -18,4 +19,15 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
         public bool AutoEnabled { get; set; }
 
     }
+
+    public class CountryAdd
+    {
+    }
+
+
+    public class CountryEdit
+    {
+    }
+
+
 }

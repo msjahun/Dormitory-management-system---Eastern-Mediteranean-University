@@ -4,15 +4,15 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace searchDormWeb.Areas.Admin.Models.Catalog
+namespace searchDormWeb.Areas.Admin.Models.System
 {
-    public class RoomReviewsVm
+    public class LogVm
     {
 
         [Display(Name = "Created from",
-       Description = "The creation from date for the search."),
-       DataType(DataType.Date),
-       MaxLength(256)]
+        Description = "The creation from date for the search."),
+        DataType(DataType.Date),
+        MaxLength(256)]
         public DateTime CreatedFrom { get; set; }
 
 
@@ -28,16 +28,14 @@ namespace searchDormWeb.Areas.Admin.Models.Catalog
      MaxLength(256)]
         public string Message { get; set; }
 
-        [Display(Name = "Approved",
-     Description = "Search by an approved status e.g. Approved or Not approved"),
+        [Display(Name = "Log level",
+     Description = "Select a log level"),
      MaxLength(256)]
-        public int Approved { get; set; }
+        public int LogLevel { get; set; }
 
-        [Display(Name = "Room",
-       Description = "A room name."),
-       DataType(DataType.Text),
-       MaxLength(256)]
-        public string RoomName { get; set; }
+    }
 
+    public class LogView
+    {
     }
 }

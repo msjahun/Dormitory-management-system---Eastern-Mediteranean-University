@@ -34,4 +34,16 @@ namespace searchDormWeb.Areas.Admin.Models.Promotions
 
 
     }
+
+    public class AffiliateAdd
+    {
+       
+
+    }
+
+    public class AffiliateEdit
+    {
+
+
+    }
 }
