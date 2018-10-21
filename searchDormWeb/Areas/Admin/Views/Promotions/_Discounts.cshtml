@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.Promotions
 @model DiscountsVm
 @{
-    ViewData["Title"] = "_Discounts";
+    ViewData["Title"] = "Discounts";
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -10,7 +10,7 @@
     <section class="content-header">
         <h1>
             @ViewBag.Title
-            <small>Optional description</small>
+          
         </h1>
         <div class="row">
             <div class=" col-md-12">
@@ -32,7 +32,7 @@
 
         <div class="col-md-12">
             <!-- Horizontal Form -->
-            <div class="box box-primary">
+            <div class="box box-solid">
                 <div class="box-header"></div>
                 <!-- /.box-header -->
                 <!-- form start -->
@@ -70,13 +70,13 @@
 
 
 
-            <div class="box">
+            <div class="box box-solid">
 
                 <!-- /.box-header -->
                 <div class="box-body">
 
                     <div class="overflow">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="DiscountsTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>Name</th>
@@ -165,15 +165,55 @@
             //Initialize Select2 Elements
             $('.select2').select2()
 
-            $('#example').DataTable()
-            $('#example1').DataTable({
+         
+            $('#DiscountsTable').on('processing.dt', function (e, settings, processing) {
+                if (processing) {
+                    Pace.start();
+                } else {
+                    Pace.stop();
+                }
+            }).DataTable({
                 'paging': true,
                 'lengthChange': true,
-                'searching': true,
-                'ordering': true,
+                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
+                'searching': false,
+                'ordering': false,
                 'info': true,
-                'autoWidth': true
+                'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+                    "url": "@Html.Raw(Url.Action("discounts", "Promotions"))",
+                    "type": "POST",
+                    "data": function (d) {
+                        d.myKey = "myValue";
+                        d.DiscountName = "myValue";
+                        d.CouponCode = "myValue";
+                        d.DiscountType = "myValue";
+                    },
+                    "datatype": "json"
+                },
+                "columns": [
+
+                    
+                    {"data": "name" },
+                    {"data": "discountType" },
+                    {"data": "discount" },
+                    {"data": "startDate" },
+                    {"data": "endDate" },
+                    {"data": "TimesUsed" },
+                    {"render": function (data, type, full, meta) {
+                     return '<a class="btn btn-primary" href="/Admin/Promotions/DiscountEdit/"><i class="fa fa-pencil"></i> Edit</a>'; }
+                    }
+                    
+                    
+                ]
+
+
             })
+
         })
     </script>
 }

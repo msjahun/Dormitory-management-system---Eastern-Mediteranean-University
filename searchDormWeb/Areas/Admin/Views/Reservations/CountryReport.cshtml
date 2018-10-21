@@ -11,7 +11,7 @@
     <section class="content-header">
         <h1>
             @ViewBag.Title
-            <small>Optional description</small>
+
         </h1>
         <div class="row">
             <div class=" col-md-12">
@@ -33,7 +33,7 @@
 
         <div class="col-md-12">
             <!-- Horizontal Form -->
-            <div class="box box-primary">
+            <div class="box box-solid">
                 <div class="box-header"></div>
                 <!-- /.box-header -->
                 <!-- form start -->
@@ -76,12 +76,12 @@
 
 
 
-            <div class="box">
+            <div class="box box-solid">
 
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div class="overflow">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="CountryReportTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>Country</th>
@@ -145,6 +145,8 @@
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/Ionicons/css/ionicons.min.css">
+    <!-- bootstrap datepicker -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
     <!-- Select2 -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/select2/dist/css/select2.min.css">
     <!-- DataTables -->
@@ -157,6 +159,9 @@
 }
 
 
+
+
+
 @section scripts
     {
 
@@ -167,6 +172,12 @@
     <script src="@Url.Content("~/Content/")dist/js/adminlte.min.js"></script>
     <script src="@Url.Content("~/Content/")bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="@Url.Content("~/Content/")bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+    <script src="@Url.Content("~/Content/")bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap datepicker -->
+    <script src="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <!-- bootstrap time picker -->
+    <script src="@Url.Content("~/Content/")plugins/timepicker/bootstrap-timepicker.min.js"></script>
 
     <!-- Select2 -->
     <script src="@Url.Content("~/Content/")bower_components/select2/dist/js/select2.full.min.js"></script>
@@ -183,16 +194,52 @@
 
             //Initialize Select2 Elements
             $('.select2').select2()
-
-            $('#example').DataTable()
-            $('#example1').DataTable({
+            $('.date-control').datepicker({
+                autoclose: true,
+                orientation: "left bottom",
+            })
+            $('#CountryReportTable').on('processing.dt', function (e, settings, processing) {
+                if (processing) {
+                    Pace.start();
+                } else {
+                    Pace.stop();
+                }
+            }).DataTable({
                 'paging': true,
                 'lengthChange': true,
-                'searching': true,
-                'ordering': true,
+                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
+                'searching': false,
+                'ordering': false,
                 'info': true,
-                'autoWidth': true
+                'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+                    "url": "@Html.Raw(Url.Action("CountryReport", "Reservations"))",
+                    "type": "POST",
+                    "data": function (d) {
+                        d.myKey = "myValue";
+                        d.DiscountName = "myValue";
+                        d.CouponCode = "myValue";
+                        d.DiscountType = "myValue";
+                    },
+                    "datatype": "json"
+                },
+                "columns": [
+
+                    {"data": "country" },
+                    {"data": "numberOfOrders" },
+                    {"data": "orderTotal" },
+
+
+
+                ]
+
+
             })
+
         })
     </script>
 }

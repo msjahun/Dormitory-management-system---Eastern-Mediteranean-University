@@ -10,7 +10,7 @@
     <section class="content-header">
         <h1>
            Countries List
-            <small>Optional description</small>
+           
         </h1>
         <div class="row">
             <div class=" col-md-12">
@@ -51,13 +51,13 @@
         <div class="col-md-12">
            
 
-            <div class="box">
+            <div class="box box-solid">
 
                 <!-- /.box-header -->
                 <div class="box-body">
 
                     <div class="overflow">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="CountriesTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th><input type="checkbox"></th>
@@ -195,15 +195,76 @@
     <!-- page script -->
     <script>
         $(function () {
-            $('#example').DataTable()
-            $('#example1').DataTable({
-                'paging': false,
-                'lengthChange': false,
+         
+            $('#CountriesTable').on('processing.dt', function (e, settings, processing) {
+                if (processing) {
+                    Pace.start();
+                } else {
+                    Pace.stop();
+                }
+            }).DataTable({
+                'paging': true,
+                'lengthChange': true,
+                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
                 'searching': false,
                 'ordering': false,
-                'info': false,
-                'autoWidth': true
+                'info': true,
+                'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+                     "url": "@Html.Raw(Url.Action("Countries", "Configurations"))",
+                    "type": "POST",
+                    "data": function (d) {
+                        d.myKey = "myValue";
+                        d.DiscountName = "myValue";
+                        d.CouponCode = "myValue";
+                        d.DiscountType = "myValue";
+                    },
+                    "datatype": "json"
+                },
+                "columns": [
+
+                    {"render": function (data, type, full, meta) {
+                            return '<input type="checkbox">'; } },
+                    {"data": "name" },
+                    
+                    {"render": function (data, type, full, meta) {
+                            if (full.allowBilling == true)
+                                return '<i class="fa fa-check" aria-hidden="true"></i>';
+                            else
+                                return '<i class="fa fa-times" aria-hidden="true"></i>';}
+                    }, 
+                    {"render": function (data, type, full, meta) {
+                            if (full.allowBooking == true)
+                                return '<i class="fa fa-check" aria-hidden="true"></i>';
+                            else
+                                return '<i class="fa fa-times" aria-hidden="true"></i>';}
+                    },
+                    {"data": "twoLettersIsoCode" },
+                    {"data": "threeLettersIsoCode" },
+                    {"data": "numberOfStates" },
+                    { "data": "displayOrder" }, 
+                    {
+                        "render": function (data, type, full, meta) {
+                            if (full.published == true)
+                                return '<i class="fa fa-check" aria-hidden="true"></i>';
+                            else
+                                return '<i class="fa fa-times" aria-hidden="true"></i>';
+                        }
+                    },
+                    {"render": function (data, type, full, meta) {
+                        return '<a class="btn btn-primary" href="/Admin/Configurations/CountryEdit/"><i class="fa fa-pencil"></i> Edit</a>'; }
+                    }
+                    
+                    
+                ]
+
+
             })
+
         })
     </script>
 }

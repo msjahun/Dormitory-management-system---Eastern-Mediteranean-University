@@ -12,7 +12,7 @@
     <section class="content-header">
         <h1>
             @ViewBag.Title
-            <small>Optional description</small>
+
         </h1>
         <div class="row">
             <div class=" col-md-12">
@@ -37,373 +37,389 @@
                 <!-- Custom Tabs -->
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#tab_1" data-toggle="tab">Users by booking total amount</a></li>
-                        <li><a href="#tab_2" data-toggle="tab">Users by number of reservation</a></li>
-                        <li><a href="#tab_3" data-toggle="tab">Registered users</a></li>
+                        <secure-content asp-action="UsersReportByBookingTotal" asp-area="Admin" asp-controller="Users">
+                            <li class="active"><a href="#tab_1" data-toggle="tab">Users by booking total amount</a></li>
+                        </secure-content>
 
+
+                        <secure-content asp-action="UsersReportByRegistration" asp-area="Admin" asp-controller="Users">
+                            <li><a href="#tab_2" data-toggle="tab">Users by number of reservation</a></li>
+                        </secure-content>
+
+
+                        <secure-content asp-action="UsersReportRegistered" asp-area="Admin" asp-controller="Users">
+                            <li><a href="#tab_3" data-toggle="tab">Registered users</a></li>
+                        </secure-content>
                     </ul>
+
+
                     <div class="tab-content">
-                        <div class="tab-pane active" id="tab_1">
-                            <div class="">
-                                <!-- Horizontal Form -->
+
+
+                        <secure-content asp-action="UsersReportByBookingTotal" asp-area="Admin" asp-controller="Users">
+                            <div class="tab-pane active" id="tab_1">
                                 <div class="">
-                                    <div class=""></div>
-                                    <!-- /.box-header -->
-                                    <!-- form start -->
-                                    <form class="form-horizontal">
-                                        <div class="box-body">
+                                    <!-- Horizontal Form -->
+                                    <div class="">
+                                        <div class=""></div>
+                                        <!-- /.box-header -->
+                                        <!-- form start -->
+                                        <form class="form-horizontal">
+                                            <div class="box-body">
 
-                                            <div class="form-group">
-                                                <dau-label asp-for="StartDate"></dau-label>
-                                                <dau-date asp-for="StartDate"></dau-date>
-                                                <span asp-validation-for="StartDate"></span>
-                                            </div>
+                                                <div class="form-group">
+                                                    <dau-label asp-for="StartDate"></dau-label>
+                                                    <dau-date asp-for="StartDate"></dau-date>
+                                                    <span asp-validation-for="StartDate"></span>
+                                                </div>
 
-                                            <div class="form-group">
-                                                <dau-label asp-for="EndDate"></dau-label>
-                                                <dau-date asp-for="EndDate"></dau-date>
-                                                <span asp-validation-for="EndDate"></span>
-                                            </div>
+                                                <div class="form-group">
+                                                    <dau-label asp-for="EndDate"></dau-label>
+                                                    <dau-date asp-for="EndDate"></dau-date>
+                                                    <span asp-validation-for="EndDate"></span>
+                                                </div>
 
-                                            <div class="form-group">
-                                                <dau-label asp-for="BookingStatus"></dau-label>
-                                                <dau-select asp-for="BookingStatus"></dau-select>
-                                                <span asp-validation-for="BookingStatus"></span>
-                                            </div>
+                                                <div class="form-group">
+                                                    <dau-label asp-for="BookingStatus"></dau-label>
+                                                    <dau-select asp-for="BookingStatus"></dau-select>
+                                                    <span asp-validation-for="BookingStatus"></span>
+                                                </div>
 
 
-                                            <div class="form-group">
-                                                <dau-label asp-for="PaymentStatus"></dau-label>
-                                                <dau-select asp-for="PaymentStatus"></dau-select>
-                                                <span asp-validation-for="PaymentStatus"></span>
-                                            </div>
+                                                <div class="form-group">
+                                                    <dau-label asp-for="PaymentStatus"></dau-label>
+                                                    <dau-select asp-for="PaymentStatus"></dau-select>
+                                                    <span asp-validation-for="PaymentStatus"></span>
+                                                </div>
 
-                                            <div class="form-group">
-                                                <div class="col-sm-offset-2 col-sm-10">
-                                                    <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-line-chart"></i> Run report</button>
+                                                <div class="form-group">
+                                                    <div class="col-sm-offset-2 col-sm-10">
+                                                        <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-line-chart"></i> Run report</button>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <!-- /.box-body -->
+
+                                        </form>
+                                    </div>
+
+
+
+                                    <div class="">
+
+                                        <!-- /.box-header -->
+                                        <div class="overflow">
+
+                                            <table id="UsersByBookingTotalTable" class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>User</th>
+                                                        <th>Booking total</th>
+                                                        <th>Number of bookings</th>
+                                                        <th>View</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>info@sampleMail.com</td>
+                                                        <td>$183,53.00</td>
+                                                        <td>1</td>
+                                                        <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>msjahun@live.com</td>
+                                                        <td>$183,53.00</td>
+                                                        <td>1</td>
+                                                        <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>msjahun@live.com</td>
+                                                        <td>$183,53.00</td>
+                                                        <td>1</td>
+                                                        <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>msjahun@live.com</td>
+                                                        <td>$183,53.00</td>
+                                                        <td>1</td>
+                                                        <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>msjahun@live.com</td>
+                                                        <td>$183,53.00</td>
+                                                        <td>1</td>
+                                                        <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>msjahun@live.com</td>
+                                                        <td>$183,53.00</td>
+                                                        <td>1</td>
+                                                        <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>msjahun@live.com</td>
+                                                        <td>$183,53.00</td>
+                                                        <td>1</td>
+                                                        <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>msjahun@live.com</td>
+                                                        <td>$183,53.00</td>
+                                                        <td>1</td>
+                                                        <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>msjahun@live.com</td>
+                                                        <td>$183,53.00</td>
+                                                        <td>1</td>
+                                                        <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>msjahun@live.com</td>
+                                                        <td>$183,53.00</td>
+                                                        <td>1</td>
+                                                        <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>msjahun@live.com</td>
+                                                        <td>$183,53.00</td>
+                                                        <td>1</td>
+                                                        <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>msjahun@live.com</td>
+                                                        <td>$183,53.00</td>
+                                                        <td>1</td>
+                                                        <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                    </tr>
+
+                                                </tbody>
+
+                                            </table>
                                         </div>
                                         <!-- /.box-body -->
-
-                                    </form>
-                                </div>
-
-
-
-                                <div class="">
-
-                                    <!-- /.box-header -->
-                                    <div class="overflow">
-                                        
-                                        <table id="table1" class="table table-bordered table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>User</th>
-                                                    <th>Booking total</th>
-                                                    <th>Number of bookings</th>
-                                                    <th>View</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>info@sampleMail.com</td>
-                                                    <td>$183,53.00</td>
-                                                    <td>1</td>
-                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>msjahun@live.com</td>
-                                                    <td>$183,53.00</td>
-                                                    <td>1</td>
-                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>msjahun@live.com</td>
-                                                    <td>$183,53.00</td>
-                                                    <td>1</td>
-                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>msjahun@live.com</td>
-                                                    <td>$183,53.00</td>
-                                                    <td>1</td>
-                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>msjahun@live.com</td>
-                                                    <td>$183,53.00</td>
-                                                    <td>1</td>
-                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>msjahun@live.com</td>
-                                                    <td>$183,53.00</td>
-                                                    <td>1</td>
-                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>msjahun@live.com</td>
-                                                    <td>$183,53.00</td>
-                                                    <td>1</td>
-                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>msjahun@live.com</td>
-                                                    <td>$183,53.00</td>
-                                                    <td>1</td>
-                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>msjahun@live.com</td>
-                                                    <td>$183,53.00</td>
-                                                    <td>1</td>
-                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>msjahun@live.com</td>
-                                                    <td>$183,53.00</td>
-                                                    <td>1</td>
-                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>msjahun@live.com</td>
-                                                    <td>$183,53.00</td>
-                                                    <td>1</td>
-                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>msjahun@live.com</td>
-                                                    <td>$183,53.00</td>
-                                                    <td>1</td>
-                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                                </tr>
-
-                                            </tbody>
-
-                                        </table>
                                     </div>
-                                    <!-- /.box-body -->
+                                    <!-- /.box -->
+
                                 </div>
-                                <!-- /.box -->
+
 
                             </div>
-
-
-                        </div>
-                        <!-- /.tab-pane -->
-
+                            <!-- /.tab-pane -->
+                        </secure-content>
 
 
 
 
 
 
-
-                        <div class="tab-pane" id="tab_2">
-                            <div class="">
-                                <!-- Horizontal Form -->
+                        <secure-content asp-action="UsersReportByRegistration" asp-area="Admin" asp-controller="Users">
+                            <div class="tab-pane" id="tab_2">
                                 <div class="">
-                                    <div class=""></div>
-                                    <!-- /.box-header -->
-                                    <!-- form start -->
-                                    <form class="form-horizontal">
-                                        <div class="box-body">
+                                    <!-- Horizontal Form -->
+                                    <div class="">
+                                        <div class=""></div>
+                                        <!-- /.box-header -->
+                                        <!-- form start -->
+                                        <form class="form-horizontal">
+                                            <div class="box-body">
 
-                                            <div class="form-group">
-                                                <dau-label asp-for="StartDate"></dau-label>
-                                                <dau-date asp-for="StartDate"></dau-date>
-                                                <span asp-validation-for="StartDate"></span>
-                                            </div>
+                                                <div class="form-group">
+                                                    <dau-label asp-for="StartDate"></dau-label>
+                                                    <dau-date asp-for="StartDate"></dau-date>
+                                                    <span asp-validation-for="StartDate"></span>
+                                                </div>
 
-                                            <div class="form-group">
-                                                <dau-label asp-for="EndDate"></dau-label>
-                                                <dau-date asp-for="EndDate"></dau-date>
-                                                <span asp-validation-for="EndDate"></span>
-                                            </div>
+                                                <div class="form-group">
+                                                    <dau-label asp-for="EndDate"></dau-label>
+                                                    <dau-date asp-for="EndDate"></dau-date>
+                                                    <span asp-validation-for="EndDate"></span>
+                                                </div>
 
-                                            <div class="form-group">
-                                                <dau-label asp-for="BookingStatus"></dau-label>
-                                                <dau-select asp-for="BookingStatus"></dau-select>
-                                                <span asp-validation-for="BookingStatus"></span>
-                                            </div>
-
-
-                                            <div class="form-group">
-                                                <dau-label asp-for="PaymentStatus"></dau-label>
-                                                <dau-select asp-for="PaymentStatus"></dau-select>
-                                                <span asp-validation-for="PaymentStatus"></span>
-                                            </div>
+                                                <div class="form-group">
+                                                    <dau-label asp-for="BookingStatus"></dau-label>
+                                                    <dau-select asp-for="BookingStatus"></dau-select>
+                                                    <span asp-validation-for="BookingStatus"></span>
+                                                </div>
 
 
-                                            <div class="form-group">
-                                                <div class="col-sm-offset-2 col-sm-10">
-                                                    <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-line-chart"></i> Run report</button>
+                                                <div class="form-group">
+                                                    <dau-label asp-for="PaymentStatus"></dau-label>
+                                                    <dau-select asp-for="PaymentStatus"></dau-select>
+                                                    <span asp-validation-for="PaymentStatus"></span>
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <div class="col-sm-offset-2 col-sm-10">
+                                                        <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-line-chart"></i> Run report</button>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <!-- /.box-body -->
+
+                                        </form>
+                                    </div>
+
+
+
+                                    <div class="box box-solid">
+
+                                        <!-- /.box-header -->
+                                        <div class="overflow">
+                                            <table id="UsersByRegistrationTable" class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>User</th>
+                                                        <th>Booking total</th>
+                                                        <th>Number of bookings</th>
+                                                        <th>View</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>msjahun@live.com</td>
+                                                        <td>$183,53.00</td>
+                                                        <td>1</td>
+                                                        <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>msjahun@live.com</td>
+                                                        <td>$183,53.00</td>
+                                                        <td>1</td>
+                                                        <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>msjahun@live.com</td>
+                                                        <td>$183,53.00</td>
+                                                        <td>1</td>
+                                                        <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>msjahun@live.com</td>
+                                                        <td>$183,53.00</td>
+                                                        <td>1</td>
+                                                        <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>msjahun@live.com</td>
+                                                        <td>$183,53.00</td>
+                                                        <td>1</td>
+                                                        <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>msjahun@live.com</td>
+                                                        <td>$183,53.00</td>
+                                                        <td>1</td>
+                                                        <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>msjahun@live.com</td>
+                                                        <td>$183,53.00</td>
+                                                        <td>1</td>
+                                                        <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>msjahun@live.com</td>
+                                                        <td>$183,53.00</td>
+                                                        <td>1</td>
+                                                        <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>msjahun@live.com</td>
+                                                        <td>$183,53.00</td>
+                                                        <td>1</td>
+                                                        <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>msjahun@live.com</td>
+                                                        <td>$183,53.00</td>
+                                                        <td>1</td>
+                                                        <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>msjahun@live.com</td>
+                                                        <td>$183,53.00</td>
+                                                        <td>1</td>
+                                                        <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>msjahun@live.com</td>
+                                                        <td>$183,53.00</td>
+                                                        <td>1</td>
+                                                        <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
+                                                    </tr>
+
+                                                </tbody>
+
+                                            </table>
                                         </div>
                                         <!-- /.box-body -->
-
-                                    </form>
-                                </div>
-
-
-
-                                <div class="">
-
-                                    <!-- /.box-header -->
-                                    <div class="overflow">
-                                        <table id="table2" class="table table-bordered table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>User</th>
-                                                    <th>Booking total</th>
-                                                    <th>Number of bookings</th>
-                                                    <th>View</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>msjahun@live.com</td>
-                                                    <td>$183,53.00</td>
-                                                    <td>1</td>
-                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>msjahun@live.com</td>
-                                                    <td>$183,53.00</td>
-                                                    <td>1</td>
-                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>msjahun@live.com</td>
-                                                    <td>$183,53.00</td>
-                                                    <td>1</td>
-                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>msjahun@live.com</td>
-                                                    <td>$183,53.00</td>
-                                                    <td>1</td>
-                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>msjahun@live.com</td>
-                                                    <td>$183,53.00</td>
-                                                    <td>1</td>
-                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>msjahun@live.com</td>
-                                                    <td>$183,53.00</td>
-                                                    <td>1</td>
-                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>msjahun@live.com</td>
-                                                    <td>$183,53.00</td>
-                                                    <td>1</td>
-                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>msjahun@live.com</td>
-                                                    <td>$183,53.00</td>
-                                                    <td>1</td>
-                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>msjahun@live.com</td>
-                                                    <td>$183,53.00</td>
-                                                    <td>1</td>
-                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>msjahun@live.com</td>
-                                                    <td>$183,53.00</td>
-                                                    <td>1</td>
-                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>msjahun@live.com</td>
-                                                    <td>$183,53.00</td>
-                                                    <td>1</td>
-                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>msjahun@live.com</td>
-                                                    <td>$183,53.00</td>
-                                                    <td>1</td>
-                                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                                </tr>
-
-                                            </tbody>
-
-                                        </table>
                                     </div>
-                                    <!-- /.box-body -->
+                                    <!-- /.box -->
+
                                 </div>
-                                <!-- /.box -->
+
 
                             </div>
+                            <!-- /.tab-pane -->
 
-
-                        </div>
-                        <!-- /.tab-pane -->
-
-
+                        </secure-content>
 
 
 
 
 
+                        <secure-content asp-action="UsersReportRegistered" asp-area="Admin" asp-controller="Users">
 
 
-
-                        <div class="tab-pane" id="tab_3">
-                            <div class="">
+                            <div class="tab-pane" id="tab_3">
                                 <div class="">
+                                    <div class="">
 
-                                    <!-- /.box-header -->
-                                    <div class="overflow">
+                                        <!-- /.box-header -->
+                                        <div class="overflow">
 
 
-                                        <table id="table3" class="table table-bordered table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Period</th>
-                                                    <th>Count</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>In the last 7 days</td>
-                                                    <td>1</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>In the last 14 days</td>
-                                                    <td>45</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>In the last Month</td>
-                                                    <td>34</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>In the last last year</td>
-                                                    <td>13</td>
-                                                </tr>
-                                            </tbody>
+                                            <table id="RegisteredUsersTable" class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Period</th>
+                                                        <th>Count</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>In the last 7 days</td>
+                                                        <td>1</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>In the last 14 days</td>
+                                                        <td>45</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>In the last Month</td>
+                                                        <td>34</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>In the last last year</td>
+                                                        <td>13</td>
+                                                    </tr>
+                                                </tbody>
 
-                                        </table>
+                                            </table>
+                                        </div>
+                                        <!-- /.box-body -->
                                     </div>
-                                    <!-- /.box-body -->
+                                    <!-- /.box -->
+
                                 </div>
-                                <!-- /.box -->
+
 
                             </div>
+                            <!-- /.tab-pane -->
+                        </secure-content>
 
-
-                        </div>
-                        <!-- /.tab-pane -->
                     </div>
                     <!-- /.tab-content -->
                 </div>
@@ -429,6 +445,8 @@
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/Ionicons/css/ionicons.min.css">
     <!-- Select2 -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/select2/dist/css/select2.min.css">
+    <!-- bootstrap datepicker -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
     <!-- DataTables -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <!-- Theme style -->
@@ -437,6 +455,8 @@
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/skins/_all-skins.min.css">
 }
+
+
 
 
 @section scripts
@@ -451,6 +471,11 @@
     <script src="@Url.Content("~/Content/")bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 
 
+    <script src="@Url.Content("~/Content/")bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap datepicker -->
+    <script src="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <!-- bootstrap time picker -->
+    <script src="@Url.Content("~/Content/")plugins/timepicker/bootstrap-timepicker.min.js"></script>
     <!-- Select2 -->
     <script src="@Url.Content("~/Content/")bower_components/select2/dist/js/select2.full.min.js"></script>
     <!-- SlimScroll -->
@@ -467,34 +492,146 @@
             //Initialize Select2 Elements
             $('.select2').select2()
 
+            $('.date-control').datepicker({
+                autoclose: true,
+                orientation: "left bottom",
+            })
 
-
-            $('#table1').DataTable({
+            $('#UsersByBookingTotalTable').on('processing.dt', function (e, settings, processing) {
+                if (processing) {
+                    Pace.start();
+                } else {
+                    Pace.stop();
+                }
+            }).DataTable({
                 'paging': true,
                 'lengthChange': true,
-                'searching': true,
-                'ordering': true,
-                'info': true,
-                'autoWidth': true
-            });
-
-            $('#table2').DataTable({
-                'paging': true,
-                'lengthChange': true,
-                'searching': true,
-                'ordering': true,
-                'info': true,
-                'autoWidth': true
-            });
-
-            $('#table3').DataTable({
-                'paging': false,
-                'lengthChange': true,
+                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
                 'searching': false,
                 'ordering': false,
-                'info': false,
-                'autoWidth': true
-            });
+                'info': true,
+                'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+                    "url": "@Html.Raw(Url.Action("UsersReportByBookingTotal", "Users"))",
+                    "type": "POST",
+                    "data": function (d) {
+                        d.myKey = "myValue";
+                        d.DiscountName = "myValue";
+                        d.CouponCode = "myValue";
+                        d.DiscountType = "myValue";
+                    },
+                    "datatype": "json"
+                },
+                "columns": [
+
+                    { "data": "user" },
+                    { "data": "bookingTotal" },
+                    { "data": "numberOfBookings" },
+
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<a class="btn btn-primary" href=""><i class="fa fa-eye"></i> View</a>';
+                        }
+                    }
+
+
+                ]
+
+
+            })
+
+
+            $('#UsersByRegistrationTable').on('processing.dt', function (e, settings, processing) {
+                if (processing) {
+                    Pace.start();
+                } else {
+                    Pace.stop();
+                }
+            }).DataTable({
+                'paging': true,
+                'lengthChange': true,
+                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
+                'searching': false,
+                'ordering': false,
+                'info': true,
+                'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+                    "url": "@Html.Raw(Url.Action("UsersReportByRegistration", "Users"))",
+                    "type": "POST",
+                    "data": function (d) {
+                        d.myKey = "myValue";
+                        d.DiscountName = "myValue";
+                        d.CouponCode = "myValue";
+                        d.DiscountType = "myValue";
+                    },
+                    "datatype": "json"
+                },
+                "columns": [
+
+                    {"data": "user" },
+                    {"data": "bookingTotal" },
+                    {"data": "numberOfBookings" },
+
+                    {"render": function (data, type, full, meta) {
+                     return '<a class="btn btn-primary" href=""><i class="fa fa-eye"></i> View</a>'; }
+                    }
+
+
+                ]
+
+
+            })
+
+
+            $('#RegisteredUsersTable').on('processing.dt', function (e, settings, processing) {
+                if (processing) {
+                    Pace.start();
+                } else {
+                    Pace.stop();
+                }
+            }).DataTable({
+                'paging': true,
+                'lengthChange': true,
+                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
+                'searching': false,
+                'ordering': false,
+                'info': true,
+                'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+                    "url": "@Html.Raw(Url.Action("UsersReportRegistered", "Users"))",
+                    "type": "POST",
+                    "data": function (d) {
+                        d.myKey = "myValue";
+                        d.DiscountName = "myValue";
+                        d.CouponCode = "myValue";
+                        d.DiscountType = "myValue";
+                    },
+                    "datatype": "json"
+                },
+                "columns": [
+
+
+                    {"data": "period" },
+                    {"data": "count" },
+
+
+                ]
+
+
+            })
+
         })
     </script>
 }

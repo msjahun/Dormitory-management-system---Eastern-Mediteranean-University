@@ -3,7 +3,7 @@
     ViewBag.Title = "User roles";
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 
-    var model = Model;
+ 
 }
 
 
@@ -12,7 +12,7 @@
     <section class="content-header">
         <h1>
             @ViewBag.Title
-            <small>Optional description</small>
+          
         </h1>
         <div class="row">
             <div class=" col-md-12">
@@ -37,13 +37,13 @@
         <div class="col-md-12">
             <!-- Horizontal Form -->
           
-            <div class="box box-primary">
+            <div class="box box-solid">
 
                 <!-- /.box-header -->
                 <div class="box-body">
 
                     <div class="overflow">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="UserRolesListTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -57,53 +57,7 @@
 
                                 </tr>
                             </thead>
-                            <tbody>
-
-                                @foreach (var item in model)
-                                {
-
-
-                                    <tr>
-                                        <td>@item.Id</td>
-                                        <td>@item.Name</td>
-                                        <td>
-                                            @if (item.IsActive == true)
-                                            {
-                                                <i class="fa fa-check" aria-hidden="true"></i>}
-                                            else
-                                            {
-                                                <i class="fa fa-times" aria-hidden="true"></i>
-                                            }
-                                        </td>
-                                        <td>
-                                            @if (item.IsSystemRole == true)
-                                            {
-
-                                                <i class="fa fa-check" aria-hidden="true"></i>
-                                            }
-                                            else
-                                            {
-                                                <i class="fa fa-times" aria-hidden="true"></i>
-
-                                            }
-
-                                        </td>
-
-                                        @{
-                                            var parms = new Dictionary<string, string>
-                                                                                                    {
-                                                                                                        { "User_role_id", item.Id}
-                                                                                                    };
-                                        }
-
-                                        <secure-content asp-area="Admin" asp-controller="Users" asp-action="UserRoleEdit">
-                                            <td> <a asp-action="UserRoleEdit" asp-controller="Users" asp-all-route-data="parms" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</a></td>
-                                        </secure-content>
-
-
-                                    </tr>
-                                }
-                            </tbody>
+                        
 
                         </table>
                     </div>
@@ -158,15 +112,63 @@
     <!-- page script -->
     <script>
         $(function () {
-            $('#example').DataTable()
-            $('#example1').DataTable({
-                'paging': false,
+            
+            $('#UserRolesListTable').on('processing.dt', function (e, settings, processing) {
+                if (processing) {
+                    Pace.start();
+                } else {
+                    Pace.stop();
+                }
+            }).DataTable({
+                'paging': true,
                 'lengthChange': true,
-                'searching': true,
-                'ordering': true,
+                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
+                'searching': false,
+                'ordering': false,
                 'info': true,
-                'autoWidth': true
+                'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+                    "url": "@Html.Raw(Url.Action("Roles", "Users"))",
+                    "type": "POST",
+                    "data": function (d) {
+                        d.myKey = "myValue";
+                        d.DiscountName = "myValue";
+                        d.CouponCode = "myValue";
+                        d.DiscountType = "myValue";
+                    },
+                    "datatype": "json"
+                },
+                "columns": [
+
+                   
+                    {"data": "id" },
+                    {"data": "name" },
+                    {"render": function (data, type, full, meta) {
+                            if (full.active == true)
+                                return '<i class="fa fa-check" aria-hidden="true"></i>';
+                            else
+                                return '<i class="fa fa-times" aria-hidden="true"></i>';}
+                    },
+                    {"render": function (data, type, full, meta) {
+                            if (full.isSystemRole == true)
+                                return '<i class="fa fa-check" aria-hidden="true"></i>';
+                            else
+                                return '<i class="fa fa-times" aria-hidden="true"></i>';}
+                    },
+                    {"render": function (data, type, full, meta) {
+                        return '<a class="btn btn-primary" href="/Admin/Users/UserRoleEdit/?User_role_id=' + full.id + '"><i class="fa fa-pencil"></i> Edit</a>'; }
+                    }
+                    
+                    
+                ]
+
+
             })
+
         })
     </script>
 }

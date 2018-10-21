@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.Promotions
 @model NewsLetterSubscribersVm
 @{
-    ViewData["Title"] = "_NewsLetterSubscribers";
+    ViewData["Title"] = "NewsLetter Subscribers";
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -11,7 +11,7 @@
     <section class="content-header">
         <h1>
             @ViewBag.Title
-            <small>Optional description</small>
+
         </h1>
         <div class="row">
             <div class=" col-md-12">
@@ -34,7 +34,7 @@
 
         <div class="col-md-12">
             <!-- Horizontal Form -->
-            <div class="box box-primary">
+            <div class="box box-solid">
                 <div class="box-header"></div>
                 <!-- /.box-header -->
                 <!-- form start -->
@@ -85,13 +85,13 @@
 
 
 
-            <div class="box">
+            <div class="box box-solid">
 
                 <!-- /.box-header -->
                 <div class="box-body">
 
                     <div class="overflow">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="NewsLetterSubscribersTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>Email</th>
@@ -154,6 +154,9 @@
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/Ionicons/css/ionicons.min.css">
     <!-- Select2 -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/select2/dist/css/select2.min.css">
+    <!-- bootstrap datepicker -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+
     <!-- DataTables -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <!-- Theme style -->
@@ -162,6 +165,7 @@
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/skins/_all-skins.min.css">
 }
+
 
 
 @section scripts
@@ -176,6 +180,11 @@
     <script src="@Url.Content("~/Content/")bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 
 
+    <script src="@Url.Content("~/Content/")bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap datepicker -->
+    <script src="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <!-- bootstrap time picker -->
+    <script src="@Url.Content("~/Content/")plugins/timepicker/bootstrap-timepicker.min.js"></script>
     <!-- Select2 -->
     <script src="@Url.Content("~/Content/")bower_components/select2/dist/js/select2.full.min.js"></script>
     <!-- SlimScroll -->
@@ -192,15 +201,67 @@
             //Initialize Select2 Elements
             $('.select2').select2()
 
-            $('#example').DataTable()
-            $('#example1').DataTable({
+            $('.date-control').datepicker({
+                autoclose: true,
+                orientation: "left bottom",
+            })
+
+
+            $('#NewsLetterSubscribersTable').on('processing.dt', function (e, settings, processing) {
+                if (processing) {
+                    Pace.start();
+                } else {
+                    Pace.stop();
+                }
+            }).DataTable({
                 'paging': true,
                 'lengthChange': true,
-                'searching': true,
-                'ordering': true,
+                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
+                'searching': false,
+                'ordering': false,
                 'info': true,
-                'autoWidth': true
+                'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+                    "url": "@Html.Raw(Url.Action("NewsLetterSubscribers", "Promotions"))",
+                    "type": "POST",
+                    "data": function (d) {
+                        d.myKey = "myValue";
+                        d.DiscountName = "myValue";
+                        d.CouponCode = "myValue";
+                        d.DiscountType = "myValue";
+                    },
+                    "datatype": "json"
+                },
+                "columns": [
+
+
+                    {"data": "email" },
+
+                    {"render": function (data, type, full, meta) {
+                            if (full.active == true)
+                                return '<i class="fa fa-check" aria-hidden="true"></i>';
+                            else
+                                return '<i class="fa fa-times" aria-hidden="true"></i>';}
+                    },
+                    {"data": "susbscribedOn" },
+
+                    {"render": function (data, type, full, meta) {
+                     return '<a class="btn btn-primary" href="/Admin/Users/Edit/?UserId=' + full.id + '"><i class="fa fa-pencil"></i> Edit</a>'; }
+                    },
+                    {"render": function (data, type, full, meta) {
+                     return '<a class="btn btn-danger" ><i class="fa fa-times"></i> Delete</a>'; }
+                    }
+
+
+                ]
+
+
             })
+
         })
     </script>
 }

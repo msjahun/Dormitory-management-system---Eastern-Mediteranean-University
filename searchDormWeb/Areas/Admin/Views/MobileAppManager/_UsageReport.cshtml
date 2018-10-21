@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "_UsageReport";
+    ViewData["Title"] = "Usage Report";
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -182,62 +182,64 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <table id="bookingTotalsDt" class="table table-bordered table-hover pull-right">
-                                <thead>
-                                    <tr>
-                                        <th>Order Status</th>
-                                        <th>Today</th>
-                                        <th>This Week</th>
-                                        <th>This Month</th>
-                                        <th>This Year</th>
-                                        <th>All Time</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Pending</td>
-                                        <td>0,00 tl</td>
-                                        <td>0,00 tl</td>
-                                        <td>0,00 tl</td>
-                                        <td>0,00 tl</td>
-                                        <td>0,00 tl</td>
+                            <div class="overflow">
+                                <table id="bookingTotalsDt" class="table table-bordered table-hover pull-right">
+                                    <thead>
+                                        <tr>
+                                            <th>Order Status</th>
+                                            <th>Today</th>
+                                            <th>This Week</th>
+                                            <th>This Month</th>
+                                            <th>This Year</th>
+                                            <th>All Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Pending</td>
+                                            <td>0,00 tl</td>
+                                            <td>0,00 tl</td>
+                                            <td>0,00 tl</td>
+                                            <td>0,00 tl</td>
+                                            <td>0,00 tl</td>
 
-                                    </tr>
+                                        </tr>
 
-                                    <tr>
-                                        <td>Processing</td>
-                                        <td>0,00 tl</td>
-                                        <td>0,00 tl</td>
-                                        <td>456,00 tl</td>
-                                        <td>456,00 tl</td>
-                                        <td>345,03 tl</td>
+                                        <tr>
+                                            <td>Processing</td>
+                                            <td>0,00 tl</td>
+                                            <td>0,00 tl</td>
+                                            <td>456,00 tl</td>
+                                            <td>456,00 tl</td>
+                                            <td>345,03 tl</td>
 
-                                    </tr>
+                                        </tr>
 
-                                    <tr>
-                                        <td>Complete</td>
-                                        <td>0,00 tl</td>
-                                        <td>34,00 tl</td>
-                                        <td>0,00 tl</td>
-                                        <td>33,344 tl</td>
-                                        <td>34,50 tl</td>
+                                        <tr>
+                                            <td>Complete</td>
+                                            <td>0,00 tl</td>
+                                            <td>34,00 tl</td>
+                                            <td>0,00 tl</td>
+                                            <td>33,344 tl</td>
+                                            <td>34,50 tl</td>
 
-                                    </tr>
+                                        </tr>
 
-                                    <tr>
-                                        <td>Cancelled</td>
-                                        <td>0,00 tl</td>
-                                        <td>55,00 tl</td>
-                                        <td>34,00 tl</td>
-                                        <td>23,34 tl</td>
-                                        <td>34,50 tl</td>
+                                        <tr>
+                                            <td>Cancelled</td>
+                                            <td>0,00 tl</td>
+                                            <td>55,00 tl</td>
+                                            <td>34,00 tl</td>
+                                            <td>23,34 tl</td>
+                                            <td>34,50 tl</td>
 
-                                    </tr>
+                                        </tr>
 
 
-                                </tbody>
+                                    </tbody>
 
-                            </table>
+                                </table>
+                            </div>
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -259,40 +261,42 @@
                         <!-- /.box-header -->
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <table id="incompleteBookingsDt" class="table table-bordered table-hover pull-right">
-                                <thead>
-                                    <tr>
-                                        <th>Item</th>
-                                        <th>Total</th>
-                                        <th>Count</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Total unpain Orders(pending payment status)</td>
-                                        <td>328,97 tl</td>
-                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> 7-view all</button></td>
-                                    </tr>
+                            <div class="overflow">
+                                <table id="incompleteBookingsDt" class="table table-bordered table-hover pull-right">
+                                    <thead>
+                                        <tr>
+                                            <th>Item</th>
+                                            <th>Total</th>
+                                            <th>Count</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Total unpain Orders(pending payment status)</td>
+                                            <td>328,97 tl</td>
+                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> 7-view all</button></td>
+                                        </tr>
 
 
-                                    <tr>
-                                        <td>Total awaiting comfirmation</td>
-                                        <td>328,97 tl</td>
-                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> 2-view all</button></td>
-                                    </tr>
+                                        <tr>
+                                            <td>Total awaiting comfirmation</td>
+                                            <td>328,97 tl</td>
+                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> 2-view all</button></td>
+                                        </tr>
 
 
-                                    <tr>
-                                        <td>Total incomplete orders (pending order status)</td>
-                                        <td>328,97 tl</td>
-                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> 0-view all</button></td>
-                                    </tr>
+                                        <tr>
+                                            <td>Total incomplete orders (pending order status)</td>
+                                            <td>328,97 tl</td>
+                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> 0-view all</button></td>
+                                        </tr>
 
 
 
-                                </tbody>
+                                    </tbody>
 
-                            </table>
+                                </table>
+                            </div>
                         </div>
                         <!-- /.box-body -->
                         <!-- /.box-body -->
@@ -320,86 +324,88 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <table id="latestBookingsDt" class="table table-bordered table-hover pull-right">
-                                <thead>
-                                    <tr>
-                                        <th>Order #</th>
-                                        <th>Order status</th>
-                                        <th>Customer</th>
-                                        <th>Created on</th>
-                                        <th>View</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1232343</td>
-                                        <td><span class=" label label-success  label-lg green ">Complete</span></td>
-                                        <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
-                                        <td> 8/31/2018 5:13:24AM</td>
-                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                    </tr>
+                            <div class="overflow">
+                                <table id="latestBookingsDt" class="table table-bordered table-hover pull-right">
+                                    <thead>
+                                        <tr>
+                                            <th>Order #</th>
+                                            <th>Order status</th>
+                                            <th>Customer</th>
+                                            <th>Created on</th>
+                                            <th>View</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1232343</td>
+                                            <td><span class=" label label-success  label-lg green ">Complete</span></td>
+                                            <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
+                                            <td> 8/31/2018 5:13:24AM</td>
+                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                        </tr>
 
-                                    <tr>
-                                        <td>1232343</td>
-                                        <td><span class=" label label-success  label-lg green ">Complete</span></td>
-                                        <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
-                                        <td> 8/31/2018 5:13:24AM</td>
-                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>1232343</td>
-                                        <td><span class=" label label-success  label-lg green ">Complete</span></td>
-                                        <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
-                                        <td> 8/31/2018 5:13:24AM</td>
-                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>1232343</td>
-                                        <td><span class=" label label-success  label-lg green ">Complete</span></td>
-                                        <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
-                                        <td> 8/31/2018 5:13:24AM</td>
-                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>1232343</td>
-                                        <td><span class=" label label-success  label-lg green ">Complete</span></td>
-                                        <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
-                                        <td> 8/31/2018 5:13:24AM</td>
-                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>1232343</td>
-                                        <td><span class=" label label-success  label-lg green ">Complete</span></td>
-                                        <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
-                                        <td> 8/31/2018 5:13:24AM</td>
-                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>1232343</td>
-                                        <td><span class=" label label-success  label-lg green ">Complete</span></td>
-                                        <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
-                                        <td> 8/31/2018 5:13:24AM</td>
-                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>1232343</td>
-                                        <td><span class=" label label-success  label-lg green ">Complete</span></td>
-                                        <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
-                                        <td> 8/31/2018 5:13:24AM</td>
-                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>1232343</td>
-                                        <td><span class=" label label-success  label-lg green ">Complete</span></td>
-                                        <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
-                                        <td> 8/31/2018 5:13:24AM</td>
-                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                    </tr>
+                                        <tr>
+                                            <td>1232343</td>
+                                            <td><span class=" label label-success  label-lg green ">Complete</span></td>
+                                            <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
+                                            <td> 8/31/2018 5:13:24AM</td>
+                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>1232343</td>
+                                            <td><span class=" label label-success  label-lg green ">Complete</span></td>
+                                            <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
+                                            <td> 8/31/2018 5:13:24AM</td>
+                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>1232343</td>
+                                            <td><span class=" label label-success  label-lg green ">Complete</span></td>
+                                            <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
+                                            <td> 8/31/2018 5:13:24AM</td>
+                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>1232343</td>
+                                            <td><span class=" label label-success  label-lg green ">Complete</span></td>
+                                            <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
+                                            <td> 8/31/2018 5:13:24AM</td>
+                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>1232343</td>
+                                            <td><span class=" label label-success  label-lg green ">Complete</span></td>
+                                            <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
+                                            <td> 8/31/2018 5:13:24AM</td>
+                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>1232343</td>
+                                            <td><span class=" label label-success  label-lg green ">Complete</span></td>
+                                            <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
+                                            <td> 8/31/2018 5:13:24AM</td>
+                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>1232343</td>
+                                            <td><span class=" label label-success  label-lg green ">Complete</span></td>
+                                            <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
+                                            <td> 8/31/2018 5:13:24AM</td>
+                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>1232343</td>
+                                            <td><span class=" label label-success  label-lg green ">Complete</span></td>
+                                            <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
+                                            <td> 8/31/2018 5:13:24AM</td>
+                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                        </tr>
 
 
-                                </tbody>
+                                    </tbody>
 
-                            </table>
+                                </table>
+                            </div>
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -420,40 +426,42 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <table id="popularFiltersDt" class="table table-bordered table-hover pull-right">
-                                <thead>
-                                    <tr>
-                                        <th>Filter</th>
-                                        <th>Count</th>
+                            <div class="overflow">
+                                <table id="popularFiltersDt" class="table table-bordered table-hover pull-right">
+                                    <thead>
+                                        <tr>
+                                            <th>Filter</th>
+                                            <th>Count</th>
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>TV-in room</td>
-                                        <td>45</td>
-                                    </tr>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>TV-in room</td>
+                                            <td>45</td>
+                                        </tr>
 
-                                    <tr>
-                                        <td>Kitchen shared</td>
-                                        <td>21</td>
-                                    </tr>
+                                        <tr>
+                                            <td>Kitchen shared</td>
+                                            <td>21</td>
+                                        </tr>
 
-                                    <tr>
-                                        <td>TV-in room</td>
-                                        <td>45</td>
-                                    </tr>
+                                        <tr>
+                                            <td>TV-in room</td>
+                                            <td>45</td>
+                                        </tr>
 
-                                    <tr>
-                                        <td>TV-in room</td>
-                                        <td>45</td>
-                                    </tr>
+                                        <tr>
+                                            <td>TV-in room</td>
+                                            <td>45</td>
+                                        </tr>
 
 
 
-                                </tbody>
+                                    </tbody>
 
-                            </table>
+                                </table>
+                            </div>
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -478,50 +486,52 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <table id="bestSellersByQtyDt" class="table table-bordered table-hover pull-right">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Total quantity</th>
-                                        <th>Total amount</th>
-                                        <th>View</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Ramen suits</td>
-                                        <td>23</td>
-                                        <td>82,000 USD</td>
+                            <div class="overflow">
+                                <table id="bestSellersByQtyDt" class="table table-bordered table-hover pull-right">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Total quantity</th>
+                                            <th>Total amount</th>
+                                            <th>View</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Ramen suits</td>
+                                            <td>23</td>
+                                            <td>82,000 USD</td>
 
-                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Prime living suits</td>
-                                        <td>23</td>
-                                        <td>82,000 USD</td>
+                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Prime living suits</td>
+                                            <td>23</td>
+                                            <td>82,000 USD</td>
 
-                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>EMU 1</td>
-                                        <td>23</td>
-                                        <td>82,000 USD</td>
+                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>EMU 1</td>
+                                            <td>23</td>
+                                            <td>82,000 USD</td>
 
-                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Alfam studio suits</td>
-                                        <td>23</td>
-                                        <td>82,000 USD</td>
+                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Alfam studio suits</td>
+                                            <td>23</td>
+                                            <td>82,000 USD</td>
 
-                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                    </tr>
+                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                        </tr>
 
 
 
-                                </tbody>
+                                    </tbody>
 
-                            </table>
+                                </table>
+                            </div>
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -542,51 +552,53 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <table id="bestSellersByAmtDt" class="table table-bordered table-hover ">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Total quantity</th>
-                                        <th>Total amount</th>
-                                        <th>View</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                            <div class="overflow">
+                                <table id="bestSellersByAmtDt" class="table table-bordered table-hover ">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Total quantity</th>
+                                            <th>Total amount</th>
+                                            <th>View</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-                                    <tr>
-                                        <td>EMU 1</td>
-                                        <td>233</td>
-                                        <td>82,000 USD</td>
+                                        <tr>
+                                            <td>EMU 1</td>
+                                            <td>233</td>
+                                            <td>82,000 USD</td>
 
-                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Alfam studio suits</td>
-                                        <td>21</td>
-                                        <td>12,000 USD</td>
+                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Alfam studio suits</td>
+                                            <td>21</td>
+                                            <td>12,000 USD</td>
 
-                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Ramen suits</td>
-                                        <td>13</td>
-                                        <td>2,000 USD</td>
+                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ramen suits</td>
+                                            <td>13</td>
+                                            <td>2,000 USD</td>
 
-                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Prime living suits</td>
-                                        <td>3</td>
-                                        <td>1,000 USD</td>
+                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Prime living suits</td>
+                                            <td>3</td>
+                                            <td>1,000 USD</td>
 
-                                        <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                    </tr>
-
-
-                                </tbody>
+                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                        </tr>
 
 
-                            </table>
+                                    </tbody>
+
+
+                                </table>
+                            </div>
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -687,177 +699,393 @@
 
         $(function () {
 
-            $('#bookingTotalsDt').DataTable({
-                'paging': false,
-                'lengthChange': false,
-                'searching': false,
-                'ordering': true,
-                'info': true,
-                'autoWidth': false,
-
-                "lengthMenu": [[5, 25, 50, -1], [10, 25, 50, "All"]]
-            })
-
-
-            $('#latestBookingsDt').DataTable({
+            $('#latestBookingsDt').on('processing.dt', function (e, settings, processing) {
+                if (processing) {
+                    Pace.start();
+                } else {
+                    Pace.stop();
+                }
+            }).DataTable({
                 'paging': true,
-                'lengthChange': false,
+                'lengthChange': true,
+                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
                 'searching': false,
-                'ordering': true,
+                'ordering': false,
                 'info': true,
                 'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+                    "url": "@Html.Raw(Url.Action("LatestBookings", "Dashboard"))",
+                    "type": "POST",
+                    "data": function (d) {
+                        d.myKey = "myValue";
+                        d.DiscountName = "myValue";
+                        d.CouponCode = "myValue";
+                        d.DiscountType = "myValue";
+                    },
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "orderNo" },
 
-                "lengthMenu": [[5, 25, 50, -1], [10, 25, 50, "All"]]
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<span class=" label label-success  label-lg green ">' + full.orderStatus + '</span>';
+                        }
+                    },
+                    { "data": "customer" },
+                    { "data": "createdOn" },
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<a class="btn btn-primary" href=""><i class="fa fa-pencil"></i> Edit</a>';
+                        }
+                    }
+
+
+                ]
+
+
             })
 
 
 
-            $('#bestSellersByQtyDt').DataTable({
+            $('#popularFiltersDt').on('processing.dt', function (e, settings, processing) {
+                if (processing) {
+                    Pace.start();
+                } else {
+                    Pace.stop();
+                }
+            }).DataTable({
                 'paging': true,
-                'lengthChange': false,
+                'lengthChange': true,
+                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
                 'searching': false,
-                'ordering': true,
+                'ordering': false,
                 'info': true,
                 'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+                    "url": "@Html.Raw(Url.Action("PopularFilters", "MobileAppManager"))",
+                    "type": "POST",
+                    "data": function (d) {
+                        d.myKey = "myValue";
+                        d.DiscountName = "myValue";
+                        d.CouponCode = "myValue";
+                        d.DiscountType = "myValue";
+                    },
+                    "datatype": "json"
+                },
+                "columns": [
 
-                "lengthMenu": [[5, 25, 50, -1], [10, 25, 50, "All"]]
+
+                    { "data": "filter" },
+                    { "data": "count" }
+
+
+                ]
+
+
             })
 
 
-            $('#bestSellersByAmtDt').DataTable({
+            $('#incompleteBookingsDt').on('processing.dt', function (e, settings, processing) {
+                if (processing) {
+                    Pace.start();
+                } else {
+                    Pace.stop();
+                }
+            }).DataTable({
                 'paging': true,
-                'lengthChange': false,
+                'lengthChange': true,
+                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
                 'searching': false,
-                'ordering': true,
+                'ordering': false,
                 'info': true,
                 'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+                    "url": "@Html.Raw(Url.Action("IncompleteBookings", "MobileAppManager"))",
+                    "type": "POST",
+                    "data": function (d) {
+                        d.myKey = "myValue";
+                        d.DiscountName = "myValue";
+                        d.CouponCode = "myValue";
+                        d.DiscountType = "myValue";
+                    },
+                    "datatype": "json"
+                },
+                "columns": [
 
-                "lengthMenu": [[5, 25, 50, -1], [10, 25, 50, "All"]]
+                    { "data": "item" },
+                    { "data": "total" },
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<a class="btn btn-default btn-xs" ><i class="fa fa-eye"></i> ' + full.Count + '-View all</a>';
+                        }
+                    }
+
+
+                ]
+
+
             })
 
-            $('#incompleteBookingsDt').DataTable({
-                'paging': false,
-                'lengthChange': false,
-                'searching': false,
-                'ordering': true,
-                'info': true,
-                'autoWidth': false,
-
-                "lengthMenu": [[5, 25, 50, -1], [10, 25, 50, "All"]]
-            })
 
 
-            $('#popularFiltersDt').DataTable({
+
+            $('#bookingTotalsDt').on('processing.dt', function (e, settings, processing) {
+                if (processing) {
+                    Pace.start();
+                } else {
+                    Pace.stop();
+                }
+            }).DataTable({
                 'paging': true,
-                'lengthChange': false,
+                'lengthChange': true,
+                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
                 'searching': false,
-                'ordering': true,
+                'ordering': false,
                 'info': true,
                 'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+                    "url": "@Html.Raw(Url.Action("BookingTotals", "MobileAppManager"))",
+                    "type": "POST",
+                    "data": function (d) {
+                        d.myKey = "myValue";
+                        d.DiscountName = "myValue";
+                        d.CouponCode = "myValue";
+                        d.DiscountType = "myValue";
+                    },
+                    "datatype": "json"
+                },
+                "columns": [
 
-                "lengthMenu": [[5, 25, 50, -1], [10, 25, 50, "All"]]
+
+                    { "data": "orderStatus" },
+                    { "data": "today" },
+                    { "data": "thisWeek" },
+                    { "data": "thisMonth" },
+                    { "data": "thisYear" },
+                    { "data": "allTime" }
+
+
+                ]
+
+
             })
 
 
 
+            $('#bestSellersByAmtDt').on('processing.dt', function (e, settings, processing) {
+                if (processing) {
+                    Pace.start();
+                } else {
+                    Pace.stop();
+                }
+            }).DataTable({
+                'paging': true,
+                'lengthChange': true,
+                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
+                'searching': false,
+                'ordering': false,
+                'info': true,
+                'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+                    "url": "@Html.Raw(Url.Action("BestSellersAmount", "MobileAppManager"))",
+                    "type": "POST",
+                    "data": function (d) {
+                        d.myKey = "myValue";
+                        d.DiscountName = "myValue";
+                        d.CouponCode = "myValue";
+                        d.DiscountType = "myValue";
+                    },
+                    "datatype": "json"
+                },
+                "columns": [
+
+
+                    { "data": "name" },
+                    { "data": "totalQuantity" },
+                    { "data": "totalAmount" },
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<a class="btn btn-default btn-xs" ><i class="fa fa-eye"></i> View </a>';
+                        }
+                    }
+
+
+                ]
+
+
+            })
+
+
+
+            $('#bestSellersByQtyDt').on('processing.dt', function (e, settings, processing) {
+                if (processing) {
+                    Pace.start();
+                } else {
+                    Pace.stop();
+                }
+            }).DataTable({
+                'paging': true,
+                'lengthChange': true,
+                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
+                'searching': false,
+                'ordering': false,
+                'info': true,
+                'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+                    "url": "@Html.Raw(Url.Action("BestSellersQuantity", "MobileAppManager"))",
+                    "type": "POST",
+                    "data": function (d) {
+                        d.myKey = "myValue";
+                        d.DiscountName = "myValue";
+                        d.CouponCode = "myValue";
+                        d.DiscountType = "myValue";
+                    },
+                    "datatype": "json"
+                },
+                "columns": [
+
+                    { "data": "name" },
+                    { "data": "totalQuantity" },
+                    { "data": "totalAmount" },
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<a class="btn btn-default btn-xs" ><i class="fa fa-eye"></i> View </a>';
+                        }
+                    }
+
+
+                ]
+
+
+            })
+
+
+
+
+
+
+
+            var ctx = document.getElementById("bookingsChart").getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                    datasets: [{
+
+                        data: [2, 3, 3, 5, 2, 3],
+
+                        backgroundColor: [
+                            'rgba(		60, 141, 188,0.5)'
+
+                        ],
+                        borderColor: [
+                            'rgba(		60, 141, 188,1)'
+
+                        ],
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    legend: {
+                        display: false
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                return tooltipItem.yLabel;
+                            }
+                        }
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                userCallback: function (label, index, labels) {
+                                    // when the floored value is the same as the value we have a whole number
+                                    if (Math.floor(label) === label) {
+                                        return label;
+                                    }
+                                }
+                            }
+                        }]
+                    }
+                }
+            });
+
+
+
+            var ctx2 = document.getElementById("newCustomersChart").getContext('2d');
+            var myChart = new Chart(ctx2, {
+                type: 'line',
+                data: {
+                    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "Purple", "Orange"],
+                    datasets: [{
+
+                        data: [0, 0, 0, 3, 2, 2, 3, 2],
+                        backgroundColor: [
+                            'rgba(			221, 75, 57,0.5)'
+
+                        ],
+                        borderColor: [
+                            'rgba(		221, 75, 57,1)'
+
+                        ],
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    legend: {
+                        display: false
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                return tooltipItem.yLabel;
+                            }
+                        }
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                userCallback: function (label, index, labels) {
+                                    // when the floored value is the same as the value we have a whole number
+                                    if (Math.floor(label) === label) {
+                                        return label;
+                                    }
+                                }
+                            }
+                        }]
+                    }
+                }
+            });
 
         })
-
-
-        var ctx = document.getElementById("bookingsChart").getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-                datasets: [{
-
-                    data: [2, 3, 3, 5, 2, 3],
-
-                    backgroundColor: [
-                        'rgba(		60, 141, 188,0.5)'
-
-                    ],
-                    borderColor: [
-                        'rgba(		60, 141, 188,1)'
-
-                    ],
-                    borderWidth: 3
-                }]
-            },
-            options: {
-                legend: {
-                    display: false
-                },
-                tooltips: {
-                    callbacks: {
-                        label: function (tooltipItem) {
-                            return tooltipItem.yLabel;
-                        }
-                    }
-                },
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true,
-                            userCallback: function (label, index, labels) {
-                                // when the floored value is the same as the value we have a whole number
-                                if (Math.floor(label) === label) {
-                                    return label;
-                                }
-                            }
-                        }
-                    }]
-                }
-            }
-        });
-
-
-
-        var ctx2 = document.getElementById("newCustomersChart").getContext('2d');
-        var myChart = new Chart(ctx2, {
-            type: 'line',
-            data: {
-                labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "Purple", "Orange"],
-                datasets: [{
-
-                    data: [0, 0, 0, 3, 2, 2, 3, 2],
-                    backgroundColor: [
-                        'rgba(			221, 75, 57,0.5)'
-
-                    ],
-                    borderColor: [
-                        'rgba(		221, 75, 57,1)'
-
-                    ],
-                    borderWidth: 3
-                }]
-            },
-            options: {
-                legend: {
-                    display: false
-                },
-                tooltips: {
-                    callbacks: {
-                        label: function (tooltipItem) {
-                            return tooltipItem.yLabel;
-                        }
-                    }
-                },
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true,
-                            userCallback: function (label, index, labels) {
-                                // when the floored value is the same as the value we have a whole number
-                                if (Math.floor(label) === label) {
-                                    return label;
-                                }
-                            }
-                        }
-                    }]
-                }
-            }
-        });
     </script>
 
 }

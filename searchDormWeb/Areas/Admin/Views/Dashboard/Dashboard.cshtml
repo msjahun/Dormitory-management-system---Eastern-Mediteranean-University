@@ -75,7 +75,23 @@
 
 
                         <div class="row">
-                            <div class="col-lg-3 col-xs-6">
+                            <div class="col-lg-4 col-xs-12 col-sm-6">
+                                <div class="box box-info box-solid">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">News</h3>
+
+
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body" style="">
+                                        The body of the box
+                                    </div>
+                                    <!-- /.box-body -->
+                                </div>
+                                <!-- /.box -->
+                            </div>
+                            
+                            <div class="col-lg-4 col-xs-12 col-sm-6">
                                 <div class="box box-info box-solid">
                                     <div class="box-header with-border">
                                         <h3 class="box-title">News</h3>
@@ -91,39 +107,7 @@
                                 <!-- /.box -->
                             </div>
                             <!-- /.col -->
-                            <div class="col-lg-3 col-xs-6">
-                                <div class="box box-info box-solid">
-                                    <div class="box-header with-border">
-                                        <h3 class="box-title">News</h3>
-
-
-                                    </div>
-                                    <!-- /.box-header -->
-                                    <div class="box-body" style="">
-                                        The body of the box
-                                    </div>
-                                    <!-- /.box-body -->
-                                </div>
-                                <!-- /.box -->
-                            </div>
-                            <!-- /.col -->
-                            <div class="col-lg-3 col-xs-6">
-                                <div class="box box-info box-solid">
-                                    <div class="box-header with-border">
-                                        <h3 class="box-title">News</h3>
-
-
-                                    </div>
-                                    <!-- /.box-header -->
-                                    <div class="box-body" style="">
-                                        The body of the box
-                                    </div>
-                                    <!-- /.box-body -->
-                                </div>
-                                <!-- /.box -->
-                            </div>
-                            <!-- /.col -->
-                            <div class="col-lg-3 col-xs-6">
+                            <div class="col-lg-4 col-xs-12 ">
                                 <div class="box box-info box-solid">
                                     <div class="box-header with-border">
                                         <h3 class="box-title">News</h3>
@@ -234,6 +218,7 @@
 
             <div class="row">
 
+               
                 <div class="col-md-6">
                     <div class="box box-info">
                         <div class="box-header with-border">
@@ -288,6 +273,8 @@
 
             <div class="row">
 
+
+                <secure-content asp-area="Admin" asp-controller="Dashboard" asp-action="BookingTotals">
                 <div class="col-md-8">
                     <div class="box box-info">
                         <div class="box-header with-border">
@@ -366,7 +353,9 @@
                     </div>
                     <!-- /.box -->
                 </div>
+                    </secure-content>
 
+                <secure-content asp-area="Admin" asp-controller="Dashboard" asp-action="IncompleteBookings">
                 <div class="col-md-4">
                     <div class="box box-info">
                         <div class="box-header with-border">
@@ -425,13 +414,15 @@
                     </div>
                     <!-- /.box -->
                 </div>
-
+                    </secure-content>
             </div>
 
 
 
             <div class="row">
 
+
+                <secure-content asp-area="Admin" asp-controller="Dashboard" asp-action="LatestBookings">
                 <div class="col-md-8">
                     <div class="box box-info">
                         <div class="box-header with-border">
@@ -534,7 +525,9 @@
                     </div>
                     <!-- /.box -->
                 </div>
+                    </secure-content>
 
+                <secure-content asp-area="Admin" asp-controller="Dashboard" asp-action="PopularFilters">
                 <div class="col-md-4">
                     <div class="box box-info">
                         <div class="box-header with-border">
@@ -591,11 +584,13 @@
                     </div>
                     <!-- /.box -->
                 </div>
-
+                    </secure-content>
             </div>
 
             <div class="row">
 
+
+                <secure-content asp-area="Admin" asp-controller="Dashboard" asp-action="BestSellersQuantity">
                 <div class="col-md-6">
                     <div class="box box-info">
                         <div class="box-header with-border">
@@ -662,75 +657,77 @@
                     </div>
                     <!-- /.box -->
                 </div>
+                    </secure-content>
 
-                <div class="col-md-6">
-                    <div class="box box-info">
-                        <div class="box-header with-border">
-                            <h3 class="box-title"><i class="fa fa-star-o"></i> Bestsellers(rooms) by amount</h3>
+                <secure-content asp-area="Admin" asp-controller="Dashboard" asp-action="BestSellersAmount">
+                    <div class="col-md-6">
+                        <div class="box box-info">
+                            <div class="box-header with-border">
+                                <h3 class="box-title"><i class="fa fa-star-o"></i> Bestsellers(rooms) by amount</h3>
 
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                                    <i class="fa fa-minus"></i>
-                                </button>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <!-- /.box-tools -->
                             </div>
-                            <!-- /.box-tools -->
-                        </div>
-                        <!-- /.box-header -->
-                        <div class="box-body">
+                            <!-- /.box-header -->
+                            <div class="box-body">
 
-                            <div class="overflow">
-                                <table id="bestSellersByAmtDt" class="table table-bordered table-hover ">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Total quantity</th>
-                                            <th>Total amount</th>
-                                            <th>View</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                                <div class="overflow">
+                                    <table id="bestSellersByAmtDt" class="table table-bordered table-hover ">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Total quantity</th>
+                                                <th>Total amount</th>
+                                                <th>View</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
 
-                                        <tr>
-                                            <td>EMU 1</td>
-                                            <td>233</td>
-                                            <td>82,000 USD</td>
+                                            <tr>
+                                                <td>EMU 1</td>
+                                                <td>233</td>
+                                                <td>82,000 USD</td>
 
-                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Alfam studio suits</td>
-                                            <td>21</td>
-                                            <td>12,000 USD</td>
+                                                <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Alfam studio suits</td>
+                                                <td>21</td>
+                                                <td>12,000 USD</td>
 
-                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ramen suits</td>
-                                            <td>13</td>
-                                            <td>2,000 USD</td>
+                                                <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Ramen suits</td>
+                                                <td>13</td>
+                                                <td>2,000 USD</td>
 
-                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Prime living suits</td>
-                                            <td>3</td>
-                                            <td>1,000 USD</td>
+                                                <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Prime living suits</td>
+                                                <td>3</td>
+                                                <td>1,000 USD</td>
 
-                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                        </tr>
+                                                <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                            </tr>
 
 
-                                    </tbody>
+                                        </tbody>
 
 
-                                </table>
+                                    </table>
+                                </div>
                             </div>
+                            <!-- /.box-body -->
                         </div>
-                        <!-- /.box-body -->
+                        <!-- /.box -->
                     </div>
-                    <!-- /.box -->
-                </div>
-
+                </secure-content>
             </div>
 
             <!-- /.row -->
@@ -793,178 +790,393 @@
     <script>
 
         $(function () {
-           
-            $('#bookingTotalsDt').DataTable({
-                'paging': false,
-                'lengthChange': false,
-                'searching': false,
-                'ordering': true,
-                'info': true,
-                'autoWidth': false,
-              
-                "lengthMenu": [[5, 25, 50, -1], [10, 25, 50, "All"]]
-            })
+
+        
 
 
-            $('#latestBookingsDt').DataTable({
+            $('#latestBookingsDt').on('processing.dt', function (e, settings, processing) {
+                if (processing) {
+                    Pace.start();
+                } else {
+                    Pace.stop();
+                }
+            }).DataTable({
                 'paging': true,
-                'lengthChange': false,
+                'lengthChange': true,
+                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
                 'searching': false,
-                'ordering': true,
+                'ordering': false,
                 'info': true,
                 'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+                    "url": "@Html.Raw(Url.Action("LatestBookings", "Dashboard"))",
+                    "type": "POST",
+                    "data": function (d) {
+                        d.myKey = "myValue";
+                        d.DiscountName = "myValue";
+                        d.CouponCode = "myValue";
+                        d.DiscountType = "myValue";
+                    },
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "orderNo" },
 
-                "lengthMenu": [[5, 25, 50, -1], [10, 25, 50, "All"]]
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<span class=" label label-success  label-lg green ">' + full.orderStatus + '</span>';
+                        }
+                    },
+                    { "data": "customer" },
+                    { "data": "createdOn" },
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<a class="btn btn-primary" href=""><i class="fa fa-pencil"></i> Edit</a>';
+                        }
+                    }
+
+
+                ]
+
+
             })
 
 
-
-            $('#bestSellersByQtyDt').DataTable({
+            
+            $('#popularFiltersDt').on('processing.dt', function (e, settings, processing) {
+                if (processing) {
+                    Pace.start();
+                } else {
+                    Pace.stop();
+                }
+            }).DataTable({
                 'paging': true,
-                'lengthChange': false,
+                'lengthChange': true,
+                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
                 'searching': false,
-                'ordering': true,
+                'ordering': false,
                 'info': true,
                 'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+                    "url": "@Html.Raw(Url.Action("PopularFilters", "Dashboard"))",
+                    "type": "POST",
+                    "data": function (d) {
+                        d.myKey = "myValue";
+                        d.DiscountName = "myValue";
+                        d.CouponCode = "myValue";
+                        d.DiscountType = "myValue";
+                    },
+                    "datatype": "json"
+                },
+                "columns": [
 
-                "lengthMenu": [[5, 25, 50, -1], [10, 25, 50, "All"]]
+
+                    { "data": "filter" },
+                    { "data": "count" }
+
+
+                ]
+
+
             })
 
 
-            $('#bestSellersByAmtDt').DataTable({
+               $('#incompleteBookingsDt').on('processing.dt', function (e, settings, processing) {
+                if (processing) {
+                    Pace.start();
+                } else {
+                    Pace.stop();
+                }
+            }).DataTable({
                 'paging': true,
-                'lengthChange': false,
+                'lengthChange': true,
+                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
                 'searching': false,
-                'ordering': true,
+                'ordering': false,
                 'info': true,
                 'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+                    "url": "@Html.Raw(Url.Action("IncompleteBookings", "Dashboard"))",
+                    "type": "POST",
+                    "data": function (d) {
+                        d.myKey = "myValue";
+                        d.DiscountName = "myValue";
+                        d.CouponCode = "myValue";
+                        d.DiscountType = "myValue";
+                    },
+                    "datatype": "json"
+                },
+                "columns": [
 
-                "lengthMenu": [[5, 25, 50, -1], [10, 25, 50, "All"]]
+                    { "data": "item" },
+                    { "data": "total" },
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<a class="btn btn-default btn-xs" ><i class="fa fa-eye"></i> ' + full.Count + '-View all</a>';
+                        }
+                    }
+
+
+                ]
+
+
             })
 
-            $('#incompleteBookingsDt').DataTable({
-                'paging': false,
-                'lengthChange': false,
-                'searching': false,
-                'ordering': true,
-                'info': true,
-                'autoWidth': false,
-
-                "lengthMenu": [[5, 25, 50, -1], [10, 25, 50, "All"]]
-            })
 
 
-            $('#popularFiltersDt').DataTable({
+     
+                $('#bookingTotalsDt').on('processing.dt', function (e, settings, processing) {
+                if (processing) {
+                    Pace.start();
+                } else {
+                    Pace.stop();
+                }
+            }).DataTable({
                 'paging': true,
-                'lengthChange': false,
+                'lengthChange': true,
+                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
                 'searching': false,
-                'ordering': true,
+                'ordering': false,
                 'info': true,
                 'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+                    "url": "@Html.Raw(Url.Action("BookingTotals", "Dashboard"))",
+                    "type": "POST",
+                    "data": function (d) {
+                        d.myKey = "myValue";
+                        d.DiscountName = "myValue";
+                        d.CouponCode = "myValue";
+                        d.DiscountType = "myValue";
+                    },
+                    "datatype": "json"
+                },
+                "columns": [
 
-                "lengthMenu": [[5, 25, 50, -1], [10, 25, 50, "All"]]
+
+                    { "data": "orderStatus" },
+                    { "data": "today" },
+                    { "data": "thisWeek" },
+                    { "data": "thisMonth" },
+                    { "data": "thisYear" },
+                    { "data": "allTime" }
+
+
+                ]
+
+
+            })
+
+
+            
+            $('#bestSellersByAmtDt').on('processing.dt', function (e, settings, processing) {
+                if (processing) {
+                    Pace.start();
+                } else {
+                    Pace.stop();
+                }
+            }).DataTable({
+                'paging': true,
+                'lengthChange': true,
+                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
+                'searching': false,
+                'ordering': false,
+                'info': true,
+                'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+                    "url": "@Html.Raw(Url.Action("BestSellersAmount", "Dashboard"))",
+                    "type": "POST",
+                    "data": function (d) {
+                        d.myKey = "myValue";
+                        d.DiscountName = "myValue";
+                        d.CouponCode = "myValue";
+                        d.DiscountType = "myValue";
+                    },
+                    "datatype": "json"
+                },
+                "columns": [
+
+
+                    { "data": "name" },
+                    { "data": "totalQuantity" },
+                    { "data": "totalAmount" },
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<a class="btn btn-default btn-xs" ><i class="fa fa-eye"></i> View </a>';
+                        }
+                    }
+
+
+                ]
+
+
             })
 
 
 
+             $('#bestSellersByQtyDt').on('processing.dt', function (e, settings, processing) {
+                if (processing) {
+                    Pace.start();
+                } else {
+                    Pace.stop();
+                }
+            }).DataTable({
+                'paging': true,
+                'lengthChange': true,
+                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
+                'searching': false,
+                'ordering': false,
+                'info': true,
+                'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+                    "url": "@Html.Raw(Url.Action("BestSellersQuantity", "Dashboard"))",
+                    "type": "POST",
+                    "data": function (d) {
+                        d.myKey = "myValue";
+                        d.DiscountName = "myValue";
+                        d.CouponCode = "myValue";
+                        d.DiscountType = "myValue";
+                    },
+                    "datatype": "json"
+                },
+                "columns": [
+
+                    { "data": "name" },
+                    { "data": "totalQuantity" },
+                    { "data": "totalAmount" },
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<a class="btn btn-default btn-xs" ><i class="fa fa-eye"></i> View </a>';
+                        }
+                    }
+
+
+                ]
+
+
+            })
+
+
+
+            var ctx = document.getElementById("bookingsChart").getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                    datasets: [{
+
+                        data: [2, 3, 3, 5, 2, 3],
+
+                        backgroundColor: [
+                            'rgba(		60, 141, 188,0.5)'
+
+                        ],
+                        borderColor: [
+                            'rgba(		60, 141, 188,1)'
+
+                        ],
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    legend: {
+                        display: false
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                return tooltipItem.yLabel;
+                            }
+                        }
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                userCallback: function (label, index, labels) {
+                                    // when the floored value is the same as the value we have a whole number
+                                    if (Math.floor(label) === label) {
+                                        return label;
+                                    }
+                                }
+                            }
+                        }]
+                    }
+                }
+            });
+
+
+
+            var ctx2 = document.getElementById("newCustomersChart").getContext('2d');
+            var myChart = new Chart(ctx2, {
+                type: 'line',
+                data: {
+                    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "Purple", "Orange"],
+                    datasets: [{
+
+                        data: [0, 0, 0, 3, 2, 2, 3, 2],
+                        backgroundColor: [
+                            'rgba(		0, 166, 90,0.5)'
+
+                        ],
+                        borderColor: [
+                            'rgba(	0, 166, 90,1)'
+
+                        ],
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    legend: {
+                        display: false
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                return tooltipItem.yLabel;
+                            }
+                        }
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                userCallback: function (label, index, labels) {
+                                    // when the floored value is the same as the value we have a whole number
+                                    if (Math.floor(label) === label) {
+                                        return label;
+                                    }
+                                }
+                            }
+                        }]
+                    }
+                }
+            });
 
         })
-
-
-        var ctx = document.getElementById("bookingsChart").getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-                datasets: [{
-
-                    data: [2, 3, 3, 5, 2, 3],
-
-                    backgroundColor: [
-                        'rgba(		60, 141, 188,0.5)'
-
-                    ],
-                    borderColor: [
-                        'rgba(		60, 141, 188,1)'
-
-                    ],
-                    borderWidth: 3
-                }]
-            },
-            options: {
-                legend: {
-                    display: false
-                },
-                tooltips: {
-                    callbacks: {
-                        label: function (tooltipItem) {
-                            return tooltipItem.yLabel;
-                        }
-                    }
-                },
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true,
-                            userCallback: function (label, index, labels) {
-                                // when the floored value is the same as the value we have a whole number
-                                if (Math.floor(label) === label) {
-                                    return label;
-                                }
-                            }
-                        }
-                    }]
-                }
-            }
-        });
-
-
-
-        var ctx2 = document.getElementById("newCustomersChart").getContext('2d');
-        var myChart = new Chart(ctx2, {
-            type: 'line',
-            data: {
-                labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "Purple", "Orange"],
-                datasets: [{
-
-                    data: [0, 0, 0, 3, 2, 2, 3, 2],
-                    backgroundColor: [
-                        'rgba(		0, 166, 90,0.5)'
-
-                    ],
-                    borderColor: [
-                        'rgba(	0, 166, 90,1)'
-
-                    ],
-                    borderWidth: 3
-                }]
-            },
-            options: {
-                legend: {
-                    display: false
-                },
-                tooltips: {
-                    callbacks: {
-                        label: function (tooltipItem) {
-                            return tooltipItem.yLabel;
-                        }
-                    }
-                },
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true,
-                            userCallback: function (label, index, labels) {
-                                // when the floored value is the same as the value we have a whole number
-                                if (Math.floor(label) === label) {
-                                    return label;
-                                }
-                            }
-                        }
-                    }]
-                }
-            }
-        });
     </script>
 
 }

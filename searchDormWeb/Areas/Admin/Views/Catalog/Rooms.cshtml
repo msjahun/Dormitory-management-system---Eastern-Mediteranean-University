@@ -11,7 +11,7 @@
     <section class="content-header">
         <h1>
             Rooms list
-            <small>Optional description</small>
+           
         </h1>
         <div class="row">
             <div class=" col-md-12">
@@ -50,7 +50,7 @@
 
         <div class="col-md-12">
             <!-- Horizontal Form -->
-            <div class="box box-primary">
+            <div class="box box-solid">
                 <div class="box-header"></div>
                 <!-- /.box-header -->
                 <!-- form start -->
@@ -107,17 +107,19 @@
 
 
 
-            <div class="box">
+            <div class="box box-solid">
 
                 <!-- /.box-header -->
                 <div class="box-body">
 
                     <div class="overflow">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="RoomsListTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th><input type="checkbox" /></th>
+                                    <th>Room #</th>
                                     <th>Picture</th>
+                                    <th>Dormitory name</th>
                                     <th>Room name</th>
                                     <th>SKU</th>
                                     <th>Price</th>
@@ -127,74 +129,7 @@
                                     <th>Edit</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td><input type="checkbox" /></td>
-                                    <td>Picure</td>
-                                    <td>Alfam B block 113</td>
-                                    <td>k2jh34</td>
-                                    <td>$12,000</td>
-                                    <td>59</td>
-                                    <td>Double room</td>
-                                    <td><i class="fa fa-check"></i></td>
-                                    <td> <a asp-action="RoomEdit" asp-controller="Catalog" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</a></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" /></td>
-                                    <td>Picure</td>
-                                    <td>Alfam B block 113</td>
-                                    <td>k2jh34</td>
-                                    <td>$12,000</td>
-                                    <td>59</td>
-                                    <td>Double room</td>
-                                    <td><i class="fa fa-check"></i></td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" /></td>
-                                    <td>Picure</td>
-                                    <td>Alfam B block 113</td>
-                                    <td>k2jh34</td>
-                                    <td>$12,000</td>
-                                    <td>59</td>
-                                    <td>Double room</td>
-                                    <td><i class="fa fa-check"></i></td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" /></td>
-                                    <td>Picure</td>
-                                    <td>Alfam B block 113</td>
-                                    <td>k2jh34</td>
-                                    <td>$12,000</td>
-                                    <td>59</td>
-                                    <td>Double room</td>
-                                    <td><i class="fa fa-check"></i></td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" /></td>
-                                    <td>Picure</td>
-                                    <td>Alfam B block 113</td>
-                                    <td>k2jh34</td>
-                                    <td>$12,000</td>
-                                    <td>59</td>
-                                    <td>Double room</td>
-                                    <td><i class="fa fa-check"></i></td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" /></td>
-                                    <td>Picure</td>
-                                    <td>Alfam B block 113</td>
-                                    <td>k2jh34</td>
-                                    <td>$12,000</td>
-                                    <td>59</td>
-                                    <td>Double room</td>
-                                    <td><i class="fa fa-check"></i></td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                                </tr>
-                            </tbody>
+                      
 
                         </table>
                     </div>
@@ -261,15 +196,78 @@
             $('.select2').select2()
 
 
-            $('#example').DataTable()
-            $('#example1').DataTable({
+           
+            $('#RoomsListTable').on('processing.dt', function (e, settings, processing) {
+                if (processing) {
+                    Pace.start();
+                } else {
+                    Pace.stop();
+                }
+            }).DataTable({
                 'paging': true,
                 'lengthChange': true,
-                'searching': true,
-                'ordering': true,
+                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
+                'searching': false,
+                'ordering': false,
                 'info': true,
-                'autoWidth': true
+                'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+                    "url": "/Admin/Catalog/Rooms",
+                    "type": "POST",
+                    "data": function (d) {
+                        d.myKey = "myValue";
+                        d.DiscountName = "myValue";
+                        d.CouponCode = "myValue";
+                        d.DiscountType = "myValue";
+                    },
+                    "datatype": "json"
+                },
+                "columns": [
+
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<input type="checkbox">';
+                        }
+                    },
+                    { "data": "roomId" },
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<img src="'+ full.picture+'" style="width:100px; height:80px;">';
+                        }
+                    },
+                  
+                    { "data": "dormitoryName" },
+                    { "data": "roomName" },
+                    { "data": "sku" },
+                    { "data": "price" },
+                    { "data": "quota" },
+                    { "data": "roomType" },
+                    {
+                        "render": function (data, type, full, meta) {
+                            if (full.published == true)
+                                return '<i class="fa fa-check" aria-hidden="true"></i>';
+                            else
+                                return '<i class="fa fa-times" aria-hidden="true"></i>';
+
+                        }
+                    },
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<a class="btn btn-primary" href="/Admin/Catalog/RoomEdit"><i class="fa fa-pencil"></i> Edit</a>';
+                        }
+                    }
+
+
+                ]
+
+
             })
+
+
         })
     </script>
 }

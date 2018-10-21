@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "EmailAccounts";
+    ViewBag.Title = "Email accounts";
     Layout = "../shared/_LayoutAdmin.cshtml";
 }
 
@@ -10,7 +10,7 @@
     <section class="content-header">
         <h1>
             @ViewBag.Title
-            <small>Optional description</small>
+           
         </h1>
         <div class="row">
             <div class=" col-md-12">
@@ -33,13 +33,13 @@
         <div class="col-md-12">
           
 
-            <div class="box">
+            <div class="box box-solid">
 
                 <!-- /.box-header -->
                 <div class="box-body">
 
                     <div class="overflow">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="EmailAccountsTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>Email address</th>
@@ -134,15 +134,59 @@
     <!-- page script -->
     <script>
         $(function () {
-            $('#example').DataTable()
-            $('#example1').DataTable({
-                'paging': false,
+           
+            $('#EmailAccountsTable').on('processing.dt', function (e, settings, processing) {
+                if (processing) {
+                    Pace.start();
+                } else {
+                    Pace.stop();
+                }
+            }).DataTable({
+                'paging': true,
                 'lengthChange': true,
+                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
                 'searching': false,
                 'ordering': false,
-                'info': false,
-                'autoWidth': true
+                'info': true,
+                'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+                 "url": "@Html.Raw(Url.Action("emailAccounts", "Configurations"))",
+                    "type": "POST",
+                    "data": function (d) {
+                        d.myKey = "myValue";
+                        d.DiscountName = "myValue";
+                        d.CouponCode = "myValue";
+                        d.DiscountType = "myValue";
+                    },
+                    "datatype": "json"
+                },
+                "columns": [
+                
+                    {"data": "emailAddress" },
+                    {"data": "emailDisplayName" },
+                    {"render": function (data, type, full, meta) {
+                            if (full.isDefaultEmailAccount == true)
+                                return '<i class="fa fa-check" aria-hidden="true"></i>';
+                            else
+                                return '<i class="fa fa-times" aria-hidden="true"></i>';}
+                    },
+                    {"render": function (data, type, full, meta) {
+                        return '<a class="btn btn-primary"><i class="fa fa-pencil"></i> Mark as default</a>'; }
+                    },
+                    {"render": function (data, type, full, meta) {
+                        return '<a class="btn btn-primary" href="/Admin/Configurations/EmailAccountEdit"><i class="fa fa-pencil"></i> Edit</a>'; }
+                    }
+                    
+                    
+                ]
+
+
             })
+
         })
     </script>
 }

@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.System
 @model MaintenanceVm
 @{
-    ViewData["Title"] = "_Maintenance";
+    ViewData["Title"] = "Maintenance";
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -10,7 +10,7 @@
     <section class="content-header">
         <h1>
             @ViewBag.Title
-            <small>Optional description</small>
+
         </h1>
         <div class="row">
             <div class=" col-md-12">
@@ -39,49 +39,54 @@
 
                 <div class="row">
 
-                    <div class="col-md-4">
-                        <div class="box box-warning">
+                    <div class="col-md-6">
+                        <div class="box box-solid">
                             <div class="box-header with-border">
                                 <h3 class="box-title">Deleting guest users</h3>
 
 
                             </div>
                             <!-- /.box-header -->
+                            
                             <div class="box-body">
-                                <div class="form-group">
-                                    <dau-label asp-for="StartDate"></dau-label>
-                                    <dau-date asp-for="StartDate"></dau-date>
-                                    <span asp-validation-for="StartDate"></span>
-                                </div>
+                                <form class="form-horizontal">
 
-
-                                <div class="form-group">
-                                    <dau-label asp-for="EndDate"></dau-label>
-                                    <dau-date asp-for="EndDate"></dau-date>
-                                    <span asp-validation-for="EndDate"></span>
-                                </div>
-
-
-                                <div class="form-group">
-                                    <dau-label asp-for="OnlyWithoutWishList"></dau-label>
-                                    <div class="col-sm-8"><input type="checkbox" asp-for="OnlyWithoutWishList"></div>
-                                    <span asp-validation-for="OnlyWithoutWishList"></span>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class=" col-sm-8">
-                                        <button type="submit" class="btn btn-danger "> <i class="fa fa-trash"></i> Delete</button>
+                                    <div class="form-group">
+                                        <dau-label asp-for="StartDate"></dau-label>
+                                        <dau-date asp-for="StartDate"></dau-date>
+                                        <span asp-validation-for="StartDate"></span>
                                     </div>
-                                </div>
 
+
+                                    <div class="form-group">
+                                        <dau-label asp-for="EndDate"></dau-label>
+                                        <dau-date asp-for="EndDate"></dau-date>
+                                        <span asp-validation-for="EndDate"></span>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <dau-label asp-for="OnlyWithoutWishList"></dau-label>
+                                        <div class="col-sm-8"><input type="checkbox" asp-for="OnlyWithoutWishList"></div>
+                                        <span asp-validation-for="OnlyWithoutWishList"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class=" col-sm-8">
+                                            <button type="submit" class="btn btn-danger "> <i class="fa fa-trash"></i> Delete</button>
+                                        </div>
+
+
+                                    </div>
+                                </form>
                             </div>
-                            <!-- /.box-body -->
+                                <!-- /.box-body -->
                         </div>
                         <!-- /.box -->
                     </div>
 
-                    <div class="col-md-4">
-                        <div class="box box-warning">
+                    <div class="col-md-6">
+                        <div class="box box-solid">
                             <div class="box-header with-border">
                                 <h3 class="box-title">Deleting abandoned wishlists</h3>
 
@@ -89,26 +94,28 @@
                             </div>
                             <!-- /.box-header -->
                             <div class="box-body">
-
-                                <div class="form-group">
-                                    <dau-label asp-for="CreatedBefore"></dau-label>
-                                    <dau-date asp-for="CreatedBefore"></dau-date>
-                                    <span asp-validation-for="CreatedBefore"></span>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class=" col-sm-10">
-                                        <button type="submit" class="btn btn-danger "> <i class="fa fa-trash"></i> Delete</button>
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <dau-label asp-for="CreatedBefore"></dau-label>
+                                        <dau-date asp-for="CreatedBefore"></dau-date>
+                                        <span asp-validation-for="CreatedBefore"></span>
                                     </div>
-                                </div>
+
+                                    <div class="form-group">
+                                        <div class=" col-sm-10">
+                                            <button type="submit" class="btn btn-danger "> <i class="fa fa-trash"></i> Delete</button>
+                                        </div>
+                                    </div>
+
+                                    </form>
                             </div>
                             <!-- /.box-body -->
                         </div>
                         <!-- /.box -->
                     </div>
 
-                    <div class="col-md-4">
-                        <div class="box box-warning">
+                    <div class="col-md-6">
+                        <div class="box box-solid">
                             <div class="box-header with-border">
                                 <h3 class="box-title">Deleting old exported files</h3>
 
@@ -116,24 +123,26 @@
                             </div>
                             <!-- /.box-header -->
                             <div class="box-body">
-
-                                <div class="form-group">
-                                    <dau-label asp-for="StartDate"></dau-label>
-                                    <dau-date asp-for="StartDate"></dau-date>
-                                    <span asp-validation-for="StartDate"></span>
-                                </div>
-
-                                <div class="form-group">
-                                    <dau-label asp-for="EndDate"></dau-label>
-                                    <dau-date asp-for="EndDate"></dau-date>
-                                    <span asp-validation-for="EndDate"></span>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class=" col-sm-10">
-                                        <button type="submit" class="btn btn-danger "> <i class="fa fa-trash"></i> Delete</button>
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <dau-label asp-for="StartDate"></dau-label>
+                                        <dau-date asp-for="StartDate"></dau-date>
+                                        <span asp-validation-for="StartDate"></span>
                                     </div>
-                                </div>
+
+                                    <div class="form-group">
+                                        <dau-label asp-for="EndDate"></dau-label>
+                                        <dau-date asp-for="EndDate"></dau-date>
+                                        <span asp-validation-for="EndDate"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class=" col-sm-10">
+                                            <button type="submit" class="btn btn-danger "> <i class="fa fa-trash"></i> Delete</button>
+                                        </div>
+                                    </div>
+
+                                    </form>
                             </div>
                             <!-- /.box-body -->
                         </div>
@@ -148,7 +157,7 @@
 
 
 
-            <div class="box">
+            <div class="box box-solid">
 
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -157,7 +166,7 @@
                     </div>
 
                     <div class="overflow">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="MaintenanceTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>File name</th>
@@ -194,6 +203,8 @@
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/Ionicons/css/ionicons.min.css">
+    <!-- bootstrap datepicker -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
     <!-- DataTables -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <!-- Theme style -->
@@ -202,6 +213,9 @@
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/skins/_all-skins.min.css">
 }
+
+
+
 
 
 @section scripts
@@ -214,6 +228,11 @@
     <script src="@Url.Content("~/Content/")dist/js/adminlte.min.js"></script>
     <script src="@Url.Content("~/Content/")bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="@Url.Content("~/Content/")bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="@Url.Content("~/Content/")bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap datepicker -->
+    <script src="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <!-- bootstrap time picker -->
+    <script src="@Url.Content("~/Content/")plugins/timepicker/bootstrap-timepicker.min.js"></script>
     <!-- SlimScroll -->
     <script src="@Url.Content("~/Content/")bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
@@ -224,14 +243,59 @@
     <!-- page script -->
     <script>
         $(function () {
-            $('#example').DataTable()
-            $('#example1').DataTable({
+            $('.date-control').datepicker({
+                autoclose: true,
+                orientation: "left bottom",
+            })
+            $('#MaintenanceTable').on('processing.dt', function (e, settings, processing) {
+                if (processing) {
+                    Pace.start();
+                } else {
+                    Pace.stop();
+                }
+            }).DataTable({
                 'paging': true,
                 'lengthChange': true,
-                'searching': true,
-                'ordering': true,
+                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
+                'searching': false,
+                'ordering': false,
                 'info': true,
-                'autoWidth': true
+                'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+                    "url": "@Html.Raw(Url.Action("Maintenance", "System"))",
+                    "type": "POST",
+                    "data": function (d) {
+                        d.myKey = "myValue";
+                        d.DiscountName = "myValue";
+                        d.CouponCode = "myValue";
+                        d.DiscountType = "myValue";
+                    },
+                    "datatype": "json"
+                },
+                "columns": [
+
+
+                    {"data": "fileName" },
+                    {"data": "fileSize" },
+
+                    {"render": function (data, type, full, meta) {
+                     return '<a class="btn btn-danger" ><i class="fa fa-times"></i> Delete</a>'; }
+                    },
+                    {"render": function (data, type, full, meta) {
+                     return '<a class="btn btn-primary" ><i class="fa fa-download"></i> Download</a>'; }
+                    },
+                    {"render": function (data, type, full, meta) {
+                     return '<a class="btn btn-success" ><i class=""></i> Restore</a>'; }
+                    }
+
+
+                ]
+
+
             })
         })
     </script>

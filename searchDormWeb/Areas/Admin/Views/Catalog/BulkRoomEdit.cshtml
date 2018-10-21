@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.Catalog
 @model BulkEditRoomsVm
 @{
-    ViewBag.Title = "BulkRoomEdit";
+    ViewBag.Title = "Bulk Edit Rooms";
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -11,7 +11,7 @@
     <section class="content-header">
         <h1>
             Bulk edit rooms
-            <small>Optional description</small>
+          
         </h1>
         <div class="row">
             <div class=" col-md-12">
@@ -33,7 +33,7 @@
 
         <div class="col-md-12">
             <!-- Horizontal Form -->
-            <div class="box box-primary">
+            <div class="box box-solid">
                 <div class="box-header"></div>
                 <!-- /.box-header -->
                 <!-- form start -->
@@ -77,7 +77,7 @@
                 <div class="box-body">
 
                     <div class="overflow">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="BulkRoomEditTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>Name</th>
@@ -257,15 +257,71 @@
             $('.select2').select2()
 
 
-            $('#example').DataTable()
-            $('#example1').DataTable({
+          
+            $('#BulkRoomEditTable').on('processing.dt', function (e, settings, processing) {
+                if (processing) {
+                    Pace.start();
+                } else {
+                    Pace.stop();
+                }
+            }).DataTable({
                 'paging': true,
                 'lengthChange': true,
-                'searching': true,
-                'ordering': true,
+                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
+                'searching': false,
+                'ordering': false,
                 'info': true,
-                'autoWidth': true
+                'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+                    "url": "/Admin/Catalog/BulkRoomEdit",
+                    "type": "POST",
+                    "data": function (d) {
+                        d.myKey = "myValue";
+                        d.DiscountName = "myValue";
+                        d.CouponCode = "myValue";
+                        d.DiscountType = "myValue";
+                    },
+                    "datatype": "json"
+                },
+                "columns": [
+                
+                    { "data": "name" },
+                    
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<a class="btn btn-primary" ><i class="fa fa-eye"></i> View</a>';
+                        }
+                    },
+                    { "data": "sku" },
+                    { "data": "price" },
+                    { "data": "oldPrice" },
+                    { "data": "quota" },
+                    {
+                        "render": function (data, type, full, meta) {
+                            if (full.published == true)
+                                return '<i class="fa fa-check" aria-hidden="true"></i>';
+                            else
+                                return '<i class="fa fa-times" aria-hidden="true"></i>';
+
+                        }
+                    },
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<a class="btn btn-danger" ><i class="fa fa-pencil"></i> Delete</a>';
+                        }
+                    }
+
+
+                ]
+
+
             })
+
+
         })
     </script>
 }
