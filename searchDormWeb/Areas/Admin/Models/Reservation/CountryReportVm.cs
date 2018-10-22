@@ -17,7 +17,7 @@ namespace searchDormWeb.Areas.Admin.Models.Reservation
 
        
         [Required,
-            Display(Name = "End date",
+        Display(Name = "End date",
         Description = "The end date of the search."),
         DataType(DataType.Date),
         MaxLength(256)]
