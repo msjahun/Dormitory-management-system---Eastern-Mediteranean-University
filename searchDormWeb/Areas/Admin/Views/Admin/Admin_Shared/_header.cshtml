@@ -40,11 +40,11 @@
                 <li class="">
                     <!-- Menu toggle button -->
                     <a href="#" class="">
-                        @*@if (SignInManager.IsSignedIn(User))
+                        @if (SignInManager.IsSignedIn(User))
                         {
                            @_userService.GetFirstLastNames(UserManager.GetUserId(User).ToString())
                             
-                        }*@
+                        }
                     </a>
 
                 </li>
