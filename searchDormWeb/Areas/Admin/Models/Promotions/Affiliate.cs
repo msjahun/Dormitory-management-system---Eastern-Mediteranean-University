@@ -37,9 +37,9 @@ namespace searchDormWeb.Areas.Admin.Models.Promotions
 
     public class AffiliateAdd
     {
-        [Display(Name = "Acive",
+        [Display(Name = "Active",
         Description = "A value indicating whether the affiliate is active.")]
-        public bool Acive { get; set; }
+        public bool Active { get; set; }
 
         [Display(Name = "FirstName",
         Description = "Enter first name"), DataType(DataType.Text), MaxLength(256)]
@@ -108,9 +108,9 @@ namespace searchDormWeb.Areas.Admin.Models.Promotions
 
     public class AffiliateEdit
     {
-        [Display(Name = "Acive",
+        [Display(Name = "Active",
         Description = "A value indicating whether the affiliate is active.")]
-        public bool Acive { get; set; }
+        public bool Active { get; set; }
 
         [Display(Name = "FirstName",
         Description = "Enter first name"), DataType(DataType.Text), MaxLength(256)]

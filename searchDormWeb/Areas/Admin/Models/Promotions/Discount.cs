@@ -105,9 +105,15 @@ namespace searchDormWeb.Areas.Admin.Models.Promotions
         Description = "Choose the limitation of discount."), MaxLength(256)]
         public int DiscountLimitation { get; set; }
 
+        //requirement tab
+        [Display(Name = "DiscountRequirementType",
+       Description = "You can choose one of the following requirement types, or add a requirement group to use several requirement types simultaneously."), MaxLength(256)]
+        public int DiscountRequirementType { get; set; }
+
+
     }
 
-    
+
     //tab
     public class Requirement
     {

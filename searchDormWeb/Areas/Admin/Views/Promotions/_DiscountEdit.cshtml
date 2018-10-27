@@ -1,4 +1,5 @@
-﻿
+﻿@using searchDormWeb.Areas.Admin.Models.Promotions
+@model DiscountEdit
 @{
     ViewData["Title"] = "Edit Discount";
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
@@ -50,93 +51,80 @@
                             <form class="form-horizontal">
                                 <div class="box-body">
                                     <div class="form-group">
-                                        <label for="inputEmail3" class="col-sm-3 control-label">Name<i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                        <div class="col-sm-8">
-                                            <input type="email" class="form-control">
-                                        </div>
-                                        <span style="color:red;">*</span>
+                                        <dau-label asp-for="Name"></dau-label>
+                                        <dau-input asp-for="Name" type="text"></dau-input>
+                                        <span asp-validation-for="Name"></span>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Discount type <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                        <div class="col-sm-8">
-                                            <input type="password" class="form-control">
-                                        </div>
+                                        <dau-label asp-for="DiscountType"></dau-label>
+                                        <dau-select asp-for="DiscountType" type="text"></dau-select>
+                                        <span asp-validation-for="DiscountType"></span>
 
                                     </div>
 
 
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Use percentage <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
+                                        <dau-label asp-for="UsePercentage"></dau-label>
                                         <div class="col-sm-8">
-                                            <input type="checkbox">
+                                            <input asp-for="UsePercentage" type="checkbox">
                                         </div>
+                                        <span asp-validation-for="UsePercentage"></span>
+
 
                                     </div>
 
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Discount amount <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                        <div class="col-sm-8">
-                                            <input type="number">
-                                        </div>
+                                        <dau-label asp-for="DiscountAmount"></dau-label>
+                                        <dau-input asp-for="DiscountAmount" type="number"></dau-input>
+                                        <span asp-validation-for="DiscountAmount"></span>
 
                                     </div>
 
 
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Requires coupon code <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
+                                        <dau-label asp-for="RequiresCouponCode"></dau-label>
                                         <div class="col-sm-8">
-                                            <input type="checkbox">
+                                            <input asp-for="RequiresCouponCode" type="checkbox">
                                         </div>
+                                        <span asp-validation-for="RequiresCouponCode"></span>
 
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Start date <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                        <div class="col-sm-8">
-                                            <input type="password" class="form-control">
-                                        </div>
+                                        <dau-label asp-for="StartDate"></dau-label>
+                                        <dau-date asp-for="StartDate"></dau-date>
+                                        <span asp-validation-for="StartDate"></span>
 
                                     </div>
 
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">End date <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                        <div class="col-sm-8">
-                                            <input type="password" class="form-control">
-                                        </div>
+                                        <dau-label asp-for="EndDate"></dau-label>
+                                        <dau-date asp-for="EndDate"></dau-date>
+                                        <span asp-validation-for="EndDate"></span>
 
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Cumulative with other discounts<i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
+                                        <dau-label asp-for="CumulativeWithOtherDiscounts"></dau-label>
                                         <div class="col-sm-8">
-                                            <input type="checkbox">
+                                            <input asp-for="CumulativeWithOtherDiscounts" type="checkbox">
                                         </div>
+                                        <span asp-validation-for="CumulativeWithOtherDiscounts"></span>
+
 
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Discount limitation <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                        <div class="col-sm-8">
-                                            <input type="password" class="form-control">
-                                        </div>
+                                        <dau-label asp-for="DiscountLimitation"></dau-label>
+                                        <dau-select asp-for="DiscountLimitation"></dau-select>
+                                        <span asp-validation-for="DiscountLimitation"></span>
 
                                     </div>
-
-
 
 
 
@@ -173,12 +161,9 @@
 
                             <div class="box-body">
                                 <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-3 control-label">Discount requirement type <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                    <div class="col-sm-8">
-                                        <input type="password" class="form-control">
-                                    </div>
-
+                                    <dau-label asp-for="DiscountRequirementType"></dau-label>
+                                    <dau-select asp-for="DiscountRequirementType"></dau-select>
+                                    <span asp-validation-for="DiscountRequirementType"></span>
                                 </div>
                             </div>
                         </div>
@@ -204,11 +189,7 @@
                                             <th>Delete</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                    
-
-
-                                    </tbody>
+                                    <tbody></tbody>
 
                                 </table>
                             </div>
@@ -278,4 +259,4 @@
             })
         })
     </script>
-        }
+}
