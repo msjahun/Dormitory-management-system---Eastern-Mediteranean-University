@@ -1,4 +1,5 @@
-﻿
+﻿@using searchDormWeb.Areas.Admin.Models.Catalog
+@model RoomAdd
 @{
     ViewData["Title"] = "Add room";
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
@@ -55,136 +56,78 @@
                                         <form class="form-horizontal">
 
                                             <div class="form-group">
-                                                <label for="inputPassword3" class="col-sm-3 control-label">Room type <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control" />
-                                                </div>
-
+                                                <dau-label asp-for="RoomType"></dau-label>
+                                                <dau-select asp-for="RoomType" ></dau-select>
+                                                <span asp-validation-for="RoomType"></span>
                                             </div>
 
+                                            <dau-tabs id="LanguageTab">
+                                                <dau-tab id="tab1" name="Standard" active="true">
 
-
-                                            <div class="nav-tabs-custom">
-                                                <ul class="nav nav-tabs">
-                                                    <li class="active"><a href="#tab_31" data-toggle="tab" aria-expanded="true">Standard</a></li>
-                                                    <li class=""><a href="#tab_32" data-toggle="tab" aria-expanded="false">English</a></li>
-                                                    <li class=""><a href="#tab_33" data-toggle="tab" aria-expanded="false">Turkish</a></li>
-
-                                                </ul>
-                                                <div class="tab-content">
-                                                    <!-- /.tab-pane -->
-                                                    <div class="tab-pane active" id="tab_31">
-
-
-                                                        <div class="form-group">
-                                                            <label for="inputPassword3" class="col-sm-3 control-label">Room name <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                            <div class="col-sm-9">
-                                                                <input type="text" class="form-control" />
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label for="inputPassword3" class="col-sm-3 control-label">Short description <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                            <div class="col-sm-9">
-                                                                <textarea class="form-control"></textarea>
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label for="inputPassword3" class="col-sm-3 control-label">Full description <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                            <div class="col-sm-9">
-                                                                <textarea id="editor1" class="form-control" name="editor1" rows="10" cols="80">
-                                            This is my textarea to be replaced with CKEditor.
-                                                          </textarea>
-                                                            </div>
-
-                                                        </div>
-
-
+                                                    <div class="form-group">
+                                                        <dau-label asp-for="RoomName_sd"></dau-label>
+                                                        <dau-input asp-for="RoomName_sd" type="text"></dau-input>
+                                                        <span asp-validation-for="RoomName_sd"></span>
                                                     </div>
-                                                    <!-- /.tab-pane -->
-                                                    <div class="tab-pane" id="tab_32">
 
-
-                                                        <div class="form-group">
-                                                            <label for="inputPassword3" class="col-sm-3 control-label">Room name <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                            <div class="col-sm-9">
-                                                                <input type="text" class="form-control" />
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label for="inputPassword3" class="col-sm-3 control-label">Short description <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                            <div class="col-sm-9">
-                                                                <textarea class="form-control"></textarea>
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label for="inputPassword3" class="col-sm-3 control-label">Full description <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                            <div class="col-sm-9">
-                                                                <textarea id="editor2" class="form-control" name="editor2" rows="10" cols="80">
-                                            This is my textarea to be replaced with CKEditor.
-                                                          </textarea>
-                                                            </div>
-
-                                                        </div>
-
+                                                    <div class="form-group">
+                                                        <dau-label asp-for="ShortDescription_sd"></dau-label>
+                                                        <dau-textarea asp-for="ShortDescription_sd"></dau-textarea>
+                                                        <span asp-validation-for="ShortDescription_sd"></span>
                                                     </div>
-                                                    <!-- /.tab-pane -->
-                                                    <!-- /.tab-pane -->
-                                                    <div class="tab-pane" id="tab_33">
 
-
-                                                        <div class="form-group">
-                                                            <label for="inputPassword3" class="col-sm-3 control-label">Room name <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                            <div class="col-sm-9">
-                                                                <input type="text" class="form-control" />
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label for="inputPassword3" class="col-sm-3 control-label">Short description <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                            <div class="col-sm-9">
-                                                                <textarea class="form-control"></textarea>
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label for="inputPassword3" class="col-sm-3 control-label">Full description <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                            <div class="col-sm-9">
-                                                                <textarea id="editor3" class="form-control" name="editor3" rows="10" cols="80">
-                                            This is my textarea to be replaced with CKEditor.
-                                                          </textarea>
-                                                            </div>
-
-                                                        </div>
-
-
+                                                    <div class="form-group">
+                                                        <dau-label asp-for="FullDescription_sd"></dau-label>
+                                                        <dau-textarea asp-for="FullDescription_sd" type="text"></dau-textarea>
+                                                        <span asp-validation-for="FullDescription_sd"></span>
                                                     </div>
-                                                    <!-- /.tab-pane -->
 
 
-                                                </div>
-                                                <!-- /.tab-content -->
-                                            </div>
-                                            <!-- /.nav-tabs -->
+                                                </dau-tab>
+
+                                                <dau-tab id="tab2" name="English" flag="@Url.Content("~/Content/")dist/img/us.png">
+
+                                                    <div class="form-group">
+                                                        <dau-label asp-for="RoomName_en"></dau-label>
+                                                        <dau-input asp-for="RoomName_en" type="text"></dau-input>
+                                                        <span asp-validation-for="RoomName_en"></span>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <dau-label asp-for="ShortDescription_en"></dau-label>
+                                                        <dau-textarea asp-for="ShortDescription_en"></dau-textarea>
+                                                        <span asp-validation-for="ShortDescription_en"></span>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <dau-label asp-for="FullDescription_en"></dau-label>
+                                                        <dau-textarea asp-for="FullDescription_en" type="text"></dau-textarea>
+                                                        <span asp-validation-for="FullDescription_en"></span>
+                                                    </div>
+                                                </dau-tab>
+
+                                                <dau-tab id="tab3" name="Turkish" flag="@Url.Content("~/Content/")dist/img/tr.png">
+                                                    <div class="form-group">
+                                                        <dau-label asp-for="RoomName_tr"></dau-label>
+                                                        <dau-input asp-for="RoomName_tr" type="text"></dau-input>
+                                                        <span asp-validation-for="RoomName_tr"></span>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <dau-label asp-for="ShortDescription_tr"></dau-label>
+                                                        <dau-textarea asp-for="ShortDescription_tr"></dau-textarea>
+                                                        <span asp-validation-for="ShortDescription_tr"></span>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <dau-label asp-for="FullDescription_tr"></dau-label>
+                                                        <dau-textarea asp-for="FullDescription_tr" type="text"></dau-textarea>
+                                                        <span asp-validation-for="FullDescription_tr"></span>
+                                                    </div>
+                                                </dau-tab>
+                                            </dau-tabs>
+
+
 
 
 
@@ -196,94 +139,86 @@
 
 
                                             <div class="form-group">
-                                                <label for="inputPassword3" class="col-sm-3 control-label">SKU <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" />
-                                                </div>
-
+                                                <dau-label asp-for="SKU"></dau-label>
+                                                <dau-input asp-for="SKU" type="text"></dau-input>
+                                                <span asp-validation-for="SKU"></span>
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="inputPassword3" class="col-sm-3 control-label">Published <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
+                                                <dau-label asp-for="Published"></dau-label>
                                                 <div class="col-sm-8">
-                                                    <input type="checkbox" />
+                                                    <input asp-for="Published" type="checkbox">
+                                                    </div>
+                                                    <span asp-validation-for="Published"></span>
                                                 </div>
-
-                                            </div>
 
                                             <div class="form-group">
-                                                <label for="inputPassword3" class="col-sm-3 control-label">Room tags <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" />
-                                                </div>
+                                                <dau-label asp-for="RoomTags"></dau-label>
+                                                <dau-select asp-for="RoomTags" multiple-select="true"></dau-select>
+                                                <span asp-validation-for="RoomTags"></span>
 
                                             </div>
 
-                                            <div class="form-group">
-                                                <label for="inputPassword3" class="col-sm-3 control-label">Show on home page <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+                                                <div class="form-group">
+                                                    
+                                                    <dau-label asp-for="ShowOnHomePage"></dau-label>
+                                                    <div class="col-sm-8">
+                                                        <input asp-for="ShowOnHomePage" type="checkbox">
+                                                    </div>
+                                                    <span asp-validation-for="ShowOnHomePage"></span>
 
-                                                <div class="col-sm-8">
-                                                    <input type="checkbox" />
                                                 </div>
 
-                                            </div>
 
+                                                <div class="form-group">
+                                                   
+                                                    <dau-label asp-for="AllowCustomerReviews"></dau-label>
+                                                    <div class="col-sm-8">
+                                                        <input asp-for="AllowCustomerReviews" type="checkbox">
+                                                    </div>
+                                                    <span asp-validation-for="AllowCustomerReviews"></span>
 
-                                            <div class="form-group">
-                                                <label for="inputPassword3" class="col-sm-3 control-label">Allow customer reviews <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                <div class="col-sm-8">
-                                                    <input type="checkbox" />
                                                 </div>
 
-                                            </div>
+                                                <div class="form-group">
+                                                  <dau-label asp-for="AvailableStartDate"></dau-label>
+                                                    <dau-date asp-for="AvailableStartDate"></dau-date>
+                                                    <span asp-validation-for="AvailableStartDate"></span>
 
-                                            <div class="form-group">
-                                                <label for="inputPassword3" class="col-sm-3 control-label">Available start date <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" />
                                                 </div>
 
-                                            </div>
+                                                <div class="form-group">
+                                                   <dau-label asp-for="AvailableEndDate"></dau-label>
+                                                    <dau-date asp-for="AvailableEndDate"></dau-date>
+                                                    <span asp-validation-for="AvailableEndDate"></span>
 
-                                            <div class="form-group">
-                                                <label for="inputPassword3" class="col-sm-3 control-label">Available end date <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" />
                                                 </div>
 
-                                            </div>
 
 
+                                                <div class="form-group">
+                                                    
+                                                    <dau-label asp-for="MarkAsNew"></dau-label>
+                                                    <div class="col-sm-8">
+                                                        <input asp-for="MarkAsNew" type="checkbox">
+                                                    </div>
+                                                    <span asp-validation-for="MarkAsNew"></span>
 
-                                            <div class="form-group">
-                                                <label for="inputPassword3" class="col-sm-3 control-label">Mark as new <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                <div class="col-sm-8">
-                                                    <input type="checkbox" />
                                                 </div>
 
-                                            </div>
 
+                                                <div class="form-group">
+                                                   
+                                                    <dau-label asp-for="AdminComment"></dau-label>
+                                                    <dau-textarea asp-for="AdminComment"></dau-textarea>
+                                                    <span asp-validation-for="AdminComment"></span>
 
-                                            <div class="form-group">
-                                                <label for="inputPassword3" class="col-sm-3 control-label">Admin comment <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                <div class="col-sm-8">
-                                                    <textarea class="form-control"></textarea>
                                                 </div>
 
-                                            </div>
 
 
 
-
-                                        </form>
+</form>
                                     </div>
                                 </div>
 
@@ -297,75 +232,71 @@
                                         <form class="form-horizontal">
 
                                             <div class="form-group">
-                                                <label for="inputPassword3" class="col-sm-3 control-label">Price <i class="fa fa-question-circle" aria-hidden="true"></i></label>
 
-                                                <div class="col-sm-8">
-                                                    <input type="number" class="form-control" />
-                                                </div>
-
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="inputPassword3" class="col-sm-3 control-label">Old price <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                <div class="col-sm-8">
-                                                    <input type="number" class="form-control" />
-                                                </div>
+                                                <dau-label asp-for="Price"></dau-label>
+                                                <dau-inputaddon type="number" asp-for="Price" cols="4" text="TRY"></dau-inputaddon>
+                                                <span asp-validation-for="Price"></span>
 
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="inputPassword3" class="col-sm-3 control-label">Room cost <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                <div class="col-sm-8">
-                                                    <input type="number" class="form-control" />
-                                                </div>
+                                                <dau-label asp-for="OldPrice"></dau-label>
+                                                <dau-inputaddon type="number" asp-for="OldPrice" cols="4" text="TRY"></dau-inputaddon>
+                                                <span asp-validation-for="OldPrice"></span>
 
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="inputPassword3" class="col-sm-3 control-label">Disable buy button <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+                                                <dau-label asp-for="RoomCost"></dau-label>
+                                                <dau-inputaddon type="number" asp-for="RoomCost" cols="4" text="TRY"></dau-inputaddon>
+                                                <span asp-validation-for="RoomCost"></span>
+                                            </div>
 
+                                            <div class="form-group">
+                                               
+                                                <dau-label asp-for="DisableBuyButton"></dau-label>
                                                 <div class="col-sm-8">
-                                                    <input type="checkbox" />
+                                                    <input asp-for="DisableBuyButton" type="checkbox">
                                                 </div>
+                                                <span asp-validation-for="DisableBuyButton"></span>
 
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="inputPassword3" class="col-sm-3 control-label">Disable wishlist button <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
+                                               
+                                                <dau-label asp-for="DisableWishlistButton"></dau-label>
                                                 <div class="col-sm-8">
-                                                    <input type="checkbox" />
+                                                    <input asp-for="DisableWishlistButton" type="checkbox">
                                                 </div>
+                                                <span asp-validation-for="DisableWishlistButton"></span>
 
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="inputPassword3" class="col-sm-3 control-label">Available for pre-booking <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
+                                               
+                                                <dau-label asp-for="AvailableForPreBooking"></dau-label>
                                                 <div class="col-sm-8">
-                                                    <input type="checkbox" />
+                                                    <input asp-for="AvailableForPreBooking" type="checkbox">
                                                 </div>
+                                                <span asp-validation-for="AvailableForPreBooking"></span>
 
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="inputPassword3" class="col-sm-3 control-label">Call for price <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
+                                              
+                                                <dau-label asp-for="CallForPrice"></dau-label>
                                                 <div class="col-sm-8">
-                                                    <input type="checkbox" />
+                                                    <input asp-for="CallForPrice" type="checkbox">
                                                 </div>
+                                                <span asp-validation-for="CallForPrice"></span>
 
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="inputPassword3" class="col-sm-3 control-label">Discounts <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" />
-                                                </div>
-
+              
+                                                <dau-label asp-for="Discounts"></dau-label>
+                                                <dau-select asp-for="Discounts" multiple-select="true"></dau-select>
+                                                <span asp-validation-for="Discounts"></span>
                                             </div>
 
 
@@ -386,11 +317,9 @@
                                     <div class="box-body">
                                         <form class="form-horizontal">
                                             <div class="form-group">
-                                                <label for="inputPassword3" class="col-sm-3 control-label">Inventory method <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" />
-                                                </div>
+                                                <dau-label asp-for="InventoryMethod"></dau-label>
+                                                <dau-select asp-for="InventoryMethod" ></dau-select>
+                                                <span asp-validation-for="InventoryMethod"></span>
 
                                             </div>
                                         </form>
@@ -405,20 +334,16 @@
                                     <div class="box-body">
                                         <form class="form-horizontal">
                                             <div class="form-group">
-                                                <label for="inputPassword3" class="col-sm-3 control-label">Dormitory block <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" />
-                                                </div>
+                                                <dau-label asp-for="Dormitory"></dau-label>
+                                                <dau-select asp-for="Dormitory" ></dau-select>
+                                                <span asp-validation-for="Dormitory"></span>
 
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="inputPassword3" class="col-sm-3 control-label">Dormitory <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" />
-                                                </div>
+                                                <dau-label asp-for="DormitoryBlock"></dau-label>
+                                                <dau-select asp-for="DormitoryBlock" multiple-select="true"></dau-select>
+                                                <span asp-validation-for="DormitoryBlock"></span>
 
                                             </div>
                                         </form>
@@ -433,11 +358,9 @@
                                     <div class="box-body">
                                         <form class="form-horizontal">
                                             <div class="form-group">
-                                                <label for="inputPassword3" class="col-sm-3 control-label">User roles <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" />
-                                                </div>
+                                                <dau-label asp-for="UserRoles"></dau-label>
+                                                <dau-select asp-for="UserRoles" multiple-select="true"></dau-select>
+                                                <span asp-validation-for="UserRoles"></span>
 
                                             </div>
                                         </form>
@@ -476,149 +399,105 @@
 
                             <div class="box-body">
                                 <form class="form-horizontal">
-                                    <div class="nav-tabs-custom">
-                                        <ul class="nav nav-tabs">
-                                            <li class="active"><a href="#tab_431" data-toggle="tab" aria-expanded="true">Standard</a></li>
-                                            <li class=""><a href="#tab_432" data-toggle="tab" aria-expanded="false">English</a></li>
-                                            <li class=""><a href="#tab_433" data-toggle="tab" aria-expanded="false">Turkish</a></li>
-
-                                        </ul>
-                                        <div class="tab-content">
-                                            <!-- /.tab-pane -->
-                                            <div class="tab-pane active" id="tab_431">
-
-                                                <div class="form-group">
-                                                    <label for="inputPassword3" class="col-sm-3 control-label">Meta keywords<i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                    <div class="col-sm-8">
-                                                        <input type="password" class="form-control" id="inputPassfwords3">
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="inputPassword3" class="col-sm-3 control-label">Meta description<i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                    <div class="col-sm-8">
-                                                        <textarea class="form-control"></textarea>
-                                                    </div>
-
-                                                </div>
 
 
-                                                <div class="form-group">
-                                                    <label for="inputPassword3" class="col-sm-3 control-label">Meta title<i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                    <div class="col-sm-8">
-                                                        <input type="password" class="form-control" id="inputPassfwords3">
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="inputPassword3" class="col-sm-3 control-label">Search engine friendly page name<i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                    <div class="col-sm-8">
-                                                        <input type="password" class="form-control" id="inputPassfwords3">
-                                                    </div>
-
-                                                </div>
-
+                                    <dau-tabs id="LanguageTabSEO">
+                                        <dau-tab id="tab1" name="Standard" active="true">
+                                            <div class="form-group">
+                                               <dau-label asp-for="MetaKeywords_sd"></dau-label>
+                                                <dau-input asp-for="MetaKeywords_sd" type="text"></dau-input>
+                                                <span asp-validation-for="MetaKeywords_sd"></span>
 
                                             </div>
-                                            <!-- /.tab-pane -->
-                                            <div class="tab-pane" id="tab_432">
 
-                                                <div class="form-group">
-                                                    <label for="inputPassword3" class="col-sm-3 control-label">Meta keywords<i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                    <div class="col-sm-8">
-                                                        <input type="password" class="form-control" id="inputPassfwords3">
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="inputPassword3" class="col-sm-3 control-label">Meta description<i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                    <div class="col-sm-8">
-                                                        <textarea class="form-control"></textarea>
-                                                    </div>
-
-                                                </div>
-
-
-                                                <div class="form-group">
-                                                    <label for="inputPassword3" class="col-sm-3 control-label">Meta title<i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                    <div class="col-sm-8">
-                                                        <input type="password" class="form-control" id="inputPassfwords3">
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="inputPassword3" class="col-sm-3 control-label">Search engine friendly page name<i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                    <div class="col-sm-8">
-                                                        <input type="password" class="form-control" id="inputPassfwords3">
-                                                    </div>
-
-                                                </div>
+                                            <div class="form-group">
+                                                 <dau-label asp-for="MetaDescription_sd"></dau-label>
+                                                <dau-input asp-for="MetaDescription_sd" type="text"></dau-input>
+                                                <span asp-validation-for="MetaDescription_sd"></span>
 
                                             </div>
-                                            <!-- /.tab-pane -->
-
-                                            <div class="tab-pane" id="tab_433">
-
-                                                <div class="form-group">
-                                                    <label for="inputPassword3" class="col-sm-3 control-label">Meta keywords<i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                    <div class="col-sm-8">
-                                                        <input type="password" class="form-control" id="inputPassfwords3">
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="inputPassword3" class="col-sm-3 control-label">Meta description<i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                    <div class="col-sm-8">
-                                                        <textarea class="form-control"></textarea>
-                                                    </div>
-
-                                                </div>
 
 
-                                                <div class="form-group">
-                                                    <label for="inputPassword3" class="col-sm-3 control-label">Meta title<i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                    <div class="col-sm-8">
-                                                        <input type="password" class="form-control" id="inputPassfwords3">
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="inputPassword3" class="col-sm-3 control-label">Search engine friendly page name<i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                                    <div class="col-sm-8">
-                                                        <input type="password" class="form-control" id="inputPassfwords3">
-                                                    </div>
-
-                                                </div>
+                                            <div class="form-group">
+                                              <dau-label asp-for="MetaTitle_sd"></dau-label>
+                                                <dau-input asp-for="MetaTitle_sd" type="text"></dau-input>
+                                                <span asp-validation-for="MetaTitle_sd"></span>
 
                                             </div>
-                                            <!-- /.tab-pane -->
+
+                                            <div class="form-group">
+                                                
+                                                <dau-label asp-for="SearchEngineFriendlyPageName_sd"></dau-label>
+                                                <dau-input asp-for="SearchEngineFriendlyPageName_sd" type="text"></dau-input>
+                                                <span asp-validation-for="SearchEngineFriendlyPageName_sd"></span>
+
+                                            </div>
+                                            </dau-tab>
+
+                                        <dau-tab id="tab2" name="English" flag="@Url.Content("~/Content/")dist/img/us.png">
+                                            <div class="form-group">
+                                                <dau-label asp-for="MetaKeywords_en"></dau-label>
+                                                <dau-input asp-for="MetaKeywords_en" type="text"></dau-input>
+                                                <span asp-validation-for="MetaKeywords_en"></span>
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <dau-label asp-for="MetaDescription_en"></dau-label>
+                                                <dau-input asp-for="MetaDescription_en" type="text"></dau-input>
+                                                <span asp-validation-for="MetaDescription_en"></span>
+
+                                            </div>
 
 
+                                            <div class="form-group">
+                                                <dau-label asp-for="MetaTitle_en"></dau-label>
+                                                <dau-input asp-for="MetaTitle_en" type="text"></dau-input>
+                                                <span asp-validation-for="MetaTitle_en"></span>
+
+                                            </div>
+
+                                            <div class="form-group">
+
+                                                <dau-label asp-for="SearchEngineFriendlyPageName_en"></dau-label>
+                                                <dau-input asp-for="SearchEngineFriendlyPageName_en" type="text"></dau-input>
+                                                <span asp-validation-for="SearchEngineFriendlyPageName_en"></span>
+
+                                            </div>
+                                        </dau-tab>
+                                        <dau-tab id="tab3" name="Turkish" flag="@Url.Content("~/Content/")dist/img/tr.png">
+                                            <div class="form-group">
+                                                <dau-label asp-for="MetaKeywords_tr"></dau-label>
+                                                <dau-input asp-for="MetaKeywords_tr" type="text"></dau-input>
+                                                <span asp-validation-for="MetaKeywords_tr"></span>
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <dau-label asp-for="MetaDescription_tr"></dau-label>
+                                                <dau-input asp-for="MetaDescription_tr" type="text"></dau-input>
+                                                <span asp-validation-for="MetaDescription_tr"></span>
+
+                                            </div>
 
 
+                                            <div class="form-group">
+                                                <dau-label asp-for="MetaTitle_tr"></dau-label>
+                                                <dau-input asp-for="MetaTitle_tr" type="text"></dau-input>
+                                                <span asp-validation-for="MetaTitle_tr"></span>
 
-                                        </div>
-                                        <!-- /.tab-content -->
-                                    </div>
-                                    <!-- /.nav-tabs -->
+                                            </div>
+
+                                            <div class="form-group">
+
+                                                <dau-label asp-for="SearchEngineFriendlyPageName_tr"></dau-label>
+                                                <dau-input asp-for="SearchEngineFriendlyPageName_tr" type="text"></dau-input>
+                                                <span asp-validation-for="SearchEngineFriendlyPageName_tr"></span>
+
+                                            </div>
+                                        </dau-tab>
+                                        </dau-tabs>
+
 
 
                                 </form>
