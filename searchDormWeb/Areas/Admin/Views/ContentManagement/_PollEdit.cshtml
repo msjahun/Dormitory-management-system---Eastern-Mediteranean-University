@@ -1,4 +1,5 @@
-﻿
+﻿@using searchDormWeb.Areas.Admin.Models.ContentManagement
+@model PollEdit
 @{
     ViewData["Title"] = "Edit Poll";
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
@@ -48,90 +49,90 @@
                                 <div class="box-body">
 
 
-                                    <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Language <i class="fa fa-question-circle" aria-hidden="true"></i></label>
 
-                                        <div class="col-sm-8">
-                                            <input type="password" class="form-control" id="inputPassfdword3">
-                                        </div>
+                                    <div class="form-group">
+
+                                        <dau-label asp-for="Language"></dau-label>
+                                        <dau-select asp-for="Language"></dau-select>
+                                        <span asp-validation-for="Language"></span>
+
 
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Name <i class="fa fa-question-circle" aria-hidden="true"></i></label>
 
-                                        <div class="col-sm-8">
-                                            <input type="password" class="form-control" id="inputPassfwords3">
-                                        </div>
-                                        <span style="color:red;">*</span>
+                                        <dau-label asp-for="Name"></dau-label>
+                                        <dau-input asp-for="Name" type="text"></dau-input>
+                                        <span asp-validation-for="Name"></span>
+
                                     </div>
 
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">System keyword<i class="fa fa-question-circle" aria-hidden="true"></i></label>
 
-                                        <div class="col-sm-8">
-                                            <input type="password" class="form-control" id="inputPassfwords3">
-                                        </div>
-                                      
+                                        <dau-label asp-for="SystemKeyword"></dau-label>
+                                        <dau-input asp-for="SystemKeyword" type="text"></dau-input>
+                                        <span asp-validation-for="SystemKeyword"></span>
+
+
                                     </div>
 
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Published <i class="fa fa-question-circle" aria-hidden="true"></i></label>
 
+                                        <dau-label asp-for="Published"></dau-label>
                                         <div class="col-sm-8">
-                                            <input type="checkbox">
+                                            <input asp-for="Published" type="checkbox">
                                         </div>
-                                   
+                                        <span asp-validation-for="Published"></span>
+
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Show on home page <i class="fa fa-question-circle" aria-hidden="true"></i></label>
 
+                                        <dau-label asp-for="ShowOnHomePage"></dau-label>
                                         <div class="col-sm-8">
-                                            <input type="checkbox">
+                                            <input asp-for="ShowOnHomePage" type="checkbox">
                                         </div>
-                                      
+                                        <span asp-validation-for="ShowOnHomePage"></span>
+
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Allow guests to vote <i class="fa fa-question-circle" aria-hidden="true"></i></label>
 
+                                        <dau-label asp-for="AllowGuestsToVote"></dau-label>
                                         <div class="col-sm-8">
-                                            <input type="checkbox">
+                                            <input asp-for="AllowGuestsToVote" type="checkbox">
                                         </div>
-                                       
+                                        <span asp-validation-for="AllowGuestsToVote"></span>
+
                                     </div>
 
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Display order <i class="fa fa-question-circle" aria-hidden="true"></i></label>
 
-                                        <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="inputPassgwords3">
-                                        </div>
-                                       
+                                        <dau-label asp-for="DisplayOrder"></dau-label>
+                                        <dau-input asp-for="DisplayOrder" type="number"></dau-input>
+                                        <span asp-validation-for="DisplayOrder"></span>
+
+
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Start date <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+                                        <dau-label asp-for="StartDate"></dau-label>
+                                        <dau-date asp-for="StartDate"></dau-date>
+                                        <span asp-validation-for="StartDate"></span>
 
-                                        <div class="col-sm-8">
-                                            <input type="date" class="form-control" id="inputPassgwords3">
-                                        </div>
-                                       
+
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">End date <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+                                        <dau-label asp-for="EndDate"></dau-label>
+                                        <dau-date asp-for="EndDate"></dau-date>
+                                        <span asp-validation-for="EndDate"></span>
 
-                                        <div class="col-sm-8">
-                                            <input type="date" class="form-control" id="inputPassgwords3">
-                                        </div>
-                                        
+
                                     </div>
-
 
 
 

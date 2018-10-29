@@ -1,4 +1,5 @@
-﻿
+﻿@using searchDormWeb.Areas.Admin.Models.Reservation
+@model ReservationEdit
 @{
     ViewData["Title"] = "Edit Booking";
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
@@ -51,8 +52,7 @@
 
                                 <div class="box-body">
                                     <div class="form-group">
-                                        <label for="inputEmail3" class="col-sm-3 control-label">Booking / status <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
+                                        <dau-label asp-for="BookingStatus"></dau-label>
                                         <div class="col-sm-8">
                                             <bold>Pending</bold>
                                             <button class="btn btn-danger btn-flat"> Cancel booking</button>
@@ -62,8 +62,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Booking/Order # <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
+                                        <dau-label asp-for="BookingOrderNumber"></dau-label>
                                         <div class="col-sm-8">
                                             <p>123343443</p>
                                         </div>
@@ -73,8 +72,7 @@
 
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Dormitory <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
+                                        <dau-label asp-for="Dormitory"></dau-label>
                                         <div class="col-sm-8">
                                             <p>Alfam dormitories</p>
                                         </div>
@@ -93,8 +91,7 @@
                                 <div class="box-body">
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Customer <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
+                                        <dau-label asp-for="Customer"></dau-label>
                                         <div class="col-sm-8">
                                             <a>thandisilen@gmail.com</a>
                                         </div>
@@ -104,8 +101,7 @@
 
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Customer IP address <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
+                                        <dau-label asp-for="CustomerIpAddress"></dau-label>
                                         <div class="col-sm-8">
                                             <p>194.27.73.30</p>
                                         </div>
@@ -113,8 +109,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Booking/Order subtotal <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
+                                        <dau-label asp-for="BookingOrderSubtotal"></dau-label>
                                         <div class="col-sm-8">
                                             <p>$18.00</p>
                                         </div>
@@ -123,8 +118,7 @@
 
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Booking fee <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
+                                        <dau-label asp-for="BookingFee"></dau-label>
                                         <div class="col-sm-8">
                                             <p>$0.00</p>
                                         </div>
@@ -132,8 +126,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Order total<i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
+                                        <dau-label asp-for="OrderTotal"></dau-label>
                                         <div class="col-sm-8">
                                             <p>$18.00</p>
                                         </div>
@@ -141,8 +134,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Profit <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
+                                       <dau-label asp-for="Profit"></dau-label>
                                         <div class="col-sm-8">
                                             <p>$4.30</p><button class="btn btn-primary">Edit order totals</button>
                                         </div>
@@ -152,8 +144,7 @@
 
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Payment method <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
+                                        <dau-label asp-for="PaymentMethod"></dau-label>
                                         <div class="col-sm-8">
                                             <p>Upload payment method (UPM)</p>
                                         </div>
@@ -175,8 +166,7 @@
                                 <div class="box-body">
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Payment status <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
+                                        <dau-label asp-for="PaymentStatus"></dau-label>
                                         <div class="col-sm-8">
                                             <p>Pending </p><button class="btn btn-primary">Mark as paid</button>
                                         </div>
@@ -185,8 +175,7 @@
 
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Created on<i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
+                                       <dau-label asp-for="CreatedOn"></dau-label>
                                         <div class="col-sm-8">
                                             <p>8/22/2018 2:33:16 AM</p>
                                         </div>
@@ -203,7 +192,7 @@
                         </form>
                     </div>
 
-                   
+
 
 
 
@@ -222,8 +211,7 @@
                                 <div class="box-body">
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Billing address <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
+                                      <dau-label asp-for="BillingAddress" ></dau-label>
                                         <div class="col-sm-4">
                                             <table id="example2" class="table table-bordered table-striped">
 
@@ -385,28 +373,41 @@
 
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Note <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                        <div class="col-sm-8">
-                                            <input type="password" class="form-control" id="inputPassfwords3">
-                                        </div>
-
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Attached file <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                        <div class="col-sm-8">
-                                            <input type="checkbox"> <p>(Check to upload file)</p>
-                                        </div>
+                                       
+                                        <dau-label asp-for="orderNotesTab.Note"></dau-label>
+                                     <dau-input asp-for="orderNotesTab.Note" type="text"></dau-input>
+                                        <span asp-validation-for="orderNotesTab.Note"></span>
 
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Display to customer <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+                                        
+
+                                        <dau-label asp-for="orderNotesTab.AttachedFile"></dau-label>
+                                        <div class="col-sm-8">
+                                            <input asp-for="orderNotesTab.AttachedFile" type="checkbox">
+                                        </div>
+                                        <span asp-validation-for="orderNotesTab.AttachedFile"></span>
+
+                                    </div>
+
+                                    <div class="form-group">
+                              
+                                        <dau-label asp-for="orderNotesTab.DisplayToCustomer"></dau-label>
+                                        <div class="col-sm-8">
+                                            <input asp-for="orderNotesTab.DisplayToCustomer" type="checkbox">
+                                            <p>Check this option to display to customer</p>
+                                        </div>
+                                        <span asp-validation-for="orderNotesTab.DisplayToCustomer"></span>
+
+                                    </div>  
+                                    
+                                    
+                                    <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-3 control-label"></label>
 
                                         <div class="col-sm-8">
-                                            <input type="checkbox"> <br />
+                                     
                                             <button class="btn btn-primary">Add order note</button>
                                         </div>
 
@@ -496,4 +497,4 @@
             })
         })
     </script>
-        }
+}
