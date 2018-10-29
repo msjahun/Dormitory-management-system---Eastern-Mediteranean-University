@@ -8,6 +8,10 @@ namespace searchDormWeb.Areas.Admin.Models.MobileAppManager
 {
     public class PushNotificationAdd
     {
+        [Display(Name = "AllowedTokens",
+ Description = "Allowed Tokens you can use to be replaced with custoper/user data"), DataType(DataType.Text), MaxLength(256)]
+        public string AllowedTokens { get; set; }
+
         [Display(Name = "Name",
         Description = "The name of the push notification being sent"), DataType(DataType.Text), MaxLength(256)]
         public string Name { get; set; }
@@ -32,6 +36,10 @@ namespace searchDormWeb.Areas.Admin.Models.MobileAppManager
 
     public class PushNotificationEdit
     {
+        [Display(Name = "AllowedTokens",
+Description = "Allowed Tokens you can use to be replaced with custoper/user data"), DataType(DataType.Text), MaxLength(256)]
+        public string AllowedTokens { get; set; }
+
         [Display(Name = "NotificationAccount",
         Description = "Notification account used for sending notification"), MaxLength(256)]
         public int NotificationAccount { get; set; }

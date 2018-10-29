@@ -8,9 +8,7 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
 {
     public class CurrencyAdd
     {
-        [Display(Name = "Name",
-        Description = "The name of the currency."), DataType(DataType.Text), MaxLength(256)]
-        public string Name { get; set; }
+        public LocalizedCurrencyContent[] localizedCurrencyContent { get; set; }
 
         [Display(Name = "CurrencyCode",
         Description = "The currency code.For a list of currency codes, go to: http://www.iso.org/iso/support/currency_codes_list-1.htm."), DataType(DataType.Text), MaxLength(256)]
@@ -48,9 +46,9 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
 
     public class CurrencyEdit
     {
-        [Display(Name = "Name",
-        Description = "The name of the currency."), DataType(DataType.Text), MaxLength(256)]
-        public string Name { get; set; }
+        public LocalizedCurrencyContent[] localizedCurrencyContent { get; set; }
+
+
 
         [Display(Name = "CurrencyCode",
         Description = "The currency code.For a list of currency codes, go to: http://www.iso.org/iso/support/currency_codes_list-1.htm."), DataType(DataType.Text), MaxLength(256)]
@@ -86,6 +84,18 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
 
         [Display(Name = "CreatedOn",
         Description = "The date/time the currency was created."), DataType(DataType.Text), MaxLength(256)]
-        public string CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
+
+        [Display(Name = "UpdatedOn",
+      Description = "The date/time the currency was updated."), DataType(DataType.Text), MaxLength(256)]
+        public DateTime UpdatedOn { get; set; }
+    }
+
+
+    public class LocalizedCurrencyContent
+    {
+        [Display(Name = "Name",
+      Description = "The name of the currency."), DataType(DataType.Text), MaxLength(256)]
+        public string Name { get; set; }
     }
 }

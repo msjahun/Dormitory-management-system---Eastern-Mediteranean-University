@@ -8,11 +8,9 @@ namespace searchDormWeb.Areas.Admin.Models.Catalog
 {
     public class FacilityAdd
     {
-        [Display(Name = "Name",
-        Description = "The name of the facility specification attribute."), DataType(DataType.Text), MaxLength(256)]
-        public string Name { get; set; }
+        public LocalizedFacilityContent[] localizedFacilityContent { get; set; }
 
-        [Display(Name = "DisplayOrder",
+         [Display(Name = "DisplayOrder",
         Description = "The display order of the facility specification attribute."), MaxLength(256)]
         public int DisplayOrder { get; set; }
 
@@ -22,13 +20,21 @@ namespace searchDormWeb.Areas.Admin.Models.Catalog
 
     public class FacilityEdit
     {
-        [Display(Name = "Name",
-        Description = "The name of the facility specification attribute."), DataType(DataType.Text), MaxLength(256)]
-        public string Name { get; set; }
+        public LocalizedFacilityContent[] localizedFacilityContent { get; set; }
+
 
         [Display(Name = "DisplayOrder",
         Description = "The display order of the facility specification attribute."), MaxLength(256)]
         public int DisplayOrder { get; set; }
+
+    }
+
+
+    public class LocalizedFacilityContent
+    {
+        [Display(Name = "Name",
+          Description = "The name of the facility specification attribute."), DataType(DataType.Text), MaxLength(256)]
+        public string Name { get; set; }
 
     }
 

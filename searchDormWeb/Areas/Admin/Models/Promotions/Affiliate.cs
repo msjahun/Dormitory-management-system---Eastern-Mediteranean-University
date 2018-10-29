@@ -181,7 +181,7 @@ namespace searchDormWeb.Areas.Admin.Models.Promotions
         Description = "A friendly name for generated affiliate URL(by default affiliate ID is used). It's more friendly for marketing purposes. Leave empty to use affiliate identifier."), DataType(DataType.Text), MaxLength(256)]
         public string FriendlyUrlName { get; set; }
 
-
+      public AffiliatedBookingsTab AffiliatedBookingsTab { get; set; }
     }
 
 
@@ -208,16 +208,16 @@ public string View {get; set;}
     public class AffiliatedBookingsTab
     {
         [Display(Name = "StartDate",
-      Description = "")]
+      Description = "Start Date")]
         public DateTime StartDate {get; set;}
 
         [Display(Name = "EndDate",
-      Description = "")]
+      Description = "End Date")]
         public DateTime EndDate {get; set;}
 
 
         [Display(Name = "BookingStatus",
-            Description = "")]
+            Description = "Booking Status")]
         public int BookingStatus { get; set; }
 
     }

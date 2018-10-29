@@ -82,7 +82,7 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
 
         [Display(Name = "UserDEfaultCredentials",
         Description = "Check to use default credentials for the connection.")]
-        public bool UserDEfaultCredentials { get; set; }
+        public bool UseDefaultCredentials { get; set; }
 
         [Display(Name = "SendEmailTo",
         Description = "Send test email to ensure that everything is properly configured."), DataType(DataType.Text), MaxLength(256)]
