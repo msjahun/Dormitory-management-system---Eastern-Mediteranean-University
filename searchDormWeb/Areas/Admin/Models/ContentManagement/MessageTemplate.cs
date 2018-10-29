@@ -8,24 +8,17 @@ namespace searchDormWeb.Areas.Admin.Models.ContentManagement
 {
     public class MessageTemplateEdit
     {
-        [Display(Name = "Subject",
-        Description = "The subject of the message(email). TIP - You can include tokens in your subject."), DataType(DataType.Text), MaxLength(256)]
-        public string Subject { get; set; }
-
-        [Display(Name = "Body",
-        Description = "The body of your message."), DataType(DataType.Text), MaxLength(256)]
-        public string Body { get; set; }
-
-        [Display(Name = "BCC",
-        Description = "The blind carbon copy(BCC) recipients for this e-mail message."), DataType(DataType.Text), MaxLength(256)]
-        public string BCC { get; set; }
 
 
-        [Display(Name = "EmailAccount",
-        Description = "The email account that will be used to send this message template."), MaxLength(256)]
-        public int EmailAccount { get; set; }
+        public LocalizedMessageTemplateContent[] localizedMessageTemplateContents { get; set; }
 
+        [Display(Name = "AllowedTokens",
+      Description = "Allowed Tokens you can use to be replaced with custoper/user data"), DataType(DataType.Text), MaxLength(256)]
+        public string AllowedTokens { get; set; }
 
+        [Display(Name = "Name",
+      Description = "The name of the message template"), DataType(DataType.Text), MaxLength(256)]
+        public string Name { get; set; }
 
 
         [Display(Name = "isActive",
@@ -42,8 +35,29 @@ namespace searchDormWeb.Areas.Admin.Models.ContentManagement
 
         [Display(Name = "LimitedToStores",
         Description = "Option to limit this template to a certain dormitory.If you have multiple dormitories, choose one or several from the list.If you don't use this option just leave this field empty.")]
-        public IEnumerable<int> LimitedToStores { get; set; }
+        public IEnumerable<int> LimitedToDormitories { get; set; }
 
+    }
+
+
+public class LocalizedMessageTemplateContent
+    {
+        [Display(Name = "Subject",
+       Description = "The subject of the message(email). TIP - You can include tokens in your subject."), DataType(DataType.Text), MaxLength(256)]
+        public string Subject { get; set; }
+
+        [Display(Name = "Body",
+        Description = "The body of your message."), DataType(DataType.Text), MaxLength(256)]
+        public string Body { get; set; }
+
+        [Display(Name = "BCC",
+        Description = "The blind carbon copy(BCC) recipients for this e-mail message."), DataType(DataType.Text), MaxLength(256)]
+        public string BCC { get; set; }
+
+
+        [Display(Name = "EmailAccount",
+        Description = "The email account that will be used to send this message template."), MaxLength(256)]
+        public int EmailAccount { get; set; }
     }
 
 }

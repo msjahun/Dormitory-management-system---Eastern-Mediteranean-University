@@ -1,4 +1,5 @@
-﻿
+﻿@using searchDormWeb.Areas.Admin.Models.Promotions
+@model AffiliateEdit
 @{
     ViewData["Title"] = "Edit Affiliates";
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
@@ -50,148 +51,119 @@
                             <form class="form-horizontal">
                                 <div class="box-body">
                                     <div class="form-group">
-                                        <label for="inputEmail3" class="col-sm-3 control-label">Active <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
+                                       
+                                        <dau-label asp-for="Active"></dau-label>
                                         <div class="col-sm-8">
-                                            <input type="checkbox">
+                                            <input asp-for="Active" type="checkbox">
                                         </div>
-                                        <span style="color:red;">*</span>
+                                        <span asp-validation-for="Active"></span>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">First name <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                        <div class="col-sm-8">
-                                            <input type="password" class="form-control">
-                                        </div>
-                                        <span style="color:red;">*</span>
-                                    </div>
-
-
-
-                                    <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Last name <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                        <div class="col-sm-8">
-                                            <input type="password" class="form-control">
-                                        </div>
-                                        <span style="color:red;">*</span>
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Email <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                        <div class="col-sm-8">
-                                            <input type="password" class="form-control">
-                                        </div>
-                                        <span style="color:red;">*</span>
+                                      
+                                        <dau-label asp-for="FirstName"></dau-label>
+                                        <dau-input asp-for="FirstName" type="text"></dau-input>
+                                        <span asp-validation-for="FirstName"></span>
                                     </div>
 
 
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Company <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                        <div class="col-sm-8">
-                                            <input type="password" class="form-control">
-                                        </div>
-
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Country <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                        <div class="col-sm-8">
-                                            <input type="password" class="form-control">
-                                        </div>
-                                        <span style="color:red;">*</span>
+                                        
+                                        <dau-label asp-for="LastName"></dau-label>
+                                        <dau-input asp-for="LastName" type="text"></dau-input>
+                                        <span asp-validation-for="LastName"></span>
                                     </div>
 
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">State/ province <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+                                        
+                                        <dau-label asp-for="Email"></dau-label>
+                                        <dau-input asp-for="Email" type="email"></dau-input>
+                                        <span asp-validation-for="Email"></span>
+                                    </div>
 
-                                        <div class="col-sm-8">
-                                            <input type="password" class="form-control">
-                                        </div>
+
+
+                                    <div class="form-group">
+                                        <dau-label asp-for="Company"></dau-label>
+                                        <dau-input asp-for="Company" type="text"></dau-input>
+                                        <span asp-validation-for="Company"></span>
 
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">City<i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                        <div class="col-sm-8">
-                                            <input type="password" class="form-control">
-                                        </div>
-                                        <span style="color:red;">*</span>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Address 1 <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                        <div class="col-sm-8">
-                                            <input type="password" class="form-control">
-                                        </div>
-                                        <span style="color:red;">*</span>
+                                       
+                                        <dau-label asp-for="Country"></dau-label>
+                                        <dau-select asp-for="Country" ></dau-select>
+                                        <span asp-validation-for="Country"></span>
                                     </div>
 
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Address 2 <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+                                       <dau-label asp-for="StateProvince"></dau-label>
+                                        <dau-select asp-for="StateProvince"></dau-select>
+                                        <span asp-validation-for="StateProvince"></span>
 
-                                        <div class="col-sm-8">
-                                            <input type="password" class="form-control">
-                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                       <dau-label asp-for="City"></dau-label>
+                                        <dau-input asp-for="City" type="text"></dau-input>
+                                        <span asp-validation-for="City"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                       
+                                        <dau-label asp-for="Address1"></dau-label>
+                                        <dau-input asp-for="Address1" type="text"></dau-input>
+                                        <span asp-validation-for="Address1"></span>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                       <dau-label asp-for="Address2"></dau-label>
+                                        <dau-input asp-for="Address2" type="text"></dau-input>
+                                        <span asp-validation-for="Address2"></span>
 
                                     </div>
 
 
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Zip/ postal code <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                        <div class="col-sm-8">
-                                            <input type="password" class="form-control">
-                                        </div>
-                                        <span style="color:red;">*</span>
+                                      
+                                        <dau-label asp-for="ZipPostalCode"></dau-label>
+                                        <dau-input asp-for="ZipPostalCode" type="text"></dau-input>
+                                        <span asp-validation-for="ZipPostalCode"></span>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Phone number <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                        <div class="col-sm-8">
-                                            <input type="password" class="form-control">
-                                        </div>
-                                        <span style="color:red;">*</span>
+                                       
+                                        <dau-label asp-for="PhoneNumber"></dau-label>
+                                        <dau-input asp-for="PhoneNumber" type="text"></dau-input>
+                                        <span asp-validation-for="PhoneNumber"></span>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Fax number <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                        <div class="col-sm-8">
-                                            <input type="password" class="form-control">
-                                        </div>
+                                       <dau-label asp-for="FaxNumber"></dau-label>
+                                        <dau-input asp-for="FaxNumber" type="text"></dau-input>
+                                        <span asp-validation-for="FaxNumber"></span>
 
                                     </div>
 
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Admin comment <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                        <div class="col-sm-8">
-                                            <textarea class="form-control"></textarea>
-                                        </div>
+                                        <dau-label asp-for="AdminComment"> </dau-label>
+                                        <dau-textarea asp-for="AdminComment"></dau-textarea>
+                                        <span asp-validation-for="AdminComment"></span>
 
                                     </div>
 
 
                                     <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-3 control-label">Friendly URL name <i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                        <div class="col-sm-8">
-                                            <input type="password" class="form-control">
-                                        </div>
+                                        <dau-label asp-for="FriendlyUrlName"></dau-label>
+                                        <dau-input asp-for="FriendlyUrlName" type="text"></dau-input>
+                                        <span asp-validation-for="FriendlyUrlName"></span>
 
                                     </div>
                                 </div>
@@ -204,44 +176,44 @@
                     </div>
                     <!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_1">
-                      
-                         
+
+
+                        <!-- /.box-header -->
+                        <!-- form start -->
+
+
+
+                        <div class="box ">
+                            <div class="box-header"></div>
                             <!-- /.box-header -->
                             <!-- form start -->
 
-                            
-                              
-                                    <div class="box ">
-                                        <div class="box-header"></div>
-                                        <!-- /.box-header -->
-                                        <!-- form start -->
+                            <div class="box-body">
 
-                                        <div class="box-body">
+                                <div class="overflow">
+                                    <table id="example1" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Id</th>
+                                                <th>Name</th>
+                                                <th>View </th>
 
-                                            <div class="overflow">
-                                                <table id="example1" class="table table-bordered table-striped">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Id</th>
-                                                            <th>Name</th>
-                                                            <th>View </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
 
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody></tbody>
-
-                                                </table>
+                                    </table>
 
 
-                                            </div>
-                                        </div>
-                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                               
-                                <!-- /.tab-pane -->
 
-                          
-                       
+                        <!-- /.tab-pane -->
+
+
+
 
                     </div>
                     <!-- /.tab-pane -->
@@ -256,22 +228,22 @@
                                 <form class="form-horizontal">
                                     <div class="box-body">
                                         <div class="form-group">
-                                            <label for="inputEmail3" class="col-sm-2 control-label">Start date<i class="fa fa-question-circle" aria-hidden="true"></i></label>
-
-                                            <div class="col-sm-4">
-                                                <input type="date" class="form-control" >
-                                            </div>
+                                            
+                                            <dau-label asp-for="AffiliatedBookingsTab.StartDate"></dau-label>
+                                            <dau-date asp-for="AffiliatedBookingsTab.StartDate"></dau-date>
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="inputPassword3" class="col-sm-2 control-label">End date <i class="fa fa-question-circle" aria-hidden="true"></i></label>
 
-                                            <div class="col-sm-4">
-                                                <input type="date" class="form-control" >
-                                            </div>
+                                            <dau-label asp-for="AffiliatedBookingsTab.EndDate"></dau-label>
+                                            <dau-date asp-for="AffiliatedBookingsTab.EndDate"></dau-date>
                                         </div>
 
-
+                                        <div class="form-group">
+                                          
+                                            <dau-label asp-for="AffiliatedBookingsTab.BookingStatus"></dau-label>
+                                            <dau-select asp-for="AffiliatedBookingsTab.BookingStatus"></dau-select>
+                                        </div>
 
                                         <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-10">

@@ -8,14 +8,7 @@ namespace searchDormWeb.Areas.Admin.Models.ContentManagement
 {
     public class TopicAdd
     {
-        [Display(Name = "Title",
-        Description = "The title of your topic."), DataType(DataType.Text), MaxLength(256)]
-        public string Title { get; set; }
-
-        [Display(Name = "Body",
-        Description = "The body of your topic."), DataType(DataType.Text), MaxLength(256)]
-        public string Body { get; set; }
-
+        public LocalizedTopicsContent[] localizedTopicsContents { get; set; }
 
 
         [Display(Name = "SystemName",
@@ -55,9 +48,9 @@ namespace searchDormWeb.Areas.Admin.Models.ContentManagement
         Description = "Select customer roles for which the topic will be shown.Leave empty if you want this topic to be visible to all users.")]
         public IEnumerable<int> CustomerRoles { get; set; }
 
-        [Display(Name = "LimtedToStores",
-        Description = "Option to limit this topic to a certain dormitory.If you have multiple dormitories, choose one or several from the list.If you don't use this option just leave this field empty.")]
-        public IEnumerable<int> LimtedToStores { get; set; }
+        [Display(Name = "LimtedToDormitory",
+      Description = "Option to limit this topic to a certain dormitory.If you have multiple dormitories, choose one or several from the list.If you don't use this option just leave this field empty.")]
+        public IEnumerable<int> LimtedToDormitory { get; set; }
 
         [Display(Name = "DisplayOrder",
         Description = "The topic display order. 1 represents the first item in the list. It's used with properties such as \"Include in top menu\" or \"Include in footer\"."), MaxLength(256)]
@@ -66,18 +59,14 @@ namespace searchDormWeb.Areas.Admin.Models.ContentManagement
         [Display(Name = "AccessileWhenSiteIsClosed",
         Description = "Check to allow customer to view this topic details page when the site is closed.")]
         public bool AccessileWhenSiteIsClosed { get; set; }
+
+        public TopicsSeoTab[] seoTab { get; set; }
     }
 
     public class TopicEdit
     {
-        [Display(Name = "Title",
-           Description = ""), DataType(DataType.Text), MaxLength(256)]
-        public string Title { get; set; }
-
-        [Display(Name = "Body",
-        Description = ""), DataType(DataType.Text), MaxLength(256)]
-        public string Body { get; set; }
-
+        
+        public LocalizedTopicsContent[] localizedTopicsContents { get; set; }
 
         [Display(Name = "SystemName",
         Description = "System name of this topic."), DataType(DataType.Text), MaxLength(256)]
@@ -119,9 +108,9 @@ namespace searchDormWeb.Areas.Admin.Models.ContentManagement
         Description = "Select customer roles for which the topic will be shown.Leave empty if you want this topic to be visible to all users.")]
         public IEnumerable<int> CustomerRoles { get; set; }
 
-        [Display(Name = "LimtedToStores",
+        [Display(Name = "LimtedToDormitory",
         Description = "Option to limit this topic to a certain dormitory.If you have multiple dormitories, choose one or several from the list.If you don't use this option just leave this field empty.")]
-        public IEnumerable<int> LimtedToStores { get; set; }
+        public IEnumerable<int> LimtedToDormitory { get; set; }
 
         [Display(Name = "DisplayOrder",
         Description = "The topic display order. 1 represents the first item in the list. It's used with properties such as \"Include in top menu\" or \"Include in footer\"."), MaxLength(256)]
@@ -131,5 +120,42 @@ namespace searchDormWeb.Areas.Admin.Models.ContentManagement
         Description = "Check to allow customer to view this topic details page when the site is closed.")]
         public bool AccessileWhenSiteIsClosed { get; set; }
 
+        public TopicsSeoTab[] seoTab { get; set; }
+
+    }
+
+
+    public  class TopicsSeoTab
+    {
+        [Display(Name = "MetaKeywords",
+        Description = "Meta keywords to be added to topic page header."), DataType(DataType.Text), MaxLength(256)]
+        public string MetaKeywords { get; set; }
+
+
+        [Display(Name = "MetaDescription",
+        Description = "Meta description to be added to topic page header."), DataType(DataType.Text), MaxLength(256)]
+        public string MetaDescription { get; set; }
+
+
+        [Display(Name = "MetaTitle",
+        Description = "Override the page title. The default is the name of the topic"), DataType(DataType.Text), MaxLength(256)]
+        public string MetaTitle { get; set; }
+
+
+        [Display(Name = "SearchEngineFriendlyPageName",
+        Description = "Set a search engine friendly page name e.g. 'the-best-topic' to make your page URL 'http://www.domain.com/the-best-topic'. Leave empty to generate it automatically based on the name of the Topic."), DataType(DataType.Text), MaxLength(256)]
+        public string SearchEngineFriendlyPageName { get; set; }
+
+    }
+
+    public class LocalizedTopicsContent
+    {
+        [Display(Name = "Title",
+           Description = ""), DataType(DataType.Text), MaxLength(256)]
+        public string Title { get; set; }
+
+        [Display(Name = "Body",
+        Description = ""), DataType(DataType.Text), MaxLength(256)]
+        public string Body { get; set; }
     }
 }

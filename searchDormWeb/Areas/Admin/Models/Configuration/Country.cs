@@ -22,11 +22,9 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
 
     public class CountryAdd
     {
-        [Display(Name = "Name",
-                Description = "The name of the country."), DataType(DataType.Text), MaxLength(256)]
-        public string Name { get; set; }
+        public LocalizedContentCountry[] localizedContentCountry { get; set; }
 
-        [Display(Name = "AllowBilling",
+          [Display(Name = "AllowBilling",
         Description = "Allow billing to customers located in this country.")]
         public bool AllowBilling { get; set; }
 
@@ -60,9 +58,7 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
     public class CountryEdit
     {
 
-        [Display(Name = "Name",
-        Description = "The name of the country."), DataType(DataType.Text), MaxLength(256)]
-        public string Name { get; set; }
+        public LocalizedContentCountry[] localizedContentCountry { get; set; }
 
         [Display(Name = "AllowBilling",
         Description = "Allow billing to customers located in this country.")]
@@ -107,6 +103,11 @@ public string DisplayOrder { get; set; }
     }
 
 
-
+    public class LocalizedContentCountry
+    {
+        [Display(Name = "Name",
+              Description = "The name of the country."), DataType(DataType.Text), MaxLength(256)]
+        public string Name { get; set; }
+    }
 
 }

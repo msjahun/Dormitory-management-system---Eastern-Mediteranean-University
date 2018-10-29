@@ -18,14 +18,7 @@ namespace searchDormWeb.Areas.Admin.Models.Catalog
     public class DormitoryBlockAdd
     {
 
-        [Display(Name = "Name",
-        Description = "The dormitory block name"), DataType(DataType.Text), MaxLength(256)]
-        public string Name { get; set; }
-
-        [Display(Name = "Description",
-        Description = "The description of the dormitory block"), DataType(DataType.Text), MaxLength(256)]
-        public string Description { get; set; }
-
+      
 
 
         [Display(Name = "Picture",
@@ -61,8 +54,20 @@ namespace searchDormWeb.Areas.Admin.Models.Catalog
         public int DisplayOrder { get; set; }
 
 
+        public DormitoryBlockSeoTab[] seoTab { get; set; }
 
+        public DormitoryBlockContentLocalizedTab[] localizedContent { get; set; }
+    }
 
+    public class DormitoryBlockContentLocalizedTab
+    {
+        [Display(Name = "Name",
+      Description = "The dormitory block name"), DataType(DataType.Text), MaxLength(256)]
+        public string Name { get; set; }
+
+        [Display(Name = "Description",
+        Description = "The description of the dormitory block"), DataType(DataType.Text), MaxLength(256)]
+        public string Description { get; set; }
 
     }
 
@@ -111,9 +116,11 @@ namespace searchDormWeb.Areas.Admin.Models.Catalog
         public int DisplayOrder { get; set; }
 
 
+        public DormitoryBlockSeoTab[] seoTab { get; set; }
 
+      
 
-
+        public DormitoryBlockContentLocalizedTab[] localizedContent { get; set; }
     }
 
 
@@ -125,4 +132,28 @@ public string DisplayOrder {get; set;}
 public string View { get; set; }
 
     }
+
+
+    public class DormitoryBlockSeoTab
+    {
+        [Display(Name = "MetaKeywords",
+        Description = "Meta keywords to be added to Room page header."), DataType(DataType.Text), MaxLength(256)]
+        public string MetaKeywords { get; set; }
+
+
+        [Display(Name = "MetaDescription",
+        Description = "Meta description to be added to Room page header."), DataType(DataType.Text), MaxLength(256)]
+        public string MetaDescription { get; set; }
+
+
+        [Display(Name = "MetaTitle",
+        Description = "Override the page title. The default is the name of the Room."), DataType(DataType.Text), MaxLength(256)]
+        public string MetaTitle { get; set; }
+
+
+        [Display(Name = "SearchEngineFriendlyPageName",
+        Description = "Set a search engine friendly page name e.g. 'the-best-room' to make your page URL 'http://www.domain.com/the-best-room'. Leave empty to generate it automatically based on the name of the Room."), DataType(DataType.Text), MaxLength(256)]
+        public string SearchEngineFriendlyPageName { get; set; }
+    }
+
 }

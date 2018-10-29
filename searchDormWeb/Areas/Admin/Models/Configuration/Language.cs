@@ -24,10 +24,10 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
         Description = "The flag image file name.The image should be saved into \\images\flags\\ directory.")
        
 ,  DataType(DataType.Text), MaxLength(256)  ] public string FlagImageFileName { get; set; }
-[Display(Name = "RighToLeft",
+[Display(Name = "RightToLeft",
         Description = "Check to enable right-to-left support for this language.The active theme should support RTL(have appropriate CSS style file). And it affects only public store.")
        
-  ] public bool RighToLeft { get; set; }
+  ] public bool RightToLeft { get; set; }
 [Display(Name = "DefaultCurrency",
         Description = "This property allows an administrator to specify a default currency for a language.If not specified, then the default currency display order will be used.")
        
@@ -35,7 +35,7 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
 [Display(Name = "LimitedToStores",
         Description = "Option to limit this language to a certain dormitory.If you have multiple dormitories, choose one or several from the list.If you don't use this option just leave this field empty.")
        
-  ] public IEnumerable<int> LimitedToStores { get; set; }
+  ] public IEnumerable<int> LimitedToDormitories { get; set; }
 [Display(Name = "Published",
         Description = "Determines whether this language is published and can therefore be selected by visitors to site.")
        
@@ -85,5 +85,19 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
         Description = "The display order of this language. 1 represents the top of the list."), MaxLength(256)]
         public int DisplayOrder { get; set; }
 
+        public ResourceTab resourceTab { get; set; }
+    }
+
+    public class ResourceTab
+    {
+        [Display(Name = "ResourceName",
+      Description = "The name of the language resource"), MaxLength(256)]
+
+        public string ResourceName { get; set;}
+
+        [Display(Name = "ResourceValue",
+      Description = "The translated value of the language resource"), MaxLength(256)]
+
+        public string Value { get; set; }
     }
 }

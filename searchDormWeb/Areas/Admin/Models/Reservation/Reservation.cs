@@ -124,6 +124,14 @@ namespace searchDormWeb.Areas.Admin.Models.Reservation
         [Display(Name = "CreatedOn",
         Description = "The date/time the booking order was placed/created."), DataType(DataType.Text), MaxLength(256)]
         public string CreatedOn { get; set; }
+
+
+        [Display(Name = "BillingAddress",
+    Description = "The billing address of customer"), DataType(DataType.Text), MaxLength(256)]
+        public string BillingAddress { get; set; }
+
+
+        public OrderNotesTab orderNotesTab { get; set; }
     }
 
 
@@ -165,9 +173,18 @@ public string Delete { get; set; }
 
     public class OrderNotesTab
     {
-public string Note { get; set; }
-public bool AttachedFile { get; set; }
-public bool DisplayToCustomer { get; set; }
+        [Display(Name = "Note",
+        Description = "A note about booking."), DataType(DataType.Text), MaxLength(256)]
+        public string Note { get; set; }
+
+        [Display(Name = "Attached file",
+      Description = "Attached file to this to the order note, e.g booking receipt an so on.")]
+        public bool AttachedFile { get; set; }
+
+
+        [Display(Name = "Display to customer",
+      Description = "Check this option to display this booking note to customer")]
+        public bool DisplayToCustomer { get; set; }
 
     }
 

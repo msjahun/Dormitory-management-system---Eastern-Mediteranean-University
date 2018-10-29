@@ -65,7 +65,7 @@ namespace searchDormWeb.Areas.Admin.Models.ContentManagement
 
         [Display(Name = "ShowOnHomePge",
         Description = "Check to display this poll on your home page.Recommended for your most popular poll.")]
-        public bool ShowOnHomePge { get; set; }
+        public bool ShowOnHomePage { get; set; }
 
         [Display(Name = "AllowGuestsToVote",
         Description = "Check this to allow unregistered users (Guest) to vote on this poll.")]

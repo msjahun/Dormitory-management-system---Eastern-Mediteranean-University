@@ -32,7 +32,8 @@ namespace searchDormWeb.Areas.Admin.Models.Notifications
 
     }
     public class AnnouncementAdd
-    {
+    {//consider making Message a localized content, so that announcement can also be in multiple language
+
         [Display(Name = "Title",
         Description = "Title of the announcement."), DataType(DataType.Text), MaxLength(256)]
         public string Title { get; set; }

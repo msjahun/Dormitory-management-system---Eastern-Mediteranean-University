@@ -8,6 +8,10 @@ namespace searchDormWeb.Areas.Admin.Models.Promotions
 {
     public class CampaignAdd
     {
+        [Display(Name = "AllowedTokens",
+      Description = "This is a list of the message tokens you can use in your campaign emails."), DataType(DataType.Text), MaxLength(256)]
+        public string AllowedTokens { get; set; }
+
         [Display(Name = "Name",
         Description = "Name of your compaign."), DataType(DataType.Text), MaxLength(256)]
         public string Name { get; set; }
@@ -32,6 +36,9 @@ namespace searchDormWeb.Areas.Admin.Models.Promotions
 
     public class CampaignEdit
     {
+        [Display(Name = "AllowedTokens",
+  Description = "This is a list of the message tokens you can use in your campaign emails."), DataType(DataType.Text), MaxLength(256)]
+        public string AllowedTokens { get; set; }
 
         [Display(Name = "EmailAccount",
         Description = "The email account that will be used to send this campaign."), MaxLength(256)]

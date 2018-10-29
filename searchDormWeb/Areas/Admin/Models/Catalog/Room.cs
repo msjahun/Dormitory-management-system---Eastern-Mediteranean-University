@@ -254,18 +254,7 @@ Description = "Meta keywords to be added to Room page header."), DataType(DataTy
 
 
 
-        [Display(Name = "RoomName",
-        Description = ""), DataType(DataType.Text), MaxLength(256)]
-        public string RoomName { get; set; }
-
-        [Display(Name = "ShortDescription",
-        Description = ""), DataType(DataType.Text), MaxLength(256)]
-        public string ShortDescription { get; set; }
-
-        [Display(Name = "FullDescription",
-        Description = ""), DataType(DataType.Text), MaxLength(256)]
-        public string FullDescription { get; set; }
-
+      
 
 
         [Display(Name = "SKU",
@@ -368,6 +357,114 @@ Description = "Meta keywords to be added to Room page header."), DataType(DataTy
         [Display(Name = "DisplayOrder",
         Description = "null"), DataType(DataType.Text), MaxLength(256)]
         public string DisplayOrder { get; set; }
+
+        public RoomSeoTab[] seoTab { get; set; }
+        public PicturesTab picturesTab { get; set; }
+        public LocalizedContent[] localizedContent { get; set; }
+        public FacilitiesTab facilitiesTab { get; set; }
+    }
+
+ 
+
+    public class RoomSeoTab
+    {
+        [Display(Name = "MetaKeywords",
+        Description = "Meta keywords to be added to Room page header."), DataType(DataType.Text), MaxLength(256)]
+        public string MetaKeywords { get; set; }
+
+
+        [Display(Name = "MetaDescription",
+        Description = "Meta description to be added to Room page header."), DataType(DataType.Text), MaxLength(256)]
+        public string MetaDescription { get; set; }
+
+
+        [Display(Name = "MetaTitle",
+        Description = "Override the page title. The default is the name of the Room."), DataType(DataType.Text), MaxLength(256)]
+        public string MetaTitle { get; set; }
+
+
+        [Display(Name = "SearchEngineFriendlyPageName",
+        Description = "Set a search engine friendly page name e.g. 'the-best-room' to make your page URL 'http://www.domain.com/the-best-room'. Leave empty to generate it automatically based on the name of the Room."), DataType(DataType.Text), MaxLength(256)]
+        public string SearchEngineFriendlyPageName { get; set; }
+    }
+
+
+    public class LocalizedContent
+    {
+        [Display(Name = "RoomName",
+      Description = ""), DataType(DataType.Text), MaxLength(256)]
+        public string RoomName { get; set; }
+
+        [Display(Name = "ShortDescription",
+        Description = ""), DataType(DataType.Text), MaxLength(256)]
+        public string ShortDescription { get; set; }
+
+        [Display(Name = "FullDescription",
+        Description = ""), DataType(DataType.Text), MaxLength(256)]
+        public string FullDescription { get; set; }
+
+    }
+
+    public class PicturesTable
+    {
+        public string Picture { get; set; }
+        public string DisplayOrder { get; set; }
+        public string Alt { get; set; }
+        public string Title { get; set; }
+
+    }
+
+    public class PicturesTab
+    {
+        [Display(Name = "Alt",
+       Description = ""), DataType(DataType.Text), MaxLength(256)]
+        public string Alt { get; set; }
+
+
+        [Display(Name = "title",
+       Description = ""), DataType(DataType.Text), MaxLength(256)]
+        public string title { get; set; }
+
+
+        [Display(Name = "DisplayOrder",
+       Description = ""), DataType(DataType.Text), MaxLength(256)]
+        public int DisplayOrder { get; set; }
+
+
+    }
+
+
+    public class FacilitiesTable
+    {
+        public string AttributeType { get; set; }
+        public string Attribute { get; set; }
+        public string Value { get; set; }
+        public string AllowFiltering { get; set; }
+        public string ShowOnRoomPage { get; set; }
+        public string DisplayOrder { get; set; }
+
+    }
+
+    public class FacilitiesTab
+    {
+        [Display(Name = "AttributeType", Description = ""), MaxLength(256)]
+        public int AttributeType { get; set; }
+
+        [Display(Name = "Attribute", Description = ""), MaxLength(256)]
+        public int Attribute { get; set; }
+
+        [Display(Name = "AttributeOptions", Description = ""), MaxLength(256)]
+        public int AttributeOptions { get; set; }
+
+        [Display(Name = "AllowFiltering", Description = ""), MaxLength(256)]
+        public bool AllowFiltering { get; set; }
+
+        [Display(Name = "ShowOnRoomPage", Description = ""), MaxLength(256)]
+        public bool ShowOnRoomPage { get; set; }
+
+        [Display(Name = "DisplayOrder", Description = ""), MaxLength(256)]
+        public int DisplayOrder { get; set; }
+
 
     }
 }
