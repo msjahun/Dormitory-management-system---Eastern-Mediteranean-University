@@ -18,7 +18,7 @@ using searchDormWeb.Areas.Admin.Models.User;
 
 namespace searchDormWeb.Areas.Admin.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Area("Admin")]
     [Route("admin/[controller]")]
     public class UsersController : Controller

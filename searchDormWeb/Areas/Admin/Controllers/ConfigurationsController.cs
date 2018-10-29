@@ -19,7 +19,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 {
    
   
-   // [Authorize]
+    [Authorize]
     [Area("Admin")]
     [Route("admin/[controller]")]
     public class ConfigurationsController : Controller
