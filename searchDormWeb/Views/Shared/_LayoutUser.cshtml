@@ -108,12 +108,19 @@
                                 </a>
                             </li>
 
-                            <li >
+                            <li>
                                 <!-- Menu toggle button -->
-
-                                <a class="hidden-xs" asp-action="Index" asp-controller="Login"  >
-                                    Login
-                                </a>
+                                @if (!SignInManager.IsSignedIn(User))
+                                {
+                            <a class="hidden-xs" asp-action="Index" asp-controller="Login">
+                                Login
+                            </a> }
+                        else
+                        {
+                            <a class="hidden-xs" asp-action="Logout" asp-controller="Login">
+                                Logout
+                            </a>
+                        }
                             </li>
 
                         </ul>
