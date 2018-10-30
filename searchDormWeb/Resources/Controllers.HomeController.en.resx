@@ -295,7 +295,7 @@
     <value>Room type loading…</value>
   </data>
   <data name="logo_image_url" xml:space="preserve">
-    <value>EmuLogo.png</value>
+    <value>emu-logo-headingwhite-en.png</value>
   </data>
   <data name="map_view" xml:space="preserve">
     <value>Map view</value>
