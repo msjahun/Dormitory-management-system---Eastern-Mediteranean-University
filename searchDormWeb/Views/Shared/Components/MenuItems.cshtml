@@ -1,12 +1,16 @@
-﻿@*
+﻿@using Microsoft.AspNetCore.Identity
+@using Dau.Core.Domain.User;
+@using Dau.Services.Users;
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@inject IUsersService _userService
+@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
 <li>
     <!-- Menu toggle button -->
 
-    <a class="visible-xs" asp-action="Index" asp-controller="Login">
-        Login
-    </a>
+
 </li>
 <li><a href="#">Home</a></li>
 
@@ -15,5 +19,21 @@
 
 <li><a href="#">Explore EMU</a></li>
 <li><a href="#">Dormitories</a></li>
-<li><a href="#">My Account</a></li>
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <li><a href="#">My Account</a></li>}
+
 <li><a href="https://dormitories.emu.edu.tr/en" target="_blank">@ViewBag.ContentFormat_menu_dormitories_and_cafeteria</a></li>
+
+@if (!SignInManager.IsSignedIn(User))
+{
+    <a class="visible-xs" asp-action="Index" asp-controller="Login">
+        Login
+    </a> }
+else
+{
+    <a class="visible-xs" asp-action="Logout" asp-controller="Login">
+        Logout
+    </a>
+}
