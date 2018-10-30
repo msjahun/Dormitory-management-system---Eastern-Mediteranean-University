@@ -691,7 +691,6 @@
     <Folder Include="Areas\Admin\Views\shared\" />
     <Folder Include="Migrations\" />
     <Folder Include="Views\Home\" />
-    <Folder Include="Views\Shared\" />
   </ItemGroup>
 
   <ItemGroup>
