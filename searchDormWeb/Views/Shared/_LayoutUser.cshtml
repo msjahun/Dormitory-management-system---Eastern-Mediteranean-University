@@ -66,20 +66,21 @@
 
                 <div class="container">
                     <div class="navbar-header">
-                        <a href="#"><b>  <img src="@Url.Content("~/Content/")dist/img/@ViewBag.ContentFormat_logo_image_url" class="navbar-brand visible-xs" style="width: 60%; height: 60%;" alt="User Image">  <img src="@Url.Content("~/Content/")dist/img/@ViewBag.ContentFormat_logo_image_url" style="width: 30%; height: 30%" class="hidden-xs navbar-brand" alt="User Image"></a>
+                        <a href="#"><b>  <img src="@Url.Content("~/Content/")dist/img/@ViewBag.ContentFormat_logo_image_url" class="navbar-brand visible-xs" style="width: 60%; height: 60%;" alt="User Image"> 
+                            <img src="@Url.Content("~/Content/")dist/img/@ViewBag.ContentFormat_logo_image_url" style="width: 60%; height: 60%" class="hidden-xs navbar-brand" alt="User Image"></a>
 
-                        <ul class="nav navbar-nav pull-right visible-md visible-lg">
+                        @*<ul class="nav navbar-nav pull-right visible-md visible-lg">
 
                             <li class="dropdown notifications-menu">
-                                <!-- Menu toggle button -->
+                                 Menu toggle button 
 
-                                <a href="@ViewBag.ContentFormat_lang_trans_link">
+                                <a class="pull-right" href="@ViewBag.ContentFormat_lang_trans_link">
                                     <img src="@Url.Content("~/Content/")@ViewBag.ContentFormat_language_next_flag_url">
                                     @ViewBag.ContentFormat_language_next
                                 </a>
                             </li>
 
-                        </ul>
+                        </ul>*@
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
                             <i class="fa fa-bars"></i>
                         </button>
@@ -87,24 +88,31 @@
 
                     <div class="collapse navbar-collapse pull-left " id="navbar-collapse">
                         <ul class="nav navbar-nav visible-xs">
-                            <li class="active"><a href="#">@ViewBag.ContentFormat_menu_accomodation<span class="sr-only">(current)</span></a></li>
-                            <li><a href="https://dormitories.emu.edu.tr/en" target="_blank">@ViewBag.ContentFormat_menu_dormitories_and_cafeteria</a></li>
-
+                    
+                            @Html.Partial("/Views/Shared/Components/MenuItems.cshtml", null)
 
                         </ul>
 
                     </div>
                     <!-- /.navbar-collapse -->
                     <!-- Navbar Right Menu -->
-                    <div class="navbar-custom-menu hidden-lg">
+                    <div class="navbar-custom-menu ">
                         <ul class="nav navbar-nav">
 
-                            <li class="dropdown notifications-menu">
+                            <li >
                                 <!-- Menu toggle button -->
 
-                                <a href="@ViewBag.ContentFormat_lang_trans_link" class="dropdown-toggle" data-toggle="dropdown">
+                                <a href="@ViewBag.ContentFormat_lang_trans_link" >
                                     <img src="@Url.Content("~/Content/")@ViewBag.ContentFormat_language_next_flag_url">
                                     @ViewBag.ContentFormat_language_next
+                                </a>
+                            </li>
+
+                            <li >
+                                <!-- Menu toggle button -->
+
+                                <a class="hidden-xs" asp-action="Index" asp-controller="Login"  >
+                                    Login
                                 </a>
                             </li>
 
@@ -124,9 +132,7 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="#">@ViewBag.ContentFormat_menu_accomodation<span class="sr-only">(current)</span></a></li>
-                            <li><a href="https://dormitories.emu.edu.tr/en" target="_blank">@ViewBag.ContentFormat_menu_dormitories_and_cafeteria</a></li>
-
+                            @Html.Partial("/Views/Shared/Components/MenuItems.cshtml", null)
                         </ul>
 
                     </div>
