@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Mapping\" />
+    <Folder Include="Mapping\User\" />
   </ItemGroup>
 
   <ItemGroup>
