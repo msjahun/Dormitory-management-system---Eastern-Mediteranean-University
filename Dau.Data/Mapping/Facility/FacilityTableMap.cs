@@ -11,7 +11,16 @@ namespace Dau.Data.Mapping.Facility
     {
         public void Configure(EntityTypeBuilder<FacilityTable> builder)
         {
-            throw new NotImplementedException();
+            builder.ToTable("facility_table");
+
+            builder.Property(e => e.Id).HasColumnName("id");
+
+            builder.Property(e => e.FacilityIconUrl)
+                .IsRequired()
+                .HasColumnName("facility_icon_url")
+                .HasMaxLength(500)
+                .IsUnicode(false);
+
         }
     }
 }

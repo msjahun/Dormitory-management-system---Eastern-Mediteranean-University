@@ -11,7 +11,21 @@ namespace Dau.Data.Mapping.Language
     {
         public void Configure(EntityTypeBuilder<LanguageTable> builder)
         {
-            throw new NotImplementedException();
+            builder.ToTable("language_table");
+
+            builder.Property(e => e.Id).HasColumnName("id");
+
+            builder.Property(e => e.LanguageCode)
+                .IsRequired()
+                .HasColumnName("language_code")
+                .HasMaxLength(20)
+                .IsUnicode(false);
+
+            builder.Property(e => e.Name)
+                .IsRequired()
+                .HasColumnName("name")
+                .HasMaxLength(300)
+                .IsUnicode(false);
         }
     }
 }

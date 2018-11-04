@@ -11,7 +11,9 @@ namespace Dau.Data.Mapping.BankAccount
     {
         public void Configure(EntityTypeBuilder<AccountInformationParameter> builder)
         {
-            throw new NotImplementedException();
+            builder.ToTable("account_information_parameter");
+
+            builder.Property(e => e.Id).HasColumnName("id");
         }
     }
 }

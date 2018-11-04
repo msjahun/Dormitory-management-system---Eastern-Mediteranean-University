@@ -11,7 +11,10 @@ namespace Dau.Data.Mapping.Dormitory
     {
         public void Configure(EntityTypeBuilder<DormitoryType> builder)
         {
-            throw new NotImplementedException();
+            builder.ToTable("dormitory_type");
+
+            builder.Property(e => e.Id).HasColumnName("id");
+
         }
     }
 }
