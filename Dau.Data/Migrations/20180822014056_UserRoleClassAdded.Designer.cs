@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dau.Data.Migrations
 {
-    [DbContext(typeof(fees_and_facilitiesContext))]
+    [DbContext(typeof(Fees_and_facilitiesContext))]
     [Migration("20180822014056_UserRoleClassAdded")]
     partial class UserRoleClassAdded
     {

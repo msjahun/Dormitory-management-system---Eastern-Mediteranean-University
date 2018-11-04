@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Dau.Data.Migrations
 {
-    [DbContext(typeof(fees_and_facilitiesContext))]
+    [DbContext(typeof(Fees_and_facilitiesContext))]
     [Migration("20180817165112_removed_two_columns")]
     partial class removed_two_columns
     {

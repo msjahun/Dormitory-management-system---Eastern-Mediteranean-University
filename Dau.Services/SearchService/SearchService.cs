@@ -11,9 +11,9 @@ namespace Dau.Services.SearchService
    public class SearchService : ISearchService
     {
 
-        private fees_and_facilitiesContext _context = new fees_and_facilitiesContext();
+        private Fees_and_facilitiesContext _context = new Fees_and_facilitiesContext();
 
-        public SearchService(fees_and_facilitiesContext _context)
+        public SearchService(Fees_and_facilitiesContext _context)
         {
             this._context = _context;
         }

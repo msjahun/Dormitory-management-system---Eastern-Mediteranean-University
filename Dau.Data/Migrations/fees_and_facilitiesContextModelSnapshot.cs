@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dau.Data.Migrations
 {
-    [DbContext(typeof(fees_and_facilitiesContext))]
+    [DbContext(typeof(Fees_and_facilitiesContext))]
     partial class fees_and_facilitiesContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

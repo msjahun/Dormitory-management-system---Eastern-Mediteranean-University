@@ -17,11 +17,11 @@ using Dau.Data.Mapping.Room;
 
 namespace Dau.Data
 {
-    public partial class fees_and_facilitiesContext : IdentityDbContext<User, UserRole,string>
+    public partial class Fees_and_facilitiesContext : IdentityDbContext<User, UserRole,string>
     {
       
 
-        public fees_and_facilitiesContext()
+        public Fees_and_facilitiesContext()
            
         {
         }

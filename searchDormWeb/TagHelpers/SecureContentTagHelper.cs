@@ -15,9 +15,9 @@ namespace searchDormWeb.TagHelpers
     [HtmlTargetElement("secure-content")]
     public class SecureContentTagHelper : TagHelper
     {
-        private readonly fees_and_facilitiesContext _dbContext;
+        private readonly Fees_and_facilitiesContext _dbContext;
 
-        public SecureContentTagHelper(fees_and_facilitiesContext dbContext)
+        public SecureContentTagHelper(Fees_and_facilitiesContext dbContext)
         {
             _dbContext = dbContext;
         }

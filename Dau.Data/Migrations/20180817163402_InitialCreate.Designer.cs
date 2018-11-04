@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Dau.Data.Migrations
 {
-    [DbContext(typeof(fees_and_facilitiesContext))]
+    [DbContext(typeof(Fees_and_facilitiesContext))]
     [Migration("20180817163402_InitialCreate")]
     partial class InitialCreate
     {

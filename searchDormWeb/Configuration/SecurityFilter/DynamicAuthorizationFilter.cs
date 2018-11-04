@@ -17,9 +17,9 @@ namespace searchDormWeb.Configuration.SecurityFilter
 {
     public class DynamicAuthorizationFilter : IAsyncAuthorizationFilter
     {
-        private readonly fees_and_facilitiesContext _dbContext;
+        private readonly Fees_and_facilitiesContext _dbContext;
 
-        public DynamicAuthorizationFilter(fees_and_facilitiesContext dbContext)
+        public DynamicAuthorizationFilter(Fees_and_facilitiesContext dbContext)
         {
             _dbContext = dbContext;
         }

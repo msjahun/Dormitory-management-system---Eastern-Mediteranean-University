@@ -13,7 +13,7 @@ namespace Dau.Services.Dormitory
 {
    public class DormitoryService : IDormitoryService
     {
-        private fees_and_facilitiesContext _context= new fees_and_facilitiesContext();
+        private Fees_and_facilitiesContext _context= new Fees_and_facilitiesContext();
 
 
         public List<string> GetListAllDormitoriesByLangAndType (int _dormitory_type_id, int _lang_id)

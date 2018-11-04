@@ -15,13 +15,13 @@ namespace searchDormWeb.TagHelpers
     [HtmlTargetElement("Menu-item")]
     public class MenuItemTagHelper : TagHelper
     {
-        private readonly fees_and_facilitiesContext _dbContext;
+        private readonly Fees_and_facilitiesContext _dbContext;
         public MenuItemViewModel MenuItem { get; set; }
         [ViewContext, HtmlAttributeNotBound]
         public ViewContext ViewContext { get; set; }
 
 
-        public MenuItemTagHelper(fees_and_facilitiesContext dbContext)
+        public MenuItemTagHelper(Fees_and_facilitiesContext dbContext)
         {
             _dbContext = dbContext;
         }

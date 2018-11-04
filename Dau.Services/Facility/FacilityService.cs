@@ -12,7 +12,7 @@ namespace Dau.Services.Facility
     public class FacilityService : IFacilityService
     {
 
-        private fees_and_facilitiesContext _context = new fees_and_facilitiesContext();
+        private Fees_and_facilitiesContext _context = new Fees_and_facilitiesContext();
 
         public void facilities_and_options_data()
         {

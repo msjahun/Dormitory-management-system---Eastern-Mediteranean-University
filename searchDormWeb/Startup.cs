@@ -42,7 +42,7 @@ namespace searchDormWeb
 
             //Add identity
             services.AddIdentity<User, UserRole>()
-                .AddEntityFrameworkStores<fees_and_facilitiesContext>()
+                .AddEntityFrameworkStores<Fees_and_facilitiesContext>()
                 .AddDefaultTokenProviders();
 
             services.ConfigureApplicationCookie(options =>
@@ -62,7 +62,7 @@ namespace searchDormWeb
             services.AddScoped<IUserRolesService, UserRolesService>();
             services.AddScoped<ISearchService, SearchService>();
             services.AddScoped<IDormitoryService, DormitoryService>();
-            services.AddDbContext<fees_and_facilitiesContext>();
+            services.AddDbContext<Fees_and_facilitiesContext>();
 
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 

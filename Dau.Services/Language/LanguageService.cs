@@ -9,7 +9,7 @@ namespace Dau.Services.Language
     class LanguageService
     {
 
-        private fees_and_facilitiesContext _context = new fees_and_facilitiesContext();
+        private Fees_and_facilitiesContext _context = new Fees_and_facilitiesContext();
 
         public void languageInitiate()
         {
