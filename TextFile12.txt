@@ -1,0 +1,502 @@
+
+{
+  ""json"": [
+
+    //GET
+    //api/GetCurrency/{id}
+    //return currency information
+    {
+      ""Response"": ""Success"",
+      ""Body"": {
+        ""CurrencyName"": ""Turkish lira"",
+        ""CurrencyId"": ""0"",
+        ""CurrencyRate"": ""1""
+      }
+    },
+
+
+
+    //GET
+    //api/GetBookingsByCustomerId/{customerId}
+    //return all customer's bookings
+
+    {
+      ""Response"": ""Success"",
+      ""Body"": {
+        ""Bookings"": [
+          {
+            ""DormitoryDescription"": ""Alfam dormitories has four blocks seperate....."",
+            ""DormitoryId"": ""23"",
+            ""Dormitoryname"": ""Alfam Dormitories"",
+            ""PictureUrl"": ""https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg"",
+            ""RatingNumber"": ""4.5"",
+            ""RatingText"": ""Very Good"",
+            ""BookingDate"": ""12/2/2018"",
+            ""CheckInDate"": ""23/12/2019"",
+            ""BookingStatus"": ""Competed""
+          },
+          {
+            ""DormitoryDescription"": ""Alfam dormitories has four blocks seperate....."",
+            ""DormitoryId"": ""23"",
+            ""Dormitoryname"": ""Alfam Dormitories"",
+            ""PictureUrl"": ""https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg"",
+            ""RatingNumber"": ""4.5"",
+            ""RatingText"": ""Very Good"",
+            ""BookingDate"": ""12/2/2018"",
+            ""CheckInDate"": ""23/12/2019"",
+            ""BookingStatus"": ""Competed""
+          }
+
+        ]
+      }
+
+    },
+
+
+    //GET
+    //api/BookingByBookinId/{bookingId}
+    //returns a specific booking
+
+    {
+      ""Response"": ""Success"",
+      ""Body"": {
+        ""DormitoryId"": ""23"",
+        ""BookingDate"": ""12/2/2018"",
+        ""BookingStatus"": ""Confirmed"",
+        ""paymentConfirmationExpiryDate"": ""23/4/2019"",
+        ""BookingNo"": ""34343434"",
+        ""RoomBooked"": ""Alfam single room"",
+        ""DormitoryName"": ""Alfam dormitories""
+      }
+
+    },
+
+
+    //SearchResult activity
+    //GET
+    //api/GetDormitories
+    //return all dormitories
+
+    {
+      ""Response"": ""Success"",
+      ""Body"": {
+        ""Dormitories"": [
+          {
+            ""PictureUrl"": ""https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg"",
+            ""DormitoryName"": ""Alfam Dormitories"",
+            ""DormitoryDescription"": ""Alfam dormitories has four blocks seperate....."",
+            ""RatingNumber"": ""4.5"",
+            ""RatingText"": ""Very Good"",
+            ""DormitoryId"": ""23""
+          },
+          {
+            ""PictureUrl"": ""https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg"",
+            ""DormitoryName"": ""Alfam Dormitories"",
+            ""DormitoryDescription"": ""Alfam dormitories has four blocks seperate....."",
+            ""RatingNumber"": ""4.5"",
+            ""RatingText"": ""Very Good"",
+            ""DormitoryId"": ""23""
+          }
+        ]
+      }
+    },
+
+
+
+    //GET
+    //HomeActivity
+    //api/GetHighlyRatedDormitories
+    {
+      ""Response"": ""Success"",
+      ""Body"": {
+        ""Dormitories"": [
+          {
+            ""PictureUrl"": ""https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg"",
+            ""DormitoryName"": ""1Alfam Dormitories"",
+            ""DealsText"": ""1Deals start at $1990"",
+            ""DormitoryId"": ""21""
+
+          },
+          {
+            ""PictureUrl"": ""https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg"",
+            ""DormitoryName"": ""2Alfam Dormitories"",
+            ""DealsText"": ""2Deals start at $1990"",
+            ""DormitoryId"": ""22""
+
+          }
+        ]
+
+      }
+
+    },
+
+
+    //GET
+    //HomeActivity
+    //api/GetMostPopularDormitories
+    {
+      ""Response"": ""Success"",
+      ""Body"": {
+        ""Dormitories"": [
+          {
+            ""PictureUrl"": ""https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg"",
+            ""DormitoryName"": ""1Alfam Dormitories"",
+            ""DealsText"": ""1Deals start at $1990"",
+            ""DormitoryId"": ""21""
+
+          },
+          {
+            ""PictureUrl"": ""https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg"",
+            ""DormitoryName"": ""2Alfam Dormitories"",
+            ""DealsText"": ""2Deals start at $1990"",
+            ""DormitoryId"": ""22""
+
+          }
+        ]
+      }
+
+    },
+
+
+
+    //GET
+    //FacilitiesFilterActivity
+    //api/FacilitiesFilter
+
+    {
+      ""Response"": ""Success"",
+      ""Body"": {
+        ""Facilities"": [
+          {
+            ""facilityId"": ""1"",
+            ""facilityname"": ""Refrigerator""
+
+          },
+          {
+            ""facilityId"": ""2"",
+            ""facilityname"": ""Wifi""
+
+          },
+          {
+            ""facilityId"": ""3"",
+            ""facilityname"": ""TV""
+
+          }
+        ]
+      }
+
+    },
+
+
+
+    //GET
+    //ROOMDetailActivity
+    //api/GetRoomById/{RoomId}
+    {
+      ""Response"": ""Success"",
+      ""Body"": {
+        ""pictureUrl"": [
+          ""https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg"",
+          ""https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg"",
+          ""https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg""
+        ],
+        ""roomId"": ""13"",
+        ""roomQuota"": ""23"",
+        ""roomPrice"": ""$2,340"",
+        ""facilitiesList"": [
+          {
+            ""pictureUrl"": ""https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg"",
+            ""facilityname"": ""Wifi"",
+            ""facilityId"": ""12""
+          },
+          {
+            ""pictureUrl"": ""https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg"",
+            ""facilityname"": ""Wifi"",
+            ""facilityId"": ""12""
+          },
+          {
+            ""pictureUrl"": ""https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg"",
+            ""facilityname"": ""Wifi"",
+            ""facilityId"": ""12""
+          }
+        ]
+      }
+    },
+
+
+
+    //Dormitory detailsAcivity
+    //api/GetDormitoryDetailById/{DormitoryId}
+
+
+    {
+      ""Response"": ""Success"",
+      ""Body"": {
+        ""Dormitoryname"": ""Dormitory name"",
+        ""DormitoryShortDescription"": ""Dormitory full description"",
+        ""ImageUrls"": [
+          ""https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg"",
+          ""https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg"",
+          ""https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg""
+        ],
+        ""DormitotyFullDescription"": ""Dormitory full description"",
+
+
+        ""FacilitiesList"": [
+          {
+            ""pictureUrl"": ""https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg"",
+            ""facilityname"": ""Wifi"",
+            ""facilityId"": ""12""
+          },
+          {
+            ""pictureUrl"": ""https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg"",
+            ""facilityname"": ""Wifi"",
+            ""facilityId"": ""12""
+          }
+        ],
+
+        ""DormitoryPolicies"": ""Dormitory policies""
+      }
+    },
+
+
+    //ChooseRoomActivity
+    //api/GetRoomByDormitoryId/{DormitoryId}
+    {
+      ""Response"": ""Success"",
+      ""Body"": {
+        ""Rooms"": [
+          {
+
+            ""pictureUrl"": ""https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg"",
+            ""dormitoryName"": ""Alfam Dormitories"",
+            ""bedType"": ""23m2"",
+            ""roomSize"": ""58m2"",
+            ""roomQuotaRemaining"": ""34"",
+            ""RoomPrice"": ""1990"",
+            ""RoomId"": ""12"",
+            ""DormitoryId"": ""23""
+
+          },
+          {
+
+
+            ""pictureUrl"": ""https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg"",
+            ""dormitoryName"": ""Alfam Dormitories"",
+            ""bedType"": ""23m2"",
+            ""roomSize"": ""58m2"",
+            ""roomQuotaRemaining"": ""34"",
+            ""RoomPrice"": ""1990"",
+            ""RoomId"": ""12"",
+            ""DormitoryId"": ""23""
+
+          },
+          {
+            ""Response"": ""Success"",
+
+            ""pictureUrl"": ""https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg"",
+            ""dormitoryName"": ""Alfam Dormitories"",
+            ""bedType"": ""23m2"",
+            ""roomSize"": ""58m2"",
+            ""roomQuotaRemaining"": ""34"",
+            ""RoomPrice"": ""1990"",
+            ""RoomId"": ""12"",
+            ""DormitoryId"": ""23""
+
+          }
+        ]
+
+      }
+
+    },
+
+
+
+    //GET
+    //EditBookingActivity
+    //api/GetBooking
+
+    {
+      ""Response"": ""Success"",
+      ""Body"": {
+        ""DateOfBooking"": ""12/10/2018"",
+        ""TimeOfBooking"": ""2:48PM"",
+        ""CheckInDate"": ""18/10/2018"",
+        ""CheckInSemester"": ""Spring""
+      }
+    },
+
+
+
+
+
+    //PostApi
+
+    {
+      ""Response"": ""Success""
+    },
+
+    {
+      ""Response"": ""Error"",
+      ""ErrorMessage"": ""Wrong booking id""
+    },
+
+    //POST
+    //RateYourStayActivity
+    //Posts room/booking feedback
+    /**  api/RateYourStay **/
+    /*
+      FeedbackType	int	0 for comment, 1 for suggestion
+      Addcomment	String	
+      Facilities	int	0 for Awful, 1 for Poor, 2 for average, 3 for good, 4 for Great
+      Services	int	1 for Awful, 1 for Poor, 2 for average, 3 for good, 4 for Great
+      Compound	int	2 for Awful, 1 for Poor, 2 for average, 3 for good, 4 for Great
+
+
+    */
+
+    {
+      ""FeedbackType"": ""1"",
+      ""Addcomment"": ""Good dormitory"",
+      ""Facilities"": ""2"",
+      ""Services"": ""1"",
+      ""Compound"": ""0""
+
+    },
+
+    //PaymentConfirmationActivity
+    //posts payment information to the server
+    /**  api/PaymentConfirmation **/
+
+    /* 
+    PictureUrl	string
+    bookingNo	string
+
+    */
+
+    {
+      ""PictureUrl"": ""https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg"",
+      ""bookingNo"": ""345345365""
+
+    },
+    //RoomDetailActivity
+    //Creates booking, books a room
+    /**  api/CreateBooking **/
+
+    //post data
+    {
+      ""bookingId"": ""234534345"",
+      ""currentDate"": ""23/10/2018"",
+      ""CurrentTime"": ""10/20/2019"",
+      ""UserName"": ""msjahun@live.com"",
+      ""userId"": ""12323434"",
+      ""dormitoryId"": ""234"",
+      ""roomId"": ""3454234""
+
+    },
+
+    //GiveAppFeedBackActivity
+    //Posts app feedback
+    /**  api/GiveAppFeedBack **/
+
+    /*  RateOurAppMood	int	0 for Awful, 1 for Poor, 2 for average, 3 for good, 4 for Great
+        FeedBackCategory	int	0 for comment, 1 for suggestion
+        AddComment	string 	
+        userid	string 	
+        username	string 	
+ */
+
+    {
+      ""RateOurAppMood"": ""0"",
+      ""FeedBackCategory"": ""1"",
+      ""AddComment"": ""Feedback Comment"",
+      ""userid"": ""243443"",
+      ""username"": ""msjahun@live.com""
+
+    },
+
+    //Update
+    //EditBooking
+    //update booking data
+    /** api/EditBooking/{bookingId} **/
+
+    /*
+    DateOfBooking	date
+TimeOfBooking	date
+CheckInDate	string
+CheckInSemester	string
+
+    */
+
+    //post data
+    {
+      ""DateOfBooking"": ""12/10/2018"",
+      ""TimeOfBooking"": ""4:00pm"",
+      ""CheckInDate"": ""13/10/2019"",
+      ""CheckInSemester"": ""Spring""
+
+    },
+    //ManagebookingActivity
+    //for cancel booking button, string to be sent is ""Cancelled""
+    /** api/CancelBooking/**/
+
+    //data
+    {
+      ""bookingNo"" :""4334543"",
+      ""bookingStatus"" :""Cancelled""
+
+    },
+
+    //POST
+    //FilterByActivity
+    //POSTFilter data and get this response
+    /* PriceRangeMin	Double
+        PriceRangeMax	Double
+        StarRating	array int	1 to 4
+        PropertyType	int	0 for private dormitory, 1 for EMU dormitory
+        CheckInSemester	int	0 for spring, 1 for fall and 2 for summer
+    FacilitiesIds array of facility ids
+    */
+
+    /**  api/GetSearchDormitoriesByFilter  **/
+    //return all dormitories
+    //postData
+    {
+      ""PriceRangeMin"": ""100"",
+      ""PriceRangeMax"": ""400"",
+      ""StarRating"": [ ""1"", ""3"", ""4"" ],
+      ""PropertyType"": [ ""1"", ""0"" ],
+      ""FacilitiesIds"": [ ""1"", ""3"", ""4"", ""5"" ],
+      ""CheckInSemester"": [ ""0"", ""1"", ""3"" ]
+
+    },
+
+
+    //response
+    {
+      ""Response"": ""Success"",
+      ""Body"": {
+        ""Dormitories"": [
+          {
+            ""PictureUrl"": ""https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg"",
+            ""DormitoryName"": ""Alfam Dormitories"",
+            ""DormitoryDescription"": ""Alfam dormitories has four blocks seperate....."",
+            ""RatingNumber"": ""4.5"",
+            ""RatingText"": ""Very Good"",
+            ""DormitoryId"": ""23""
+          },
+          {
+            ""PictureUrl"": ""https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg"",
+            ""DormitoryName"": ""Alfam Dormitories"",
+            ""DormitoryDescription"": ""Alfam dormitories has four blocks seperate....."",
+            ""RatingNumber"": ""4.5"",
+            ""RatingText"": ""Very Good"",
+            ""DormitoryId"": ""23""
+          }
+        ]
+      }
+    }
+
+
+  ]
+}
