@@ -11,6 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dau.Data", "Dau.Data\Dau.Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dau.Services", "Dau.Services\Dau.Services.csproj", "{64EF74E4-30A2-4AA8-BC2B-C68E61EE2FCE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E2CBD7BF-CD87-4A24-A3F5-1711DD7C6876}"
+	ProjectSection(SolutionItems) = preProject
+		Script1.json = Script1.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
