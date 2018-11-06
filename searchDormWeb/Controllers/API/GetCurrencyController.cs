@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 
 namespace searchDormWeb.Controllers.API
@@ -17,11 +18,13 @@ namespace searchDormWeb.Controllers.API
 
         // GET: api/GetCurrency/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public JsonResult Get(int id)
         {
            
             string Json = @"{ ""Response"": ""Success"",""Body"": {""CurrencyName"": ""Turkish lira"",""CurrencyId"": ""0"",""CurrencyRate"": ""1"" } ";
-            return Json;
+            JsonResult result = new JsonResult(JsonConvert.DeserializeObject(Json));
+
+            return result;
         }
         
     }

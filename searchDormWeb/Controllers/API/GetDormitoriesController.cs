@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 
 namespace searchDormWeb.Controllers.API
@@ -14,7 +15,7 @@ namespace searchDormWeb.Controllers.API
     {
         // GET: api/GetDormitories
         [HttpGet]
-        public string Get()
+        public JsonResult Get()
         {
           
           
@@ -41,7 +42,8 @@ namespace searchDormWeb.Controllers.API
         ]
       }
     }";
-            return Json;
+             JsonResult result = new JsonResult(JsonConvert.DeserializeObject(Json));
+            return result;
         }
 
     }

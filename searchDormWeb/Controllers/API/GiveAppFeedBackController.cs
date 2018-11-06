@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 
 namespace searchDormWeb.Controllers.API
@@ -16,13 +17,14 @@ namespace searchDormWeb.Controllers.API
 
         // POST: api/GiveAppFeedBack
         [HttpPost]
-        public string Post([FromBody] string value)
+        public JsonResult Post([FromBody] string value)
         {
             string Json = @" {
                 ""Response"": ""Success""
                 }";
 
-            return Json;
+             JsonResult result = new JsonResult(JsonConvert.DeserializeObject(Json));
+            return result;
         }
         
     }
