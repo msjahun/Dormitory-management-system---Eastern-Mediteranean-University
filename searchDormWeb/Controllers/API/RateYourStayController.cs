@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace searchDormWeb.Controllers.API
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class RateYourStayController : ControllerBase
