@@ -14,7 +14,7 @@ namespace searchDormWeb.Controllers.API
        
 
         // GET: api/GetDormitoryDetailById/5
-        [HttpGet("{id}"]
+        [HttpGet("{id}")]
         public string Get(int id)
         {
             string Json = @" {
