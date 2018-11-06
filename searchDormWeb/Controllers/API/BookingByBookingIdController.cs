@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace searchDormWeb.Controllers.API
 {
@@ -16,7 +18,7 @@ namespace searchDormWeb.Controllers.API
 
         // GET: api/BookingByBookingId/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public JsonResult Get(int id)
         {
             string Json = @"{
       ""Response"": ""Success"",
@@ -31,7 +33,11 @@ namespace searchDormWeb.Controllers.API
       }
 
         }";
-            return Json;
+
+            JsonResult result = new JsonResult(JsonConvert.DeserializeObject(Json));
+
+            return result;
+          
         }
 
   
