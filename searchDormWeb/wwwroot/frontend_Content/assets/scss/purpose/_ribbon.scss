@@ -1,0 +1,26 @@
+.ribbon {
+	position: absolute;
+	top: 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 2.5rem;
+    height: 2.5rem;
+    font-size: .75rem;
+    font-weight: $font-weight-bold;
+    z-index: 10;
+}
+
+.ribbon-left {
+	left: 1rem;
+}
+
+.ribbon-right {
+	right: 1rem;
+}
+
+@each $color, $value in $theme-colors {
+  .ribbon-#{$color} {
+    @include ribbon-variant($value);
+  }
+}

@@ -1,0 +1,36 @@
+@at-root {
+     @-ms-viewport{
+        width: device-width;
+    }
+}
+html {
+    box-sizing: border-box;
+    -ms-overflow-style: scrollbar;
+}
+body {
+    color: $body-color;
+    background-color: $body-bg;
+    font-family: $font-family-base;
+    font-size: $font-size-base;
+    line-height: $line-height-base;
+    overflow-x: hidden;
+}
+
+iframe {
+    border: 0;
+}
+figcaption,
+figure,
+main {
+    display: block;
+    margin: 0;
+}
+
+main {
+    position: relative;
+
+}
+
+header {
+
+}

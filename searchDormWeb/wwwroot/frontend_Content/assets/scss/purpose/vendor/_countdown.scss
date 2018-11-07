@@ -1,0 +1,69 @@
+.countdown .countdown-item {
+    display: inline-block;
+}
+
+.countdown .countdown-digit,
+.countdown .countdown-label {
+    //font-size: 2rem;
+    font-weight: 300;
+    font-family: $font-family-alt;
+}
+
+.countdown .countdown-label {
+    font-size: 1.2rem;
+    padding: 0 10px;
+}
+
+.countdown-sm .countdown-digit,
+.countdown-sm .countdown-label {
+    font-size: 1.4rem;
+}
+
+.countdown-sm .countdown-label {
+    font-size: 0.875rem;
+    padding: 0 10px;
+}
+
+[data-countdown-label="hide"] .countdown-label:not(.countdown-days) {
+    display: none;
+}
+
+[data-countdown-label="show"] .countdown-separator {
+    display: none;
+}
+
+.countdown--style-1 .countdown-item {
+    margin-right: 10px;
+}
+
+.countdown--style-1 .countdown-item:last-child {
+    margin-right: 0;
+}
+
+.countdown--style-1 .countdown-digit {
+    display: block;
+    width: 60px;
+    height: 60px;
+    background: #f3f3f3;
+    color: #333;
+    font-size: 22px;
+    font-weight: 400;
+    text-align: center;
+    line-height: 60px;
+    font-family: $font-family-alt;
+}
+
+.countdown--style-1 .countdown-label {
+    display: block;
+    margin-top: 5px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: $font-family-alt;
+    text-transform: uppercase;
+}
+
+.countdown--style-1-v1 .countdown-digit {
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+}

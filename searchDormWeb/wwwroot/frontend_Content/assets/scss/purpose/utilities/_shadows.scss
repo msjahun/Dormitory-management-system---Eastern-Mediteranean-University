@@ -1,0 +1,25 @@
+[class*="shadow"] {
+	@if $enable-transitions {
+        transition: $transition-base;
+    }
+}
+
+.shadow-sm--hover:hover { box-shadow: $box-shadow-sm !important; }
+.shadow--hover:hover { box-shadow: $box-shadow !important; }
+.shadow-lg--hover:hover { box-shadow: $box-shadow-lg !important; }
+.shadow-none,
+.shadow-none--hover:hover { box-shadow: none !important; }
+
+@each $color, $value in $theme-colors {
+	.shadow-#{$color}-sm {
+		box-shadow: 0 .125rem .25rem rgba(theme-color($color), .4);
+	}
+
+	.shadow-#{$color} {
+		box-shadow: 0 .5rem 1rem rgba(theme-color($color), .4);
+	}
+
+	.shadow-#{$color}-lg {
+		box-shadow: 0 1rem 3rem rgba(theme-color($color), .4);
+	}
+} 

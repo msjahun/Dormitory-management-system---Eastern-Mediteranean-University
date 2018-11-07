@@ -1,0 +1,9 @@
+@mixin icon-variant($color) {
+    color: saturate(darken($color, 14%), 5);
+    background-color: transparentize(lighten($color, 10%), .5);
+}
+
+@mixin icon-outline-variant($border, $color) {
+    color: saturate(darken($color, 14%), 5);
+    border: $border solid transparentize(lighten($color, 10%), .5);
+}

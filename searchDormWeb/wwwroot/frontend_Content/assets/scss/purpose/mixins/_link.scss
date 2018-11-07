@@ -1,0 +1,7 @@
+@mixin link-underline-variant($bg) {
+	border-bottom-color: $bg;
+
+	&:hover {
+		color: $bg;
+	}
+}

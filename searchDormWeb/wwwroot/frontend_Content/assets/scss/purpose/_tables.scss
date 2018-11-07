@@ -1,0 +1,153 @@
+.table {
+    thead th {
+        border: 0;
+        background-color: $table-head-bg;
+        color: $table-head-color;
+        font-size: $table-head-font-size;
+        padding-top: $table-head-spacer-y;
+        padding-bottom: $table-head-spacer-y;
+    }
+
+    td {
+        font-size: $table-body-font-size;
+    }
+
+    th, td {
+        white-space: nowrap;
+    }
+}
+
+.table.align-items-center,
+.table.align-items-center {
+    th,
+    td {
+        vertical-align: middle;
+    }
+}
+
+.table-hover {
+    tr {
+        @include transition($transition-base);
+    }
+}
+
+.table-td-text {
+    max-width: 400px;
+}
+
+// Flush tables
+.table-flush {
+    th, td {
+        border-left: 0;
+        border-right: 0;
+    }
+
+    tr {
+        &:first-child {
+            th, td {
+                border-top: 0;
+            }
+        }
+
+        &:last-child {
+            th, td {
+                border-bottom: 0;
+            }
+        }
+    }
+}
+
+// Tables inside cards
+.card {
+    .table {
+        margin-bottom: 0;
+
+        th,
+        td {
+            padding-left: $card-spacer-x;
+            padding-right: $card-spacer-x;
+            
+        }
+    }
+}
+
+// Table with spaced rows and card style
+
+.table-cards {
+    border-collapse: collapse;
+}
+
+.table-cards {
+    thead,
+    tbody {
+        th,
+        td {
+            border: 0 !important;
+            padding: 1rem;
+            position: relative;
+            background-color: $card-bg;
+        }
+    }
+}
+
+.table-cards.table-hover {
+    tbody > tr {
+        &:hover {
+            th,
+            td {
+                background-color: $table-hover-bg;
+            }
+        }
+    }
+}
+
+@include media-breakpoint-up(md) {
+    .table-cards.table-scale--hover {
+        tr {
+            &:hover {
+                transform: scale(1.02);
+            }
+        }
+    }
+}
+
+.table-cards tbody tr {
+    th {
+        border-radius: $border-radius 0 0 $border-radius;
+
+        &:after {
+            border-radius: $border-radius 0 0 $border-radius;
+            border-left: 1px solid $card-border-color;
+        }
+    }
+
+    td {
+        &:last-child {
+            border-radius: 0 $border-radius $border-radius 0;
+
+            &:after {
+                border-radius: 0 $border-radius $border-radius 0;
+                border-right: 1px solid $card-border-color;
+            }
+        }
+    }
+
+    th, td {
+        &:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-top: 1px solid $card-border-color;
+            border-bottom: 1px solid $card-border-color;
+            left: 0;
+            top: 0;
+            pointer-events: none;
+        }
+    }
+}
+
+
+tr.table-divider {
+    height: .75rem;
+}

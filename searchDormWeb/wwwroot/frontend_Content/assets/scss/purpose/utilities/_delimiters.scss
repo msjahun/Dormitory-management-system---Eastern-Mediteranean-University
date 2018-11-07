@@ -1,0 +1,32 @@
+.delimiter-top,
+.delimiter-bottom {
+	position: relative;
+}
+
+.delimiter-top {
+	&:before {
+		content: '';
+		display: block;
+		width: 80%;
+		position: absolute;
+		top: 0;
+		left: 50%;
+		margin-left: -40%;
+		height: 1px;
+		background: radial-gradient(ellipse at center, rgba(0,0,0,0.2) 0, rgba(255,255,255,0) 75%);
+	}
+}
+
+.delimiter-bottom {
+	&:after {
+		content: '';
+		display: block;
+		width: 80%;
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		margin-left: -40%;
+		height: 1px;
+		background: radial-gradient(ellipse at center, rgba(0,0,0,0.2) 0, rgba(255,255,255,0) 75%);
+	}
+}

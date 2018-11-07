@@ -1,0 +1,68 @@
+// Static rating stars
+
+.static-rating {
+    display: inline-block;
+    .star {
+        color: $star-rating-color;
+    }
+    .voted {
+        color: $star-rating-color-active;
+    }
+}
+
+.static-rating-sm {
+    .star {
+        font-size: $font-size-xs;
+    }
+}
+
+
+// Functional rating start
+
+.rating {
+    display: inline-block;
+
+    .star {
+        font-family: "Font Awesome 5 Solid";
+        font-weight: normal;
+        font-style: normal;
+        float: left;
+        padding: 0 1px;
+        cursor: pointer;
+
+        &:before {
+            content: "\f005";
+            display: block;
+            font-size: 14px;
+            color: $star-rating-color;
+            transition: all .2s linear;
+        }
+
+    }
+
+    &:hover .star {
+        &:before {
+            color: $star-rating-color;
+        }
+    }
+
+    &:hover .over:before {
+        color: $star-rating-color-active;
+    }
+
+    .voted:before {
+        color: $star-rating-color-active;
+    }
+}
+
+.rating-lg {
+    .star:before {
+        font-size: 18px;
+    }
+}
+
+.rating-xl {
+    .star:before {
+        font-size: 24px;
+    }
+}

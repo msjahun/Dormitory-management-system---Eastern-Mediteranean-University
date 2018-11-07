@@ -1,0 +1,43 @@
+.collage {
+	height: 600px;
+
+	.bg-img-holder {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		z-index: 0;
+	}
+
+	.collage-bg {
+		z-index: 3;
+	}
+
+	.collage-back {
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 1;
+
+		img {
+			max-width: 100%;
+		}
+	}
+
+	.collage-front {
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 2;
+
+		img {
+			max-height: 100%;
+		}
+	}
+
+	@include media-breakpoint-down(md) {
+		.collage-front {
+			height: 100% !important;
+		}
+		
+	}
+}

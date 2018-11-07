@@ -1,0 +1,112 @@
+footer {
+    background-color: section-color("primary");
+}
+
+.footer {
+    padding-top: 3rem;
+
+    .list-unstyled li a {
+        display: inline-block;
+        padding: .125rem 0;
+    }
+}
+
+.footer-light {
+    p {
+        color: rgba($dark, .65);
+    }
+
+    .heading {
+        color: rgba($dark, .9);
+    }
+
+    .list-unstyled li a {
+        color: rgba($dark, .65);
+
+        &:hover {
+            color: rgba($dark, .9);
+        }
+    }
+
+    .copyright {
+        a {
+            color: $gray-700;
+
+            &:hover {
+                color: $gray-800;
+            }
+        }
+    }
+}
+
+.footer-dark {
+    p {
+        color: rgba($white, .8);
+    }
+
+    .heading {
+        color: rgba($white, 1);
+    }
+
+    .list-unstyled li a {
+        color: rgba($white, .8);
+
+        &:hover {
+            color: rgba($white, .9);
+        }
+    }
+
+    .copyright {
+        a {
+            color: rgba($white, .9);
+
+            &:hover {
+                color: rgba($white, 1);
+            }
+        }
+    }
+}
+
+.footer-rotate {
+    position: relative;
+    margin-top: -26rem;
+    padding-top: 26rem;
+    overflow: hidden;
+
+    &:before {
+        background: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 2000 1000%22 preserveAspectRatio=%22none%22%3E\a %3Cpath fill=%22%23ffffff%22 d=%22M2000,0V923.45l-195.85-538.1a76.07875,76.07875,0,0,0-58.25-48.89L536.65,123.24a76.12151,76.12151,0,0,0-71.44,26L0,703.65V0Z%22/%3E\a %3C/svg%3E") no-repeat scroll center center/100% 100% border-box;
+        right: calc(50% - 1000px);
+        content: '';
+        display: block;
+        height: 1000px;
+        min-width: 2000px;
+        pointer-events: none;
+        position: absolute;
+        width: 100%;
+        z-index: 10;
+        top: 0;
+    }
+}
+
+.footer-dark {
+    background-color: $footer-dark-bg;
+    color: $footer-dark-color;
+
+    .heading {
+        color: $footer-dark-heading-color;
+    }
+
+    .nav .nav-item .nav-link,
+    .list-unstyled li a,
+    .footer-link {
+        color: $footer-dark-link-color;
+
+        &:hover {
+            color: $footer-dark-link-hover-color;
+        }
+    }
+
+    hr {
+        border-color: rgba(invert($footer-dark-bg), .1);
+    }
+}

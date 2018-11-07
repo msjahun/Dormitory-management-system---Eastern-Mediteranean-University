@@ -1,0 +1,35 @@
+.list-icon {
+	i, svg {
+	    margin-right: 1rem;
+	    font-size: $font-size-sm;
+	    position: relative
+	}
+}
+
+.list-bullet {
+	i, svg {
+	    margin-right: 1rem;
+	    font-size: 8px;
+	    transform: translateY(-50%);
+	    top: 2px;
+	    position: relative
+	}
+}
+
+.list-unstyled {
+	.list-link {
+		display: block;
+		color: $gray-600;
+		padding-top: .25rem;
+		padding-bottom: .25rem;
+
+		&:hover {
+			color: theme-color("primary");
+		}
+
+		i {
+			margin-right: .5rem;
+			font-size: .75rem;
+		}
+	}
+}

@@ -1,0 +1,144 @@
+.avatar {
+	position: relative;
+	color: $avatar-color;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-size: $avatar-font-size;
+	font-weight: $avatar-font-weight;
+	height: $avatar-width;
+	width: $avatar-width;
+	@include border-radius($avatar-border-radius);
+
+	&.rounded-circle {
+		img {
+			border-radius: 50%;
+		}
+	}
+	
+	img {
+		height: 100%;
+	}
+
+	span {
+		background-color: $avatar-bg;
+	}
+
+	+ .avatar {
+		margin-left: .25rem; 
+	}
+
+	+ .avatar-content {
+		display: inline-block;
+		margin-left: .75rem;
+	}
+} 
+
+.avatar-lg {
+	width: $avatar-width-lg;
+	height: $avatar-width-lg;
+	font-size: $avatar-font-size-lg;
+}
+
+.avatar-sm {
+	width: $avatar-width-sm;
+	height: $avatar-width-sm;
+	font-size: $avatar-font-size-sm;
+	@include border-radius($avatar-border-radius-sm);
+}
+
+// Avatar group
+
+.avatar-group {
+	display: inline-block;
+	line-height: 1;
+
+	.avatar {
+		transition: margin .15s ease-in-out;
+		z-index: 1;
+
+		&:hover {
+			z-index: 2;
+		}
+
+		img {
+			border: $avatar-stack-gutter solid $avatar-stack-border-color;
+		}
+	}
+
+	.avatar + .avatar {
+		margin-left: -1.5rem;
+		@include border-left-radius(0);
+	}
+
+	.avatar-sm + .avatar-sm {
+		margin-left: -1rem;
+	}
+	
+	&:hover {
+		.avatar {
+			@include border-left-radius($avatar-border-radius);
+		}
+
+		.avatar-sm {
+			@include border-left-radius($avatar-border-radius-sm);
+		}
+	}
+}
+
+.avatar-ungroup--hover:hover {
+	.avatar:not(:first-child) {
+		margin-left: 0;
+	}
+}
+
+// Avatar parent child
+.avatar-parent-child {
+	display: inline-block;
+	position: relative;
+}
+
+.avatar-child {
+	position: absolute;
+	background-color: #fff;
+	@include border-radius($avatar-border-radius-sm);
+	border: $avatar-stack-gutter solid $avatar-stack-border-color;
+}
+
+.avatar + .avatar-child {
+	right: -15%;
+	bottom: -9%;
+	max-width: 20px;
+}
+
+.avatar-lg + .avatar-child {
+	right: -7%;
+	bottom: -7%;
+	max-width: 26px;
+}
+
+.avatar-sm + .avatar-child {
+	right: -21%;
+	bottom: -15%;
+	max-width: 16px;
+}
+
+// Connected avatars
+.avatar-connect {
+	position: relative;
+
+	&:before {
+		content: '';
+		position: absolute;
+		top: 50%;
+		left: 0;
+		width: 100%;
+		border-bottom: 2px dashed $avatar-connect-border-color;
+	}
+
+	ul {
+		margin: 0;
+		padding: 0;
+		list-style: none; 
+	}
+}

@@ -1,0 +1,79 @@
+/*
+
+Styled shaped wrappers for displaying code and images in a more stylish manner
+
+*/
+
+// Mac frame 
+
+.frame-laptop {
+    position: relative;
+
+    .frame-inner {
+        overflow: hidden;
+        position: absolute;
+        width: 78%;
+        height: 74%;
+        left: 0;
+        top: 0;
+        background-color: #111;
+        margin: 7.5% 11% 0 11%;
+        border-radius: .25rem;
+        box-shadow: inset 0px 2px 5px 0px rgba(0,0,0,.2);
+    }
+}
+
+// Browser frame 
+
+.frame-browser {
+    in-height: 300px;
+    border-radius: $card-border-radius;
+    position: relative;
+    will-change: height;
+    background-color: $dark;
+
+    &:before {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: -webkit-linear-gradient(40deg, transparent 0%, $darker 100%);
+        content: "";
+        border-radius: 6px;
+        will-change: transform;
+    }
+
+    .frame-header {
+        position: relative;
+        padding: .3rem 0;
+        border-top-left-radius: $card-border-radius;
+        border-top-right-radius: $card-border-radius;
+        background-color: lighten(rgba($dark, .8), 10%);
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 3px;
+        }
+    }
+
+    .frame-body {
+        position: relative;
+        padding: 0 1.5rem .5rem 1.5rem;
+        overflow-x: hidden;
+        min-height: 300px;
+
+        pre {
+            color: $white;
+        }
+        
+        .hljs {
+            margin: 0;
+            padding: 0;
+            background: transparent !important;
+        }
+    }
+}

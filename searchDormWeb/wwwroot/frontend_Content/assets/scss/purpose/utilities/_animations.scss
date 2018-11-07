@@ -1,0 +1,84 @@
+[data-animate-hover] {
+	.animate-this {
+		position: relative;
+		top: 0;
+		transform: translateY(0);
+		@include transition($transition-base);
+	}
+}
+
+[data-animate-hover="1"] {
+	&:hover .animate-this {
+		transform: translateY(-1rem);
+		@include box-shadow($box-shadow);
+	}
+}
+
+[data-animate-hover="2"] {
+	&:hover .animate-this {
+		transform: scale(1.1);
+		z-index: 10;
+		@include box-shadow($box-shadow);
+	}
+}
+
+
+// Programmatic animations
+
+[data-animate-items] {
+	.animate-item,
+	.animate-item--visible {
+		@include transition($transition-base);
+	}
+
+	.animate-item {
+		display: none;
+		opacity: 0;
+		animation: hide_item .2s ease forwards;
+	    animation-delay: .5s;
+	}
+
+	&:hover {
+		.animate-item {
+			display: block;
+    		animation: show_item .2s ease forwards;
+    		animation-delay: .5s;
+		}
+	}
+}
+
+
+// Custom animations
+
+@keyframes text_slide {
+    0% {
+        transform: translateX(0%)
+    }
+    100% {
+        transform: translateX(300px)
+    }
+}
+
+@keyframes show_item {
+    from {
+        opacity: 0;
+        transform: translateY(300px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes hide_item {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(300px);
+    }
+}

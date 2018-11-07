@@ -1,0 +1,165 @@
+.icon {
+	display: inline-flex;
+	min-width: $icon-size;
+	min-height: $icon-size;
+
+	i, svg {
+		font-size: $icon-size - .25;
+	}
+
+	img {
+		width: $icon-size;
+		height: $icon-size;
+	}
+}
+
+.icon + .icon-text {
+	padding-left: 1rem;
+	width: calc(100% - #{$icon-size} - 1);
+}
+
+.icon-xl {
+	min-width: $icon-size-xl;
+	min-height: $icon-size-xl;
+
+	i, svg {
+		font-size: $icon-size-xl - .25;
+	}
+
+	img {
+		width: $icon-size-xl;
+		height: $icon-size-xl;
+	}
+}
+
+.icon-xl + .icon-text {
+	width: calc(100% - #{$icon-size-xl} - 1);
+}
+
+.icon-lg {
+	min-width: $icon-size-lg;
+	min-height: $icon-size-lg;
+
+	i, svg {
+		font-size: $icon-size-lg - .25rem;
+	}
+
+	img {
+		width: $icon-size-lg;
+		height: $icon-size-lg;
+	}
+}
+
+.icon-lg + .icon-text {
+	width: calc(100% - #{$icon-size-lg} - 1);
+}
+
+.icon-sm {
+	min-width: $icon-size-sm;
+	min-height: $icon-size-sm;
+
+	i, svg {
+		font-size: $icon-size-sm - .25rem;
+	}
+
+	img {
+		width: $icon-size-sm;
+		height: $icon-size-sm;
+	}
+}
+
+.icon-sm + .icon-text {
+	width: calc(100% - #{$icon-size-sm} - 1);
+}
+
+
+// Icons included in shapes
+
+.icon-shape {
+	text-align: center;
+	align-items: center;
+	justify-content: center;
+	border-radius: $border-radius;
+
+	i, svg {
+		font-size: 1.125rem;
+	}
+}
+
+.icon-xl {
+	i, svg {
+		font-size: 2.25rem;
+	}
+}
+
+
+.icon-lg {
+	i, svg {
+		font-size: 1.75rem;
+	}
+}
+
+@each $color, $value in $colors {
+	.icon-#{$color} {
+		@include icon-variant(color($color));
+	}
+
+	.icon-outline-#{$color} {
+		@include icon-outline-variant($icon-border-width, color($color));
+	}
+}
+
+// Icon action buttons
+
+.icon-actions {
+    > a {
+        display: inline-block;
+        margin-right: .75rem;
+        color: $gray-600;
+        font-size: .875rem;
+
+        &:last-of-type {
+            margin-right: 0;
+        }
+
+        span {
+            margin-left: .1875rem;
+            font-weight: $font-weight-bold;
+            color: $text-muted;
+        }
+
+        &:hover {
+            span {
+                color: darken($text-muted, 10%);
+            }
+        }
+    }
+
+    > a,
+    > a:hover,
+    > a.active {
+        color: $gray-800;
+    }
+
+    > .favorite:hover,
+    > .favorite.active {
+        color: $favorite-color;
+    }
+
+    > .love:hover,
+    > .love.active {
+        color: $love-color;
+    }
+
+    > .like:hover,
+    > .like.active {
+        color: $like-color;
+    }
+}
+
+.icon-actions-lg {
+    a {
+        font-size: 1.25rem;
+        margin-right: .875rem;
+    }
+}

@@ -1,0 +1,74 @@
+.nav-link {
+    color: $nav-link-color;
+
+    &:hover {
+        color: theme-color("primary");
+    }
+}
+
+
+// Pills 
+
+.nav-pills {
+    .nav-link { 
+    	padding: $nav-pills-padding-y $nav-pills-padding-x;
+        border: $nav-pills-border-width solid $nav-pills-border-color;
+        border-radius: 0;
+        color: $nav-pills-link-color;
+        font-weight: 500;
+
+        &:hover {
+        	color: $nav-pills-link-hover-color;
+        }
+    }
+ 
+    .nav-item {
+        &:not(:first-child) .nav-link {
+            border-left: 0;
+        }
+
+        &:first-child .nav-link {
+            border-top-left-radius: $nav-pills-border-radius;
+            border-bottom-left-radius: $nav-pills-border-radius;
+        }
+
+        &:last-child .nav-link {
+            border-top-right-radius: $nav-pills-border-radius;
+            border-bottom-right-radius: $nav-pills-border-radius;
+        }
+    }
+
+    .nav-link.active,
+    .show > .nav-link {
+        color: $nav-pills-link-active-color;
+        background-color: $nav-pills-link-active-bg;
+    }
+
+    @include media-breakpoint-down(xs) { 
+        .nav-item {
+            margin-bottom: $spacer;
+        }
+    }
+}
+
+
+// Nav tabs
+
+.nav-tabs .nav-item .nav-link {
+    padding: .75rem 1rem;
+    transition: color .35s ease, border-color .35s ease;
+    border: 0;
+    border-bottom: 2px solid rgba(255, 255, 255, 0);
+
+    &.active {
+        border-color: theme-color("primary");
+    }
+
+    &:not(.active) {
+        color: $gray-500;
+
+        &:hover {
+            color: $gray-700;
+        }
+    }
+}

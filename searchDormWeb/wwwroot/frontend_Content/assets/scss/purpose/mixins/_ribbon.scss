@@ -1,0 +1,4 @@
+@mixin ribbon-variant($bg) {
+	color: color-yiq($bg);
+    background-color: lighten($bg, 10%);
+}

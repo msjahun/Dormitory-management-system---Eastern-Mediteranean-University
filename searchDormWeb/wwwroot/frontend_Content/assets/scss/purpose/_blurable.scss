@@ -1,0 +1,32 @@
+// Make a blur animation and bring an action element on top on mouse hover
+
+.blurable--hover {
+    position: relative;
+
+    .blurable-item {
+        transition: 1s cubic-bezier(.19,1,.22,1);
+        filter: blur(0);
+        opacity: 1;
+    }
+
+    .blurable-hidden {
+        position: absolute;
+        top: calc(50% + 7px);
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        @include transition($transition-base);
+    }
+
+    &:hover {
+        .blurable-item {
+            opacity: .8;
+            filter: blur(10px);
+            transform: scale(.95);
+        }
+        .blurable-hidden {
+            opacity: 1;
+            top: 50%;
+        }
+    }
+}

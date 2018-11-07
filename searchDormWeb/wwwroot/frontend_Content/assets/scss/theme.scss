@@ -1,0 +1,124 @@
+/*
+
+Theme: Purpose - Website UI Kit
+Product Page: https://themes.getbootstrap.com/product/purpose-website-ui-kit/
+Author: Webpixels
+Author URI: https://www.webpixels.io
+
+---
+
+Copyright 2018 Webpixels
+
+*/
+
+// Core
+
+@import "bootstrap/functions";
+@import "purpose/functions";
+
+@import "user/variables";
+@import "purpose/variables";
+@import "bootstrap/variables";
+
+
+@import "bootstrap/mixins";
+@import "purpose/mixins";
+
+// Bootstrap components
+
+@import "bootstrap/root";
+@import "bootstrap/reboot";
+@import "bootstrap/type";
+@import "bootstrap/images";
+@import "bootstrap/code";
+@import "bootstrap/grid";
+@import "bootstrap/tables";
+@import "bootstrap/forms";
+@import "bootstrap/buttons";
+@import "bootstrap/transitions";
+@import "bootstrap/dropdown";
+@import "bootstrap/button-group";
+@import "bootstrap/input-group";
+@import "bootstrap/custom-forms";
+@import "bootstrap/nav";
+@import "bootstrap/navbar";
+@import "bootstrap/card";
+@import "bootstrap/breadcrumb";
+@import "bootstrap/pagination";
+@import "bootstrap/badge";
+@import "bootstrap/jumbotron";
+@import "bootstrap/alert";
+@import "bootstrap/progress";
+@import "bootstrap/media";
+@import "bootstrap/list-group";
+@import "bootstrap/close";
+@import "bootstrap/modal";
+@import "bootstrap/tooltip";
+@import "bootstrap/popover";
+@import "bootstrap/carousel";
+@import "bootstrap/utilities";
+@import "bootstrap/print";
+
+// Purpose components
+
+@import "purpose/reboot";
+@import "purpose/global";
+@import "purpose/utilities";
+
+@import "purpose/accordion";
+@import "purpose/alerts";
+@import "purpose/avatars";
+@import "purpose/badge";
+@import "purpose/blurable";
+@import "purpose/breadcrumb";
+@import "purpose/buttons";
+@import "purpose/card";
+@import "purpose/close";
+@import "purpose/collage";
+@import "purpose/custom-forms";
+@import "purpose/dropdown";
+@import "purpose/floating";
+@import "purpose/footer";
+@import "purpose/forms";
+@import "purpose/frame";
+@import "purpose/header";
+@import "purpose/icon";
+@import "purpose/input-group";
+@import "purpose/list";
+@import "purpose/list-group";
+@import "purpose/maps";
+@import "purpose/masks";
+@import "purpose/masonry";
+@import "purpose/media";
+@import "purpose/modal";
+@import "purpose/nav";
+@import "purpose/navbar";
+@import "purpose/pagination";
+@import "purpose/popover";
+@import "purpose/progress";
+@import "purpose/rating";
+@import "purpose/ribbon";
+@import "purpose/section";
+@import "purpose/sidebar";
+@import "purpose/slidebar";
+@import "purpose/spotlight";
+@import "purpose/tables";
+@import "purpose/timeline";
+@import "purpose/tongue";
+@import "purpose/type";
+
+// Vendor
+
+@import "purpose/vendor/bootstrap-datepicker";
+@import "purpose/vendor/bootstrap-tagsinput";
+@import "purpose/vendor/countdown";
+@import "purpose/vendor/count-to";
+@import "purpose/vendor/fancybox";
+@import "purpose/vendor/nouislider";
+@import "purpose/vendor/scrollbar";
+@import "purpose/vendor/select2";
+@import "purpose/vendor/swiper";
+
+// User's styles
+
+@import "user/styles";

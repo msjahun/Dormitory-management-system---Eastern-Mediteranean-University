@@ -1,0 +1,7 @@
+.milestone-count-extra {
+	display: none;
+}
+
+.counting-finished + .milestone-count-extra {
+	display: inline-block;
+}

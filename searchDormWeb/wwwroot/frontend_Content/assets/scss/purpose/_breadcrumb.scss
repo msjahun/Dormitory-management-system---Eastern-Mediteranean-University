@@ -1,0 +1,50 @@
+.breadcrumb-links {
+    padding: 0;
+    background-color: transparent;
+    @include border-radius(0);
+
+    .breadcrumb-item {
+	    // The separator between breadcrumbs (by default, a forward-slash: "/")
+	    +.breadcrumb-item {
+	        &::before {
+	            content: "\00bb";
+	        }
+	    }
+	}
+}
+
+.breadcrumb-dark {
+	.breadcrumb-item {
+		a {
+			color: rgba($white, .8);
+
+			&:hover {
+				color: rgba($white, 1);
+			}
+		}
+
+		+.breadcrumb-item {
+	        &::before {
+	            color: rgba($white, .8);
+	        }
+	    }
+	}
+}
+
+.breadcrumb-light {
+	.breadcrumb-item {
+		a {
+			color: rgba($dark, .8);
+
+			&:hover {
+				color: rgba($dark, 1);
+			}
+		}
+
+		+.breadcrumb-item {
+	        &::before {
+	            color: rgba($dark, .8);
+	        }
+	    }
+	}
+}

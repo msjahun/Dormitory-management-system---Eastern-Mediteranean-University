@@ -1,0 +1,18 @@
+.spotlight {
+	position: relative;
+
+	.container {
+		height: 100%;
+	}
+}
+
+@include media-breakpoint-up(md) { 
+	.spotlight-overlay-img {
+		position: relative;
+
+		img {
+			position: absolute;
+			z-index: 10;
+		}
+	}
+}

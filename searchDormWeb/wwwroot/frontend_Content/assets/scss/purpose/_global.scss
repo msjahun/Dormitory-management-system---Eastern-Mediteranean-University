@@ -1,0 +1,169 @@
+// Backdrop
+
+.body-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    z-index: 1040; // navbar fixed has a z-index of 1030
+} 
+
+.body-backdrop-dark {
+    background: rgba($black, .3);
+}
+
+.body-backdrop-light {
+    background: rgba($white, .3);
+}
+
+// Toggle visibility for hidden elements
+
+[data-toggle="hidden"] {
+    position: relative; 
+
+    .hidden-item {
+        display: none;
+        opacity: 0;
+    }
+
+    &:hover .hidden-item {
+        display: block;
+        opacity: 1;
+    }
+}
+
+// Remove dynamic negative margins if element is stuck
+
+[data-negative-margin] {
+    &.is_stuck {
+        margin: 0 !important;
+    }
+}
+
+// Typeface palette
+
+.typeface-entry {
+    position: relative;
+    display: block;
+    padding: 2rem;
+    background: $card-bg;
+    border: 1px solid $card-border-color;
+    border-radius: $card-border-radius;
+}
+
+.typeface-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+
+// Color palette
+
+.color-palette {
+    .color-entry {
+        position: relative;
+        display: block;
+        height: 170px;
+        color: #FFF;
+        border-radius: $border-radius;
+    }
+
+    .color-code {
+        background: $white;
+        color: $gray-700;
+        padding: 6px 10px;
+        position: absolute;
+        bottom: 12px;
+        right: 12px;
+    }
+}
+
+// Color switch
+
+.color-switch a {
+    width: 1rem;
+    height: 1rem;
+    margin-right: .25rem;
+    border-radius: 50%;
+}
+
+// Phones
+
+.phones {
+    position: relative;
+    
+    .item {
+        box-shadow: 14px 14px 20px 0 rgba(0, 0, 0, .3);
+        transition: ease-in .1s;
+        border-radius: 40px;
+    }
+}
+
+
+@include media-breakpoint-up(md) {
+    .phones {
+        .item {
+            max-width: 200px;
+            border-radius: 20px;
+
+            &.item--front {
+                position: absolute;
+                left: 0;
+                top: 0;
+                z-index: 100;
+            }
+        }
+
+        &:hover {
+            .item {
+                &.item--front {
+                    transform: rotate(-5deg);
+                }
+
+                &.item--back {
+                    transform: rotate(5deg);
+                }
+            }
+        }
+    }
+}
+
+
+
+// Overlayed paragraphs
+
+.box-overlayed {
+    background: #354052;
+    border-radius: .625rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 23.125rem;
+    min-height: 10.625rem;
+    padding: 1.875rem;
+
+    color: $white;
+    bottom: -5rem;
+    left: 50%;
+    margin-left: -11.5625rem;
+    position: absolute;
+    z-index: 100;
+
+    &:before {
+        background: #354052;
+        content: '';
+        display: block;
+        height: 1rem;
+        position: absolute;
+        right: calc(50% - .5rem);
+        top: -.5rem;
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+        width: 1rem;
+    }
+}

@@ -1,0 +1,12 @@
+.close { 
+    &>span:not(.sr-only) {
+        color: rgba(0, 0, 0, .5);
+    } 
+
+    &:hover,
+    &:focus {
+        &>span:not(.sr-only) {
+            color: rgba(0, 0, 0, .8);
+        } 
+    }
+}

@@ -1,0 +1,30 @@
+// Comment media
+.media-comment {
+	+ .media-comment {
+		margin-top: 1.25rem;
+	}
+}
+
+// Bubble box
+.media-text-bubble {
+	border-radius: 20px;
+	border-top-left-radius: 0;
+	position: relative;
+	background-color: $gray-100;
+	padding: 1rem 1.25rem;
+
+	&.left-top {
+		&:after {
+			content: ' ';
+			position: absolute;
+			width: 0;
+			height: 0;
+			left: -16px;
+			right: auto;
+			top: 0px;
+			bottom: auto;
+			border: 18px solid transparent;
+			border-top-color: $gray-100;
+		}
+	}
+}

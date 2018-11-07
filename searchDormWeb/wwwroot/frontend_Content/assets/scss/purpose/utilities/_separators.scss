@@ -1,0 +1,107 @@
+@include media-breakpoint-down(md) { 
+    [data-separator="rounded"][data-separator-orientation="bottom"] {
+        border-radius: 0 0 3rem 3rem;
+    }
+
+    [data-separator="rounded"][data-separator-orientation="top"] {
+        border-radius: 3rem 3rem 0 0;
+    }
+    [data-separator="rounded-left"][data-separator-orientation="bottom"] {
+        border-radius: 0 0 0 3rem;
+    }
+
+    [data-separator="rounded-left"][data-separator-orientation="top"] {
+        border-radius: 3rem 0 0 0;
+    }
+    [data-separator="rounded-right"][data-separator-orientation="bottom"] {
+        border-radius: 0 0 3rem 0;
+    }
+
+    [data-separator="rounded-right"][data-separator-orientation="top"] {
+        border-radius: 0 3rem 0 0;
+    }
+}
+
+@include media-breakpoint-up(md) { 
+    [data-separator="rounded"][data-separator-orientation="bottom"] {
+        border-radius: 0 0 5rem 5rem;
+    }
+
+    [data-separator="rounded"][data-separator-orientation="top"] {
+        border-radius: 5rem 5rem 0 0;
+    }
+    [data-separator="rounded-left"][data-separator-orientation="bottom"] {
+        border-radius: 0 0 0 5rem;
+    }
+
+    [data-separator="rounded-left"][data-separator-orientation="top"] {
+        border-radius: 5rem 0 0 0;
+    }
+    [data-separator="rounded-right"][data-separator-orientation="bottom"] {
+        border-radius: 0 0 5rem 0;
+    }
+
+    [data-separator="rounded-right"][data-separator-orientation="top"] {
+        border-radius: 0 5rem 0 0;
+    }
+}
+
+
+// Separator rounded-continuous: Can be used only once on a page (requires to set the body bg the same as the maing container)
+
+[data-separator="rounded-continuous"] {
+    position: relative;
+    margin-bottom: 5rem;
+    border-radius: 0 0 0 5rem;
+
+    &:before,
+    &:after {
+        content: '';
+        position: absolute;
+        pointer-events: none;
+        left: 0;
+        height: 5rem;
+    }
+
+    &:before {
+        top: 100%;
+        width: 100%;
+        border-radius: 0 5rem 0 0;
+    }
+
+    &:after {
+        bottom: 0;
+        z-index: -1;
+        width: 50%;
+    }
+
+    + section {
+        padding-bottom: 5rem;
+    }
+}
+
+// Separator background variations
+
+@each $color, $value in $section-colors {
+    [data-separator-bg="#{$color}"] {
+        &:before,
+        &:after {
+            background: $value;
+        }
+    }
+}
+
+// Bottom waves separator 
+
+[data-separator="bottom-wave"] {
+    background-image: url('../img/backgrounds/bottom-wave.svg'), linear-gradient(to bottom, $primary, lighten($primary, 8%));
+    background-position: bottom center, center;
+    background-repeat: no-repeat;
+}
+
+
+// [data-separator="left-triangle"] {
+//     background-image: url('../img/backgrounds/left-triangle.svg'), linear-gradient(to bottom, $primary, lighten($primary, 8%));
+//     background-position: top left, center;
+//     background-repeat: no-repeat;
+// }
