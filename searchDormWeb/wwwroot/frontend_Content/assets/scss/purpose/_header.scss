@@ -29,3 +29,19 @@
         transform: translateY(50%);
     }
 }
+
+.header-account-page-sm {
+    @include media-breakpoint-up(md) {
+        height: 160px;
+    }
+
+    @include media-breakpoint-down(md) {
+        padding-top: 9rem;
+    }
+
+    .btn-group-nav {
+        position: relative;
+        z-index: 1;
+        transform: translateY(50%);
+    }
+}
