@@ -1,0 +1,168 @@
+﻿@{
+
+    var currentController = ViewContext.RouteData.Values["controller"] as string ?? "Home";
+    var currentAction = ViewContext.RouteData.Values["action"] as string ?? "Index";
+    ViewData["navClass"] = " navbar-sticky bg-gradient-primary navbar-dark";
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Webpixels">
+
+    <title>Search Dorms| Eastern Mediterranean University</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="@Url.Content("~/frontend_Content/assets")/img/brand/favicon.png" type="image/png">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800">
+
+    <!-- Font Awesome 5 -->
+    <link rel="stylesheet" href="@Url.Content("~/frontend_Content/assets")/vendor/@@fortawesome/fontawesome-free/css/all.min.css">
+
+
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="@Url.Content("~/frontend_Content/assets")/css/theme.css">
+
+
+</head>
+
+<body>
+
+
+
+    @Html.Partial("/Views/Shared/Components/headerMain.cshtml", null)
+
+
+
+    <main>
+
+        @RenderBody()
+
+
+
+    </main>
+
+
+    <footer class="footer footer-light bg-white">
+        <div class="container">
+            <div class="row pt-md">
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <a href="../index.html">
+                        <img src="@Url.Content("~/frontend_Content/assets")/img/brand/dark.png" alt="Footer logo" style="width: 350px;">
+                    </a>
+                    <p class="text-sm">A unique and beautiful collection of UI elements that are all flexible and modular. A complete and customizable solution to building the website of your dreams.</p>
+                </div>
+                <div class="col-lg-2 col-6 col-sm-4 ml-lg-auto mb-5 mb-lg-0">
+                    <h6 class="heading mb-3">Account</h6>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="../pages/account-profile.html">Profile</a>
+                        </li>
+                        <li>
+                            <a href="../pages/account-settings.html">Settings</a>
+                        </li>
+                        <li>
+                            <a href="../pages/account-billing.html">Billing</a>
+                        </li>
+                        <li>
+                            <a href="../pages/account-notifications.html">Notifications</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-6 col-sm-4 mb-5 mb-lg-0">
+                    <h6 class="heading mb-3">About</h6>
+                    <ul class="list-unstyled text-small">
+                        <li>
+                            <a href="#">Services</a>
+                        </li>
+                        <li>
+                            <a href="#">Contact</a>
+                        </li>
+                        <li>
+                            <a href="#">Careers</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-sm-4 mb-5 mb-lg-0">
+                    <h6 class="heading mb-3">Company</h6>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#">Terms</a>
+                        </li>
+                        <li>
+                            <a href="#">Privacy</a>
+                        </li>
+                        <li>
+                            <a href="#">Support</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row align-items-center justify-content-md-between py-4 mt-4 delimiter-top">
+                <div class="col-md-6">
+                    <div class="copyright text-sm font-weight-bold text-center text-md-left">
+                        &copy; 2018 <a href="https://webpixels.io/" class="font-weight-bold" target="_blank">Webpixels</a>. All rights reserved.
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <ul class="nav justify-content-center justify-content-md-end mt-3 mt-md-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://dribbble.com/webpixels" target="_blank">
+                                <i class="fab fa-dribbble"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="https://instagram.com/webpixelsofficial" target="_blank">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://github.com/webpixels" target="_blank">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://facebook.com/webpixels" target="_blank">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Core -->
+    <script src="@Url.Content("~/frontend_Content/assets")/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="@Url.Content("~/frontend_Content/assets")/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="@Url.Content("~/frontend_Content/assets")/vendor/in-view/dist/in-view.min.js"></script>
+
+
+
+
+    <!-- Page plugins -->
+    <script src="@Url.Content("~/frontend_Content/assets")/vendor/sticky-kit/dist/sticky-kit.min.js"></script>
+    <script src="@Url.Content("~/frontend_Content/assets")/vendor/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+    <script src="@Url.Content("~/frontend_Content/assets")/vendor/nouislider/distribute/nouislider.min.js"></script>
+
+
+
+    <!-- Theme JS -->
+
+    <script src="@Url.Content("~/frontend_Content/assets")/js/theme.min.js"></script>
+
+
+
+</body>
+
+</html>
