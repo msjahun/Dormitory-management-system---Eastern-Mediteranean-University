@@ -54,6 +54,11 @@ namespace searchDormWeb.Controllers
         }
 
 
+        public IActionResult SearchResultPage()
+        {
+            return View();
+        }
+
 
         public IActionResult Login()
         {
