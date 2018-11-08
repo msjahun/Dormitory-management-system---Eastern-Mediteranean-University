@@ -17093,6 +17093,30 @@ Styled shaped wrappers for displaying code and images in a more stylish manner
     transform: translateY(50%);
 }
 
+@media (min-width: 768px)
+{
+    .header-account-page-sm
+    {
+        height: 160px;
+    }
+}
+
+@media (max-width: 991.98px)
+{
+    .header-account-page-sm
+    {
+        padding-top: 9rem;
+    }
+}
+
+.header-account-page-sm .btn-group-nav
+{
+    position: relative;
+    z-index: 1;
+
+    transform: translateY(50%);
+}
+
 .icon
 {
     display: inline-flex;
