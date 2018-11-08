@@ -1,0 +1,171 @@
+﻿
+@{
+    ViewData["Title"] = "SearchResultPage";
+    Layout = "~/Views/Shared/_LayoutUserNew.cshtml";
+}
+<header class="header-account-page-sm bg-gradient-primary d-flex align-items-end">
+  
+</header>
+
+
+
+<section class="slice" style="background-color:#ecf0f5; padding-top:20px; ">
+    <div class="container">
+        <div class="row row-grid">
+            <div class="col-lg-3">
+
+                <div data-toggle="sticky" data-sticky-offset="100" data-negative-margin=".card-profile-cover" >
+
+                    <div class="card" style="border-color:#254182">
+                        <h5 class="card-header bg-primary text-white">Filter</h5>
+                        <div class="card-body">
+
+                            <button type="button" class="btn btn-sm btn-outline-primary btn-icon">
+                                <span class="btn-inner--text">Reset</span>
+
+                            </button>
+
+                            <button type="button" class="btn btn-sm btn-primary px-4"> <span class="btn-inner--text">Apply filter</span></button>
+
+                            <br />
+                            <br />
+
+                            <h6>Dormitory Type</h6>
+                            <select class="form-control  form-control-sm  " data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Search ...">
+                                <option></option>
+                                <option>Badges</option>
+                                <option>Buttons</option>
+                                <option>Cards</option>
+                                <option>Forms</option>
+                                <option>Modals</option>
+                            </select>
+
+                            <br />
+                            <h6>Dormitory name</h6>
+                            <select class="form-control  form-control-sm " data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Search ...">
+                                <option></option>
+                                <option>Badges</option>
+                                <option>Buttons</option>
+                                <option>Cards</option>
+                                <option>Forms</option>
+                                <option>Modals</option>
+                            </select>
+
+                            <br />
+                            <h6>Price</h6>
+
+                            <div class="range-slider-wrapper ">
+                                <!-- Range slider container -->
+                                <div id="input-slider-range" class="input-slider" data-range-value-min="100" data-range-value-max="500"></div>
+                                <!-- Range slider values -->
+                                <div class="row">
+                                    <div class="col-6">
+                                        <span class="range-slider-value value-low" data-range-value-low="200" id="input-slider-range-value-low"></span>
+                                    </div>
+                                    <div class="col-6 text-right">
+                                        <span class="range-slider-value value-high" data-range-value-high="400" id="input-slider-range-value-high"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br />
+
+
+
+
+
+                            <h6>Room area</h6>
+
+                            <div class="input-slider-container mb-4">
+                                <div id="input-slider-red" class="input-slider input-slider--red" data-range-value-min="100" data-range-value-max="900"></div>
+                                <!-- Input slider values -->
+                                <div class="row mt-3">
+                                    <div class="col-6">
+                                        <span id="input-slider-red-value" class="range-slider-value" data-range-value-low="200"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <h6>TV</h6>
+                            <div class="custom-control custom-checkbox mb-3">
+                                <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                <label class="custom-control-label" for="customCheck1">In Room</label>
+                            </div>
+
+                            <div class="custom-control custom-checkbox mb-3">
+                                <input type="checkbox" class="custom-control-input" id="customCheck2" checked="">
+                                <label class="custom-control-label" for="customCheck2">In Hall</label>
+                            </div>
+
+
+                            <h6>Internet</h6>
+
+                            <div class="custom-control custom-checkbox mb-3">
+                                <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                <label class="custom-control-label" for="customCheck1">Wireless</label>
+                            </div>
+
+                            <div class="custom-control custom-checkbox mb-3">
+                                <input type="checkbox" class="custom-control-input" id="customCheck2" checked="">
+                                <label class="custom-control-label" for="customCheck2">Cable</label>
+                            </div>
+
+
+
+                            <h6>WC-shower</h6>
+                            <div class="custom-control custom-checkbox mb-3">
+                                <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                <label class="custom-control-label" for="customCheck1">In Room</label>
+                            </div>
+
+                            <div class="custom-control custom-checkbox mb-3">
+                                <input type="checkbox" class="custom-control-input" id="customCheck2" checked="">
+                                <label class="custom-control-label" for="customCheck2">Common</label>
+                            </div>
+
+
+                            <h6>Internet</h6>
+
+                            <div class="custom-control custom-checkbox mb-3">
+                                <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                <label class="custom-control-label" for="customCheck1">Wireless</label>
+                            </div>
+
+                            <div class="custom-control custom-checkbox mb-3">
+                                <input type="checkbox" class="custom-control-input" id="customCheck2" checked="">
+                                <label class="custom-control-label" for="customCheck2">Cable</label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            @** this is were it starts*@
+            <h2>SearchResultPage</h2>
+        </div>
+    </div>
+</section>
+
+<!-- Call to action -->
+
+<section class="slice slice-lg bg-primary">
+
+    <span class="tongue tongue-top"><i class="fas fa-angle-up"></i></span>
+
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-8 text-center">
+                <h3 class="font-weight-400 text-white">I am ready to start a new project with <span class="font-weight-700">Purpose</span> UI Kit.</h3>
+               
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
