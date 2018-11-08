@@ -1,0 +1,193 @@
+﻿
+@{
+    ViewData["Title"] = "BookingCart";
+
+    ViewData["Header"] = "Booking Cart";
+    ViewData["SubDescription"] = "Cart information";
+
+    Layout = "~/Views/Shared/_LayoutCheckout.cshtml";
+}
+
+
+<section class="slice slice-lg">
+    <div class="container">
+        <!-- Shopping cart -->
+        <div class="table-responsive">
+            <table class="table align-items-center">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="media align-items-center">
+                                <img alt="Image placeholder" class="mr-3" src="@Url.Content("~/frontend_Content/assets")/img/prv/product-1.png" style="width: 80px;">
+                                <div class="media-body">
+                                    <div class="lh-100">
+                                        <span class="text-dark font-weight-bold mb-0">Men running shoes</span>
+                                    </div>
+                                    <span class="font-weight-bold text-muted">Size: 42.5</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="font-weight-bold">$129 USD</span>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control form-control-sm text-center" style="width: 80px;" value="1">
+                        </td>
+                        <td>
+                            <span class="font-weight-bold text-dark">$129 USD</span>
+                        </td>
+                        <td class="text-right">
+                            <a href="#" class="text-light" data-toggle="tooltip" data-original-title="Remove item">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="media align-items-center">
+                                <img alt="Image placeholder" class="mr-3" src="@Url.Content("~/frontend_Content/assets")/img/prv/product-2.png" style="width: 80px;">
+                                <div class="media-body">
+                                    <div class="lh-100">
+                                        <span class="text-dark font-weight-bold mb-0">Fitness shirt</span>
+                                    </div>
+                                    <span class="font-weight-bold text-muted">Size: M</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="font-weight-bold">$30 USD</span>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control form-control-sm text-center" style="width: 80px;" value="3">
+                        </td>
+                        <td>
+                            <span class="font-weight-bold text-dark">$90 USD</span>
+                        </td>
+                        <td class="text-right">
+                            <a href="#" class="text-light" data-toggle="tooltip" data-original-title="Remove item">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="media align-items-center">
+                                <img alt="Image placeholder" class="mr-3" src="@Url.Content("~/frontend_Content/assets")/img/prv/product-3.png" style="width: 80px;">
+                                <div class="media-body">
+                                    <div class="lh-100">
+                                        <span class="text-dark font-weight-bold mb-0">Winter hat</span>
+                                    </div>
+                                    <span class="font-weight-bold text-muted">Size: M</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="font-weight-bold">$25 USD</span>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control form-control-sm text-center" style="width: 80px;" value="1">
+                        </td>
+                        <td>
+                            <span class="font-weight-bold text-dark">$25 USD</span>
+                        </td>
+                        <td class="text-right">
+                            <a href="#" class="text-light" data-toggle="tooltip" data-original-title="Remove item">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="media align-items-center">
+                                <img alt="Image placeholder" class="mr-3" src="@Url.Content("~/frontend_Content/assets")/img/prv/product-4.png" style="width: 80px;">
+                                <div class="media-body">
+                                    <div class="lh-100">
+                                        <span class="text-dark font-weight-bold mb-0">Men army shoes</span>
+                                    </div>
+                                    <span class="font-weight-bold text-muted">Size: 43</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="font-weight-bold">$200 USD</span>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control form-control-sm text-center" style="width: 80px;" value="1">
+                        </td>
+                        <td>
+                            <span class="font-weight-bold text-dark">$200 USD</span>
+                        </td>
+                        <td class="text-right">
+                            <a href="#" class="text-light" data-toggle="tooltip" data-original-title="Remove item">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="media align-items-center">
+                                <img alt="Image placeholder" class="mr-3" src="@Url.Content("~/frontend_Content/assets")/img/prv/product-5.png" style="width: 80px;">
+                                <div class="media-body">
+                                    <div class="lh-100">
+                                        <span class="text-dark font-weight-bold mb-0">Running shirt</span>
+                                    </div>
+                                    <span class="font-weight-bold text-muted">Size: L</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="font-weight-bold">$15 USD</span>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control form-control-sm text-center" style="width: 80px;" value="3">
+                        </td>
+                        <td>
+                            <span class="font-weight-bold text-dark">$45 USD</span>
+                        </td>
+                        <td class="text-right">
+                            <a href="#" class="text-light" data-toggle="tooltip" data-original-title="Remove item">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- Cart information -->
+        <div class="mt-5 pt-5 delimiter-top">
+            <div class="row justify-content-center">
+                <div class="col-md-5 col-lg-4 text-center">
+                    <h5 class="mb-0">Total: $450.85</h5>
+                    <p class="small mb-0">Have a voucher? Add the code in the form below</p>
+                    <form class="mt-4">
+                        <div class="input-group">
+                            <input type="text" class="form-control form-control-sm" placeholder="Type your voucher code ...">
+                            <span class="input-group-append">
+                                <button type="button" class="btn btn-sm btn-primary">Apply code</button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="slice bg-gradient-primary">
+    <span class="tongue tongue-top">
+        <i class="fas fa-angle-up"></i>
+    </span>
+    <div class="container text-center">
+        <h6 class="text-white">Checkout or return to shop to add more items</h6>
+        <a href="shop-checkout-customer.html" class="btn btn-white btn-circle mt-4">Go to Checkout</a>
+    </div>
+</section>

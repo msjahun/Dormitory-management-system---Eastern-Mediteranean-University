@@ -1,0 +1,183 @@
+﻿
+@{
+    ViewData["Title"] = "AccountProfile";
+    Layout = "~/Views/Shared/_LayoutMyAccount.cshtml";
+}
+
+<div class="col-lg-9">
+    <!-- Change avatar -->
+    <!-- Change avatar -->
+
+    <div class="card bg-gradient-warning border-0 shadow mb-4">
+        <div class="card-body py-3">
+            <div class="row row-grid align-items-center">
+                <div class="col-lg-8">
+                    <div class="media align-items-center">
+                        <a href="#" class="avatar avatar-lg rounded-circle mr-3">
+                            <img alt="Image placeholder" src="https://avatars2.githubusercontent.com/u/19820517?s=460&v=4">
+                        </a>
+                        <div class="media-body">
+                            <h5 class="text-white mb-0">Musa Jahun</h5>
+                            <div>
+                                <form>
+                                    <input type="file" name="file-1[]" id="file-1" class="custom-input-file custom-input-file-link" data-multiple-caption="{count} files selected" multiple />
+                                    <label for="file-1">
+                                        <span class="text-white">Change avatar</span>
+                                    </label>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <form>
+        <!-- General -->
+
+        <div class="page-inner-header mb-4">
+            <h5 class="mb-1">General information</h5>
+
+            <p class="text-muted mb-0">You can help us, by filling your data, create you a much better experience using our website.</p>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-control-label">First name</label>
+                    <input class="form-control" type="text" placeholder="Enter your first name">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-control-label">Last name</label>
+                    <input class="form-control" type="text" placeholder="Also your last name">
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-control-label">Birthday</label>
+                    <input type="text" class="form-control" data-toggle="date" placeholder="Select your birth date">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-control-label">Gender</label>
+                    <select class="form-control" data-toggle="select" placeholder="You gender">
+                        <option value="1">Female</option>
+                        <option value="2">Male</option>
+                        <option value="2">Rather not say</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-control-label">Email</label>
+                    <input class="form-control" type="email" placeholder="name@exmaple.com">
+                    <small class="form-text text-muted mt-2">This is the main email address that we'll send notifications to. <a href="account-notifications.html">Manage you notifications</a> in order to receive only the thing that matter to you most.</small>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-control-label">Phone</label>
+                    <input class="form-control" type="text" placeholder="+40-777 245 549">
+                </div>
+            </div>
+        </div>
+
+        <!-- Address -->
+        <div class="pt-5 mt-5 delimiter-top">
+
+            <div class="page-inner-header mb-4">
+                <h5 class="mb-1">Address details</h5>
+
+                <p class="text-muted mb-0">Fill in your address info for upcoming orders or payments.</p>
+
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label class="form-control-label">Address</label>
+                        <input class="form-control" type="text" placeholder="Enter your home address">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-control-label">City</label>
+                        <input class="form-control" type="text" placeholder="City">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-control-label">Country</label>
+                        <select class="form-control" data-toggle="select" title="Country" data-live-search="true" data-live-search-placeholder="Country">
+                            <option>Romania</option>
+                            <option>United Stated</option>
+                            <option>France</option>
+                            <option>Greece</option>
+                            <option>Italy</option>
+                            <option>Norway</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Description -->
+        <div class="pt-5 mt-5 delimiter-top">
+
+            <div class="page-inner-header mb-4">
+                <h5 class="mb-1">About me</h5>
+
+                <p class="text-muted mb-0">Use this field to let others know you better.</p>
+
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label class="form-control-label">Bio</label>
+                            <textarea class="form-control" placeholder="Tell us a few words about yourself" rows="3"></textarea>
+                            <small class="form-text text-muted mt-2">You can @@mention other users and organizations to link to them.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Skills -->
+        <div class="pt-5 mt-5 delimiter-top">
+
+            <div class="page-inner-header mb-4">
+                <h5 class="mb-1">Skills</h5>
+
+                <p class="text-muted mb-0">Show off you skills using our tags input control.</p>
+
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label class="sr-only">Skills</label>
+                        <input type="text" class="form-control" value="HTML, CSS3, Bootstrap, Photoshop, VueJS" data-toggle="tags" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pt-5 mt-5 delimiter-top">
+            <button type="button" class="btn btn-sm btn-primary">Save changes</button>
+            <button type="button" class="btn btn-link">Cancel</button>
+        </div>
+    </form>
+</div>

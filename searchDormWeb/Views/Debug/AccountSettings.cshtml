@@ -1,0 +1,153 @@
+﻿
+@{
+    ViewData["Title"] = "AccountSettings";
+    Layout = "~/Views/Shared/_LayoutMyAccount.cshtml";
+}
+
+<div class="col-lg-9">
+    <form>
+        <!-- Password -->
+
+        <div class="page-inner-header mb-4">
+            <h5 class="mb-1">Change password</h5>
+
+            <p class="text-muted mb-0">You can help us, by filling your data, create you a much better experience using our website.</p>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-control-label">Old password</label>
+                    <input class="form-control form-control-sm" type="password">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-control-label">New password</label>
+                    <input class="form-control form-control-sm" type="password">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-control-label">Confirm password</label>
+                    <input class="form-control form-control-sm" type="password">
+                </div>
+            </div>
+        </div>
+        <div class="mt-4">
+            <button type="button" class="btn btn-sm btn-primary">Update password</button>
+            <a href="recover.html" class="btn btn-sm btn-secondary">I forgot my password</a>
+        </div>
+    </form>
+
+    <!-- Username -->
+    <div class="mt-5 pt-5 delimiter-top">
+
+        <div class="page-inner-header mb-4">
+            <h5 class="mb-1">GDPR Complience</h5>
+
+            <p class="text-muted mb-0">GDPR is a regulation that requires businesses to protect the personal data and privacy of EU citizens for transactions that occur within EU member states.</p>
+
+        </div>
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-change-username">Download GDPR DATA</button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modal-change-username" tabindex="-1" role="dialog" aria-labelledby="modal-change-username" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <form>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="modal-title d-flex align-items-center" id="modal-title-change-username">
+                                <div>
+                                    <div class="icon icon-sm icon-shape icon-teal rounded-circle shadow mr-3">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0">GDPR Complience</h6>
+                                </div>
+                            </div>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Old username</label>
+                                        <input class="form-control form-control-sm" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label">New username</label>
+                                        <input class="form-control form-control-sm" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="px-5 pt-4 mt-4 delimiter-top text-center">
+                                <p class="text-muted text-sm">GDPR is a regulation that requires businesses to protect the personal data and privacy of EU citizens for transactions that occur within EU member states.</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-sm btn-secondary text-danger" data-dismiss="modal">Download GDPR DATA</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete -->
+    <div class="mt-5 pt-5 delimiter-top">
+
+        <div class="page-inner-header mb-4">
+            <h5 class="mb-1 text-danger">Delete account</h5>
+
+            <p class="text-muted mb-0">Changing your username is ireversible and can affect past activites.</p>
+
+        </div>
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-delete-account">Delete account</button>
+
+        <!-- Modal -->
+        <div class="modal modal-danger fade" id="modal-delete-account" tabindex="-1" role="dialog" aria-labelledby="modal-delete-account" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <form class="form-danger">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="text-center">
+                                <i class="fas fa-exclamation-circle fa-3x opacity-8"></i>
+                                <h5 class="text-white mt-4">Should we stop now?</h5>
+                                <p class="text-sm text-sm">All your data will be erased. You will no longer be billed, and your username will be available to anyone.</p>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label text-white">You email or username</label>
+                                <input class="form-control form-control-sm" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label text-white">To verify, type <span class="font-italic">delete my account</span> below</label>
+                                <input class="form-control form-control-sm" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label text-white">Your password</label>
+                                <input class="form-control form-control-sm" type="password">
+                            </div>
+                            <div class="mt-4">
+                                <button type="button" class="btn btn-block btn-sm btn-white text-danger">Delete my account</button>
+                                <button type="button" class="btn btn-block btn-sm btn-link text-light mt-4" data-dismiss="modal">Not this time</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
