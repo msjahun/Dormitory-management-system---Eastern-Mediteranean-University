@@ -1,6 +1,6 @@
 .header-account-page {
 	@include media-breakpoint-up(md) {
-		height: 350px;
+		height: 230px;
 	}
 	
 	@include media-breakpoint-down(md) {
@@ -12,4 +12,20 @@
 		z-index: 1;
 		transform: translateY(50%);
 	}
+}
+
+.header-account-page-lg {
+    @include media-breakpoint-up(md) {
+        height: 350px;
+    }
+
+    @include media-breakpoint-down(md) {
+        padding-top: 9rem;
+    }
+
+    .btn-group-nav {
+        position: relative;
+        z-index: 1;
+        transform: translateY(50%);
+    }
 }

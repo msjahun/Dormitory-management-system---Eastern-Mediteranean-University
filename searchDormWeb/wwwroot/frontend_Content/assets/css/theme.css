@@ -17049,7 +17049,7 @@ Styled shaped wrappers for displaying code and images in a more stylish manner
 {
     .header-account-page
     {
-        height: 350px;
+        height: 230px;
     }
 }
 
@@ -17062,6 +17062,30 @@ Styled shaped wrappers for displaying code and images in a more stylish manner
 }
 
 .header-account-page .btn-group-nav
+{
+    position: relative;
+    z-index: 1;
+
+    transform: translateY(50%);
+}
+
+@media (min-width: 768px)
+{
+    .header-account-page-lg
+    {
+        height: 350px;
+    }
+}
+
+@media (max-width: 991.98px)
+{
+    .header-account-page-lg
+    {
+        padding-top: 9rem;
+    }
+}
+
+.header-account-page-lg .btn-group-nav
 {
     position: relative;
     z-index: 1;
