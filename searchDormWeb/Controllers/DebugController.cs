@@ -82,7 +82,7 @@ namespace searchDormWeb.Controllers
         }
 
 
-
+        [Route("Debug/")]
         public IActionResult ExploreEMU()
         {
             return View();
