@@ -20,11 +20,14 @@
 <li><a href="#">Explore EMU</a></li>
 <li><a href="#">Dormitories</a></li>
 
+
 @if (SignInManager.IsSignedIn(User))
 {
     <li><a href="#">My Account</a></li>}
 
 <li><a href="https://dormitories.emu.edu.tr/en" target="_blank">@ViewBag.ContentFormat_menu_dormitories_and_cafeteria</a></li>
+
+<li><a asp-controller="debug" asp-action="">Debug new pages</a></li>
 
 @if (!SignInManager.IsSignedIn(User))
 {

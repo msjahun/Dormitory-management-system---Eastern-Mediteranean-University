@@ -2,6 +2,13 @@
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
+@using Microsoft.AspNetCore.Identity
+@using Dau.Core.Domain.User;
+@using Dau.Services.Users;
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@inject IUsersService _userService
+
 <header class="header-transparent " id="header-main">
 
     <!-- Search -->
@@ -26,33 +33,42 @@
                             <li>
                                 <a class="list-link" href="#">
                                     <i class="fas fa-search"></i>
-                                    <span>macbook pro</span> in Laptops
+                                    <span>Alfam dormitories</span> in private dormitories
                                 </a>
                             </li>
+
                             <li>
                                 <a class="list-link" href="#">
                                     <i class="fas fa-search"></i>
-                                    <span>iphone 8</span> in Smartphones
+                                    <span>Akdeniz dormitories</span> in private dormitories
                                 </a>
                             </li>
+
+
+
                             <li>
                                 <a class="list-link" href="#">
                                     <i class="fas fa-search"></i>
-                                    <span>macbook pro</span> in Laptops
+                                    <span>EMU 1 dormitories</span> in EMU dormitories
                                 </a>
                             </li>
+
+
                             <li>
                                 <a class="list-link" href="#">
                                     <i class="fas fa-search"></i>
-                                    <span>beats pro solo 3</span> in Headphones
+                                    <span>EMU 2 dormitories</span> in EMU dormitories
                                 </a>
                             </li>
+
+
                             <li>
                                 <a class="list-link" href="#">
                                     <i class="fas fa-search"></i>
-                                    <span>smasung galaxy 10</span> in Phones
+                                    <span>Alfam dormitories</span> in private dormitories
                                 </a>
                             </li>
+
                         </ul>
                     </div>
                 </div>
@@ -92,7 +108,7 @@
                 <div class="ml-auto">
                     <ul class="nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="../pages/support.html">Support</a>
+                            <a class="nav-link" href="../pages/support.html">FAQ</a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link" data-action="search-open" data-target="#search-main"><i class="fas fa-search"></i></a>
@@ -102,13 +118,17 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="../pages/shop-cart.html"><i class="fas fa-shopping-cart"></i></a>
-                           
+
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="avatar avatar-sm rounded-circle mr-3">
-                                <img alt="Image placeholder" src="https://avatars2.githubusercontent.com/u/19820517?s=460&v=4">
-                            </a>
-                        </li>
+
+                        @if (SignInManager.IsSignedIn(User)) {
+                            <li class="nav-item">
+                                <a href="#" class="avatar avatar-sm rounded-circle mr-3">
+                                    <img alt="Image placeholder" src="https://avatars2.githubusercontent.com/u/19820517?s=460&v=4">
+                                </a>
+                            </li>
+
+                        }
                     </ul>
                 </div>
             </div>
@@ -131,52 +151,52 @@
             <div class="collapse navbar-collapse" id="navbar-main-collapse">
                 <ul class="navbar-nav align-items-lg-center">
                     <li class="nav-item ">
-                        <a class="nav-link" href="../index.html">Home</a>
+                        <a class="nav-link" asp-controller="Home" asp-action="">Home</a>
                     </li>
 
                     @**{ <li class="nav-item dropdown dropdown-animate" data-toggle="hover">
-                            <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
-                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-arrow py-0">
-                                <div class="list-group">
-                                    <a href="../pages/pages-landing.html" class="list-group-item list-group-item-action">
-                                        <div class="media d-flex align-items-center">
-                                            <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/browser-window.svg" class="img-saturate" style="width: 50px;">
-                                            <div class="media-body ml-3">
-                                                <h6 class="mb-1">Landing Pages</h6>
-                                                <p class="mb-0">A great point to start from.</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a href="../pages/pages-secondary.html" class="list-group-item list-group-item-action">
-                                        <div class="media d-flex align-items-center">
-                                            <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/ios-photos.svg" class="img-saturate" style="width: 50px;">
-                                            <div class="media-body ml-3">
-                                                <h6 class="mb-1">Secondary Pages</h6>
-                                                <p class="mb-0">Build your website with these demos.</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a href="../pages/pages-account.html" class="list-group-item list-group-item-action">
-                                        <div class="media d-flex align-items-center">
-                                            <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/maintenance.svg" class="img-saturate" style="width: 50px;">
-                                            <div class="media-body ml-3">
-                                                <h6 class="mb-1">Account Pages</h6>
-                                                <p class="mb-0">Account management made easy.</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a href="../pages/pages-shop.html" class="list-group-item list-group-item-action">
-                                        <div class="media d-flex align-items-center">
-                                            <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/in-progress.svg" class="img-saturate" style="width: 50px;">
-                                            <div class="media-body ml-3">
-                                                <h6 class="mb-1">Shop Pages</h6>
-                                                <p class="mb-0">Explore the full ecommerce website flow.</p>
-                                            </div>
-                                        </div>
-                                    </a>
+                <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-arrow py-0">
+                    <div class="list-group">
+                        <a href="../pages/pages-landing.html" class="list-group-item list-group-item-action">
+                            <div class="media d-flex align-items-center">
+                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/browser-window.svg" class="img-saturate" style="width: 50px;">
+                                <div class="media-body ml-3">
+                                    <h6 class="mb-1">Landing Pages</h6>
+                                    <p class="mb-0">A great point to start from.</p>
                                 </div>
                             </div>
-                        </li>**@
+                        </a>
+                        <a href="../pages/pages-secondary.html" class="list-group-item list-group-item-action">
+                            <div class="media d-flex align-items-center">
+                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/ios-photos.svg" class="img-saturate" style="width: 50px;">
+                                <div class="media-body ml-3">
+                                    <h6 class="mb-1">Secondary Pages</h6>
+                                    <p class="mb-0">Build your website with these demos.</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="../pages/pages-account.html" class="list-group-item list-group-item-action">
+                            <div class="media d-flex align-items-center">
+                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/maintenance.svg" class="img-saturate" style="width: 50px;">
+                                <div class="media-body ml-3">
+                                    <h6 class="mb-1">Account Pages</h6>
+                                    <p class="mb-0">Account management made easy.</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="../pages/pages-shop.html" class="list-group-item list-group-item-action">
+                            <div class="media d-flex align-items-center">
+                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/in-progress.svg" class="img-saturate" style="width: 50px;">
+                                <div class="media-body ml-3">
+                                    <h6 class="mb-1">Shop Pages</h6>
+                                    <p class="mb-0">Explore the full ecommerce website flow.</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </li>**@
 
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="debug" asp-action="SearchResultPage" role="button">Accomodation</a>
@@ -193,21 +213,40 @@
                     </li>
                 </ul>
 
-                <ul class="navbar-nav align-items-lg-center ml-lg-auto">
 
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="debug" asp-action="AccountSettings" >My Account</a>
-                    </li>
-                    <li class="nav-item mr-0">
-                        <a asp-controller="debug" asp-action="BookingCart"  class="nav-link d-lg-none">Checkout</a>
-                        <a asp-controller="debug" asp-action="BookingCart"  class="btn btn-sm btn-white btn-circle btn-icon d-none d-lg-inline-flex">
-                            <span class="btn-inner--icon"><i class="fas fa-shopping-cart"></i></span>
-                            <span class="btn-inner--text">Checkout</span>
-                        </a>
-                    </li>
-                </ul>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <ul class="navbar-nav align-items-lg-center ml-lg-auto">
 
-            </div>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="debug" asp-action="AccountSettings">My Account</a>
+                        </li>
+                        <li class="nav-item mr-0">
+                            <a asp-controller="debug" asp-action="BookingCart" class="nav-link d-lg-none">Checkout</a>
+                            <a asp-controller="debug" asp-action="BookingCart" class="btn btn-sm btn-white btn-circle btn-icon d-none d-lg-inline-flex">
+                                <span class="btn-inner--icon"><i class="fas fa-shopping-cart"></i></span>
+                                <span class="btn-inner--text">Checkout</span>
+                            </a>
+                        </li>
+                    </ul>
+                }
+                else
+                {
+
+                    <ul class="navbar-nav align-items-lg-center ml-lg-auto">
+
+                        
+                        <li class="nav-item mr-0">
+                            <a asp-controller="Login" asp-action="" class="nav-link d-lg-none">Login</a>
+                            <a asp-controller="Login" asp-action="" class="btn btn-sm btn-white btn-circle btn-icon d-none d-lg-inline-flex">
+                                <span class="btn-inner--icon"><i class="fas fa-sign-in-alt"></i></span>
+                                <span class="btn-inner--text">Login</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                }
+                </div>
         </div>
     </nav>
 
