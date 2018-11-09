@@ -7,15 +7,16 @@
 
 <!-- Spotlight -->
 <section class="bg-primary">
-    <div class="spotlight overflow-hidden bg-cover bg-size--cover" data-spotlight="fullscreen" style="background-image: url('https://www.emu.edu.tr/emu_v1/media/posts_media/media_2784_tr_1200.jpg'); background-position: center center" data-separator="rounded-left" data-separator-orientation="bottom">
+    <div class="spotlight overflow-hidden bg-cover bg-size--cover" data-spotlight="fullscreen" style="background-image: url('https://dormitories.emu.edu.tr/PublishingImages/Stock/akdeniz.jpg?RenditionID=10'); background-position: center center" data-separator="rounded-left" data-separator-orientation="bottom">
         <span class="mask bg-gradient-primary opacity-7--hover"></span>
         <div class="spotlight-holder">
             <div class="container py-xl d-flex align-items-center">
                 <div class="col pt-md pt-lg-0">
                     <div class="row justify-content-center">
                         <div class="col-lg-8 text-center">
-                            <h6 class="font-weight-700 text-uppercase text-white ls-2 mb-md">Find your Purpose</h6>
-                            <h1 class="text-white">With our designs and tools we want to bring you closer to your goals.</h1>
+                            <h6 class="font-weight-700 text-uppercase text-white ls-2 mb-md">Find your <span class="text-info typed" id="type-example" data-type-this="purpose., new room., new accomodation., home."></span></h6>
+
+                            <h1 class="text-white">Explore various EMU dormitories  and find your best fit.</h1>
                         </div>
                     </div>
                 </div>
@@ -29,8 +30,11 @@
     <div class="container">
         <div class="row row-grid justify-content-center">
             <div class="col-lg-6">
-                <h3 class="text-white mb-4">Our mission</h3>
-                <p class="lead text-white lh-150 mb-0">Purpose is a professional theme reviewed and approved by the Bootstrap Creators. With each purchase you get a pack of high quality components and page layouts to start building and customize your website in minutes.</p>
+                <h3 class="text-white mb-4">Why EMU Dormitories ?</h3>
+                <h3 class="lead text-white lh-150 mb-0">
+                    <span class="text-info typed" id="type-example2" data-type-this="- Academic Success,-  Healthy,- Security,- Economical Benefits,- Computer Facilities,
+                                                              - Communication features,- Basic Needs,- Transportation,- Healthy Eating,- Long Lasting Friendships,- Cultural and Social Life,- Sport Facilities "></span>
+                </h3>
             </div>
         </div>
     </div>
@@ -59,24 +63,7 @@
     </div>
 </section>
 
-<!-- Call to action -->
 
-<section class="slice slice-lg bg-dark">
-
-    <span class="tongue tongue-top"><i class="fas fa-angle-up"></i></span>
-
-    <div class="container">
-        <div class="row justify-content-center align-items-center">
-            <div class="col-lg-8 text-center">
-                <h3 class="font-weight-400 text-white">I am ready to start a new project with <span class="font-weight-700">Purpose</span> UI Kit.</h3>
-                <div class="mt-5">
-                    <a href="https://themes.getbootstrap.com/product/purpose-website-ui-kit/" target="_blank" class="btn btn-primary btn-circle btn-translate--hover px-4">Purchase now<span class="badge badge-pill badge-danger text-sm">$49 USD</span></a>
-                    <a href="mailto:support@webpixels.io" class="btn btn-link text-white">Have an issue?</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 
 
@@ -140,10 +127,7 @@
 
     <script src="@Url.Content("~/frontend_Content")/node_modules/masonry-layout/dist/masonry.pkgd.min.js"></script>
     <script src="@Url.Content("~/frontend_Content")/node_modules/infinite-scroll/dist/infinite-scroll.pkgd.min.js"></script>
-
-
-
-
+    <!-- Page plugins -->
     <!-- .photo-item template HTML -->
     <script type="text/html" id="photo-item-template">
         <div class="animate-this">
@@ -153,10 +137,10 @@
                     <img class="photo-item__image  rounded z-depth-3 img-fluid" src="{{imageUrl}}" alt="Photo by {{dormitoryName}}" />
                     <span class="mask mask--hover bg-gradient-primary opacity-4"></span>
                     <div class="card-img-overlay d-flex">
-                       @** <div class="col pt-2">
-                            <h4 class="h3 text-white text-capitalize mb-1 visible-lg visible-md">{{dormitoryDescription}}</h4>
-                            <h6 class="text-white visible-lg visible-md">{{dormitoryName}}</h6>
-                        </div>**@
+                        @** <div class="col pt-2">
+                                <h4 class="h3 text-white text-capitalize mb-1 visible-lg visible-md">{{dormitoryDescription}}</h4>
+                                <h6 class="text-white visible-lg visible-md">{{dormitoryName}}</h6>
+                            </div>**@
                     </div>
                     <p class="photo-item__caption">
                         <a href="{{imageUrl}}?utm_source=infinite-scroll-demos&utm_medium=referral&utm_campaign=api-credit">{{dormitoryName}}</a>
