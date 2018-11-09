@@ -36,7 +36,7 @@
             <!-- Theme CSS -->
             <link rel="stylesheet" href="@Url.Content("~/frontend_Content/assets")/css/theme.css">
 
-
+            @RenderSection("styles", false)
         </head>
 
         <body>
@@ -163,8 +163,8 @@
             <!-- Theme JS -->
 
             <script src="@Url.Content("~/frontend_Content/assets")/js/theme.min.js"></script>
-
-
+   
+            @RenderSection("scripts", false)
 
         </body>
 
