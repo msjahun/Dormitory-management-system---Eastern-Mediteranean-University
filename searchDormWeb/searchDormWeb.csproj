@@ -1654,6 +1654,8 @@
     <None Include="wwwroot\Content\bower_components\select2\dist\js\select2.full.min.js" />
     <None Include="wwwroot\Content\bower_components\select2\dist\js\select2.js" />
     <None Include="wwwroot\Content\bower_components\select2\dist\js\select2.min.js" />
+    <None Include="wwwroot\frontend_Content\node_modules\infinite-scroll\dist\infinite-scroll.pkgd.min.js" />
+    <None Include="wwwroot\frontend_Content\node_modules\masonry-layout\dist\masonry.pkgd.min.js" />
   </ItemGroup>
 
   <ItemGroup>
