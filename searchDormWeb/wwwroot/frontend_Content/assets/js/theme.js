@@ -1,13 +1,13 @@
 /*
 
-Theme: Purpose - Website UI Kit
-Product Page: https://themes.getbootstrap.com/product/purpose-website-ui-kit/
-Author: Webpixels
-Author URI: https://www.webpixels.io
+Theme: Website UI Kit
+Product Page: #/
+Author: Dau
+Author URI: #
 
 ---
 
-Copyright 2018 Webpixels
+Copyright 2018 Dau
 
 */
 
@@ -489,7 +489,7 @@ function initMap() {
         title: 'Hello World!'
     });
 
-    var contentString = '<div class="info-window-content"><h5>Webpixels</h5>' +
+    var contentString = '<div class="info-window-content"><h5>Dau</h5>' +
         '<h6>Premium Themes · UI/UX · Web Apps</h6>' +
         '<p>Some more details for directions or company informations...</p></div>';
 
