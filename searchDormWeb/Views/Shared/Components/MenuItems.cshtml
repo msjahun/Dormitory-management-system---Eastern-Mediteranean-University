@@ -12,18 +12,15 @@
 
 
 </li>
-<li><a href="#">Home</a></li>
+
 
 <li class="active"><a href="#">@ViewBag.ContentFormat_menu_accomodation<span class="sr-only">(current)</span></a></li>
-<li><a href="#">Deals</a></li>
 
-<li><a href="#">Explore EMU</a></li>
-<li><a href="#">Dormitories</a></li>
 
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <li><a href="#">My Account</a></li>}
+    <li><a asp-controller="debug" asp-action="AccountSettings">My Account</a></li>}
 
 <li><a href="https://dormitories.emu.edu.tr/en" target="_blank">@ViewBag.ContentFormat_menu_dormitories_and_cafeteria</a></li>
 

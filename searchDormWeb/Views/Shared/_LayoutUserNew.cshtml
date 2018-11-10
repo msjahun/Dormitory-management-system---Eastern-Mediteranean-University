@@ -14,12 +14,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
-    <meta name="author" content="Webpixels">
+    <meta name="author" content="Dau">
 
     <title>Search Dorms| Eastern Mediterranean University</title>
 
     <!-- Favicon -->
-    <link rel="icon" href="@Url.Content("~/frontend_Content/assets")/img/brand/favicon.ico" >
+    <link rel="icon" href="@Url.Content("~/frontend_Content/assets")/img/brand/favicon.ico">
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800">
@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="@Url.Content("~/frontend_Content/assets")/vendor/@@fortawesome/fontawesome-free/css/all.min.css">
 
 
-
+    @RenderSection("styles", false)
     <!-- Theme CSS -->
     <link rel="stylesheet" href="@Url.Content("~/frontend_Content/assets")/css/theme.css">
 
@@ -71,9 +71,11 @@
 
     <!-- Theme JS -->
 
+
+    @RenderSection("scripts", false)
+
+
     <script src="@Url.Content("~/frontend_Content/assets")/js/theme.min.js"></script>
-
-
 
 </body>
 
