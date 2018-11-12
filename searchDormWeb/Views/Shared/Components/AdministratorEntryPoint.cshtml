@@ -10,6 +10,6 @@
 @inject IUsersService _userService
 @if (SignInManager.IsSignedIn(User))
 {<secure-content asp-action="Index" asp-controller="Admin" asp-area="">
-        <div class="text-center "  > <strong><a asp-action="Index" asp-controller="Admin">Administration</a></strong> </div>
+        <div class="text-center bg-white text-white d-inline-block "  > <strong><a class="" asp-action="Index" asp-controller="Admin">Administration</a></strong> </div>
     </secure-content>
 }
