@@ -1,5 +1,13 @@
 .card {
     position: relative;
+
+    .rating-no {
+        clip-path: polygon(100% 0, 100% 88%, 11% 88%, 0 100%, 0 52%, 0% 0%);
+        background-color: $primary;
+        padding: 0.5rem;
+        margin-top:0.5rem;
+        margin-bottom:0.5rem;
+    }
 }
 
 // Transulcent cards
@@ -54,14 +62,21 @@
     }
 }
 
+.card-header-sm {
+    padding-top: 0.5rem;
+    padding-bottom: 0.2rem;
+    padding:0.5rem;
+}
 
 // Pricing
 
 .card-pricing {
     .card-header {
-        padding-top: 1.25rem;
+        padding-top: 2.25rem;
         padding-bottom: 1.25rem;
     }
+   
+
     .list-unstyled li {
         padding: .5rem 0;
         color: $gray-600;
@@ -124,6 +139,102 @@
     max-height: 300px;
     overflow: hidden;
 }
+
+
+// Dormitory search result card
+
+.card-dorm-search {
+    overflow: hidden;
+    padding: 0.4rem;
+
+    .card-body {
+        position: relative;
+        z-index: 2;
+        padding: 0.7rem;
+    }
+
+    .dormitory-name {
+        display: inline-block;
+    }
+
+    .location-info {
+        display: block;
+
+        .address-show-map {
+        }
+
+        .nearneast-to-subway {
+        }
+    }
+
+    .rating {
+        .rating-details {
+            display: block;
+
+            .rating-text {
+                display: inline;
+            }
+        }
+    }
+
+    .rating-no {
+        clip-path: polygon(100% 0, 100% 88%, 11% 88%, 0 100%, 0 52%, 0% 0%);
+        background-color: $primary;
+        padding:0.5rem;
+    }
+
+    .card-image {
+        padding: 0.5rem;
+
+        img {
+            transform: scale(1);
+            @include transition($transition-base);
+            transition-delay: .2s;
+        }
+    }
+
+    &:hover {
+        .card-image {
+            img {
+                transform: scale(1.1);
+            }
+        }
+    }
+
+    .card-title {
+        font-size: $h6-font-size;
+        color: $gray-800;
+        font-weight: $font-weight-bold;
+    }
+
+    .card-price {
+        color: $gray-500;
+        font-size: $font-size-base;
+        font-weight: $font-weight-bold;
+        display: block;
+    }
+
+    .product-colors {
+        a {
+            display: inline-block;
+            float: none !important;
+            width: 1rem;
+            height: 1rem;
+            margin-right: 3px;
+            margin-bottom: 0;
+            border-radius: 50%;
+            @include transition($transition-base);
+
+            &:hover {
+                transform: scale(1.1);
+            }
+        }
+    }
+}
+
+
+
+
 
 // Product card
 

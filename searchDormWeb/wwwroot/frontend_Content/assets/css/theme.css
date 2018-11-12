@@ -15408,6 +15408,17 @@ button.bg-lighter:focus
 {
     position: relative;
 }
+.card .rating-no
+{
+    margin-top: .5rem;
+    margin-bottom: .5rem; 
+    padding: .5rem;
+
+    background-color: #254182;
+
+    -webkit-clip-path: polygon(100% 0, 100% 88%, 11% 88%, 0 100%, 0 52%, 0% 0%);
+            clip-path: polygon(100% 0, 100% 88%, 11% 88%, 0 100%, 0 52%, 0% 0%);
+}
 
 .card-translucent-dark
 {
@@ -15468,9 +15479,16 @@ button.bg-lighter:focus
     }
 }
 
+.card-header-sm
+{
+    padding: .5rem; 
+    padding-top: .5rem;
+    padding-bottom: .2rem;
+}
+
 .card-pricing .card-header
 {
-    padding-top: 1.25rem;
+    padding-top: 2.25rem;
     padding-bottom: 1.25rem;
 }
 
@@ -15543,6 +15561,107 @@ button.bg-lighter:focus
     overflow: hidden; 
 
     max-height: 300px;
+}
+
+.card-dorm-search
+{
+    overflow: hidden;
+
+    padding: .4rem;
+}
+.card-dorm-search .card-body
+{
+    position: relative;
+    z-index: 2;
+
+    padding: .7rem;
+}
+.card-dorm-search .dormitory-name
+{
+    display: inline-block;
+}
+.card-dorm-search .location-info
+{
+    display: block;
+}
+.card-dorm-search .rating .rating-details
+{
+    display: block;
+}
+.card-dorm-search .rating .rating-details .rating-text
+{
+    display: inline;
+}
+.card-dorm-search .rating-no
+{
+    padding: .5rem; 
+
+    background-color: #254182;
+
+    -webkit-clip-path: polygon(100% 0, 100% 88%, 11% 88%, 0 100%, 0 52%, 0% 0%);
+            clip-path: polygon(100% 0, 100% 88%, 11% 88%, 0 100%, 0 52%, 0% 0%);
+}
+.card-dorm-search .card-image
+{
+    padding: .5rem;
+}
+.card-dorm-search .card-image img
+{
+    transition: all .2s ease-in-out;
+    transition-delay: .2s; 
+    transform: scale(1);
+}
+@media screen and (prefers-reduced-motion: reduce)
+{
+    .card-dorm-search .card-image img
+    {
+        transition: none;
+    }
+}
+.card-dorm-search:hover .card-image img
+{
+    transform: scale(1.1);
+}
+.card-dorm-search .card-title
+{
+    font-size: 1rem;
+    font-weight: 600; 
+
+    color: #343a40;
+}
+.card-dorm-search .card-price
+{
+    font-size: 1rem;
+    font-weight: 600;
+
+    display: block; 
+
+    color: #adb5bd;
+}
+.card-dorm-search .product-colors a
+{
+    display: inline-block;
+    float: none !important;
+
+    width: 1rem;
+    height: 1rem;
+    margin-right: 3px;
+    margin-bottom: 0;
+
+    transition: all .2s ease-in-out; 
+
+    border-radius: 50%;
+}
+@media screen and (prefers-reduced-motion: reduce)
+{
+    .card-dorm-search .product-colors a
+    {
+        transition: none;
+    }
+}
+.card-dorm-search .product-colors a:hover
+{
+    transform: scale(1.1);
 }
 
 .card-product
