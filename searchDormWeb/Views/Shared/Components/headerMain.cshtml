@@ -9,11 +9,14 @@
 @inject UserManager<User> UserManager
 @inject IUsersService _userService
 
-<header class="header-transparent " id="header-main">
+<header class="header-transparent bg-dark"  id="header-main">
+
 
     <!-- Search -->
     <div id="search-main" class="navbar-search">
+
         <div class="container">
+
             <!-- Search form -->
             <form class="navbar-search-form" role="form">
                 <div class="form-group">
@@ -79,17 +82,21 @@
 
 
     <!-- Topbar -->
-    <div id="navbar-top-main" class="navbar-top   navbar-dark bg-dark border-bottom">
-        <div class="container">
+    <div id="navbar-top-main" class="navbar-top   navbar-dark bg-dark border-bottom" >
+
+        <div class="container ">
+         
             <div class="navbar-nav align-items-center">
                 <div class="d-none d-lg-inline-block">
-                    <span class="navbar-text mr-3">Search Dorms - EMU</span>
+                    <a asp-action="" asp-controller="Home"><span class="navbar-text mr-3">SEARCH DORM - EMU</span></a>
                 </div>
+
+
                 <div>
                     <ul class="nav">
                         <li class="nav-item dropdown ml-lg-2 dropdown-animate" data-toggle="hover">
                             <a class="nav-link px-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img alt="Image placeholder" src="http://35.204.232.129/Content/dist/img/tr-flag.png">
+                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/flags/tr.svg">
                                 <span class="d-none d-lg-inline-block">Turkish</span>
                                 <span class="d-lg-none">EN</span>
                             </a>
@@ -105,6 +112,10 @@
                         </li>
                     </ul>
                 </div>
+
+                @Html.Partial("/Views/Shared/Components/AdminEntryPointNew.cshtml", null)
+
+
                 <div class="ml-auto">
                     <ul class="nav">
                         <li class="nav-item">
@@ -121,11 +132,68 @@
 
                         </li>
 
-                        @if (SignInManager.IsSignedIn(User)) {
-                            <li class="nav-item">
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            @*<li class="nav-item">
                                 <a href="#" class="avatar avatar-sm rounded-circle mr-3">
                                     <img alt="Image placeholder" src="https://avatars2.githubusercontent.com/u/19820517?s=460&v=4">
                                 </a>
+                            </li>*@
+
+                            <li class="nav-item dropdown dropdown-animate" data-toggle="hover">
+
+
+                               
+                                <a href="#" class=" avatar avatar-sm rounded-circle mr-3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img alt="Image placeholder" src="https://avatars2.githubusercontent.com/u/19820517?s=460&v=4">
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-arrow py-0">
+                                    <div class="list-group">
+                                        <secure-content asp-action="Index" asp-controller="Admin" asp-area="">
+                                            <a asp-action="Index" asp-controller="Admin" class="list-group-item list-group-item-action">
+                                                <div class="media d-flex align-items-center">
+                                                    <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/browser-window.svg" class="img-saturate" style="width: 50px;">
+                                                    <div class="media-body ml-3">
+                                                        <h6 class="mb-1">Admin Area</h6>
+                                                        <p class="mb-0">Takes you to the Administration area.</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </secure-content>
+
+                                       
+                                        <a asp-action="AccountBilling" asp-controller="Debug" class="list-group-item list-group-item-action">
+                                            <div class="media d-flex align-items-center">
+                                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/ios-photos.svg" class="img-saturate" style="width: 50px;">
+                                                <div class="media-body ml-3">
+                                                    <h6 class="mb-1">View my bookings</h6>
+                                                    <p class="mb-0">See your booking history.</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a asp-action="AccountProfile" asp-controller="Debug" class="list-group-item list-group-item-action">
+                                            <div class="media d-flex align-items-center">
+                                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/maintenance.svg" class="img-saturate" style="width: 50px;">
+                                                <div class="media-body ml-3">
+                                                    <h6 class="mb-1">Account Settings</h6>
+                                                    <p class="mb-0">Your account settings.</p>
+                                                </div>
+                                            </div>
+                                        </a>
+
+
+                                        <a asp-controller="Login" asp-action="Logout" class="list-group-item list-group-item-action">
+                                            <div class="media d-flex align-items-center">
+                                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/logout-rounded-left.svg" class="img-saturate" style="width: 50px;">
+                                                <div class="media-body ml-3">
+                                                    <h6 class="mb-1">Logout</h6>
+                                                    <p class="mb-0">Signs you out of your account.</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
                             </li>
 
                         }
@@ -139,7 +207,10 @@
     <!-- Main navbar -->
 
     <nav class="navbar navbar-main navbar-expand-lg  @ViewData["navClass"]  " id="navbar-main">
+
+      
         <div class="container">
+
             <a class="navbar-brand mr-lg-5" href="../index.html">
                 <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/brand/white.png" style="width:380px">
             </a>
@@ -151,66 +222,69 @@
             <div class="collapse navbar-collapse" id="navbar-main-collapse">
                 <ul class="navbar-nav align-items-lg-center">
                     <li class="nav-item ">
-                        <a class="nav-link" asp-controller="Home" asp-action="">Home</a>
+                        <a class="nav-link" asp-controller="debug" asp-action="Home">Home</a>
                     </li>
 
+
+
+
                     @**{ <li class="nav-item dropdown dropdown-animate" data-toggle="hover">
-                <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-arrow py-0">
-                    <div class="list-group">
-                        <a href="../pages/pages-landing.html" class="list-group-item list-group-item-action">
-                            <div class="media d-flex align-items-center">
-                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/browser-window.svg" class="img-saturate" style="width: 50px;">
-                                <div class="media-body ml-3">
-                                    <h6 class="mb-1">Landing Pages</h6>
-                                    <p class="mb-0">A great point to start from.</p>
-                                </div>
+            <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-arrow py-0">
+                <div class="list-group">
+                    <a href="../pages/pages-landing.html" class="list-group-item list-group-item-action">
+                        <div class="media d-flex align-items-center">
+                            <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/browser-window.svg" class="img-saturate" style="width: 50px;">
+                            <div class="media-body ml-3">
+                                <h6 class="mb-1">Landing Pages</h6>
+                                <p class="mb-0">A great point to start from.</p>
                             </div>
-                        </a>
-                        <a href="../pages/pages-secondary.html" class="list-group-item list-group-item-action">
-                            <div class="media d-flex align-items-center">
-                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/ios-photos.svg" class="img-saturate" style="width: 50px;">
-                                <div class="media-body ml-3">
-                                    <h6 class="mb-1">Secondary Pages</h6>
-                                    <p class="mb-0">Build your website with these demos.</p>
-                                </div>
+                        </div>
+                    </a>
+                    <a href="../pages/pages-secondary.html" class="list-group-item list-group-item-action">
+                        <div class="media d-flex align-items-center">
+                            <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/ios-photos.svg" class="img-saturate" style="width: 50px;">
+                            <div class="media-body ml-3">
+                                <h6 class="mb-1">Secondary Pages</h6>
+                                <p class="mb-0">Build your website with these demos.</p>
                             </div>
-                        </a>
-                        <a href="../pages/pages-account.html" class="list-group-item list-group-item-action">
-                            <div class="media d-flex align-items-center">
-                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/maintenance.svg" class="img-saturate" style="width: 50px;">
-                                <div class="media-body ml-3">
-                                    <h6 class="mb-1">Account Pages</h6>
-                                    <p class="mb-0">Account management made easy.</p>
-                                </div>
+                        </div>
+                    </a>
+                    <a href="../pages/pages-account.html" class="list-group-item list-group-item-action">
+                        <div class="media d-flex align-items-center">
+                            <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/maintenance.svg" class="img-saturate" style="width: 50px;">
+                            <div class="media-body ml-3">
+                                <h6 class="mb-1">Account Pages</h6>
+                                <p class="mb-0">Account management made easy.</p>
                             </div>
-                        </a>
-                        <a href="../pages/pages-shop.html" class="list-group-item list-group-item-action">
-                            <div class="media d-flex align-items-center">
-                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/in-progress.svg" class="img-saturate" style="width: 50px;">
-                                <div class="media-body ml-3">
-                                    <h6 class="mb-1">Shop Pages</h6>
-                                    <p class="mb-0">Explore the full ecommerce website flow.</p>
-                                </div>
+                        </div>
+                    </a>
+                    <a href="../pages/pages-shop.html" class="list-group-item list-group-item-action">
+                        <div class="media d-flex align-items-center">
+                            <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/in-progress.svg" class="img-saturate" style="width: 50px;">
+                            <div class="media-body ml-3">
+                                <h6 class="mb-1">Shop Pages</h6>
+                                <p class="mb-0">Explore the full ecommerce website flow.</p>
                             </div>
-                        </a>
-                    </div>
+                        </div>
+                    </a>
                 </div>
-            </li>**@
+            </div>
+        </li>**@
 
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="debug" asp-action="SearchResultPage" role="button">Accomodation</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="../docs/alerts.html" role="button">Deals</a>
-                    </li>
-
-
-
-                    <li class="nav-item">
                         <a class="nav-link" asp-controller="debug" asp-action="ExploreEMU" role="button">Explore EMU</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="debug" asp-action="Home" asp-fragment="Dormitories-deals" role="button">Deals</a>
+                    </li>
+
+
+
                 </ul>
 
 
@@ -235,7 +309,7 @@
 
                     <ul class="navbar-nav align-items-lg-center ml-lg-auto">
 
-                        
+
                         <li class="nav-item mr-0">
                             <a asp-controller="Login" asp-action="" class="nav-link d-lg-none">Login</a>
                             <a asp-controller="Login" asp-action="" class="btn btn-sm btn-white btn-circle btn-icon d-none d-lg-inline-flex">
@@ -246,7 +320,7 @@
                     </ul>
 
                 }
-                </div>
+            </div>
         </div>
     </nav>
 
