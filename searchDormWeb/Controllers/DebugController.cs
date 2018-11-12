@@ -18,6 +18,11 @@ namespace searchDormWeb.Controllers
             return View();
         }
 
+        public IActionResult DormitoryDetail()
+        {
+            return View();
+        }
+
         public IActionResult AccountSettings()
         {
             return View();
