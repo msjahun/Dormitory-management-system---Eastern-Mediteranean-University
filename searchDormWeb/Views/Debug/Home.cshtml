@@ -1,0 +1,1036 @@
+﻿
+@{
+    ViewData["Title"] = "Home";
+    Layout = "~/Views/Shared/_LayoutUserNew.cshtml";
+}
+
+
+<section class="slice slice-lg">
+    <div class="container ">
+        <div class=" text-center">
+            <h2 class="heading display-4 mb-2"><span class=" typed text-primary" id="type-example" data-type-this="Search and filter different dormitories,Search and filter based on multiple facilities,
+                                                     Search and filter based on locations on map, 
+                                                     Search and filter based on prices, Easily book your dormitory room"></span></h2>
+
+
+            <div class="row justify-content-center">
+                <div class="col-xl-8 col-lg-10">
+                    <p class="lead lh-180">A purposeful event the will gather on one single stage the most important figures in the digital environment.</p>
+
+
+                    <form class="row justify-content-center mt-5"></form>
+                </div>
+            </div>
+
+
+            <div class="row justify-content-start">
+
+
+                <div class="col-md-4">
+                    <h6>Dormitory Type</h6>
+                    <select class="form-control  form-control-sm  " data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Search ...">
+                        <option></option>
+                        <option>Badges</option>
+                        <option>Buttons</option>
+                        <option>Cards</option>
+                        <option>Forms</option>
+                        <option>Modals</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <h6>Dormitory name</h6>
+                    <select class="form-control  form-control-sm " data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Search ...">
+                        <option></option>
+                        <option>Badges</option>
+                        <option>Buttons</option>
+                        <option>Cards</option>
+                        <option>Forms</option>
+                        <option>Modals</option>
+                    </select>
+
+                </div>
+
+                <div class="col-md-4">
+                    <h6>Semester duration</h6>
+                    <select class="form-control  form-control-sm " data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Search ...">
+                        <option></option>
+                        <option>1 semester - Fall 2019</option>
+                        <option>2 semester - Fall/spring 2019</option>
+
+
+                    </select>
+                </div>
+
+
+
+
+            </div>
+            <br />
+            <br />
+
+
+            <div class="row justify-content-center">
+
+
+                <div class="col-md-6">
+                    <h6>Price</h6>
+
+                    <div class="range-slider-wrapper ">
+                        <!-- Range slider container -->
+                        <div id="input-slider-range" class="input-slider" data-range-value-min="100" data-range-value-max="500"></div>
+                        <!-- Range slider values -->
+                        <div class="row">
+                            <div class="col-6">
+                                <span class="range-slider-value value-low" data-range-value-low="200" id="input-slider-range-value-low"></span>
+                            </div>
+                            <div class="col-6 text-right">
+                                <span class="range-slider-value value-high" data-range-value-high="400" id="input-slider-range-value-high"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+
+
+                    <h6>Room area</h6>
+
+                    <div class="input-slider-container mb-4">
+                        <div id="input-slider-red" class="input-slider input-slider--red" data-range-value-min="100" data-range-value-max="900"></div>
+                        <!-- Input slider values -->
+                        <div class="row mt-3">
+                            <div class="col-6">
+                                <span id="input-slider-red-value" class="range-slider-value" data-range-value-low="200"></span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+            </div>
+
+            <br />
+
+            <div class="row justify-content-center">
+
+
+                <div class="col-md-6">
+
+                    <a asp-controller="debug" asp-action="SearchResultPage" class="btn btn-primary btn-block btn-animated btn-animated-x">
+                        <span class="btn-inner--visible">Search</span>
+                        <span class="btn-inner--hidden"><i class="fa fa-search"></i></span>
+                    </a>
+
+                </div>
+
+
+            </div>
+
+
+
+        </div>
+    </div>
+</section>
+
+
+<section class="slice slice-lg ">
+
+    <div class="container">
+
+        <a href="#" class="link link-underline-warning font-weight-bold py-4 mt-4 delimiter-top">Popular dormitories</a>
+
+        <br>
+
+        <div class="swiper-js-container">
+            <div class="swiper-container swiper-container-horizontal" data-swiper-items="1" data-swiper-space-between="20" data-swiper-sm-items="2" data-swiper-sm-space-between="20" data-swiper-xl-items="4" data-swiper-xl-space-between="20" style="cursor: grab;">
+                <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
+                       <div class="swiper-slide swiper-slide-active" style="width: 356.667px; margin-right: 20px;">
+
+
+
+                        
+                            <div class="card overflow-hidden" data-animate-hover="2">
+                                <div class="overflow-hidden">
+                                    <div class="animate-this">
+                                        <a href="#">
+                                            <img alt="Image placeholder" class="card-img-top" src="https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/18/c4/73/18c473bc-cd1c-4e6e-4ba0-4a9afcae1fc4/source/512x512bb.jpg">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-body text-center">
+                                    <h5 class="card-title mb-0">Alfam dormitory</h5>
+
+
+                                    <div class="rating-detail py-2">
+                                        <span class="rating-text inline h4">Excellent</span>
+                                        <a class=" rating-no text-white text-bold h3">9.7</a>
+                                    </div>
+
+
+                                    <span class="block text-primary">13 reviews</span>
+
+                                    <span class="static-rating static-rating-sm">
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                    </span>
+
+
+                                </div>
+                            </div>
+                      
+                    </div>
+                       <div class="swiper-slide swiper-slide-active" style="width: 356.667px; margin-right: 20px;">
+
+
+
+                        
+                            <div class="card overflow-hidden" data-animate-hover="2">
+                                <div class="overflow-hidden">
+                                    <div class="animate-this">
+                                        <a href="#">
+                                            <img alt="Image placeholder" class="card-img-top" src="https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/18/c4/73/18c473bc-cd1c-4e6e-4ba0-4a9afcae1fc4/source/512x512bb.jpg">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-body text-center">
+                                    <h5 class="card-title mb-0">Alfam dormitory</h5>
+
+
+                                    <div class="rating-detail py-2">
+                                        <span class="rating-text inline h4">Excellent</span>
+                                        <a class=" rating-no text-white text-bold h3">9.7</a>
+                                    </div>
+
+
+                                    <span class="block text-primary">13 reviews</span>
+
+                                    <span class="static-rating static-rating-sm">
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                    </span>
+
+
+                                </div>
+                            </div>
+                      
+                    </div>
+                       <div class="swiper-slide swiper-slide-active" style="width: 356.667px; margin-right: 20px;">
+
+
+
+                        
+                            <div class="card overflow-hidden" data-animate-hover="2">
+                                <div class="overflow-hidden">
+                                    <div class="animate-this">
+                                        <a href="#">
+                                            <img alt="Image placeholder" class="card-img-top" src="https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/18/c4/73/18c473bc-cd1c-4e6e-4ba0-4a9afcae1fc4/source/512x512bb.jpg">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-body text-center">
+                                    <h5 class="card-title mb-0">Alfam dormitory</h5>
+
+
+                                    <div class="rating-detail py-2">
+                                        <span class="rating-text inline h4">Excellent</span>
+                                        <a class=" rating-no text-white text-bold h3">9.7</a>
+                                    </div>
+
+
+                                    <span class="block text-primary">13 reviews</span>
+
+                                    <span class="static-rating static-rating-sm">
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                    </span>
+
+
+                                </div>
+                            </div>
+                      
+                    </div>
+                       <div class="swiper-slide swiper-slide-active" style="width: 456.667px; margin-right: 20px;">
+
+
+
+                        
+                            <div class="card overflow-hidden" data-animate-hover="2">
+                                <div class="overflow-hidden">
+                                    <div class="animate-this">
+                                        <a href="#">
+                                            <img alt="Image placeholder" class="card-img-top" src="https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/18/c4/73/18c473bc-cd1c-4e6e-4ba0-4a9afcae1fc4/source/512x512bb.jpg">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-body text-center">
+                                    <h5 class="card-title mb-0">Alfam dormitory</h5>
+
+
+                                    <div class="rating-detail py-2">
+                                        <span class="rating-text inline h4">Excellent</span>
+                                        <a class=" rating-no text-white text-bold h3">9.7</a>
+                                    </div>
+
+
+                                    <span class="block text-primary">13 reviews</span>
+
+                                    <span class="static-rating static-rating-sm">
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                    </span>
+
+
+                                </div>
+                            </div>
+                      
+                    </div>
+                       <div class="swiper-slide swiper-slide-active" style="width: 356.667px; margin-right: 20px;">
+
+
+
+                        
+                            <div class="card overflow-hidden" data-animate-hover="2">
+                                <div class="overflow-hidden">
+                                    <div class="animate-this">
+                                        <a href="#">
+                                            <img alt="Image placeholder" class="card-img-top" src="https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/18/c4/73/18c473bc-cd1c-4e6e-4ba0-4a9afcae1fc4/source/512x512bb.jpg">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-body text-center">
+                                    <h5 class="card-title mb-0">Alfam dormitory</h5>
+
+
+                                    <div class="rating-detail py-2">
+                                        <span class="rating-text inline h4">Excellent</span>
+                                        <a class=" rating-no text-white text-bold h3">9.7</a>
+                                    </div>
+
+
+                                    <span class="block text-primary">13 reviews</span>
+
+                                    <span class="static-rating static-rating-sm">
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                    </span>
+
+
+                                </div>
+                            </div>
+                      
+                    </div>
+                       <div class="swiper-slide swiper-slide-active" style="width: 356.667px; margin-right: 20px;">
+
+
+
+                        
+                            <div class="card overflow-hidden" data-animate-hover="2">
+                                <div class="overflow-hidden">
+                                    <div class="animate-this">
+                                        <a href="#">
+                                            <img alt="Image placeholder" class="card-img-top" src="https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/18/c4/73/18c473bc-cd1c-4e6e-4ba0-4a9afcae1fc4/source/512x512bb.jpg">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-body text-center">
+                                    <h5 class="card-title mb-0">Alfam dormitory</h5>
+
+
+                                    <div class="rating-detail py-2">
+                                        <span class="rating-text inline h4">Excellent</span>
+                                        <a class=" rating-no text-white text-bold h3">9.7</a>
+                                    </div>
+
+
+                                    <span class="block text-primary">13 reviews</span>
+
+                                    <span class="static-rating static-rating-sm">
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                    </span>
+
+
+                                </div>
+                            </div>
+                      
+                    </div>
+                       <div class="swiper-slide swiper-slide-active" style="width: 356.667px; margin-right: 20px;">
+
+
+
+                        
+                            <div class="card overflow-hidden" data-animate-hover="2">
+                                <div class="overflow-hidden">
+                                    <div class="animate-this">
+                                        <a href="#">
+                                            <img alt="Image placeholder" class="card-img-top" src="https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/18/c4/73/18c473bc-cd1c-4e6e-4ba0-4a9afcae1fc4/source/512x512bb.jpg">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-body text-center">
+                                    <h5 class="card-title mb-0">Alfam dormitory</h5>
+
+
+                                    <div class="rating-detail py-2">
+                                        <span class="rating-text inline h4">Excellent</span>
+                                        <a class=" rating-no text-white text-bold h3">9.7</a>
+                                    </div>
+
+
+                                    <span class="block text-primary">13 reviews</span>
+
+                                    <span class="static-rating static-rating-sm">
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                    </span>
+
+
+                                </div>
+                            </div>
+                      
+                    </div>
+
+                    
+                </div>
+                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+            </div>
+            <!-- Add Pagination -->
+            <div class="d-flex justify-content-center pt-4">
+                <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets"><span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 3"></span></div>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+<section class="slice slice-lg ">
+
+    <div class="container">
+
+        <a href="#" class="link link-underline-warning font-weight-bold py-4 mt-4 delimiter-top">Highly rated dormitories</a>
+
+        <br>
+
+        <div class="swiper-js-container">
+            <div class="swiper-container swiper-container-horizontal" data-swiper-items="1" data-swiper-space-between="20" data-swiper-sm-items="2" data-swiper-sm-space-between="20" data-swiper-xl-items="4" data-swiper-xl-space-between="20" style="cursor: grab;">
+                <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
+                       <div class="swiper-slide swiper-slide-active" style="width: 356.667px; margin-right: 20px;">
+
+
+
+                        
+                            <div class="card overflow-hidden" data-animate-hover="2">
+                                <div class="overflow-hidden">
+                                    <div class="animate-this">
+                                        <a href="#">
+                                            <img alt="Image placeholder" class="card-img-top" src="https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/18/c4/73/18c473bc-cd1c-4e6e-4ba0-4a9afcae1fc4/source/512x512bb.jpg">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-body text-center">
+                                    <h5 class="card-title mb-0">Alfam dormitory</h5>
+
+
+                                    <div class="rating-detail py-2">
+                                        <span class="rating-text inline h4">Excellent</span>
+                                        <a class=" rating-no text-white text-bold h3">9.7</a>
+                                    </div>
+
+
+                                    <span class="block text-primary">13 reviews</span>
+
+                                    <span class="static-rating static-rating-sm">
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                    </span>
+
+
+                                </div>
+                            </div>
+                      
+                    </div>
+                       <div class="swiper-slide swiper-slide-active" style="width: 356.667px; margin-right: 20px;">
+
+
+
+                        
+                            <div class="card overflow-hidden" data-animate-hover="2">
+                                <div class="overflow-hidden">
+                                    <div class="animate-this">
+                                        <a href="#">
+                                            <img alt="Image placeholder" class="card-img-top" src="https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/18/c4/73/18c473bc-cd1c-4e6e-4ba0-4a9afcae1fc4/source/512x512bb.jpg">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-body text-center">
+                                    <h5 class="card-title mb-0">Alfam dormitory</h5>
+
+
+                                    <div class="rating-detail py-2">
+                                        <span class="rating-text inline h4">Excellent</span>
+                                        <a class=" rating-no text-white text-bold h3">9.7</a>
+                                    </div>
+
+
+                                    <span class="block text-primary">13 reviews</span>
+
+                                    <span class="static-rating static-rating-sm">
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                    </span>
+
+
+                                </div>
+                            </div>
+                      
+                    </div>
+                       <div class="swiper-slide swiper-slide-active" style="width: 356.667px; margin-right: 20px;">
+
+
+
+                        
+                            <div class="card overflow-hidden" data-animate-hover="2">
+                                <div class="overflow-hidden">
+                                    <div class="animate-this">
+                                        <a href="#">
+                                            <img alt="Image placeholder" class="card-img-top" src="https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/18/c4/73/18c473bc-cd1c-4e6e-4ba0-4a9afcae1fc4/source/512x512bb.jpg">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-body text-center">
+                                    <h5 class="card-title mb-0">Alfam dormitory</h5>
+
+
+                                    <div class="rating-detail py-2">
+                                        <span class="rating-text inline h4">Excellent</span>
+                                        <a class=" rating-no text-white text-bold h3">9.7</a>
+                                    </div>
+
+
+                                    <span class="block text-primary">13 reviews</span>
+
+                                    <span class="static-rating static-rating-sm">
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                    </span>
+
+
+                                </div>
+                            </div>
+                      
+                    </div>
+                       <div class="swiper-slide swiper-slide-active" style="width: 456.667px; margin-right: 20px;">
+
+
+
+                        
+                            <div class="card overflow-hidden" data-animate-hover="2">
+                                <div class="overflow-hidden">
+                                    <div class="animate-this">
+                                        <a href="#">
+                                            <img alt="Image placeholder" class="card-img-top" src="https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/18/c4/73/18c473bc-cd1c-4e6e-4ba0-4a9afcae1fc4/source/512x512bb.jpg">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-body text-center">
+                                    <h5 class="card-title mb-0">Alfam dormitory</h5>
+
+
+                                    <div class="rating-detail py-2">
+                                        <span class="rating-text inline h4">Excellent</span>
+                                        <a class=" rating-no text-white text-bold h3">9.7</a>
+                                    </div>
+
+
+                                    <span class="block text-primary">13 reviews</span>
+
+                                    <span class="static-rating static-rating-sm">
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                    </span>
+
+
+                                </div>
+                            </div>
+                      
+                    </div>
+                       <div class="swiper-slide swiper-slide-active" style="width: 356.667px; margin-right: 20px;">
+
+
+
+                        
+                            <div class="card overflow-hidden" data-animate-hover="2">
+                                <div class="overflow-hidden">
+                                    <div class="animate-this">
+                                        <a href="#">
+                                            <img alt="Image placeholder" class="card-img-top" src="https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/18/c4/73/18c473bc-cd1c-4e6e-4ba0-4a9afcae1fc4/source/512x512bb.jpg">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-body text-center">
+                                    <h5 class="card-title mb-0">Alfam dormitory</h5>
+
+
+                                    <div class="rating-detail py-2">
+                                        <span class="rating-text inline h4">Excellent</span>
+                                        <a class=" rating-no text-white text-bold h3">9.7</a>
+                                    </div>
+
+
+                                    <span class="block text-primary">13 reviews</span>
+
+                                    <span class="static-rating static-rating-sm">
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                    </span>
+
+
+                                </div>
+                            </div>
+                      
+                    </div>
+                       <div class="swiper-slide swiper-slide-active" style="width: 356.667px; margin-right: 20px;">
+
+
+
+                        
+                            <div class="card overflow-hidden" data-animate-hover="2">
+                                <div class="overflow-hidden">
+                                    <div class="animate-this">
+                                        <a href="#">
+                                            <img alt="Image placeholder" class="card-img-top" src="https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/18/c4/73/18c473bc-cd1c-4e6e-4ba0-4a9afcae1fc4/source/512x512bb.jpg">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-body text-center">
+                                    <h5 class="card-title mb-0">Alfam dormitory</h5>
+
+
+                                    <div class="rating-detail py-2">
+                                        <span class="rating-text inline h4">Excellent</span>
+                                        <a class=" rating-no text-white text-bold h3">9.7</a>
+                                    </div>
+
+
+                                    <span class="block text-primary">13 reviews</span>
+
+                                    <span class="static-rating static-rating-sm">
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                    </span>
+
+
+                                </div>
+                            </div>
+                      
+                    </div>
+                       <div class="swiper-slide swiper-slide-active" style="width: 356.667px; margin-right: 20px;">
+
+
+
+                        
+                            <div class="card overflow-hidden" data-animate-hover="2">
+                                <div class="overflow-hidden">
+                                    <div class="animate-this">
+                                        <a href="#">
+                                            <img alt="Image placeholder" class="card-img-top" src="https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/18/c4/73/18c473bc-cd1c-4e6e-4ba0-4a9afcae1fc4/source/512x512bb.jpg">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-body text-center">
+                                    <h5 class="card-title mb-0">Alfam dormitory</h5>
+
+
+                                    <div class="rating-detail py-2">
+                                        <span class="rating-text inline h4">Excellent</span>
+                                        <a class=" rating-no text-white text-bold h3">9.7</a>
+                                    </div>
+
+
+                                    <span class="block text-primary">13 reviews</span>
+
+                                    <span class="static-rating static-rating-sm">
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                    </span>
+
+
+                                </div>
+                            </div>
+                      
+                    </div>
+
+                    
+                </div>
+                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+            </div>
+            <!-- Add Pagination -->
+            <div class="d-flex justify-content-center pt-4">
+                <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets"><span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 3"></span></div>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+<span id="Dormitories-deals"></span>
+
+<section class="slice slice-lg ">
+
+    <div class="container">
+
+        <a href="#" class="link link-underline-warning font-weight-bold py-4 mt-4 delimiter-top">Dormitories with cool offers & deals</a>
+
+        <br>
+
+        <div class="swiper-js-container">
+            <div class="swiper-container swiper-container-horizontal" data-swiper-items="1" data-swiper-space-between="20" data-swiper-sm-items="2" data-swiper-sm-space-between="20" data-swiper-xl-items="4" data-swiper-xl-space-between="20" style="cursor: grab;">
+                <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
+                       <div class="swiper-slide swiper-slide-active" style="width: 356.667px; margin-right: 20px;">
+
+
+
+                        
+                            <div class="card overflow-hidden" data-animate-hover="2">
+                                <div class="overflow-hidden">
+                                    <div class="animate-this">
+                                        <a href="#">
+                                            <img alt="Image placeholder" class="card-img-top" src="https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/18/c4/73/18c473bc-cd1c-4e6e-4ba0-4a9afcae1fc4/source/512x512bb.jpg">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-body text-center">
+                                    <h5 class="card-title mb-0">Alfam dormitory</h5>
+
+
+                                    <div class="rating-detail py-2">
+                                        <span class="rating-text inline h4">Excellent</span>
+                                        <a class=" rating-no text-white text-bold h3">9.7</a>
+                                    </div>
+
+
+                                    <span class="block text-primary">13 reviews</span>
+
+                                    <span class="static-rating static-rating-sm">
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                    </span>
+
+
+                                </div>
+                            </div>
+                      
+                    </div>
+                       <div class="swiper-slide swiper-slide-active" style="width: 356.667px; margin-right: 20px;">
+
+
+
+                        
+                            <div class="card overflow-hidden" data-animate-hover="2">
+                                <div class="overflow-hidden">
+                                    <div class="animate-this">
+                                        <a href="#">
+                                            <img alt="Image placeholder" class="card-img-top" src="https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/18/c4/73/18c473bc-cd1c-4e6e-4ba0-4a9afcae1fc4/source/512x512bb.jpg">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-body text-center">
+                                    <h5 class="card-title mb-0">Alfam dormitory</h5>
+
+
+                                    <div class="rating-detail py-2">
+                                        <span class="rating-text inline h4">Excellent</span>
+                                        <a class=" rating-no text-white text-bold h3">9.7</a>
+                                    </div>
+
+
+                                    <span class="block text-primary">13 reviews</span>
+
+                                    <span class="static-rating static-rating-sm">
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                    </span>
+
+
+                                </div>
+                            </div>
+                      
+                    </div>
+                       <div class="swiper-slide swiper-slide-active" style="width: 356.667px; margin-right: 20px;">
+
+
+
+                        
+                            <div class="card overflow-hidden" data-animate-hover="2">
+                                <div class="overflow-hidden">
+                                    <div class="animate-this">
+                                        <a href="#">
+                                            <img alt="Image placeholder" class="card-img-top" src="https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/18/c4/73/18c473bc-cd1c-4e6e-4ba0-4a9afcae1fc4/source/512x512bb.jpg">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-body text-center">
+                                    <h5 class="card-title mb-0">Alfam dormitory</h5>
+
+
+                                    <div class="rating-detail py-2">
+                                        <span class="rating-text inline h4">Excellent</span>
+                                        <a class=" rating-no text-white text-bold h3">9.7</a>
+                                    </div>
+
+
+                                    <span class="block text-primary">13 reviews</span>
+
+                                    <span class="static-rating static-rating-sm">
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                    </span>
+
+
+                                </div>
+                            </div>
+                      
+                    </div>
+                       <div class="swiper-slide swiper-slide-active" style="width: 456.667px; margin-right: 20px;">
+
+
+
+                        
+                            <div class="card overflow-hidden" data-animate-hover="2">
+                                <div class="overflow-hidden">
+                                    <div class="animate-this">
+                                        <a href="#">
+                                            <img alt="Image placeholder" class="card-img-top" src="https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/18/c4/73/18c473bc-cd1c-4e6e-4ba0-4a9afcae1fc4/source/512x512bb.jpg">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-body text-center">
+                                    <h5 class="card-title mb-0">Alfam dormitory</h5>
+
+
+                                    <div class="rating-detail py-2">
+                                        <span class="rating-text inline h4">Excellent</span>
+                                        <a class=" rating-no text-white text-bold h3">9.7</a>
+                                    </div>
+
+
+                                    <span class="block text-primary">13 reviews</span>
+
+                                    <span class="static-rating static-rating-sm">
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                    </span>
+
+
+                                </div>
+                            </div>
+                      
+                    </div>
+                       <div class="swiper-slide swiper-slide-active" style="width: 356.667px; margin-right: 20px;">
+
+
+
+                        
+                            <div class="card overflow-hidden" data-animate-hover="2">
+                                <div class="overflow-hidden">
+                                    <div class="animate-this">
+                                        <a href="#">
+                                            <img alt="Image placeholder" class="card-img-top" src="https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/18/c4/73/18c473bc-cd1c-4e6e-4ba0-4a9afcae1fc4/source/512x512bb.jpg">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-body text-center">
+                                    <h5 class="card-title mb-0">Alfam dormitory</h5>
+
+
+                                    <div class="rating-detail py-2">
+                                        <span class="rating-text inline h4">Excellent</span>
+                                        <a class=" rating-no text-white text-bold h3">9.7</a>
+                                    </div>
+
+
+                                    <span class="block text-primary">13 reviews</span>
+
+                                    <span class="static-rating static-rating-sm">
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                    </span>
+
+
+                                </div>
+                            </div>
+                      
+                    </div>
+                       <div class="swiper-slide swiper-slide-active" style="width: 356.667px; margin-right: 20px;">
+
+
+
+                        
+                            <div class="card overflow-hidden" data-animate-hover="2">
+                                <div class="overflow-hidden">
+                                    <div class="animate-this">
+                                        <a href="#">
+                                            <img alt="Image placeholder" class="card-img-top" src="https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/18/c4/73/18c473bc-cd1c-4e6e-4ba0-4a9afcae1fc4/source/512x512bb.jpg">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-body text-center">
+                                    <h5 class="card-title mb-0">Alfam dormitory</h5>
+
+
+                                    <div class="rating-detail py-2">
+                                        <span class="rating-text inline h4">Excellent</span>
+                                        <a class=" rating-no text-white text-bold h3">9.7</a>
+                                    </div>
+
+
+                                    <span class="block text-primary">13 reviews</span>
+
+                                    <span class="static-rating static-rating-sm">
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                    </span>
+
+
+                                </div>
+                            </div>
+                      
+                    </div>
+                       <div class="swiper-slide swiper-slide-active" style="width: 356.667px; margin-right: 20px;">
+
+
+
+                        
+                            <div class="card overflow-hidden" data-animate-hover="2">
+                                <div class="overflow-hidden">
+                                    <div class="animate-this">
+                                        <a href="#">
+                                            <img alt="Image placeholder" class="card-img-top" src="https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/18/c4/73/18c473bc-cd1c-4e6e-4ba0-4a9afcae1fc4/source/512x512bb.jpg">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-body text-center">
+                                    <h5 class="card-title mb-0">Alfam dormitory</h5>
+
+
+                                    <div class="rating-detail py-2">
+                                        <span class="rating-text inline h4">Excellent</span>
+                                        <a class=" rating-no text-white text-bold h3">9.7</a>
+                                    </div>
+
+
+                                    <span class="block text-primary">13 reviews</span>
+
+                                    <span class="static-rating static-rating-sm">
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                        <i class="star fas fa-star voted"></i>
+                                    </span>
+
+
+                                </div>
+                            </div>
+                      
+                    </div>
+
+                    
+                </div>
+                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+            </div>
+            <!-- Add Pagination -->
+            <div class="d-flex justify-content-center pt-4">
+                <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets"><span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 3"></span></div>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+
+
+
+
+@section scripts
+    {
+    <script src="@Url.Content("~/frontend_Content/assets")/vendor/select2/dist/js/select2.min.js"></script>
+    <script src="@Url.Content("~/frontend_Content/assets")/vendor/swiper/dist/js/swiper.min.js"></script>
+    <script src="@Url.Content("~/frontend_Content/assets")/vendor/autosize/dist/autosize.min.js"></script>
+    <script src="@Url.Content("~/frontend_Content/assets")/vendor/typed.js/lib/typed.min.js"></script>
+
+
+}
+
+@section styles{
+    <link type="text/css" href="@Url.Content("~/frontend_Content/assets")/vendor/swiper/dist/css/swiper.min.css" rel="stylesheet">
+    <link type="text/css" href="@Url.Content("~/frontend_Content/assets")/vendor/select2/dist/css/select2.min.css" rel="stylesheet">
+
+}
