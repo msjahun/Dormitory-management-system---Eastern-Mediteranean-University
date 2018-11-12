@@ -1,0 +1,615 @@
+﻿
+@{
+    ViewData["Title"] = "DormitoryDetail";
+    Layout = "~/Views/Shared/_LayoutUserNew.cshtml";
+}
+
+
+
+<section class="slice" style=" padding-top:20px; ">
+    <div class="container">
+        <div class="row row-grid">
+            <div class="col-lg-3">
+
+                <div data-toggle="sticky" data-sticky-offset="100" data-negative-margin=".card-profile-cover">
+
+                    <div class="card">
+                        <div class="card-header-sm  bg-primary ">
+                            <h5 class="text-white">Filter: </h5>
+                        </div>
+
+                        <div class="card-body">
+
+
+
+                            <h6>Dormitory Type</h6>
+                            <select class="form-control  form-control-sm  " data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Search ...">
+                                <option></option>
+                                <option>Badges</option>
+                                <option>Buttons</option>
+                                <option>Cards</option>
+                                <option>Forms</option>
+                                <option>Modals</option>
+                            </select>
+
+                            <br />
+                            <h6>Dormitory name</h6>
+                            <select class="form-control  form-control-sm " data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Search ...">
+                                <option></option>
+                                <option>Badges</option>
+                                <option>Buttons</option>
+                                <option>Cards</option>
+                                <option>Forms</option>
+                                <option>Modals</option>
+                            </select>
+
+                            <br />
+                            <h6>Semester duration</h6>
+                            <select class="form-control  form-control-sm " data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Search ...">
+                                <option></option>
+                                <option>1 semester - Fall 2019</option>
+                                <option>2 semester - Fall/spring 2019</option>
+
+
+                            </select>
+
+
+                            <br />
+                            <h6>Price</h6>
+
+                            <div class="range-slider-wrapper ">
+                                <!-- Range slider container -->
+                                <div id="input-slider-range" class="input-slider" data-range-value-min="100" data-range-value-max="500"></div>
+                                <!-- Range slider values -->
+                                <div class="row">
+                                    <div class="col-6">
+                                        <span class="range-slider-value value-low" data-range-value-low="200" id="input-slider-range-value-low"></span>
+                                    </div>
+                                    <div class="col-6 text-right">
+                                        <span class="range-slider-value value-high" data-range-value-high="400" id="input-slider-range-value-high"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br />
+
+
+
+
+
+                            <h6>Room area</h6>
+
+                            <div class="input-slider-container mb-4">
+                                <div id="input-slider-red" class="input-slider input-slider--red" data-range-value-min="100" data-range-value-max="900"></div>
+                                <!-- Input slider values -->
+                                <div class="row mt-3">
+                                    <div class="col-6">
+                                        <span id="input-slider-red-value" class="range-slider-value" data-range-value-low="200"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                            <button type="button" class="btn btn-sm btn-primary px-4"> <span class="btn-inner--text">Search</span></button>
+
+
+
+
+
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="card bg-secondary px-4 py-4 border-0 ">
+
+                        <div class="d-flex align-items-center">
+                            <a href="#" class="avatar rounded-circle shadow">
+                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/prv/team-2-800x800.jpg">
+                            </a>
+                            <div class="avatar-content">
+                                <h6 class="mb-0">Bettie Mavis0</h6>
+                                <span class="static-rating static-rating-sm">
+
+                                    <i class="star fas fa-star voted"></i>
+                                    <i class="star fas fa-star voted"></i>
+                                    <i class="star fas fa-star voted"></i>
+                                    <i class="star fas fa-star voted"></i>
+                                    <i class="star fas fa-star"></i>
+
+                                </span>
+                            </div>
+                        </div>
+                        <div class="media media-comment">
+
+                            <div class="media-body">
+                                <div class="media-text-bubble left-top">
+                                    <p class="text-sm ">Cras at, tempus viverra turpis...</p>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                     <div class="card bg-secondary px-4  border-0 mb-0">
+
+                        <div class="d-flex align-items-center">
+                            <a href="#" class="avatar rounded-circle shadow">
+                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/prv/team-2-800x800.jpg">
+                            </a>
+                            <div class="avatar-content">
+                                <h6 class="mb-0">Bettie Mavis1</h6>
+                                <span class="static-rating static-rating-sm">
+
+                                    <i class="star fas fa-star voted"></i>
+                                    <i class="star fas fa-star voted"></i>
+                                    <i class="star fas fa-star voted"></i>
+                                    <i class="star fas fa-star voted"></i>
+                                    <i class="star fas fa-star"></i>
+
+                                </span>
+                            </div>
+                        </div>
+                        <div class="media media-comment">
+
+                            <div class="media-body">
+                                <div class="media-text-bubble left-top">
+                                    <p class="text-sm ">Cras sitstibulum in vulputate at, tempus viverra turpis...</p>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                     <div class="card bg-secondary px-4 py-4 border-0 mb-0">
+
+                        <div class="d-flex align-items-center">
+                            <a href="#" class="avatar rounded-circle shadow">
+                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/prv/team-2-800x800.jpg">
+                            </a>
+                            <div class="avatar-content">
+                                <h6 class="mb-0">Bettie Mavis2</h6>
+                                <span class="static-rating static-rating-sm">
+
+                                    <i class="star fas fa-star voted"></i>
+                                    <i class="star fas fa-star voted"></i>
+                                    <i class="star fas fa-star voted"></i>
+                                    <i class="star fas fa-star voted"></i>
+                                    <i class="star fas fa-star"></i>
+
+                                </span>
+                            </div>
+                        </div>
+                        <div class="media media-comment">
+
+                            <div class="media-body">
+                                <div class="media-text-bubble left-top">
+                                    <p class="text-sm ">Cras sit amet nibh libero, in gravida nulla. Nulla vel metusras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    
+                     <div class="card bg-secondary px-4 py-4 border-0 mb-0">
+
+                        <div class="d-flex align-items-center">
+                            <a href="#" class="avatar rounded-circle shadow">
+                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/prv/team-2-800x800.jpg">
+                            </a>
+                            <div class="avatar-content">
+                                <h6 class="mb-0">Bettie Mavis3</h6>
+                                <span class="static-rating static-rating-sm">
+
+                                    <i class="star fas fa-star voted"></i>
+                                    <i class="star fas fa-star voted"></i>
+                                    <i class="star fas fa-star voted"></i>
+                                    <i class="star fas fa-star voted"></i>
+                                    <i class="star fas fa-star"></i>
+
+                                </span>
+                            </div>
+                        </div>
+                        <div class="media media-comment">
+
+                            <div class="media-body">
+                                <div class="media-text-bubble left-top">
+                                    <p class="text-sm ">Cras sit amet nibh libero, in gravida nulla. Nulla vel metusras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                 
+                </div>
+
+
+
+            </div>
+
+
+            <div class="col-lg-9">
+
+                @** this is were it starts*@
+
+                <div class="card ">
+
+                    <div class="card-body-search ">
+                        <div class="row " style="margin:0px; padding:0px;">
+
+                            <div class="col bg-yellow" style="margin:0px; padding:0px;">
+                                <a href="#" class="btn btn-sm btn-warning btn-block ">Room Info &Aacute; Price</a>
+                            </div>
+                            <div class="col" style="margin:0px; padding:0px;">
+                                <a href="#" class="btn btn-sm  btn-block btn-outline-warning">Facilities</a>
+                            </div>
+                            <div class="col" style="margin:0px; padding:0px;">
+                                <a href="#" class="btn btn-sm btn-block btn-outline-warning btn-block ">Good to know</a>
+                            </div>
+                            <div class="col" style="margin:0px; padding:0px;">
+                                <a href="#" class="btn btn-sm btn-block btn-outline-warning btn-block ">Student reviews</a>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <h3>K-Grand Hostel Ewha University</h3>
+                <a><i class="fa fa-map-marker text-primary " style="color:#269038;"></i> EMU charles Darwin street-Show on map</a>
+                <span class="address-show-map" style="color:#269038; text-decoration:underline;"> <a href="#" style=" color:#269038">Show map</a></span>
+                <h6>Filter and sort all private and school dormitories/ accomodations rooms</h6>
+
+                <div>
+                    <!-- Swiper -->
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide " data-animate-hover="1"><img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6"></div>
+                            <div class="swiper-slide"><img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=8"></div>
+                            <div class="swiper-slide"><img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=9"></div>
+                            <div class="swiper-slide"><img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=7"></div>
+                            <div class="swiper-slide"><img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6"></div>
+                            <div class="swiper-slide"><img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=8"></div>
+                            <div class="swiper-slide"><img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=5"></div>
+                            <div class="swiper-slide"><img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=0"></div>
+                            <div class="swiper-slide"><img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6"></div>
+                            <div class="swiper-slide"><img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6"></div>
+                            <div class="swiper-slide"><img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6"></div>
+                            <div class="swiper-slide"><img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6"></div>
+                            <div class="swiper-slide"><img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6"></div>
+
+                        </div>
+                        <!-- Add Pagination -->
+                        <div class="swiper-pagination"></div>
+
+                        <!-- Add Arrows -->
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+                </div>
+
+
+                <div>
+                    <div class="grid">
+                        <div class="grid-item"><img alt="Image placeholder" class="" height="50" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=1"></div>
+                        <div class="grid-item"><img alt="Image placeholder" class="" height="50" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=1"></div>
+                        <div class="grid-item"><img alt="Image placeholder" class="" height="50" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=1"></div>
+                        <div class="grid-item"><img alt="Image placeholder" class="" height="50" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=1"></div>
+                        <div class="grid-item"><img alt="Image placeholder" class="" height="50" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=1"></div>
+                        <div class="grid-item"><img alt="Image placeholder" class="" height="50" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=1"></div>
+                        <div class="grid-item"><img alt="Image placeholder" class="" height="50" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=1"></div>
+                        <div class="grid-item"><img alt="Image placeholder" class="" height="50" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=1"></div>
+                        <div class="grid-item"><img alt="Image placeholder" class="" height="50" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=1"></div>
+                        <div class="grid-item"><img alt="Image placeholder" class="" height="50" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=1"></div>
+                        <div class="grid-item"><img alt="Image placeholder" class="" height="50" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=1"></div>
+                        <div class="grid-item"><img alt="Image placeholder" class="" height="50" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=1"></div>
+                        <div class="grid-item"><img alt="Image placeholder" class="" height="50" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=1"></div>
+                        <div class="grid-item"><img alt="Image placeholder" class="" height="50" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=1"></div>
+                        <div class="grid-item"><img alt="Image placeholder" class="" height="50" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=1"></div>
+
+                    </div>
+                </div>
+
+
+                <div class="card" style="border-width:0px; margin-top:15px;">
+
+
+                    <div class="row row-grid">
+
+                        <div class="col-md-8">
+
+                            <p class="h7">
+                                Personal profiles are the perfect way for you to grab their attention and persuade recruiters to continue reading your CV because you’re telling them from the off exactly why they should hire you. Of course, you’ll need
+                                to know how to write an effective statement first, but we’ll get on to that in a bit.
+                            </p><p>
+                                Personal profiles are the perfect way for you to grab their attention and persuade recruiters to continue reading your CV because you’re telling them from the off exactly why they should hire you. Of course, you’ll need
+                                to know how to write an effective statement first, but we’ll get on to that in a bit.
+                            </p><p>
+                                Personal profiles are the perfect way for you to grab their attention and persuade recruiters to continue reading your CV because you’re telling them from the off exactly why they should hire you. Of course, you’ll need
+                                to know how to write an effective statement first, but we’ll get on to that in a bit.
+                            </p>
+
+
+
+
+
+
+
+
+                        </div>
+                        <div class="col-md-4">
+
+
+                            <div class="card bg-secondary ">
+                                <div class="card-body">
+                                    <h1 class="h5 ">Guests Love..</h1>
+
+                                    <p><i class="fa fa-map-marker text-primary"></i> Top Location: Highly rated by recent guests(9.6)</p>
+                                    <p><i class="fa fa-bed text-primary"></i> Top Location: Highly rated by recent guests(9.6)</p>
+
+                                    <h5>Breakfast</h5>
+                                    <p>American</p>
+
+                                    <span>Very Good Coffee!</span>
+
+
+
+                                    <button class="btn btn-warning btn-block btn-sm ">Reserve</button>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+
+                    <!-- Badges -->
+                    <div class="d-lg-flex">
+                        <a class="media d-flex align-items-center mr-lg-5 mb-3 mb-lg-0">
+                            <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/in-progress.svg" style="width: 36px;">
+                            <div class="media-body pl-2">
+                                <span class="h6">10 Skills</span>
+                            </div>
+                        </a>
+                        <a class="media d-flex align-items-center mr-lg-5 mb-3 mb-lg-0">
+                            <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/natural-user-interface-1.svg" style="width: 36px;">
+                            <div class="media-body pl-2">
+                                <span class="h6">57 Endorsements</span>
+                            </div>
+                        </a>
+                        <a class="media d-flex align-items-center mb-3 mb-lg-0">
+                            <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/collect.svg" style="width: 36px;">
+                            <div class="media-body pl-2">
+                                <span class="h6">7 Accomplishments</span>
+                            </div>
+                        </a>
+                    </div>
+
+
+                    <div class="pt-5 mt-5 delimiter-top">
+                        <!-- Resume timeline -->
+                        <h6>Most Popular Facilities</h6>
+                        <ul>
+                            <li><i class="fas fa-wifi"> Free wifi</i></li>
+                        </ul>
+
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <span class="alert-inner--icon"><i class="fas fa-lock"></i></span>
+
+                            <span class="alert-inner--text">Get instant confirmation with FREE cancelation on most rooms!</span>
+
+
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+
+
+
+                    <div class="pt-5 mt-5 delimiter-top">
+                        <!-- Resume timeline -->
+                        <h6>Availability</h6>
+                        <ul>
+                            <li><i class="fas fa-wifi"> Free wifi</i></li>
+                        </ul>
+
+
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <span class="alert-inner--icon"><i class="fas fa-lock"></i></span>
+
+                            <span class="alert-inner--text"><strong>Just booked in Seoul: </strong>90 properties like K-Grand Hostel Ewha University were booked!</span>
+
+
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="pt-5 mt-5 delimiter-top">
+                        <!-- Resume timeline -->
+                        <h6>Area info</h6><span class="text-info d-block">Excellent location - show map</span>
+                        <span class="badge badge-lg badge-pill badge-info text-uppercase">Guests loved walking around the neighborhood!</span>
+                        <ul>
+                            <li><i class="fas fa-wifi"> Free wifi</i></li>
+                        </ul>
+
+
+                    </div>
+
+
+                    <div class="pt-5 mt-5 delimiter-top">
+                        <!-- Resume timeline -->
+                        <h6>Most Popular Facilities</h6>
+                        <span class="badge badge-lg badge-pill badge-info text-uppercase">Guests loved walking around the neighborhood!</span>
+                        <ul>
+                            <li><i class="fas fa-wifi"> Free wifi</i></li>
+                        </ul>
+
+
+                    </div>
+
+                    <div class="pt-5 mt-5 delimiter-top">
+                        <!-- Resume timeline -->
+                        <h6>Good to know</h6>
+                        <span class="badge badge-lg badge-pill badge-info text-uppercase">Guests loved walking around the neighborhood!</span>
+                        <ul>
+                            <li><i class="fas fa-wifi"> Free wifi</i></li>
+                        </ul>
+
+
+                    </div>
+
+
+                    <div class="pt-5 mt-5 delimiter-top">
+                        <!-- Resume timeline -->
+                        <h6>Compare your recently viewed Properties</h6>
+                        <span class="badge badge-lg badge-pill badge-info text-uppercase">Guests loved walking around the neighborhood!</span>
+                        <ul>
+                            <li><i class="fas fa-wifi"> Free wifi</i></li>
+                        </ul>
+
+
+                    </div>
+                </div>
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Call to action -->
+<!-- Call to action -->
+
+<section class="slice slice-lg bg-primary">
+
+    <span class="tongue tongue-top"><i class="fas fa-angle-up"></i></span>
+
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-8 text-center">
+                <h3 class="font-weight-400 text-white">I am ready to start booking Now </h3>
+                <div class="mt-5">
+                    <a href="" target="_blank" class="btn btn-white btn-circle btn-translate--hover px-4">Book my first Room<span class="badge badge-pill badge-danger text-sm">Now</span></a>
+                    <a href="" class="btn btn-link text-white">Have an issue?</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts
+    {
+    <script src="@Url.Content("~/frontend_Content/assets")/vendor/select2/dist/js/select2.min.js"></script>
+    <script src="@Url.Content("~/frontend_Content/assets")/vendor/swiper/dist/js/swiper.min.js"></script>
+    <script src="@Url.Content("~/frontend_Content/assets")/vendor/autosize/dist/autosize.min.js"></script>
+    <script src="@Url.Content("~/frontend_Content")/node_modules/masonry-layout/dist/masonry.pkgd.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 'auto',
+            centeredSlides: true,
+            spaceBetween: 30,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+
+
+        $('.grid').masonry({
+            // options
+            itemSelector: '.grid-item',
+           
+        });
+    </script>
+
+
+
+
+}
+
+@section styles{
+    <link type="text/css" href="@Url.Content("~/frontend_Content/assets")/vendor/swiper/dist/css/swiper.min.css" rel="stylesheet">
+    <link type="text/css" href="@Url.Content("~/frontend_Content/assets")/vendor/select2/dist/css/select2.min.css" rel="stylesheet">
+
+    <style>
+
+        .grid-item {
+           
+        margin:2px;
+       
+        }
+
+            .grid-item:hover {
+                border: solid;
+                border-color: #ff9500;
+                border-width: 2px;
+            }
+
+
+
+        .swiper-container {
+            width: 100%;
+            height: 400px;
+            background-color: #2541820a;
+            justify-content: center;
+        }
+
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            background-color: #2541820a;
+            margin: auto;
+            width: 100%;
+            height: 100%
+        }
+    </style>
+
+}
