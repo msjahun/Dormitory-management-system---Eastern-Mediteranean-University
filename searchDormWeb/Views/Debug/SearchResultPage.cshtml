@@ -3,19 +3,21 @@
     ViewData["Title"] = "SearchResultPage";
     Layout = "~/Views/Shared/_LayoutUserNew.cshtml";
 }
-<header class="header-account-page-sm bg-gradient-primary d-flex align-items-end"></header>
 
 
 
-<section class="slice" style="background-color:#ecf0f5; padding-top:20px; ">
+<section class="slice" style=" padding-top:20px; ">
     <div class="container">
         <div class="row row-grid">
             <div class="col-lg-3">
 
                 <div data-toggle="sticky" data-sticky-offset="100" data-negative-margin=".card-profile-cover">
 
-                    <div class="card" style="border-color:#254182">
-                        <h5 class="card-header bg-primary text-white">Filter</h5>
+                    <div class="card">
+                        <div class="card-header-sm  bg-primary ">
+                            <h5 class="text-white">Filter: </h5>
+                        </div>
+
                         <div class="card-body">
 
                             <button type="button" class="btn btn-sm btn-outline-primary btn-icon">
@@ -48,6 +50,17 @@
                                 <option>Forms</option>
                                 <option>Modals</option>
                             </select>
+
+                            <br />
+                            <h6>Semester duration</h6>
+                            <select class="form-control  form-control-sm " data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Search ...">
+                                <option></option>
+                                <option>1 semester - Fall 2019</option>
+                                <option>2 semester - Fall/spring 2019</option>
+                             
+                                
+                            </select>
+
 
                             <br />
                             <h6>Price</h6>
@@ -89,12 +102,13 @@
                             <h6>TV</h6>
                             <div class="custom-control custom-checkbox mb-3">
                                 <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                <label class="custom-control-label" for="customCheck1">In Room</label>
+                                <label class="custom-control-label inline" for="customCheck1">In Room <span class=" float-right">236</span></label>
+                                
                             </div>
 
                             <div class="custom-control custom-checkbox mb-3">
                                 <input type="checkbox" class="custom-control-input" id="customCheck2" checked="">
-                                <label class="custom-control-label" for="customCheck2">In Hall</label>
+                                <label class="custom-control-label" for="customCheck2">In Hall  <span class=" float-right">6</span></label>
                             </div>
 
 
@@ -102,39 +116,17 @@
 
                             <div class="custom-control custom-checkbox mb-3">
                                 <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                <label class="custom-control-label" for="customCheck1">Wireless</label>
+                                <label class="custom-control-label" for="customCheck1">Wireless  <span class=" float-right">2</span></label>
                             </div>
 
                             <div class="custom-control custom-checkbox mb-3">
                                 <input type="checkbox" class="custom-control-input" id="customCheck2" checked="">
-                                <label class="custom-control-label" for="customCheck2">Cable</label>
+                                <label class="custom-control-label" for="customCheck2">Cable  <span class=" float-right">36</span></label>
                             </div>
 
 
 
-                            <h6>WC-shower</h6>
-                            <div class="custom-control custom-checkbox mb-3">
-                                <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                <label class="custom-control-label" for="customCheck1">In Room</label>
-                            </div>
 
-                            <div class="custom-control custom-checkbox mb-3">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2" checked="">
-                                <label class="custom-control-label" for="customCheck2">Common</label>
-                            </div>
-
-
-                            <h6>Internet</h6>
-
-                            <div class="custom-control custom-checkbox mb-3">
-                                <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                <label class="custom-control-label" for="customCheck1">Wireless</label>
-                            </div>
-
-                            <div class="custom-control custom-checkbox mb-3">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2" checked="">
-                                <label class="custom-control-label" for="customCheck2">Cable</label>
-                            </div>
 
                         </div>
                     </div>
@@ -142,8 +134,457 @@
 
             </div>
 
-            @** this is were it starts*@
-            <h2>SearchResultPage</h2>
+
+            <div class="col-lg-9">
+
+                @** this is were it starts*@
+                <h6>Filter and sort all private and school dormitories/ accomodations rooms</h6>
+                <div class="card ">
+
+                    <div class="card-body-search ">
+                        <div class="row " style="margin:0px; padding:0px;">
+
+                            <div class="col bg-yellow" style="margin:0px; padding:0px;">
+                                <a href="#" class="btn btn-sm btn-warning btn-block ">Price</a>
+                            </div>
+                            <div class="col" style="margin:0px; padding:0px;">
+                                <a href="#" class="btn btn-sm  btn-block btn-outline-warning">A-Z</a>
+                            </div>
+                            <div class="col" style="margin:0px; padding:0px;">
+                                <a href="#" class="btn btn-sm btn-block btn-outline-warning btn-block ">Room area</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <h6>Search result: 18 dormitories found</h6>
+
+                <div class="card  card-dorm-search">
+
+
+                    <div class="card-body row">
+                        <div class="col-lg-4 swiper-js-container" style="position:relative">
+
+                            <!-- Swiper Arrows -->
+
+                            <div class="swiper-button swiper-button-prev " style="position:absolute; right:10%; top:40%;" tabindex="0" role="button" aria-label="Previous slide" aria-disabled="true">
+                                <i class="fa fa-angle-left"></i>
+                            </div>
+                            <div class="swiper-button swiper-button-next float-right" style="position:absolute; left:93%; top:40%; " tabindex="0" role="button" aria-label="Next slide" aria-disabled="true">
+                                <i class="fa fa-angle-right"></i>
+                            </div>
+                            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+
+
+
+                            <div class="swiper-container swiper-container-horizontal" data-swiper-items="1" data-swiper-space-between="20" data-swiper-sm-items="2" data-swiper-sm-space-between="20" data-swiper-xl-items="1" data-swiper-xl-space-between="20" style="cursor: grab;">
+                                <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
+
+
+                                    <div class="swiper-slide swiper-slide-active" style="width: 230px; margin-right: 20px;">
+                                        <div class="card border-0">
+                                            <div class="text-white">
+                                                <img alt="Image placeholder" class="img-fluid rounded" src="https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/18/c4/73/18c473bc-cd1c-4e6e-4ba0-4a9afcae1fc4/source/512x512bb.jpg">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide swiper-slide-next" style="width: 230px; margin-right: 20px;">
+                                        <div class="card border-0">
+                                            <div class="text-white">
+                                                <img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/nural/photo6010428924410047910.jpg?RenditionID=6">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide swiper-slide-next" style="width: 230px; margin-right: 20px;">
+                                        <div class="card border-0">
+                                            <div class="text-white">
+                                                <img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide swiper-slide-next" style="width: 230px; margin-right: 20px;">
+                                        <div class="card border-0">
+                                            <div class="text-white">
+                                                <img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide swiper-slide-next" style="width: 230px; margin-right: 20px;">
+                                        <div class="card border-0">
+                                            <div class="text-white">
+                                                <img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/nural/IMG_0027%20(1).jpg?RenditionID=6">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="swiper-slide" style="width: 230px; margin-right: 20px;">
+                                        <div class="card border-0">
+                                            <div class="text-white">
+                                                <img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/popart/TV%20ROOM%20KING%20EXCLUSIVE.jpg?RenditionID=6">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+
+
+
+                        <div class="col-lg-5">
+                            <span class="badge badge-secondary">Apartments</span>
+                            <h4 class="dormitory-name">Alfam Dormitory</h4>
+
+                            <span class="static-rating static-rating-sm">
+                                <i class="star fas fa-star voted"></i>
+                                <i class="star fas fa-star voted"></i>
+                                <i class="star fas fa-star voted"></i>
+                          
+                                <i class="star fas fa-star-half-empty "></i>
+                              
+                            </span>
+
+                   
+                            <span><i class="fa fa-thumbs-up" style="color:orange;"></i></span>
+
+
+                            <div class="location-info">
+                                <span class="address-show-map" style="color:#269038; text-decoration:underline;"><i class="fa fa-map-marker text-primary "></i> <a href="#" style=" color:#269038">EMU charles Darwin street-Show on map</a></span>
+
+                                <span class="nearneast-to-subway"> <i class="fa fa-link text-primary"></i> <a href="#" style="color:#269038">(1.1 km from emu center)-Near health center</a></span>
+                            </div>
+                            <p class="h6">
+                                We have a fitness center, takes 1 minute to cmpe department, not far
+                                from Health center and Bankamatic ATM......
+                            </p>
+
+                            <span><i class="fa fa-credit-card"></i><a href="#">Reservation possible without a credit card</a></span>
+                            @*<p class="text-danger">Booked 2 times in the last 6 hours</p>*@
+                            <p class="" style="color:#269038;">Don't miss out 2 rooms left</p>
+                        </div>
+
+                        <div class="col-lg-3 rating">
+                            <div class="rating-detail">
+                                <span class="rating-text inline h4">Excellent</span>
+                                <a class=" float-right rating-no text-white text-bold h3">9.7</a>
+                            </div>
+
+
+                            <span class="block text-primary">13 reviews</span>
+
+                            <h6>Location 10</h6>
+                            <h6>Guest Favorite</h6>
+                            @*<a href="#" class=" btn btn-sm btn-primary">Show prices</a>*@
+                            <h4 class="text-bold" style="color:#269038">TL 1.839,00</h4>
+                            <strike><h4 class="text-bold" style="color:grey; ">TL 1.839,00</h4></strike>
+                            <a href="#" class=" btn btn-sm btn-primary">Book Now</a>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <br />
+
+                <div class="card  card-dorm-search">
+
+
+                    <div class="card-body row">
+                        <div class="col-lg-4 swiper-js-container" style="position:relative">
+
+                            <!-- Swiper Arrows -->
+
+                            <div class="swiper-button swiper-button-prev " style="position:absolute; right:10%; top:40%;" tabindex="0" role="button" aria-label="Previous slide" aria-disabled="true">
+                                <i class="fa fa-angle-left"></i>
+                            </div>
+                            <div class="swiper-button swiper-button-next float-right" style="position:absolute; left:93%; top:40%; " tabindex="0" role="button" aria-label="Next slide" aria-disabled="true">
+                                <i class="fa fa-angle-right"></i>
+                            </div>
+                            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+
+
+
+                            <div class="swiper-container swiper-container-horizontal" data-swiper-items="1" data-swiper-space-between="20" data-swiper-sm-items="2" data-swiper-sm-space-between="20" data-swiper-xl-items="1" data-swiper-xl-space-between="20" style="cursor: grab;">
+                                <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
+
+
+
+                                    <div class="swiper-slide swiper-slide-next" style="width: 230px; margin-right: 20px;">
+                                        <div class="card border-0">
+                                            <div class="text-white">
+                                                <img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/nural/photo6010428924410047910.jpg?RenditionID=6">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide swiper-slide-active" style="width: 230px; margin-right: 20px;">
+                                        <div class="card border-0">
+                                            <div class="text-white">
+                                                <img alt="Image placeholder" class="img-fluid rounded" src="https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/18/c4/73/18c473bc-cd1c-4e6e-4ba0-4a9afcae1fc4/source/512x512bb.jpg">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide swiper-slide-next" style="width: 230px; margin-right: 20px;">
+                                        <div class="card border-0">
+                                            <div class="text-white">
+                                                <img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide swiper-slide-next" style="width: 230px; margin-right: 20px;">
+                                        <div class="card border-0">
+                                            <div class="text-white">
+                                                <img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide swiper-slide-next" style="width: 230px; margin-right: 20px;">
+                                        <div class="card border-0">
+                                            <div class="text-white">
+                                                <img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/nural/IMG_0027%20(1).jpg?RenditionID=6">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="swiper-slide" style="width: 230px; margin-right: 20px;">
+                                        <div class="card border-0">
+                                            <div class="text-white">
+                                                <img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/popart/TV%20ROOM%20KING%20EXCLUSIVE.jpg?RenditionID=6">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+
+
+
+                        <div class="col-lg-5">
+                            <span class="badge badge-secondary">Apartments</span>
+                            <h4 class="dormitory-name">Akdeniz private Studio</h4>
+
+                            <span class="static-rating static-rating-sm">
+                                <i class="star fas fa-star voted"></i>
+                                <i class="star fas fa-star voted"></i>
+                                <i class="star fas fa-star voted"></i>
+                                <i class="star fas fa-star voted"></i>
+
+                                <i class="star fas fa-star-half-empty "></i>
+
+                            </span>
+
+
+                            <span><i class="fa fa-thumbs-up" style="color:orange;"></i></span>
+                            
+
+                            <div class="location-info">
+                                <span class="address-show-map" style="color:#269038; text-decoration:underline;"><i class="fa fa-map-marker text-primary "></i> <a href="#" style=" color:#269038">Jung-Gu, Seoul-Show on map</a></span>
+
+                                <span class="nearneast-to-subway"> <i class="fa fa-link text-primary"></i> <a href="#" style="color:#269038">(1.8 km from Central lecture hall)-Bus stop access</a></span>
+                            </div>
+                            <p class="h6">
+                                Has multi-cultural students, Akdeniz studio is located inside school, not far
+                                from Ekor Market......
+                            </p>
+
+                            <span><i class="fa fa-credit-card"></i><a href="#">Reservation possible without a credit card</a></span>
+                            <p class="text-danger">Booked 2 times in the last 6 hours</p>
+                        </div>
+
+                        <div class="col-lg-3 rating">
+                            <div class="rating-detail">
+                                <span class="rating-text inline h4">Excellent</span>
+                                <a class=" float-right rating-no text-white text-bold h3">9.7</a>
+                            </div>
+
+
+                            <span class="block text-primary">13 reviews</span>
+
+                            <h6>Location 10</h6>
+                            <h6>Guest Favorite</h6>
+                            @*<a href="#" class=" btn btn-sm btn-primary">Show prices</a>*@
+                            <h4 class="text-bold" style="color:#269038">TL 1.839,00</h4>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <br />
+
+
+                    <div class="card  card-dorm-search">
+
+
+                    <div class="card-body row">
+                        <div class="col-lg-4 swiper-js-container" style="position:relative">
+
+                            <!-- Swiper Arrows -->
+
+                            <div class="swiper-button swiper-button-prev " style="position:absolute; right:10%; top:40%;" tabindex="0" role="button" aria-label="Previous slide" aria-disabled="true">
+                                <i class="fa fa-angle-left"></i>
+                            </div>
+                            <div class="swiper-button swiper-button-next float-right" style="position:absolute; left:93%; top:40%; " tabindex="0" role="button" aria-label="Next slide" aria-disabled="true">
+                                <i class="fa fa-angle-right"></i>
+                            </div>
+                            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+
+
+
+                            <div class="swiper-container swiper-container-horizontal" data-swiper-items="1" data-swiper-space-between="20" data-swiper-sm-items="2" data-swiper-sm-space-between="20" data-swiper-xl-items="1" data-swiper-xl-space-between="20" style="cursor: grab;">
+                                <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px); transition-duration: 12ms;">
+
+                                    <div class="swiper-slide swiper-slide-next" style="width: 230px; margin-right: 20px;">
+                                        <div class="card border-0">
+                                            <div class="text-white">
+                                                <img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide swiper-slide-next" style="width: 230px; margin-right: 20px;">
+                                        <div class="card border-0">
+                                            <div class="text-white">
+                                                <img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/nural/photo6010428924410047910.jpg?RenditionID=6">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide swiper-slide-active" style="width: 230px; margin-right: 20px;">
+                                        <div class="card border-0">
+                                            <div class="text-white">
+                                                <img alt="Image placeholder" class="img-fluid rounded" src="https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/18/c4/73/18c473bc-cd1c-4e6e-4ba0-4a9afcae1fc4/source/512x512bb.jpg">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide swiper-slide-next" style="width: 230px; margin-right: 20px;">
+                                        <div class="card border-0">
+                                            <div class="text-white">
+                                                <img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="swiper-slide swiper-slide-next" style="width: 230px; margin-right: 20px;">
+                                        <div class="card border-0">
+                                            <div class="text-white">
+                                                <img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/nural/IMG_0027%20(1).jpg?RenditionID=6">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="swiper-slide" style="width: 230px; margin-right: 20px;">
+                                        <div class="card border-0">
+                                            <div class="text-white">
+                                                <img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/popart/TV%20ROOM%20KING%20EXCLUSIVE.jpg?RenditionID=6">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+
+
+
+                        <div class="col-lg-5">
+                            <span class="badge badge-secondary">Apartments</span>
+                            <h4 class="dormitory-name">Akdeniz private Studio</h4>
+
+                            <span class="static-rating static-rating-sm">
+                                <i class="star fas fa-star voted"></i>
+                                <i class="star fas fa-star voted"></i>
+                                <i class="star fas fa-star voted"></i>
+                                <i class="star fas fa-star voted"></i>
+
+                                <i class="star fas fa-star-half-empty "></i>
+
+                            </span>
+
+
+                            <span><i class="fa fa-thumbs-up" style="color:orange;"></i></span>
+                            
+
+                            <div class="location-info">
+                                <span class="address-show-map" style="color:#269038; text-decoration:underline;"><i class="fa fa-map-marker text-primary "></i> <a href="#" style=" color:#269038">Jung-Gu, Seoul-Show on map</a></span>
+
+                                <span class="nearneast-to-subway"> <i class="fa fa-link text-primary"></i> <a href="#" style="color:#269038">(1.8 km from Central lecture hall)-Bus stop access</a></span>
+                            </div>
+                            <p class="h6">
+                                Has multi-cultural students, Akdeniz studio is located inside school, not far
+                                from Ekor Market......
+                            </p>
+
+                            <span><i class="fa fa-credit-card"></i><a href="#">Reservation possible without a credit card</a></span>
+                            <p class="text-danger">Booked 2 times in the last 6 hours</p>
+                        </div>
+
+                        <div class="col-lg-3 rating">
+                            <div class="rating-detail">
+                                <span class="rating-text inline h4">Excellent</span>
+                                <a class=" float-right rating-no text-white text-bold h3">9.7</a>
+                            </div>
+
+
+                            <span class="block text-primary">13 reviews</span>
+
+                            <h6>Location 10</h6>
+                            <h6>Guest Favorite</h6>
+                            <a href="#" class=" btn btn-sm btn-primary">Show prices</a>
+                            @*<h4 class="text-bold" style="color:#269038">TL 1.839,00</h4>*@
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <br />
+
+
+
+            </div>
+
         </div>
     </div>
 </section>
@@ -168,3 +609,16 @@
     </div>
 </section>
 
+@section scripts
+    {
+    <script src="@Url.Content("~/frontend_Content/assets")/vendor/select2/dist/js/select2.min.js"></script>
+    <script src="@Url.Content("~/frontend_Content/assets")/vendor/swiper/dist/js/swiper.min.js"></script>
+    <script src="@Url.Content("~/frontend_Content/assets")/vendor/autosize/dist/autosize.min.js"></script>
+
+}
+
+@section styles{
+    <link type="text/css" href="@Url.Content("~/frontend_Content/assets")/vendor/swiper/dist/css/swiper.min.css" rel="stylesheet">
+    <link type="text/css" href="@Url.Content("~/frontend_Content/assets")/vendor/select2/dist/css/select2.min.css" rel="stylesheet">
+
+}
