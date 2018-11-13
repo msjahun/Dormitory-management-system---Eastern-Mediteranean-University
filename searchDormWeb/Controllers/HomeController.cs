@@ -37,6 +37,14 @@ namespace searchDormWeb.Controllers
             this._dormitoryService = _dormitoryService;
         }
 
+      
+          
+
+        public IActionResult redirect()
+        {
+           return RedirectToAction("Home", "Debug");
+       
+        }
 
         // GET: Home
         [DisplayName("HomePage")]
