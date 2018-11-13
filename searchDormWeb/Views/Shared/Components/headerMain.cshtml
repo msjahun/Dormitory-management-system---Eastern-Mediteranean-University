@@ -118,32 +118,18 @@
 
                 <div class="ml-auto">
                     <ul class="nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="../pages/support.html">FAQ</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" data-action="search-open" data-target="#search-main"><i class="fas fa-search"></i></a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" data-action="search-open" data-target="#search-main"><i class="fas fa-heart"></i></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../pages/shop-cart.html"><i class="fas fa-shopping-cart"></i></a>
-
-                        </li>
-
                         @if (SignInManager.IsSignedIn(User))
                         {
                             @*<li class="nav-item">
-                                <a href="#" class="avatar avatar-sm rounded-circle mr-3">
-                                    <img alt="Image placeholder" src="https://avatars2.githubusercontent.com/u/19820517?s=460&v=4">
-                                </a>
-                            </li>*@
+                <a href="#" class="avatar avatar-sm rounded-circle mr-3">
+                    <img alt="Image placeholder" src="https://avatars2.githubusercontent.com/u/19820517?s=460&v=4">
+                </a>
+            </li>*@
 
                             <li class="nav-item dropdown dropdown-animate" data-toggle="hover">
 
 
-                               
+
                                 <a href="#" class=" avatar avatar-sm rounded-circle mr-3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <img alt="Image placeholder" src="https://avatars2.githubusercontent.com/u/19820517?s=460&v=4">
                                 </a>
@@ -162,7 +148,7 @@
                                             </a>
                                         </secure-content>
 
-                                       
+
                                         <a asp-action="AccountBilling" asp-controller="Debug" class="list-group-item list-group-item-action">
                                             <div class="media d-flex align-items-center">
                                                 <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/ios-photos.svg" class="img-saturate" style="width: 50px;">
@@ -197,6 +183,33 @@
                             </li>
 
                         }
+                        <li class="nav-item dropdown ml-lg-2 dropdown-animate" data-toggle="hover">
+                            <a class="nav-link px-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="d-none d-lg-inline-block">TL</span>
+                                <span class="d-lg-none">USD</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-arrow">
+                                <a href="" class="dropdown-item">
+                               TL
+                                </a>
+                                <a href="" class="dropdown-item">
+                               USD
+                                </a>
+
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-action="search-open" data-target="#search-main"><i class="fas fa-search"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-action="search-open" data-target="#search-main"><i class="fas fa-heart"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="BookingCartEmpty" asp-controller="debug"><i class="fas fa-shopping-cart"></i></a>
+
+                        </li>
+
+
                     </ul>
                 </div>
             </div>
@@ -297,7 +310,7 @@
                         </li>
                         <li class="nav-item mr-0">
                             <a asp-controller="debug" asp-action="BookingCart" class="nav-link d-lg-none">Checkout</a>
-                            <a asp-controller="debug" asp-action="BookingCart" class="btn btn-sm btn-white btn-circle btn-icon d-none d-lg-inline-flex">
+                            <a asp-controller="debug" asp-action="BookingCart" class="btn btn-sm btn-white btn-circle btn-animated btn-animated-x btn-icon d-none d-lg-inline-flex">
                                 <span class="btn-inner--icon"><i class="fas fa-shopping-cart"></i></span>
                                 <span class="btn-inner--text">Checkout</span>
                             </a>
