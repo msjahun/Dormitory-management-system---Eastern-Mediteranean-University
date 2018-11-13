@@ -291,7 +291,7 @@
                                 <a href="#GoodToKnow" class="btn btn-sm btn-block btn-outline-warning btn-block ">Good to know</a>
                             </div>
                             <div class="col" style="margin:0px; padding:0px;">
-                                <a href="#" class="btn btn-sm btn-block btn-outline-warning btn-block ">Student reviews</a>
+                                <a href="#StudentReview" class="btn btn-sm btn-block btn-outline-warning btn-block ">Student reviews</a>
                             </div>
 
 
@@ -488,8 +488,8 @@
                             <!-- Resume timeline -->
                             <h6>Room Availability</h6>
 
-                            <div>
-                                <table class="table table-bordered">
+                            <div class="overflow">
+                                <table class="table  table-bordered">
                                     <thead>
                                         <tr>
                                             <th class="bg-info text-white" scope="col">Sleeps</th>
@@ -551,7 +551,7 @@
 
                             <h3>Or this type of table</h3>
 
-                            <div>
+                            <div class="overflow">
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
@@ -806,7 +806,7 @@
 
 
 
-                    <div class="pt-5 mt-5 delimiter-top">
+                    <div class="pt-5 mt-5 delimiter-top" id="StudentReview">
                         <!-- Resume timeline -->
                         <h6>View latest dormitory review</h6>
                         <div class="mb-3">
@@ -955,7 +955,11 @@
 
     <style>
 
-     
+        @@media screen and (max-width: 1260px) {
+            .overflow {
+                overflow: auto;
+            }
+        }
 
         .grid-item {
             margin: 2px;
