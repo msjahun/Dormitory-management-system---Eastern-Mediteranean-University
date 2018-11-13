@@ -48,7 +48,7 @@ namespace searchDormWeb.Controllers
                 else
                       
 
-              return RedirectToAction("Index", "Home");
+              return RedirectToAction("Home", "debug");
                 }
 
                 ModelState.AddModelError("", "Invalid Login attempt");
@@ -63,7 +63,7 @@ namespace searchDormWeb.Controllers
         public async Task<ActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Home", "debug");
         }
     }
 }
