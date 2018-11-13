@@ -12,7 +12,7 @@ namespace searchDormWeb.Controllers
         {
             return View();
         }
-
+        [Route("Debug/")]
         public IActionResult Home()
         {
             return View();
@@ -97,7 +97,7 @@ namespace searchDormWeb.Controllers
         }
 
 
-        [Route("Debug/")]
+       
         public IActionResult ExploreEMU()
         {
             return View();
