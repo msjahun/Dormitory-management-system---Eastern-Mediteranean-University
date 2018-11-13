@@ -31,7 +31,7 @@ namespace searchDormWeb.Controllers
             ViewData["ReturnUrl"] = ReturnUrl;
                 return View("Index");
         }
-
+        [Route("Login/")]
         [HttpPost]
         public async Task<ActionResult> Index(LoginViewModel vm)
         {
