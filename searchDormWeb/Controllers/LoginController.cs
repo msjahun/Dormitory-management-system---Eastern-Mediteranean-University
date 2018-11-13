@@ -58,7 +58,7 @@ namespace searchDormWeb.Controllers
             return View(vm);
         }
 
-
+        [Route("Logout/")]
         [HttpGet]
         public async Task<ActionResult> Logout()
         {
