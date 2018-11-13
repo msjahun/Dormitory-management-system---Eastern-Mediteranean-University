@@ -1,12 +1,33 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
+
+
+<style>
+
+    .logoMainFooter {
+        width: 380px;
+    }
+
+    @@media only screen and (max-width: 600px) {
+        .logoMainFooter {
+            width: 280px;
+        }
+    }
+
+        @@media only screen and (max-width: 300px) {
+            .logoMainFooter {
+                width: 200px;
+            }
+        }
+</style>
+
 <footer class="footer footer-light bg-white">
     <div class="container">
         <div class="row pt-md">
             <div class="col-lg-4 mb-5 mb-lg-0">
                 <a href="../index.html">
-                    <img src="@Url.Content("~/frontend_Content/assets")/img/brand/dark.png" alt="Footer logo" style="width: 350px;">
+                    <img src="@Url.Content("~/frontend_Content/assets")/img/brand/dark.png" alt="Footer logo" class="logoMainFooter">
                 </a>
                 <p class="text-sm">
                     Eastern Mediterranean University
@@ -22,13 +43,13 @@
                         <a asp-controller="debug" asp-action="AccountProfile">Profile</a>
                     </li>
                     <li>
-                        <a  asp-controller="debug" asp-action="AccountSettings">Settings</a>
+                        <a asp-controller="debug" asp-action="AccountSettings">Settings</a>
                     </li>
                     <li>
-                        <a  asp-controller="debug" asp-action="AccountBilling">Bookings</a>
+                        <a asp-controller="debug" asp-action="AccountBilling">Bookings</a>
                     </li>
                     <li>
-                        <a  asp-controller="debug" asp-action="AccountNotifications">Notifications</a>
+                        <a asp-controller="debug" asp-action="AccountNotifications">Notifications</a>
                     </li>
 
                     <li>
@@ -93,7 +114,7 @@
                             <i class="fab fa-instagram"></i>
                         </a>
                     </li>
-                 
+
                     <li class="nav-item">
                         <a class="nav-link" href="" target="_blank">
                             <i class="fab fa-facebook"></i>
