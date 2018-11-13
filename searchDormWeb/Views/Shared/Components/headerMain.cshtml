@@ -9,6 +9,27 @@
 @inject UserManager<User> UserManager
 @inject IUsersService _userService
 
+<style>
+
+    .logoMain {
+        width: 380px;
+  
+    }
+  
+      @@media only screen and (max-width: 600px) {
+        .logoMain {
+          
+            width: 280px;
+        }
+    }
+
+    @@media only screen and (max-width: 300px) {
+        .logoMain {
+            width: 180px;
+        }
+    }
+
+</style>
 <header class="header-transparent bg-dark"  id="header-main">
 
 
@@ -88,7 +109,7 @@
          
             <div class="navbar-nav align-items-center">
                 <div class="d-none d-lg-inline-block">
-                    <a asp-action="" asp-controller="Home"><span class="navbar-text mr-3">SEARCH DORM - EMU</span></a>
+                    <a asp-action="Index" asp-controller="Home"><span class="navbar-text mr-3">  <i class="fas fa-backward"></i> Old design SEARCH DORM - EMU</span></a>
                 </div>
 
 
@@ -139,10 +160,10 @@
                                         <secure-content asp-action="Index" asp-controller="Admin" asp-area="">
                                             <a asp-action="Index" asp-controller="Admin" class="list-group-item list-group-item-action">
                                                 <div class="media d-flex align-items-center">
-                                                    <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/browser-window.svg" class="img-saturate" style="width: 50px;">
+                                                    <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/browser-window.svg" class="img-saturate d-none d-sm-block" style="width: 50px;">
                                                     <div class="media-body ml-3">
                                                         <h6 class="mb-1">Admin Area</h6>
-                                                        <p class="mb-0">Takes you to the Administration area.</p>
+                                                        <p class="mb-0 d-none d-sm-block">Takes you to the Administration area.</p>
                                                     </div>
                                                 </div>
                                             </a>
@@ -151,19 +172,19 @@
 
                                         <a asp-action="AccountBilling" asp-controller="Debug" class="list-group-item list-group-item-action">
                                             <div class="media d-flex align-items-center">
-                                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/ios-photos.svg" class="img-saturate" style="width: 50px;">
+                                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/ios-photos.svg" class="img-saturate d-none d-sm-block" style="width: 50px;">
                                                 <div class="media-body ml-3">
                                                     <h6 class="mb-1">View my bookings</h6>
-                                                    <p class="mb-0">See your booking history.</p>
+                                                    <p class="mb-0 d-none d-sm-block">See your booking history.</p>
                                                 </div>
                                             </div>
                                         </a>
                                         <a asp-action="AccountProfile" asp-controller="Debug" class="list-group-item list-group-item-action">
                                             <div class="media d-flex align-items-center">
-                                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/maintenance.svg" class="img-saturate" style="width: 50px;">
+                                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/maintenance.svg" class="img-saturate d-none d-sm-block" style="width: 50px;">
                                                 <div class="media-body ml-3">
                                                     <h6 class="mb-1">Account Settings</h6>
-                                                    <p class="mb-0">Your account settings.</p>
+                                                    <p class="mb-0 d-none d-sm-block">Your account settings.</p>
                                                 </div>
                                             </div>
                                         </a>
@@ -171,10 +192,10 @@
 
                                         <a asp-controller="Login" asp-action="Logout" class="list-group-item list-group-item-action">
                                             <div class="media d-flex align-items-center">
-                                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/logout-rounded-left.svg" class="img-saturate" style="width: 50px;">
+                                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/logout-rounded-left.svg" class="img-saturate d-none d-sm-block" style="width: 50px;">
                                                 <div class="media-body ml-3">
                                                     <h6 class="mb-1">Logout</h6>
-                                                    <p class="mb-0">Signs you out of your account.</p>
+                                                    <p class="mb-0 d-none d-sm-block">Signs you out of your account.</p>
                                                 </div>
                                             </div>
                                         </a>
@@ -224,8 +245,8 @@
       
         <div class="container">
 
-            <a class="navbar-brand mr-lg-5" href="../index.html">
-                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/brand/white.png" style="width:380px">
+            <a class="navbar-brand mr-lg-5"  asp-controller="debug" asp-action="Home">
+                <img alt="Image placeholder" class="logoMain" src="@Url.Content("~/frontend_Content/assets")/img/brand/white.png" style="">
             </a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main-collapse" aria-controls="navbar-main-collapse" aria-expanded="false" aria-label="Toggle navigation">
