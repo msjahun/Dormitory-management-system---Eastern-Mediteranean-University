@@ -20,7 +20,7 @@ namespace Dau.Services.Facility
 
             var data = new facility_data();
 
-
+            //comment
 
 
                     LanguageTable language_Table_EN =  _context .LanguageTable.FirstOrDefault(l => l.LanguageCode == "EN");
