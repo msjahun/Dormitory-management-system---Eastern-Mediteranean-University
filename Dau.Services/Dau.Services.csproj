@@ -13,4 +13,16 @@
     <ProjectReference Include="..\Dau.Data\Dau.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Event\" />
+    <Folder Include="Logging\" />
+    <Folder Include="Export\" />
+    <Folder Include="ExchangeRate\" />
+    <Folder Include="Language\" />
+    <Folder Include="Configuration\" />
+    <Folder Include="System\" />
+    <Folder Include="Template\" />
+    <Folder Include="Notification\" />
+  </ItemGroup>
+
 </Project>
