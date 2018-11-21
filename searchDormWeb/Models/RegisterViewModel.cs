@@ -8,7 +8,7 @@ namespace searchDormWeb.Models
 {
     public class RegisterViewModel
     {
-        [Required, EmailAddress, MaxLength(256), Display(Name = "Email Address")]
+        [Required, EmailAddress, MaxLength(256), Display(Name = "Email Address", Description ="Email address")]
         public string Email { get; set;}
 
         [Required, MinLength(6), MaxLength(50), DataType(DataType.Password), Display(Name ="Password")]
