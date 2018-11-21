@@ -21,13 +21,14 @@ namespace searchDormWeb.Controllers
             this.userManager = userManager;
             this.signInManager = signInManager;
         }
-
+        [Route("Register/")]
         [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
 
+        [Route("Register/")]
         [HttpPost]
         public async Task<IActionResult> Index(RegisterViewModel vm)
         {
