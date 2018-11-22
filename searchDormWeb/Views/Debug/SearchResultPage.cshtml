@@ -9,131 +9,145 @@
 <section class="slice" style=" padding-top:20px; ">
     <div class="container">
         <div class="row row-grid">
+
+         
+
+
+
             <div class="col-lg-3">
+                <!-- The Modal -->
+                <div id="myModal" class="modal_filter">
 
-                <div data-toggle="sticky" data-sticky-offset="100" data-negative-margin=".card-profile-cover">
+                  
+                      
 
-                    <div class="card">
-                        <div class="card-header-sm  bg-primary ">
-                            <h5 class="text-white">Filter: </h5>
-                        </div>
+                        <div data-toggle="sticky" data-sticky-offset="100" data-negative-margin=".card-profile-cover">
 
-                        <div class="card-body">
+                            <div class="card model_filter_content">
+                                <div class="card-header-sm  bg-primary ">
 
-                            <button type="button" class="btn btn-sm btn-outline-primary btn-icon">
-                                <span class="btn-inner--text">Reset</span>
+                                    <span class="close float-right d-lg-none">&times;</span>
+                                    <h5 class="text-white">Filter: </h5>
+                                </div>
 
-                            </button>
+                                <div class="card-body">
 
-                            <button type="button" class="btn btn-sm btn-primary px-4"> <span class="btn-inner--text">Apply filter</span></button>
+                                    <button type="button" class="btn d-inline btn-sm btn-outline-primary btn-icon">
+                                        <span class="btn-inner--text">Reset</span>
 
-                            <br />
-                            <br />
+                                    </button>
 
-                            <h6>Dormitory Type</h6>
-                            <select class="form-control  form-control-sm  " data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Search ...">
-                                <option></option>
-                                <option>Badges</option>
-                                <option>Buttons</option>
-                                <option>Cards</option>
-                                <option>Forms</option>
-                                <option>Modals</option>
-                            </select>
+                                    <button type="button" class="btn btn-sm btn-primary  px-4"> <span class="btn-inner--text">Search</span></button>
 
-                            <br />
-                            <h6>Dormitory name</h6>
-                            <select class="form-control  form-control-sm " data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Search ...">
-                                <option></option>
-                                <option>Badges</option>
-                                <option>Buttons</option>
-                                <option>Cards</option>
-                                <option>Forms</option>
-                                <option>Modals</option>
-                            </select>
+                                    <br />
+                                    <br />
 
-                            <br />
-                            <h6>Semester duration</h6>
-                            <select class="form-control  form-control-sm " data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Search ...">
-                                <option></option>
-                                <option>1 semester - Fall 2019</option>
-                                <option>2 semester - Fall/spring 2019</option>
-                             
-                                
-                            </select>
+                                    <h6>Dormitory Type</h6>
+                                    <select class="form-control  form-control-sm  " data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Search ...">
+                                        <option></option>
+                                        <option>Badges</option>
+                                        <option>Buttons</option>
+                                        <option>Cards</option>
+                                        <option>Forms</option>
+                                        <option>Modals</option>
+                                    </select>
+
+                                    <br />
+                                    <h6>Dormitory name</h6>
+                                    <select class="form-control  form-control-sm " data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Search ...">
+                                        <option></option>
+                                        <option>Badges</option>
+                                        <option>Buttons</option>
+                                        <option>Cards</option>
+                                        <option>Forms</option>
+                                        <option>Modals</option>
+                                    </select>
+
+                                    <br />
+                                    <h6>Semester duration</h6>
+                                    <select class="form-control  form-control-sm " data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Search ...">
+                                        <option></option>
+                                        <option>1 semester - Fall 2019</option>
+                                        <option>2 semester - Fall/spring 2019</option>
 
 
-                            <br />
-                            <h6>Price</h6>
+                                    </select>
 
-                            <div class="range-slider-wrapper ">
-                                <!-- Range slider container -->
-                                <div id="input-slider-range" class="input-slider" data-range-value-min="100" data-range-value-max="500"></div>
-                                <!-- Range slider values -->
-                                <div class="row">
-                                    <div class="col-6">
-                                        <span class="range-slider-value value-low" data-range-value-low="200" id="input-slider-range-value-low"></span>
+
+                                    <br />
+                                    <h6>Price</h6>
+
+                                    <div class="range-slider-wrapper ">
+                                        <!-- Range slider container -->
+                                        <div id="input-slider-range" class="input-slider" data-range-value-min="100" data-range-value-max="500"></div>
+                                        <!-- Range slider values -->
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <span class="range-slider-value value-low" data-range-value-low="200" id="input-slider-range-value-low"></span>
+                                            </div>
+                                            <div class="col-6 text-right">
+                                                <span class="range-slider-value value-high" data-range-value-high="400" id="input-slider-range-value-high"></span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-6 text-right">
-                                        <span class="range-slider-value value-high" data-range-value-high="400" id="input-slider-range-value-high"></span>
+
+                                    <br />
+
+
+
+
+
+                                    <h6>Room area</h6>
+
+                                    <div class="input-slider-container mb-4">
+                                        <div id="input-slider-red" class="input-slider input-slider--red" data-range-value-min="100" data-range-value-max="900"></div>
+                                        <!-- Input slider values -->
+                                        <div class="row mt-3">
+                                            <div class="col-6">
+                                                <span id="input-slider-red-value" class="range-slider-value" data-range-value-low="200"></span>
+                                            </div>
+                                        </div>
                                     </div>
+
+
+
+                                    <h6>TV</h6>
+                                    <div class="custom-control custom-checkbox mb-3">
+                                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                        <label class="custom-control-label inline" for="customCheck1">In Room <span class=" float-right">236</span></label>
+
+                                    </div>
+
+                                    <div class="custom-control custom-checkbox mb-3">
+                                        <input type="checkbox" class="custom-control-input" id="customCheck2" checked="">
+                                        <label class="custom-control-label" for="customCheck2">In Hall  <span class=" float-right">6</span></label>
+                                    </div>
+
+
+                                    <h6>Internet</h6>
+
+                                    <div class="custom-control custom-checkbox mb-3">
+                                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                        <label class="custom-control-label" for="customCheck1">Wireless  <span class=" float-right">2</span></label>
+                                    </div>
+
+                                    <div class="custom-control custom-checkbox mb-3">
+                                        <input type="checkbox" class="custom-control-input" id="customCheck2" checked="">
+                                        <label class="custom-control-label" for="customCheck2">Cable  <span class=" float-right">36</span></label>
+                                    </div>
+
+
+
+
+
                                 </div>
                             </div>
-
-                            <br />
-
-
-
-
-
-                            <h6>Room area</h6>
-
-                            <div class="input-slider-container mb-4">
-                                <div id="input-slider-red" class="input-slider input-slider--red" data-range-value-min="100" data-range-value-max="900"></div>
-                                <!-- Input slider values -->
-                                <div class="row mt-3">
-                                    <div class="col-6">
-                                        <span id="input-slider-red-value" class="range-slider-value" data-range-value-low="200"></span>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-                            <h6>TV</h6>
-                            <div class="custom-control custom-checkbox mb-3">
-                                <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                <label class="custom-control-label inline" for="customCheck1">In Room <span class=" float-right">236</span></label>
-                                
-                            </div>
-
-                            <div class="custom-control custom-checkbox mb-3">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2" checked="">
-                                <label class="custom-control-label" for="customCheck2">In Hall  <span class=" float-right">6</span></label>
-                            </div>
-
-
-                            <h6>Internet</h6>
-
-                            <div class="custom-control custom-checkbox mb-3">
-                                <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                <label class="custom-control-label" for="customCheck1">Wireless  <span class=" float-right">2</span></label>
-                            </div>
-
-                            <div class="custom-control custom-checkbox mb-3">
-                                <input type="checkbox" class="custom-control-input" id="customCheck2" checked="">
-                                <label class="custom-control-label" for="customCheck2">Cable  <span class=" float-right">36</span></label>
-                            </div>
-
-
-
-
-
                         </div>
-                    </div>
+                    
+                    <!--model_filter Ends here-->
                 </div>
-
             </div>
-
+            
 
             <div class="col-lg-9">
 
@@ -253,12 +267,12 @@
                                 <i class="star fas fa-star voted"></i>
                                 <i class="star fas fa-star voted"></i>
                                 <i class="star fas fa-star voted"></i>
-                          
+
                                 <i class="star fas fa-star-half-empty "></i>
-                              
+
                             </span>
 
-                   
+
                             <span><i class="fa fa-thumbs-up" style="color:orange;"></i></span>
 
 
@@ -403,7 +417,7 @@
 
 
                             <span><i class="fa fa-thumbs-up" style="color:orange;"></i></span>
-                            
+
 
                             <div class="location-info">
                                 <span class="address-show-map" style="color:#269038; text-decoration:underline;"><i class="fa fa-map-marker text-primary "></i> <a href="#" style=" color:#269038">Jung-Gu, Seoul-Show on map</a></span>
@@ -441,7 +455,7 @@
                 <br />
 
 
-                    <div class="card  card-dorm-search">
+                <div class="card  card-dorm-search">
 
 
                     <div class="card-body row">
@@ -544,7 +558,7 @@
 
 
                             <span><i class="fa fa-thumbs-up" style="color:orange;"></i></span>
-                            
+
 
                             <div class="location-info">
                                 <span class="address-show-map" style="color:#269038; text-decoration:underline;"><i class="fa fa-map-marker text-primary "></i> <a href="#" style=" color:#269038">Jung-Gu, Seoul-Show on map</a></span>
@@ -586,7 +600,15 @@
             </div>
 
         </div>
+
+        <div class="fabb d-lg-none " id="">
+            <button type="button" id="FabBtn" class="btn btn-primary btn-icon-only ">
+                <span class="btn-inner--icon"><i class="fas fa-filter"></i></span>
+            </button>
+        </div>
     </div>
+
+
 </section>
 
 <!-- Call to action -->
@@ -615,10 +637,109 @@
     <script src="@Url.Content("~/frontend_Content/assets")/vendor/swiper/dist/js/swiper.min.js"></script>
     <script src="@Url.Content("~/frontend_Content/assets")/vendor/autosize/dist/autosize.min.js"></script>
 
+
+
+    <script>
+        // for filter model, responsive I filter style
+        var modal = document.getElementById('myModal');
+        // Get the button that opens the modal
+        var btn = document.getElementById("FabBtn");
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+        // When the user clicks the button, open the modal
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        //on screen change check $(window).width(); //then display or hide filter
+        window.onresize = function (event) {
+            if ($(window).width() >= 990) {
+            //    console.log("Conditions are met");
+                modal.style.display = "block";
+            } else {
+               // console.log("Conditions are not met");
+                modal.style.display = "none";
+            }
+        };
+    </script>
+
 }
 
 @section styles{
     <link type="text/css" href="@Url.Content("~/frontend_Content/assets")/vendor/swiper/dist/css/swiper.min.css" rel="stylesheet">
     <link type="text/css" href="@Url.Content("~/frontend_Content/assets")/vendor/select2/dist/css/select2.min.css" rel="stylesheet">
+    <style>
+
+        .fabb {
+            width: 50px;
+            height: 50px;
+            z-index: 999;
+            position: fixed;
+            bottom: 2%;
+            right: 2%;
+            font-size: 2.0em;
+            display: inline-block;
+            cursor: default;
+        }
+
+        .modal_filter {
+            margin: 0px;
+            padding: 0px;
+            display:block;
+           
+        }
+
+
+        @@media only screen and (max-width: 990px) {
+            /* The Modal (background) */
+            .modal_filter {
+                margin:0px;
+                margin-bottom:5%;
+                padding:0px;
+                display: none; /* Hidden by default */
+                position: fixed; /* Stay in place */
+                z-index: 999; /* Sit on top */
+                padding-top: 100px; /* Location of the box */
+                left: 0;
+                top: 0;
+                width: 100%; /* Full width */
+                height: 100%; /* Full height */
+                overflow: auto; /* Enable scroll if needed */
+                background-color: rgb(0,0,0); /* Fallback color */
+                background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            }
+
+
+            .model_filter_content{
+                margin:20px;
+            }
+            /* The Close Button */
+            .close_filter {
+                color: #aaaaaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+            }
+
+            .close:hover,
+            .close:focus {
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+            }
+        }
+    </style>
 
 }
