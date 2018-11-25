@@ -6,5 +6,23 @@ namespace Dau.Core.Domain.ContentManagement
 {
     class MessageTemplate
     {
+
+
+       // public LocalizedMessageTemplateContent[] localizedMessageTemplateContents { get; set; }
+
+        public string AllowedTokens { get; set; }
+
+      public string Name { get; set; }
+
+
+       public bool isActive { get; set; }
+
+      public bool SendImmediately { get; set; }
+
+       public bool AttachedStaticFile { get; set; }
+
+        public IEnumerable<int> LimitedToDormitories { get; set; }
+
+
     }
 }

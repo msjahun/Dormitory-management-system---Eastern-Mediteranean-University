@@ -6,5 +6,23 @@ namespace Dau.Core.Domain.Country
 {
     class Country
     {
+       // public LocalizedContentCountry[] localizedContentCountry { get; set; }
+
+       public bool AllowBilling { get; set; }
+
+         public bool AllowBooking { get; set; }
+        public string TwoLetterIsoCode { get; set; }
+
+        public string ThreeLetterIsoCode { get; set; }
+
+        public int NumericIsoCode { get; set; }
+
+       public bool Published { get; set; }
+
+       public int DisplayOrder { get; set; }
+
+  
+        
+  
     }
 }
