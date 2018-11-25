@@ -6,7 +6,7 @@ namespace Dau.Core.Domain.API
 {
     class APISettings
     {//think of this tables relationship
-
+        //set first and read first
 
      
         public bool EnableAPI { get; set; }

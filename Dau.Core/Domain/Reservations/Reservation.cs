@@ -5,7 +5,7 @@ using System.Text;
 namespace Dau.Core.Domain.Reservations
 {
     class Reservation
-    {//put a field for CancelReservations
+    {
 
         public DateTime StartDate { get; set; }
 
@@ -57,7 +57,12 @@ namespace Dau.Core.Domain.Reservations
 
        public string BillingAddress { get; set; }
 
+        //put a field for CancelReservations
+        public bool IsCancelled { get; set; }
 
-   //     public OrderNotesTab orderNotesTab { get; set; }
+        public bool IsDeleted { get; set; }
+
+
+        //     public OrderNotesTab orderNotesTab { get; set; }
     }
 }

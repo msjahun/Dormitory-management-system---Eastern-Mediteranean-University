@@ -36,5 +36,7 @@ namespace Dau.Core.Domain.Promotions
         //requirement tab
        public int DiscountRequirementType { get; set; }
 
+
+        //usage history
     }
 }

@@ -7,7 +7,7 @@ namespace Dau.Core.Domain.ContentManagement
     class Topic
     {
       //  public LocalizedTopicsContent[] localizedTopicsContents { get; set; }
-
+      //TopicTranslation 
 
        public string SystemName { get; set; }
 

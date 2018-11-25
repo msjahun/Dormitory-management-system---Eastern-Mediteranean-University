@@ -7,7 +7,7 @@ namespace Dau.Core.Domain.Country
     class Country
     {
        // public LocalizedContentCountry[] localizedContentCountry { get; set; }
-
+       //CountryTranslation table
        public bool AllowBilling { get; set; }
 
          public bool AllowBooking { get; set; }

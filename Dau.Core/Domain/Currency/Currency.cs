@@ -7,7 +7,7 @@ namespace Dau.Core.Domain.Currency
     class Currency
     {
       //  public LocalizedCurrencyContent[] localizedCurrencyContent { get; set; }
-
+      //CurrencyTranslation table
        public string CurrencyCode { get; set; }
 
          public int Rate { get; set; }
