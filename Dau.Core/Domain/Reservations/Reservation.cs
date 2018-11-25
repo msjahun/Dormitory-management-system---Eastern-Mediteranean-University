@@ -63,6 +63,10 @@ namespace Dau.Core.Domain.Reservations
         public bool IsDeleted { get; set; }
 
 
-        //     public OrderNotesTab orderNotesTab { get; set; }
+        //two field to track affiliate accounts
+        public bool IsAffiliateBooking { get; set; }
+        public bool AffiliateId { get; set; }
+
+        //     public OrderNotesTab orderNotesTab { get; set; } create a table for ordernotes
     }
 }
