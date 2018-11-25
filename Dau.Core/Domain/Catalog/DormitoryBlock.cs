@@ -32,7 +32,7 @@ namespace Dau.Core.Domain.Catalog
 
 
        // public DormitoryBlockSeoTab[] seoTab { get; set; }
-       //relationship with seo
+       //relationship with seo Table
 
 
       //  public DormitoryBlockContentLocalizedTab[] localizedContent { get; set; }

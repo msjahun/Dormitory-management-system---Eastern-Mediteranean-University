@@ -47,6 +47,7 @@ namespace Dau.Core.Domain.Promotions
         public string AffiliateURL { get; set; }
       
 
-        //public AffiliatedBookingsTab AffiliatedBookingsTab { get; set; }
+        //public AffiliatedBookingsTab AffiliatedBookingsTab { get; set; } create a table for AffiliatedBookings, or add a field for affiliate in the booking table
+        //I added a field
     }
 }

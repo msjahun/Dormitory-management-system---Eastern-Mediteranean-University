@@ -10,6 +10,8 @@ namespace Dau.Core.Domain.ContentManagement
 
        // public LocalizedMessageTemplateContent[] localizedMessageTemplateContents { get; set; }
        //MessageTemplateTranslation
+
+
         public string AllowedTokens { get; set; }
 
       public string Name { get; set; }

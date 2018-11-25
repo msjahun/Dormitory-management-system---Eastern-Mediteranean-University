@@ -33,10 +33,10 @@ namespace Dau.Core.Domain.Promotions
 
 
 
-        //requirement tab
+        //requirement tab // should have a dropdown list
        public int DiscountRequirementType { get; set; }
 
 
-        //usage history
+        //usage history create a table for usage history
     }
 }

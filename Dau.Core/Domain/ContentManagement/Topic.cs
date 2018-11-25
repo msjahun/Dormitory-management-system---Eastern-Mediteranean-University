@@ -35,6 +35,7 @@ namespace Dau.Core.Domain.ContentManagement
         public bool AccessileWhenSiteIsClosed { get; set; }
 
        // public TopicsSeoTab[] seoTab { get; set; }
+       //seo table
   
      
 
