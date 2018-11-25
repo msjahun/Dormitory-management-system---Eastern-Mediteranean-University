@@ -15,4 +15,8 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Domain\Dashboard\" />
+  </ItemGroup>
+
 </Project>
