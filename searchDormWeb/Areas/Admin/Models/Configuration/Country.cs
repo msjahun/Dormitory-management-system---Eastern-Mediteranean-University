@@ -94,10 +94,10 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
 
     public class StateAndProvinceTable
     {
-public string Name {get; set;}
-public string Abbreviation {get; set;}
-public string Published {get; set;}
-public string DisplayOrder { get; set; }
+        public string Name { get; set; }
+        public string Abbreviation { get; set; }
+        public string Published { get; set; }
+        public string DisplayOrder { get; set; }
 
 
     }
@@ -106,7 +106,7 @@ public string DisplayOrder { get; set; }
     public class LocalizedContentCountry
     {
         [Display(Name = "Name",
-              Description = "The name of the country."), DataType(DataType.Text), MaxLength(256)]
+        Description = "The name of the country."), DataType(DataType.Text), MaxLength(256)]
         public string Name { get; set; }
     }
 
