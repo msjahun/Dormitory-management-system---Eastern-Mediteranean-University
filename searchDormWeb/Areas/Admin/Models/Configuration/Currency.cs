@@ -6,6 +6,21 @@ using System.Threading.Tasks;
 
 namespace searchDormWeb.Areas.Admin.Models.Configuration
 {
+
+
+    public class CurrenciesVm
+    {
+        [Display(Name = "Current exchange rate provider",
+        Description = "Select an exchange rate provider."),
+        MaxLength(256)]
+        public int CurrentExchangeRateProvider { get; set; }
+
+        [Display(Name = "Auto enabled",
+        Description = "Determines whether exchange rates will be updated automatically.")]
+        public bool AutoEnabled { get; set; }
+
+    }
+
     public class CurrencyAdd
     {
         public LocalizedCurrencyContent[] localizedCurrencyContent { get; set; }
