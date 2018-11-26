@@ -22,6 +22,8 @@ using Dau.Services.Facility;
 using Dau.Services.Room;
 using Microsoft.Extensions.Logging;
 using Dau.Services.Logging;
+using Dau.Services.Middleware;
+using Dau.Services.Domain.Users;
 
 namespace searchDormWeb
 {
@@ -55,10 +57,13 @@ namespace searchDormWeb
             });
             //http accessor for getting ipaddress of user.
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-         
+
 
             //adding our services to the ioc container
+            services.AddTransient<OnlineUsersMiddleware>();
+            services.AddTransient<AffiliateMiddleware>();
 
+            services.AddScoped<IOnlineUsersService, OnlineUsersService>();
 
             services.AddScoped<ILoggingService, LoggingService>();
             services.AddScoped<IRoomService, RoomService>();
@@ -113,16 +118,20 @@ namespace searchDormWeb
 
             //exception handler 
 
-
+          
             // identity middleware
             app.UseAuthentication();
             //app.UseIdentity();
+
+            app.UseOnlineUsersMiddleware();
+            app.UseAffiliatesMiddleware();
+
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-
+     
 
 
 
