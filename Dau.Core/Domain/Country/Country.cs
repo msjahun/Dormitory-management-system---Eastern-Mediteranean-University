@@ -21,7 +21,7 @@ namespace Dau.Core.Domain.Country
 
        public int DisplayOrder { get; set; }
 
-  
+  //state and province table
         
   
     }

@@ -6,5 +6,6 @@ namespace Dau.Core.Domain.Currency
 {
     class CurrencyTranslation
     {
+      public string Name { get; set; }
     }
 }

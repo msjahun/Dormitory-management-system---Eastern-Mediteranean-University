@@ -6,5 +6,14 @@ namespace Dau.Core.Domain.ContentManagement
 {
     class MessageTemplateTranslation
     {
+
+      public string Subject { get; set; }
+
+       public string Body { get; set; }
+
+       public string BCC { get; set; }
+
+
+        public int EmailAccount { get; set; }
     }
 }

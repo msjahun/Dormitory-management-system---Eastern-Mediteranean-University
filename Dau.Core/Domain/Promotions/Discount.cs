@@ -38,5 +38,6 @@ namespace Dau.Core.Domain.Promotions
 
 
         //usage history create a table for usage history
+        //one to many with usage history
     }
 }

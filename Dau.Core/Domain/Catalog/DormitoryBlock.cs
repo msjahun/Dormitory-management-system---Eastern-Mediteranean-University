@@ -38,6 +38,8 @@ namespace Dau.Core.Domain.Catalog
       //  public DormitoryBlockContentLocalizedTab[] localizedContent { get; set; }
       //DormitoryBlock Translation
 
+
+        //roomsInside a dormitory block, one to many relationship
    
 
 

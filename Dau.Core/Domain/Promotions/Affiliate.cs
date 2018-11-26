@@ -49,5 +49,9 @@ namespace Dau.Core.Domain.Promotions
 
         //public AffiliatedBookingsTab AffiliatedBookingsTab { get; set; } create a table for AffiliatedBookings, or add a field for affiliate in the booking table
         //I added a field
+
+
+        //need to either create a table between affiliate and users or add 2 fields in the user table
+        //** please don't forget to add to user table when you start modifying existing tables
     }
 }

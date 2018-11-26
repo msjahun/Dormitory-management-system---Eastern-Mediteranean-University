@@ -24,6 +24,8 @@ namespace Dau.Core.Domain.ContentManagement
 
         public DateTime EndDate { get; set; }
 
+        //Poll answers table
+
      
     }
 }

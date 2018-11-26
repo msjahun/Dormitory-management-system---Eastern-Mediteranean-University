@@ -6,5 +6,8 @@ namespace Dau.Core.Domain.ContentManagement
 {
     class TopicTranslation
     {
+        public string Title { get; set; }
+
+        public string Body { get; set; }
     }
 }
