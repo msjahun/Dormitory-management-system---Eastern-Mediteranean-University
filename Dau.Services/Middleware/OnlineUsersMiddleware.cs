@@ -25,8 +25,8 @@ namespace Dau.Services.Middleware
             var user = context.User;
 
 
-            var name = context.User.Identity.Name;
-            if(name.Length==0)
+            string name = context.User.Identity.Name;
+            if(name=="")
             {
                 name = "Guest";
             }
