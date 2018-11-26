@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Dau.Core.Domain.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using searchDormWeb.Configuration;
 using searchDormWeb.Models;
 
@@ -15,8 +16,11 @@ namespace searchDormWeb.Controllers
     {
         private readonly SignInManager<User> _signInManager;
         private readonly RoleManager<UserRole> _roleManager;
-        public LoginController(SignInManager<User> signInManager, RoleManager<UserRole> roleManager)
+        private readonly ILogger<LoginController> _logger;
+
+        public LoginController(SignInManager<User> signInManager, RoleManager<UserRole> roleManager, ILogger<LoginController> logger)
         {
+            _logger = logger;
             _roleManager = roleManager;
             _signInManager = signInManager;
 
@@ -41,7 +45,7 @@ namespace searchDormWeb.Controllers
              
                 if (result.Succeeded)
                 {
-                  
+                    _logger.LogInformation("Successful login.");
                     var st = vm.ReturnUrl;
                     if (st!=null) 
                     return Redirect(vm.ReturnUrl);
@@ -52,6 +56,7 @@ namespace searchDormWeb.Controllers
                 }
 
                 ModelState.AddModelError("", "Invalid Login attempt");
+                _logger.LogWarning("Invalid Login attempt.");
             }
 
 
