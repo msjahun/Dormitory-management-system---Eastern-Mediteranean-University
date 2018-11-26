@@ -1,0 +1,15 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<script>
+var Seconds = 30000;
+    window.setInterval(function () {
+
+        $.post("@Url.Action("TrackOnlineUsers", "Users", new { Area = "Admin" })", { LastVisitedPage: window.location.href} )
+        .done(function(data) {
+        // Possibly some code here
+        // console.log("heartBeeat");
+        });
+    }, Seconds);
+
+</script>
