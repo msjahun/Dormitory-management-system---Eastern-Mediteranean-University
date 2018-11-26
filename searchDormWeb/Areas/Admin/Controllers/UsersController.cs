@@ -593,7 +593,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
             }
         }
 
-
+        [AllowAnonymous]
         [HttpPost("[action]")]
         public void TrackOnlineUsers(
             string LastVisitedPage
