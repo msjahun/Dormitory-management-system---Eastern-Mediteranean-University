@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Dau.Core.Domain.Logging;
+using Dau.Services.Logging;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +15,13 @@ namespace searchDormWeb.Areas.Admin.Controllers
     [Authorize]
     public class SystemController : Controller
     {
+        private readonly ILoggingService _loggingService;
+
+        public SystemController(ILoggingService loggingService)
+        {
+            _loggingService = loggingService;
+        }
+
         // GET: System
 
         #region System Information
@@ -56,9 +65,25 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
 
-                // getting all Discount data  
-                var Data = new List<int>();
+                var newList = _loggingService.GetLogs();
+                var List = new List<LogTable>();
+                foreach (var item in newList)
+                {
+                    List.Add(new LogTable
+                    {
+                       ShortMessage = new string(item.Message.Take(120).ToArray()),
+                       LogLevel = item.LogLevel,
+                       CreatedOn = item.CreatedTime,
+                       Id = item.Id,
+                       EventId = item.EventId
 
+                    });
+
+                }
+                // getting all Discount data  
+                var Data = List;
+                // getting all Discount data  
+             
                 ////Sorting  
                 //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
                 //{
@@ -69,6 +94,10 @@ namespace searchDormWeb.Areas.Admin.Controllers
                 //{
                 //    DiscountData = DiscountData.Where(m => m.Name == searchValue);
                 //}
+
+
+
+
 
 
                 //total number of rows counts   
@@ -90,9 +119,18 @@ namespace searchDormWeb.Areas.Admin.Controllers
         [HttpGet("[action]")]
         public IActionResult LogView()
         {
-
+            
             return View("_LogView");
         }
+
+        [HttpPost("[action]")]
+        public void ClearAllLogs()
+        {
+            _loggingService.DeleteAllLogs();
+          
+        }
+
+
 
         #endregion
 
@@ -360,8 +398,10 @@ namespace searchDormWeb.Areas.Admin.Controllers
     public class LogTable {
         public string LogLevel { get; set; }
         public string ShortMessage { get; set; }
-        public string CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
         public string View { get; set; }
+        public int Id { get; set; }
+        public int EventId { get; set; }
     }
     public class MaintenanceTable {
         public string FileName { get; set; }
