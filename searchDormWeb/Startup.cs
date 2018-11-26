@@ -60,7 +60,7 @@ namespace searchDormWeb
 
 
             //adding our services to the ioc container
-            services.AddTransient<OnlineUsersMiddleware>();
+          //  services.AddTransient<OnlineUsersMiddleware>();
             services.AddTransient<AffiliateMiddleware>();
 
             services.AddScoped<IOnlineUsersService, OnlineUsersService>();
@@ -123,7 +123,7 @@ namespace searchDormWeb
             app.UseAuthentication();
             //app.UseIdentity();
 
-            app.UseOnlineUsersMiddleware();
+          //  app.UseOnlineUsersMiddleware();
             app.UseAffiliatesMiddleware();
 
 
