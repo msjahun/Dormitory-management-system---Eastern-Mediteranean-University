@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 namespace Dau.Services.Middleware
 {
+
+    // deprecated, I'll now use heartbeat method
     public class OnlineUsersMiddleware : IMiddleware
     {
         private readonly IOnlineUsersService _onlineUsersService;
