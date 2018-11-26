@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_LayoutUserNew.cshtml";
+}
+
+
+<section class="slice slice-xl delimiter-bottom">
+
+    <div class="container ">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5 col-xl-5">
+
+                <div class="card shadow zindex-100">
+                    <div class="card-body px-5  py-5">
+                        <div class="text-center mb-5">
+                            <h6 class="h3">Welcome back</h6>
+                            <p class="text-muted mb-0">Sign in to your account to continue</p>
+                        </div>
+                        <span class="clearfix"></span>
+
+
+
+                        <form role="form">
+                            <div class="form-group">
+                                <label class="form-control-label">Email address</label>
+                                <div class="input-group input-group-transparent">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    </div>
+                                    <input type="email" class="form-control" id="input-email" placeholder="name@example.com">
+                                </div>
+                            </div>
+                            <div class="form-group mb-4">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <label class="form-control-label">Password</label>
+                                    </div>
+
+                                </div>
+                                <div class="input-group input-group-transparent">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                    </div>
+                                    <input type="password" class="form-control" id="input-password" placeholder="Password">
+                                    <div class="input-group-append" id="unmask_password">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-eye"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class=" mb-3">
+                                <div class="custom-control custom-checkbox mb-3">
+                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                    <label class="custom-control-label" for="customCheck1">Remember me</label>
+                                </div>
+                            </div>
+
+                            <div class="text-center mb-3">
+                                <button type="button" class="btn btn-block btn-primary">Sign in</button>
+                            </div>
+                            <div class="text-center">
+                                <small>Not registered?</small>
+                                <a href="register.html" class="small font-weight-bold">Create account</a>
+                            </div>
+
+                            <div class="text-center">
+
+                                <a href="register.html" class="small font-weight-bold">I forgot my password</a>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section styles{
+
+
+
+}
+
+@section scripts
+    {
+
+ 
+
+<script>
+
+    $("#unmask_password").click(function () {
+
+        if ($("#input-password").attr('type') == 'password') {
+            $("#input-password").attr('type', 'text');
+            console.log("password");
+        }
+
+        else {
+            $("#input-password").attr('type', 'password');
+            console.log("not password");
+          
+        }
+           
+
+        return false;
+
+    });
+        </script>
+
+}
