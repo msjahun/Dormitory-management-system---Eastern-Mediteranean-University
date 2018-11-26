@@ -548,9 +548,12 @@ namespace searchDormWeb.Areas.Admin.Controllers
                 var List = new List<OnlineUsersTable>();
                 foreach (var item in newList)
                 {
+                    string name = item.UserInfo;
+                    if (item.UserInfo == null || item.UserInfo == "" || item.UserInfo == " " || item.UserInfo.Equals(""))
+                        name = "Guest";
                     List.Add(new OnlineUsersTable
                     {
-                        UserInfo =item.UserInfo,
+                        UserInfo = name,
                         IpAddress =item.IpAddress,
                         Location =item.Location,
                         LastActivity =item.LastActivity,
