@@ -594,6 +594,42 @@ namespace searchDormWeb.Areas.Admin.Controllers
         }
 
 
+        [HttpPost("[action]")]
+        public void TrackOnlineUsers(
+            string LastVisitedPage
+           )
+        {
+            //  var user = context.User;
+
+
+            //  string name = context.User.Identity.Name;
+            bool isAuthenticated = User.Identity.IsAuthenticated;
+            //  var url = HttpContext.context.Request.Path;
+            // var remoteIpAddress = HttpContext.Connection.RemoteIpAddress;
+            var name = "Guest";
+            if (isAuthenticated) { 
+           
+                name = User.Identity.Name;
+            }
+
+            var OnlineUser = new OnlineUsers()
+            {
+
+
+                IpAddress = _accessor.HttpContext.Connection.RemoteIpAddress.ToString(),
+                LastVisitedPage = LastVisitedPage,
+                UserInfo = name,
+                Location = " ",
+                LastActivity = " ",
+                LastActivityTime = DateTime.Now.AddMinutes(1)
+
+            };
+
+            _onlineUsersService.UpdateOnlineUserAsync(OnlineUser);
+
+
+        }
+
 
 
         #endregion
