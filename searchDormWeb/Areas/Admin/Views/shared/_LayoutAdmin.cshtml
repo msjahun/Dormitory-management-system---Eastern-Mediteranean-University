@@ -65,7 +65,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
-    <!-- Main Header -->
+        <!-- Main Header -->
         @Html.Partial("../Admin/Admin_Shared/_header.cshtml", null)
         @*@RenderPage("~/Views/Admin/Admin_Shared/_header.cshtml", null)*@
         <!-- Left side column. contains the logo and sidebar -->
@@ -84,6 +84,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- /.Main Footer -->
         <!-- Control Sidebar -->
         @Html.Partial("../Admin/Admin_Shared/_control_sidebar.cshtml", null)
+
+
+ 
         @*@RenderPage("~/Views/Admin/Admin_Shared/_control_sidebar.cshtml", null)*@
         <!-- /.control-sidebar -->
     </div>
@@ -99,5 +102,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     user experience. -->
     <script src="@Url.Content("~/Content/")bower_components/PACE/pace.min.js"></script>
+
+    <!-- Heartbeat Online Users tracking -->
+    @Html.Partial("../../../../Views/Shared/Components/OnlineUsersTrackingCode.cshtml", null)
+
 </body>
 </html>
