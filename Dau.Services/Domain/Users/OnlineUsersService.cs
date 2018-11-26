@@ -27,14 +27,14 @@ namespace Dau.Services.Domain.Users
 
 
                 //check if user already exist on the table,
-                userInDb.LastActivityTime = DateTime.Now.AddMinutes(5);
+                userInDb.LastActivityTime = DateTime.Now.AddMinutes(1);
                 userInDb.LastVisitedPage = user.LastVisitedPage;
                 _context.OnlineUsers.Update(userInDb);
                 await _context.SaveChangesAsync();
             }
             else {
                 //if user doesn't exist add user to the table
-                user.LastActivityTime= DateTime.Now.AddMinutes(5);
+                user.LastActivityTime= DateTime.Now.AddMinutes(1);
                 _context.OnlineUsers.Add(user);
                 await _context.SaveChangesAsync();
                 //if user exist update time, use ip address and userInfo for checking
