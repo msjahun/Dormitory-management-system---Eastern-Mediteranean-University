@@ -4,14 +4,16 @@ using Dau.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dau.Data.Migrations
 {
     [DbContext(typeof(Fees_and_facilitiesContext))]
-    partial class fees_and_facilitiesContextModelSnapshot : ModelSnapshot
+    [Migration("20181126161443_addedOnlineUsersMap")]
+    partial class addedOnlineUsersMap
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
