@@ -20,6 +20,8 @@ using Dau.Services.AccessControlList;
 using searchDormWeb.Configuration.SecurityFilter;
 using Dau.Services.Facility;
 using Dau.Services.Room;
+using Microsoft.Extensions.Logging;
+using Dau.Services.Logging;
 
 namespace searchDormWeb
 {
@@ -53,9 +55,12 @@ namespace searchDormWeb
             });
             //http accessor for getting ipaddress of user.
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
+         
 
             //adding our services to the ioc container
+
+
+            services.AddScoped<ILoggingService, LoggingService>();
             services.AddScoped<IRoomService, RoomService>();
             services.AddScoped<IFacilityService, FacilityService>();
             services.AddScoped<IUsersService, UsersService>();
@@ -83,14 +88,17 @@ namespace searchDormWeb
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-          
+            loggerFactory.AddProvider(new DBLoggerProvider());
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 //app.UseExceptionHandler("/Error/PageNotFound");
                 //app.UseStatusCodePagesWithReExecute("/Error/Status/{0}");
+
+            //loggingFactory code
+                //loggerFactory.AddContext(LogLevel.Information);
             }
             else
             {
