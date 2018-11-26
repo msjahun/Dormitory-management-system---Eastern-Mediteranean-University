@@ -17,8 +17,8 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" class="btn btn-danger "> <i class="fa fa-trash"></i> Delete selected</button>
-                    <button type="submit" class="btn btn-primary "> <i class="fa fa-trash"></i> Clear log</button>
+                    <a  class="btn btn-danger "> <i class="fa fa-trash"></i> Delete selected</a>
+                    <button id="ClearLogBtn" class="btn btn-primary "> <i class="fa fa-trash"></i> Clear log</button>
                 </div>
             </div>
         </div>
@@ -29,9 +29,11 @@
     <section class="content container-fluid">
 
         <!--------------------------
-        | Your Page Content Here |
-        -------------------------->
+    | Your Page Content Here |
+    -------------------------->
+        <div id="alertACL">
 
+        </div>
         <div class="col-md-12">
             <!-- Horizontal Form -->
             <div class="box box-solid">
@@ -92,49 +94,15 @@
                             <thead>
                                 <tr>
                                     <th><input type="checkbox"></th>
+                                    <th>Id</th>
+                                    <th>Event Id</th>
                                     <th>Log level</th>
                                     <th>Short message</th>
                                     <th>Created on</th>
                                     <th>View</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>Warning</td>
-                                    <td>Resource string (admin.system.system) not found</td>
-                                    <td>7/12/2018 11:26:17AM</td>
-                                    <td> <a asp-action="LogView" asp-controller="System" asp-area="Admin" class="btn btn-default"> <i class="fa fa-eye"></i> View</a></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>Error</td>
-                                    <td>Error 404. The requested page is not found</td>
-                                    <td>7/12/2018 11:26:17AM</td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>Warning</td>
-                                    <td>Resource string (admin.system.system) not found</td>
-                                    <td>7/12/2018 11:26:17AM</td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>Warning</td>
-                                    <td>Resource string (admin.system.system) not found</td>
-                                    <td>7/12/2018 11:26:17AM</td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>Warning</td>
-                                    <td>Resource string (admin.system.system) not found</td>
-                                    <td>7/12/2018 11:26:17AM</td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                </tr>
-                            </tbody>
+                            <tbody></tbody>
 
                         </table>
                     </div>
@@ -213,7 +181,7 @@
                 autoclose: true,
                 orientation: "left bottom",
             })
-            $('#LogTable').on('processing.dt', function (e, settings, processing) {
+           var logTable= $('#LogTable').on('processing.dt', function (e, settings, processing) {
                 if (processing) {
                     Pace.start();
                 } else {
@@ -249,6 +217,8 @@
                             return '<input type="checkbox">';
                         }
                     },
+                    {"data": "id" },
+                    {"data": "eventId" },
                     {"data": "logLevel" },
                     {"data": "shortMessage" },
                     {"data": "createdOn" },
@@ -263,6 +233,37 @@
             })
 
         })
+
+
+
+        $('#ClearLogBtn').click(function () {
+            // console.log(array);
+           
+            var r = confirm("Are you sure you want to clear logs");
+            if (r == true) {
+               
+                $.ajax({
+                    type: "POST",
+                    url: "/Admin/System/ClearAllLogs",
+
+                    success: function (result) {
+                        //alert("I have returned");
+                        document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-success alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> Log cleared successfully.</div>";
+
+                        $('#LogTable').DataTable().ajax.reload();
+                    }
+                })
+
+            } else {
+               
+
+
+            }
+      
+        
+
+
+            })
     </script>
 }
 
