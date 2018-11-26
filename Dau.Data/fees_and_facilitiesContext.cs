@@ -13,7 +13,8 @@ using Dau.Data.Mapping.Dormitory;
 using Dau.Data.Mapping.Facility;
 using Dau.Data.Mapping.Language;
 using Dau.Data.Mapping.Room;
-
+using Dau.Core.Domain.Logging;
+using Dau.Data.Mapping.Logging;
 
 namespace Dau.Data
 {
@@ -48,14 +49,19 @@ namespace Dau.Data
         public virtual DbSet<RoomTable> RoomTable { get; set; }
         public virtual DbSet<RoomTableTranslation> RoomTableTranslation { get; set; }
 
+
+        //new tables
+        public virtual DbSet<Log> Log{ get; set; }
+
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
 
-                optionsBuilder.UseSqlServer("Data Source=DARK-SHILLA\\SQLEXPRESS;Initial Catalog=fees_and_facilities;Integrated Security=True");
+            //    optionsBuilder.UseSqlServer("Data Source=DARK-SHILLA\\SQLEXPRESS;Initial Catalog=fees_and_facilities;Integrated Security=True");
             //  optionsBuilder.UseSqlServer("data source=193.140.173.173;initial catalog=SearchDormDb;user id=SearchDormUsr;password=ergec.senturk@emu.edu.tr;multipleactiveresultsets=True;");
             //optionsBuilder.UseSqlServer("data source=sql6006.site4now.net;initial catalog=DB_A2B24A_testing;user id=DB_A2B24A_testing_admin;password=Mami1961;multipleactiveresultsets=True;");
-             // optionsBuilder.UseSqlServer("Data Source=SQL-SERVER-INST;Initial Catalog=fees_and_facilities_prod;Integrated Security=True");
+             optionsBuilder.UseSqlServer("Data Source=SQL-SERVER-INST;Initial Catalog=fees_and_facilities_prod;Integrated Security=True");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -83,6 +89,10 @@ namespace Dau.Data
             modelBuilder.ApplyConfiguration(new RoomFacilityMap());
             modelBuilder.ApplyConfiguration(new RoomTableMap());
             modelBuilder.ApplyConfiguration(new RoomTableTranslationMap());
+
+
+            //new tables config
+            modelBuilder.ApplyConfiguration(new LogMap());
          
         }
     }
