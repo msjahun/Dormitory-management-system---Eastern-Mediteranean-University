@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dau.Core.Domain.User;
 using Dau.Data;
+using Dau.Services.Domain.Users;
 using Dau.Services.Dormitory;
 using Dau.Services.Security;
 using Microsoft.AspNetCore.Authorization;
@@ -26,12 +27,13 @@ namespace searchDormWeb.Areas.Admin.Controllers
         private readonly UserManager<User> _userManager;
         private readonly IUserRolesService _userRolesService;
         private readonly RoleManager<UserRole> _roleManager;
+        private readonly IOnlineUsersService _onlineUsersService;
         private IDormitoryService _dormitoryService;
         private IHttpContextAccessor _accessor;
 
 
 
-        public UsersController(IDormitoryService dormitoryService, RoleManager<UserRole> roleManager,
+        public UsersController(IDormitoryService dormitoryService, IOnlineUsersService onlineUsersService,  RoleManager<UserRole> roleManager,
             UserManager<User> userManager,
             IUserRolesService userRolesService,
             IHttpContextAccessor accessor
@@ -42,6 +44,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
             _accessor = accessor;
             _userRolesService = userRolesService;
             _roleManager = roleManager;
+            _onlineUsersService = onlineUsersService;
         
           
         }
@@ -540,10 +543,25 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
 
+            
+                var newList = _onlineUsersService.GetOnlineUsers();
+                var List = new List<OnlineUsersTable>();
+                foreach (var item in newList)
+                {
+                    List.Add(new OnlineUsersTable
+                    {
+                        UserInfo =item.UserInfo,
+                        IpAddress =item.IpAddress,
+                        Location =item.Location,
+                        LastActivity =item.LastActivity,
+                        LastVisitedPage=item.LastVisitedPage
 
+                    });
+
+                }
 
                 // getting all Discount data  
-                var Data = new List<int>();
+                var Data = List;
 
                 ////Sorting  
                 //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
