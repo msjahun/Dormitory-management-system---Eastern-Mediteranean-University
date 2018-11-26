@@ -26,6 +26,10 @@ namespace Dau.Services.Middleware
 
 
             var name = context.User.Identity.Name;
+            if(name.Length==0)
+            {
+                name = "Guest";
+            }
             var url = context.Request.Path;
             var remoteIpAddress = context.Connection.RemoteIpAddress;
 
