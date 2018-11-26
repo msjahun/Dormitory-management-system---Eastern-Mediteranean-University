@@ -40,14 +40,18 @@
     <script src="@Url.Content("~/Content/")bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- iCheck -->
     <script src="@Url.Content("~/Content/")plugins/iCheck/icheck.min.js"></script>
+
+    <!-- Heartbeat Online Users tracking -->
+    @Html.Partial("/Views/Shared/Components/OnlineUsersTrackingCode.cshtml", null)
+
     <script>
-  $(function () {
-    $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue',
-      increaseArea: '20%' /* optional */
-    });
-  });
+        $(function () {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' /* optional */
+            });
+        });
     </script>
 </body>
 </html>

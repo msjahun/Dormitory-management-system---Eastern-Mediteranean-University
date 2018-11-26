@@ -197,6 +197,10 @@
     <script src="@Url.Content("~/Content/")plugins/bootstrap-slider/bootstrap-slider.js"></script>
     <script src="@Url.Content("~/Content/")bower_components/PACE/pace.min.js"></script>
     <script src="@Url.Content("~/Content/")dist/customScript.js"></script>
+
+    <!-- Heartbeat Online Users tracking -->
+    @Html.Partial("/Views/Shared/Components/OnlineUsersTrackingCode.cshtml", null)
+
     <script>
         $(function () {
             /* BOOTSTRAP SLIDER */
@@ -297,7 +301,7 @@
 
 
 
-                                // var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+                                        // var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
 
     </script>

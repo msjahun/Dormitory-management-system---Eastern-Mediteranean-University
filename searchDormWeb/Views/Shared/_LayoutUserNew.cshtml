@@ -36,7 +36,7 @@
 </head>
 
 <body>
-  
+
 
     @Html.Partial("/Views/Shared/Components/headerMain.cshtml", null)
 
@@ -53,6 +53,8 @@
 
 
     @Html.Partial("/Views/Shared/Components/_footerMainWhite.cshtml", null)
+
+
 
     <!-- Core -->
     <script src="@Url.Content("~/frontend_Content/assets")/vendor/jquery/dist/jquery.min.js"></script>
@@ -76,6 +78,8 @@
 
 
     <script src="@Url.Content("~/frontend_Content/assets")/js/theme.min.js"></script>
+    <!-- Heartbeat Online Users tracking -->
+    @Html.Partial("/Views/Shared/Components/OnlineUsersTrackingCode.cshtml", null)
 
 </body>
 
