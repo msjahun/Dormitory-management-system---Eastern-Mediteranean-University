@@ -4,14 +4,16 @@ using Dau.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dau.Data.Migrations
 {
     [DbContext(typeof(Fees_and_facilitiesContext))]
-    partial class fees_and_facilitiesContextModelSnapshot : ModelSnapshot
+    [Migration("20181126093002_LogTableMigration")]
+    partial class LogTableMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -470,7 +472,7 @@ namespace Dau.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EventLog");
+                    b.ToTable("Log");
                 });
 
             modelBuilder.Entity("Dau.Core.Domain.Room.RoomFacility", b =>
