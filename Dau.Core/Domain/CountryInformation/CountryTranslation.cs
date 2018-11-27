@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dau.Core.Domain.Country
+namespace Dau.Core.Domain.CountryInformation
 {
     public class CountryTranslation : BaseLanguage
     {

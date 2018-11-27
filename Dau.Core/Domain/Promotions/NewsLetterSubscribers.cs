@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dau.Core.Domain.Promotions
 {
-    class NewsLetterSubscribers
+   public class NewsLetterSubscribers
     {
         public DateTime StartDate { get; set; }
 

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dau.Core.Domain.Promotions
 {
-    class Campaign
+  public  class Campaign
     {
         public string AllowedTokens { get; set; }
 

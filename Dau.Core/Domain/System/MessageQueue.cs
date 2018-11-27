@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dau.Core.Domain.System
 {
-    class MessageQueue
+    public class MessageQueue
     {
         public DateTime StartDate { get; set; }
 

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dau.Core.Domain.ActivityLog
+namespace Dau.Core.Domain.Activity
 {
-    class ActivityLog
+  public  class ActivityLog
     {
     
         public DateTime CreatedFrom { get; set; }

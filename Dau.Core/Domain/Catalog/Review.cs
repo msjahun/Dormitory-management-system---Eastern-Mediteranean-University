@@ -4,8 +4,9 @@ using System.Text;
 
 namespace Dau.Core.Domain.Catalog
 {
-    class Review
+  public  class Review
     {
+        //relationship with users class
 
         public string Room { get; set; }
 

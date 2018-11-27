@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dau.Core.Domain.Reservations
 {
-    class CancelReservationRequests
+  public  class CancelReservationRequests
     {
 
         public string Id { get; set; }

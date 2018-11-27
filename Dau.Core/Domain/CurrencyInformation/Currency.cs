@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dau.Core.Domain.Currency
+namespace Dau.Core.Domain.CurrencyInformation
 {
-    class Currency
+   public class Currency
     {
         public Currency()
         {

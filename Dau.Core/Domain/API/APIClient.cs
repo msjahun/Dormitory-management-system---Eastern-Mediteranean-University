@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dau.Core.Domain.API
 {
-    class APIClient
+   public class APIClient
     {
        public string ClientName { get; set; }
 

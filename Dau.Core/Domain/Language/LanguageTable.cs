@@ -1,8 +1,10 @@
 ﻿using Dau.Core.Domain.BankAccount;
 using Dau.Core.Domain.Catalog;
 using Dau.Core.Domain.ContentManagement;
-using Dau.Core.Domain.Country;
-using Dau.Core.Domain.Currency;
+
+using Dau.Core.Domain.CountryInformation;
+
+using Dau.Core.Domain.CurrencyInformation;
 using Dau.Core.Domain.Dormitory;
 using Dau.Core.Domain.Facility;
 using Dau.Core.Domain.Room;

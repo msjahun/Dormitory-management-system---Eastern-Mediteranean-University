@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dau.Core.Domain.Promotions
 {
-    class Affiliate
+  public  class Affiliate
     {
         public string FirstName { get; set; }
 

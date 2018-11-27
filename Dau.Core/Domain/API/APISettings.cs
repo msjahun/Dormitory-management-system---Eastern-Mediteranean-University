@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dau.Core.Domain.API
 {
-    class APISettings
+  public  class APISettings
     {//think of this tables relationship
         //set first and read first
 

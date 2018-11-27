@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dau.Core.Domain.MobileAppManager
 {
-    class PushNotification
+    public class PushNotification
     {
         public string AllowedTokens { get; set; }
 

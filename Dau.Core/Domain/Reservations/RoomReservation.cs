@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dau.Core.Domain.Reservations
 {
-    class RoomReservation
+    public class RoomReservation
     {
 
         //I probably won't need to use this in any relationship,
