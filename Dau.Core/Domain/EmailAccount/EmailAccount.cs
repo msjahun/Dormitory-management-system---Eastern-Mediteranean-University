@@ -8,31 +8,31 @@ namespace Dau.Core.Domain.EmailAccount
     {
 
 
-       public string EmailAddress { get; set; }
+        public string EmailAddress { get; set; }
 
- public string EmailDisplayName { get; set; }
-
-
-       public string Host { get; set; }
+        public string EmailDisplayName { get; set; }
 
 
-       public int Port { get; set; }
+        public string Host { get; set; }
 
 
-       public string User { get; set; }
+        public int Port { get; set; }
 
 
-      public string Password { get; set; }
+        public string User { get; set; }
 
 
-       public bool SSL { get; set; }
+        public string Password { get; set; }
 
 
-     public bool UseDefaultCredentials { get; set; }
+        public bool SSL { get; set; }
 
-   
-     
 
-     public string SendEmailTo { get; set; }
+        public bool UseDefaultCredentials { get; set; }
+
+
+
+
+        public string SendEmailTo { get; set; }
     }
 }

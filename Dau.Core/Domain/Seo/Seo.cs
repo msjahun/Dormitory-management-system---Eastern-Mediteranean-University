@@ -6,7 +6,7 @@ namespace Dau.Core.Domain.Seo
 {
     class Seo
     {
-      public string MetaKeywords { get; set; }
+        public string MetaKeywords { get; set; }
 
 
         public string MetaDescription { get; set; }

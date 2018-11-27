@@ -15,5 +15,7 @@ namespace Dau.Core.Domain.Address
         public string StateProvince { get; set; }
         public string ZipPostalCode { get; set; }
         public string Country { get; set; }
+
+        //a lot of the entities will use address
     }
 }
