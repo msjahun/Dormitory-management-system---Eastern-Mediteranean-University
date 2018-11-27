@@ -14,7 +14,7 @@ namespace Dau.Core.Domain.Currency
 
 
       
-        //CurrencyTranslation table
+       
         public string CurrencyCode { get; set; }
 
         public int Rate { get; set; }
@@ -36,6 +36,8 @@ namespace Dau.Core.Domain.Currency
 
         public DateTime UpdatedOn { get; set; }
 
+
+ //CurrencyTranslation table
         //  public LocalizedCurrencyContent[] localizedCurrencyContent { get; set; }
         public ICollection<CurrencyTranslation> CurrencyTranslations{ get; set; }
         
