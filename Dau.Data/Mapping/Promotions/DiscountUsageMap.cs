@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Dau.Core.Domain.Reservations;
+using Dau.Core.Domain.Promotions;
 using Microsoft.EntityFrameworkCore;
-
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Dau.Data.Mapping.Reservations
+namespace Dau.Data.Mapping.Promotions
 {
-    public class RoomReservationMap : IEntityTypeConfiguration<RoomReservation>
+    public class DiscountUsageMap : IEntityTypeConfiguration<DiscountUsage>
     {
-        public void Configure(EntityTypeBuilder<RoomReservation> builder)
+        public void Configure(EntityTypeBuilder<DiscountUsage> builder)
         {
             throw new NotImplementedException();
         }

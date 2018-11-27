@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Dau.Core.Domain.Reservations;
+using Dau.Core.Domain.CurrencyInformation;
 using Microsoft.EntityFrameworkCore;
-
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Dau.Data.Mapping.Reservations
+namespace Dau.Data.Mapping.CurrencyInformation
 {
-    public class RoomReservationMap : IEntityTypeConfiguration<RoomReservation>
+    public class CurrencyMap : IEntityTypeConfiguration<Currency>
     {
-        public void Configure(EntityTypeBuilder<RoomReservation> builder)
+        public void Configure(EntityTypeBuilder<Currency> builder)
         {
             throw new NotImplementedException();
         }

@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Dau.Core.Domain.Reservations;
+using Dau.Core.Domain.CountryInformation;
 using Microsoft.EntityFrameworkCore;
-
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Dau.Data.Mapping.Reservations
+namespace Dau.Data.Mapping.CountryInformation
 {
-    public class RoomReservationMap : IEntityTypeConfiguration<RoomReservation>
+    public class StateAndProvinceMap : IEntityTypeConfiguration<StateAndProvince>
     {
-        public void Configure(EntityTypeBuilder<RoomReservation> builder)
+        public void Configure(EntityTypeBuilder<StateAndProvince> builder)
         {
             throw new NotImplementedException();
         }
