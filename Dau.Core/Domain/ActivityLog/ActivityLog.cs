@@ -25,5 +25,11 @@ namespace Dau.Core.Domain.ActivityLog
         //link to userTable, to keep track of the user that made changes, or just a username that lets us know who changed what
         // just add a field for use id
 
+
+        //we'll probably need to add things link
+        //activity performed
+        //activity category / activityType
+        //date/time activity was performed and by
+        //who the activity was performed by
     }
 }
