@@ -6,10 +6,14 @@ namespace Dau.Core.Domain.ContentManagement
 {
     class MessageTemplate
     {
+        public MessageTemplate()
+        {
+            MessageTemplateTranslations = new HashSet<MessageTemplateTranslation>();
+        }
 
 
-       // public LocalizedMessageTemplateContent[] localizedMessageTemplateContents { get; set; }
-       //MessageTemplateTranslation
+        // public LocalizedMessageTemplateContent[] localizedMessageTemplateContents { get; set; }
+        //MessageTemplateTranslation
 
 
         public string AllowedTokens { get; set; }
@@ -25,6 +29,7 @@ namespace Dau.Core.Domain.ContentManagement
 
         public IEnumerable<int> LimitedToDormitories { get; set; }
 
-
+        public ICollection<MessageTemplateTranslation> MessageTemplateTranslations{ get; set; }
+        
     }
 }

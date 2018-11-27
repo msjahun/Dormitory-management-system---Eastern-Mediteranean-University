@@ -15,5 +15,8 @@ namespace Dau.Core.Domain.ContentManagement
 
 
         public int EmailAccount { get; set; }
+
+
+        public MessageTemplate MessageTemplateNonTrans{ get; set; }
     }
 }

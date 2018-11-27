@@ -4,10 +4,15 @@ using System.Text;
 
 namespace Dau.Core.Domain.ContentManagement
 {
-    class Topic
+    public class Topic
     {
-        //  public LocalizedTopicsContent[] localizedTopicsContents { get; set; }
-        //TopicTranslation 
+        public Topic()
+        {TopicTranslations = new HashSet<TopicTranslation>();
+        }
+
+
+
+    
 
         public string SystemName { get; set; }
 
@@ -38,8 +43,11 @@ namespace Dau.Core.Domain.ContentManagement
         //seo table
 
 
+        //  public LocalizedTopicsContent[] localizedTopicsContents { get; set; }
+        //TopicTranslation 
 
-
+        public ICollection<TopicTranslation> TopicTranslations { get; set; }
+        
 
     }
 }

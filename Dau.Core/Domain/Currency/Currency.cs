@@ -6,7 +6,14 @@ namespace Dau.Core.Domain.Currency
 {
     class Currency
     {
-        //  public LocalizedCurrencyContent[] localizedCurrencyContent { get; set; }
+        public Currency()
+        {
+            CurrencyTranslations = new HashSet<CurrencyTranslation>();
+        }
+
+
+
+      
         //CurrencyTranslation table
         public string CurrencyCode { get; set; }
 
@@ -28,5 +35,12 @@ namespace Dau.Core.Domain.Currency
         public DateTime CreatedOn { get; set; }
 
         public DateTime UpdatedOn { get; set; }
+
+        //  public LocalizedCurrencyContent[] localizedCurrencyContent { get; set; }
+        public ICollection<CurrencyTranslation> CurrencyTranslations{ get; set; }
+        
+
+
+
     }
 }

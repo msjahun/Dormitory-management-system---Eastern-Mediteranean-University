@@ -6,9 +6,11 @@ namespace Dau.Core.Domain.Catalog
 {
     class DormitoryBlock
     {//think of this relationship
+        public DormitoryBlock()
+        { DormitoryBlockTranslations = new HashSet<DormitoryBlockTranslation>();
+        }
 
-
-      public string Name { get; set; }
+        public string Name { get; set; }
 
 
       public string Description { get; set; }
@@ -31,16 +33,19 @@ namespace Dau.Core.Domain.Catalog
         public int DisplayOrder { get; set; }
 
 
-       // public DormitoryBlockSeoTab[] seoTab { get; set; }
-       //relationship with seo Table
+        // public DormitoryBlockSeoTab[] seoTab { get; set; }
+        //relationship with seo Table
 
 
-      //  public DormitoryBlockContentLocalizedTab[] localizedContent { get; set; }
-      //DormitoryBlock Translation
+        //  public DormitoryBlockContentLocalizedTab[] localizedContent { get; set; }
+        //DormitoryBlock Translation
+
+        public ICollection<DormitoryBlockTranslation> DormitoryBlockTranslations{ get; set; }
+       
 
 
         //roomsInside a dormitory block, one to many relationship
-   
+
 
 
 

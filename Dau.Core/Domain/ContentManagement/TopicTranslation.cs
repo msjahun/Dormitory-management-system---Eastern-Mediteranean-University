@@ -4,10 +4,13 @@ using System.Text;
 
 namespace Dau.Core.Domain.ContentManagement
 {
-    class TopicTranslation
+   public class TopicTranslation
     {
         public string Title { get; set; }
 
         public string Body { get; set; }
+
+
+        public Topic TopicNonTrans{ get; set; }
     }
 }

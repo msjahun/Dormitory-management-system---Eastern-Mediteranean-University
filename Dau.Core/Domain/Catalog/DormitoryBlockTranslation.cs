@@ -10,5 +10,7 @@ namespace Dau.Core.Domain.Catalog
          public string Name { get; set; }
 
        public string Description { get; set; }
+
+        public DormitoryBlock DormitoryBlockNonTrans{ get; set; }
     }
 }
