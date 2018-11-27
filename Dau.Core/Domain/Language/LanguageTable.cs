@@ -1,4 +1,8 @@
 ﻿using Dau.Core.Domain.BankAccount;
+using Dau.Core.Domain.Catalog;
+using Dau.Core.Domain.ContentManagement;
+using Dau.Core.Domain.Country;
+using Dau.Core.Domain.Currency;
 using Dau.Core.Domain.Dormitory;
 using Dau.Core.Domain.Facility;
 using Dau.Core.Domain.Room;
@@ -19,6 +23,13 @@ namespace Dau.Core.Domain.Language
             FacilityOptionTranslation = new HashSet<FacilityOptionTranslation>();
             FacilityTableTranslation = new HashSet<FacilityTableTranslation>();
             RoomTableTranslation = new HashSet<RoomTableTranslation>();
+
+            //new
+            DormitoryBlockTranslations = new HashSet<DormitoryBlockTranslation>();
+            MessageTemplateTranslations = new HashSet<MessageTemplateTranslation>();
+            TopicTranslations = new HashSet<TopicTranslation>();
+            CountryTranslations = new HashSet<CountryTranslation>();
+            CurrencyTranslations = new HashSet<CurrencyTranslation>();
         }
 
         public int Id { get; set; }
@@ -33,5 +44,21 @@ namespace Dau.Core.Domain.Language
         public ICollection<FacilityOptionTranslation> FacilityOptionTranslation { get; set; }
         public ICollection<FacilityTableTranslation> FacilityTableTranslation { get; set; }
         public ICollection<RoomTableTranslation> RoomTableTranslation { get; set; }
+
+        //new
+        public ICollection<DormitoryBlockTranslation> DormitoryBlockTranslations{ get; set; }
+        public ICollection<MessageTemplateTranslation> MessageTemplateTranslations{ get; set; }
+        public ICollection<TopicTranslation> TopicTranslations{ get; set; }
+        public ICollection<CountryTranslation> CountryTranslations{ get; set; }
+        public ICollection<CurrencyTranslation> CurrencyTranslations{ get; set; }
+
+       
+
+
+
+
+        
+
+       
     }
 }
