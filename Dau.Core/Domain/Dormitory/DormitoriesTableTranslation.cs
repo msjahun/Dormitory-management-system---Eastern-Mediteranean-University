@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace Dau.Core.Domain.Dormitory
 {
-    public partial class DormitoriesTableTranslation
+    public partial class DormitoriesTableTranslation : BaseLanguage
     {
-        public int LanguageId { get; set; }
+       
         public int DormitoriesTableNonTransId { get; set; }
         public string DormitoryName { get; set; }
         public string DormitoryAddress { get; set; }
@@ -14,6 +14,6 @@ namespace Dau.Core.Domain.Dormitory
         public string RoomsPaymentPeriod { get; set; }
 
         public DormitoriesTable DormitoriesTableNonTrans { get; set; }
-        public LanguageTable Language { get; set; }
+        
     }
 }

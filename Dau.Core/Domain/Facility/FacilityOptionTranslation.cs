@@ -4,14 +4,14 @@ using System.Collections.Generic;
 
 namespace Dau.Core.Domain.Facility
 {
-    public partial class FacilityOptionTranslation
+    public partial class FacilityOptionTranslation : BaseLanguage
     {
         public int FacilityOptionNonTransId { get; set; }
-        public int LanguageId { get; set; }
+       
         public string FacilityOption { get; set; }
         public string FacilityOptionDescription { get; set; }
 
         public FacilityOption FacilityOptionNonTrans { get; set; }
-        public LanguageTable Language { get; set; }
+       
     }
 }

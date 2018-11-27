@@ -4,13 +4,13 @@ using System.Collections.Generic;
 
 namespace Dau.Core.Domain.Dormitory
 {
-    public partial class DormitoryInformationTableTranslation
+    public partial class DormitoryInformationTableTranslation : BaseLanguage
     {
-        public int LanguageId { get; set; }
+        
         public int DormitoryInfoNonTransId { get; set; }
         public string Information { get; set; }
 
         public DormitoryInformationTable DormitoryInfoNonTrans { get; set; }
-        public LanguageTable Language { get; set; }
+       
     }
 }

@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Dau.Core.Domain.Language;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Dau.Core.Domain.ContentManagement
 {
-    class MessageTemplateTranslation
+  public  class MessageTemplateTranslation : BaseLanguage
     {
-
+        public int MessageTemplateNonTransId { get; set; }
       public string Subject { get; set; }
 
        public string Body { get; set; }
