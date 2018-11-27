@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dau.Core.Domain.Country
 {
-    class Country
+  public  class Country
     {
         public Country()
         {

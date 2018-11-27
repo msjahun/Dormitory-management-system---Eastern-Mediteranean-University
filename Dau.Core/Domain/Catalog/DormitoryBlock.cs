@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dau.Core.Domain.Catalog
 {
-    class DormitoryBlock
+  public  class DormitoryBlock
     {//think of this relationship
         public DormitoryBlock()
         { DormitoryBlockTranslations = new HashSet<DormitoryBlockTranslation>();

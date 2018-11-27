@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dau.Core.Domain.ContentManagement
 {
-    class MessageTemplate
+    public class MessageTemplate
     {
         public MessageTemplate()
         {
