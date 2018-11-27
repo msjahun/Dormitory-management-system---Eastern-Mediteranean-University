@@ -9,6 +9,7 @@ namespace Dau.Core.Domain.Country
         public Country()
         {
             CountryTranslations = new HashSet<CountryTranslation>();
+            StateAndProvinces = new HashSet<StateAndProvince>();
         }
 
 
@@ -28,11 +29,14 @@ namespace Dau.Core.Domain.Country
 
         public int DisplayOrder { get; set; }
 
-        //state and province table  
+       
 
         // public LocalizedContentCountry[] localizedContentCountry { get; set; }
         public ICollection<CountryTranslation> CountryTranslations{ get; set; }
-        
 
+
+        //state and province table  
+
+        public ICollection<StateAndProvince> StateAndProvinces { get; set; }
     }
 }

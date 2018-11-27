@@ -4,8 +4,13 @@ using System.Text;
 
 namespace Dau.Core.Domain.Promotions
 {
-    class Discount
+  public  class Discount
     {
+        public Discount()
+        {
+            DiscountUsages = new HashSet<DiscountUsage>();
+        }
+
         public string DiscountName { get; set; }
 
         public string CouponCode { get; set; }
@@ -39,5 +44,8 @@ namespace Dau.Core.Domain.Promotions
 
         //usage history create a table for usage history
         //one to many with usage history
+
+        public ICollection<DiscountUsage> DiscountUsages{ get; set; }
+
     }
 }

@@ -4,9 +4,15 @@ using System.Text;
 
 namespace Dau.Core.Domain.ContentManagement
 {
-    class Poll
+    public class Poll
     {
-       public int Language { get; set; }
+        public Poll()
+        {
+
+            PollAnswers = new HashSet<PollAnswers>();
+        }
+
+        public int Language { get; set; }
 
        public string Name { get; set; }
 
@@ -25,7 +31,8 @@ namespace Dau.Core.Domain.ContentManagement
         public DateTime EndDate { get; set; }
 
         //Poll answers table
+        public ICollection<PollAnswers> PollAnswers{ get; set; }
 
-     
+
     }
 }

@@ -4,12 +4,13 @@ using System.Text;
 
 namespace Dau.Core.Domain.ContentManagement
 {
-    class PollAnswers
+    public class PollAnswers
     {
         public string Name { get; set; }
         public string NumberOfVotes { get; set; }
         public string DisplayOrder { get; set; }
 
         //needs some work
+        public Poll Poll { get; set; }
     }
 }

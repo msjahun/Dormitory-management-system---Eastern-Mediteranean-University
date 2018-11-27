@@ -4,9 +4,14 @@ using System.Text;
 
 namespace Dau.Core.Domain.ContentManagement
 {
-    class Survey
+   public class Survey
     {
-       public int Language { get; set; }
+        public Survey()
+        {
+            SurveyQuestionsAndAnswers = new HashSet<SurveyQuestionsAndAnswers>();
+        }
+
+        public int Language { get; set; }
 
        public string Name { get; set; }
 
@@ -23,7 +28,10 @@ namespace Dau.Core.Domain.ContentManagement
          public DateTime StartDate { get; set; }
 
         public DateTime EndDate { get; set; }
-   
-   
+
+        //surveyQuestionsAndAnswersTable
+        public ICollection<SurveyQuestionsAndAnswers> SurveyQuestionsAndAnswers{ get; set; }
+
+
     }
 }

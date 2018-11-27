@@ -25,6 +25,8 @@ namespace Dau.Core.Domain.MobileAppManager
 
         public string SendTestNotificationTo { get; set; }
 
+        //maybe we should track the user who sent the notification, if it's not automatic
+
 
 
     }

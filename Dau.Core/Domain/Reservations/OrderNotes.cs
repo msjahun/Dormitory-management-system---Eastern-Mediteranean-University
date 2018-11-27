@@ -4,7 +4,10 @@ using System.Text;
 
 namespace Dau.Core.Domain.Reservations
 {
-    class OrderNotes
+   public class OrderNotes
+
     {
+        public Reservation reservation { get; set; }
+        //where are the fields
     }
 }

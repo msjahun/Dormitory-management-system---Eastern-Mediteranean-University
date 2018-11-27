@@ -6,6 +6,9 @@ namespace Dau.Core.Domain.Reservations
 {
     class RoomReservation
     {
+
+        //I probably won't need to use this in any relationship,
+        //since you can only reserve one room at a time, I can just add a room identifier in the reservation entity
         public string Picture { get; set; }
         public string RoomName { get; set; }
         public string Price { get; set; }

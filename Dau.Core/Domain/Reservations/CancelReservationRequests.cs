@@ -36,5 +36,8 @@ namespace Dau.Core.Domain.Reservations
 
 
         public int CancellationStatus { get; set; }
+
+
+        //this definitely has some sort of relationship with booking/reservation table, is bookingNumber enough
     }
 }
