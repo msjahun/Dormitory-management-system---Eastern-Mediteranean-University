@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Dau.Core.Domain.SearchEngineOptimization;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
+
 namespace Dau.Core.Domain.ContentManagement
 {
-    public class Topic
+    public class Topic :IBaseSeo
     {
         public Topic()
         {TopicTranslations = new HashSet<TopicTranslation>();
@@ -39,15 +41,19 @@ namespace Dau.Core.Domain.ContentManagement
 
         public bool AccessileWhenSiteIsClosed { get; set; }
 
-        // public TopicsSeoTab[] seoTab { get; set; }
-        //seo table
-
+       
 
         //  public LocalizedTopicsContent[] localizedTopicsContents { get; set; }
         //TopicTranslation 
 
         public ICollection<TopicTranslation> TopicTranslations { get; set; }
+ 
         
+        
+        // public TopicsSeoTab[] seoTab { get; set; }
+        //seo table
 
+        public int SeoId { get; set; }
+        public Seo Seo { get; set; }
     }
 }

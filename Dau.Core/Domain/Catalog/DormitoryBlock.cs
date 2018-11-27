@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Dau.Core.Domain.SearchEngineOptimization;
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Dau.Core.Domain.Catalog
 {
-  public  class DormitoryBlock
+  public class DormitoryBlock : IBaseSeo
     {//think of this relationship
         public DormitoryBlock()
         { DormitoryBlockTranslations = new HashSet<DormitoryBlockTranslation>();
@@ -33,19 +35,24 @@ namespace Dau.Core.Domain.Catalog
         public int DisplayOrder { get; set; }
 
 
-        // public DormitoryBlockSeoTab[] seoTab { get; set; }
-        //relationship with seo Table
-
+      
 
         //  public DormitoryBlockContentLocalizedTab[] localizedContent { get; set; }
         //DormitoryBlock Translation
 
         public ICollection<DormitoryBlockTranslation> DormitoryBlockTranslations{ get; set; }
-       
+
+
+  // public DormitoryBlockSeoTab[] seoTab { get; set; }
+        //relationship with seo Table
+
+        public int SeoId { get; set; }
+        public Seo Seo { get; set; }
+
 
 
         //roomsInside a dormitory block, one to many relationship
-
+        //** please treat as urgent important relationship
 
 
 
