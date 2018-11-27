@@ -12,9 +12,7 @@ namespace Dau.Core.Domain.ContentManagement
         }
 
 
-        // public LocalizedMessageTemplateContent[] localizedMessageTemplateContents { get; set; }
-        //MessageTemplateTranslation
-
+      
 
         public string AllowedTokens { get; set; }
 
@@ -28,6 +26,12 @@ namespace Dau.Core.Domain.ContentManagement
        public bool AttachedStaticFile { get; set; }
 
         public IEnumerable<int> LimitedToDormitories { get; set; }
+
+
+
+
+  // public LocalizedMessageTemplateContent[] localizedMessageTemplateContents { get; set; }
+        //MessageTemplateTranslation
 
         public ICollection<MessageTemplateTranslation> MessageTemplateTranslations{ get; set; }
         
