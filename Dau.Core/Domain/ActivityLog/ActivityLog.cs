@@ -19,8 +19,11 @@ namespace Dau.Core.Domain.ActivityLog
   
         public int ActivityLogType { get; set; }
         //ActivityLogType table
-        
+
+
+        public string UserGUid { get; set; }
         //link to userTable, to keep track of the user that made changes, or just a username that lets us know who changed what
+        // just add a field for use id
 
     }
 }
