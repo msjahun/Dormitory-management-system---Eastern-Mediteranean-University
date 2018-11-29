@@ -11,7 +11,16 @@ namespace Dau.Data.Mapping.API
     {
         public void Configure(EntityTypeBuilder<APISettings> builder)
         {
-            throw new NotImplementedException();
+            //table_name
+            builder.ToTable("APISettings");
+
+
+            //int
+            builder.Property(e => e.Id).HasColumnName("Id");
+            builder.Property(e => e.EnableAPI).HasColumnName("EnableAPI");
+            builder.Property(e => e.AllowRequestsFromSwagger).HasColumnName("AllowRequestsFromSwagger");
+
+           
         }
     }
 }

@@ -11,7 +11,26 @@ namespace Dau.Data.Mapping.ContentManagement
     {
         public void Configure(EntityTypeBuilder<MessageTemplateTranslation> builder)
         {
-            throw new NotImplementedException();
+            //table_name
+            builder.ToTable("MessageTemplate");
+
+
+            //int
+            builder.Property(e => e.Id).HasColumnName("Id");
+            builder.Property(e => e.MessageTemplateNonTransId).HasColumnName("MessageTemplateNonTransId");
+            builder.Property(e => e.Subject).HasColumnName("Subject").HasMaxLength(256)
+                .IsUnicode(false);
+            builder.Property(e => e.Body).HasColumnName("Body").HasMaxLength(1024)
+                .IsUnicode(false);
+            builder.Property(e => e.BCC).HasColumnName("BCC").HasMaxLength(256)
+                .IsUnicode(false);
+            builder.Property(e => e.EmailAccount).HasColumnName("EmailAccount");
+         
+
+            //string
+      
+                
+               
         }
     }
 }

@@ -11,7 +11,19 @@ namespace Dau.Data.Mapping.ContentManagement
     {
         public void Configure(EntityTypeBuilder<SurveyQuestionsAndAnswers> builder)
         {
-            throw new NotImplementedException();
+            //table_name
+            builder.ToTable("SurveyQuestionsAndAnswers");
+
+
+            //int
+            builder.Property(e => e.Id).HasColumnName("Id");
+            builder.Property(e => e.Name).HasColumnName("Name").HasMaxLength(100)
+                .IsUnicode(false); ;
+            builder.Property(e => e.NumberOfParticipants).HasColumnName("NumberOfParticipants");
+            builder.Property(e => e.DisplayOrder).HasColumnName("DisplayOrder");
+            
+            //string
+        
         }
     }
 }

@@ -14,7 +14,49 @@ namespace Dau.Data.Mapping.Activity
 
         public void Configure(EntityTypeBuilder<ActivityLog> builder)
         {
-            throw new NotImplementedException();
+            //table_name
+            builder.ToTable("ActivityLog");
+
+
+            //int
+            //builder.Property(e => e.).HasColumnName("");
+
+            //string
+            builder.Property(e => e.IpAddress)
+                .IsRequired()
+                .HasColumnName("IpAddress")
+                .HasMaxLength(100)
+                .IsUnicode(false);
+
+            //int
+            builder.Property(e => e.ActivityLogTypeId).HasColumnName("ActivityLogTypeId");
+
+            builder.Property(e => e.UserGuid)
+            .IsRequired()
+            .HasColumnName("UserGuid")
+            .HasMaxLength(256)
+            .IsUnicode(false);
+
+
+            builder.Property(e => e.ActivityPerformed)
+            .IsRequired()
+            .HasColumnName("ActivityPerformed")
+            .HasMaxLength(256)
+            .IsUnicode(false);
+
+            builder.Property(e => e.ActivityCategory)
+         
+            .HasColumnName("ActivityCategory")
+            .HasMaxLength(100)
+            .IsUnicode(false);
+
+
+            builder.Property(e => e.CreatedDateTime)
+                 .HasColumnName("CreatedDateTime")
+                 .HasColumnType("datetime2");
+
+
+           
         }
     }
 }

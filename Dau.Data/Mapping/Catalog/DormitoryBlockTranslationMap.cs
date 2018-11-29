@@ -11,7 +11,27 @@ namespace Dau.Data.Mapping.Catalog
     {
         public void Configure(EntityTypeBuilder<DormitoryBlockTranslation> builder)
         {
-            throw new NotImplementedException();
+            //table_name
+            builder.ToTable("");
+
+
+            //int
+            builder.Property(e => e.DormitoryBlockNonTransId).HasColumnName("DormitoryBlockNonTransId");
+            builder.Property(e => e.LanguageId).HasColumnName("language_id");
+
+            //string
+            builder.Property(e => e.Name)
+                .IsRequired()
+                .HasColumnName("Name")
+                .HasMaxLength(100)
+                .IsUnicode(false);
+
+            //string
+            builder.Property(e => e.Description)
+                .IsRequired()
+                .HasColumnName("Description")
+                .HasMaxLength(512)
+                .IsUnicode(false);
         }
     }
 }

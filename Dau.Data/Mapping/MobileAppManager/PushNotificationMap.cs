@@ -11,7 +11,32 @@ namespace Dau.Data.Mapping.MobileAppManager
     {
         public void Configure(EntityTypeBuilder<PushNotification> builder)
         {
-            throw new NotImplementedException();
+            //table_name
+            builder.ToTable("PushNotification");
+
+
+            //int
+            builder.Property(e => e.Id).HasColumnName("Id");
+            builder.Property(e => e.AllowedTokens).HasColumnName("AllowedTokens").HasMaxLength(256)
+                .IsUnicode(false);
+
+            builder.Property(e => e.Name).HasColumnName("Name").HasMaxLength(100)
+                .IsUnicode(false);
+
+            builder.Property(e => e.Subject).HasColumnName("Subject").HasMaxLength(100)
+                .IsUnicode(false);
+
+            builder.Property(e => e.Body).HasColumnName("Body").HasMaxLength(4000)
+                .IsUnicode(false);
+
+            builder.Property(e => e.PlannedDateOfSending).HasColumnName("PlannedDateOfSending").HasColumnType("datetime2");
+
+            builder.Property(e => e.LimitedToCustomerRole).HasColumnName("LimitedToCustomerRole");
+
+            builder.Property(e => e.NotificationAccount).HasColumnName("NotificationAccount");
+         
+
+      
         }
     }
 }

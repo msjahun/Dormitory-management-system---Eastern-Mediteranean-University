@@ -11,7 +11,21 @@ namespace Dau.Data.Mapping.CountryInformation
     {
         public void Configure(EntityTypeBuilder<StateAndProvince> builder)
         {
-            throw new NotImplementedException();
+            //table_name
+            builder.ToTable("StateAndProvince");
+
+
+            //int
+            builder.Property(e => e.Id).HasColumnName("Id");
+            builder.Property(e => e.Name).HasColumnName("Name").HasMaxLength(100)
+                .IsUnicode(false);
+            builder.Property(e => e.Abbreviation).HasColumnName("Abbreviation").HasMaxLength(100)
+                .IsUnicode(false);
+            builder.Property(e => e.Published).HasColumnName("Published");
+            builder.Property(e => e.DisplayOrder).HasColumnName("DisplayOrder");
+
+            //string
+  
         }
     }
 }

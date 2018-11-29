@@ -11,7 +11,16 @@ namespace Dau.Data.Mapping.Reservations
     {
         public void Configure(EntityTypeBuilder<OrderNotes> builder)
         {
-            throw new NotImplementedException();
+            //table_name
+            builder.ToTable("OrderNotes");
+
+            builder.Property(e => e.Id).HasColumnName("Id");
+            builder.Property(e => e.Note).HasColumnName("Note").HasMaxLength(512)
+              .IsUnicode(false);
+            builder.Property(e => e.ShowToCustomer).HasColumnName("ShowToCustomer");
+            builder.Property(e => e.CreatedOn).HasColumnName("CreatedOn").HasColumnType("datetime2");
+         
+    
         }
     }
 }

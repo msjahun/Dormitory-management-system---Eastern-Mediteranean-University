@@ -11,7 +11,22 @@ namespace Dau.Data.Mapping.SearchEngineOptimization
     {
         public void Configure(EntityTypeBuilder<Seo> builder)
         {
-            throw new NotImplementedException();
+            //table_name
+            builder.ToTable("Seo");
+
+            builder.Property(e => e.Id).HasColumnName("Id");
+            //int
+            builder.Property(e => e.MetaKeywords).HasColumnName("MetaKeywords").HasMaxLength(256)
+             .IsUnicode(false);
+            builder.Property(e => e.MetaDescription).HasColumnName("MetaDescription").HasMaxLength(2000)
+             .IsUnicode(false);
+            builder.Property(e => e.MetaTitle).HasColumnName("MetaTitle").HasMaxLength(256)
+             .IsUnicode(false);
+            builder.Property(e => e.SearchEngineFriendlyPageName).HasColumnName("SearchEngineFriendlyPageName").HasMaxLength(256)
+             .IsUnicode(false);
+
+            //string
+           
         }
     }
 }

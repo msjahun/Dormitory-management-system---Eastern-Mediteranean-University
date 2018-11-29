@@ -11,7 +11,18 @@ namespace Dau.Data.Mapping.CountryInformation
     {
         public void Configure(EntityTypeBuilder<CountryTranslation> builder)
         {
-            throw new NotImplementedException();
+            //table_name
+            builder.ToTable("CountryTranslation");
+
+
+            //int
+            builder.Property(e => e.Id).HasColumnName("Id");
+            builder.Property(e => e.CountryNonTransId).HasColumnName("CountryNonTransId");
+            builder.Property(e => e.Name).HasColumnName("Name").HasMaxLength(100)
+                .IsUnicode(false);
+          
+
+         
         }
     }
 }

@@ -11,7 +11,29 @@ namespace Dau.Data.Mapping.ContentManagement
     {
         public void Configure(EntityTypeBuilder<Survey> builder)
         {
-            throw new NotImplementedException();
+            //table_name
+            builder.ToTable("Survey");
+
+
+            //int
+            builder.Property(e => e.Id).HasColumnName("Id");
+            builder.Property(e => e.Language).HasColumnName("Language");
+
+            builder.Property(e => e.Name).HasColumnName("Name").HasMaxLength(100)
+                .IsUnicode(false);
+            builder.Property(e => e.SystemKeyword).HasColumnName("SystemKeyword").HasMaxLength(100)
+                .IsUnicode(false);
+
+
+            builder.Property(e => e.Published).HasColumnName("Published");
+            builder.Property(e => e.ShowOnHomePage).HasColumnName("ShowOnHomePage");
+            builder.Property(e => e.AllowGuestsToVote).HasColumnName("AllowGuestsToVote");
+            builder.Property(e => e.DisplayOrder).HasColumnName("DisplayOrder");
+            builder.Property(e => e.StartDate).HasColumnName("StartDate").HasColumnType("datetime2"); ;
+            builder.Property(e => e.EndDate).HasColumnName("EndDate").HasColumnType("datetime2"); ;
+    
+
+      
         }
     }
 }

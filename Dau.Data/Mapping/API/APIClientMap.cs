@@ -11,7 +11,49 @@ namespace Dau.Data.Mapping.API
     {
         public void Configure(EntityTypeBuilder<APIClient> builder)
         {
-            throw new NotImplementedException();
+            //table_name
+            builder.ToTable("ApiClient");
+
+
+            //int
+            builder.Property(e => e.Id).HasColumnName("Id");
+
+            //string
+            builder.Property(e => e.ClientName)
+                .IsRequired()
+                .HasColumnName("ClientName")
+                .HasMaxLength(100)
+                .IsUnicode(false);
+
+            //string
+            builder.Property(e => e.ClientId)
+                .IsRequired()
+                .HasColumnName("ClientId")
+                .HasMaxLength(256)
+                .IsUnicode(false);
+
+            //string
+            builder.Property(e => e.ClientSecret)
+                .IsRequired()
+                .HasColumnName("ClientSecret")
+                .HasMaxLength(256)
+                .IsUnicode(false);
+
+            //string
+            builder.Property(e => e.RedirectUrl)
+                .IsRequired()
+                .HasColumnName("RedirectUrl")
+                .HasMaxLength(100)
+                .IsUnicode(false);
+
+            //int
+            builder.Property(e => e.AccessTokenLifeTime).HasColumnName("AccessTokenLifeTime");
+
+            //int
+            builder.Property(e => e.RefreshTokenLifetime).HasColumnName("RefreshTokenLifeTime");
+
+            //int
+            builder.Property(e => e.Enabled).HasColumnName("Enabled");
         }
     }
 }

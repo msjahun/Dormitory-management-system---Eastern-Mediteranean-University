@@ -12,7 +12,22 @@ namespace Dau.Data.Mapping.ContentManagement
     {
         public void Configure(EntityTypeBuilder<TopicTranslation> builder)
         {
-            throw new NotImplementedException();
+            //table_name
+            builder.ToTable("TopicTranslation");
+
+
+            //int
+            builder.Property(e => e.Id).HasColumnName("Id");
+            builder.Property(e => e.TopicNonTransId).HasColumnName("TopicNonTransId");
+
+            builder.Property(e => e.Title).HasColumnName("Title").HasMaxLength(400)
+              .IsUnicode(false);
+            builder.Property(e => e.Body).HasColumnName("Body").HasMaxLength(4000)
+              .IsUnicode(false);
+         
+   
+
+       
         }
     }
 }

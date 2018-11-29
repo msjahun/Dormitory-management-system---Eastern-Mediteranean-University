@@ -11,7 +11,19 @@ namespace Dau.Data.Mapping.CurrencyInformation
     {
         public void Configure(EntityTypeBuilder<CurrencyTranslation> builder)
         {
-            throw new NotImplementedException();
+            //table_name
+            builder.ToTable("CurrencyTranslation");
+
+
+            //int
+            builder.Property(e => e.Id).HasColumnName("Id");
+            builder.Property(e => e.CurrencyNonTransId).HasColumnName("CurrencyNonTransId");
+            builder.Property(e => e.Name).HasColumnName("Name").HasMaxLength(100)
+                .IsUnicode(false); ;
+            
+
+            //string
+       
         }
     }
 }
