@@ -11,6 +11,8 @@ namespace Dau.Core.Domain.ContentManagement
             SurveyQuestionsAndAnswers = new HashSet<SurveyQuestionsAndAnswers>();
         }
 
+        public int Id { get; set; }
+
         public int Language { get; set; }
 
        public string Name { get; set; }

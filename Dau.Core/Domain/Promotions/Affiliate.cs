@@ -6,6 +6,7 @@ namespace Dau.Core.Domain.Promotions
 {
   public  class Affiliate
     {
+        public int Id { get; set; }
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
@@ -42,10 +43,11 @@ namespace Dau.Core.Domain.Promotions
 
         public string AdminComment { get; set; }
 
-        public string FriendlyUrlName { get; set; }
+       // public string FriendlyUrlName { get; set; }
 
         public string AffiliateURL { get; set; }
 
+        //Consider removing the addresses and using the address table instead, will probably be better
 
         //public AffiliatedBookingsTab AffiliatedBookingsTab { get; set; } create a table for AffiliatedBookings, or add a field for affiliate in the booking table
         //I added a field

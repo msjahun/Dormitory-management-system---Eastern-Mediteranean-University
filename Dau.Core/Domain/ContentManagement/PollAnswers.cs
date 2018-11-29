@@ -6,9 +6,10 @@ namespace Dau.Core.Domain.ContentManagement
 {
     public class PollAnswers
     {
+        public int Id { get; set; }
         public string Name { get; set; }
-        public string NumberOfVotes { get; set; }
-        public string DisplayOrder { get; set; }
+        public int NumberOfVotes { get; set; }
+        public int DisplayOrder { get; set; }
 
         //needs some work
         public Poll Poll { get; set; }

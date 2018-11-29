@@ -13,8 +13,8 @@ namespace Dau.Core.Domain.CurrencyInformation
 
 
 
-      
-       
+        public int Id { get; set; }
+
         public string CurrencyCode { get; set; }
 
         public int Rate { get; set; }
@@ -23,7 +23,8 @@ namespace Dau.Core.Domain.CurrencyInformation
 
         public string CustomFormatting { get; set; }
 
-        public IEnumerable<int> LimitToDormitories { get; set; }
+     //   public IEnumerable<int> LimitToDormitories { get; set; }
+     //ICollection issue which will be resolved later which is not = never
 
         public int RoundingType { get; set; }
 

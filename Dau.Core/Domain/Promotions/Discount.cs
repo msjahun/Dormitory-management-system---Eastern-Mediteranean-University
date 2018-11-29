@@ -11,6 +11,7 @@ namespace Dau.Core.Domain.Promotions
             DiscountUsages = new HashSet<DiscountUsage>();
         }
 
+        public int Id { get; set; }
         public string DiscountName { get; set; }
 
         public string CouponCode { get; set; }
@@ -18,18 +19,20 @@ namespace Dau.Core.Domain.Promotions
         public int DiscountType { get; set; }
 
 
-        public string Name { get; set; }
+       // public string Name { get; set; } ..we already have discountName
 
 
-        public bool UsePercentage { get; set; }
+        public double UsePercentage { get; set; } //percentage 5% discount
 
-        public int DiscountAmount { get; set; }
+        public double DiscountAmount { get; set; }
 
         public bool RequiresCouponCode { get; set; }
 
-        public DateTime StartDate { get; set; }
+        //public DateTime StartDate { get; set; }
 
-        public DateTime EndDate { get; set; }
+       // public DateTime EndDate { get; set; }
+
+            public DateTime UsedDate { get; set; }
 
         public bool CumulativeWithOtherDiscounts { get; set; }
 

@@ -12,52 +12,58 @@ namespace Dau.Core.Domain.Reservations
             OrderNotes = new HashSet<OrderNotes>();
         }
 
-        public DateTime StartDate { get; set; }
+        public int Id { get; set; }
+        //public DateTime StartDate { get; set; }
 
-        public DateTime EndDate { get; set; }
+       // public DateTime EndDate { get; set; }
 
-        public string Room { get; set; }
+       // public string Room { get; set; } // I have roomId at the bottom 
 
-        public IEnumerable<int> BookingStatus { get; set; }
+        // public IEnumerable<int> BookingStatus { get; set; }
 
-        public IEnumerable<int> PaymentStatus { get; set; }
+        // public IEnumerable<int> PaymentStatus { get; set; }
 
+        public int BookingStatus { get; set; }
+
+        public int PaymentStatus { get; set; }
 
         public string BillingEmail { get; set; }
 
+        public string BillingFirstName { get; set; }
         public string BillingLastName { get; set; }
 
         public int BillingCountry { get; set; }
 
         public int PaymentMethod { get; set; }
 
-        public string BookingNotes { get; set; }
+        public int BookingNotes { get; set; }
+        //order notes
 
-        public int GoDirectlyToBookingNumber { get; set; }
-
-
-
-        public string BookingOrderNumber { get; set; }
-
-        public string Dormitory { get; set; }
+       // public int GoDirectlyToBookingNumber { get; set; }
 
 
 
-        public string Customer { get; set; }
+        public int BookingNumber { get; set; }
+
+        public int DormitoryId { get; set; }
+
+
+
+        public int UserId { get; set; }
 
         public string CustomerIpAddress { get; set; }
 
-        public string BookingOrderSubtotal { get; set; }
+        public double BookingOrderSubtotal { get; set; }
 
-        public string BookingFee { get; set; }
+        public double BookingFee { get; set; }
 
-        public string OrderTotal { get; set; }
+        public double BookingTotal { get; set; }
 
-        public string Profit { get; set; }
+        public double Profit { get; set; }
 
 
 
-        public string CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         //there will be two kinds of address, booking address and billing address
         //and its one to  one relationship

@@ -6,7 +6,7 @@ namespace Dau.Core.Domain.EmailAccountInformation
 {
    public class EmailAccount
     {
-
+        public int Id { get; set; }
 
         public string EmailAddress { get; set; }
 
@@ -19,7 +19,7 @@ namespace Dau.Core.Domain.EmailAccountInformation
         public int Port { get; set; }
 
 
-        public string User { get; set; }
+        public string UserName { get; set; }
 
 
         public string Password { get; set; }
@@ -33,6 +33,7 @@ namespace Dau.Core.Domain.EmailAccountInformation
 
 
 
-        public string SendEmailTo { get; set; }
+        //public string SendEmailTo { get; set; }
+       //we only needs this in the sevice I think
     }
 }

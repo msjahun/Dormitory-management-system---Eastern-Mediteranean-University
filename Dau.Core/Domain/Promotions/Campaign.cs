@@ -6,6 +6,7 @@ namespace Dau.Core.Domain.Promotions
 {
   public  class Campaign
     {
+        public int Id { get; set; }
         public string AllowedTokens { get; set; }
 
         public string Name { get; set; }

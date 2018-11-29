@@ -14,7 +14,7 @@ namespace Dau.Core.Domain.CountryInformation
 
 
 
-      
+        public int Id { get; set; }
         //CountryTranslation table
         public bool AllowBilling { get; set; }
 

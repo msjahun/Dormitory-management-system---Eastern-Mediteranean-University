@@ -6,9 +6,10 @@ namespace Dau.Core.Domain.Promotions
 {
     public class DiscountUsage
     {
+        public int Id { get; set; }
         public bool Used { get; set; }
-        public string OrderNumber { get; set; }
-        public double OrderTotal { get; set; }
+        public string BookingNumber { get; set; }
+        public double BookingTotal { get; set; }
 
 
         public Discount Discount{ get; set; }

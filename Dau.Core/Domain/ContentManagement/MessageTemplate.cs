@@ -11,22 +11,18 @@ namespace Dau.Core.Domain.ContentManagement
             MessageTemplateTranslations = new HashSet<MessageTemplateTranslation>();
         }
 
-
-      
-
+        public int Id { get; set; }
         public string AllowedTokens { get; set; }
+        //I'll create allowedTokens service but I don't know how it will turn up, I'll leave this here for now
 
-      public string Name { get; set; }
+        public string Name { get; set; }
+        public bool IsActive { get; set; }
+        public bool SendImmediately { get; set; }
+        public bool AttachedStaticFile { get; set; }
+        public string StaticFileUrl { get; set; }
 
-
-       public bool isActive { get; set; }
-
-      public bool SendImmediately { get; set; }
-
-       public bool AttachedStaticFile { get; set; }
-
-        public IEnumerable<int> LimitedToDormitories { get; set; }
-
+       // public IEnumerable<int> LimitedToDormitories { get; set; }
+       //ICollectionized this
 
 
 

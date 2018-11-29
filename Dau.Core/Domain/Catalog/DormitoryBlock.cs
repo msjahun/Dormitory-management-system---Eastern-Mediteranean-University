@@ -12,23 +12,32 @@ namespace Dau.Core.Domain.Catalog
         { DormitoryBlockTranslations = new HashSet<DormitoryBlockTranslation>();
         }
 
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
 
       public string Description { get; set; }
 
 
-       public string Picture { get; set; }
+       public string PictureUrl { get; set; }
 
-       public string priceRange { get; set; }
+      // public string priceRange { get; set; }
+      //price range should be calculated, or you should store price min and price max
+      //Consider removing this from the view
+      //the service should calculate this
+           
 
         public bool IncludeInTopMenu { get; set; }
 
-       public IEnumerable<int> Discount { get; set; }
+       //I think all these IEnumerable are probably many to many Tables
+       //change IEnumerable to ICollection and Create a link to a table
 
-        public IEnumerable<int> LimitedToCustomerRoles { get; set; }
+       //public IEnumerable<int> Discount { get; set; }
 
-        public IEnumerable<int> LimitToDormitories { get; set; }
+       // public IEnumerable<int> LimitedToCustomerRoles { get; set; }
+
+       // public IEnumerable<int> LimitToDormitories { get; set; }
 
        public bool Published { get; set; }
 

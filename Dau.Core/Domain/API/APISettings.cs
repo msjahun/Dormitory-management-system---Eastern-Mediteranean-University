@@ -8,11 +8,8 @@ namespace Dau.Core.Domain.API
     {//think of this tables relationship
         //set first and read first
 
-     
+     public int Id { get; set; }
         public bool EnableAPI { get; set; }
-
-
- 
         public bool AllowRequestsFromSwagger { get; set; }
     }
 }

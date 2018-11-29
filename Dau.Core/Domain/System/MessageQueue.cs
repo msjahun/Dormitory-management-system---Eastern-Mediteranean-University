@@ -5,10 +5,13 @@ using System.Text;
 namespace Dau.Core.Domain.System
 {
     public class MessageQueue
-    {
-        public DateTime StartDate { get; set; }
 
-        public DateTime EndDate { get; set; }
+
+    {
+        public int Id { get; set; }
+      //  public DateTime StartDate { get; set; }
+
+       // public DateTime EndDate { get; set; }
 
         public string FromAddress { get; set; }
 
@@ -19,16 +22,13 @@ namespace Dau.Core.Domain.System
 
         public int MaximumSentAttempts { get; set; }
 
-        public int GoDirectlyToEmail { get; set; }
+       // public int GoDirectlyToEmail { get; set; } //why is this here though, don't remember why we need this
 
 
-        public string MessagePriority { get; set; }
+        public int MessagePriority { get; set; }
 
-        public string From { get; set; }
 
         public string FromName { get; set; }
-
-        public string To { get; set; }
 
         public string ToName { get; set; }
 
@@ -43,14 +43,15 @@ namespace Dau.Core.Domain.System
         public string Subject { get; set; }
 
         public string Body { get; set; }
-        public string CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         public bool SendImmediately { get; set; }
 
         public int SendAttempts { get; set; }
 
-        public string SentOn { get; set; }
+        public DateTime SentOn { get; set; }
 
-        public string EmailAccount { get; set; }
+        public int EmailAccount { get; set; }
+        //id of the emailAccount that sends the email
     }
 }

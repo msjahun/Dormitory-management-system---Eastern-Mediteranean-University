@@ -6,14 +6,18 @@ namespace Dau.Core.Domain.Promotions
 {
    public class NewsLetterSubscribers
     {
-        public DateTime StartDate { get; set; }
+       // public DateTime StartDate { get; set; }
 
-        public DateTime EndDate { get; set; }
+       // public  EndDate { get; set; }
 
-        public string Email { get; set; }
+            public int Id { get; set; }
+       public string Email { get; set; }
 
-        public int Active { get; set; }
+        public bool Active { get; set; }
 
         public int CustomerRoles { get; set; }
+        //what's with this customerRoles, is there a need
+
+        public DateTime SubscribedDate { get; set; }
     }
 }

@@ -7,6 +7,7 @@ namespace Dau.Core.Domain.ContentManagement
 {
   public  class MessageTemplateTranslation : BaseLanguage
     {
+        public int Id { get; set; }
         public int MessageTemplateNonTransId { get; set; }
       public string Subject { get; set; }
 

@@ -14,14 +14,15 @@ namespace Dau.Core.Domain.ContentManagement
 
 
 
-    
+        public int Id { get; set; }
 
+        public string Name { get; set; }
         public string SystemName { get; set; }
 
 
         public bool Published { get; set; }
 
-        public bool PasswrodProtected { get; set; }
+        public bool PasswordProtected { get; set; }
 
         public bool IncludeInTopMenu { get; set; }
 
@@ -33,13 +34,14 @@ namespace Dau.Core.Domain.ContentManagement
 
         public bool IncludeInSitemap { get; set; }
 
-        public IEnumerable<int> CustomerRoles { get; set; }
+     //   public IEnumerable<int> CustomerRoles { get; set; }
 
-        public IEnumerable<int> LimtedToDormitory { get; set; }
+      //  public IEnumerable<int> LimtedToDormitory { get; set; }
+      //Icollection Issue that needs solving, relationship issue
 
         public int DisplayOrder { get; set; }
 
-        public bool AccessileWhenSiteIsClosed { get; set; }
+        public bool AccesibleWhenSiteIsClosed { get; set; }
 
        
 

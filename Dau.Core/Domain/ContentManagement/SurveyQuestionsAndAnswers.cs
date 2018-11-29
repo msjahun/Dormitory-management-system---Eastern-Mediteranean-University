@@ -6,9 +6,10 @@ namespace Dau.Core.Domain.ContentManagement
 {
    public class SurveyQuestionsAndAnswers
     {
+        public int Id { get; set; }
         public string Name { get; set; }
-        public string NumberOfParticipants { get; set; }
-        public string DisplayOrder { get; set; }
+        public int NumberOfParticipants { get; set; }
+        public int DisplayOrder { get; set; }
 
         //needs some work
         public Survey Survey{ get; set; }
