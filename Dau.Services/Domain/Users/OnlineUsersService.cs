@@ -11,7 +11,6 @@ namespace Dau.Services.Domain.Users
     {
         private Fees_and_facilitiesContext _context = new Fees_and_facilitiesContext();
 
-
         public List<OnlineUsers> GetOnlineUsers()
         {
             var OnlineUsers = new List<OnlineUsers>();

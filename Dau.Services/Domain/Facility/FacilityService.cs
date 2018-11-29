@@ -11,7 +11,6 @@ namespace Dau.Services.Facility
 {
     public class FacilityService : IFacilityService
     {
-
         private Fees_and_facilitiesContext _context = new Fees_and_facilitiesContext();
 
         public void facilities_and_options_data()

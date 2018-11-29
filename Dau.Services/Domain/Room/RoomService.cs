@@ -14,7 +14,7 @@ namespace Dau.Services.Room
     {
         private Fees_and_facilitiesContext _context = new Fees_and_facilitiesContext();
 
-     public void RoomFacilityMapping(room_facility_data _data)
+        public void RoomFacilityMapping(room_facility_data _data)
         {
             //for room facility mapping
           //it's too amgigious, seperate it into two

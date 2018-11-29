@@ -24,6 +24,7 @@ using Microsoft.Extensions.Logging;
 using Dau.Services.Logging;
 using Dau.Services.Middleware;
 using Dau.Services.Domain.Users;
+using Microsoft.EntityFrameworkCore;
 
 namespace searchDormWeb
 {
@@ -72,7 +73,11 @@ namespace searchDormWeb
             services.AddScoped<IUserRolesService, UserRolesService>();
             services.AddScoped<ISearchService, SearchService>();
             services.AddScoped<IDormitoryService, DormitoryService>();
+
+            var connectionString = Configuration.GetConnectionString("fees_and_facilitiesDevContext");
             services.AddDbContext<Fees_and_facilitiesContext>();
+
+           
 
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 
