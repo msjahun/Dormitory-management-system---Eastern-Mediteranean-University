@@ -12,9 +12,11 @@ namespace Dau.Services.Logging
         private string _categoryName;
         //private Func<string, LogLevel, bool> _filter;
         // private SqlHelper _helper;
-        private Fees_and_facilitiesContext _context = new Fees_and_facilitiesContext();
 
+        private Fees_and_facilitiesContext _context = new Fees_and_facilitiesContext();
         private int MessageMaxLength = 4000;
+        
+
         public DBLogger(string categoryName)
         {
             _categoryName = categoryName;
