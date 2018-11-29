@@ -12,10 +12,11 @@ namespace Dau.Data.Mapping.Catalog
         public void Configure(EntityTypeBuilder<DormitoryBlockTranslation> builder)
         {
             //table_name
-            builder.ToTable("");
+            builder.ToTable("DormitoryBlockTranslation");
 
 
             //int
+            builder.Property(e => e.Id).HasColumnName("Id");
             builder.Property(e => e.DormitoryBlockNonTransId).HasColumnName("DormitoryBlockNonTransId");
             builder.Property(e => e.LanguageId).HasColumnName("language_id");
 
