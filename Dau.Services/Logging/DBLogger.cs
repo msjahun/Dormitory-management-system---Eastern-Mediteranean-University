@@ -15,7 +15,7 @@ namespace Dau.Services.Logging
 
         private Fees_and_facilitiesContext _context = new Fees_and_facilitiesContext();
         private int MessageMaxLength = 4000;
-        
+        private readonly object _accessor;
 
         public DBLogger(string categoryName)
         {
@@ -48,6 +48,7 @@ namespace Dau.Services.Logging
                 Message = message,
                 EventId = eventId.Id,
                 LogLevel = logLevel.ToString(),
+              //put ip address and begin logging ipAddress and user actions here, it's totally ethical
                 CreatedTime = DateTime.UtcNow
             };
             //  _helper.InsertLog(eventLog);
