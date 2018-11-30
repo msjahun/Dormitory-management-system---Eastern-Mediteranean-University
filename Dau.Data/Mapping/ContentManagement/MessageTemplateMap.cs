@@ -20,10 +20,10 @@ namespace Dau.Data.Mapping.ContentManagement
             builder.Property(e => e.Id).HasColumnName("Id");
 
             builder.Property(e => e.AllowedTokens).HasColumnName("AllowedTokens").HasMaxLength(256)
-                .IsUnicode(false); ;
+                .IsUnicode(false); 
 
             builder.Property(e => e.Name).HasColumnName("Name").HasMaxLength(256)
-                .IsUnicode(false); ;
+                .IsUnicode(false); 
 
             builder.Property(e => e.IsActive).HasColumnName("IsActive");
 
@@ -32,7 +32,7 @@ namespace Dau.Data.Mapping.ContentManagement
             builder.Property(e => e.AttachedStaticFile).HasColumnName("AttachedStaticFile");
 
             builder.Property(e => e.StaticFileUrl).HasColumnName("StaticFileUrl").HasMaxLength(256)
-                .IsUnicode(false); ;
+                .IsUnicode(false); 
 
 
             //string

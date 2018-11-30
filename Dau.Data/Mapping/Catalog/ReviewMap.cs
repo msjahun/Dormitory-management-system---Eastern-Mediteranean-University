@@ -13,6 +13,7 @@ namespace Dau.Data.Mapping.Catalog
         {
             //table_name
             builder.ToTable("Review");
+            builder.Property(e => e.Id).HasColumnName("Id");
 
 
             //int

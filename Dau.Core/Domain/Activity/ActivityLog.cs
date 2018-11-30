@@ -8,7 +8,7 @@ namespace Dau.Core.Domain.Activity
     {
     
         //public DateTime CreatedFrom { get; set; }
-
+        public int Id { get; set; }
        
         //public DateTime CreatedTo { get; set; }
         //there is no need for these, it will just be used for filtering

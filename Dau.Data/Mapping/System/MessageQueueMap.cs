@@ -14,7 +14,8 @@ namespace Dau.Data.Mapping.System
             //table_name
             builder.ToTable("MessageQueue");
 
-           
+            builder.Property(e => e.Id).HasColumnName("Id");
+
             //int
             builder.Property(e => e.Id).HasColumnName("Id");
             builder.Property(e => e.FromAddress).HasColumnName("FromAddress").HasMaxLength(256)

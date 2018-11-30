@@ -11,7 +11,14 @@ namespace Dau.Data.Mapping.Notifications
     {
         public void Configure(EntityTypeBuilder<Notification> builder)
         {
-            throw new NotImplementedException();
+            //table_name
+            builder.ToTable("Notification");
+
+
+            //int
+
+            builder.Property(e => e.Id).HasColumnName("Id");
+            builder.Property(e => e.CreatedOn).HasColumnName("CreatedOn").HasColumnType("datetime2");
         }
     }
 }
