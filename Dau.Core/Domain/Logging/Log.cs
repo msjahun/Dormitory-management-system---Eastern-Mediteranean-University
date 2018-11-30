@@ -11,7 +11,7 @@ namespace Dau.Core.Domain.Logging
       
         public string LogLevel { get; set; }
         public string Message { get; set; }
-        
+        public string Ipaddress { get; set; }
         public DateTime CreatedTime { get; set; }
     }
 }
