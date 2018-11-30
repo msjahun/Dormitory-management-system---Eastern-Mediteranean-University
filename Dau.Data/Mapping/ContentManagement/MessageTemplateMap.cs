@@ -32,13 +32,17 @@ namespace Dau.Data.Mapping.ContentManagement
             builder.Property(e => e.AttachedStaticFile).HasColumnName("AttachedStaticFile");
 
             builder.Property(e => e.StaticFileUrl).HasColumnName("StaticFileUrl").HasMaxLength(256)
-                .IsUnicode(false); 
+                .IsUnicode(false);
 
 
             //string
-     
-              
-                
+
+            //builder.HasOne(d => d.DormitoryType)
+            //.WithMany(p => p.DormitoriesTable)
+            //.HasForeignKey(d => d.DormitoryTypeId)
+            //.OnDelete(DeleteBehavior.ClientSetNull)
+            //.HasConstraintName("FK_dbo.dormitories_table_dbo.dormitory_type_dormitory_type_id");
+
         }
     }
 }

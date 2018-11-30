@@ -12,12 +12,12 @@ namespace Dau.Data.Mapping.ContentManagement
         public void Configure(EntityTypeBuilder<MessageTemplateTranslation> builder)
         {
             //table_name
-            builder.ToTable("MessageTemplate");
+            builder.ToTable("MessageTemplateTranslation");
 
 
             //int
             builder.Property(e => e.Id).HasColumnName("Id");
-            builder.Property(e => e.MessageTemplateNonTransId).HasColumnName("MessageTemplateNonTransId");
+            builder.Property(e => e.MessageTemplateId).HasColumnName("MessageTemplateId");
             builder.Property(e => e.Subject).HasColumnName("Subject").HasMaxLength(256)
                 .IsUnicode(false);
             builder.Property(e => e.Body).HasColumnName("Body").HasMaxLength(1024)
@@ -25,12 +25,22 @@ namespace Dau.Data.Mapping.ContentManagement
             builder.Property(e => e.BCC).HasColumnName("BCC").HasMaxLength(256)
                 .IsUnicode(false);
             builder.Property(e => e.EmailAccount).HasColumnName("EmailAccount");
-         
+
 
             //string
-      
-                
-               
+            builder.HasOne(d => d.MessageTemplateNonTrans)
+                    .WithMany(p => p.MessageTemplateTranslations)
+                    .HasForeignKey(d => d.MessageTemplateId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+            .HasConstraintName("FK_dbo.MessageTemplateTranslation_dbo.MessageTemplate_MessageTemplateId");
+
+            builder.HasOne(d => d.Language)
+                .WithMany(p => p.MessageTemplateTranslations)
+                .HasForeignKey(d => d.LanguageId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+               // .HasConstraintName("FK_dbo.dormitories_table_translation_dbo.language_table_language_id");
+
+
         }
     }
 }
