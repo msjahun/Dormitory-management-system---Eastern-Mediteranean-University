@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Dau.Core.Domain.Promotions
 {
-  public  class Campaign
+  public  class Campaign : BaseEntity
     {
-        public int Id { get; set; }
+        
         public string AllowedTokens { get; set; }
 
         public string Name { get; set; }

@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Dau.Core.Domain.Promotions
 {
-  public  class Affiliate
+  public  class Affiliate : BaseEntity
     {
-        public int Id { get; set; }
+       
         public string FirstName { get; set; }
 
         public string LastName { get; set; }

@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Dau.Core.Domain.Promotions
 {
-    public class DiscountUsage
+    public class DiscountUsage : BaseEntity
     {
-        public int Id { get; set; }
+      
         public bool Used { get; set; }
         public string BookingNumber { get; set; }
         public double BookingTotal { get; set; }

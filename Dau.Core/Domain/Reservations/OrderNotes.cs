@@ -4,10 +4,10 @@ using System.Text;
 
 namespace Dau.Core.Domain.Reservations
 {
-   public class OrderNotes
+   public class OrderNotes : BaseEntity
 
     {
-        public int Id { get; set; }
+       
         public string Note { get; set; }
         public DateTime CreatedOn { get; set; }
         public bool ShowToCustomer { get; set; }

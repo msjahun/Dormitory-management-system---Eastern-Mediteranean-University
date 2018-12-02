@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Dau.Core.Domain.Facility
 {
-    public partial class FacilityTable
+    public partial class FacilityTable : BaseEntity
     {
         public FacilityTable()
         {
@@ -13,7 +13,7 @@ namespace Dau.Core.Domain.Facility
             RoomFacility = new HashSet<RoomFacility>();
         }
 
-        public int Id { get; set; }
+      
         public string FacilityIconUrl { get; set; }
 
         public ICollection<FacilityOption> FacilityOption { get; set; }

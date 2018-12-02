@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dau.Core.Domain.ContentManagement
 {
-   public class SurveyQuestionsAndAnswers
+   public class SurveyQuestionsAndAnswers : BaseEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }

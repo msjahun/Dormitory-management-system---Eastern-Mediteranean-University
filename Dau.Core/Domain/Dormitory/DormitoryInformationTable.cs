@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace Dau.Core.Domain.Dormitory
 {
-    public partial class DormitoryInformationTable
+    public partial class DormitoryInformationTable : BaseEntity
     {
         public DormitoryInformationTable()
         {
             DormitoryInformationTableTranslation = new HashSet<DormitoryInformationTableTranslation>();
         }
 
-        public int Id { get; set; }
+     
         public int DormitoryTypeId { get; set; }
 
         public DormitoryType DormitoryType { get; set; }

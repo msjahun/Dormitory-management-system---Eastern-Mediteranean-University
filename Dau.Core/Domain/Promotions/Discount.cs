@@ -4,14 +4,14 @@ using System.Text;
 
 namespace Dau.Core.Domain.Promotions
 {
-  public  class Discount
+  public  class Discount : BaseEntity
     {
         public Discount()
         {
             DiscountUsages = new HashSet<DiscountUsage>();
         }
 
-        public int Id { get; set; }
+        
         public string DiscountName { get; set; }
 
         public string CouponCode { get; set; }

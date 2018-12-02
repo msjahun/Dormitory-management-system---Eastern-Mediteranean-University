@@ -6,13 +6,13 @@ using System.Text;
 
 namespace Dau.Core.Domain.Catalog
 {
-  public class DormitoryBlock : IBaseSeo
+  public class DormitoryBlock : BaseEntity, IBaseSeo
     {//think of this relationship
         public DormitoryBlock()
         { DormitoryBlockTranslations = new HashSet<DormitoryBlockTranslation>();
         }
 
-        public int Id { get; set; }
+     
 
         public string Name { get; set; }
 

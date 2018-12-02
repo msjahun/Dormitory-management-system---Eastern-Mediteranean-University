@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Dau.Core.Domain.BankAccount
 {
-    public partial class AccountInformationParameterTranslation
+    public partial class AccountInformationParameterTranslation : BaseEntity
     {
         public int AccountInfoNonTransId { get; set; }
         public int LanguageId { get; set; }

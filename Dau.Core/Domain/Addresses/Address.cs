@@ -4,7 +4,7 @@ using System.Text;
 using Dau.Core.Domain.Reservations;
 namespace Dau.Core.Domain.Addresses
 {
-   public class Address
+   public class Address : BaseEntity
     {
         public Address()
         {
@@ -17,7 +17,7 @@ namespace Dau.Core.Domain.Addresses
         //needs an Id
         //Do we needs things above ^ since there will be in the user table, not atomic\\
 
-            public int Id { get; set; }
+        
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public string City { get; set; }

@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Dau.Core.Domain.Logging
 {
-   public class Log
+   public class Log : BaseEntity
     {
-        public int Id { get; set; }
+       
         public int EventId { get; set; }
       
         public string LogLevel { get; set; }

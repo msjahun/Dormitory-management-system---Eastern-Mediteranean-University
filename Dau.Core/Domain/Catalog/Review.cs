@@ -4,10 +4,10 @@ using System.Text;
 
 namespace Dau.Core.Domain.Catalog
 {
-  public  class Review
+  public  class Review :BaseEntity
     {
         //relationship with users class
-        public int Id { get; set; }
+
         public int RoomId { get; set; }
         public int DormitoryId { get; set; }
         public string UserGuid{ get; set; }

@@ -4,11 +4,11 @@ using System.Text;
 
 namespace Dau.Core.Domain.System
 {
-    public class MessageQueue
+    public class MessageQueue : BaseEntity
 
 
     {
-        public int Id { get; set; }
+       
       //  public DateTime StartDate { get; set; }
 
        // public DateTime EndDate { get; set; }

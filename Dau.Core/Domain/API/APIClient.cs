@@ -4,10 +4,10 @@ using System.Text;
 
 namespace Dau.Core.Domain.API
 {
-   public class APIClient
+   public class APIClient : BaseEntity
 
     {
-        public int Id { get; set; }
+      
        public string ClientName { get; set; }
 
         public string ClientId { get; set; }

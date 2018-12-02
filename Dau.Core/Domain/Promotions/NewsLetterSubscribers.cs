@@ -4,13 +4,13 @@ using System.Text;
 
 namespace Dau.Core.Domain.Promotions
 {
-   public class NewsLetterSubscribers
+   public class NewsLetterSubscribers : BaseEntity
     {
        // public DateTime StartDate { get; set; }
 
        // public  EndDate { get; set; }
 
-            public int Id { get; set; }
+          
        public string Email { get; set; }
 
         public bool Active { get; set; }

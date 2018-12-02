@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dau.Core.Domain.CountryInformation
 {
-  public  class Country
+  public  class Country : BaseEntity
     {
         public Country()
         {
@@ -14,7 +14,7 @@ namespace Dau.Core.Domain.CountryInformation
 
 
 
-        public int Id { get; set; }
+
         //CountryTranslation table
         public bool AllowBilling { get; set; }
 

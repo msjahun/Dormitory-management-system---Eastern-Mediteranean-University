@@ -7,7 +7,7 @@ namespace Dau.Core.Domain.CurrencyInformation
 {
     public class CurrencyTranslation : BaseLanguage
     {
-        public int Id { get; set; }
+      
         public int CurrencyNonTransId { get; set; }
       public string Name { get; set; }
 

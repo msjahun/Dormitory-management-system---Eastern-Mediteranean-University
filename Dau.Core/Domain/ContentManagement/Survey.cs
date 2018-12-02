@@ -4,14 +4,14 @@ using System.Text;
 
 namespace Dau.Core.Domain.ContentManagement
 {
-   public class Survey
+   public class Survey:BaseEntity
     {
         public Survey()
         {
             SurveyQuestionsAndAnswers = new HashSet<SurveyQuestionsAndAnswers>();
         }
 
-        public int Id { get; set; }
+     
 
         public int Language { get; set; }
 

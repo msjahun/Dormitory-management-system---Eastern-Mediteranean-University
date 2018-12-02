@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Dau.Core.Domain.BankAccount
 {
-    public partial class AccountInformationParameter
+    public partial class AccountInformationParameter : BaseEntity
     {
         public AccountInformationParameter()
         {
@@ -11,7 +11,7 @@ namespace Dau.Core.Domain.BankAccount
             AccountParameterValues = new HashSet<AccountParameterValues>();
         }
 
-        public int Id { get; set; }
+     
 
         public ICollection<AccountInformationParameterTranslation> AccountInformationParameterTranslation { get; set; }
         public ICollection<AccountParameterValues> AccountParameterValues { get; set; }

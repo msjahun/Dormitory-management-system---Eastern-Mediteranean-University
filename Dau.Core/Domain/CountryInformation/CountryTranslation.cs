@@ -7,7 +7,7 @@ namespace Dau.Core.Domain.CountryInformation
 {
     public class CountryTranslation : BaseLanguage
     {
-        public int Id { get; set; }
+       
         public int CountryNonTransId { get; set; }
        public string Name { get; set; }
 

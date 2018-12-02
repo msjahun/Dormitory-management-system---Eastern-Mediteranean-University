@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace Dau.Core.Domain.Facility
 {
-    public partial class FacilityOption
+    public partial class FacilityOption : BaseEntity
     {
         public FacilityOption()
         {
             FacilityOptionTranslation = new HashSet<FacilityOptionTranslation>();
         }
 
-        public int Id { get; set; }
+     
         public int FacilityId { get; set; }
 
 

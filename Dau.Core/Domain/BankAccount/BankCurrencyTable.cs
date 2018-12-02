@@ -4,16 +4,15 @@ using System.Collections.Generic;
 
 namespace Dau.Core.Domain.BankAccount
 {
-    public partial class BankCurrencyTable
+    public partial class BankCurrencyTable : BaseEntity
     {
         public BankCurrencyTable()
         {
             AccountParameterValues = new HashSet<AccountParameterValues>();
         }
 
-        public int Id { get; set; }
         public int BankId { get; set; }
-    public int exchangeRage { get; set; }
+    public int ExchangeRage { get; set; }
         public string CurrencyName { get; set; }
 
         public DormitoryBankAccountTable Bank { get; set; }

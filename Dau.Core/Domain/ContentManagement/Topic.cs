@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Dau.Core.Domain.ContentManagement
 {
-    public class Topic :IBaseSeo
+    public class Topic :BaseEntity,IBaseSeo
     {
         public Topic()
         {TopicTranslations = new HashSet<TopicTranslation>();

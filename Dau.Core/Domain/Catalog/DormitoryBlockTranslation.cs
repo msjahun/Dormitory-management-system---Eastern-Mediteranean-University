@@ -5,8 +5,8 @@ using System.Text;
 
 namespace Dau.Core.Domain.Catalog
 {
-   public class DormitoryBlockTranslation: BaseLanguage
-    {public int Id { get; set; }
+   public class DormitoryBlockTranslation:  BaseLanguage
+    {
         public int DormitoryBlockNonTransId { get; set; }
         public string Name { get; set; }
 

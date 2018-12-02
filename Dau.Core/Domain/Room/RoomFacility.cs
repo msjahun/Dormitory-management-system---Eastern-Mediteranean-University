@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace Dau.Core.Domain.Room
 {
-    public partial class RoomFacility
+    public partial class RoomFacility : BaseEntity
     {
-        public int Id { get; set; }
+      
         public int FacilityId { get; set; }
         public int RoomId { get; set; }
         public int? FacilityOptionId { get; set; }

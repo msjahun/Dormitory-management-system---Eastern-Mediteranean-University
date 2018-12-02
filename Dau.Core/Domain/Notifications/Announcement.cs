@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Dau.Core.Domain.Notifications
 {
-   public class Announcement
+   public class Announcement : BaseEntity
     {
-        public int Id { get; set; }
+       
         public DateTime CreatedOn { get; set; }
 
         public int Priority { get; set; }

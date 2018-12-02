@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dau.Core.Domain.ContentManagement
 {
-    public class Poll
+    public class Poll : BaseEntity
     {
         public Poll()
         {
@@ -12,7 +12,7 @@ namespace Dau.Core.Domain.ContentManagement
             PollAnswers = new HashSet<PollAnswers>();
         }
 
-        public int Id { get; set; }
+     
         public int Language { get; set; }
 
        public string Name { get; set; }

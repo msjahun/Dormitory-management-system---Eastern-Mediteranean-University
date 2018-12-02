@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Dau.Core.Domain.EmailAccountInformation
 {
-   public class EmailAccount
+   public class EmailAccount : BaseEntity
     {
-        public int Id { get; set; }
+      
 
         public string EmailAddress { get; set; }
 

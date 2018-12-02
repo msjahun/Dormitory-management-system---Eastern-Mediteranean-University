@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Dau.Core.Domain.User
 {
-   public class OnlineUsers
+   public class OnlineUsers : BaseEntity
     {
-        public int Id { get; set; }
+       
         public string UserInfo { get; set; }
         public string IpAddress { get; set; }
         public string Location { get; set;  }

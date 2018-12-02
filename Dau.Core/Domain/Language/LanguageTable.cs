@@ -13,7 +13,7 @@ using System.Collections.Generic;
 
 namespace Dau.Core.Domain.Language
 {
-    public partial class LanguageTable
+    public partial class LanguageTable : BaseEntity
     {
         public LanguageTable()
         {
@@ -34,7 +34,6 @@ namespace Dau.Core.Domain.Language
             CurrencyTranslations = new HashSet<CurrencyTranslation>();
         }
 
-        public int Id { get; set; }
         public string Name { get; set; }
         public string LanguageCode { get; set; }
 

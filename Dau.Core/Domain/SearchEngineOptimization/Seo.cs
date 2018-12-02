@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Dau.Core.Domain.SearchEngineOptimization
 {
-   public class Seo
+   public class Seo : BaseEntity
     {
         public Seo()
         {
@@ -15,7 +15,6 @@ namespace Dau.Core.Domain.SearchEngineOptimization
 
         }
 
-        public int Id { get; set; }
         public string MetaKeywords { get; set; }
 
 

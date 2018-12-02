@@ -5,14 +5,14 @@ using Dau.Core.Domain.Addresses;
 
 namespace Dau.Core.Domain.Reservations
 {
-    public class Reservation
+    public class Reservation : BaseEntity
     {
         public Reservation()
         {
             OrderNotes = new HashSet<OrderNotes>();
         }
 
-        public int Id { get; set; }
+       
         //public DateTime StartDate { get; set; }
 
        // public DateTime EndDate { get; set; }

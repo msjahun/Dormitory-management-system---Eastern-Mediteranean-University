@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Dau.Core.Domain.Dormitory
 {
-    public partial class DormitoriesTable
+    public partial class DormitoriesTable : BaseEntity
     {
         public DormitoriesTable()
         {
@@ -13,7 +13,7 @@ namespace Dau.Core.Domain.Dormitory
             RoomTable = new HashSet<RoomTable>();
         }
 
-        public int Id { get; set; }
+       
         public int DormitoryTypeId { get; set; }
         public string RoomPriceCurrency { get; set; }
         public string RoomPriceCurrencySymbol { get; set; }

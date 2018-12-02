@@ -4,10 +4,10 @@ using System.Text;
 
 namespace Dau.Core.Domain.Reservations
 {
-  public  class CancelReservationRequests
+  public  class CancelReservationRequests : BaseEntity
     {
 
-        public string Id { get; set; }
+      
 
         public int BookingNumber { get; set; }
 

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dau.Core.Domain.CurrencyInformation
 {
-   public class Currency
+   public class Currency : BaseEntity
     {
         public Currency()
         {
@@ -13,7 +13,7 @@ namespace Dau.Core.Domain.CurrencyInformation
 
 
 
-        public int Id { get; set; }
+       
 
         public string CurrencyCode { get; set; }
 
