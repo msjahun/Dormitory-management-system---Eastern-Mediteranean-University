@@ -16,7 +16,7 @@ namespace Dau.Data.Mapping.CurrencyInformation
 
 
             //int
-            builder.Property(e => e.Id).HasColumnName("Id");
+            builder.HasKey(e => new { e.CurrencyNonTransId, e.LanguageId });
             builder.Property(e => e.CurrencyNonTransId).HasColumnName("CurrencyNonTransId");
             builder.Property(e => e.Name).HasColumnName("Name").HasMaxLength(100)
                 .IsUnicode(false); ;

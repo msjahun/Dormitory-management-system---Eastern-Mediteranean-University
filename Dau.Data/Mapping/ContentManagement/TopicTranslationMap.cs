@@ -17,7 +17,7 @@ namespace Dau.Data.Mapping.ContentManagement
 
 
             //int
-            builder.Property(e => e.Id).HasColumnName("Id");
+            builder.HasKey(e => new { e.TopicNonTransId, e.LanguageId });
             builder.Property(e => e.TopicNonTransId).HasColumnName("TopicNonTransId");
 
             builder.Property(e => e.Title).HasColumnName("Title").HasMaxLength(400)

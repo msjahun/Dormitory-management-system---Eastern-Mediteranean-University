@@ -16,8 +16,8 @@ namespace Dau.Data.Mapping.ContentManagement
 
 
             //int
-            builder.Property(e => e.Id).HasColumnName("Id");
-            builder.Property(e => e.MessageTemplateId).HasColumnName("MessageTemplateId");
+            builder.HasKey(e => new { e.MessageTemplateNonTransId, e.LanguageId });
+            builder.Property(e => e.MessageTemplateNonTransId).HasColumnName("MessageTemplateId");
             builder.Property(e => e.Subject).HasColumnName("Subject").HasMaxLength(256)
                 .IsUnicode(false);
             builder.Property(e => e.Body).HasColumnName("Body").HasMaxLength(1024)
@@ -30,7 +30,7 @@ namespace Dau.Data.Mapping.ContentManagement
             //string
             builder.HasOne(d => d.MessageTemplateNonTrans)
                     .WithMany(p => p.MessageTemplateTranslations)
-                    .HasForeignKey(d => d.MessageTemplateId)
+                    .HasForeignKey(d => d.MessageTemplateNonTransId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
             .HasConstraintName("FK_dbo.MessageTemplateTranslation_dbo.MessageTemplate_MessageTemplateId");
 

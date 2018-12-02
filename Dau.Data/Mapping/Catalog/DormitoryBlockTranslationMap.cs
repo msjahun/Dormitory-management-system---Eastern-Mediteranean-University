@@ -16,7 +16,7 @@ namespace Dau.Data.Mapping.Catalog
 
 
             //int
-            builder.Property(e => e.Id).HasColumnName("Id");
+            builder.HasKey(e => new { e.DormitoryBlockNonTransId, e.LanguageId });
             builder.Property(e => e.DormitoryBlockNonTransId).HasColumnName("DormitoryBlockNonTransId");
             builder.Property(e => e.LanguageId).HasColumnName("language_id");
 

@@ -16,7 +16,7 @@ namespace Dau.Data.Mapping.CountryInformation
 
 
             //int
-            builder.Property(e => e.Id).HasColumnName("Id");
+            builder.HasKey(e => new { e.CountryNonTransId, e.LanguageId });
             builder.Property(e => e.CountryNonTransId).HasColumnName("CountryNonTransId");
             builder.Property(e => e.Name).HasColumnName("Name").HasMaxLength(100)
                 .IsUnicode(false);
