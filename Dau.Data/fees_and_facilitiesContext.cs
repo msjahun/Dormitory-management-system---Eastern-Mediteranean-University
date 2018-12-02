@@ -45,12 +45,14 @@ using Dau.Data.Mapping.Promotions;
 using Dau.Data.Mapping.Reservations;
 using Dau.Data.Mapping.SearchEngineOptimization;
 using Dau.Data.Mapping.System;
+using Dau.Data.Extensions;
 
 namespace Dau.Data
 {
     public partial class Fees_and_facilitiesContext : IdentityDbContext<User, UserRole,string>
     {
-        public Fees_and_facilitiesContext()
+        public Fees_and_facilitiesContext(DbContextOptions<Fees_and_facilitiesContext> options)
+            : base(options)
         {
         }
 
@@ -122,10 +124,11 @@ namespace Dau.Data
         {
 
 
-      //  optionsBuilder.UseSqlServer("Data Source=DARK-SHILLA\\SQLEXPRESS;Initial Catalog=fees_and_facilities;Integrated Security=True");
+   // optionsBuilder.UseSqlServer("Data Source=DARK-SHILLA\\SQLEXPRESS;Initial Catalog=SearchDormDb;Integrated Security=True");
+     // optionsBuilder.UseSqlServer("Data Source=DARK-SHILLA\\SQLEXPRESS;Initial Catalog=fees_and_facilities;Integrated Security=True");
             //  optionsBuilder.UseSqlServer("data source=193.140.173.173;initial catalog=SearchDormDb;user id=SearchDormUsr;password=ergec.senturk@emu.edu.tr;multipleactiveresultsets=True;");
             //optionsBuilder.UseSqlServer("data source=sql6006.site4now.net;initial catalog=DB_A2B24A_testing;user id=DB_A2B24A_testing_admin;password=Mami1961;multipleactiveresultsets=True;");
-           optionsBuilder.UseSqlServer("Data Source=SQL-SERVER-INST;Initial Catalog=fees_and_facilities_prod;Integrated Security=True");
+          // optionsBuilder.UseSqlServer("Data Source=SQL-SERVER-INST;Initial Catalog=fees_and_facilities_prod;Integrated Security=True");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -196,11 +199,11 @@ namespace Dau.Data
             modelBuilder.ApplyConfiguration(new SeoMap());
             modelBuilder.ApplyConfiguration(new MessageQueueMap());
 
+ //new tables config
 
+            modelBuilder.Seed();
 
-
-
-            //new tables config
+           
         }
     }
 }
