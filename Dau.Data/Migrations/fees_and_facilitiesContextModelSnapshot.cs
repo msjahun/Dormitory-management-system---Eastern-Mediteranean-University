@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dau.Data.Migrations
 {
     [DbContext(typeof(Fees_and_facilitiesContext))]
-    partial class fees_and_facilitiesContextModelSnapshot : ModelSnapshot
+    partial class Fees_and_facilitiesContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -183,6 +183,8 @@ namespace Dau.Data.Migrations
                     b.Property<int>("LanguageId")
                         .HasColumnName("language_id");
 
+                    b.Property<int>("Id");
+
                     b.Property<string>("Parameter")
                         .IsRequired()
                         .HasColumnName("parameter")
@@ -232,6 +234,8 @@ namespace Dau.Data.Migrations
                     b.Property<int>("AccountParamsValuesNonTransId")
                         .HasColumnName("account_params_values_non_trans_id");
 
+                    b.Property<int>("Id");
+
                     b.Property<string>("Value")
                         .IsRequired()
                         .HasColumnName("value")
@@ -265,7 +269,7 @@ namespace Dau.Data.Migrations
                         .HasMaxLength(50)
                         .IsUnicode(false);
 
-                    b.Property<int>("exchangeRage");
+                    b.Property<int>("ExchangeRage");
 
                     b.HasKey("Id");
 
@@ -321,10 +325,11 @@ namespace Dau.Data.Migrations
 
             modelBuilder.Entity("Dau.Core.Domain.Catalog.DormitoryBlockTranslation", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("Id")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("DormitoryBlockNonTransId")
+                        .HasColumnName("DormitoryBlockNonTransId");
+
+                    b.Property<int>("LanguageId")
+                        .HasColumnName("language_id");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -332,21 +337,13 @@ namespace Dau.Data.Migrations
                         .HasMaxLength(512)
                         .IsUnicode(false);
 
-                    b.Property<int>("DormitoryBlockNonTransId")
-                        .HasColumnName("DormitoryBlockNonTransId");
-
-                    b.Property<int>("LanguageId")
-                        .HasColumnName("language_id");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnName("Name")
                         .HasMaxLength(100)
                         .IsUnicode(false);
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("DormitoryBlockNonTransId");
+                    b.HasKey("DormitoryBlockNonTransId", "LanguageId");
 
                     b.HasIndex("LanguageId");
 
@@ -447,10 +444,10 @@ namespace Dau.Data.Migrations
 
             modelBuilder.Entity("Dau.Core.Domain.ContentManagement.MessageTemplateTranslation", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("Id")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("MessageTemplateNonTransId")
+                        .HasColumnName("MessageTemplateId");
+
+                    b.Property<int>("LanguageId");
 
                     b.Property<string>("BCC")
                         .HasColumnName("BCC")
@@ -465,21 +462,14 @@ namespace Dau.Data.Migrations
                     b.Property<int>("EmailAccount")
                         .HasColumnName("EmailAccount");
 
-                    b.Property<int>("LanguageId");
-
-                    b.Property<int>("MessageTemplateId")
-                        .HasColumnName("MessageTemplateId");
-
                     b.Property<string>("Subject")
                         .HasColumnName("Subject")
                         .HasMaxLength(256)
                         .IsUnicode(false);
 
-                    b.HasKey("Id");
+                    b.HasKey("MessageTemplateNonTransId", "LanguageId");
 
                     b.HasIndex("LanguageId");
-
-                    b.HasIndex("MessageTemplateId");
 
                     b.ToTable("MessageTemplateTranslation");
                 });
@@ -684,31 +674,24 @@ namespace Dau.Data.Migrations
 
             modelBuilder.Entity("Dau.Core.Domain.ContentManagement.TopicTranslation", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("Id")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("TopicNonTransId")
+                        .HasColumnName("TopicNonTransId");
+
+                    b.Property<int>("LanguageId");
 
                     b.Property<string>("Body")
                         .HasColumnName("Body")
                         .HasMaxLength(4000)
                         .IsUnicode(false);
 
-                    b.Property<int>("LanguageId");
-
                     b.Property<string>("Title")
                         .HasColumnName("Title")
                         .HasMaxLength(400)
                         .IsUnicode(false);
 
-                    b.Property<int>("TopicNonTransId")
-                        .HasColumnName("TopicNonTransId");
-
-                    b.HasKey("Id");
+                    b.HasKey("TopicNonTransId", "LanguageId");
 
                     b.HasIndex("LanguageId");
-
-                    b.HasIndex("TopicNonTransId");
 
                     b.ToTable("TopicTranslation");
                 });
@@ -752,11 +735,6 @@ namespace Dau.Data.Migrations
 
             modelBuilder.Entity("Dau.Core.Domain.CountryInformation.CountryTranslation", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("Id")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<int>("CountryNonTransId")
                         .HasColumnName("CountryNonTransId");
 
@@ -767,9 +745,7 @@ namespace Dau.Data.Migrations
                         .HasMaxLength(100)
                         .IsUnicode(false);
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("CountryNonTransId");
+                    b.HasKey("CountryNonTransId", "LanguageId");
 
                     b.HasIndex("LanguageId");
 
@@ -855,11 +831,6 @@ namespace Dau.Data.Migrations
 
             modelBuilder.Entity("Dau.Core.Domain.CurrencyInformation.CurrencyTranslation", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("Id")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<int>("CurrencyNonTransId")
                         .HasColumnName("CurrencyNonTransId");
 
@@ -870,9 +841,7 @@ namespace Dau.Data.Migrations
                         .HasMaxLength(100)
                         .IsUnicode(false);
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("CurrencyNonTransId");
+                    b.HasKey("CurrencyNonTransId", "LanguageId");
 
                     b.HasIndex("LanguageId");
 
@@ -1592,9 +1561,10 @@ namespace Dau.Data.Migrations
 
             modelBuilder.Entity("Dau.Core.Domain.Reservations.CancelReservationRequests", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("Id");
+                        .HasColumnName("Id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("BookingNumber")
                         .HasColumnName("BookingNumber");
@@ -2331,7 +2301,7 @@ namespace Dau.Data.Migrations
 
                     b.HasOne("Dau.Core.Domain.ContentManagement.MessageTemplate", "MessageTemplateNonTrans")
                         .WithMany("MessageTemplateTranslations")
-                        .HasForeignKey("MessageTemplateId")
+                        .HasForeignKey("MessageTemplateNonTransId")
                         .HasConstraintName("FK_dbo.MessageTemplateTranslation_dbo.MessageTemplate_MessageTemplateId");
                 });
 
