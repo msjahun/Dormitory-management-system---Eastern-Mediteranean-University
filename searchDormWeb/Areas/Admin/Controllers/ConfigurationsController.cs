@@ -140,7 +140,8 @@ namespace searchDormWeb.Areas.Admin.Controllers
                 int skip = start != null ? Convert.ToInt32(start) : 0;
 
 
-                List<DormitoriesDataTable> List = _DormitoryService.GetAllDormitoriesForTable();
+              //  List<DormitoriesDataTable> List = _DormitoryService.GetAllDormitoriesForTable();
+                List<DormitoriesDataTable> List = new List<DormitoriesDataTable>();
               
 
                 // getting all Discount data  

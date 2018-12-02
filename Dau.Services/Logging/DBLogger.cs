@@ -1,5 +1,6 @@
 ﻿using Dau.Core.Domain.Logging;
 using Dau.Data;
+using Dau.Data.Repository;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -7,21 +8,27 @@ using System.Text;
 
 namespace Dau.Services.Logging
 {
-    class DBLogger:ILogger
+   public class DBLogger:ILogger
     {
-        private string _categoryName;
+       private string _categoryName;
         //private Func<string, LogLevel, bool> _filter;
         // private SqlHelper _helper;
 
-        private Fees_and_facilitiesContext _context = new Fees_and_facilitiesContext();
+   
         private int MessageMaxLength = 4000;
-        private readonly object _accessor;
+        private readonly IRepository<Log> _logRepository;
+
+        public DBLogger(IRepository<Log> LogRepository)
+        {
+            _logRepository = LogRepository;
+        }
+
 
         public DBLogger(string categoryName)
         {
             _categoryName = categoryName;
             //_filter = filter;
-         //  _helper = new SqlHelper(connectionString);
+            //  _helper = new SqlHelper(connectionString);
         }
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
@@ -52,8 +59,8 @@ namespace Dau.Services.Logging
                 CreatedTime = DateTime.UtcNow
             };
             //  _helper.InsertLog(eventLog);
-            _context.Log.Add(eventLog);
-            _context.SaveChangesAsync();
+            _logRepository.Insert(eventLog);
+          
         }
 
 

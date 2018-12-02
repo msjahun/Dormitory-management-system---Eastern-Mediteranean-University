@@ -139,7 +139,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
         {
             UserAddViewModel model = new UserAddViewModel();
          //send languageId through here
-           model.Dormitories = _dormitoryService.GetSelectListDormitories(1);
+          // model.Dormitories = _dormitoryService.GetSelectListDormitories(1);
            model.CustomerRoles = _userRolesService.GetUserRolesItems();
             return View("_User_Add", model);
         }
@@ -148,7 +148,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
         public async Task<IActionResult> Add(UserAddViewModel vm)
         {
             vm.CustomerRoles = _userRolesService.GetUserRolesItems();
-            vm.Dormitories = _dormitoryService.GetSelectListDormitories(1);
+          //  vm.Dormitories = _dormitoryService.GetSelectListDormitories(1);
 
 
             if (!ModelState.IsValid)
@@ -236,7 +236,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
             };
             //send languageId through here
-            model.Dormitories = _dormitoryService.GetSelectListDormitories(1);
+          //  model.Dormitories = _dormitoryService.GetSelectListDormitories(1);
             model.CustomerRoles = _userRolesService.GetUserRolesItems();
 
 
@@ -255,7 +255,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
         public async Task<ActionResult> Edit(UserEditViewModel vm)
         {
             vm.CustomerRoles = _userRolesService.GetUserRolesItems();
-            vm.Dormitories = _dormitoryService.GetSelectListDormitories(1);
+          //  vm.Dormitories = _dormitoryService.GetSelectListDormitories(1);
 
 
             if (!ModelState.IsValid)

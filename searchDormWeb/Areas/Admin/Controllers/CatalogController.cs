@@ -53,7 +53,8 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
 
-                List<RoomsListTable> List = _RoomService.GetAllRooms();
+                // List<RoomsListTable> List = _RoomService.GetAllRooms();
+                List<RoomsListTable> List = new List<RoomsListTable>();
              
 
                 // getting all Discount data  
@@ -530,17 +531,18 @@ namespace searchDormWeb.Areas.Admin.Controllers
                 int skip = start != null ? Convert.ToInt32(start) : 0;
 
 
-              var newList =  FacilityService.GetFacilities();
-                var List = new List<FacilitiesSpecificationAttributesTable>();
-                foreach (var item in newList)
-                {
-                    List.Add(new FacilitiesSpecificationAttributesTable
-                    {
-                        Name = item.FacilityTitle,
-                        DisplayOrder = "2"
-                    });
+              //var newList =  FacilityService.GetFacilities();
+              //  var List = new List<FacilitiesSpecificationAttributesTable>();
+          var List = new List<FacilitiesSpecificationAttributesTable>();
+              //  foreach (var item in newList)
+              //  {
+              //      List.Add(new FacilitiesSpecificationAttributesTable
+              //      {
+              //          Name = item.FacilityTitle,
+              //          DisplayOrder = "2"
+              //      });
 
-                }
+              //  }
                 // getting all Discount data  
                 var Data = List;
 

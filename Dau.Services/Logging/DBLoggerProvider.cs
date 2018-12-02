@@ -11,12 +11,14 @@ namespace Dau.Services.Logging
        // private string _connectionString;
         public DBLoggerProvider()
         {
+            //inject dbLogger here
            // _filter = filter;
            // _connectionString = connectionStr;
         }
         public ILogger CreateLogger(string categoryName)
         {
             return new DBLogger(categoryName);
+        // return new DBLogger();
         }
         public void Dispose()
         {

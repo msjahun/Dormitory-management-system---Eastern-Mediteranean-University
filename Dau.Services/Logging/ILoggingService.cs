@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Dau.Core.Domain.Logging;
 
 namespace Dau.Services.Logging
@@ -8,6 +9,6 @@ namespace Dau.Services.Logging
         bool DeleteAllLogs();
         bool DeleteLogById(int Id);
         Log GetLogById(int Id);
-        List<Log> GetLogs();
+        IOrderedEnumerable<Log> GetLogs();
     }
 }
