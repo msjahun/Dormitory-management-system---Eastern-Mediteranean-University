@@ -25,6 +25,8 @@ using Dau.Services.Logging;
 using Dau.Services.Middleware;
 using Dau.Services.Domain.Users;
 using Microsoft.EntityFrameworkCore;
+using Dau.Data.Repository;
+using Dau.Core.Domain.Dormitory;
 
 namespace searchDormWeb
 {
@@ -60,13 +62,17 @@ namespace searchDormWeb
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 
+
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             //adding our services to the ioc container
-          //  services.AddTransient<OnlineUsersMiddleware>();
+            //  services.AddTransient<OnlineUsersMiddleware>();
             services.AddTransient<AffiliateMiddleware>();
 
             services.AddScoped<IOnlineUsersService, OnlineUsersService>();
 
             services.AddScoped<ILoggingService, LoggingService>();
+          
+            services.AddScoped<ILogger, DBLogger>();
             services.AddScoped<IRoomService, RoomService>();
             services.AddScoped<IFacilityService, FacilityService>();
             services.AddScoped<IUsersService, UsersService>();
@@ -75,7 +81,7 @@ namespace searchDormWeb
             services.AddScoped<IDormitoryService, DormitoryService>();
 
             var connectionString = Configuration.GetConnectionString("fees_and_facilitiesDevContext");
-            services.AddDbContext<Fees_and_facilitiesContext>();
+            services.AddDbContext<Fees_and_facilitiesContext>(options => options.UseSqlServer(connectionString));
 
            
 
@@ -100,7 +106,7 @@ namespace searchDormWeb
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddProvider(new DBLoggerProvider());
+            //loggerFactory.AddProvider(new DBLoggerProvider()); authomatic logger uncomment this
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
