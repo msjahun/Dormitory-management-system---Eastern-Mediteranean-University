@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <Compile Remove="Areas\Admin\Controllers\ReviewsController.cs" />
-    <Compile Remove="Resources\Content.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
