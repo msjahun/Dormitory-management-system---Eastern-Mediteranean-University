@@ -5,8 +5,8 @@ using System.Web;
 
 namespace Dau.Core
 {
-    public abstract partial class BaseEntity
+    public abstract class BaseEntity
     {
-        public int id { get; set; }
+        public int Id { get; set; }
     }
 }
