@@ -8,18 +8,18 @@ namespace Dau.Services.Language
 {
     class LanguageService
     {
-        private Fees_and_facilitiesContext _context = new Fees_and_facilitiesContext();
+        //private Fees_and_facilitiesContext _context = new Fees_and_facilitiesContext();
 
-        public void languageInitiate()
-        {
+        //public void languageInitiate()
+        //{
            
 
-                //   Adding the two languages done
-                 _context .LanguageTable.Add(new LanguageTable { Name = "English Language", LanguageCode = "EN" });
-                 _context .LanguageTable.Add(new LanguageTable { Name = "Turkish Language", LanguageCode = "TR" });
-                 _context .SaveChanges();
+        //        //   Adding the two languages done
+        //         _context .LanguageTable.Add(new LanguageTable { Name = "English Language", LanguageCode = "EN" });
+        //         _context .LanguageTable.Add(new LanguageTable { Name = "Turkish Language", LanguageCode = "TR" });
+        //         _context .SaveChanges();
             
 
-        }
+        //}
     }
 }
