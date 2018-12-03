@@ -21,18 +21,18 @@ namespace searchDormWeb.Controllers
     //[Authorize]
     public class HomeController : Controller
     {
-        private readonly IStringLocalizer<HomeController> _localizer;
+    
         private ISearchService _searchService;
         private IDormitoryService _dormitoryService;
 
 
         public HomeController(
-            IStringLocalizer<HomeController> _localizer, 
+          
             ISearchService _searchService, 
             IDormitoryService _dormitoryService
             )
         {
-            this._localizer = _localizer;
+         
             this._searchService = _searchService;
             this._dormitoryService = _dormitoryService;
         }
