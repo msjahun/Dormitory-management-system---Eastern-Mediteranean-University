@@ -25,15 +25,10 @@
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
                 <!-- Messages: style can be found in dropdown.less-->
-                <li class="">
+                <li class="" style="margin-top:8px">
                     <!-- Menu toggle button -->
 
-                    <select class="form-control" id="language_select" style="margin-top:10px">
-
-                        <option value="0">English</option>
-                        <option value="0">Turkish</option>
-
-                    </select>
+                    <netcorestack-languageSelector name="culture" set-cookie-with-java-script="true"></netcorestack-languageSelector>
 
 
                 </li>
@@ -51,14 +46,14 @@
                 <li class="">
                     <!-- Menu toggle button -->
                     <a href="@Url.Action("Logout", "Login",new { Area = "" })" class="">
-                        Logout
+                        @Localizer["Logout"] 
                     </a>
 
                 </li>
                 <li class="">
                     <!-- Menu toggle button -->
                     <a href="@Url.Action("Index", "Home",new { Area = "" })" class="">
-                        Public site
+                        @Localizer["Public site"]
                     </a>
 
                 </li>
