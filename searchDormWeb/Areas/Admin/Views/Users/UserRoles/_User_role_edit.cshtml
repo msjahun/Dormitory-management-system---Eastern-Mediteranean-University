@@ -230,6 +230,9 @@
             $('#example').DataTable()
             $('#example1').DataTable({
                 'paging': false,
+                 "language": {
+                    "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
+                },
                 'lengthChange': true,
                 'searching': true,
                 'ordering': true,
