@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+﻿
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,6 +27,8 @@ using Dau.Services.Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using Dau.Data.Repository;
 using Dau.Core.Domain.Dormitory;
+using NetCoreStack.Mvc;
+using NetCoreStack.Localization;
 
 namespace searchDormWeb
 {
@@ -85,11 +87,8 @@ namespace searchDormWeb
 
            
 
-            services.AddLocalization(options => options.ResourcesPath = "Resources");
 
-            services.AddMvc()
-              .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-              .AddDataAnnotationsLocalization();
+            services.AddMvc();
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -98,9 +97,15 @@ namespace searchDormWeb
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
+            //localization
+            services.AddNetCoreStackMvc(options =>
+            {
+                options.AppName = "NetCoreStack Localization";
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddNetCoreStackLocalization(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -124,12 +129,18 @@ namespace searchDormWeb
                 app.UseHsts();
             }
 
+
+            app.UseNetCoreStackMvc();
+
+            //Required
+            app.UseNetCoreStackLocalization();
+
             //we're passing RoleManager as a parameter, we declared it above so the service has been instanciated already we just need to call it
             // new UserRoleSeed(app.ApplicationServices.GetService<RoleManager<IdentityRole>>()).Seed();
 
             //exception handler 
 
-          
+
             // identity middleware
             app.UseAuthentication();
             //app.UseIdentity();
@@ -147,23 +158,6 @@ namespace searchDormWeb
 
 
 
-            var supportedCultures = new[]
-{
-
-
-    new CultureInfo("en"),
-    new CultureInfo("tr"),
-
-};
-
-            app.UseRequestLocalization(new RequestLocalizationOptions
-            {
-                DefaultRequestCulture = new RequestCulture("en"),
-                // Formatting numbers, dates, etc.
-                SupportedCultures = supportedCultures,
-                // UI strings that we have localized.
-                SupportedUICultures = supportedCultures
-            });
 
 
 
