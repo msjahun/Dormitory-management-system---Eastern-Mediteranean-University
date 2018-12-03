@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.API
 @model SettingsVm
 @{
-    ViewData["Title"] = "Settings";
+    ViewData["Title"] = Localizer["API settings"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -10,14 +10,14 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            API settings
-           
+            @ViewData["Title"]
+
         </h1>
         <div class="row">
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" class="btn btn-success "> <i class="fa fa-floppy-o"></i> Save</button>
+                    <button type="submit" class="btn btn-success "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
                 </div>
             </div>
         </div>
@@ -110,6 +110,9 @@
             $('#example').DataTable()
             $('#example1').DataTable({
                 'paging': true,
+                   "language": {
+                    "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
+                },
                 'lengthChange': true,
                 'searching': true,
                 'ordering': true,

@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.Catalog
 @model DormitoryBlockEdit
 @{
-    ViewData["Title"] = "Edit Dormitory Block";
+    ViewData["Title"] = Localizer["Edit Dormitory Block"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -12,16 +12,16 @@
     <section class="content-header">
         <h1>
             @ViewData["Title"]
-            <small><a asp-action="DormitoryBlocks" asp-controller="Catalog"><i class="fa fa-arrow-circle-left"></i> back to dormitory blocks list</a></small>
+            <small><a asp-action="DormitoryBlocks" asp-controller="Catalog"><i class="fa fa-arrow-circle-left"></i> @Localizer["back to dormitory blocks list"]</a></small>
         </h1>
         <div class="row">
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-eye"></i> Preview</button>
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save</button>
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save and Continue Edit</button>
-                    <button type="submit" form="addForm" class="btn btn-danger "> <i class="fa fa-floppy-o"></i> Delete</button>
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-eye"></i>@Localizer["Preview"]</button>
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save and Continue Edit"]</button>
+                    <button type="submit" form="addForm" class="btn btn-danger "> <i class="fa fa-floppy-o"></i> @Localizer["Delete"]</button>
                 </div>
             </div>
         </div>
@@ -39,9 +39,9 @@
             <!-- Horizontal Form -->
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#tab_3" data-toggle="tab" aria-expanded="true">Block Info</a></li>
-                    <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">SEO</a></li>
-                    <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">Rooms</a></li>
+                    <li class="active"><a href="#tab_3" data-toggle="tab" aria-expanded="true">@Localizer["Block Info"]</a></li>
+                    <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">@Localizer["SEO"]</a></li>
+                    <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">@Localizer["Rooms"]</a></li>
 
                 </ul>
                 <div class="tab-content">
@@ -128,7 +128,7 @@
                                         <div class="col-sm-8">
 
                                             <img src="~/Content/dist/img/default-image_100.png" /><br />
-                                            <button class="btn btn-success">Upload a file</button>
+                                            <button class="btn btn-success">@Localizer["Upload a file"]</button>
                                         </div>
 
 
@@ -366,10 +366,10 @@
                                 <table id="example2" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Room</th>
-                                            <th>Is featured room?</th>
-                                            <th>Display order</th>
-                                            <th>View</th>
+                                            <th>@Localizer["Room"]</th>
+                                            <th>@Localizer["Is featured room?"]</th>
+                                            <th>@Localizer["Display order"]</th>
+                                            <th>@Localizer["View"]</th>
                                             <th></th>
 
                                         </tr>
@@ -377,7 +377,7 @@
                                     <tbody></tbody>
 
                                 </table>
-                                <button type="submit" form="addForm" class="btn btn-primary"> <i class="fa fa-plus-square"></i> Add room</button>
+                                <button type="submit" form="addForm" class="btn btn-primary"> <i class="fa fa-plus-square"></i> @Localizer["Add room"]</button>
 
                             </div>
                         </div>
@@ -454,6 +454,9 @@
 
             $('#example2').DataTable({
                 'paging': false,
+                   "language": {
+                    "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
+                },
                 'lengthChange': true,
                 'searching': false,
                 'ordering': true,

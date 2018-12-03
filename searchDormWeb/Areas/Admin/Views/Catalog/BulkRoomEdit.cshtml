@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.Catalog
 @model BulkEditRoomsVm
 @{
-    ViewBag.Title = "Bulk Edit Rooms";
+    ViewBag.Title = Localizer["Bulk Edit Rooms"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -10,8 +10,8 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Bulk edit rooms
-          
+            @ViewBag.Title
+         
         </h1>
         <div class="row">
             <div class=" col-md-12">
@@ -57,7 +57,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-search"></i> Search</button>
+                                <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-search"></i> @Localizer["Search"]</button>
                             </div>
                         </div>
                     </div>
@@ -70,8 +70,8 @@
 
             <div class="box">
                 <div class="box-header">
-                    <button type="submit" class="btn btn-success "> <i class="fa fa-floppy-o"></i> Save changes</button>
-                    <button type="submit" class="btn btn-info "> <i class="fa fa-ban"></i> Discard changes</button>
+                    <button type="submit" class="btn btn-success "> <i class="fa fa-floppy-o"></i>@Localizer["Save changes"]</button>
+                    <button type="submit" class="btn btn-info "> <i class="fa fa-ban"></i> @Localizer["Discard changes"]</button>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -80,14 +80,14 @@
                         <table id="BulkRoomEditTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>View</th>
-                                    <th>SKU</th>
-                                    <th>Price</th>
-                                    <th>Old price</th>
-                                    <th>Quota</th>
-                                    <th>Published</th>
-                                    <th>Delete</th>
+                                    <th>@Localizer["Name"]</th>
+                                    <th>@Localizer["View"]</th>
+                                    <th>@Localizer["SKU"]</th>
+                                    <th>@Localizer["Price"]</th>
+                                    <th>@Localizer["Old price"]</th>
+                                    <th>@Localizer["Quota"]</th>
+                                    <th>@Localizer["Published"]</th>
+                                    <th>@Localizer["Delete"]</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -266,6 +266,9 @@
                 }
             }).DataTable({
                 'paging': true,
+                   "language": {
+                    "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
+                },
                 'lengthChange': true,
                 "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
                 'searching': false,
@@ -293,7 +296,7 @@
                     
                     {
                         "render": function (data, type, full, meta) {
-                            return '<a class="btn btn-primary" ><i class="fa fa-eye"></i> View</a>';
+                            return '<a class="btn btn-primary" ><i class="fa fa-eye"></i> @Localizer["View"]</a>';
                         }
                     },
                     { "data": "sku" },
@@ -311,7 +314,7 @@
                     },
                     {
                         "render": function (data, type, full, meta) {
-                            return '<a class="btn btn-danger" ><i class="fa fa-pencil"></i> Delete</a>';
+                            return '<a class="btn btn-danger" ><i class="fa fa-pencil"></i> @Localizer["Delete"]</a>';
                         }
                     }
 

@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.Catalog
 @model RoomReviewsVm
 @{
-    ViewBag.Title = "Room Reviews";
+    ViewBag.Title = Localizer["Room Reviews"];
     Layout = "../shared/_LayoutAdmin.cshtml";
 }
 
@@ -16,9 +16,9 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" class="btn btn-primary "> <i class="fa fa-check-square"></i> Approve selected</button>
-                    <button type="submit" class="btn btn-info "> <i class="fa fa-minus-square"></i> Dis-approve selected</button>
-                    <button type="submit" class="btn btn-danger "> <i class="fa fa-trash"></i> Delete selected</button>
+                    <button type="submit" class="btn btn-primary "> <i class="fa fa-check-square"></i> @Localizer["Approve selected"]</button>
+                    <button type="submit" class="btn btn-info "> <i class="fa fa-minus-square"></i> @Localizer["Dis-approve selected"]</button>
+                    <button type="submit" class="btn btn-danger "> <i class="fa fa-trash"></i> @Localizer["Delete selected"]</button>
                 </div>
             </div>
         </div>
@@ -74,7 +74,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-search"></i> Search</button>
+                                <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-search"></i> @Localizer["Search"]</button>
                             </div>
                         </div>
                     </div>
@@ -95,14 +95,14 @@
                             <thead>
                                 <tr>
                                     <th><input type="checkbox" /></th>
-                                    <th>Room</th>
-                                    <th>User</th>
-                                    <th>Title</th>
-                                    <th>Review text</th>
-                                    <th>Rating</th>
-                                    <th>Is approved</th>
-                                    <th>Created on</th>
-                                    <th>Edit</th>
+                                    <th>@Localizer["Room"]</th>
+                                    <th>@Localizer["User"]</th>
+                                    <th>@Localizer["Title"]</th>
+                                    <th>@Localizer["Review text"]</th>
+                                    <th>@Localizer["Rating"]</th>
+                                    <th>@Localizer["Is approved"]</th>
+                                    <th>@Localizer["Created on"]</th>
+                                    <th>@Localizer["Edit"]</th>
                                 </tr>
                             </thead>
 
@@ -196,6 +196,9 @@
             }).DataTable({
                 'paging': true,
                 'lengthChange': true,
+                   "language": {
+                    "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
+                },
                 "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
                 'searching': false,
                 'ordering': false,
@@ -241,7 +244,7 @@
 
                     {
                         "render": function (data, type, full, meta) {
-                            return '<a class="btn btn-primary" href="/Admin/Catalog/RoomReviews"><i class="fa fa-pencil"></i> Edit</a>';
+                            return '<a class="btn btn-primary" href="/Admin/Catalog/RoomReviews"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>';
                         }
                     }
 

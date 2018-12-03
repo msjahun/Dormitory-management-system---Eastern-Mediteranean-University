@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.Catalog
 @model DormitoryBlocksVm
 @{
-    ViewBag.Title = "Dormitory Blocks";
+    ViewBag.Title = Localizer["Dormitory Blocks"];
     Layout = "../shared/_LayoutAdmin.cshtml";
 }
 
@@ -10,20 +10,20 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Dormitory Blocks
+           @ViewBag.Title
           
         </h1>
         <div class="row">
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <a asp-action="DormitoryBlockAdd" asp-controller="Catalog" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-plus-square"></i> Add new</a>
+                    <a asp-action="DormitoryBlockAdd" asp-controller="Catalog" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-plus-square"></i> @Localizer["Add new"]</a>
 
                     <div class="btn-group">
-                        <button type="button" class="btn btn-success btn-flat">Export</button>
+                        <button type="button" class="btn btn-success btn-flat">@Localizer["Export"]</button>
                         <button type="button" class="btn btn-success btn-flat dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
+                            <span class="sr-only">@Localizer["Toggle Dropdown"]</span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#">Action</a></li>
@@ -33,7 +33,7 @@
                             <li><a href="#">Separated link</a></li>
                         </ul>
                     </div>
-                    <button type="submit" class="btn btn-primary "> <i class="fa fa-upload"></i> Import</button>
+                    <button type="submit" class="btn btn-primary "> <i class="fa fa-upload"></i> @Localizer["Import"]</button>
                 </div>
             </div>
         </div>
@@ -69,7 +69,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-search"></i> Search</button>
+                                <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-search"></i> @Localizer["Search"]</button>
                             </div>
                         </div>
                     </div>
@@ -89,10 +89,10 @@
                         <table id="DormitoryBlockTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Published</th>
-                                    <th>Display order</th>
-                                    <th>Edit</th>
+                                    <th>@Localizer["Name"]</th>
+                                    <th>@Localizer["Published"]</th>
+                                    <th>@Localizer["Display order"]</th>
+                                    <th>@Localizer["Edit"]</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -195,6 +195,9 @@
             }).DataTable({
                 'paging': true,
                 'lengthChange': true,
+                   "language": {
+                    "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
+                },
                 "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
                 'searching': false,
                 'ordering': false,
@@ -232,7 +235,7 @@
               
                     {
                         "render": function (data, type, full, meta) {
-                            return '<a class="btn btn-primary" href="/Admin/Catalog/DormitoryBlockEdit"><i class="fa fa-pencil"></i> Edit</a>';
+                            return '<a class="btn btn-primary" href="/Admin/Catalog/DormitoryBlockEdit"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>';
                         }
                     }
 

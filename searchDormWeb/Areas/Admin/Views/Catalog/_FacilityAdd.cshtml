@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.Catalog
 @model FacilityAdd
 @{
-    ViewData["Title"] = "Add facility";
+    ViewData["Title"] = Localizer["Add facility"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -11,14 +11,14 @@
     <section class="content-header">
         <h1>
             @ViewData["Title"]
-            <small><a asp-action="Facilities" asp-controller="Catalog"><i class="fa fa-arrow-circle-left"></i> back to Facilities list</a></small>
+            <small><a asp-action="Facilities" asp-controller="Catalog"><i class="fa fa-arrow-circle-left"></i> @Localizer["back to Facilities list"]</a></small>
         </h1>
         <div class="row">
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save</button>
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save and Continue Edit</button>
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save and Continue Edit"]</button>
                 </div>
             </div>
         </div>
@@ -38,8 +38,8 @@
 
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#tab_3" data-toggle="tab" aria-expanded="true">Attribute info</a></li>
-                    <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">Options</a></li>
+                    <li class="active"><a href="#tab_3" data-toggle="tab" aria-expanded="true">@Localizer["Attribute info"]</a></li>
+                    <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">@Localizer["Options"]</a></li>
 
                 </ul>
                 <div class="tab-content">
@@ -110,7 +110,7 @@
                             <div class="box-header"></div>
 
                             <div class="box-body">
-                                You need to save the specification attribute before you can add options for this specification attribute page.
+                                @Localizer["You need to save the specification attribute before you can add options for this specification attribute page."]
                             </div>
                         </div>
 
@@ -195,6 +195,9 @@
             $('#example1').DataTable({
                 'paging': false,
                 'lengthChange': true,
+                   "language": {
+                    "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
+                },
                 'searching': true,
                 'ordering': true,
                 'info': true,

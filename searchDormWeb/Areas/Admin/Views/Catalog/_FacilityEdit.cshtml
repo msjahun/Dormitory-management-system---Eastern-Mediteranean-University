@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.Catalog
 @model FacilityEdit
 @{
-    ViewData["Title"] = "Edit facility";
+    ViewData["Title"] = Localizer["Edit facility"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -11,15 +11,15 @@
     <section class="content-header">
         <h1>
             @ViewData["Title"]
-            <small><a asp-action="Facilities" asp-controller="Catalog"><i class="fa fa-arrow-circle-left"></i> back to Facilities list</a></small>
+            <small><a asp-action="Facilities" asp-controller="Catalog"><i class="fa fa-arrow-circle-left"></i> @Localizer["back to Facilities list"]</a></small>
         </h1>
         <div class="row">
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save</button>
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save and Continue Edit</button>
-                    <button type="submit" form="addForm" class="btn btn-danger "> <i class="fa fa-trash-o"></i> Delete</button>
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save and Continue Edit"]</button>
+                    <button type="submit" form="addForm" class="btn btn-danger "> <i class="fa fa-trash-o"></i> @Localizer["Delete"]</button>
                 </div>
             </div>
         </div>
@@ -37,8 +37,8 @@
             <!-- Horizontal Form -->
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#tab_3" data-toggle="tab" aria-expanded="true">Attribute info</a></li>
-                    <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">Options</a></li>
+                    <li class="active"><a href="#tab_3" data-toggle="tab" aria-expanded="true">@Localizer["Attribute info"]</a></li>
+                    <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">@Localizer["Options"]</a></li>
 
                 </ul>
                 <div class="tab-content">
@@ -111,11 +111,11 @@
                                 <table id="example2" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Display order</th>
-                                            <th>Number of associated rooms</th>
-                                            <th>Edit</th>
-                                            <th>Delete</th>
+                                            <th>@Localizer["Name"]</th>
+                                            <th>@Localizer["Display order"]</th>
+                                            <th>@Localizer["Number of associated rooms"]</th>
+                                            <th>@Localizer["Edit"]</th>
+                                            <th>@Localizer["Delete"]</th>
 
                                         </tr>
                                     </thead>
@@ -123,7 +123,7 @@
 
                                 </table>
 
-                                <buttn class="btn btn-primary">Add option</buttn>
+                                <buttn class="btn btn-primary">@Localizer["Add option"]</buttn>
                             </div>
                         </div>
                     </div>
@@ -190,6 +190,9 @@
 
             $('#example2').DataTable({
                 'paging': false,
+                   "language": {
+                    "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
+                },
                 'lengthChange': true,
                 'searching': false,
                 'ordering': true,

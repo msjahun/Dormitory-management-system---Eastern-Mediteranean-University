@@ -29,13 +29,13 @@
         <!-- /.search form -->
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
-            <li class="header">MAIN NAVIGATION</li>
+            <li class="header">@Localizer["MAIN NAVIGATION"]</li>
 
 
             <secure-content asp-action="Index" asp-area="Admin" asp-controller="Dashboard">
                 <li class=" @(currentController=="Dashboard"? "active" : "")">
                     <a href="@Url.Action("", "Dashboard")">
-                        <i class="fa fa-desktop"></i> <span>Dashboard</span>
+                        <i class="fa fa-desktop"></i> <span>@Localizer["Dashboard"]</span>
                     </a>
                 </li>
             </secure-content>
@@ -44,15 +44,15 @@
 
 
             @{ actions = new List<MenuSubItems>(new MenuSubItems[] {
-                                  new MenuSubItems { ActionName = "TagHelpers", ActionDisplayName = "TagHelpers" },
-                                  new MenuSubItems { ActionName = "DataTables", ActionDisplayName = "Ajax DataTables" }
+                                  new MenuSubItems { ActionName = "TagHelpers", ActionDisplayName =Localizer["TagHelpers"] },
+                                  new MenuSubItems { ActionName = "DataTables", ActionDisplayName =Localizer["Ajax DataTables"] }
                                                                });
 
 
 
                 item = new MenuItemViewModel
                 {
-                    ControllerDisplayName = "Debug",
+                    ControllerDisplayName =Localizer["Debug"],
                     ControllerName = "Debug",
                     icon = "fa fa-bug",
                     CurrentController = currentController,
@@ -69,22 +69,22 @@
 
 
             @{SubActions = new List<MenuSubItems>(new MenuSubItems[] {
-                                new MenuSubItems {ActionName = "Log", ActionDisplayName = "Activity Log" },
-                                new MenuSubItems { ActionName = "Type", ActionDisplayName = "Activity Log Type" }
+                                new MenuSubItems {ActionName = "Log", ActionDisplayName =Localizer["Activity Log"] },
+                                new MenuSubItems { ActionName = "Type", ActionDisplayName =Localizer["Activity Log Type"] }
                                                                                                       });
 
 
                 actions = new List<MenuSubItems>(new MenuSubItems[] {
-                                       new MenuSubItems { ActionName = "List", ActionDisplayName = "Users" },
-                                       new MenuSubItems { ActionName = "Roles", ActionDisplayName = "User roles" },
-                                       new MenuSubItems { ActionName = "OnlineUsers", ActionDisplayName = "Online Users" },
-                                       new MenuSubItems { ActionName = "UsersReport", ActionDisplayName = "Users report" }
+                                       new MenuSubItems { ActionName = "List", ActionDisplayName =Localizer["Users"] },
+                                       new MenuSubItems { ActionName = "Roles", ActionDisplayName =Localizer["User roles"] },
+                                       new MenuSubItems { ActionName = "OnlineUsers", ActionDisplayName =Localizer["Online Users"] },
+                                       new MenuSubItems { ActionName = "UsersReport", ActionDisplayName =Localizer["Users report"] }
 
                                                                                     });
 
                 subItem = new MenuItemViewModel
                 {
-                    ControllerDisplayName = "Activity log",
+                    ControllerDisplayName =Localizer["Activity log"],
                     ControllerName = "ActivityLog",
                     CurrentController = currentController,
                     CurrentAction = currentAction,
@@ -95,7 +95,7 @@
 
                 item = new MenuItemViewModel
                 {
-                    ControllerDisplayName = "Users",
+                    ControllerDisplayName =Localizer["Users"],
                     ControllerName = "Users",
                     icon = "fa fa-user",
                     CurrentController = currentController,
@@ -117,23 +117,23 @@
 
 
             @{ SubActions = new List<MenuSubItems>(new MenuSubItems[] {
-                                  new MenuSubItems {ActionName = "Facilities", ActionDisplayName = "Facilities" }
+                                  new MenuSubItems {ActionName = "Facilities", ActionDisplayName =Localizer["Facilities"] }
                                                                                                       });
 
 
                 actions = new List<MenuSubItems>(new MenuSubItems[] {
-                                       new MenuSubItems { ActionName = "Rooms", ActionDisplayName = "Rooms" },
-                                       new MenuSubItems { ActionName = "DormitoryBlocks", ActionDisplayName = "Dormitory blocks" },
-                                       new MenuSubItems { ActionName = "BulkRoomEdit", ActionDisplayName = "Bulk edit rooms" },
-                                       new MenuSubItems { ActionName = "RoomReviews", ActionDisplayName = "Room reviews" },
-                                       new MenuSubItems { ActionName = "LowQuotaReport", ActionDisplayName = "Low quota report" }
+                                       new MenuSubItems { ActionName = "Rooms", ActionDisplayName =Localizer["Rooms"] },
+                                       new MenuSubItems { ActionName = "DormitoryBlocks", ActionDisplayName =Localizer["Dormitory blocks"] },
+                                       new MenuSubItems { ActionName = "BulkRoomEdit", ActionDisplayName =Localizer["Bulk edit rooms"] },
+                                       new MenuSubItems { ActionName = "RoomReviews", ActionDisplayName =Localizer["Room reviews"] },
+                                       new MenuSubItems { ActionName = "LowQuotaReport", ActionDisplayName =Localizer["Low quota report"] }
 
 
                                                                                     });
 
                 subItem = new MenuItemViewModel
                 {
-                    ControllerDisplayName = "Facilities",
+                    ControllerDisplayName =Localizer["Facilities"],
                     ControllerName = "Catalog",
                     CurrentController = currentController,
                     CurrentAction = currentAction,
@@ -144,7 +144,7 @@
 
                 item = new MenuItemViewModel
                 {
-                    ControllerDisplayName = "Catalog",
+                    ControllerDisplayName =Localizer["Catalog"],
                     ControllerName = "Catalog",
                     icon = "fa fa-book",
                     CurrentController = currentController,
@@ -166,12 +166,12 @@
 
 
             @{ actions = new List<MenuSubItems>(new MenuSubItems[] {
-                                      new MenuSubItems { ActionName = "List", ActionDisplayName = "Bookings" },
-                                      new MenuSubItems { ActionName = "CancelRequest", ActionDisplayName = "Cancel bookings request" },
-                                      new MenuSubItems { ActionName = "CurrentWishList", ActionDisplayName = "Current booking wishlist" },
-                                      new MenuSubItems { ActionName = "BestSellerRooms", ActionDisplayName = "Best seller rooms" },
-                                      new MenuSubItems { ActionName = "CountryReport", ActionDisplayName = "Country report" },
-                                      new MenuSubItems { ActionName = "RoomsNeverReserved", ActionDisplayName = "Rooms never booked" }
+                                      new MenuSubItems { ActionName = "List", ActionDisplayName =Localizer["Bookings"] },
+                                      new MenuSubItems { ActionName = "CancelRequest", ActionDisplayName =Localizer["Cancel bookings request"] },
+                                      new MenuSubItems { ActionName = "CurrentWishList", ActionDisplayName =Localizer["Current booking wishlist"] },
+                                      new MenuSubItems { ActionName = "BestSellerRooms", ActionDisplayName =Localizer["Best seller rooms"] },
+                                      new MenuSubItems { ActionName = "CountryReport", ActionDisplayName =Localizer["Country report"] },
+                                      new MenuSubItems { ActionName = "RoomsNeverReserved", ActionDisplayName =Localizer["Rooms never booked"] }
 
 
                                                                                     });
@@ -180,7 +180,7 @@
 
                 item = new MenuItemViewModel
                 {
-                    ControllerDisplayName = "Bookings",
+                    ControllerDisplayName = Localizer["Bookings"],
                     ControllerName = "Reservations",
                     icon = "fa fa-shopping-cart",
                     CurrentController = currentController,
@@ -199,17 +199,17 @@
 
 
             @{ actions = new List<MenuSubItems>(new MenuSubItems[] {
-                                  new MenuSubItems { ActionName = "Discounts", ActionDisplayName = "Discounts" },
-                                  new MenuSubItems { ActionName = "Affiliates", ActionDisplayName = "Affiliates" },
-                                  new MenuSubItems { ActionName = "NewsLetterSubscribers", ActionDisplayName = "News letter subsribers" },
-                                  new MenuSubItems { ActionName = "Campaigns", ActionDisplayName = "Campaigns" }
+                                  new MenuSubItems { ActionName = "Discounts", ActionDisplayName =Localizer["Discounts"] },
+                                  new MenuSubItems { ActionName = "Affiliates", ActionDisplayName =Localizer["Affiliates"] },
+                                  new MenuSubItems { ActionName = "NewsLetterSubscribers", ActionDisplayName =Localizer["News letter subsribers"] },
+                                  new MenuSubItems { ActionName = "Campaigns", ActionDisplayName =Localizer["Campaigns"] }
                                                                });
 
 
 
                 item = new MenuItemViewModel
                 {
-                    ControllerDisplayName = "Promotions",
+                    ControllerDisplayName =Localizer["Promotions"],
                     ControllerName = "Promotions",
                     icon = "fa fa-tags",
                     CurrentController = currentController,
@@ -232,17 +232,17 @@
 
 
             @{ actions = new List<MenuSubItems>(new MenuSubItems[] {
-                                  new MenuSubItems { ActionName = "Topics", ActionDisplayName = "Topics(Pages)" },
-                                  new MenuSubItems { ActionName = "MessageTemplates", ActionDisplayName = "Message templates" },
-                                  new MenuSubItems { ActionName = "Polls", ActionDisplayName = "Polls" },
-                                  new MenuSubItems { ActionName = "Survey", ActionDisplayName = "Survey" }
+                                  new MenuSubItems { ActionName = "Topics", ActionDisplayName =Localizer["Topics(Pages)"] },
+                                  new MenuSubItems { ActionName = "MessageTemplates", ActionDisplayName =Localizer["Message templates"] },
+                                  new MenuSubItems { ActionName = "Polls", ActionDisplayName =Localizer["Polls"] },
+                                  new MenuSubItems { ActionName = "Survey", ActionDisplayName =Localizer["Survey"] }
                                                                });
 
 
 
                 item = new MenuItemViewModel
                 {
-                    ControllerDisplayName = "Content management",
+                    ControllerDisplayName =Localizer["Content management"],
                     ControllerName = "ContentManagement",
                     icon = "fa fa-cubes",
                     CurrentController = currentController,
@@ -260,16 +260,16 @@
 
 
             @{ actions = new List<MenuSubItems>(new MenuSubItems[] {
-                                    new MenuSubItems { ActionName = "List", ActionDisplayName = "Notifications" },
-                                    new MenuSubItems { ActionName = "Announcements", ActionDisplayName = "Announcements" },
-                                    new MenuSubItems { ActionName = "ManageAnnouncements", ActionDisplayName = "Manage Announcements" }
+                                    new MenuSubItems { ActionName = "List", ActionDisplayName =Localizer["Notifications"] },
+                                    new MenuSubItems { ActionName = "Announcements", ActionDisplayName =Localizer["Announcements"] },
+                                    new MenuSubItems { ActionName = "ManageAnnouncements", ActionDisplayName =Localizer["Manage Announcements"] }
                                                                });
 
 
 
                 item = new MenuItemViewModel
                 {
-                    ControllerDisplayName = "Notifications",
+                    ControllerDisplayName =Localizer["Notifications"],
                     ControllerName = "Notifications",
                     icon = "fa fa-bullhorn",
                     CurrentController = currentController,
@@ -286,19 +286,19 @@
 
 
             @{ actions = new List<MenuSubItems>(new MenuSubItems[] {
-                                   new MenuSubItems { ActionName = "EmailAccounts", ActionDisplayName = "EmailAccounts" },
-                                   new MenuSubItems { ActionName = "Dormitories", ActionDisplayName = "Dormitories" },
-                                   new MenuSubItems { ActionName = "Countries", ActionDisplayName = "Countries" },
-                                   new MenuSubItems { ActionName = "Languages", ActionDisplayName = "Languages" },
-                                   new MenuSubItems { ActionName = "Currencies", ActionDisplayName = "Currencies" },
-                                   new MenuSubItems { ActionName = "AccessControlList", ActionDisplayName = "Access control lists" }
+                                   new MenuSubItems { ActionName = "EmailAccounts", ActionDisplayName =Localizer["EmailAccounts"] },
+                                   new MenuSubItems { ActionName = "Dormitories", ActionDisplayName =Localizer["Dormitories"] },
+                                   new MenuSubItems { ActionName = "Countries", ActionDisplayName =Localizer["Countries"] },
+                                   new MenuSubItems { ActionName = "Languages", ActionDisplayName =Localizer["Languages"] },
+                                   new MenuSubItems { ActionName = "Currencies", ActionDisplayName =Localizer["Currencies"] },
+                                   new MenuSubItems { ActionName = "AccessControlList", ActionDisplayName =Localizer["Access control lists"] }
                                                                });
 
 
 
                 item = new MenuItemViewModel
                 {
-                    ControllerDisplayName = "Configurations",
+                    ControllerDisplayName =Localizer["Configurations"],
                     ControllerName = "Configurations",
                     icon = "fa fa-gears",
                     CurrentController = currentController,
@@ -320,18 +320,18 @@
 
 
                 actions = new List<MenuSubItems>(new MenuSubItems[] {
-                                       new MenuSubItems { ActionName = "Information", ActionDisplayName = "System information" },
-                                       new MenuSubItems { ActionName = "Log", ActionDisplayName = "Log" },
-                                       new MenuSubItems { ActionName = "Warning", ActionDisplayName = "Warning" },
-                                       new MenuSubItems { ActionName = "Maintenance", ActionDisplayName = "Maintenance" },
-                                       new MenuSubItems { ActionName = "MessageQueues", ActionDisplayName = "Message queue" },
-                                       new MenuSubItems { ActionName = "ScheduleTasks", ActionDisplayName = "Schedule tasks" },
-                                       new MenuSubItems { ActionName = "SEOFriendlyPageNames", ActionDisplayName = "SEO friendly page names" }
+                                       new MenuSubItems { ActionName = "Information", ActionDisplayName =Localizer["System information"] },
+                                       new MenuSubItems { ActionName = "Log", ActionDisplayName =Localizer["Log"] },
+                                       new MenuSubItems { ActionName = "Warning", ActionDisplayName =Localizer["Warning"] },
+                                       new MenuSubItems { ActionName = "Maintenance", ActionDisplayName =Localizer["Maintenance"] },
+                                       new MenuSubItems { ActionName = "MessageQueues", ActionDisplayName =Localizer["Message queue"] },
+                                       new MenuSubItems { ActionName = "ScheduleTasks", ActionDisplayName =Localizer["Schedule tasks"] },
+                                       new MenuSubItems { ActionName = "SEOFriendlyPageNames", ActionDisplayName =Localizer["SEO friendly page names"] }
                                                                                     });
 
                 item = new MenuItemViewModel
                 {
-                    ControllerDisplayName = "System",
+                    ControllerDisplayName =Localizer["System"],
                     ControllerName = "System",
                     CurrentController = currentController,
                     CurrentAction = currentAction,
@@ -349,15 +349,15 @@
 
 
             @{ actions = new List<MenuSubItems>(new MenuSubItems[] {
-                                          new MenuSubItems { ActionName = "UsageReport", ActionDisplayName = "Usage report" },
-                                          new MenuSubItems { ActionName = "PushNotifications", ActionDisplayName = "Push notifications" }
+                                          new MenuSubItems { ActionName = "UsageReport", ActionDisplayName =Localizer["Usage report"] },
+                                          new MenuSubItems { ActionName = "PushNotifications", ActionDisplayName =Localizer["Push notifications"] }
                                                                });
 
 
 
                 item = new MenuItemViewModel
                 {
-                    ControllerDisplayName = "Mobile app Manager",
+                    ControllerDisplayName =Localizer["Mobile app Manager"],
                     ControllerName = "MobileAppManager",
                     icon = "fa fa-mobile",
                     CurrentController = currentController,
@@ -376,16 +376,16 @@
 
 
             @{ actions = new List<MenuSubItems>(new MenuSubItems[] {
-                                          new MenuSubItems { ActionName = "Settings", ActionDisplayName = "Settings" },
-                                          new MenuSubItems { ActionName = "Clients", ActionDisplayName = "Clients" },
-                                          new MenuSubItems { ActionName = "Documentation", ActionDisplayName = "Documentation" }
+                                          new MenuSubItems { ActionName = "Settings", ActionDisplayName =Localizer["Settings"] },
+                                          new MenuSubItems { ActionName = "Clients", ActionDisplayName =Localizer["Clients"] },
+                                          new MenuSubItems { ActionName = "Documentation", ActionDisplayName =Localizer["Documentation"] }
                                                                });
 
 
 
                 item = new MenuItemViewModel
                 {
-                    ControllerDisplayName = "APi",
+                    ControllerDisplayName =Localizer["APi"],
                     ControllerName = "API",
                     icon = "fa fa-plug",
                     CurrentController = currentController,
@@ -402,15 +402,15 @@
 
 
             @{ actions = new List<MenuSubItems>(new MenuSubItems[] {
-                                          new MenuSubItems { ActionName = "Topics", ActionDisplayName = "Help topics" },
-                                          new MenuSubItems { ActionName = "FAQ", ActionDisplayName = "FAQ" }
+                                          new MenuSubItems { ActionName = "Topics", ActionDisplayName =Localizer["Help topics"] },
+                                          new MenuSubItems { ActionName = "FAQ", ActionDisplayName =Localizer["FAQ"] }
                                                                });
 
 
 
                 item = new MenuItemViewModel
                 {
-                    ControllerDisplayName = "Help",
+                    ControllerDisplayName =Localizer["Help"],
                     ControllerName = "Help",
                     icon = "fa fa-question-circle",
                     CurrentController = currentController,

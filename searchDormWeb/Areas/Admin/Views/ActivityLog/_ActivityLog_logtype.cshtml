@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "Activity Log Type";
+    ViewData["Title"] = Localizer["Activity Log Type"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -8,14 +8,14 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Activity Log Type
+            @Localizer["Activity Log Type"]
           
         </h1>
         <div class="row">
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" class="btn btn-success "> <i class="fa fa-floppy-o"></i> Save</button>
+                    <button type="submit" class="btn btn-success "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
                 </div>
             </div>
         </div>
@@ -42,8 +42,8 @@
                         <table id="activityLogTypeTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th><input type="checkbox"> Is enabled</th>
+                                    <th>@Localizer["Name"]</th>
+                                    <th><input type="checkbox"> @Localizer["Is enabled"]</th>
                                 </tr>
                             </thead>
                            
@@ -111,6 +111,9 @@
                 }
             }).DataTable({
                 'paging': true,
+                   "language": {
+                    "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
+                },
                 'lengthChange': true,
                 "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
                 'searching': false,

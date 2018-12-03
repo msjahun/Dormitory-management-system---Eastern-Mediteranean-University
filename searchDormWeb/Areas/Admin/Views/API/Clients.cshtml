@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "Client";
+    ViewData["Title"] = Localizer["Client"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -16,7 +16,7 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <a asp-action="ClientAdd" asp-controller="API" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-plus-square"></i> Add new</a>
+                    <a asp-action="ClientAdd" asp-controller="API" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-plus-square"></i> @Localizer["Add new"]</a>
                 </div>
             </div>
         </div>
@@ -42,12 +42,12 @@
                         <table id="ClientsTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Client id</th>
-                                    <th>Client secret</th>
-                                    <th>Callback url</th>
-                                    <th>Is Active</th>
-                                    <th>Edit</th>
+                                    <th>@Localizer["Name"]</th>
+                                    <th>@Localizer["Client id"]</th>
+                                    <th>@Localizer["Client secret"]</th>
+                                    <th>@Localizer["Callback url"]</th>
+                                    <th>@Localizer["Is Active"]</th>
+                                    <th>@Localizer["Edit"]</th>
                                 </tr>
                             </thead>
                          
@@ -117,6 +117,9 @@
                 'paging': true,
                 'lengthChange': true,
                 "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
+                   "language": {
+                    "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
+                },
                 'searching': false,
                 'ordering': false,
                 'info': true,
@@ -154,7 +157,7 @@
                     },
                     {
                         "render": function (data, type, full, meta) {
-                            return '<a class="btn btn-primary" href="/Admin/API/ClientEdit/"><i class="fa fa-pencil"></i> Edit</a>';
+                            return '<a class="btn btn-primary" href="/Admin/API/ClientEdit/"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>';
                         }
                     }
 
