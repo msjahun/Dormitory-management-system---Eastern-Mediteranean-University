@@ -2,8 +2,8 @@
 @{
     ViewData["Title"] = "BookingCheckoutCustomer";
 
-    ViewData["Header"] = "Checkout";
-    ViewData["SubDescription"] = "Customer information";
+    ViewData["Header"] = Localizer["Checkout"];
+    ViewData["SubDescription"] = Localizer["Student information"];
 
 
     Layout = "~/Views/Shared/_LayoutCheckout.cshtml";
@@ -18,23 +18,23 @@
                     <!-- General -->
 
                     <div class="page-inner-header mb-4">
-                        <h5 class="mb-1">Billing information</h5>
+                        <h5 class="mb-1">@Localizer["Billing information"]</h5>
 
-                        <p class="text-muted mb-0">Fill the form below so we can send you the order's invoice.</p>
+                        <p class="text-muted mb-0">@Localizer["Fill the form below so we can send you the order's invoice."]</p>
 
                     </div>
 
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-control-label">First name</label>
-                                <input class="form-control" type="text" placeholder="Enter your first name">
+                                <label class="form-control-label">@Localizer["First name"]</label>
+                                <input class="form-control" type="text" placeholder="@Localizer["Enter your first name"]">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-control-label">Last name</label>
-                                <input class="form-control" type="text" placeholder="Also your last name">
+                                <label class="form-control-label">@Localizer["Last name"]</label>
+                                <input class="form-control" type="text" placeholder="@Localizer["Also your last name"]">
                             </div>
                         </div>
                     </div>
@@ -42,8 +42,8 @@
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="form-control-label">Student Number</label>
-                                <input class="form-control" type="text" placeholder="Student Number if available">
+                                <label class="form-control-label">@Localizer["Student Number"]</label>
+                                <input class="form-control" type="text" placeholder="@Localizer["Student Number or Admission no"]">
                             </div>
                         </div>
                     </div>
@@ -51,17 +51,17 @@
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="form-control-label">Address</label>
-                                <input class="form-control" type="text" placeholder="Address, Number">
+                                <label class="form-control-label">@Localizer["Address"]</label>
+                                <input class="form-control" type="text" placeholder="@Localizer["Address, Number"]">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-control-label">Country</label>
-                                <select class="form-control" data-toggle="select" title="Country">
-                                    <option selected>Select your country</option>
+                                <label class="form-control-label">@Localizer["Country"]</label>
+                                <select class="form-control" data-toggle="select" title="@Localizer["Country"]">
+                                    <option selected>@Localizer["Select your country"]</option>
                                     <option value="1">Bulgaria</option>
                                     <option value="2">Croatia</option>
                                     <option value="3">Denmark</option>
@@ -74,9 +74,9 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-control-label">City</label>
-                                <select class="form-control" data-toggle="select" title="City">
-                                    <option selected>Select your city</option>
+                                <label class="form-control-label">@Localizer["City"]</label>
+                                <select class="form-control" data-toggle="select" title="@Localizer["City"]">
+                                    <option selected>@Localizer["Select your city"]</option>
                                     <option value="1">Bucharest</option>
                                     <option value="2">Bacau</option>
                                     <option value="3">Cluj Napoca</option>
@@ -90,20 +90,20 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-control-label">Postal code</label>
-                                <input class="form-control" type="text" placeholder="Address, Number">
+                                <label class="form-control-label">@Localizer["Postal code"]</label>
+                                <input class="form-control" type="text" placeholder="@Localizer["Address, Number"]">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-control-label">Phone</label>
-                                <input class="form-control" type="text" placeholder="+40-777 245 549">
+                                <label class="form-control-label">@Localizer["Phone"]</label>
+                                <input class="form-control" type="text" placeholder="+90-5** *** ****">
                             </div>
                         </div>
                     </div>
                     <div class="mt-5 text-right">
-                        <button type="button" class="btn btn-link text-sm text-dark font-weight-bold">Return to shop</button>
-                        <a asp-controller="debug" asp-action="BookingCheckoutPayment" class="btn btn-sm btn-primary">Next step</a>
+                        <button type="button" class="btn btn-link text-sm text-dark font-weight-bold">@Localizer["Return to Home"]</button>
+                        <a asp-controller="debug" asp-action="BookingCheckoutPayment" class="btn btn-sm btn-primary">@Localizer["Next step"]</a>
                     </div>
                 </form>
             </div>
@@ -115,10 +115,10 @@
                         <div class="card-header py-3">
                             <div class="row align-items-center">
                                 <div class="col-6">
-                                    <span class="h6">Summary</span>
+                                    <span class="h6">@Localizer["Summary"]</span>
                                 </div>
                                 <div class="col-6 text-right">
-                                    <span class="badge badge-md badge-pill badge-info">1 selected Room</span>
+                                    <span class="badge badge-md badge-pill badge-info">1 @Localizer["selected Room"]</span>
                                 </div>
                             </div>
                         </div>
@@ -146,7 +146,7 @@
                             <!-- Subtotal -->
                             <div class="row mt-3 pt-3 border-top">
                                 <div class="col-8 text-right">
-                                    <small class="text-dark font-weight-bold">Subtotal:</small>
+                                    <small class="text-dark font-weight-bold">@Localizer["Subtotal"]:</small>
                                 </div>
                                 <div class="col-4 text-right">
                                     <span class="text-sm font-weight-bold">$330.50</span>
@@ -159,7 +159,7 @@
 
                                         <div class="media-body">
                                             <div class="text-limit lh-100">
-                                                <small class="text-dark font-weight-bold mb-0">Booking fee:</small>
+                                                <small class="text-dark font-weight-bold mb-0">@Localizer["Booking fee"]:</small>
                                             </div>
 
                                         </div>
@@ -176,7 +176,7 @@
 
                                         <div class="media-body">
                                             <div class="text-limit lh-100">
-                                                <small class="text-dark font-weight-bold mb-0">Tax:</small>
+                                                <small class="text-dark font-weight-bold mb-0">@Localizer["Tax"]:</small>
                                             </div>
 
                                         </div>
@@ -189,7 +189,7 @@
                             <!-- Subtotal -->
                             <div class="row mt-3 pt-3 border-top">
                                 <div class="col-8 text-right">
-                                    <small class="text-uppercase text-dark font-weight-bold">Total:</small>
+                                    <small class="text-uppercase text-dark font-weight-bold">@Localizer["Total"]:</small>
                                 </div>
                                 <div class="col-4 text-right">
                                     <span class="text-sm text-dark font-weight-bold">$355.50</span>
@@ -198,7 +198,7 @@
 
                         </div>
                     </div>
-
+                  
                 </div>
 
             </div>

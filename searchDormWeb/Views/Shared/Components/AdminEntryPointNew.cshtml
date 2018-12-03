@@ -11,7 +11,7 @@
 @if (SignInManager.IsSignedIn(User))
 {<secure-content asp-action="Index" asp-controller="Admin" asp-area="">
     <div class="col">
-        <a asp-action="Index" asp-controller="Admin" class="btn btn-block btn-primary">Administration</a>
+        <a asp-action="Index" asp-controller="Admin" class="btn btn-block btn-primary">@Localizer["Administration"]</a>
     </div>
 
 

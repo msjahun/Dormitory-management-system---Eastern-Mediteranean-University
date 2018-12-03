@@ -16,13 +16,14 @@
             <table class="table align-items-center">
                 <thead>
                     <tr>
-                        <th>Dormitory/Room</th>
-                        <th>Price</th>
-                        <th>Number of Semesters</th>
-                        <th>Total</th>
+                        <th>@Localizer["Dormitory/Room"]</th>
+                        <th>@Localizer["Price"]</th>
+                        <th>@Localizer["Number of Semesters"]</th>
+                        <th>@Localizer["Total"]</th>
                         <th></th>
                     </tr>
                 </thead>
+
                 <tbody>
                     <tr>
                         <td>
@@ -62,13 +63,13 @@
         <div class="">
             <div class="row justify-content-center">
                 <div class="col-md-5 col-lg-4 text-center">
-                    <h5 class="mb-0">Total: $1,800 USD</h5>
-                    <p class="small mb-0">Have a coupon code? Add the code in the form below</p>
+                    <h5 class="mb-0">@Localizer["Total"]: $1,800 USD</h5>
+                    <p class="small mb-0">@Localizer["Have a coupon code? Add the code in the form below"]</p>
                     <form class="mt-4">
                         <div class="input-group">
-                            <input type="text" class="form-control form-control-sm" placeholder="Type your voucher code ...">
+                            <input type="text" class="form-control form-control-sm" placeholder="@Localizer["Type your coupon code ..."]">
                             <span class="input-group-append">
-                                <button type="button" class="btn btn-sm btn-primary">Apply code</button>
+                                <button type="button" class="btn btn-sm btn-primary">@Localizer["Apply code"]</button>
                             </span>
                         </div>
                     </form>
@@ -83,8 +84,8 @@
             <div class="row justify-content-center">
 
                 <div class=" text-right">
-                    <button type="button" class="btn btn-link text-sm text-dark font-weight-bold">Go back to Home Page</button>
-                    <a asp-controller="debug" asp-action="BookingCheckoutCustomer" class="btn btn-sm btn-primary">Next step</a>
+                    <button type="button" class="btn btn-link text-sm text-dark font-weight-bold">@Localizer["Go back to Home Page"]</button>
+                    <a asp-controller="debug" asp-action="BookingCheckoutCustomer" class="btn btn-sm btn-primary">@Localizer["Next step"]</a>
                 </div>
             </div>
         </div>

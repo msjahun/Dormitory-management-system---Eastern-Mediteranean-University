@@ -56,7 +56,7 @@
                         <div class="d-flex">
                             <a href="account-profile-public.html" class="btn btn-icon btn-group-nav shadow btn-secondary">
                                 <span class="btn-inner--icon"><i class="fas fa-user"></i></span>
-                                <span class="btn-inner--text d-none d-md-inline-block">My Account</span>
+                                <span class="btn-inner--text d-none d-md-inline-block">@Localizer["My Account"]</span>
                             </a>
 
                         </div>
@@ -76,13 +76,13 @@
 
                             <div class="card">
                                 <div class="card-header py-3">
-                                    <span class="h6">Settings</span>
+                                    <span class="h6">@Localizer["Settings"]</span>
                                 </div>
                                 <div class="list-group list-group-sm list-group-flush">
-                                    <a asp-controller="Debug" asp-action="AccountProfile" class="list-group-item list-group-item-action d-flex justify-content-between  @(currentAction=="AccountProfile"? "active" : "") ">
+                                    <a asp-controller="Debug" asp-action="AccountProfile" class="list-group-item list-group-item-action d-flex justify-content-between  @(currentAction == "AccountProfile" ? "active" : "") ">
                                         <div>
                                             <i class="fas fa-user-circle mr-2"></i>
-                                            <span>Profile</span>
+                                            <span>@Localizer["Profile"]</span>
                                         </div>
                                         <div>
                                             <i class="fas fa-angle-right"></i>
@@ -90,28 +90,28 @@
                                     </a>
 
 
-                                    <a asp-controller="Debug" asp-action="AccountSettings" class="list-group-item list-group-item-action d-flex justify-content-between @(currentAction=="AccountSettings"? "active" : "")  ">
+                                    <a asp-controller="Debug" asp-action="AccountSettings" class="list-group-item list-group-item-action d-flex justify-content-between @(currentAction == "AccountSettings" ? "active" : "")  ">
                                         <div>
                                             <i class="fas fa-cog mr-2"></i>
-                                            <span>Settings</span>
+                                            <span>@Localizer["Settings"]</span>
                                         </div>
                                         <div>
                                             <i class="fas fa-angle-right"></i>
                                         </div>
                                     </a>
-                                    <a asp-controller="Debug" asp-action="AccountBilling" class="list-group-item list-group-item-action d-flex justify-content-between @(currentAction=="AccountBilling"? "active" : "") ">
+                                    <a asp-controller="Debug" asp-action="AccountBilling" class="list-group-item list-group-item-action d-flex justify-content-between @(currentAction == "AccountBilling" ? "active" : "") ">
                                         <div>
                                             <i class="fas fa-credit-card mr-2"></i>
-                                            <span>Bookings</span>
+                                            <span>@Localizer["Bookings"]</span>
                                         </div>
                                         <div>
                                             <i class="fas fa-angle-right"></i>
                                         </div>
                                     </a>
-                                    <a asp-controller="Debug" asp-action="AccountNotifications" class="list-group-item list-group-item-action d-flex justify-content-between @(currentAction=="AccountNotifications"? "active" : "") ">
+                                    <a asp-controller="Debug" asp-action="AccountNotifications" class="list-group-item list-group-item-action d-flex justify-content-between @(currentAction == "AccountNotifications" ? "active" : "") ">
                                         <div>
                                             <i class="fas fa-bell mr-2"></i>
-                                            <span>Notifications</span>
+                                            <span>@Localizer["Notifications"]</span>
                                         </div>
                                         <div>
                                             <i class="fas fa-angle-right"></i>
@@ -138,10 +138,10 @@
             <div class="container">
                 <div class="row justify-content-center align-items-center">
                     <div class="col-lg-8 text-center">
-                        <h3 class="font-weight-400 text-white">I am ready to start booking Now </h3>
+                        <h3 class="font-weight-400 text-white">@Localizer["I am ready to start booking Now"] </h3>
                         <div class="mt-5">
-                            <a href="" target="_blank" class="btn btn-white btn-circle btn-translate--hover px-4">Book my first Room<span class="badge badge-pill badge-danger text-sm">Now</span></a>
-                            <a href="" class="btn btn-link text-white">Have an issue?</a>
+                            <a href="" target="_blank" class="btn btn-white btn-circle btn-translate--hover px-4">@Localizer["Book my first Room"]<span class="badge badge-pill badge-danger text-sm">@Localizer["Now"]</span></a>
+                            <a href="" class="btn btn-link text-white">@Localizer["Have an issue?"]</a>
                         </div>
                     </div>
                 </div>

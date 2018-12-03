@@ -15,14 +15,14 @@
 
                     <div class="card">
                         <div class="card-header-sm  bg-primary ">
-                            <h5 class="text-white">Filter: </h5>
+                            <h5 class="text-white">@Localizer["Filter"]: </h5>
                         </div>
 
                         <div class="card-body">
 
 
 
-                            <h6>Dormitory Type</h6>
+                            <h6>@Localizer["Dormitory Type"]</h6>
                             <select class="form-control  form-control-sm  " data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Search ...">
                                 <option></option>
                                 <option>Badges</option>
@@ -33,7 +33,7 @@
                             </select>
 
                             <br />
-                            <h6>Dormitory name</h6>
+                            <h6>@Localizer["Dormitory name"]</h6>
                             <select class="form-control  form-control-sm " data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Search ...">
                                 <option></option>
                                 <option>Badges</option>
@@ -44,7 +44,7 @@
                             </select>
 
                             <br />
-                            <h6>Semester duration</h6>
+                            <h6>@Localizer["Semester duration"]</h6>
                             <select class="form-control  form-control-sm " data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Search ...">
                                 <option></option>
                                 <option>1 semester - Fall 2019</option>
@@ -55,7 +55,7 @@
 
 
                             <br />
-                            <h6>Price</h6>
+                            <h6>@Localizer["Price"]</h6>
 
                             <div class="range-slider-wrapper ">
                                 <!-- Range slider container -->
@@ -77,7 +77,7 @@
 
 
 
-                            <h6>Room area</h6>
+                            <h6>@Localizer["Room area"]</h6>
 
                             <div class="input-slider-container mb-4">
                                 <div id="input-slider-red" class="input-slider input-slider--red" data-range-value-min="100" data-range-value-max="900"></div>
@@ -93,7 +93,7 @@
 
 
                             <a asp-controller="debug" asp-action="SearchResultPage" class="btn btn-primary btn-sm btn-block btn-animated btn-animated-x">
-                                <span class="btn-inner--visible">Search</span>
+                                <span class="btn-inner--visible">@Localizer["Search"]</span>
                                 <span class="btn-inner--hidden"><i class="fa fa-search"></i></span>
                             </a>
 
@@ -282,16 +282,16 @@
                         <div class="row " style="margin:0px; padding:0px;">
 
                             <div class="col bg-yellow" style="margin:0px; padding:0px;">
-                                <a href="#Availability" class="btn btn-sm btn-warning btn-block ">Room Info & Price</a>
+                                <a href="#Availability" class="btn btn-sm btn-warning btn-block ">@Localizer["Room Info & Price"]</a>
                             </div>
                             <div class="col" style="margin:0px; padding:0px;">
-                                <a href="#Facilities" class="btn btn-sm  btn-block btn-outline-warning">Facilities</a>
+                                <a href="#Facilities" class="btn btn-sm  btn-block btn-outline-warning">@Localizer["Facilities"]</a>
                             </div>
                             <div class="col" style="margin:0px; padding:0px;">
-                                <a href="#GoodToKnow" class="btn btn-sm btn-block btn-outline-warning btn-block ">Good to know</a>
+                                <a href="#GoodToKnow" class="btn btn-sm btn-block btn-outline-warning btn-block ">@Localizer["Good to know"]</a>
                             </div>
                             <div class="col" style="margin:0px; padding:0px;">
-                                <a href="#StudentReview" class="btn btn-sm btn-block btn-outline-warning btn-block ">Student reviews</a>
+                                <a href="#StudentReview" class="btn btn-sm btn-block btn-outline-warning btn-block ">@Localizer["Student reviews"]</a>
                             </div>
 
 
@@ -306,8 +306,8 @@
                     </div>
 
                     <h3>Alfam Dormitory EMU University</h3>
-                    <a><i class="fa fa-map-marker text-primary " style="color:#269038;"></i> EMU charles Darwin street-Show on map</a>
-                    <span class="address-show-map" style="color:#269038; text-decoration:underline;"> <a href="#" style=" color:#269038">Show map</a></span>
+                    <a><i class="fa fa-map-marker text-primary " style="color:#269038;"></i> EMU charles Darwin street-@Localizer["Show on map"]</a>
+                    <span class="address-show-map" style="color:#269038; text-decoration:underline;"> <a href="#" style=" color:#269038">@Localizer["Show map"]</a></span>
                     <h6>Dormitory belongs to the category of private school dormitories/ accomodations (BOT)</h6>
 
 
@@ -421,19 +421,19 @@
                                     
 
 
-                                        <h1 class="h5 ">Students Love..</h1>
+                                        <h1 class="h5 ">@Localizer["Students Love.."]</h1>
 
                                         <p><i class="fa fa-map-marker text-primary"></i> Top Location: Highly rated by recent Students(9.6)</p>
                                         <p><i class="fa fa-bed text-primary"></i> Top Location: Highly rated by recent Students(9.6)</p>
 
-                                        <h5>Staff</h5>
+                                        <h5>@Localizer["Staff"]</h5>
                                         <p>Staff are very friendly</p>
 
                                         <span>Has a gym!</span>
 
 
 
-                                        <a asp-fragment="Availability" class="btn btn-primary btn-block btn-sm ">Reserve</a>
+                                        <a asp-fragment="Availability" class="btn btn-primary btn-block btn-sm ">@Localizer["Reserve"]</a>
 
                                     </div>
                                 </div>
@@ -449,19 +449,19 @@
                             <a class="media d-flex align-items-center mr-lg-5 mb-3 mb-lg-0">
                                 <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/in-progress.svg" style="width: 36px;">
                                 <div class="media-body pl-2">
-                                    <span class="h6">10 New facilities</span>
+                                    <span class="h6">@Localizer["{0} New facilities"]</span>
                                 </div>
                             </a>
                             <a class="media d-flex align-items-center mr-lg-5 mb-3 mb-lg-0">
                                 <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/natural-user-interface-1.svg" style="width: 36px;">
                                 <div class="media-body pl-2">
-                                    <span class="h6">8.9 Staff rating</span>
+                                    <span class="h6">@Localizer["{0} Staff rating"]</span>
                                 </div>
                             </a>
                             <a class="media d-flex align-items-center mb-3 mb-lg-0">
                                 <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/collect.svg" style="width: 36px;">
                                 <div class="media-body pl-2">
-                                    <span class="h6">7 Awards</span>
+                                    <span class="h6">@Localizer["{0} Awards"]</span>
                                 </div>
                             </a>
                         </div>
@@ -473,7 +473,7 @@
                             <div class="alert alert-success alert-sm  alert-dismissible fade show" role="alert">
                                 <span class="alert-inner--icon"><i class="fas fa-lock"></i></span>
 
-                                <span class="alert-inner--text">Get instant confirmation with FREE cancelation on most rooms!</span>
+                                <span class="alert-inner--text">@Localizer["Get instant confirmation with FREE cancelation on most rooms!"]</span>
 
 
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -486,15 +486,15 @@
 
                         <div class="pt-2  delimiter-top" id="Availability">
                             <!-- Resume timeline -->
-                            <h6>Room Availability</h6>
+                            <h6>@Localizer["Room Availability"]</h6>
 
                             <div class="overflow">
                                 <table class="table  table-bordered">
                                     <thead>
                                         <tr>
-                                            <th class="bg-info text-white" scope="col">Sleeps</th>
-                                            <th class="bg-info text-white" scope="col">Room Type</th>
-                                            <th class="bg-info text-white" scope="col">Prices</th>
+                                            <th class="bg-info text-white" scope="col">@Localizer["Sleeps"]</th>
+                                            <th class="bg-info text-white" scope="col">@Localizer["Room Type"]</th>
+                                            <th class="bg-info text-white" scope="col">@Localizer["Prices"]</th>
 
                                         </tr>
                                     </thead>
@@ -516,7 +516,7 @@
                                                 <span class="text-danger"> 2 rooms left</span>
                                             </td>
                                             <td>
-                                                <button class="btn btn-primary btn-block btn-sm">Show prices</button>
+                                                <button class="btn btn-primary btn-block btn-sm">@Localizer["Show prices"]</button>
                                             </td>
 
                                         </tr>
@@ -540,7 +540,7 @@
                                             <td>
                                                 <h4 class="text-bold" style="color:#269038">TL 1.839,00</h4>
                                                 <strike><h4 class="text-bold" style="color:grey; ">TL 1.839,00</h4></strike>
-                                                <a asp-action="BookingCart" asp-controller="debug" class="btn btn-primary btn-block btn-sm">I'll reserve</a>
+                                                <a asp-action="BookingCart" asp-controller="debug" class="btn btn-primary btn-block btn-sm">@Localizer["I'll reserve"]</a>
                                             </td>
 
                                         </tr>
@@ -549,16 +549,16 @@
                                 </table>
                             </div>
 
-                            <h3>Or this type of table</h3>
+                            <h3>@Localizer["Or this type of table"]</h3>
 
                             <div class="overflow">
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th class="bg-info text-white" scope="col">Room Type</th>
-                                            <th class="bg-info text-white" scope="col">Sleeps</th>
-                                            <th class="bg-info text-white" scope="col">Prices</th>
-                                            <th class="bg-info text-white" scope="col">Your choices</th>
+                                            <th class="bg-info text-white" scope="col">@Localizer["Room Type"]</th>
+                                            <th class="bg-info text-white" scope="col">@Localizer["Sleeps"]</th>
+                                            <th class="bg-info text-white" scope="col">@Localizer["Prices"]</th>
+                                            <th class="bg-info text-white" scope="col">@Localizer["Your choices"]</th>
                                             <th class="bg-info text-white" scope="col"></th>
 
                                         </tr>
@@ -582,7 +582,7 @@
 
                                             </td>
                                             <td>
-                                                <button class="btn btn-primary btn-block btn-sm">Show prices</button>
+                                                <button class="btn btn-primary btn-block btn-sm">@Localizer["Show prices"]</button>
                                             </td>
                                             <td><i class="fas fa-check"></i> Includes deposit</td>
                                             <td></td>
@@ -612,7 +612,7 @@
                                             </td>
                                             <td> No deposit</td>
                                             <td>
-                                                <a asp-action="BookingCart" asp-controller="debug" class="btn btn-primary btn-block btn-sm">I'll reserve</a>
+                                                <a asp-action="BookingCart" asp-controller="debug" class="btn btn-primary btn-block btn-sm">@Localizer["I'll reserve"]</a>
                                             </td>
                                         </tr>
 
@@ -641,7 +641,7 @@
                                             </td>
                                             <td> No deposit</td>
                                             <td>
-                                                <a asp-action="BookingCart" asp-controller="debug" class="btn btn-primary btn-block btn-sm">I'll reserve</a>
+                                                <a asp-action="BookingCart" asp-controller="debug" class="btn btn-primary btn-block btn-sm">@Localizer["I'll reserve"]</a>
                                             </td>
                                         </tr>
 
@@ -653,7 +653,7 @@
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <span class="alert-inner--icon"><i class="fas fa-lock"></i></span>
 
-                                <span class="alert-inner--text"><strong>Just booked in EMU: </strong>90 Dormitories like Alfam dormitory were booked!</span>
+                                <span class="alert-inner--text"><strong>@Localizer["Just booked in EMU"]: </strong>@Localizer["{0} Dormitories like Alfam dormitory were booked!"]</span>
 
 
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -667,7 +667,7 @@
 
                         <div class="pt-5 mt-5 delimiter-top" id="AreaInfo">
                             <!-- Resume timeline -->
-                            <h6>Area info<span class="text-primary "> -Excellent location - show map</span></h6>
+                            <h6>@Localizer["Area info"]<span class="text-primary "> -Excellent location - @Localizer["show map"]</span></h6>
                             <span class="badge badge-md badge-pill badge-info text-uppercase">Students love the garden at alfam!</span>
 
 
@@ -677,7 +677,7 @@
 
                         <div class="pt-5 mt-5 delimiter-top" id="Facilities">
                             <!-- Resume timeline -->
-                            <h6>Most Popular Facilities</h6>
+                            <h6>@Localizer["Most Popular Facilities"]</h6>
                             <div class="row row-grid">
                                 <div class="col-lg-12 text-success">
                                     <span><i class="fas fa-wifi"></i> Free Wifi</span>
@@ -736,14 +736,14 @@
 
                     <div class="pt-5 mt-5 delimiter-top" id="GoodToKnow">
                         <!-- Resume timeline -->
-                        <h6>Good to know</h6>
-                        <span>Here's some interesting information about Alfam dormitories!</span>
+                        <h6>@Localizer["Good to know"]</h6>
+                        <span>@Localizer["Here's some interesting information about Alfam dormitories!"]</span>
 
                         <div class="card">
                             <div class="card-body bg-secondary">
 
                                 <div>
-                                    <span><i class="fas fa-calendar"></i> Times we are open weekdays </span>
+                                    <span><i class="fas fa-calendar"></i> @Localizer["Times we are open weekdays"] </span>
 
                                     <div class="progress-wrapper">
 
@@ -761,7 +761,7 @@
                                 </div>
 
                                 <div class="py-3">
-                                    <span><i class="fas fa-calendar "></i> Times we are open weekends </span>
+                                    <span><i class="fas fa-calendar "></i> @Localizer["Times we are open weekends"] </span>
 
                                     <div class="progress-wrapper">
 
@@ -779,9 +779,9 @@
                                 </div>
 
                                 <div>
-                                    <span><i class="fas fa-paw "></i> Pets </span>
+                                    <span><i class="fas fa-paw "></i> @Localizer["Pets"] </span>
                                     <div class="d-inline ml-5">
-                                        <span>Pets are not allowed</span>
+                                        <span>@Localizer["Pets are not allowed"]</span>
                                     </div>
                                 </div>
 
@@ -808,10 +808,10 @@
 
                     <div class="pt-5 mt-5 delimiter-top" id="StudentReview">
                         <!-- Resume timeline -->
-                        <h6>View latest dormitory review</h6>
+                        <h6>@Localizer["View latest dormitory review"]</h6>
                         <div class="mb-3">
 
-                            <span>Latest review by a student</span>
+                            <span>@Localizer["Latest review by a student"]</span>
                             <div class="card border-0">
                                 <div class="media media-comment ">
                                     <img alt="Image placeholder" class="rounded-circle shadow mr-4" src="https://scontent-vie1-1.xx.fbcdn.net/v/t1.0-1/p100x100/37488021_1973163882701910_4693767907220389888_n.jpg?_nc_cat=104&_nc_ht=scontent-vie1-1.xx&oh=eaabfdf063dbc534f217ed7e2c535093&oe=5C8060F3" style="width: 64px;">
@@ -864,7 +864,7 @@
 
                                     </label>
                                     <textarea class="form-control" placeholder="Write your review" rows="2"></textarea>
-                                    <button class="btn btn-primary btn-sm m-1 float-right">Submit</button>
+                                    <button class="btn btn-primary btn-sm m-1 float-right">@Localizer["Submit"]</button>
                                 </div>
 
 
@@ -899,10 +899,10 @@
     <div class="container">
         <div class="row justify-content-center align-items-center">
             <div class="col-lg-8 text-center">
-                <h3 class="font-weight-400 text-white">I am ready to start booking Now </h3>
+                <h3 class="font-weight-400 text-white">@Localizer["I am ready to start booking Now"] </h3>
                 <div class="mt-5">
-                    <a href="" target="_blank" class="btn btn-white btn-circle btn-translate--hover px-4">Book my first Room<span class="badge badge-pill badge-danger text-sm">Now</span></a>
-                    <a href="" class="btn btn-link text-white">Have an issue?</a>
+                    <a href="" target="_blank" class="btn btn-white btn-circle btn-translate--hover px-4">@Localizer["Book my first Room"]<span class="badge badge-pill badge-danger text-sm">@Localizer["Now"]</span></a>
+                    <a href="" class="btn btn-link text-white">@Localizer["Have an issue?"]</a>
                 </div>
             </div>
         </div>

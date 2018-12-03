@@ -2,8 +2,8 @@
 @{
     ViewData["Title"] = "BookingCheckoutPayment";
 
-    ViewData["Header"] = "Checkout";
-    ViewData["SubDescription"] = "Payment information";
+    ViewData["Header"] = Localizer["Checkout"];
+    ViewData["SubDescription"] = Localizer["Payment information"];
 
 
     Layout = "~/Views/Shared/_LayoutCheckout.cshtml";
@@ -17,9 +17,9 @@
                     <div>
 
                         <div class="page-inner-header mb-4">
-                            <h5 class="mb-1">Confirm payment before 22-Nov-2018 </h5>
+                            <h5 class="mb-1">@Localizer["Confirm payment before {0}"]</h5>
 
-                            <p class="text-muted mb-0">You have 5 working days before your bookings gets cancelled without payment confirmation </p>
+                            <p class="text-muted mb-0">@Localizer["You have {0} working days before your bookings gets cancelled without payment confirmation"]</p>
 
                         </div>
 
@@ -29,9 +29,9 @@
                                     <div class="col-8">
                                         <div class="custom-control custom-radio mb-3">
                                             <input type="radio" name="radio-payment" class="custom-control-input" id="radio-payment-paypal">
-                                            <label class="custom-control-label h6 lh-160" for="radio-payment-paypal">Upload payment receipt</label>
+                                            <label class="custom-control-label h6 lh-160" for="radio-payment-paypal">@Localizer["Upload payment receipt"]</label>
                                         </div>
-                                        <p class="text-muted text-sm mt-2">Pay your order using the most known and secure platform for online money transfers. You will be redirected to PayPal to finish complete your purchase.</p>
+                                        <p class="text-muted text-sm mt-2">@Localizer["You have to upload a receipt of payment before your booking order is confirmed or completed, after order is completed, Dormitory will send you your allocated rooom information/details"]</p>
                                     </div>
 
                                 </div>
@@ -44,9 +44,9 @@
                                     <div class="col-8">
                                         <div class="custom-control custom-radio mb-3">
                                             <input type="radio" name="radio-payment2" class="custom-control-input" id="radio-payment-dormitory">
-                                            <label class="custom-control-label h6 lh-160" for="radio-payment-paypal">Pay Dormitory directly</label>
+                                            <label class="custom-control-label h6 lh-160" for="radio-payment-paypal">@Localizer["Pay Dormitory directly"]</label>
                                         </div>
-                                        <p class="text-muted text-sm mt-2">Pay your order using the most known and secure platform for online money transfers. You will be redirected to PayPal to finish complete your purchase.</p>
+                                        <p class="text-muted text-sm mt-2">@Localizer["Pay your dormitory fees directly at the dormitory office, dormitory will confirm your booking once you pay at their office"]</p>
                                     </div>
 
                                 </div>
@@ -54,8 +54,8 @@
                         </div>
                     </div>
                     <div class="mt-5 text-right">
-                        <button type="button" class="btn btn-link text-sm text-dark font-weight-bold">Return to Home page</button>
-                        <button type="button" class="btn btn-sm btn-primary">Complete booking order</button>
+                        <button type="button" class="btn btn-link text-sm text-dark font-weight-bold">@Localizer["Return to Home page"]</button>
+                        <button type="button" class="btn btn-sm btn-primary">@Localizer["Complete booking order"]</button>
                     </div>
                 </form>
             </div>
@@ -67,10 +67,10 @@
                         <div class="card-header py-3">
                             <div class="row align-items-center">
                                 <div class="col-6">
-                                    <span class="h6">Summary</span>
+                                    <span class="h6">@Localizer["Summary"]</span>
                                 </div>
                                 <div class="col-6 text-right">
-                                    <span class="badge badge-md badge-pill badge-info">1 selected Room</span>
+                                    <span class="badge badge-md badge-pill badge-info">@Localizer["{0} selected Room"]</span>
                                 </div>
                             </div>
                         </div>
@@ -98,7 +98,7 @@
                             <!-- Subtotal -->
                             <div class="row mt-3 pt-3 border-top">
                                 <div class="col-8 text-right">
-                                    <small class="text-dark font-weight-bold">Subtotal:</small>
+                                    <small class="text-dark font-weight-bold">@Localizer["Subtotal"]:</small>
                                 </div>
                                 <div class="col-4 text-right">
                                     <span class="text-sm font-weight-bold">$330.50</span>
@@ -111,7 +111,7 @@
 
                                         <div class="media-body">
                                             <div class="text-limit lh-100">
-                                                <small class="text-dark font-weight-bold mb-0">Booking fee:</small>
+                                                <small class="text-dark font-weight-bold mb-0">@Localizer["Booking fee"]:</small>
                                             </div>
 
                                         </div>
@@ -128,7 +128,7 @@
 
                                         <div class="media-body">
                                             <div class="text-limit lh-100">
-                                                <small class="text-dark font-weight-bold mb-0">Tax:</small>
+                                                <small class="text-dark font-weight-bold mb-0">@Localizer["Tax"]:</small>
                                             </div>
 
                                         </div>
@@ -141,7 +141,7 @@
                             <!-- Subtotal -->
                             <div class="row mt-3 pt-3 border-top">
                                 <div class="col-8 text-right">
-                                    <small class="text-uppercase text-dark font-weight-bold">Total:</small>
+                                    <small class="text-uppercase text-dark font-weight-bold">@Localizer["Total"]:</small>
                                 </div>
                                 <div class="col-4 text-right">
                                     <span class="text-sm text-dark font-weight-bold">$355.50</span>

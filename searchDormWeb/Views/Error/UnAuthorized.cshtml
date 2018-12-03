@@ -13,11 +13,11 @@
         <h2 class="headline text-red" style="margin-top:-20px;">500</h2>
 
         <div class="error-content">
-            <h3><i class="fa fa-warning text-red"></i> Oops! Access denied</h3>
+            <h3><i class="fa fa-warning text-red"></i> @Localizer["Oops! Access denied"]</h3>
 
             <p>
-                It's like you do not have permission to view Access this area
-                Meanwhile, you may <a href="@Url.Content("/")">return to Home Page</a> or stay here and experience the joy of being in an access denied page.
+                @Localizer["It's like you do not have permission to view Access this area"]
+               @Localizer["Meanwhile, you may"] <a href="@Url.Content("/")">@Localizer["return to Home Page"]</a> @Localizer["or stay here and experience the joy of being in an access denied page."]
             </p>
 
 

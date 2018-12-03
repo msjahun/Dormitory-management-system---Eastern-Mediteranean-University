@@ -17,17 +17,35 @@
 
                         <div class=" text-center">
                             <h2 class="heading display-4 mb-2">
-                                <span class=" typed text-white" id="type-example" data-type-this="Search and filter different dormitories,Search and filter ,Search and filter   ,Search and filter   ,Search and filter , 
-                                      Search and filter based on multiple facilities,Search and filter , Search and filter  ,Search and filter   ,Search and filter , 
-                                                     Search and filter based on locations on map,Search and filter   ,Search and filter   , Search and filter  ,Search and filter ,     
-                                                     Search and filter based on prices,Search and filter ,  Search and filter ,Search and filter,  Search and filter ,Search and filter,   
-                                      Easily book your dormitory room,   ,,   ,"></span>
+                                <span class=" typed text-white" id="type-example" 
+                     data-type-this=" @Localizer["Search and filter different dormitories"],
+                                      @Localizer["Search and filter"] ,
+                                      @Localizer["Search and filter"] ,
+                                      @Localizer["Search and filter"] ,
+                                      @Localizer["Search and filter"] , 
+                                      @Localizer["Search and filter based on multiple facilities"],
+                                      @Localizer["Search and filter"] ,
+                                      @Localizer["Search and filter"] ,
+                                      @Localizer["Search and filter"]   ,
+                                      @Localizer["Search and filter"] , 
+                                      @Localizer["Search and filter based on locations on map"],
+                                      @Localizer["Search and filter"]   ,
+                                      @Localizer["Search and filter"]   , 
+                                      @Localizer["Search and filter"]  ,
+                                      @Localizer["Search and filter"] ,     
+                                      @Localizer["Search and filter based on prices"], 
+                                      @Localizer["Search and filter"] ,  
+                                      @Localizer["Search and filter"] ,
+                                      @Localizer["Search and filter"],  
+                                      @Localizer["Search and filter"] ,
+                                      @Localizer["Search and filter"],   
+                                      @Localizer["Easily book your dormitory room"],   ,,   ,"></span>
                             </h2>
 
 
                             <div class="row justify-content-center">
                                 <div class="col-xl-8 col-lg-10">
-                                    <p class="lead text-white lh-180">A purposeful event the will gather on one single stage the most important figures in the digital environment.</p>
+                                    <p class="lead text-white lh-180">@Localizer["A place where emu students can explore and book EMU Dormitories."]</p>
 
 
                                     <form class="row justify-content-center mt-5"></form>
@@ -39,8 +57,8 @@
 
 
                                     <div class="col-md-4">
-                                        <h6 class="text-white">Dormitory Type</h6>
-                                        <select class="form-control  form-control-sm  " data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Search ...">
+                                        <h6 class="text-white">@Localizer["Dormitory Type"]</h6>
+                                        <select class="form-control  form-control-sm  " data-toggle="select" title="@Localizer["Select Dormitory type"]" data-live-search="true" data-live-search-placeholder="Search ...">
 
                                             <option value="0"></option>
                                             <option value="1">EMU Dormitories</option>
@@ -50,8 +68,8 @@
                                     </div>
 
                                     <div class="col-md-4">
-                                        <h6 class="text-white">Dormitory name</h6>
-                                        <select class="form-control  form-control-sm " data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Search ...">
+                                        <h6 class="text-white">@Localizer["Dormitory name"]</h6>
+                                        <select class="form-control  form-control-sm " data-toggle="select" title="@Localizer["Select Dormitory name"]" data-live-search="true" data-live-search-placeholder="Search ...">
 
 
 
@@ -78,8 +96,8 @@
                                     </div>
 
                                     <div class="col-md-4">
-                                        <h6 class="text-white">Semester duration</h6>
-                                        <select class="form-control  form-control-sm " data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Search ...">
+                                        <h6 class="text-white">@Localizer["Semester duration"]</h6>
+                                        <select class="form-control  form-control-sm " data-toggle="select" title="@Localizer["Select semester"]" data-live-search="true" data-live-search-placeholder="Search ...">
                                             <option></option>
                                             <option>1 semester - Fall 2019</option>
                                             <option>2 semester - Fall/spring 2019</option>
@@ -100,7 +118,7 @@
 
 
                                     <div class="col-md-6">
-                                        <h6 class="text-white">Price</h6>
+                                        <h6 class="text-white">@Localizer["Price"]</h6>
 
                                         <div class="range-slider-wrapper ">
                                             <!-- Range slider container -->
@@ -120,7 +138,7 @@
                                     <div class="col-md-6">
 
 
-                                        <h6 class="text-white">Room area</h6>
+                                        <h6 class="text-white">@Localizer["Room area"]</h6>
 
                                         <div class="input-slider-container mb-4">
                                             <div id="input-slider-red" class="input-slider input-slider--red" data-range-value-min="100" data-range-value-max="900"></div>
@@ -147,7 +165,7 @@
                                 <div class="col-md-6">
 
                                     <a asp-controller="debug" asp-action="SearchResultPage" class="btn btn-warning btn-block btn-animated btn-animated-x">
-                                        <span class="btn-inner--visible">Search</span>
+                                        <span class="btn-inner--visible">@Localizer["Search"]</span>
                                         <span class="btn-inner--hidden "><i class="fa fa-search"></i></span>
                                     </a>
 
@@ -177,7 +195,7 @@
 
     <div class="container">
 
-        <a href="#" class="link link-underline-warning font-weight-bold py-4 mt-4 delimiter-top h4">Popular dormitories</a>
+        <a href="#" class="link link-underline-warning font-weight-bold py-4 mt-4 delimiter-top h4">@Localizer["Popular dormitories"]</a>
 
         <br>
 
@@ -469,7 +487,7 @@
 
     <div class="container">
 
-        <a href="#" class="link link-underline-warning font-weight-bold py-4 mt-4 delimiter-top h4">Highly rated dormitories</a>
+        <a href="#" class="link link-underline-warning font-weight-bold py-4 mt-4 delimiter-top h4">@Localizer["Highly rated dormitories"]</a>
 
         <br>
 
@@ -804,7 +822,7 @@
 
     <div class="container">
 
-        <a href="#" class="link link-underline-warning font-weight-bold py-4 mt-4 delimiter-top h4">Cool offers & deals</a>
+        <a href="#" class="link link-underline-warning font-weight-bold py-4 mt-4 delimiter-top h4">@Localizer["Cool offers & deals"]</a>
 
         <br>
 

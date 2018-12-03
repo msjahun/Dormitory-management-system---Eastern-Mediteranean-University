@@ -9,16 +9,16 @@
         <!-- Password -->
 
         <div class="page-inner-header mb-4">
-            <h5 class="mb-1">Change password</h5>
+            <h5 class="mb-1">@Localizer["Change password"]</h5>
 
-            <p class="text-muted mb-0">You can help us, by filling your data, create you a much better experience using our website.</p>
+            <p class="text-muted mb-0">@Localizer["Change your password from here."]</p>
 
         </div>
 
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="form-control-label">Old password</label>
+                    <label class="form-control-label">@Localizer["Old password"]</label>
                     <input class="form-control form-control-sm" type="password">
                 </div>
             </div>
@@ -26,20 +26,20 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="form-control-label">New password</label>
+                    <label class="form-control-label">@Localizer["New password"]</label>
                     <input class="form-control form-control-sm" type="password">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="form-control-label">Confirm password</label>
+                    <label class="form-control-label">@Localizer["Confirm password"]</label>
                     <input class="form-control form-control-sm" type="password">
                 </div>
             </div>
         </div>
         <div class="mt-4">
-            <button type="button" class="btn btn-sm btn-primary">Update password</button>
-            <a href="recover.html" class="btn btn-sm btn-secondary">I forgot my password</a>
+            <button type="button" class="btn btn-sm btn-primary">@Localizer["Update password"]</button>
+            <a href="recover.html" class="btn btn-sm btn-secondary">@Localizer["I forgot my password"]</a>
         </div>
     </form>
 
@@ -47,14 +47,14 @@
     <div class="mt-5 pt-5 delimiter-top">
 
         <div class="page-inner-header mb-4">
-            <h5 class="mb-1">GDPR Complience</h5>
+            <h5 class="mb-1">@Localizer["GDPR Complience"]</h5>
 
-            <p class="text-muted mb-0">GDPR is a regulation that requires businesses to protect the personal data and privacy of EU citizens for transactions that occur within EU member states.</p>
+            <p class="text-muted mb-0">@Localizer["GDPR is a regulation that requires businesses to protect the personal data and privacy of EU citizens for transactions that occur within EU member states."]</p>
 
         </div>
 
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-change-username">Download GDPR DATA</button>
+        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-change-username">@Localizer["Download GDPR DATA"]</button>
 
         <!-- Modal -->
         <div class="modal fade" id="modal-change-username" tabindex="-1" role="dialog" aria-labelledby="modal-change-username" aria-hidden="true">
@@ -69,7 +69,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <h6 class="mb-0">GDPR Complience</h6>
+                                    <h6 class="mb-0">@Localizer["GDPR Complience"]</h6>
                                 </div>
                             </div>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -80,23 +80,23 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label class="form-control-label">Old username</label>
+                                        <label class="form-control-label">@Localizer["Email"]</label>
                                         <input class="form-control form-control-sm" type="text">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label class="form-control-label">New username</label>
+                                        <label class="form-control-label">@Localizer["Password"]</label>
                                         <input class="form-control form-control-sm" type="text">
                                     </div>
                                 </div>
                             </div>
                             <div class="px-5 pt-4 mt-4 delimiter-top text-center">
-                                <p class="text-muted text-sm">GDPR is a regulation that requires businesses to protect the personal data and privacy of EU citizens for transactions that occur within EU member states.</p>
+                                <p class="text-muted text-sm">@Localizer["GDPR is a regulation that requires businesses to protect the personal data and privacy of EU citizens for transactions that occur within EU member states."]</p>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-sm btn-secondary text-danger" data-dismiss="modal">Download GDPR DATA</button>
+                            <button type="button" class="btn btn-sm btn-secondary text-danger" data-dismiss="modal">@Localizer["Download GDPR DATA"]</button>
                         </div>
                     </div>
                 </form>
@@ -108,14 +108,14 @@
     <div class="mt-5 pt-5 delimiter-top">
 
         <div class="page-inner-header mb-4">
-            <h5 class="mb-1 text-danger">Delete account</h5>
+            <h5 class="mb-1 text-danger">@Localizer["Delete account"]</h5>
 
-            <p class="text-muted mb-0">Changing your username is ireversible and can affect past activites.</p>
+            <p class="text-muted mb-0">@Localizer["Deleting your account is ireversible and will ensure all your previous actity is deleted an inaccesible."]</p>
 
         </div>
 
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-delete-account">Delete account</button>
+        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-delete-account">@Localizer["Delete account"]</button>
 
         <!-- Modal -->
         <div class="modal modal-danger fade" id="modal-delete-account" tabindex="-1" role="dialog" aria-labelledby="modal-delete-account" aria-hidden="true">
@@ -125,24 +125,24 @@
                         <div class="modal-body">
                             <div class="text-center">
                                 <i class="fas fa-exclamation-circle fa-3x opacity-8"></i>
-                                <h5 class="text-white mt-4">Should we stop now?</h5>
-                                <p class="text-sm text-sm">All your data will be erased. You will no longer be billed, and your username will be available to anyone.</p>
+                                <h5 class="text-white mt-4">@Localizer["Should we stop now?"]</h5>
+                                <p class="text-sm text-sm">@Localizer["All your data will be erased. You will no longer be billed or receive notifications."]</p>
                             </div>
                             <div class="form-group">
-                                <label class="form-control-label text-white">You email or username</label>
+                                <label class="form-control-label text-white">@Localizer["You email or username"]</label>
                                 <input class="form-control form-control-sm" type="text">
                             </div>
                             <div class="form-group">
-                                <label class="form-control-label text-white">To verify, type <span class="font-italic">delete my account</span> below</label>
+                                <label class="form-control-label text-white">@Localizer["To verify, type"] <span class="font-italic">@Localizer["delete my account"]</span> @Localizer["below"]</label>
                                 <input class="form-control form-control-sm" type="text">
                             </div>
                             <div class="form-group">
-                                <label class="form-control-label text-white">Your password</label>
+                                <label class="form-control-label text-white">@Localizer["Your password"]</label>
                                 <input class="form-control form-control-sm" type="password">
                             </div>
                             <div class="mt-4">
-                                <button type="button" class="btn btn-block btn-sm btn-white text-danger">Delete my account</button>
-                                <button type="button" class="btn btn-block btn-sm btn-link text-light mt-4" data-dismiss="modal">Not this time</button>
+                                <button type="button" class="btn btn-block btn-sm btn-white text-danger">@Localizer["Delete my account"]</button>
+                                <button type="button" class="btn btn-block btn-sm btn-link text-light mt-4" data-dismiss="modal">@Localizer["Not this time"]</button>
                             </div>
                         </div>
                     </div>

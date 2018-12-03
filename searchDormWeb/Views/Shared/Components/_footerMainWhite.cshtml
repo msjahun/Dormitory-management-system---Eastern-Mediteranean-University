@@ -30,67 +30,72 @@
                     <img src="@Url.Content("~/frontend_Content/assets")/img/brand/dark.png" alt="Footer logo" class="logoMainFooter">
                 </a>
                 <p class="text-sm">
-                    Eastern Mediterranean University
-                    Dormitories & Cafeterias Directorate
-                    Famagusta, North Cyprus
-                    via Mersin 10, Turkey
+                    @Localizer["Eastern Mediterranean University"]
+                    @Localizer["Dormitories & Cafeterias Directorate"]
+                    @Localizer["Famagusta, North Cyprus via Mersin 10, Turkey"]
                 </p>
             </div>
             <div class="col-lg-2 col-6 col-sm-4 ml-lg-auto mb-5 mb-lg-0">
-                <h6 class="heading mb-3">Account</h6>
+                <h6 class="heading mb-3">
+                    @Localizer["Account"]
+                </h6>
                 <ul class="list-unstyled">
                     <li>
-                        <a asp-controller="debug" asp-action="AccountProfile">Profile</a>
+                        <a asp-controller="debug" asp-action="AccountProfile">@Localizer["Profile"]</a>
                     </li>
                     <li>
-                        <a asp-controller="debug" asp-action="AccountSettings">Settings</a>
+                        <a asp-controller="debug" asp-action="AccountSettings">@Localizer["Settings"]</a>
                     </li>
                     <li>
-                        <a asp-controller="debug" asp-action="AccountBilling">Bookings</a>
+                        <a asp-controller="debug" asp-action="AccountBilling">@Localizer["Bookings"]</a>
                     </li>
                     <li>
-                        <a asp-controller="debug" asp-action="AccountNotifications">Notifications</a>
+                        <a asp-controller="debug" asp-action="AccountNotifications">@Localizer["Notifications"]</a>
                     </li>
 
                     <li>
-                        <a asp-controller="debug" asp-action="SearchDormMobileApp">Android app</a>
+                        <a asp-controller="debug" asp-action="SearchDormMobileApp">@Localizer["Android app"]</a>
                     </li>
                 </ul>
             </div>
             <div class="col-lg-2 col-6 col-sm-4 mb-5 mb-lg-0">
-                <h6 class="heading mb-3">About US</h6>
+                <h6 class="heading mb-3">
+                    @Localizer["About US"]
+                </h6>
                 <ul class="list-unstyled text-small">
                     <li>
-                        <a href="#">Dormitories</a>
+                        <a href="#">@Localizer["Dormitories"]</a>
                     </li>
                     <li>
-                        <a href="#">Fees and facilities</a>
+                        <a href="#">@Localizer["Fees and facilities"]</a>
                     </li>
                     <li>
-                        <a href="#">Rules</a>
-                    </li>
-
-                    <li>
-                        <a href="#">Daily Needs</a>
+                        <a href="#">@Localizer["Rules"]</a>
                     </li>
 
                     <li>
-                        <a href="#">FAQ</a>
+                        <a href="#">@Localizer["Daily Needs"]</a>
                     </li>
 
                     <li>
-                        <a href="#">Contact</a>
+                        <a href="#">@Localizer["FAQ"]</a>
+                    </li>
+
+                    <li>
+                        <a href="#">@Localizer["Contact"]</a>
                     </li>
                 </ul>
             </div>
             <div class="col-lg-2 col-sm-4 mb-5 mb-lg-0">
-                <h6 class="heading mb-3">EMU</h6>
+                <h6 class="heading mb-3">
+                    @Localizer["EMU"]
+                </h6>
                 <ul class="list-unstyled">
                     <li>
-                        <a href="#">EMU Home</a>
+                        <a href="#">@Localizer["EMU Home"]</a>
                     </li>
                     <li>
-                        <a href="#">EMU News/Events</a>
+                        <a href="#">@Localizer["EMU News/Events"]</a>
                     </li>
 
                 </ul>
@@ -99,7 +104,7 @@
         <div class="row align-items-center justify-content-md-between py-4 mt-4 delimiter-top">
             <div class="col-md-6">
                 <div class="copyright text-sm font-weight-bold text-center text-md-left">
-                    &copy; 2018 <a href="https://emu.edu.tr" class="font-weight-bold" target="_blank">Eastern Mediterranean Univerisity</a>. All rights reserved.
+                    &copy; 2018 <a href="https://emu.edu.tr" class="font-weight-bold" target="_blank">@Localizer["Eastern Mediterranean Univerisity"]</a>. @Localizer["All rights reserved."]
                 </div>
             </div>
             <div class="col-md-6">
