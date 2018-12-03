@@ -6,9 +6,13 @@
 
   <ItemGroup>
     <Compile Remove="Areas\Admin\Views\Reviews\**" />
+    <Compile Remove="Views\Home\**" />
     <Content Remove="Areas\Admin\Views\Reviews\**" />
+    <Content Remove="Views\Home\**" />
     <EmbeddedResource Remove="Areas\Admin\Views\Reviews\**" />
+    <EmbeddedResource Remove="Views\Home\**" />
     <None Remove="Areas\Admin\Views\Reviews\**" />
+    <None Remove="Views\Home\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -678,17 +682,15 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.1.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.1" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.1.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.4" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.5" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\Dashboard\" />
     <Folder Include="Areas\Admin\Views\shared\" />
-    <Folder Include="Views\Home\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -1657,6 +1659,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Localization2\src\NetCoreStack.Localization\NetCoreStack.Localization.csproj" />
     <ProjectReference Include="..\Dau.Core\Dau.Core.csproj" />
     <ProjectReference Include="..\Dau.Data\Dau.Data.csproj" />
     <ProjectReference Include="..\Dau.Services\Dau.Services.csproj" />
