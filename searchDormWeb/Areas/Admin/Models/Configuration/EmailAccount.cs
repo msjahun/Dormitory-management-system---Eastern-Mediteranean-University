@@ -8,12 +8,12 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
 {
     public class EmailAccountAdd
     {
-        [Display(Name = "EmailAddress",
+        [Display(Name = "Email Address",
         Description = "This is the from address for all outgoing emails from your store e.g. 'sales@yourstore.com'."), DataType(DataType.Text), MaxLength(256)]
         public string EmailAddress { get; set; }
 
 
-        [Display(Name = "EmailDisplayName",
+        [Display(Name = "Email Display Name",
         Description = "This is the friendly display name for outgoing emails from your store e.g. 'Your Store Sales Department'."), DataType(DataType.Text), MaxLength(256)]
         public string EmailDisplayName { get; set; }
 
@@ -43,7 +43,7 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
         public bool SSL { get; set; }
 
 
-        [Display(Name = "UseDefaultCredentials",
+        [Display(Name = "Use Default Credentials",
         Description = "Check to use default credentials for the connection.")]
         public bool UseDefaultCredentials { get; set; }
 
@@ -51,12 +51,12 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
 
     public class EmailAccountEdit
     {
-        [Display(Name = "EmailAddress",
+        [Display(Name = "Email Address",
         Description = "This is the from address for all outgoing emails from your store e.g. 'sales@yourstore.com'."), DataType(DataType.Text), MaxLength(256)]
         public string EmailAddress { get; set; }
 
 
-        [Display(Name = "EmailDisplayName",
+        [Display(Name = "Email Display Name",
         Description = "This is the friendly display name for outgoing emails from your store e.g. 'Your Store Sales Department'."), DataType(DataType.Text), MaxLength(256)]
         public string EmailDisplayName { get; set; }
 
@@ -80,11 +80,11 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
         Description = "Check to use Secure Sockets Layer(SSL) to encrypt the SMTP connection.")]
         public bool SSL { get; set; }
 
-        [Display(Name = "UserDEfaultCredentials",
+        [Display(Name = "User Default Credentials",
         Description = "Check to use default credentials for the connection.")]
         public bool UseDefaultCredentials { get; set; }
 
-        [Display(Name = "SendEmailTo",
+        [Display(Name = "Send Email To",
         Description = "Send test email to ensure that everything is properly configured."), DataType(DataType.Text), MaxLength(256)]
         public string SendEmailTo { get; set; }
 

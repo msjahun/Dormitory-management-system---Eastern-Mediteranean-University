@@ -32,35 +32,35 @@ namespace searchDormWeb.Areas.Admin.Models.Promotions
         Description = "The name of the discount"), DataType(DataType.Text), MaxLength(256)]
         public string Name { get; set; }
 
-        [Display(Name = "DiscountType",
+        [Display(Name = "Discount Type",
         Description = "The type of the discont"), MaxLength(256)]
         public int DiscountType { get; set; }
 
-        [Display(Name = "UsePercentage",
+        [Display(Name = "Use Percentage",
         Description = "Determines whether to apply a percentage discount to the order/SKUs.If not enabled, a set value is discounted.")]
         public bool UsePercentage { get; set; }
 
-        [Display(Name = "DiscountAmount",
+        [Display(Name = "Discount Amount",
         Description = "The discount amount to apply to the booking"), MaxLength(256)]
         public int DiscountAmount { get; set; }
 
-        [Display(Name = "RequiresCouponCode",
+        [Display(Name = "Requires Coupon Code",
         Description = "If checked, a customer must supply a valid coupon code for the discount to be applied.")]
         public bool RequiresCouponCode { get; set; }
 
-        [Display(Name = "StartDate",
+        [Display(Name = "Start Date",
         Description = "The start of the discount period in Coordinated Universal Time(UTC).")]
         public DateTime StartDate { get; set; }
 
-        [Display(Name = "EndDate",
+        [Display(Name = "End Date",
         Description = "The end of the discount period in Coordinated Universal Time(UTC).")]
         public DateTime EndDate { get; set; }
 
-        [Display(Name = "CumulativeWithOtherDiscounts",
+        [Display(Name = "Cumulative With Other Discounts",
         Description = "Cumulative with other discounts")]
         public bool CumulativeWithOtherDiscounts { get; set; }
 
-        [Display(Name = "DiscountLimitation",
+        [Display(Name = "Discount Limitation",
         Description = "Choose the limitation of discount."), MaxLength(256)]
         public int DiscountLimitation { get; set; }
 
@@ -73,40 +73,40 @@ namespace searchDormWeb.Areas.Admin.Models.Promotions
         Description = "The name of the discount"), DataType(DataType.Text), MaxLength(256)]
         public string Name { get; set; }
 
-        [Display(Name = "DiscountType",
+        [Display(Name = "Discount Type",
         Description = "The type of the discont"), MaxLength(256)]
         public int DiscountType { get; set; }
 
-        [Display(Name = "UsePercentage",
+        [Display(Name = "Use Percentage",
         Description = "Determines whether to apply a percentage discount to the order/SKUs.If not enabled, a set value is discounted.")]
         public bool UsePercentage { get; set; }
 
-        [Display(Name = "DiscountAmount",
+        [Display(Name = "Discount Amount",
         Description = "The discount amount to apply to the booking"), MaxLength(256)]
         public int DiscountAmount { get; set; }
 
-        [Display(Name = "RequiresCouponCode",
+        [Display(Name = "Requires Coupon Code",
         Description = "If checked, a customer must supply a valid coupon code for the discount to be applied.")]
         public bool RequiresCouponCode { get; set; }
 
-        [Display(Name = "StartDate",
+        [Display(Name = "Start Date",
         Description = "The start of the discount period in Coordinated Universal Time(UTC).")]
         public DateTime StartDate { get; set; }
 
-        [Display(Name = "EndDate",
+        [Display(Name = "End Date",
         Description = "The end of the discount period in Coordinated Universal Time(UTC).")]
         public DateTime EndDate { get; set; }
 
-        [Display(Name = "CumulativeWithOtherDiscounts",
+        [Display(Name = "Cumulative With Other Discounts",
         Description = "Cumulative with other discounts")]
         public bool CumulativeWithOtherDiscounts { get; set; }
 
-        [Display(Name = "DiscountLimitation",
+        [Display(Name = "Discount Limitation",
         Description = "Choose the limitation of discount."), MaxLength(256)]
         public int DiscountLimitation { get; set; }
 
         //requirement tab
-        [Display(Name = "DiscountRequirementType",
+        [Display(Name = "Discount Requirement Type",
        Description = "You can choose one of the following requirement types, or add a requirement group to use several requirement types simultaneously."), MaxLength(256)]
         public int DiscountRequirementType { get; set; }
 
@@ -117,7 +117,7 @@ namespace searchDormWeb.Areas.Admin.Models.Promotions
     //tab
     public class Requirement
     {
-        [Display(Name = "DiscountRequirementType",
+        [Display(Name = "Discount Requirement Type",
         Description = "You can choose one of the following requirement types, or add a requirement group to use several requirement types simultaneously."), MaxLength(256)]
         public int DiscountRequirementType { get; set; }
     }

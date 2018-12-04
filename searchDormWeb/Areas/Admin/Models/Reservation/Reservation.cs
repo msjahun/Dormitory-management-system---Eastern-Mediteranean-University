@@ -74,11 +74,11 @@ namespace searchDormWeb.Areas.Admin.Models.Reservation
 
     public class ReservationEdit
     {
-        [Display(Name = "BookingStatus",
+        [Display(Name = "Booking Status",
         Description = "The status of the booking"), DataType(DataType.Text), MaxLength(256)]
         public string BookingStatus { get; set; }
 
-        [Display(Name = "BookingOrderNumber",
+        [Display(Name = "Booking Order Number",
         Description = "The unique number of this booking order."), DataType(DataType.Text), MaxLength(256)]
         public string BookingOrderNumber { get; set; }
 
@@ -92,19 +92,19 @@ namespace searchDormWeb.Areas.Admin.Models.Reservation
         Description = "The customer who placed this booking order."), DataType(DataType.Text), MaxLength(256)]
         public string Customer { get; set; }
 
-        [Display(Name = "CustomerIpAddress",
+        [Display(Name = "Customer Ip Address",
         Description = "Customer IP address"), DataType(DataType.Text), MaxLength(256)]
         public string CustomerIpAddress { get; set; }
 
-        [Display(Name = "BookingOrderSubtotal",
+        [Display(Name = "Booking Order Subtotal",
         Description = "The subtotal of this booking order."), DataType(DataType.Text), MaxLength(256)]
         public string BookingOrderSubtotal { get; set; }
 
-        [Display(Name = "BookingFee",
+        [Display(Name = "Booking Fee",
         Description = "The total shipping cost for this booking order."), DataType(DataType.Text), MaxLength(256)]
         public string BookingFee { get; set; }
 
-        [Display(Name = "OrderTotal",
+        [Display(Name = "Order Total",
         Description = "The total cost of this booking order(includes discounts, booking fee & tax)."), DataType(DataType.Text), MaxLength(256)]
         public string OrderTotal { get; set; }
 
@@ -112,21 +112,21 @@ namespace searchDormWeb.Areas.Admin.Models.Reservation
         Description = "Profit of this order."), DataType(DataType.Text), MaxLength(256)]
         public string Profit { get; set; }
 
-        [Display(Name = "PaymentMethod",
+        [Display(Name = "Payment Method",
         Description = "The payment method used for this transaction.You can manage Payment Methods from Configuration : Payment : Payment Methods."), DataType(DataType.Text), MaxLength(256)]
         public string PaymentMethod { get; set; }
 
 
-        [Display(Name = "PaymentStatus",
+        [Display(Name = "Payment Status",
         Description = "The status of the payment."), DataType(DataType.Text), MaxLength(256)]
         public string PaymentStatus { get; set; }
 
-        [Display(Name = "CreatedOn",
+        [Display(Name = "Created On",
         Description = "The date/time the booking order was placed/created."), DataType(DataType.Text), MaxLength(256)]
         public string CreatedOn { get; set; }
 
 
-        [Display(Name = "BillingAddress",
+        [Display(Name = "Billing Address",
     Description = "The billing address of customer"), DataType(DataType.Text), MaxLength(256)]
         public string BillingAddress { get; set; }
 

@@ -64,12 +64,12 @@ namespace searchDormWeb.Areas.Admin.Models.Catalog
         public string Title { get; set; }
 
 
-        [Display(Name = "ReviewText",
+        [Display(Name = "Review Text",
                 Description = "The review text."), DataType(DataType.Text), MaxLength(256)]
         public string ReviewText { get; set; }
 
 
-        [Display(Name = "ReplyText",
+        [Display(Name = "Reply Text",
                 Description = "The reply text(by a dormitory manager). If specified, then it'll be visible to a customer. Leave empty to ignore this functionality."), DataType(DataType.Text), MaxLength(256)]
         public string ReplyText { get; set; }
 
@@ -79,13 +79,13 @@ namespace searchDormWeb.Areas.Admin.Models.Catalog
         public string Rating { get; set; }
 
 
-        [Display(Name = "isApproved",
+        [Display(Name = "Is Approved",
         Description = "Is the review approved? Marking it as approved means that it is visible to all your site's visitors.")]
         public bool isApproved { get; set; }
 
 
 
-        [Display(Name = "CreatedOn",
+        [Display(Name = "Created On",
         Description = "The date/time that the review was created."), DataType(DataType.Text), MaxLength(256)]
         public string CreatedOn { get; set; }
 

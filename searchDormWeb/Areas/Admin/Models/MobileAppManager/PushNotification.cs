@@ -8,7 +8,7 @@ namespace searchDormWeb.Areas.Admin.Models.MobileAppManager
 {
     public class PushNotificationAdd
     {
-        [Display(Name = "AllowedTokens",
+        [Display(Name = "Allowed Tokens",
  Description = "Allowed Tokens you can use to be replaced with custoper/user data"), DataType(DataType.Text), MaxLength(256)]
         public string AllowedTokens { get; set; }
 
@@ -24,7 +24,7 @@ namespace searchDormWeb.Areas.Admin.Models.MobileAppManager
         Description = "The body of the notification message"), DataType(DataType.Text), MaxLength(256)]
         public string Body { get; set; }
 
-        [Display(Name = "PlannedDateOfSending",
+        [Display(Name = "Planned Date Of Sending",
         Description = "Planned date of sending the notifcation")]
         public DateTime PlannedDateOfSending { get; set; }
 
@@ -36,15 +36,15 @@ namespace searchDormWeb.Areas.Admin.Models.MobileAppManager
 
     public class PushNotificationEdit
     {
-        [Display(Name = "AllowedTokens",
+        [Display(Name = "Allowed Tokens",
 Description = "Allowed Tokens you can use to be replaced with custoper/user data"), DataType(DataType.Text), MaxLength(256)]
         public string AllowedTokens { get; set; }
 
-        [Display(Name = "NotificationAccount",
+        [Display(Name = "Notification Account",
         Description = "Notification account used for sending notification"), MaxLength(256)]
         public int NotificationAccount { get; set; }
 
-        [Display(Name = "SendTestNotificationTo",
+        [Display(Name = "Send Test Notification To",
         Description = "notification address of a device/user"), DataType(DataType.Text), MaxLength(256)]
         public string SendTestNotificationTo { get; set; }
 
@@ -61,11 +61,11 @@ Description = "Allowed Tokens you can use to be replaced with custoper/user data
         Description = "The body of the notification message"), DataType(DataType.Text), MaxLength(256)]
         public string Body { get; set; }
 
-        [Display(Name = "PlannedDateOfSending",
+        [Display(Name = "Planned Date Of Sending",
         Description = "Planned date of sending the notifcation")]
         public DateTime PlannedDateOfSending { get; set; }
 
-        [Display(Name = "LimitedToCustomerRole",
+        [Display(Name = "Limited To Customer Role",
         Description = "Limit notification to only selected customer roles"), MaxLength(256)]
         public int LimitedToCustomerRole { get; set; }
 

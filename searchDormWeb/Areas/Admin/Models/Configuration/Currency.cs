@@ -25,7 +25,7 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
     {
         public LocalizedCurrencyContent[] localizedCurrencyContent { get; set; }
 
-        [Display(Name = "CurrencyCode",
+        [Display(Name = "Currency Code",
         Description = "The currency code.For a list of currency codes, go to: http://www.iso.org/iso/support/currency_codes_list-1.htm."), DataType(DataType.Text), MaxLength(256)]
         public string CurrencyCode { get; set; }
 
@@ -33,19 +33,19 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
         Description = "The exchange rate against the primary exchange rate currency."), MaxLength(256)]
         public int Rate { get; set; }
 
-        [Display(Name = "DisplayLocale",
+        [Display(Name = "Display Locale",
         Description = "The currency specific culture code."), MaxLength(256)]
         public int DisplayLocale { get; set; }
 
-        [Display(Name = "CustomFormatting",
+        [Display(Name = "Custom Formatting",
         Description = "Custom formatting to be applied to the currency values."), DataType(DataType.Text), MaxLength(256)]
         public string CustomFormatting { get; set; }
 
-        [Display(Name = "LimitToDormitories",
+        [Display(Name = "Limit To Dormitories",
         Description = "Option to limit this currency to a certain dormitory.If you have multiple dormitories, choose one or several from the list.If you don't use this option just leave this field empty.")]
         public IEnumerable<int> LimitToDormitories { get; set; }
 
-        [Display(Name = "RoundingType",
+        [Display(Name = "Rounding Type",
         Description = "The rounding type."), MaxLength(256)]
         public int RoundingType { get; set; }
 
@@ -53,7 +53,7 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
         Description = "Determines whether the currency is published.")]
         public bool Published { get; set; }
 
-        [Display(Name = "DisplayOrder",
+        [Display(Name = "Display Order",
         Description = "The display order of this currency. 1 represents the top of the list."), MaxLength(256)]
         public int DisplayOrder { get; set; }
 
@@ -65,7 +65,7 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
 
 
 
-        [Display(Name = "CurrencyCode",
+        [Display(Name = "Currency Code",
         Description = "The currency code.For a list of currency codes, go to: http://www.iso.org/iso/support/currency_codes_list-1.htm."), DataType(DataType.Text), MaxLength(256)]
         public string CurrencyCode { get; set; }
 
@@ -73,19 +73,19 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
         Description = "The exchange rate against the primary exchange rate currency."), MaxLength(256)]
         public int Rate { get; set; }
 
-        [Display(Name = "DisplayLocale",
+        [Display(Name = "Display Locale",
         Description = "The currency specific culture code."), MaxLength(256)]
         public int DisplayLocale { get; set; }
 
-        [Display(Name = "CustomFormatting",
+        [Display(Name = "Custom Formatting",
         Description = "Custom formatting to be applied to the currency values."), DataType(DataType.Text), MaxLength(256)]
         public string CustomFormatting { get; set; }
 
-        [Display(Name = "LimitToDormitories",
+        [Display(Name = "Limit To Dormitories",
         Description = "Option to limit this currency to a certain dormitory.If you have multiple dormitories, choose one or several from the list.If you don't use this option just leave this field empty.")]
         public IEnumerable<int> LimitToDormitories { get; set; }
 
-        [Display(Name = "RoundingType",
+        [Display(Name = "Rounding Type",
         Description = "The rounding type."), MaxLength(256)]
         public int RoundingType { get; set; }
 
@@ -93,15 +93,15 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
         Description = "Determines whether the currency is published.")]
         public bool Published { get; set; }
 
-        [Display(Name = "DisplayOrder",
+        [Display(Name = "Display Order",
         Description = "The display order of this currency. 1 represents the top of the list."), MaxLength(256)]
         public int DisplayOrder { get; set; }
 
-        [Display(Name = "CreatedOn",
+        [Display(Name = "Created On",
         Description = "The date/time the currency was created."), DataType(DataType.Text), MaxLength(256)]
         public DateTime CreatedOn { get; set; }
 
-        [Display(Name = "UpdatedOn",
+        [Display(Name = "Updated On",
       Description = "The date/time the currency was updated."), DataType(DataType.Text), MaxLength(256)]
         public DateTime UpdatedOn { get; set; }
     }

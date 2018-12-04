@@ -42,11 +42,11 @@ namespace searchDormWeb.Areas.Admin.Models.Notifications
         Description = "Message of the announcement."), DataType(DataType.Text), MaxLength(256)]
         public string Message { get; set; }
 
-        [Display(Name = "StartDate",
+        [Display(Name = "Start Date",
         Description = "The start date/time the announcement will be displayed.")]
         public DateTime StartDate { get; set; }
 
-        [Display(Name = "EndDate",
+        [Display(Name = "End Date",
         Description = "The end date/time the announcement will be displayed.")]
         public DateTime EndDate { get; set; }
 

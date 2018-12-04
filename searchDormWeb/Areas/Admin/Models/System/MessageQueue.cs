@@ -60,7 +60,7 @@ namespace searchDormWeb.Areas.Admin.Models.System
 
     public class MessageQueueEdit
     {
-        [Display(Name = "MessagePriority",
+        [Display(Name = "Message Priority",
         Description = "Message priority."), DataType(DataType.Text), MaxLength(256)]
         public string MessagePriority { get; set; }
 
@@ -68,7 +68,7 @@ namespace searchDormWeb.Areas.Admin.Models.System
         Description = "From address."), DataType(DataType.Text), MaxLength(256)]
         public string From { get; set; }
 
-        [Display(Name = "FromName",
+        [Display(Name = "From Name",
         Description = "From name."), DataType(DataType.Text), MaxLength(256)]
         public string FromName { get; set; }
 
@@ -76,15 +76,15 @@ namespace searchDormWeb.Areas.Admin.Models.System
         Description = "To address."), DataType(DataType.Text), MaxLength(256)]
         public string To { get; set; }
 
-        [Display(Name = "ToName",
+        [Display(Name = "To Name",
         Description = "To name."), DataType(DataType.Text), MaxLength(256)]
         public string ToName { get; set; }
 
-        [Display(Name = "ReplyTo",
+        [Display(Name = "Reply To",
         Description = "Reply to address"), DataType(DataType.Text), MaxLength(256)]
         public string ReplyTo { get; set; }
 
-        [Display(Name = "ReplyToName",
+        [Display(Name = "Reply To Name",
         Description = "Reply to name."), DataType(DataType.Text), MaxLength(256)]
         public string ReplyToName { get; set; }
 
@@ -104,23 +104,23 @@ namespace searchDormWeb.Areas.Admin.Models.System
         Description = "Message body"), DataType(DataType.Text), MaxLength(256)]
         public string Body { get; set; }
 
-        [Display(Name = "CreatedOn",
+        [Display(Name = "Created On",
         Description = "Date/Time message added to queue"), DataType(DataType.Text), MaxLength(256)]
         public string CreatedOn { get; set; }
 
-        [Display(Name = "SendImmediately",
+        [Display(Name = "Send Immediately",
         Description = "Send message immediately")]
         public bool SendImmediately { get; set; }
 
-        [Display(Name = "SendAttempts",
+        [Display(Name = "Send Attempts",
         Description = "The number of times to attempt to send this message."), MaxLength(256)]
         public int SendAttempts { get; set; }
 
-        [Display(Name = "SentOn",
+        [Display(Name = "Sent On",
         Description = "The date/time message was sent."), DataType(DataType.Text), MaxLength(256)]
         public string SentOn { get; set; }
 
-        [Display(Name = "EmailAccount",
+        [Display(Name = "Email Account",
         Description = "The email account that will be used to send email."), DataType(DataType.Text), MaxLength(256)]
         public string EmailAccount { get; set; }
 

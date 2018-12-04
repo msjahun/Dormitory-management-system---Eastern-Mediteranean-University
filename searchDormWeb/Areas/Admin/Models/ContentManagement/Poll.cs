@@ -16,7 +16,7 @@ namespace searchDormWeb.Areas.Admin.Models.ContentManagement
         Description = "Name of the poll"), DataType(DataType.Text), MaxLength(256)]
         public string Name { get; set; }
 
-        [Display(Name = "Systemkeyword",
+        [Display(Name = "System keyword",
         Description = "Name used by the system to identify this poll"), DataType(DataType.Text), MaxLength(256)]
         public string Systemkeyword { get; set; }
 
@@ -24,23 +24,23 @@ namespace searchDormWeb.Areas.Admin.Models.ContentManagement
         Description = "Determines whether this topic is published(visible) in the website.")]
         public bool Published { get; set; }
 
-        [Display(Name = "ShowOnHomePage",
+        [Display(Name = "Show On HomePage",
         Description = "Check to display this poll on your home page.Recommended for your most popular poll.")]
         public bool ShowOnHomePage { get; set; }
 
-        [Display(Name = "AllowGuestsToVote",
+        [Display(Name = "Allow Guests To Vote",
         Description = "Check this to allow unregistered users (Guest) to vote on this poll.")]
         public bool AllowGuestsToVote { get; set; }
 
-        [Display(Name = "DisplayOrder",
+        [Display(Name = "Display Order",
         Description = "The poll display order. 1 represents the first item in the list. "), MaxLength(256)]
         public int DisplayOrder { get; set; }
 
-        [Display(Name = "StartDate",
+        [Display(Name = "Start Date",
         Description = "The date/time the poll will start running.")]
         public DateTime StartDate { get; set; }
 
-        [Display(Name = "EndDate",
+        [Display(Name = "End Date",
         Description = "The date/time the poll will end.")]
         public DateTime EndDate { get; set; }
     }
@@ -55,7 +55,7 @@ namespace searchDormWeb.Areas.Admin.Models.ContentManagement
         Description = "Name of the poll"), DataType(DataType.Text), MaxLength(256)]
         public string Name { get; set; }
 
-        [Display(Name = "SystemKeyword",
+        [Display(Name = "System Keyword",
         Description = "Name used by the system to identify this poll"), DataType(DataType.Text), MaxLength(256)]
         public string SystemKeyword { get; set; }
 
@@ -63,23 +63,23 @@ namespace searchDormWeb.Areas.Admin.Models.ContentManagement
         Description = "Determines whether this poll is published(visible) in the website.")]
         public bool Published { get; set; }
 
-        [Display(Name = "ShowOnHomePge",
+        [Display(Name = "Show On HomePge",
         Description = "Check to display this poll on your home page.Recommended for your most popular poll.")]
         public bool ShowOnHomePage { get; set; }
 
-        [Display(Name = "AllowGuestsToVote",
+        [Display(Name = "Allow Guests To Vote",
         Description = "Check this to allow unregistered users (Guest) to vote on this poll.")]
         public bool AllowGuestsToVote { get; set; }
 
-        [Display(Name = "DisplayOrder",
+        [Display(Name = "Display Order",
         Description = "The poll display order. 1 represents the first item in the list. "), MaxLength(256)]
         public int DisplayOrder { get; set; }
 
-        [Display(Name = "StartDate",
+        [Display(Name = "Start Date",
         Description = "The date/time the poll will start running.")]
         public DateTime StartDate { get; set; }
 
-        [Display(Name = "EndDate",
+        [Display(Name = "End Date",
         Description = "The date/time the poll will end.")]
         public DateTime EndDate { get; set; }
     }

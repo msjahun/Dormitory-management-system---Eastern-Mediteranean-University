@@ -8,28 +8,28 @@ namespace searchDormWeb.Areas.Admin.Models.API
 {
     public class ClientAdd
     {
-        [Display(Name = "ClientName",
+        [Display(Name = "Client Name",
         Description = "Api client name"), DataType(DataType.Text), MaxLength(256)]
         public string ClientName { get; set; }
 
 
-        [Display(Name = "ClientId",
+        [Display(Name = "Client Id",
         Description = "Api client id"), DataType(DataType.Text), MaxLength(256)]
         public string ClientId { get; set; }
 
-        [Display(Name = "ClientSecret",
+        [Display(Name = "Client Secret",
             Description = "Api client secret"), DataType(DataType.Text), MaxLength(256)]
         public string ClientSecret { get; set; }
 
-        [Display(Name = "REdirectUrl",
+        [Display(Name = "Redirect Url",
                        Description = "Api redirect url"), DataType(DataType.Text), MaxLength(256)]
         public string REdirectUrl { get; set; }
 
-        [Display(Name = "AccessToikenLifeTime",
+        [Display(Name = "Access Token LifeTime",
                       Description = "Access token lifetime"), MaxLength(256)]
-        public int AccessToikenLifeTime { get; set; }
+        public int AccessTokenLifeTime { get; set; }
 
-        [Display(Name = "RefreshTokenLifetime",
+        [Display(Name = "Refresh Token Lifetime",
                       Description = "Refresh token lifetime"), MaxLength(256)]
         public int RefreshTokenLifetime { get; set; }
 
@@ -43,27 +43,27 @@ namespace searchDormWeb.Areas.Admin.Models.API
     {
 
 
-        [Display(Name = "ClientName",
+        [Display(Name = "Client Name",
                        Description = "Api client name"), DataType(DataType.Text), MaxLength(256)]
         public string ClientName { get; set; }
 
-        [Display(Name = "ClientId",
+        [Display(Name = "Client Id",
                       Description = "Api client id"), DataType(DataType.Text), MaxLength(256)]
         public string ClientId { get; set; }
 
-        [Display(Name = "ClientSecret",
+        [Display(Name = "Client Secret",
                        Description = "Api client secret"), DataType(DataType.Text), MaxLength(256)]
         public string ClientSecret { get; set; }
 
-        [Display(Name = "REdirectUrl",
+        [Display(Name = "Redirect Url",
                        Description = "Api redirect url"), DataType(DataType.Text), MaxLength(256)]
         public string REdirectUrl { get; set; }
 
-        [Display(Name = "AccessToikenLifeTime",
+        [Display(Name = "Access Token LifeTime",
                        Description = "Access token lifetime"), MaxLength(256)]
         public int AccessToikenLifeTime { get; set; }
 
-        [Display(Name = "RefreshTokenLifetime",
+        [Display(Name = "Refresh Token Lifetime",
                         Description = "Refresh token lifetime"), MaxLength(256)]
         public int RefreshTokenLifetime { get; set; }
 

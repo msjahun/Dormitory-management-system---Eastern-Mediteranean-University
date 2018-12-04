@@ -37,25 +37,25 @@ namespace searchDormWeb.Areas.Admin.Models.System
 
     public class LogView
     {
-        [Display(Name = "LogLevel",
+        [Display(Name = "Log Level",
         Description = "The level of log entity."), DataType(DataType.Text), MaxLength(256)]
         public string LogLevel { get; set; }
 
 
 
 
-        [Display(Name = "ShortMessage",
+        [Display(Name = "Short Message",
         Description = "The log entry message."), DataType(DataType.Text), MaxLength(256)]
         public string ShortMessage { get; set; }
 
 
 
-        [Display(Name = "FullMessage",Description = "The details of the log entry."), DataType(DataType.Text), MaxLength(256)]
+        [Display(Name = "Full Message",Description = "The details of the log entry."), DataType(DataType.Text), MaxLength(256)]
         public string FullMessage { get; set; }
 
 
 
-        [Display(Name = "IpAddress",
+        [Display(Name = "Ip Address",
         Description = "Ip address of the machine that caused the exception."), DataType(DataType.Text), MaxLength(256)]
         public string IpAddress { get; set; }
 
@@ -67,17 +67,17 @@ namespace searchDormWeb.Areas.Admin.Models.System
 
 
 
-        [Display(Name = "PageUrl",
+        [Display(Name = "Page Url",
         Description = "Originating page exception."), DataType(DataType.Text), MaxLength(256)]
         public string PageUrl { get; set; }
 
 
-        [Display(Name = "ReferrerUrl",
+        [Display(Name = "Referrer Url",
         Description = "The referrer URL."), DataType(DataType.Text), MaxLength(256)]
         public string ReferrerUrl { get; set; }
 
 
-        [Display(Name = "CreatedOn",
+        [Display(Name = "Created On",
         Description = "Date/Time the log entry was created."), DataType(DataType.Text), MaxLength(256)]
         public string CreatedOn { get; set; }
 

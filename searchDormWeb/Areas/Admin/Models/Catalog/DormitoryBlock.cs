@@ -25,11 +25,11 @@ namespace searchDormWeb.Areas.Admin.Models.Catalog
         Description = "The dormitory block picutre"), DataType(DataType.Text), MaxLength(256)]
         public string Picture { get; set; }
 
-        [Display(Name = "priceRange",
+        [Display(Name = "price Range",
         Description = "The price range of the rooms in the dormitory block"), DataType(DataType.Text), MaxLength(256)]
         public string priceRange { get; set; }
 
-        [Display(Name = "IncludeInTopMenu",
+        [Display(Name = "Include In Top Menu",
         Description = "Display in the top menu bar. ")]
         public bool IncludeInTopMenu { get; set; }
 
@@ -37,11 +37,11 @@ namespace searchDormWeb.Areas.Admin.Models.Catalog
         Description = "Select discounts to apply to this dormitory block. You can manage discounts by selecting Discounts from the Promotions menu.")]
         public IEnumerable<int> Discount { get; set; }
 
-        [Display(Name = "LimitedToCustomerRoles",
+        [Display(Name = "Limited To Customer Roles",
         Description = "Select customer roles for which the dormitory block will be shown.Leave empty if you want this dormitory block to be visible to all users.")]
         public IEnumerable<int> LimitedToCustomerRoles { get; set; }
 
-        [Display(Name = "LimitToDormitories",
+        [Display(Name = "Limit To Dormitories",
         Description = "Option to limit this dormitory block to a certain dormitory. If you have multiple dormitory, choose one or several from the list.If you don't use this option just leave this field empty.")]
         public IEnumerable<int> LimitToDormitories { get; set; }
 
@@ -49,7 +49,7 @@ namespace searchDormWeb.Areas.Admin.Models.Catalog
         Description = "Check to publish this dormitory block (visible in customer area). Uncheck to unpublish (dormitory block is not available in customer area).")]
         public bool Published { get; set; }
 
-        [Display(Name = "DisplayOrder",
+        [Display(Name = "Display Order",
         Description = "Set the  dormitory block's display order. 1 represents the top of the list."), MaxLength(256)]
         public int DisplayOrder { get; set; }
 
@@ -87,11 +87,11 @@ namespace searchDormWeb.Areas.Admin.Models.Catalog
         Description = "The dormitory block picutre"), DataType(DataType.Text), MaxLength(256)]
         public string Picture { get; set; }
 
-        [Display(Name = "priceRange",
+        [Display(Name = "Price Range",
         Description = "The price range of the rooms in the dormitory block"), DataType(DataType.Text), MaxLength(256)]
         public string priceRange { get; set; }
 
-        [Display(Name = "IncludeInTopMenu",
+        [Display(Name = "Include In Top Menu",
         Description = "Display in the top menu bar. ")]
         public bool IncludeInTopMenu { get; set; }
 
@@ -99,11 +99,11 @@ namespace searchDormWeb.Areas.Admin.Models.Catalog
         Description = "Select discounts to apply to this dormitory block. You can manage discounts by selecting Discounts from the Promotions menu.")]
         public IEnumerable<int> Discount { get; set; }
 
-        [Display(Name = "LimitedToCustomerRoles",
+        [Display(Name = "Limited To Customer Roles",
         Description = "Select customer roles for which the dormitory block will be shown.Leave empty if you want this dormitory block to be visible to all users.")]
         public IEnumerable<int> LimitedToCustomerRoles { get; set; }
 
-        [Display(Name = "LimitToDormitories",
+        [Display(Name = "Limit To Dormitories",
         Description = "Option to limit this dormitory block to a certain dormitory. If you have multiple dormitory, choose one or several from the list.If you don't use this option just leave this field empty.")]
         public IEnumerable<int> LimitToDormitories { get; set; }
 
@@ -111,7 +111,7 @@ namespace searchDormWeb.Areas.Admin.Models.Catalog
         Description = "Check to publish this dormitory block (visible in customer area). Uncheck to unpublish (dormitory block is not available in customer area).")]
         public bool Published { get; set; }
 
-        [Display(Name = "DisplayOrder",
+        [Display(Name = "Display Order",
         Description = "Set the  dormitory block's display order. 1 represents the top of the list."), MaxLength(256)]
         public int DisplayOrder { get; set; }
 
@@ -136,22 +136,22 @@ public string View { get; set; }
 
     public class DormitoryBlockSeoTab
     {
-        [Display(Name = "MetaKeywords",
+        [Display(Name = "Meta Keywords",
         Description = "Meta keywords to be added to Room page header."), DataType(DataType.Text), MaxLength(256)]
         public string MetaKeywords { get; set; }
 
 
-        [Display(Name = "MetaDescription",
+        [Display(Name = "Meta Description",
         Description = "Meta description to be added to Room page header."), DataType(DataType.Text), MaxLength(256)]
         public string MetaDescription { get; set; }
 
 
-        [Display(Name = "MetaTitle",
+        [Display(Name = "Meta Title",
         Description = "Override the page title. The default is the name of the Room."), DataType(DataType.Text), MaxLength(256)]
         public string MetaTitle { get; set; }
 
 
-        [Display(Name = "SearchEngineFriendlyPageName",
+        [Display(Name = "Search Engine Friendly PageName",
         Description = "Set a search engine friendly page name e.g. 'the-best-room' to make your page URL 'http://www.domain.com/the-best-room'. Leave empty to generate it automatically based on the name of the Room."), DataType(DataType.Text), MaxLength(256)]
         public string SearchEngineFriendlyPageName { get; set; }
     }

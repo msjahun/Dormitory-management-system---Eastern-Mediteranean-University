@@ -12,7 +12,7 @@ namespace searchDormWeb.Areas.Admin.Models.ContentManagement
 
         public LocalizedMessageTemplateContent[] localizedMessageTemplateContents { get; set; }
 
-        [Display(Name = "AllowedTokens",
+        [Display(Name = "Allowed Tokens",
       Description = "Allowed Tokens you can use to be replaced with custoper/user data"), DataType(DataType.Text), MaxLength(256)]
         public string AllowedTokens { get; set; }
 
@@ -21,19 +21,19 @@ namespace searchDormWeb.Areas.Admin.Models.ContentManagement
         public string Name { get; set; }
 
 
-        [Display(Name = "isActive",
+        [Display(Name = "Is Active",
         Description = "Indicating whether the message template is active.")]
         public bool isActive { get; set; }
 
-        [Display(Name = "SendImmediately",
+        [Display(Name = "Send Immediately",
         Description = "Send message immediately.")]
         public bool SendImmediately { get; set; }
 
-        [Display(Name = "AttachedStaticFile",
+        [Display(Name = "Attached Static File",
         Description = "Upload a static file you want to attach to each sent email.")]
         public bool AttachedStaticFile { get; set; }
 
-        [Display(Name = "LimitedToStores",
+        [Display(Name = "Limited To Dormitory",
         Description = "Option to limit this template to a certain dormitory.If you have multiple dormitories, choose one or several from the list.If you don't use this option just leave this field empty.")]
         public IEnumerable<int> LimitedToDormitories { get; set; }
 
@@ -55,7 +55,7 @@ public class LocalizedMessageTemplateContent
         public string BCC { get; set; }
 
 
-        [Display(Name = "EmailAccount",
+        [Display(Name = "Email Account",
         Description = "The email account that will be used to send this message template."), MaxLength(256)]
         public int EmailAccount { get; set; }
     }

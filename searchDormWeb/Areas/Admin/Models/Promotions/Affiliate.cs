@@ -41,11 +41,11 @@ namespace searchDormWeb.Areas.Admin.Models.Promotions
         Description = "A value indicating whether the affiliate is active.")]
         public bool Active { get; set; }
 
-        [Display(Name = "FirstName",
+        [Display(Name = "First Name",
         Description = "Enter first name"), DataType(DataType.Text), MaxLength(256)]
         public string FirstName { get; set; }
 
-        [Display(Name = "LastName",
+        [Display(Name = "Last Name",
         Description = "Enter last name"), DataType(DataType.Text), MaxLength(256)]
         public string LastName { get; set; }
 
@@ -61,7 +61,7 @@ namespace searchDormWeb.Areas.Admin.Models.Promotions
         Description = "Select country"), MaxLength(256)]
         public int Country { get; set; }
 
-        [Display(Name = "StateProvince",
+        [Display(Name = "State Province",
         Description = "Select state/province"), MaxLength(256)]
         public int StateProvince { get; set; }
 
@@ -69,35 +69,35 @@ namespace searchDormWeb.Areas.Admin.Models.Promotions
         Description = "Enter City"), DataType(DataType.Text), MaxLength(256)]
         public string City { get; set; }
 
-        [Display(Name = "Address1",
+        [Display(Name = "Address 1",
         Description = "Enter Address 1"), DataType(DataType.Text), MaxLength(256)]
         public string Address1 { get; set; }
 
-        [Display(Name = "Address2",
+        [Display(Name = "Address 2",
         Description = "Enter Address 2"), DataType(DataType.Text), MaxLength(256)]
         public string Address2 { get; set; }
 
-        [Display(Name = "ZipPostalCode",
+        [Display(Name = "Zip Postal Code",
         Description = "Enter Zip/Postal code"), DataType(DataType.Text), MaxLength(256)]
         public string ZipPostalCode { get; set; }
 
-        [Display(Name = "PhoneNumber",
+        [Display(Name = "Phone Number",
         Description = "Enter Phone number"), DataType(DataType.Text), MaxLength(256)]
         public string PhoneNumber { get; set; }
 
-        [Display(Name = "FaxNumber",
+        [Display(Name = "Fax Number",
         Description = "Enter Fax number"), DataType(DataType.Text), MaxLength(256)]
         public string FaxNumber { get; set; }
 
-        [Display(Name = "AdminComment",
+        [Display(Name = "Admin Comment",
         Description = "Admin comment.For internal use."), DataType(DataType.Text), MaxLength(256)]
         public string AdminComment { get; set; }
 
-        [Display(Name = "FriendlyUrlName",
+        [Display(Name = "Friendly Url Name",
         Description = "A friendly name for generated affiliate URL(by default affiliate ID is used). It's more friendly for marketing purposes. Leave empty to use affiliate identifier."), DataType(DataType.Text), MaxLength(256)]
         public string FriendlyUrlName { get; set; }
 
-        [Display(Name = "AffiliateURL",
+        [Display(Name = "Affiliate URL",
         Description = "When this hyperlink is clicked from the affiliate site, this site looks for an Affiliate ID query string parameter. If one exists, the customer is tagged with that affiliate."), DataType(DataType.Text), MaxLength(256)]
         public string AffiliateURL { get; set; }
 
@@ -112,12 +112,12 @@ namespace searchDormWeb.Areas.Admin.Models.Promotions
         Description = "A value indicating whether the affiliate is active.")]
         public bool Active { get; set; }
 
-        [Display(Name = "FirstName",
+        [Display(Name = "First Name",
         Description = "Enter first name"), DataType(DataType.Text), MaxLength(256)]
         public string FirstName { get; set; }
 
 
-        [Display(Name = "LastName",
+        [Display(Name = "Last Name",
         Description = "Enter last name"), DataType(DataType.Text), MaxLength(256)]
         public string LastName { get; set; }
 
@@ -137,7 +137,7 @@ namespace searchDormWeb.Areas.Admin.Models.Promotions
         public int Country { get; set; }
 
 
-        [Display(Name = "StateProvince",
+        [Display(Name = "State Province",
         Description = "Select state/province"), MaxLength(256)]
         public int StateProvince { get; set; }
 
@@ -147,37 +147,37 @@ namespace searchDormWeb.Areas.Admin.Models.Promotions
         public string City { get; set; }
 
 
-        [Display(Name = "Address1",
+        [Display(Name = "Address 1",
         Description = "Enter Address 1"), DataType(DataType.Text), MaxLength(256)]
         public string Address1 { get; set; }
 
 
-        [Display(Name = "Address2",
+        [Display(Name = "Address 2",
         Description = "Enter Address 2"), DataType(DataType.Text), MaxLength(256)]
         public string Address2 { get; set; }
 
 
-        [Display(Name = "ZipPostalCode",
+        [Display(Name = "Zip Postal Code",
         Description = "Enter Zip/Postal code"), DataType(DataType.Text), MaxLength(256)]
         public string ZipPostalCode { get; set; }
 
 
-        [Display(Name = "PhoneNumber",
+        [Display(Name = "Phone Number",
         Description = "Enter Phone number"), DataType(DataType.Text), MaxLength(256)]
         public string PhoneNumber { get; set; }
 
 
-        [Display(Name = "FaxNumber",
+        [Display(Name = "Fax Number",
         Description = "Enter Fax number"), DataType(DataType.Text), MaxLength(256)]
         public string FaxNumber { get; set; }
 
 
-        [Display(Name = "AdminComment",
+        [Display(Name = "Admin Comment",
         Description = "Admin comment.For internal use."), DataType(DataType.Text), MaxLength(256)]
         public string AdminComment { get; set; }
 
 
-        [Display(Name = "FriendlyUrlName",
+        [Display(Name = "Friendly Url Name",
         Description = "A friendly name for generated affiliate URL(by default affiliate ID is used). It's more friendly for marketing purposes. Leave empty to use affiliate identifier."), DataType(DataType.Text), MaxLength(256)]
         public string FriendlyUrlName { get; set; }
 
@@ -207,16 +207,16 @@ public string View {get; set;}
 
     public class AffiliatedBookingsTab
     {
-        [Display(Name = "StartDate",
+        [Display(Name = "Start Date",
       Description = "Start Date")]
         public DateTime StartDate {get; set;}
 
-        [Display(Name = "EndDate",
+        [Display(Name = "End Date",
       Description = "End Date")]
         public DateTime EndDate {get; set;}
 
 
-        [Display(Name = "BookingStatus",
+        [Display(Name = "Booking Status",
             Description = "Booking Status")]
         public int BookingStatus { get; set; }
 

@@ -10,7 +10,7 @@ namespace searchDormWeb.Areas.Admin.Models.Catalog
     {
         public LocalizedFacilityContent[] localizedFacilityContent { get; set; }
 
-         [Display(Name = "DisplayOrder",
+         [Display(Name = "Display Order",
         Description = "The display order of the facility specification attribute."), MaxLength(256)]
         public int DisplayOrder { get; set; }
 
@@ -23,7 +23,7 @@ namespace searchDormWeb.Areas.Admin.Models.Catalog
         public LocalizedFacilityContent[] localizedFacilityContent { get; set; }
 
 
-        [Display(Name = "DisplayOrder",
+        [Display(Name = "Display Order",
         Description = "The display order of the facility specification attribute."), MaxLength(256)]
         public int DisplayOrder { get; set; }
 

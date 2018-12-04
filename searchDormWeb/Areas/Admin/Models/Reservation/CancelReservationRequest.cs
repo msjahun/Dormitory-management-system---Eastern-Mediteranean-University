@@ -12,7 +12,7 @@ namespace searchDormWeb.Areas.Admin.Models.Reservation
         Description = "Cancel Reservation request Id"), DataType(DataType.Text), MaxLength(256)]
         public string Id { get; set; }
 
-        [Display(Name = "BookingNumber",
+        [Display(Name = "Booking Number",
         Description = "The unique number of this booking order."), DataType(DataType.Text), MaxLength(256)]
         public string BookingNumber { get; set; }
 
@@ -24,23 +24,23 @@ namespace searchDormWeb.Areas.Admin.Models.Reservation
         Description = "The room name that reservation was cancelled for."), DataType(DataType.Text), MaxLength(256)]
         public string Room { get; set; }
 
-        [Display(Name = "ReturnRequestStatus",
+        [Display(Name = "Return Request Status",
         Description = "The status of the return request"), MaxLength(256)]
         public int ReturnRequestStatus { get; set; }
 
-        [Display(Name = "ReasonForCancellation",
+        [Display(Name = "Reason For Cancellation",
         Description = "The reason for reservation request cancellation provided by the customer."), DataType(DataType.Text), MaxLength(256)]
         public string ReasonForCancellation { get; set; }
 
-        [Display(Name = "RequestedAction",
+        [Display(Name = "Requested Action",
         Description = "What action the customer requests from the administrator"), DataType(DataType.Text), MaxLength(256)]
         public string RequestedAction { get; set; }
 
-        [Display(Name = "CustomerComment",
+        [Display(Name = "Customer Comment",
         Description = "The comment by the customer"), DataType(DataType.Text), MaxLength(256)]
         public string CustomerComment { get; set; }
 
-        [Display(Name = "StaffNotes",
+        [Display(Name = "Staff Notes",
         Description = "Comment made by Staff/Administrator"), DataType(DataType.Text), MaxLength(256)]
         public string StaffNotes { get; set; }
 

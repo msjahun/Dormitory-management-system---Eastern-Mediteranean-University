@@ -13,23 +13,23 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
     {
         public LocalizedContentCountry[] localizedContentCountry { get; set; }
 
-          [Display(Name = "AllowBilling",
+          [Display(Name = "Allow Billing",
         Description = "Allow billing to customers located in this country.")]
         public bool AllowBilling { get; set; }
 
-        [Display(Name = "AllowBooking",
+        [Display(Name = "Allow Booking",
         Description = "Allow booking to customers located in this country.")]
         public bool AllowBooking { get; set; }
 
-        [Display(Name = "TwoLetterIsoCode",
+        [Display(Name = "Two Letter Iso Code",
         Description = "The two letter ISO code for this country.For a complete list of ISO codes go to: http://en.wikipedia.org/wiki/ISO_3166-1_alpha."), DataType(DataType.Text), MaxLength(256)]
         public string TwoLetterIsoCode { get; set; }
 
-        [Display(Name = "ThreeLetterIsoCode",
+        [Display(Name = "Three Letter Iso Code",
         Description = "The three letter ISO code for this country.For a complete list of ISO codes go to: http://en.wikipedia.org/wiki/ISO_3166-1_alpha-3."), DataType(DataType.Text), MaxLength(256)]
         public string ThreeLetterIsoCode { get; set; }
 
-        [Display(Name = "NumericIsoCode",
+        [Display(Name = "Numeric Iso Code",
         Description = "The numeric ISO code for this country.For a complete list of ISO codes go to: http://en.wikipedia.org/wiki/ISO_3166-1_numeric."), MaxLength(256)]
         public int NumericIsoCode { get; set; }
 
@@ -37,7 +37,7 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
         Description = "Determines whether this country is published(visible for creation of booking/billing addresses).")]
         public bool Published { get; set; }
 
-        [Display(Name = "DisplayOrder",
+        [Display(Name = "Display Order",
         Description = "The display order for this country. 1 represents the top of the list."), MaxLength(256)]
         public int DisplayOrder { get; set; }
 
@@ -49,23 +49,23 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
 
         public LocalizedContentCountry[] localizedContentCountry { get; set; }
 
-        [Display(Name = "AllowBilling",
+        [Display(Name = "Allow Billing",
         Description = "Allow billing to customers located in this country.")]
         public bool AllowBilling { get; set; }
 
-        [Display(Name = "AllowBooking",
+        [Display(Name = "Allow Booking",
         Description = "Allow booking to customers located in this country.")]
         public bool AllowBooking { get; set; }
 
-        [Display(Name = "TwoLetterIsoCode",
+        [Display(Name = "Two Letter Iso Code",
         Description = "The two letter ISO code for this country.For a complete list of ISO codes go to: http://en.wikipedia.org/wiki/ISO_3166-1_alpha."), DataType(DataType.Text), MaxLength(256)]
         public string TwoLetterIsoCode { get; set; }
 
-        [Display(Name = "ThreeLetterIsoCode",
+        [Display(Name = "Three Letter Iso Code",
         Description = "The three letter ISO code for this country.For a complete list of ISO codes go to: http://en.wikipedia.org/wiki/ISO_3166-1_alpha-3."), DataType(DataType.Text), MaxLength(256)]
         public string ThreeLetterIsoCode { get; set; }
 
-        [Display(Name = "NumericIsoCode",
+        [Display(Name = "Numeric Iso Code",
         Description = "The numeric ISO code for this country.For a complete list of ISO codes go to: http://en.wikipedia.org/wiki/ISO_3166-1_numeric."), MaxLength(256)]
         public int NumericIsoCode { get; set; }
 
@@ -73,7 +73,7 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
         Description = "Determines whether this country is published(visible for creation of booking/billing addresses).")]
         public bool Published { get; set; }
 
-        [Display(Name = "DisplayOrder",
+        [Display(Name = "Display Order",
         Description = "The display order for this country. 1 represents the top of the list."), MaxLength(256)]
         public int DisplayOrder { get; set; }
 
