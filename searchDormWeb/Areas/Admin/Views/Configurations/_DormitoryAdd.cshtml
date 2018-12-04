@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.Configuration
 @model DormitoryAdd
 @{
-    ViewData["Title"] = "Add dormitory";
+    ViewData["Title"] = Localizer["Add dormitory"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -11,15 +11,15 @@
     <section class="content-header">
         <h1>
             @ViewData["Title"]
-            <small><a asp-action="Dormitories" asp-controller="Configurations"><i class="fa fa-arrow-circle-left"></i> back to dormitories list</a></small>
+            <small><a asp-action="Dormitories" asp-controller="Configurations"><i class="fa fa-arrow-circle-left"></i> @Localizer["back to dormitories list"]</a></small>
         </h1>
         <div class="row">
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
 
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save</button>
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save and Continue Edit</button>
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save and Continue Edit"]</button>
 
                 </div>
             </div>
@@ -38,10 +38,10 @@
             <!-- Horizontal Form -->
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#tab_3" data-toggle="tab" aria-expanded="true">Dormitory info</a></li>
-                    <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">SEO</a></li>
-                    <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">Pictures</a></li>
-                    <li class=""><a href="#tab_5" data-toggle="tab" aria-expanded="false">Specification attributes</a></li>
+                    <li class="active"><a href="#tab_3" data-toggle="tab" aria-expanded="true">@Localizer["Dormitory info"]</a></li>
+                    <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">@Localizer["SEO"]</a></li>
+                    <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">@Localizer["Pictures"]</a></li>
+                    <li class=""><a href="#tab_5" data-toggle="tab" aria-expanded="false">@Localizer["Specification attributes"]</a></li>
                 </ul>
                 <div class="tab-content">
                     <!-- /.tab-pane -->
@@ -51,7 +51,7 @@
                             <div class="col-md-6" id="first_column">
 
                                 <div class="box box-solid">
-                                    <div class="box-header">General information</div>
+                                    <div class="box-header">@Localizer["General information"]</div>
                                     <!-- /.box-header -->
                                     <!-- form start -->
 
@@ -281,7 +281,7 @@
 
 
                                 <div class="box box-solid">
-                                    <div class="box-header">Access control list</div>
+                                    <div class="box-header">@Localizer["Access control list"]</div>
                                     <!-- /.box-header -->
                                     <!-- form start -->
 
@@ -455,7 +455,7 @@
 
                             <div class="box-body">
 
-                                <p>You need to save the dormitory before you can upload pictures for this dormitory page</p>
+                                <p>@Localizer["You need to save the dormitory before you can upload pictures for this dormitory page"]</p>
 
                             </div>
                         </div>
@@ -467,14 +467,14 @@
                     <div class="tab-pane" id="tab_5">
                         <div class="box  box-solid">
                             <div class="box-header">
-                                Specificatino attributes are dormitory features i.e, Bed size, dormitory size and so on. Specification attributes can be used for filtering rooms
-                                on the Dormitory detail page. Unlike dormitory attributes, specification attributes are used for information purpose only.
+                                @Localizer["Specificatino attributes are dormitory features i.e, Bed size, dormitory size and so on. Specification attributes can be used for filtering rooms"+
+                                "on the Dormitory detail page. Unlike dormitory attributes, specification attributes are used for information purpose only."]
                             </div>
 
                             <div class="box-body">
 
 
-                                <p>You need to save the dormitory before you can add dormitory specification attributes for this dormitory page</p>
+                                <p>@Localizer["You need to save the dormitory before you can add dormitory specification attributes for this dormitory page"]</p>
 
 
                             </div>

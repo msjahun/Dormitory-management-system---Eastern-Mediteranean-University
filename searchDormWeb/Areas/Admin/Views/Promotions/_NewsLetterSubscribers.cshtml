@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.Promotions
 @model NewsLetterSubscribersVm
 @{
-    ViewData["Title"] = "NewsLetter Subscribers";
+    ViewData["Title"] = Localizer["NewsLetter Subscribers"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -17,8 +17,8 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" class="btn btn-success "> <i class="fa fa-download"></i> Export to CSV</button>
-                    <button type="submit" class="btn btn-primary "> <i class="fa fa-upload"></i> Import from CSV</button>
+                    <button type="submit" class="btn btn-success "> <i class="fa fa-download"></i> @Localizer["Export to CSV"]</button>
+                    <button type="submit" class="btn btn-primary "> <i class="fa fa-upload"></i> @Localizer["Import from CSV"]</button>
                 </div>
             </div>
         </div>
@@ -74,7 +74,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-search"></i> Search</button>
+                                <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-search"></i> @Localizer["Search"]</button>
                             </div>
                         </div>
                     </div>
@@ -94,9 +94,9 @@
                         <table id="NewsLetterSubscribersTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Email</th>
-                                    <th>Active</th>
-                                    <th>Subscribed on</th>
+                                    <th>@Localizer["Email"]</th>
+                                    <th>@Localizer["Active"]</th>
+                                    <th>@Localizer["Subscribed on"]</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -253,10 +253,10 @@
                     {"data": "susbscribedOn" },
 
                     {"render": function (data, type, full, meta) {
-                     return '<a class="btn btn-primary" href="/Admin/Users/Edit/?UserId=' + full.id + '"><i class="fa fa-pencil"></i> Edit</a>'; }
+                     return '<a class="btn btn-primary" href="/Admin/Users/Edit/?UserId=' + full.id + '"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>'; }
                     },
                     {"render": function (data, type, full, meta) {
-                     return '<a class="btn btn-danger" ><i class="fa fa-times"></i> Delete</a>'; }
+                     return '<a class="btn btn-danger" ><i class="fa fa-times"></i> @Localizer["Delete"]</a>'; }
                     }
 
 

@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.System
 @model MaintenanceVm
 @{
-    ViewData["Title"] = "Maintenance";
+    ViewData["Title"] = Localizer["Maintenance"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -138,7 +138,7 @@
 
                                     <div class="form-group">
                                         <div class=" col-sm-10">
-                                            <button type="submit" class="btn btn-danger "> <i class="fa fa-trash"></i> Delete</button>
+                                            <button type="submit" class="btn btn-danger "> <i class="fa fa-trash"></i> @Localizer["Delete"]</button>
                                         </div>
                                     </div>
 
@@ -162,18 +162,18 @@
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div class="box-header">
-                        <h3 class="box-title">Database backups</h3>
+                        <h3 class="box-title">@Localizer["Database backups"]</h3>
                     </div>
 
                     <div class="overflow">
                         <table id="MaintenanceTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>File name</th>
-                                    <th>File size</th>
-                                    <th>Download</th>
-                                    <th>Restore</th>
-                                    <th>Delete</th>
+                                    <th>@Localizer["File name"]</th>
+                                    <th>@Localizer["File size"]</th>
+                                    <th>@Localizer["Download"]</th>
+                                    <th>@Localizer["Restore"]</th>
+                                    <th>@Localizer["Delete"]</th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -181,7 +181,7 @@
                         </table>
                     </div>
 
-                    <button type="submit" class="btn btn-primary"> <i class="fa fa-hdd-o"></i> Backup Now</button>
+                    <button type="submit" class="btn btn-primary"> <i class="fa fa-hdd-o"></i> @Localizer["Backup Now"]</button>
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -286,13 +286,13 @@
                     {"data": "fileSize" },
 
                     {"render": function (data, type, full, meta) {
-                     return '<a class="btn btn-danger" ><i class="fa fa-times"></i> Delete</a>'; }
+                     return '<a class="btn btn-danger" ><i class="fa fa-times"></i> @Localizer["Delete"]</a>'; }
                     },
                     {"render": function (data, type, full, meta) {
-                     return '<a class="btn btn-primary" ><i class="fa fa-download"></i> Download</a>'; }
+                     return '<a class="btn btn-primary" ><i class="fa fa-download"></i> @Localizer["Download"]</a>'; }
                     },
                     {"render": function (data, type, full, meta) {
-                     return '<a class="btn btn-success" ><i class=""></i> Restore</a>'; }
+                     return '<a class="btn btn-success" ><i class=""></i> @Localizer["Restore"]</a>'; }
                     }
 
 

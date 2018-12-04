@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.System
 @model SEOFriendlyPageNamesVm
 @{
-    ViewData["Title"] = "SEO Friendly Page Names";
+    ViewData["Title"] = Localizer["SEO Friendly Page Names"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -17,7 +17,7 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" class="btn btn-danger "> <i class="fa fa-trash"></i> Delete selected</button>
+                    <button type="submit" class="btn btn-danger "> <i class="fa fa-trash"></i> @Localizer["Delete selected"]</button>
                 </div>
             </div>
         </div>
@@ -51,7 +51,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-search"></i> Search</button>
+                                <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-search"></i> @Localizer["Search"]</button>
                             </div>
                         </div>
                     </div>
@@ -72,13 +72,13 @@
                             <thead>
                                 <tr>
                                     <th><input type="checkbox"></th>
-                                    <th>Id</th>
-                                    <th>Name</th>
-                                    <th>Entity id</th>
-                                    <th>Entity name</th>
-                                    <th>Is active</th>
-                                    <th>Language</th>
-                                    <th>Edit page</th>
+                                    <th>@Localizer["Id"]</th>
+                                    <th>@Localizer["Name"]</th>
+                                    <th>@Localizer["Entity id"]</th>
+                                    <th>@Localizer["Entity name"]</th>
+                                    <th>@Localizer["Is active"]</th>
+                                    <th>@Localizer["Language"]</th>
+                                    <th>@Localizer["Edit page"]</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -265,7 +265,7 @@
                     },
                     {"data": "language" },
                     {"render": function (data, type, full, meta) {
-                     return '<a class="btn btn-primary" href="/Admin/System/"><i class="fa fa-pencil"></i> Edit page</a>'; }
+                     return '<a class="btn btn-primary" href="/Admin/System/"><i class="fa fa-pencil"></i> @Localizer["Edit page"]</a>'; }
                     }
                     
                     

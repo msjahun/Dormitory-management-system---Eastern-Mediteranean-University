@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Countries";
+    ViewBag.Title = Localizer["Countries list"];
     Layout = "../shared/_LayoutAdmin.cshtml";
 }
 
@@ -9,21 +9,21 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-           Countries List
+          @ViewBag.Title
            
         </h1>
         <div class="row">
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <a asp-action="CountryAdd" asp-controller="Configurations" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-plus-square"></i> Add new</a>
-                    <button type="submit" class="btn btn-primary "> <i class="fa fa-file-pdf-o"></i> Published selected</button>
-                    <button type="submit" class="btn btn-danger "> <i class="fa fa-trash"></i> Unpublished selected</button>
+                    <a asp-action="CountryAdd" asp-controller="Configurations" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-plus-square"></i> @Localizer["Add new"]</a>
+                    <button type="submit" class="btn btn-primary "> <i class="fa fa-file-pdf-o"></i> @Localizer["Published selected"]</button>
+                    <button type="submit" class="btn btn-danger "> <i class="fa fa-trash"></i> @Localizer["Unpublished selected"]</button>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-success btn-flat">Export</button>
+                        <button type="button" class="btn btn-success btn-flat">@Localizer["Export"]</button>
                         <button type="button" class="btn btn-success btn-flat dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
+                            <span class="sr-only">@Localizer["Toggle Dropdown"]</span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#">Action</a></li>
@@ -33,7 +33,7 @@
                             <li><a href="#">Separated link</a></li>
                         </ul>
                     </div>
-                    <button type="submit" class="btn btn-primary "> <i class="fa fa-upload"></i> Import</button>
+                    <button type="submit" class="btn btn-primary "> <i class="fa fa-upload"></i> @Localizer["Import"]</button>
 
                 </div>
             </div>
@@ -61,15 +61,15 @@
                             <thead>
                                 <tr>
                                     <th><input type="checkbox"></th>
-                                    <th>Name</th>
-                                    <th>Allow billing</th>
-                                    <th>Allow booking</th>
-                                    <th>Two letters ISO code</th>
-                                    <th>three letters ISO code</th>
-                                    <th>Number of states</th>
-                                    <th>Display order</th>
-                                    <th>Published</th>
-                                    <th>Edit</th>
+                                    <th>@Localizer["Name"]</th>
+                                    <th>@Localizer["Allow billing"]</th>
+                                    <th>@Localizer["Allow booking"]</th>
+                                    <th>@Localizer["Two letters ISO code"]</th>
+                                    <th>@Localizer["three letters ISO code"]</th>
+                                    <th>@Localizer["Number of states"]</th>
+                                    <th>@Localizer["Display order"]</th>
+                                    <th>@Localizer["Published"]</th>
+                                    <th>@Localizer["Edit"]</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -259,7 +259,7 @@
                         }
                     },
                     {"render": function (data, type, full, meta) {
-                        return '<a class="btn btn-primary" href="/Admin/Configurations/CountryEdit/"><i class="fa fa-pencil"></i> Edit</a>'; }
+                        return '<a class="btn btn-primary" href="/Admin/Configurations/CountryEdit/"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>'; }
                     }
                     
                     

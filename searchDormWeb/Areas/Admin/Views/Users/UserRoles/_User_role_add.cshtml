@@ -3,9 +3,9 @@
 @model UserRoleAddViewModel
 
 @{
-    ViewData["Title"] = "_User_role_add";
-    Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
-}
+            ViewData["Title"] = Localizer["Add user role"];
+            Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+        }
 
 
 
@@ -14,14 +14,14 @@
     <section class="content-header">
         <h1>
             @ViewData["Title"]
-            <small><a asp-action="Roles" asp-controller="Users"><i class="fa fa-arrow-circle-left"></i> back to Users list</a></small>
+            <small><a asp-action="Roles" asp-controller="Users"><i class="fa fa-arrow-circle-left"></i> @Localizer["back to Users list"]</a></small>
         </h1>
         <div class="row">
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" form="AddUserRoleForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save</button>
-                    <button type="submit" form="AddUserRoleForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save and Continue Edit</button>
+                    <button type="submit" form="AddUserRoleForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
+                    <button type="submit" form="AddUserRoleForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save and Continue Edit"]</button>
                 </div>
             </div>
         </div>
@@ -132,7 +132,7 @@
 }
 
 
-@section scripts
+    @section scripts
     {
 
     <script src="@Url.Content("~/Content/")bower_components/jquery/dist/jquery.min.js"></script>

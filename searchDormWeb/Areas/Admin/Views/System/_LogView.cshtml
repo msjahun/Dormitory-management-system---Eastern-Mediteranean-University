@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.System
 @model LogView
 @{
-    ViewData["Title"] = "View Log";
+    ViewData["Title"] = Localizer["View Log"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -12,14 +12,14 @@
     <section class="content-header">
         <h1>
             @ViewBag.Title
-            <small><a asp-action="Log" asp-controller="System"><i class="fa fa-arrow-circle-left"></i> back to logs list</a></small>
+            <small><a asp-action="Log" asp-controller="System"><i class="fa fa-arrow-circle-left"></i> @Localizer["back to logs list"]</a></small>
         </h1>
         <div class="row">
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
                     
-                    <button type="submit" form="addForm" class="btn btn-danger "> <i class="fa fa-trash-o"></i> Delete</button>
+                    <button type="submit" form="addForm" class="btn btn-danger "> <i class="fa fa-trash-o"></i> @Localizer["Delete"]</button>
                 </div>
             </div>
         </div>

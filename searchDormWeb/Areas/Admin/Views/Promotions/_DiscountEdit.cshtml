@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.Promotions
 @model DiscountEdit
 @{
-    ViewData["Title"] = "Edit Discount";
+    ViewData["Title"] = Localizer["Edit Discount"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -11,14 +11,14 @@
     <section class="content-header">
         <h1>
             @ViewData["Title"]
-            <small><a asp-action="Discounts" asp-controller="Promotions"><i class="fa fa-arrow-circle-left"></i> back to Discounts list</a></small>
+            <small><a asp-action="Discounts" asp-controller="Promotions"><i class="fa fa-arrow-circle-left"></i> @Localizer["back to Discounts list"]</a></small>
         </h1>
         <div class="row">
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save</button>
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save and Continue Edit</button>
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save and Continue Edit"]</button>
                 </div>
             </div>
         </div>
@@ -36,9 +36,9 @@
             <!-- Horizontal Form -->
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#tab_3" data-toggle="tab" aria-expanded="true">Discount info</a></li>
-                    <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">Requirement</a></li>
-                    <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">Usage history</a></li>
+                    <li class="active"><a href="#tab_3" data-toggle="tab" aria-expanded="true">@Localizer["Discount info"]</a></li>
+                    <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">@Localizer["Requirement"]</a></li>
+                    <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">@Localizer["Usage history"]</a></li>
 
                 </ul>
                 <div class="tab-content">
@@ -148,14 +148,14 @@
 
                     <div class="tab-pane" id="tab_1">
                         <p>
-                            Set up requirements to a created discount if you want to limit it to certain user categories depending on a customer role, the amount spent
-                            , etc. You can use single requirement type, or group several types and apply them simultaneously.
-                            Requirement group is a useful feature for creating discount requirement templates. You can creawte a requirement group just once and
-                            them user it every time you want this limitation to be applied. You can include one requirement group into another if needed.
+                            @Localizer["Set up requirements to a created discount if you want to limit it to certain user categories depending on a customer role, the amount spent"+
+                           ", etc. You can use single requirement type, or group several types and apply them simultaneously."+
+                           "Requirement group is a useful feature for creating discount requirement templates. You can creawte a requirement group just once and"+
+                            "them user it every time you want this limitation to be applied. You can include one requirement group into another if needed."]
                         </p>
                         <div class="box ">
 
-                            <div class="box-header">Add a new discount requirement</div>
+                            <div class="box-header">@Localizer["Add a new discount requirement"]</div>
                             <!-- /.box-header -->
                             <!-- form start -->
 
@@ -183,10 +183,10 @@
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Used</th>
-                                            <th>Order #</th>
-                                            <th>Order total </th>
-                                            <th>Delete</th>
+                                            <th>@Localizer["Used"]</th>
+                                            <th>@Localizer["Order #"]</th>
+                                            <th>@Localizer["Order total"] </th>
+                                            <th>@Localizer["Delete"]</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>

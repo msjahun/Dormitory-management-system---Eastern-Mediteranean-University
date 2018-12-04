@@ -4,28 +4,28 @@
 @model RoleViewModel
 
 @{
-    ViewBag.Title = "Access Control List";
-    Layout = "../shared/_LayoutAdmin.cshtml";
-    var controllers = (IEnumerable<MvcControllerInfo>)ViewData["Controllers"];
+        ViewBag.Title = Localizer["Access Control List"];
+        Layout = "../shared/_LayoutAdmin.cshtml";
+        var controllers = (IEnumerable<MvcControllerInfo>)ViewData["Controllers"];
 
-    List<SelectListItem> UserRoleList =(List<SelectListItem>) ViewData["CustomerRoles"];
-    var controllerUserRoleList = (List<AclMvcControllerInfo2>) ViewData["controllersList"];
-    var actionsList = (List<MvcActionInfoUserRole>)ViewData["ActionsList"];
-}
+        List<SelectListItem> UserRoleList =(List<SelectListItem>) ViewData["CustomerRoles"];
+        var controllerUserRoleList = (List<AclMvcControllerInfo2>) ViewData["controllersList"];
+        var actionsList = (List<MvcActionInfoUserRole>)ViewData["ActionsList"];
+    }
 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
    
     <section class="content-header">
         <h1>
-            Access control list
-         
+            @ViewBag.Title
+
         </h1>
         <div class="row">
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button class="btn btn-success " id="saveBtn"> <i class="fa fa-floppy-o "></i> Save</button>
+                    <button class="btn btn-success " id="saveBtn"> <i class="fa fa-floppy-o "></i> @Localizer["Save"]</button>
                     @*<button class="btn btn-success " type="submit" form="aclForm" id="saveBtn"> <i class="fa fa-floppy-o "></i> Save</button>*@
                 </div>
             </div>
@@ -46,7 +46,7 @@
 
             <div class="box box-solid">
                 <div class="box-header">
-                    <h3 class="box-title">Access  control list of permissions attached to customer roles. This specifies access rights of users to objects</h3>
+                    <h3 class="box-title">@Localizer["Access  control list of permissions attached to customer roles. This specifies access rights of users to objects"]</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -55,7 +55,7 @@
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Permission name</th>
+                                    <th>@Localizer["Permission name"]</th>
                                     @foreach (var userRole in UserRoleList)
                                     {
                                         <th><input id="@userRole.Value" type="checkbox" />@userRole.Text</th>
@@ -261,7 +261,7 @@
                     },
                     success: function (result) {
                         //alert("I have returned");
-                        document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-success alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> Access control list updated successfully.</div>";
+                        document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-success alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> @Localizer["Access control list updated successfully."]</div>";
                 }
             })
 

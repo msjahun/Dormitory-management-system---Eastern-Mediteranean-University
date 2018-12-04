@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.ContentManagement
 @model TopicEdit
 @{
-    ViewData["Title"] = "Edit Topic";
+    ViewData["Title"] = Localizer["Edit Topic"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -11,15 +11,15 @@
     <section class="content-header">
         <h1>
             @ViewData["Title"]
-            <small><a asp-action="Topics" asp-controller="ContentManagement"><i class="fa fa-arrow-circle-left"></i> back to topics list</a></small>
+            <small><a asp-action="Topics" asp-controller="ContentManagement"><i class="fa fa-arrow-circle-left"></i> @Localizer["back to topics list"]</a></small>
         </h1>
         <div class="row">
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save</button>
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save and Continue Edit</button>
-                    <button type="submit" form="addForm" class="btn btn-danger "> <i class="fa fa-trash-o"></i> Delete</button>
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save and Continue Edit"]</button>
+                    <button type="submit" form="addForm" class="btn btn-danger "> <i class="fa fa-trash-o"></i> @Localizer["Delete"]</button>
                 </div>
             </div>
         </div>
@@ -37,8 +37,8 @@
             <!-- Horizontal Form -->
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#tab_3" data-toggle="tab" aria-expanded="true">Info</a></li>
-                    <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">SEO</a></li>
+                    <li class="active"><a href="#tab_3" data-toggle="tab" aria-expanded="true">@Localizer["Info"]</a></li>
+                    <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">@Localizer["SEO"]</a></li>
 
                 </ul>
                 <div class="tab-content">

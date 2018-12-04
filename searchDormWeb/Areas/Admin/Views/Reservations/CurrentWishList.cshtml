@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Current booking Wishlist";
+    ViewBag.Title = Localizer["Current booking Wishlist"];
     Layout = "../shared/_LayoutAdmin.cshtml";
 }
 
@@ -42,8 +42,8 @@
                         <table id="CurrentWishList" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Customer</th>
-                                    <th>Total items</th>
+                                    <th>@Localizer["Customer"]</th>
+                                    <th>@Localizer["Total items"]</th>
 
                                 </tr>
                             </thead>
@@ -187,7 +187,7 @@
                     {"data": "createdOnUtc" },
                     {"data": "lastActivityDateUtc" },
                     {"render": function (data, type, full, meta) {
-                     return '<a class="btn btn-primary" href="/Admin/Users/Edit/?UserId=' + full.id + '"><i class="fa fa-pencil"></i> Edit</a>'; }
+                     return '<a class="btn btn-primary" href="/Admin/Users/Edit/?UserId=' + full.id + '"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>'; }
                     }
                     
                     

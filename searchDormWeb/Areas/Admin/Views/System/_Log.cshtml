@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.System
 @model LogVm
 @{
-    ViewData["Title"] = "Log";
+    ViewData["Title"] = Localizer["Log"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -17,8 +17,8 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <a  class="btn btn-danger "> <i class="fa fa-trash"></i> Delete selected</a>
-                    <button id="ClearLogBtn" class="btn btn-primary "> <i class="fa fa-trash"></i> Clear log</button>
+                    <a  class="btn btn-danger "> <i class="fa fa-trash"></i> @Localizer["Delete selected"]</a>
+                    <button id="ClearLogBtn" class="btn btn-primary "> <i class="fa fa-trash"></i> @Localizer["Clear log"]</button>
                 </div>
             </div>
         </div>
@@ -73,7 +73,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-search"></i> Search</button>
+                                <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-search"></i> @Localizer["Search"]</button>
                             </div>
                         </div>
                     </div>
@@ -94,12 +94,12 @@
                             <thead>
                                 <tr>
                                     <th><input type="checkbox"></th>
-                                    <th>Id</th>
-                                    <th>Event Id</th>
-                                    <th>Log level</th>
-                                    <th>Short message</th>
-                                    <th>Created on</th>
-                                    <th>View</th>
+                                    <th>@Localizer["Id"]</th>
+                                    <th>@Localizer["Event Id"]</th>
+                                    <th>@Localizer["Log level"]</th>
+                                    <th>@Localizer["Short message"]</th>
+                                    <th>@Localizer["Created on"]</th>
+                                    <th>@Localizer["View"]</th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -226,7 +226,7 @@
                     {"data": "shortMessage" },
                     {"data": "createdOn" },
                     {"render": function (data, type, full, meta) {
-                        return '<a class="btn btn-primary" href="/Admin/System/LogView"><i class="fa fa-eye"></i> View</a>'; }
+                        return '<a class="btn btn-primary" href="/Admin/System/LogView"><i class="fa fa-eye"></i> @Localizer["View"]</a>'; }
                     }
 
 
@@ -251,7 +251,7 @@
 
                     success: function (result) {
                         //alert("I have returned");
-                        document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-success alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> Log cleared successfully.</div>";
+                        document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-success alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> @Localizer["Log cleared successfully."]</div>";
 
                         $('#LogTable').DataTable().ajax.reload();
                     }

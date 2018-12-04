@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.Configuration
 @model CurrenciesVm
 @{
-    ViewBag.Title = "Currencies";
+    ViewBag.Title = Localizer["Currencies"];
     Layout = "../shared/_LayoutAdmin.cshtml";
 }
 
@@ -16,9 +16,9 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" class="btn btn-success "> <i class="fa fa-floppy-o "></i> Save</button>
-                    <button type="submit" class="btn btn-primary "> <i class="fa fa fa-tasks"></i> Get live rates</button>
-                    <a asp-action="CurrencyAdd" asp-controller="Configurations" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-plus-square"></i> Add new</a>
+                    <button type="submit" class="btn btn-success "> <i class="fa fa-floppy-o "></i> @Localizer["Save"]</button>
+                    <button type="submit" class="btn btn-primary "> <i class="fa fa fa-tasks"></i> @Localizer["Get live rates"]</button>
+                    <a asp-action="CurrencyAdd" asp-controller="Configurations" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-plus-square"></i> @Localizer["Add new"]</a>
                 </div>
             </div>
         </div>
@@ -69,16 +69,16 @@
                         <table id="CurrenciesTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Currency code</th>
-                                    <th>Rate</th>
-                                    <th>Is primary exchange rate currency</th>
-                                    <th>Mark as primary exchange rate currency</th>
-                                    <th>Is primary dormitory currency</th>
-                                    <th>Mark as primary dormitory currency</th>
-                                    <th>Published</th>
-                                    <th>Display order</th>
-                                    <th>Edit</th>
+                                    <th>@Localizer["Name"]</th>
+                                    <th>@Localizer["Currency code"]</th>
+                                    <th>@Localizer["Rate"]</th>
+                                    <th>@Localizer["Is primary exchange rate currency"]</th>
+                                    <th>@Localizer["Mark as primary exchange rate currency"]</th>
+                                    <th>@Localizer["Is primary dormitory currency"]</th>
+                                    <th>@Localizer["Mark as primary dormitory currency"]</th>
+                                    <th>@Localizer["Published"]</th>
+                                    <th>@Localizer["Display order"]</th>
+                                    <th>@Localizer["Edit"]</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -230,7 +230,7 @@
                                 return '<i class="fa fa-times" aria-hidden="true"></i>';}
                     }, {
                         "render": function (data, type, full, meta) {
-                            return '<a class="btn btn-primary" "><i class="fa fa-check">Mark as primary exchange rate currency</i> Edit</a>';
+                            return '<a class="btn btn-primary" "><i class="fa fa-check">@Localizer["Mark as primary exchange rate currency"]</i> @Localizer["Edit"]</a>';
                         }
                     },
                     {"render": function (data, type, full, meta) {
@@ -240,13 +240,13 @@
                                 return '<i class="fa fa-times" aria-hidden="true"></i>';}
                     }, {
                         "render": function (data, type, full, meta) {
-                            return '<a class="btn btn-primary" "><i class="fa fa-check">Mark as primary dormitory currency</i> Edit</a>';
+                            return '<a class="btn btn-primary" "><i class="fa fa-check">@Localizer["Mark as primary dormitory currency"]</i> @Localizer["Edit"]</a>';
                         }
                     },
                     {"data": "createdOnUtc" },
                     {"data": "lastActivityDateUtc" },
                     {"render": function (data, type, full, meta) {
-                        return '<a class="btn btn-primary" href="/Admin/Configurations/CurrencyEdit"><i class="fa fa-pencil"></i> Edit</a>'; }
+                        return '<a class="btn btn-primary" href="/Admin/Configurations/CurrencyEdit"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>'; }
                     }
                     
                     

@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Online users";
+    ViewBag.Title = Localizer["Online users"];
     Layout = "../shared/_LayoutAdmin.cshtml";
 }
 
@@ -44,11 +44,11 @@
                         <table id="OnlineUsersTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>User info</th>
-                                    <th>Ip address</th>
-                                    <th>Location</th>
-                                    <th>Last activity</th>
-                                    <th>Last visited page</th>
+                                    <th>@Localizer["User info"]</th>
+                                    <th>@Localizer["Ip address"]</th>
+                                    <th>@Localizer["Location"]</th>
+                                    <th>@Localizer["Last activity"]</th>
+                                    <th>@Localizer["Last visited page"]</th>
                                 </tr>
                             </thead>
                             <tbody>

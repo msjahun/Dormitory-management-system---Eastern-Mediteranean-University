@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.Promotions
 @model AffiliatesVm
 @{
-    ViewData["Title"] = "Affiliates";
+    ViewData["Title"] = Localizer["Affiliates"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -16,7 +16,7 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <a asp-action="AffiliateAdd" asp-controller="Promotions" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-plus-square"></i> Add new</a>
+                    <a asp-action="AffiliateAdd" asp-controller="Promotions" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-plus-square"></i> @Localizer["Add new"]</a>
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@
             <!-- Horizontal Form -->
             <div class="box box-solid">
                 <div class="box-header">
-                    <h4>Affiliate is an internet-based marketing practice in which a business rewards one or more affiliates</h4>
+                    <h4>@Localizer["Affiliate is an internet-based marketing practice in which a business rewards one or more affiliates"]</h4>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
@@ -89,10 +89,10 @@
                         <table id="AffiliatesTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>First name</th>
-                                    <th>Last name</th>
-                                    <th>Active</th>
-                                    <th>Edit</th>
+                                    <th>@Localizer["First name"]</th>
+                                    <th>@Localizer["Last name"]</th>
+                                    <th>@Localizer["Active"]</th>
+                                    <th>@Localizer["Edit"]</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -202,7 +202,7 @@
                                 return '<i class="fa fa-times" aria-hidden="true"></i>';}
                     },
                     {"render": function (data, type, full, meta) {
-                     return '<a class="btn btn-primary" href="/Admin/Promotions/AffiliateEdit/"><i class="fa fa-pencil"></i> Edit</a>'; }
+                     return '<a class="btn btn-primary" href="/Admin/Promotions/AffiliateEdit/"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>'; }
                     }
                     
                     

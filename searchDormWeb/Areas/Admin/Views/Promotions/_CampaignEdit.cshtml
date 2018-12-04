@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.Promotions
 @model CampaignEdit
 @{
-    ViewData["Title"] = "Edit Campaign";
+    ViewData["Title"] = Localizer["Edit Campaign"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -11,15 +11,15 @@
     <section class="content-header">
         <h1>
             @ViewBag.Title
-            <small><a asp-action="Campaigns" asp-controller="Promotions"><i class="fa fa-arrow-circle-left"></i> back to Campaigns list</a></small>
+            <small><a asp-action="Campaigns" asp-controller="Promotions"><i class="fa fa-arrow-circle-left"></i> @Localizer["back to Campaigns list"]</a></small>
         </h1>
         <div class="row">
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save</button>
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save and Continue Edit</button>
-                    <button type="submit" form="addForm" class="btn btn-danger "> <i class="fa fa-trash-o"></i> Delete</button>
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save and Continue Edit"]</button>
+                    <button type="submit" form="addForm" class="btn btn-danger "> <i class="fa fa-trash-o"></i> @Localizer["Delete"]</button>
                 </div>
             </div>
         </div>
@@ -46,7 +46,7 @@
                         <div class="callout callout-default">
 
 
-                            <p>Make sure you've tested the compaign before sending it to mulitple customers. Save your compaign by clicking "save" button.</p>
+                            <p>@Localizer["Make sure you've tested the compaign before sending it to mulitple customers. Save your compaign by clicking \"save\" button."]</p>
                         </div>
 
                         <div class="form-group">
@@ -69,7 +69,7 @@
                             <label for="inputPassword3" class="col-sm-3 control-label"> </label>
 
                             <div class="col-sm-8">
-                                <button type="submit" form="addForm" class="btn btn-primary "> Send mass email</button>
+                                <button type="submit" form="addForm" class="btn btn-primary "> @Localizer["Send mass email"]</button>
                             </div>
 
                         </div>

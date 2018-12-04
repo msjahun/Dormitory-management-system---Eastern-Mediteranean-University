@@ -2,11 +2,11 @@
 @model UserEditViewModel
 
 @{
-    var modelx = Model;
-    ViewData["Title"] = "Edit User";
-    Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+            var modelx = Model;
+            ViewData["Title"] = Localizer["Edit User"];
+            Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 
-}
+        }
 
 
     <div class="content-wrapper">
@@ -14,7 +14,7 @@
         <section class="content-header">
             <h1>
                 @ViewData["Title"]
-                <small><a asp-action="List" asp-controller="Users"><i class="fa fa-arrow-circle-left"></i> back to Users list</a></small>
+                <small><a asp-action="List" asp-controller="Users"><i class="fa fa-arrow-circle-left"></i> @Localizer["back to Users list"]</a></small>
             </h1>
             <div class="row">
                 <div class=" col-md-12">
@@ -27,12 +27,12 @@
                                                     { "UserID",modelx.Id }
 
                             };
-                        }
+    }
 
-                        <button type="submit" form="editForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save</button>
-                        <button type="submit" form="editForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save and Continue Edit</button>
-                        <button type="submit" class="btn btn-success"> <i class="fa fa-at"></i> Send Email</button>
-                        <a asp-action="Delete" asp-controller="Users" asp-all-route-data="parms" class="btn btn-danger"> <i class="fa fa-trash-o"></i> Delete</a>
+                        <button type="submit" form="editForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
+                        <button type="submit" form="editForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save and Continue Edit"]</button>
+                        <button type="submit" class="btn btn-success"> <i class="fa fa-at"></i> @Localizer["Send Email"]</button>
+                        <a asp-action="Delete" asp-controller="Users" asp-all-route-data="parms" class="btn btn-danger"> <i class="fa fa-trash-o"></i> @Localizer["Delete"]</a>
 
                     </div>
                 </div>
@@ -53,7 +53,7 @@
 
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="false">Customer info</a></li>
+                        <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="false">@Localizer["Customer info"]</a></li>
 
 
 
@@ -285,7 +285,7 @@
 
 
     @section scripts
-        {
+    {
 
         <script src="@Url.Content("~/Content/")bower_components/jquery/dist/jquery.min.js"></script>
         <!-- Bootstrap 3.3.7 -->

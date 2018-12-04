@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.User
 @model UsersReportVm
 @{
-    ViewBag.Title = "Users report";
+    ViewBag.Title = Localizer["Users report"];
     Layout = "../shared/_LayoutAdmin.cshtml";
 }
 
@@ -18,7 +18,7 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" class="btn btn-danger "> <i class="fa fa-trash"></i> Delete</button>
+                    <button type="submit" class="btn btn-danger "> <i class="fa fa-trash"></i> @Localizer["Delete"]</button>
                 </div>
             </div>
         </div>
@@ -38,17 +38,17 @@
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
                         <secure-content asp-action="UsersReportByBookingTotal" asp-area="Admin" asp-controller="Users">
-                            <li class="active"><a href="#tab_1" data-toggle="tab">Users by booking total amount</a></li>
+                            <li class="active"><a href="#tab_1" data-toggle="tab">@Localizer["Users by booking total amount"]</a></li>
                         </secure-content>
 
 
                         <secure-content asp-action="UsersReportByRegistration" asp-area="Admin" asp-controller="Users">
-                            <li><a href="#tab_2" data-toggle="tab">Users by number of reservation</a></li>
+                            <li><a href="#tab_2" data-toggle="tab">@Localizer["Users by number of reservation"]</a></li>
                         </secure-content>
 
 
                         <secure-content asp-action="UsersReportRegistered" asp-area="Admin" asp-controller="Users">
-                            <li><a href="#tab_3" data-toggle="tab">Registered users</a></li>
+                            <li><a href="#tab_3" data-toggle="tab">@Localizer["Registered users"]</a></li>
                         </secure-content>
                     </ul>
 
@@ -94,7 +94,7 @@
 
                                                 <div class="form-group">
                                                     <div class="col-sm-offset-2 col-sm-10">
-                                                        <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-line-chart"></i> Run report</button>
+                                                        <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-line-chart"></i> @Localizer["Run report"]</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -113,10 +113,10 @@
                                             <table id="UsersByBookingTotalTable" class="table table-bordered table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th>User</th>
-                                                        <th>Booking total</th>
-                                                        <th>Number of bookings</th>
-                                                        <th>View</th>
+                                                        <th>@Localizer["User"]</th>
+                                                        <th>@Localizer["Booking total"]</th>
+                                                        <th>@Localizer["Number of bookings"]</th>
+                                                        <th>@Localizer["View"]</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -252,7 +252,7 @@
 
                                                 <div class="form-group">
                                                     <div class="col-sm-offset-2 col-sm-10">
-                                                        <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-line-chart"></i> Run report</button>
+                                                        <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-line-chart"></i> @Localizer["Run report"]</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -270,10 +270,10 @@
                                             <table id="UsersByRegistrationTable" class="table table-bordered table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th>User</th>
-                                                        <th>Booking total</th>
-                                                        <th>Number of bookings</th>
-                                                        <th>View</th>
+                                                        <th>@Localizer["User"]</th>
+                                                        <th>@Localizer["Booking total"]</th>
+                                                        <th>@Localizer["Number of bookings"]</th>
+                                                        <th>@Localizer["View"]</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -384,8 +384,8 @@
                                             <table id="RegisteredUsersTable" class="table table-bordered table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th>Period</th>
-                                                        <th>Count</th>
+                                                        <th>@Localizer["Period"]</th>
+                                                        <th>@Localizer["Count"]</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -540,7 +540,7 @@
 
                     {
                         "render": function (data, type, full, meta) {
-                            return '<a class="btn btn-primary" href=""><i class="fa fa-eye"></i> View</a>';
+                            return '<a class="btn btn-primary" href=""><i class="fa fa-eye"></i> @Localizer["View"]</a>';
                         }
                     }
 
@@ -590,7 +590,7 @@
                     {"data": "numberOfBookings" },
 
                     {"render": function (data, type, full, meta) {
-                     return '<a class="btn btn-primary" href=""><i class="fa fa-eye"></i> View</a>'; }
+                     return '<a class="btn btn-primary" href=""><i class="fa fa-eye"></i> @Localizer["View"]</a>'; }
                     }
 
 

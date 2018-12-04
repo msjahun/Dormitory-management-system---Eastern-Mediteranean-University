@@ -1,9 +1,9 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.Promotions
 @model AffiliateAdd
 @{
-    ViewData["Title"] = "Add Affiliate";
-    Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
-}
+        ViewData["Title"] = Localizer["Add Affiliate"];
+        Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+    }
 
 
 <div class="content-wrapper">
@@ -11,14 +11,14 @@
     <section class="content-header">
         <h1>
             @ViewData["Title"]
-            <small><a asp-action="Affiliates" asp-controller="Promotions"><i class="fa fa-arrow-circle-left"></i> back to Affiliates list</a></small>
+            <small><a asp-action="Affiliates" asp-controller="Promotions"><i class="fa fa-arrow-circle-left"></i> @Localizer["back to Affiliates list"]</a></small>
         </h1>
         <div class="row">
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save</button>
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save and Continue Edit</button>
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save and Continue Edit"]</button>
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
             <!-- Horizontal Form -->
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#tab_3" data-toggle="tab" aria-expanded="true">Affiliate info</a></li>
+                    <li class="active"><a href="#tab_3" data-toggle="tab" aria-expanded="true">@Localizer["Affiliate info"]</a></li>
                     @*<li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">Requirement</a></li>*@
 
                 </ul>

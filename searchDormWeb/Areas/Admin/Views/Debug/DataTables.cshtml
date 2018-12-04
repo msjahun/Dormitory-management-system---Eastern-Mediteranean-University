@@ -2,15 +2,15 @@
 @using searchDormWeb.Areas.Admin.Models.Debug
 @model DebugDataTablesVm
 @{
-    ViewData["Title"] = "DataTables";
-    Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
-}
+        ViewData["Title"] = Localizer["DataTables"];
+        Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+    }
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
             @ViewBag.Title
-           
+
         </h1>
         <div class="row">
             <div class=" col-md-12">
@@ -127,7 +127,7 @@
 }
 
 
-@section scripts
+    @section scripts
     {
 
     <script src="@Url.Content("~/Content/")bower_components/jquery/dist/jquery.min.js"></script>

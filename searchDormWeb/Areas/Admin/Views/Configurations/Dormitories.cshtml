@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.Configuration
 @model DormitoriesVm
 @{
-    ViewBag.Title = "Dormitories";
+    ViewBag.Title = Localizer["Dormitories"];
     Layout = "../shared/_LayoutAdmin.cshtml";
 }
 
@@ -17,13 +17,13 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <a asp-action="DormitoryAdd" asp-controller="Configurations" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-plus-square"></i> Add new</a>
-                    <button type="submit" class="btn btn-primary "> <i class="fa fa-file-pdf-o"></i> Download catalog as PDF</button>
+                    <a asp-action="DormitoryAdd" asp-controller="Configurations" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-plus-square"></i> @Localizer["Add new"]</a>
+                    <button type="submit" class="btn btn-primary "> <i class="fa fa-file-pdf-o"></i> @Localizer["Download catalog as PDF"]</button>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-success btn-flat">Export</button>
+                        <button type="button" class="btn btn-success btn-flat">@Localizer["Export"]</button>
                         <button type="button" class="btn btn-success btn-flat dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
+                            <span class="sr-only">@Localizer["Toggle Dropdown"]</span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#">Action</a></li>
@@ -33,8 +33,8 @@
                             <li><a href="#">Separated link</a></li>
                         </ul>
                     </div>
-                    <button type="submit" class="btn btn-primary "> <i class="fa fa-upload"></i> Import</button>
-                    <button type="submit" class="btn btn-danger "> <i class="fa fa-trash"></i> Delete</button>
+                    <button type="submit" class="btn btn-primary "> <i class="fa fa-upload"></i> @Localizer["Import"]</button>
+                    <button type="submit" class="btn btn-danger "> <i class="fa fa-trash"></i> @Localizer["Delete"]</button>
                 </div>
             </div>
         </div>
@@ -94,13 +94,13 @@
                                 <tr>
 
                                     <th><input type="checkbox"></th>
-                                    <th>Id</th>
-                                    <th>Picture</th>
-                                    <th>Dormitory name</th>
-                                    <th>SKU</th>
-                                    <th>Dormitory type</th>
-                                    <th>Published</th>
-                                    <th>Edit</th>
+                                    <th>@Localizer["Id"]</th>
+                                    <th>@Localizer["Picture"]</th>
+                                    <th>@Localizer["Dormitory name"]</th>
+                                    <th>@Localizer["SKU"]</th>
+                                    <th>@Localizer["Dormitory type"]</th>
+                                    <th>@Localizer["Published"]</th>
+                                    <th>@Localizer["Edit"]</th>
                                 </tr>
                             </thead>
                           
@@ -224,7 +224,7 @@
                                 return '<i class="fa fa-times" aria-hidden="true"></i>';}
                     },
                     {"render": function (data, type, full, meta) {
-                        return '<a class="btn btn-primary" href="/Admin/Configurations/DormitoryEdit"><i class="fa fa-pencil"></i> Edit</a>'; }
+                        return '<a class="btn btn-primary" href="/Admin/Configurations/DormitoryEdit"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>'; }
                     }
                     
                     

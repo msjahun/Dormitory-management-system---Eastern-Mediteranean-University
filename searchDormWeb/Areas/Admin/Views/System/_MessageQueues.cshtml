@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.System
 @model MessageQueuesVm
 @{
-    ViewData["Title"] = "Message Queues";
+    ViewData["Title"] = Localizer["Message Queues"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -16,8 +16,8 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" class="btn btn-danger "> <i class="fa fa-trash"></i> Delete selected</button>
-                    <button type="submit" class="btn btn-danger "> <i class="fa fa-trash"></i> Delete all</button>
+                    <button type="submit" class="btn btn-danger "> <i class="fa fa-trash"></i> @Localizer["Delete selected"]</button>
+                    <button type="submit" class="btn btn-danger "> <i class="fa fa-trash"></i> @Localizer["Delete all"]</button>
                 </div>
             </div>
         </div>
@@ -116,15 +116,15 @@
                             <thead>
                                 <tr>
                                     <th><input type="checkbox"></th>
-                                    <th>Id</th>
-                                    <th>Subject</th>
-                                    <th>From</th>
-                                    <th>To</th>
-                                    <th>Created on</th>
-                                    <th>Planned date of sending</th>
-                                    <th>Sent on</th>
-                                    <th>Message priority</th>
-                                    <th>Edit</th>
+                                    <th>@Localizer["Id"]</th>
+                                    <th>@Localizer["Subject"]</th>
+                                    <th>@Localizer["From"]</th>
+                                    <th>@Localizer["To"]</th>
+                                    <th>@Localizer["Created on"]</th>
+                                    <th>@Localizer["Planned date of sending"]</th>
+                                    <th>@Localizer["Sent on"]</th>
+                                    <th>@Localizer["Message priority"]</th>
+                                    <th>@Localizer["Edit"]</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -335,7 +335,7 @@
                     {"data": "sendOn" },
                     {"data": "messagePriority" },
                     {"render": function (data, type, full, meta) {
-                        return '<a class="btn btn-primary" href="/Admin/System/MessageQueueEdit"><i class="fa fa-pencil"></i> Edit</a>'; }
+                        return '<a class="btn btn-primary" href="/Admin/System/MessageQueueEdit"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>'; }
                     }
 
 

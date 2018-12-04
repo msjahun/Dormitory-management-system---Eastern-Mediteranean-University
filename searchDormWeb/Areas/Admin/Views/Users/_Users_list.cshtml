@@ -2,7 +2,7 @@
 @model UsersVm
 
 @{
-    ViewBag.Title = "Users";
+    ViewBag.Title = Localizer["Users"];
     Layout = "../shared/_LayoutAdmin.cshtml";
 
 
@@ -21,12 +21,12 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <a asp-action="Add" asp-controller="Users" class="btn btn-primary "> <i class="fa fa-plus-square"></i> Add New</a>
+                    <a asp-action="Add" asp-controller="Users" class="btn btn-primary "> <i class="fa fa-plus-square"></i> @Localizer["Add New"]</a>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-success btn-flat">Export</button>
+                        <button type="button" class="btn btn-success btn-flat">@Localizer["Export"]</button>
                         <button type="button" class="btn btn-success btn-flat dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
+                            <span class="sr-only">@Localizer["Toggle Dropdown"]</span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#">Action</a></li>
@@ -110,7 +110,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-search"></i> Search</button>
+                                <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-search"></i> @Localizer["Search"]</button>
                             </div>
                         </div>
                     </div>
@@ -131,14 +131,14 @@
                             <thead>
                                 <tr>
                                     <th><input type="checkbox"></th>
-                                    <th>Email</th>
-                                    <th>Name</th>
-                                    <th>User role</th>
-                                    <th>Phone</th>
-                                    <th>Active</th>
-                                    <th>Created on</th>
-                                    <th>Last activity</th>
-                                    <th>Edit</th>
+                                    <th>@Localizer["Email"]</th>
+                                    <th>@Localizer["Name"]</th>
+                                    <th>@Localizer["User role"]</th>
+                                    <th>@Localizer["Phone"]</th>
+                                    <th>@Localizer["Active"]</th>
+                                    <th>@Localizer["Created on"]</th>
+                                    <th>@Localizer["Last activity"]</th>
+                                    <th>@Localizer["Edit"]</th>
                                 </tr>
                             </thead>
                         </table>
@@ -262,7 +262,7 @@
                     {"data": "createdOnUtc" },
                     {"data": "lastActivityDateUtc" },
                     {"render": function (data, type, full, meta) {
-                     return '<a class="btn btn-primary" href="/Admin/Users/Edit/?UserId=' + full.id + '"><i class="fa fa-pencil"></i> Edit</a>'; }
+                     return '<a class="btn btn-primary" href="/Admin/Users/Edit/?UserId=' + full.id + '"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>'; }
                     }
 
 

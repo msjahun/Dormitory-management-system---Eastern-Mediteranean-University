@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.Configuration
 @model EmailAccountEdit
 @{
-    ViewData["Title"] = "Edit Email Account";
+    ViewData["Title"] = Localizer["Edit Email Account"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -11,16 +11,16 @@
     <section class="content-header">
         <h1>
             @ViewBag.Title
-            <small><a asp-action="EmailAccounts" asp-controller="Configurations"><i class="fa fa-arrow-circle-left"></i> back to EmailAccounts list</a></small>
+            <small><a asp-action="EmailAccounts" asp-controller="Configurations"><i class="fa fa-arrow-circle-left"></i> @Localizer["back to EmailAccounts list"]</a></small>
 
         </h1>
         <div class="row">
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save</button>
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save and Continue Edit</button>
-                    <button type="submit" form="addForm" class="btn btn-danger "> <i class="fa fa-trash-o"></i> Delete</button>
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save and Continue Edit"]</button>
+                    <button type="submit" form="addForm" class="btn btn-danger "> <i class="fa fa-trash-o"></i> @Localizer["Delete"]</button>
                 </div>
             </div>
         </div>
@@ -119,7 +119,7 @@
                 </form>
             </div>
             <div class="box ">
-                <div class="box-header">Send Test Email(save settings first by clicking "Save" button)</div>
+                <div class="box-header">@Localizer["Send Test Email(save settings first by clicking \"Save\" button)"]</div>
                 <!-- /.box-header -->
                 <!-- form start -->
                 <form class="form-horizontal">

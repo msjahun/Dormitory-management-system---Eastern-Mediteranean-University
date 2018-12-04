@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Email accounts";
+    ViewBag.Title = Localizer["Email accounts"];
     Layout = "../shared/_LayoutAdmin.cshtml";
 }
 
@@ -16,7 +16,7 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <a asp-action="EmailAccountAdd" asp-controller="Configurations" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-plus-square"></i> Add new</a>
+                    <a asp-action="EmailAccountAdd" asp-controller="Configurations" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-plus-square"></i> @Localizer["Add new"]</a>
                 </div>
             </div>
         </div>
@@ -42,11 +42,11 @@
                         <table id="EmailAccountsTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Email address</th>
-                                    <th>Email display name</th>
-                                    <th>Is default email account</th>
-                                    <th>Mark as default</th>
-                                    <th>Edit</th>
+                                    <th>@Localizer["Email address"]</th>
+                                    <th>@Localizer["Email display name"]</th>
+                                    <th>@Localizer["Is default email account"]</th>
+                                    <th>@Localizer["Mark as default"]</th>
+                                    <th>@Localizer["Edit"]</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -178,10 +178,10 @@
                                 return '<i class="fa fa-times" aria-hidden="true"></i>';}
                     },
                     {"render": function (data, type, full, meta) {
-                        return '<a class="btn btn-primary"><i class="fa fa-pencil"></i> Mark as default</a>'; }
+                        return '<a class="btn btn-primary"><i class="fa fa-pencil"></i> @Localizer["Mark as default"]</a>'; }
                     },
                     {"render": function (data, type, full, meta) {
-                        return '<a class="btn btn-primary" href="/Admin/Configurations/EmailAccountEdit"><i class="fa fa-pencil"></i> Edit</a>'; }
+                        return '<a class="btn btn-primary" href="/Admin/Configurations/EmailAccountEdit"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>'; }
                     }
                     
                     

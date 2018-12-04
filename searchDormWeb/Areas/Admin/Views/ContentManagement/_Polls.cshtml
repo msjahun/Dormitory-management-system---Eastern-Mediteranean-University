@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "Polls";
+    ViewData["Title"] = Localizer["Polls"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -16,7 +16,7 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <a asp-action="PollAdd" asp-controller="ContentManagement" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-plus-square"></i> Add new</a>
+                    <a asp-action="PollAdd" asp-controller="ContentManagement" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-plus-square"></i> @Localizer["Add new"]</a>
                 </div>
             </div>
         </div>
@@ -42,14 +42,14 @@
                         <table id="PollsTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Language</th>
-                                    <th>Display order</th>
-                                    <th>published</th>
-                                    <th>show on home page</th>
-                                    <th>start date</th>
-                                    <th>End date</th>
-                                    <th>Edit</th>
+                                    <th>@Localizer["Name"]</th>
+                                    <th>@Localizer["Language"]</th>
+                                    <th>@Localizer["Display order"]</th>
+                                    <th>@Localizer["published"]</th>
+                                    <th>@Localizer["show on home page"]</th>
+                                    <th>@Localizer["start date"]</th>
+                                    <th>@Localizer["End date"]</th>
+                                    <th>@Localizer["Edit"]</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -211,7 +211,7 @@
                     {"data": "startDate" },
                     {"data": "endDate" },
                     {"render": function (data, type, full, meta) {
-                     return '<a class="btn btn-primary" href="/Admin/ContentManagement/PollEdit"><i class="fa fa-pencil"></i> Edit</a>'; }
+                     return '<a class="btn btn-primary" href="/Admin/ContentManagement/PollEdit"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>'; }
                     }
                     
                     

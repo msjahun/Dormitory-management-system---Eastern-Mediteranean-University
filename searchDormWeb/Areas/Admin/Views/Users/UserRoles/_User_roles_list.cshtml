@@ -1,9 +1,9 @@
 ﻿
 @{
-    ViewBag.Title = "User roles";
+    ViewBag.Title = Localizer["User roles"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 
- 
+
 }
 
 
@@ -18,7 +18,7 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
                     <secure-content asp-area="Admin" asp-controller="Users" asp-action="UserRoleAdd">
-                        <a asp-action="UserRoleAdd" asp-controller="Users" class="btn btn-primary "> <i class="fa fa-plus-square"></i> Add New</a>
+                        <a asp-action="UserRoleAdd" asp-controller="Users" class="btn btn-primary "> <i class="fa fa-plus-square"></i> @Localizer["Add New"]</a>
                     </secure-content>
                   
                 </div>
@@ -46,13 +46,13 @@
                         <table id="UserRolesListTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Active</th>
-                                    <th>Is system role</th>
+                                    <th>@Localizer["ID"]</th>
+                                    <th>@Localizer["Name"]</th>
+                                    <th>@Localizer["Active"]</th>
+                                    <th>@Localizer["Is system role"]</th>
 
                                     <secure-content asp-area="Admin" asp-controller="Users" asp-action="UserRoleEdit">
-                                        <th>Edit</th>
+                                        <th>@Localizer["Edit"]</th>
                                     </secure-content>
 
                                 </tr>
@@ -163,7 +163,7 @@
                                 return '<i class="fa fa-times" aria-hidden="true"></i>';}
                     },
                     {"render": function (data, type, full, meta) {
-                        return '<a class="btn btn-primary" href="/Admin/Users/UserRoleEdit/?User_role_id=' + full.id + '"><i class="fa fa-pencil"></i> Edit</a>'; }
+                        return '<a class="btn btn-primary" href="/Admin/Users/UserRoleEdit/?User_role_id=' + full.id + '"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>'; }
                     }
                     
                     

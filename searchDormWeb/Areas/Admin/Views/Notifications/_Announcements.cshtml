@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.Notifications
 @model AnnoucementsVm
 @{
-    ViewData["Title"] = "Manage Announcements";
+    ViewData["Title"] = Localizer["Manage Announcements"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -16,7 +16,7 @@
         <div class="row">
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
-                    <a asp-action="AnnouncementAdd" asp-controller="Notifications" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-plus-square"></i> Add new</a>
+                    <a asp-action="AnnouncementAdd" asp-controller="Notifications" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-plus-square"></i> @Localizer["Add new"]</a>
 
                 </div>
             </div>
@@ -65,7 +65,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-search"></i> Search</button>
+                                <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-search"></i> @Localizer["Search"]</button>
                             </div>
                         </div>
                     </div>
@@ -85,14 +85,14 @@
                         <table id="AnnouncementsTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
-                                    <th>Title</th>
-                                    <th>Priority</th>
-                                    <th>Message</th>
-                                    <th>Start date</th>
-                                    <th>Is active</th>
-                                    <th>Created on</th>
-                                    <th>Edit</th>
+                                    <th>@Localizer["Id"]</th>
+                                    <th>@Localizer["Title"]</th>
+                                    <th>@Localizer["Priority"]</th>
+                                    <th>@Localizer["Message"]</th>
+                                    <th>@Localizer["Start date"]</th>
+                                    <th>@Localizer["Is active"]</th>
+                                    <th>@Localizer["Created on"]</th>
+                                    <th>@Localizer["Edit"]</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -259,7 +259,7 @@
                     },
                     {"data": "createdOn" },
                     {"render": function (data, type, full, meta) {
-                     return '<a class="btn btn-primary" href="/Admin/Notifications/AnnouncementEdit/"><i class="fa fa-pencil"></i> Edit</a>'; }
+                     return '<a class="btn btn-primary" href="/Admin/Notifications/AnnouncementEdit/"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>'; }
                     }
 
 

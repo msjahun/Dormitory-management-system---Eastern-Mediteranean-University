@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.Reservation
 @model ReservationsVm
 @{
-    ViewBag.Title = "Reservations List";
+    ViewBag.Title = Localizer["Reservations List"];
     Layout = "../shared/_LayoutAdmin.cshtml";
 }
 
@@ -20,10 +20,10 @@
 
 
                     <div class="btn-group">
-                        <button type="button" class="btn btn-success btn-flat"><i class="fa fa-download"></i> Export</button>
+                        <button type="button" class="btn btn-success btn-flat"><i class="fa fa-download"></i> @Localizer["Export"]</button>
                         <button type="button" class="btn btn-success btn-flat dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
+                            <span class="sr-only">@Localizer["Toggle Dropdown"]</span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#">Action</a></li>
@@ -37,10 +37,10 @@
 
 
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary btn-flat"><i class="fa fa-download"></i> Print PDF invoice</button>
+                        <button type="button" class="btn btn-primary btn-flat"><i class="fa fa-download"></i> @Localizer["Print PDF invoice"]</button>
                         <button type="button" class="btn btn-primary btn-flat dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
+                            <span class="sr-only">@Localizer["Toggle Dropdown"]</span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#">Action</a></li>
@@ -150,7 +150,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-search"></i> Search</button>
+                                <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-search"></i> @Localizer["Search"]</button>
                             </div>
                         </div>
                     </div>
@@ -170,13 +170,13 @@
                             <thead>
                                 <tr>
                                     <th><input type="checkbox" /></th>
-                                    <th>Booking No</th>
-                                    <th>Booking status</th>
-                                    <th>Payment status</th>
-                                    <th>User</th>
-                                    <th>Created on</th>
-                                    <th>Booking total</th>
-                                    <th>View</th>
+                                    <th>@Localizer["Booking No"]</th>
+                                    <th>@Localizer["Booking status"]</th>
+                                    <th>@Localizer["Payment status"]</th>
+                                    <th>@Localizer["User"]</th>
+                                    <th>@Localizer["Created on"]</th>
+                                    <th>@Localizer["Booking total"]</th>
+                                    <th>@Localizer["View"]</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -356,7 +356,7 @@
                     {"data": "createdOn" },
                     {"data": "bookingTotal" },
                     {"render": function (data, type, full, meta) {
-                     return '<a class="btn btn-primary" href="/Admin/Reservations/ReservationsEdit/"><i class="fa fa-eye"></i> View</a>'; }
+                     return '<a class="btn btn-primary" href="/Admin/Reservations/ReservationsEdit/"><i class="fa fa-eye"></i> @Localizer["View"]</a>'; }
                     }
 
 

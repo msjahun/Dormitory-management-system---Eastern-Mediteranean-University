@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "Survey";
+    ViewData["Title"] = Localizer["Survey"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -16,7 +16,7 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <a asp-action="SurveyAdd" asp-controller="ContentManagement" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-plus-square"></i> Add new</a>
+                    <a asp-action="SurveyAdd" asp-controller="ContentManagement" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-plus-square"></i> @Localizer["Add new"]</a>
                 </div>
             </div>
         </div>
@@ -42,16 +42,16 @@
                         <table id="SurveyTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>No of questions</th>
-                                    <th>Created on</th>
-                                    <th>Language</th>
-                                    <th>Published</th>
-                                    <th>Start date</th>
-                                    <th>End date</th>
-                                    <th>Planned date</th>
-                                    <th>Response</th>
-                                    <th>Edit</th>
+                                    <th>@Localizer["Name"]</th>
+                                    <th>@Localizer["No of questions"]</th>
+                                    <th>@Localizer["Created on"]</th>
+                                    <th>@Localizer["Language"]</th>
+                                    <th>@Localizer["Published"]</th>
+                                    <th>@Localizer["Start date"]</th>
+                                    <th>@Localizer["End date"]</th>
+                                    <th>@Localizer["Planned date"]</th>
+                                    <th>@Localizer["Response"]</th>
+                                    <th>@Localizer["Edit"]</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -209,7 +209,7 @@
                     {"data": "response" },
                  
                     {"render": function (data, type, full, meta) {
-                     return '<a class="btn btn-primary" href="/Admin/ContentManagement/SurveyEdit/"><i class="fa fa-pencil"></i> Edit</a>'; }
+                     return '<a class="btn btn-primary" href="/Admin/ContentManagement/SurveyEdit/"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>'; }
                     }
                     
                     

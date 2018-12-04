@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.MobileAppManager
 @model PushNotificationEdit
 @{
-    ViewData["Title"] = "Edit Push Notifications";
+    ViewData["Title"] = Localizer["Edit Push Notifications"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -11,15 +11,15 @@
     <section class="content-header">
         <h1>
             @ViewBag.Title
-            <small><a asp-action="PushNotifications" asp-controller="MobileAppManager"><i class="fa fa-arrow-circle-left"></i> back to push notifications list</a></small>
+            <small><a asp-action="PushNotifications" asp-controller="MobileAppManager"><i class="fa fa-arrow-circle-left"></i> @Localizer["back to push notifications list"]</a></small>
         </h1>
         <div class="row">
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save</button>
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save and Continue Edit</button>
-                    <button type="submit" form="addForm" class="btn btn-danger "> <i class="fa fa-trash-o"></i> Delete</button>
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save and Continue Edit"]</button>
+                    <button type="submit" form="addForm" class="btn btn-danger "> <i class="fa fa-trash-o"></i> @Localizer["Delete"]</button>
                 </div>
             </div>
         </div>
@@ -63,7 +63,7 @@
 
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-3 control-label"></label>
-                            <button type="submit" form="addForm" class="btn btn-primary "> Send mass notification</button>
+                            <button type="submit" form="addForm" class="btn btn-primary "> @Localizer["Send mass notification"]</button>
                             <div class="col-sm-8">
 
                             </div>

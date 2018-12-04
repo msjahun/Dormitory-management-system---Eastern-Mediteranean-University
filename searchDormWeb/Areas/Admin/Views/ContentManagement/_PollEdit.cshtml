@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.ContentManagement
 @model PollEdit
 @{
-    ViewData["Title"] = "Edit Poll";
+    ViewData["Title"] = Localizer["Edit Poll"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -10,15 +10,15 @@
     <section class="content-header">
         <h1>
             @ViewData["Title"]
-            <small><a asp-action="Polls" asp-controller="ContentManagement"><i class="fa fa-arrow-circle-left"></i> back to Polls list</a></small>
+            <small><a asp-action="Polls" asp-controller="ContentManagement"><i class="fa fa-arrow-circle-left"></i> @Localizer["back to Polls list"]</a></small>
         </h1>
         <div class="row">
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save</button>
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save and Continue Edit</button>
-                    <button type="submit" form="addForm" class="btn btn-danger "> <i class="fa fa-trash-o"></i> Delete</button>
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save and Continue Edit"]</button>
+                    <button type="submit" form="addForm" class="btn btn-danger "> <i class="fa fa-trash-o"></i> @Localizer["Delete"]</button>
                 </div>
             </div>
         </div>
@@ -36,8 +36,8 @@
             <!-- Horizontal Form -->
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#tab_3" data-toggle="tab" aria-expanded="true">Poll info</a></li>
-                    <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">Poll ansers</a></li>
+                    <li class="active"><a href="#tab_3" data-toggle="tab" aria-expanded="true">@Localizer["Poll info"]</a></li>
+                    <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">@Localizer["Poll ansers"]</a></li>
 
                 </ul>
                 <div class="tab-content">
@@ -157,9 +157,9 @@
                                 <table id="example2" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Number of votes</th>
-                                            <th>Display order</th>
+                                            <th>@Localizer["Name"]</th>
+                                            <th>@Localizer["Number of votes"]</th>
+                                            <th>@Localizer["Display order"]</th>
                                             <th></th>
 
                                         </tr>

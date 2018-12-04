@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.Reservation
 @model CancelReservationsRequestsVm
 @{
-    ViewBag.Title = "Cancel booking Request";
+    ViewBag.Title = Localizer["Cancel booking Request"];
     Layout = "../shared/_LayoutAdmin.cshtml";
 }
 
@@ -74,7 +74,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-search"></i> Search</button>
+                                <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-search"></i> @Localizer["Search"]</button>
                             </div>
                         </div>
                     </div>
@@ -93,13 +93,13 @@
                         <table id="CancelRequestTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Room</th>
-                                    <th>User</th>
-                                    <th>Booking #</th>
-                                    <th>Cancelation request status</th>
-                                    <th>Date</th>
-                                    <th>Edit</th>
+                                    <th>@Localizer["ID"]</th>
+                                    <th>@Localizer["Room"]</th>
+                                    <th>@Localizer["User"]</th>
+                                    <th>@Localizer["Booking #"]</th>
+                                    <th>@Localizer["Cancelation request status"]</th>
+                                    <th>@Localizer["Date"]</th>
+                                    <th>@Localizer["Edit"]</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -296,7 +296,7 @@
                     {"data": "cancelationRequestStatus" },
                     {"data": "date" },
                     {"render": function (data, type, full, meta) {
-                        return '<a class="btn btn-primary" href="/Admin/Reservations/CancelRequestEdit"><i class="fa fa-pencil"></i> Edit</a>'; }
+                        return '<a class="btn btn-primary" href="/Admin/Reservations/CancelRequestEdit"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>'; }
                     }
 
 

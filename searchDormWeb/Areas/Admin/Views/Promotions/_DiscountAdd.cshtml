@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.Promotions
 @model DiscountAdd
 @{
-    ViewData["Title"] = "Add Discount";
+    ViewData["Title"] = Localizer["Add Discount"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -11,14 +11,14 @@
     <section class="content-header">
         <h1>
             @ViewData["Title"]
-            <small><a asp-action="Discounts" asp-controller="Promotions"><i class="fa fa-arrow-circle-left"></i> back to Discounts list</a></small>
+            <small><a asp-action="Discounts" asp-controller="Promotions"><i class="fa fa-arrow-circle-left"></i> @Localizer["back to Discounts list"]</a></small>
         </h1>
         <div class="row">
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save</button>
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save and Continue Edit</button>
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save and Continue Edit"]</button>
                 </div>
             </div>
         </div>
@@ -36,8 +36,8 @@
             <!-- Horizontal Form -->
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#tab_3" data-toggle="tab" aria-expanded="true">Discount info</a></li>
-                    <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">Requirement</a></li>
+                    <li class="active"><a href="#tab_3" data-toggle="tab" aria-expanded="true">@Localizer["Discount info"]</a></li>
+                    <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">@Localizer["Requirement"]</a></li>
 
                 </ul>
                 <div class="tab-content">
@@ -154,7 +154,7 @@
                             <!-- form start -->
 
                             <div class="box-body">
-                                <p>You need to save the discount before you can add requirements for this discount page.</p>
+                                <p>@Localizer["You need to save the discount before you can add requirements for this discount page."]</p>
                             </div>
                         </div>
 

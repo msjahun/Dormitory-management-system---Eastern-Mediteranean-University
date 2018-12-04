@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.Reservation
 @model ReservationEdit
 @{
-    ViewData["Title"] = "Edit Booking";
+    ViewData["Title"] = Localizer["Edit Booking"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -11,14 +11,14 @@
     <section class="content-header">
         <h1>
             @ViewData["Title"]
-            <small><a asp-action="List" asp-controller="Reservations"><i class="fa fa-arrow-circle-left"></i> back to bookings list</a></small>
+            <small><a asp-action="List" asp-controller="Reservations"><i class="fa fa-arrow-circle-left"></i> @Localizer["back to bookings list"]</a></small>
         </h1>
         <div class="row">
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-file-pdf-o"></i> Invoice(PDF)</button>
-                    <button type="submit" form="addForm" class="btn btn-danger "> <i class="fa fa-trash-o"></i> Delete</button>
+                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-file-pdf-o"></i> @Localizer["Invoice(PDF)"]</button>
+                    <button type="submit" form="addForm" class="btn btn-danger "> <i class="fa fa-trash-o"></i> @Localizer["Delete"]</button>
                 </div>
             </div>
         </div>
@@ -36,10 +36,10 @@
             <!-- Horizontal Form -->
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#tab_3" data-toggle="tab" aria-expanded="true">Info</a></li>
-                    <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">Billing Info</a></li>
-                    <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">Room</a></li>
-                    <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">Order notes</a></li>
+                    <li class="active"><a href="#tab_3" data-toggle="tab" aria-expanded="true">@Localizer["Info"]</a></li>
+                    <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">@Localizer["Billing Info"]</a></li>
+                    <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">@Localizer["Room"]</a></li>
+                    <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">@Localizer["Order notes"]</a></li>
                 </ul>
                 <div class="tab-content">
                     <!-- /.tab-pane -->
@@ -55,8 +55,8 @@
                                         <dau-label asp-for="BookingStatus"></dau-label>
                                         <div class="col-sm-8">
                                             <bold>Pending</bold>
-                                            <button class="btn btn-danger btn-flat"> Cancel booking</button>
-                                            <button class="btn btn-primary btn-flat"> Change status</button>
+                                            <button class="btn btn-danger btn-flat"> @Localizer["Cancel booking"]</button>
+                                            <button class="btn btn-primary btn-flat"> @Localizer["Change status"]</button>
                                         </div>
 
                                     </div>
@@ -136,7 +136,7 @@
                                     <div class="form-group">
                                        <dau-label asp-for="Profit"></dau-label>
                                         <div class="col-sm-8">
-                                            <p>$4.30</p><button class="btn btn-primary">Edit order totals</button>
+                                            <p>$4.30</p><button class="btn btn-primary">@Localizer["Edit order totals"]</button>
                                         </div>
 
                                     </div>
@@ -146,7 +146,7 @@
                                     <div class="form-group">
                                         <dau-label asp-for="PaymentMethod"></dau-label>
                                         <div class="col-sm-8">
-                                            <p>Upload payment method (UPM)</p>
+                                            <p>@Localizer["Upload payment method (UPM)"]</p>
                                         </div>
 
                                     </div>
@@ -168,7 +168,7 @@
                                     <div class="form-group">
                                         <dau-label asp-for="PaymentStatus"></dau-label>
                                         <div class="col-sm-8">
-                                            <p>Pending </p><button class="btn btn-primary">Mark as paid</button>
+                                            <p>Pending </p><button class="btn btn-primary">@Localizer["Mark as paid"]</button>
                                         </div>
 
                                     </div>
@@ -217,52 +217,52 @@
 
                                                 <tbody>
                                                     <tr>
-                                                        <td>Full name</td>
+                                                        <td>@Localizer["Full name"]</td>
                                                         <td>Musa Jahun</td>
                                                     </tr>
 
                                                     <tr>
-                                                        <td>Email </td>
+                                                        <td>@Localizer["Email"] </td>
                                                         <td>msjahun@live.com</td>
                                                     </tr>
 
                                                     <tr>
-                                                        <td>Phone </td>
+                                                        <td>@Localizer["Phone"] </td>
                                                         <td>+905338264432</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Address 1 </td>
+                                                        <td>@Localizer["Address 1"] </td>
                                                         <td>Eastern Mediterranean University</td>
                                                     </tr>
 
                                                     <tr>
-                                                        <td>Address 2 </td>
+                                                        <td>@Localizer["Address 2"] </td>
                                                         <td>North Cyprus</td>
                                                     </tr>
 
                                                     <tr>
-                                                        <td>City </td>
+                                                        <td>@Localizer["City"] </td>
                                                         <td>Famagusta</td>
                                                     </tr>
 
                                                     <tr>
-                                                        <td>State/ province </td>
+                                                        <td>@Localizer["State/ province"] </td>
                                                         <td></td>
                                                     </tr>
 
                                                     <tr>
-                                                        <td>Zip / postal code </td>
+                                                        <td>@Localizer["Zip / postal code"] </td>
                                                         <td>99450</td>
                                                     </tr>
 
                                                     <tr>
-                                                        <td>Country </td>
+                                                        <td>@Localizer["Country"] </td>
                                                         <td>Turkey</td>
                                                     </tr>
                                                 </tbody>
 
                                             </table>
-                                            <button type="submit" form="addForm" class="btn btn-primary">  Edit</button>
+                                            <button type="submit" form="addForm" class="btn btn-primary">  @Localizer["Edit"]</button>
 
                                         </div>
 
@@ -287,20 +287,20 @@
                                 <table id="example22" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Picture</th>
-                                            <th>Room name</th>
-                                            <th>Price</th>
-                                            <th>Quantity</th>
-                                            <th>Discount</th>
-                                            <th>Total</th>
-                                            <th>Edit</th>
+                                            <th>@Localizer["Picture"]</th>
+                                            <th>@Localizer["Room name"]</th>
+                                            <th>@Localizer["Price"]</th>
+                                            <th>@Localizer["Quantity"]</th>
+                                            <th>@Localizer["Discount"]</th>
+                                            <th>@Localizer["Total"]</th>
+                                            <th>@Localizer["Edit"]</th>
 
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
 
                                 </table>
-                                <button type="submit" form="addForm" class="btn btn-primary"> <i class="fa fa-plus-square"></i> Add room</button>
+                                <button type="submit" form="addForm" class="btn btn-primary"> <i class="fa fa-plus-square"></i> @Localizer["Add room"]</button>
 
                             </div>
                         </div>
@@ -321,11 +321,11 @@
                                     <table id="example24" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Created on</th>
-                                                <th>Note</th>
-                                                <th>Attached file</th>
-                                                <th>Display to customer</th>
-                                                <th>Delete</th>
+                                                <th>@Localizer["Created on"]</th>
+                                                <th>@Localizer["Note"]</th>
+                                                <th>@Localizer["Attached file"]</th>
+                                                <th>@Localizer["Display to customer"]</th>
+                                                <th>@Localizer["Delete"]</th>
 
 
                                             </tr>
@@ -362,7 +362,7 @@
 
                         <div class="box ">
                             <div class="box-header">
-                                <p>Add order note</p>
+                                <p>@Localizer["Add order note"]</p>
                             </div>
                             <!-- /.box-header -->
                             <!-- form start -->
@@ -408,7 +408,7 @@
 
                                         <div class="col-sm-8">
                                      
-                                            <button class="btn btn-primary">Add order note</button>
+                                            <button class="btn btn-primary">@Localizer["Add order note"]</button>
                                         </div>
 
                                     </div>

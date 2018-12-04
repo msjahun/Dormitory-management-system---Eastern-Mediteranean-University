@@ -4,10 +4,10 @@
 
 
 @{
-    ViewData["Title"] = "Edit user role";
-    Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
-    var role = Model;
-}
+        ViewData["Title"] = Localizer["Edit user role"];
+        Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+        var role = Model;
+    }
 
 
 
@@ -16,14 +16,14 @@
     <section class="content-header">
         <h1>
             @ViewData["Title"]
-            <small><a asp-action="Roles" asp-controller="Users"><i class="fa fa-arrow-circle-left"></i> Back to user roles list</a></small>
+            <small><a asp-action="Roles" asp-controller="Users"><i class="fa fa-arrow-circle-left"></i> @Localizer["Back to user roles list"]</a></small>
         </h1>
         <div class="row">
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" form="EditUserRoleForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> Save</button>
-                    <button type="button" value ="@role.Name" id="DeleteUserRole" class="btn btn-danger "> <i class="fa fa-trash-o"></i>Delete</button>
+                    <button type="submit" form="EditUserRoleForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
+                    <button type="button" value ="@role.Name" id="DeleteUserRole" class="btn btn-danger "> <i class="fa fa-trash-o"></i>@Localizer["Delete"]</button>
                 </div>
             </div>
         </div>
@@ -96,7 +96,7 @@
 
                                     <div class="col-sm-6">
                                         @if (role.IsSystemRole == true)
-                                        {
+    {
 
                                             @:  <p>Yes</p>
                                         }

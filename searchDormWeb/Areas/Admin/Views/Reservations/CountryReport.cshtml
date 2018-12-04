@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.Reservation
 @model CountryReportVm
 @{
-    ViewBag.Title = "Country Report";
+    ViewBag.Title = Localizer["Country Report"];
     Layout = "../shared/_LayoutAdmin.cshtml";
 }
 
@@ -65,7 +65,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-line-chart"></i> Run report</button>
+                                <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-line-chart"></i> @Localizer["Run report"]</button>
                             </div>
                         </div>
                     </div>
@@ -84,9 +84,9 @@
                         <table id="CountryReportTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Country</th>
-                                    <th>Number of orders</th>
-                                    <th>Order total</th>
+                                    <th>@Localizer["Country"]</th>
+                                    <th>@Localizer["Number of orders"]</th>
+                                    <th>@Localizer["Order total"]</th>
                                 </tr>
                             </thead>
                             <tbody>

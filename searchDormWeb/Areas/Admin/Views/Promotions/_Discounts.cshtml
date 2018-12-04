@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.Promotions
 @model DiscountsVm
 @{
-    ViewData["Title"] = "Discounts";
+    ViewData["Title"] = Localizer["Discounts"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -16,7 +16,7 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <a asp-action="DiscountAdd" asp-controller="Promotions" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-plus-square"></i> Add new</a>
+                    <a asp-action="DiscountAdd" asp-controller="Promotions" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-plus-square"></i> @Localizer["Add new"]</a>
                 </div>
             </div>
         </div>
@@ -59,7 +59,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-search"></i> Search</button>
+                                <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-search"></i> @Localizer["Search"]</button>
                             </div>
                         </div>
                     </div>
@@ -79,13 +79,13 @@
                         <table id="DiscountsTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Discount type</th>
-                                    <th>Discount </th>
-                                    <th>Start date</th>
-                                    <th>End date</th>
-                                    <th>Times used</th>
-                                    <th>Edit</th>
+                                    <th>@Localizer["Name"]</th>
+                                    <th>@Localizer["Discount type"]</th>
+                                    <th>@Localizer["Discount"] </th>
+                                    <th>@Localizer["Start date"]</th>
+                                    <th>@Localizer["End date"]</th>
+                                    <th>@Localizer["Times used"]</th>
+                                    <th>@Localizer["Edit"]</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -208,7 +208,7 @@
                     {"data": "endDate" },
                     {"data": "TimesUsed" },
                     {"render": function (data, type, full, meta) {
-                     return '<a class="btn btn-primary" href="/Admin/Promotions/DiscountEdit/"><i class="fa fa-pencil"></i> Edit</a>'; }
+                     return '<a class="btn btn-primary" href="/Admin/Promotions/DiscountEdit/"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>'; }
                     }
                     
                     

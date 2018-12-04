@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "Schedule Tasks";
+    ViewData["Title"] = Localizer["Schedule Tasks"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -15,7 +15,7 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" class="btn btn-danger "> <i class="fa fa-trash"></i> Delete</button>
+                    <button type="submit" class="btn btn-danger "> <i class="fa fa-trash"></i> @Localizer["Delete"]</button>
                 </div>
             </div>
         </div>
@@ -38,22 +38,22 @@
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div class="box-header">
-                        <h3 class="box-title">Task periods are not to exceed 24 days</h3>
-                        <h3 class="box-title">Do not forget to restart the application once a task has been modified</h3>
+                        <h3 class="box-title">@Localizer["Task periods are not to exceed 24 days"]</h3>
+                        <h3 class="box-title">@Localizer["Do not forget to restart the application once a task has been modified"]</h3>
                     </div>
 
                     <div class="overflow">
                         <table id="ScheduleTasksTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Seconds(run period)</th>
-                                    <th>Enabled</th>
-                                    <th>Stop on error</th>
-                                    <th>Last start date</th>
-                                    <th>Last end date</th>
-                                    <th>Run now</th>
-                                    <th>Edit</th>
+                                    <th>@Localizer["Name"]</th>
+                                    <th>@Localizer["Seconds(run period)"]</th>
+                                    <th>@Localizer["Enabled"]</th>
+                                    <th>@Localizer["Stop on error"]</th>
+                                    <th>@Localizer["Last start date"]</th>
+                                    <th>@Localizer["Last end date"]</th>
+                                    <th>@Localizer["Run now"]</th>
+                                    <th>@Localizer["Edit"]</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -224,10 +224,10 @@
                     {"data": "lastStartDate" },
                     {"data": "lastEndDate" },
                     {"render": function (data, type, full, meta) {
-                     return '<a class="btn btn-primary" ><i class="fa fa-tasks"></i> Run now</a>'; }
+                     return '<a class="btn btn-primary" ><i class="fa fa-tasks"></i> @Localizer["Run now"]</a>'; }
                     },
                     {"render": function (data, type, full, meta) {
-                     return '<a class="btn btn-primary" ><i class="fa fa-pencil"></i> Edit</a>'; }
+                     return '<a class="btn btn-primary" ><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>'; }
                     }
                     
                     
