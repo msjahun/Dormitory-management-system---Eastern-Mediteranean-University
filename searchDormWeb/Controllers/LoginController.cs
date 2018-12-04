@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Dau.Core.Domain.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using searchDormWeb.Configuration;
 using searchDormWeb.Models;
@@ -16,10 +17,14 @@ namespace searchDormWeb.Controllers
     {
         private readonly SignInManager<User> _signInManager;
         private readonly RoleManager<UserRole> _roleManager;
+
+        public IStringLocalizer Localizer { get; }
+
         private readonly ILogger<LoginController> _logger;
 
-        public LoginController(SignInManager<User> signInManager, RoleManager<UserRole> roleManager, ILogger<LoginController> logger)
+        public LoginController(SignInManager<User> signInManager, RoleManager<UserRole> roleManager, ILogger<LoginController> logger , IStringLocalizer _Localizer)
         {
+            Localizer = _Localizer;
             _logger = logger;
             _roleManager = roleManager;
             _signInManager = signInManager;
@@ -55,7 +60,7 @@ namespace searchDormWeb.Controllers
               return RedirectToAction("Home", "debug");
                 }
 
-                ModelState.AddModelError("", "Invalid Login attempt");
+                ModelState.AddModelError("", Localizer["Invalid Login attempt"]);
                 _logger.LogWarning("Invalid Login attempt.");
             }
 
