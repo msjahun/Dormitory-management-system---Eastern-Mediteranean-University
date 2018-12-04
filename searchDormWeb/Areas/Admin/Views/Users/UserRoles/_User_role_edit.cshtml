@@ -201,9 +201,9 @@
 
             $("#DeleteUserRole").click(function(){
 
-                if (confirm("Are you sure you want to delete " + this.value + " user role?")) { 
+                if (confirm("@Localizer["Are you sure you want to delete"] " + this.value + " @Localizer["user role?"]")) { 
                     if ("@role.IsSystemRole" == "True") {
-                        alert("This is a system role and cannot be deleted");
+                        alert("@Localizer["This is a system role and cannot be deleted"]");
 
                     }
                     else {

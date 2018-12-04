@@ -61,7 +61,7 @@
             <div class="col">
                 <div class="box box-info">
                     <div class="box-header with-border">
-                        <h3 class="box-title"><i class="fa fa-newspaper-o"></i> Dormitories News & Important Announcements</h3>
+                        <h3 class="box-title"><i class="fa fa-newspaper-o"></i> @Localizer["Dormitories News & Important Announcements"]</h3>
 
                         <div class="box-tools pull-right">
                             <button type="button" class="btn btn-box-tool" data-widget="collapse">
@@ -426,7 +426,7 @@
                 <div class="col-md-8">
                     <div class="box box-info">
                         <div class="box-header with-border">
-                            <h3 class="box-title"><i class="fa fa-cart-plus"></i> @Localizer["Latest bookings"] </h3> <a asp-action="List" asp-controller="Reservations" asp-area="Admin" class="btn btn-info btn-flat btn-xs">View All Bookings</a>
+                            <h3 class="box-title"><i class="fa fa-cart-plus"></i> @Localizer["Latest bookings"] </h3> <a asp-action="List" asp-controller="Reservations" asp-area="Admin" class="btn btn-info btn-flat btn-xs">@Localizer["View All Bookings"]</a>
 
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse">
@@ -442,9 +442,9 @@
                                 <table id="latestBookingsDt" class="table table-bordered table-hover pull-right">
                                     <thead>
                                         <tr>
-                                            <th>@Localizer["Order #"]</th>
-                                            <th>@Localizer["Order status"]</th>
-                                            <th>@Localizer["Customer"]</th>
+                                            <th>@Localizer["Booking #"]</th>
+                                            <th>@Localizer["Booking status"]</th>
+                                            <th>@Localizer["Student"]</th>
                                             <th>@Localizer["Created on"]</th>
                                             <th>@Localizer["View"]</th>
                                         </tr>
