@@ -46,6 +46,7 @@ using Dau.Data.Mapping.Reservations;
 using Dau.Data.Mapping.SearchEngineOptimization;
 using Dau.Data.Mapping.System;
 using Dau.Data.Extensions;
+using Dau.Core.Domain.Localization;
 
 namespace Dau.Data
 {
@@ -117,6 +118,10 @@ namespace Dau.Data
         public virtual DbSet<RoomReservation> RoomReservation { get; set; }
         public virtual DbSet<Seo> Seo { get; set; }
         public virtual DbSet<MessageQueue> MessageQueue { get; set; }
+
+
+        public virtual DbSet<Language> Language { get; set; }
+        public virtual DbSet<Resource> Resource{ get; set; }
 
 
 
