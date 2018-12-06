@@ -22,10 +22,10 @@ namespace searchDormWeb.Areas.Admin.Models.Catalog
 
 
         [Display(Name = "Picture",
-        Description = "The dormitory block picutre"), DataType(DataType.Text), MaxLength(256)]
+        Description = "The dormitory block picture"), DataType(DataType.Text), MaxLength(256)]
         public string Picture { get; set; }
 
-        [Display(Name = "price Range",
+        [Display(Name = "Price Range",
         Description = "The price range of the rooms in the dormitory block"), DataType(DataType.Text), MaxLength(256)]
         public string priceRange { get; set; }
 
@@ -84,7 +84,7 @@ namespace searchDormWeb.Areas.Admin.Models.Catalog
 
 
         [Display(Name = "Picture",
-        Description = "The dormitory block picutre"), DataType(DataType.Text), MaxLength(256)]
+        Description = "The dormitory block picture"), DataType(DataType.Text), MaxLength(256)]
         public string Picture { get; set; }
 
         [Display(Name = "Price Range",
