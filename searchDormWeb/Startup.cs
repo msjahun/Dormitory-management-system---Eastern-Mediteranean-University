@@ -29,6 +29,7 @@ using Dau.Data.Repository;
 using Dau.Core.Domain.Dormitory;
 using NetCoreStack.Mvc;
 using NetCoreStack.Localization;
+using Dau.Data.Extensions;
 
 namespace searchDormWeb
 {
@@ -109,8 +110,9 @@ namespace searchDormWeb
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, UserManager<User> userManager)
         {
+            ApplicationDbInitializer.SeedUsers(userManager);
             //loggerFactory.AddProvider(new DBLoggerProvider()); authomatic logger uncomment this
             if (env.IsDevelopment())
             {
