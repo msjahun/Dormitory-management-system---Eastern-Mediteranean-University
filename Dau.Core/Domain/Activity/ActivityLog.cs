@@ -18,7 +18,7 @@ namespace Dau.Core.Domain.Activity
 
 
   
-        public int ActivityLogTypeId { get; set; }
+        public long ActivityLogTypeId { get; set; }
         //ActivityLogType table
 
 

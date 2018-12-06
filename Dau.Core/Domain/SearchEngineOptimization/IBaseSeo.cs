@@ -6,7 +6,7 @@ namespace Dau.Core.Domain.SearchEngineOptimization
 {
   public  interface IBaseSeo
     {
-        int SeoId { get; set; }
+        long SeoId { get; set; }
          Seo Seo{ get; set; }
     }
 }

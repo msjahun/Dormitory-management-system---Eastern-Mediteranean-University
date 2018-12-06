@@ -11,8 +11,8 @@ namespace Dau.Core.Domain.BankAccount
             AccountParameterValues = new HashSet<AccountParameterValues>();
         }
 
-        public int BankId { get; set; }
-    public int ExchangeRage { get; set; }
+        public long BankId { get; set; }
+    public long ExchangeRage { get; set; }
         public string CurrencyName { get; set; }
 
         public DormitoryBankAccountTable Bank { get; set; }

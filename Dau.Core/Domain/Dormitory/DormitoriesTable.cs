@@ -14,7 +14,7 @@ namespace Dau.Core.Domain.Dormitory
         }
 
        
-        public int DormitoryTypeId { get; set; }
+        public long DormitoryTypeId { get; set; }
         public string RoomPriceCurrency { get; set; }
         public string RoomPriceCurrencySymbol { get; set; }
         public string MapLatitude { get; set; }

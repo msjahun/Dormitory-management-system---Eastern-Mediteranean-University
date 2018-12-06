@@ -19,12 +19,12 @@ namespace Dau.Core.Domain.User
         /// <summary>
         /// Gets or sets the affiliate identifier
         /// </summary>
-        public int AffiliateId { get; set; }
+        public long AffiliateId { get; set; }
 
         /// <summary>
         /// Gets or sets the Dormitory identifier with which this customer is associated (manager)
         /// </summary>
-        public int DormitoryId { get; set; }
+        public long DormitoryId { get; set; }
 
 
         public string AdminComment { get; set; }

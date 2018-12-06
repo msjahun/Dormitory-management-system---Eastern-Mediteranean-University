@@ -7,6 +7,6 @@ namespace Dau.Core
 {
     public abstract class BaseEntity
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
     }
 }

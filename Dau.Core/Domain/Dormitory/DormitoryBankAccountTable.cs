@@ -12,7 +12,7 @@ namespace Dau.Core.Domain.Dormitory
         }
 
       
-        public int DormitoryId { get; set; }
+        public long DormitoryId { get; set; }
         public string BankName { get; set; }
 
         public DormitoriesTable Dormitory { get; set; }

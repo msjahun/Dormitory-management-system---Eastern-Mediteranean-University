@@ -10,7 +10,7 @@ namespace Dau.Core.Domain.ContentManagement
 
     {
       
-        public int TopicNonTransId { get; set; }
+        public long TopicNonTransId { get; set; }
         public string Title { get; set; }
 
         public string Body { get; set; }

@@ -14,7 +14,7 @@ namespace Dau.Core.Domain.ContentManagement
 
 
 
-        public int Id { get; set; }
+      
 
         public string Name { get; set; }
         public string SystemName { get; set; }
@@ -55,7 +55,7 @@ namespace Dau.Core.Domain.ContentManagement
         // public TopicsSeoTab[] seoTab { get; set; }
         //seo table
 
-        public int SeoId { get; set; }
+        public long SeoId { get; set; }
         public Seo Seo { get; set; }
     }
 }

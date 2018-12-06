@@ -11,7 +11,7 @@ namespace Dau.Core.Domain.ContentManagement
             MessageTemplateTranslations = new HashSet<MessageTemplateTranslation>();
         }
 
-        public int Id { get; set; }
+
         public string AllowedTokens { get; set; }
         //I'll create allowedTokens service but I don't know how it will turn up, I'll leave this here for now
 

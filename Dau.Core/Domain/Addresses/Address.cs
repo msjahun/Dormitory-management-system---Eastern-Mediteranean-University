@@ -21,9 +21,9 @@ namespace Dau.Core.Domain.Addresses
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public string City { get; set; }
-        public int StateProvinceId { get; set; }
+        public long StateProvinceId { get; set; }
         public string ZipPostalCode { get; set; }
-        public int CountryId { get; set; }
+        public long CountryId { get; set; }
 
         //a lot of the entities will use address
         //relationship with countryId and stateProvinceId

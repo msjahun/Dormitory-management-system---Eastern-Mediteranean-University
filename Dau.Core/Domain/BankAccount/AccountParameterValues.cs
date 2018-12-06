@@ -11,8 +11,8 @@ namespace Dau.Core.Domain.BankAccount
         }
 
       
-        public int CurrencyId { get; set; }
-        public int ParameterId { get; set; }
+        public long CurrencyId { get; set; }
+        public long ParameterId { get; set; }
 
         public BankCurrencyTable Currency { get; set; }
         public AccountInformationParameter Parameter { get; set; }

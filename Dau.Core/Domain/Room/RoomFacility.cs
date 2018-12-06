@@ -7,9 +7,9 @@ namespace Dau.Core.Domain.Room
     public partial class RoomFacility : BaseEntity
     {
       
-        public int FacilityId { get; set; }
-        public int RoomId { get; set; }
-        public int? FacilityOptionId { get; set; }
+        public long FacilityId { get; set; }
+        public long RoomId { get; set; }
+        public long? FacilityOptionId { get; set; }
 
         public FacilityTable Facility { get; set; }
         public RoomTable Room { get; set; }

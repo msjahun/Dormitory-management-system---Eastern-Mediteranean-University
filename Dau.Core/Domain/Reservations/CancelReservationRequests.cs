@@ -9,7 +9,7 @@ namespace Dau.Core.Domain.Reservations
 
       
 
-        public int BookingNumber { get; set; }
+        public long BookingNumber { get; set; }
 
         public string CustomerId { get; set; }
 

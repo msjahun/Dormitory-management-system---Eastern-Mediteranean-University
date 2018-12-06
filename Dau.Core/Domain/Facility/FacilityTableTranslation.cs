@@ -7,7 +7,7 @@ namespace Dau.Core.Domain.Facility {
     {
         
 
-        public int FacilityTableNonTransId { get; set; }
+        public long FacilityTableNonTransId { get; set; }
         public string FacilityTitle { get; set; }
         public string FacilityDescription { get; set; }
 

@@ -13,7 +13,7 @@ namespace Dau.Core.Domain.Room
         }
 
       
-        public int DormitoryId { get; set; }
+        public long DormitoryId { get; set; }
         public string RoomPictureUrl { get; set; }
         public double RoomPrice { get; set; }
         public double RoomPriceInstallment { get; set; }

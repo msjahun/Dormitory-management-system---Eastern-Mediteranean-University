@@ -6,7 +6,7 @@ namespace Dau.Core.Domain.Language
 {
     public abstract partial class BaseLanguage 
     {//all translation classes should inherit form this class
-        public int LanguageId { get; set; }
+        public long LanguageId { get; set; }
         public LanguageTable Language { get; set; }
     }
 }

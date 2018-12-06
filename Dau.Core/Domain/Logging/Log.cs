@@ -7,7 +7,7 @@ namespace Dau.Core.Domain.Logging
    public class Log : BaseEntity
     {
        
-        public int EventId { get; set; }
+        public long EventId { get; set; }
       
         public string LogLevel { get; set; }
         public string Message { get; set; }

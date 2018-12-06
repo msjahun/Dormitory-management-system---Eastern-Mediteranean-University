@@ -11,7 +11,7 @@ namespace Dau.Core.Domain.Facility
         }
 
      
-        public int FacilityId { get; set; }
+        public long FacilityId { get; set; }
 
 
 

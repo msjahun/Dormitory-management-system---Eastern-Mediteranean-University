@@ -11,7 +11,7 @@ namespace Dau.Core.Domain.Dormitory
         }
 
      
-        public int DormitoryTypeId { get; set; }
+        public long DormitoryTypeId { get; set; }
 
         public DormitoryType DormitoryType { get; set; }
         public ICollection<DormitoryInformationTableTranslation> DormitoryInformationTableTranslation { get; set; }

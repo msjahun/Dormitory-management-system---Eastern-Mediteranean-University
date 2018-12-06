@@ -55,7 +55,7 @@ namespace Dau.Core.Domain.Catalog
   // public DormitoryBlockSeoTab[] seoTab { get; set; }
         //relationship with seo Table
 
-        public int SeoId { get; set; }
+        public long SeoId { get; set; }
         public Seo Seo { get; set; }
 
 

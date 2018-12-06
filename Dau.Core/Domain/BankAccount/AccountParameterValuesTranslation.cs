@@ -6,8 +6,8 @@ namespace Dau.Core.Domain.BankAccount
 {
     public partial class AccountParameterValuesTranslation : BaseEntity
     {
-        public int LanguageId { get; set; }
-        public int AccountParamsValuesNonTransId { get; set; }
+        public long LanguageId { get; set; }
+        public long AccountParamsValuesNonTransId { get; set; }
         public string Value { get; set; }
 
         public AccountParameterValues AccountParamsValuesNonTrans { get; set; }

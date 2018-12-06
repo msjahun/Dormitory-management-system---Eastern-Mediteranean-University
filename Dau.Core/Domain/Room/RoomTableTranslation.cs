@@ -7,7 +7,7 @@ namespace Dau.Core.Domain.Room
     public partial class RoomTableTranslation : BaseLanguage
     {
        
-        public int RoomTableNonTransId { get; set; }
+        public long RoomTableNonTransId { get; set; }
         public string RoomType { get; set; }
         public string RoomTitle { get; set; }
 

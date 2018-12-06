@@ -7,7 +7,7 @@ namespace Dau.Core.Domain.Dormitory
     public partial class DormitoryTypeTranslation : BaseLanguage
     {
         
-        public int DormitoryTypeNonTransId { get; set; }
+        public long DormitoryTypeNonTransId { get; set; }
         public string TypeName { get; set; }
 
         public DormitoryType DormitoryTypeNonTrans { get; set; }
