@@ -4,15 +4,18 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Dau.Data.Migrations
 {
-    public partial class reboot : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "Localization");
+
             migrationBuilder.CreateTable(
                 name: "account_information_parameter",
                 columns: table => new
                 {
-                    id = table.Column<int>(nullable: false)
+                    id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
                 },
                 constraints: table =>
@@ -24,10 +27,10 @@ namespace Dau.Data.Migrations
                 name: "ActivityLog",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     IpAddress = table.Column<string>(unicode: false, maxLength: 100, nullable: false),
-                    ActivityLogTypeId = table.Column<int>(nullable: false),
+                    ActivityLogTypeId = table.Column<long>(nullable: false),
                     UserGuid = table.Column<string>(unicode: false, maxLength: 256, nullable: false),
                     ActivityPerformed = table.Column<string>(unicode: false, maxLength: 256, nullable: false),
                     ActivityCategory = table.Column<string>(unicode: false, maxLength: 100, nullable: true),
@@ -42,14 +45,14 @@ namespace Dau.Data.Migrations
                 name: "Address",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Address1 = table.Column<string>(unicode: false, maxLength: 256, nullable: false),
                     Address2 = table.Column<string>(unicode: false, maxLength: 256, nullable: true),
                     City = table.Column<string>(unicode: false, maxLength: 100, nullable: false),
-                    StateProvinceId = table.Column<int>(nullable: false),
+                    StateProvinceId = table.Column<long>(nullable: false),
                     ZipPostalCode = table.Column<string>(unicode: false, maxLength: 100, nullable: true),
-                    CountryId = table.Column<int>(nullable: false)
+                    CountryId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -60,7 +63,7 @@ namespace Dau.Data.Migrations
                 name: "Affiliate",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     FirstName = table.Column<string>(unicode: false, maxLength: 256, nullable: true),
                     LastName = table.Column<string>(unicode: false, maxLength: 256, nullable: true),
@@ -89,7 +92,7 @@ namespace Dau.Data.Migrations
                 name: "Announcements",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Priority = table.Column<int>(nullable: false),
@@ -109,7 +112,7 @@ namespace Dau.Data.Migrations
                 name: "ApiClient",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ClientName = table.Column<string>(unicode: false, maxLength: 100, nullable: false),
                     ClientId = table.Column<string>(unicode: false, maxLength: 256, nullable: false),
@@ -128,7 +131,7 @@ namespace Dau.Data.Migrations
                 name: "APISettings",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     EnableAPI = table.Column<bool>(nullable: false),
                     AllowRequestsFromSwagger = table.Column<bool>(nullable: false)
@@ -181,8 +184,8 @@ namespace Dau.Data.Migrations
                     DateOfBirth = table.Column<DateTime>(nullable: false),
                     City = table.Column<string>(nullable: true),
                     Country = table.Column<string>(nullable: true),
-                    AffiliateId = table.Column<int>(nullable: false),
-                    DormitoryId = table.Column<int>(nullable: false),
+                    AffiliateId = table.Column<long>(nullable: false),
+                    DormitoryId = table.Column<long>(nullable: false),
                     AdminComment = table.Column<string>(nullable: true),
                     NewsletterSubscription = table.Column<bool>(nullable: false),
                     Active = table.Column<bool>(nullable: false),
@@ -204,7 +207,7 @@ namespace Dau.Data.Migrations
                 name: "Campaign",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AllowedTokens = table.Column<string>(nullable: true),
                     Name = table.Column<string>(unicode: false, maxLength: 256, nullable: true),
@@ -224,9 +227,9 @@ namespace Dau.Data.Migrations
                 name: "CancelReservationRequest",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    BookingNumber = table.Column<int>(nullable: false),
+                    BookingNumber = table.Column<long>(nullable: false),
                     CustomerId = table.Column<string>(unicode: false, maxLength: 256, nullable: true),
                     ReturnRequestStatus = table.Column<int>(nullable: false),
                     ReasonForCancellation = table.Column<string>(unicode: false, maxLength: 256, nullable: true),
@@ -245,7 +248,7 @@ namespace Dau.Data.Migrations
                 name: "Country",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AllowBilling = table.Column<bool>(nullable: false),
                     AllowBooking = table.Column<bool>(nullable: false),
@@ -264,7 +267,7 @@ namespace Dau.Data.Migrations
                 name: "Currency",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CurrencyCode = table.Column<string>(unicode: false, maxLength: 100, nullable: true),
                     Rate = table.Column<int>(nullable: false),
@@ -285,7 +288,7 @@ namespace Dau.Data.Migrations
                 name: "Discount",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DiscountName = table.Column<string>(unicode: false, maxLength: 100, nullable: true),
                     CouponCode = table.Column<string>(unicode: false, maxLength: 100, nullable: true),
@@ -307,7 +310,7 @@ namespace Dau.Data.Migrations
                 name: "dormitory_type",
                 columns: table => new
                 {
-                    id = table.Column<int>(nullable: false)
+                    id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
                 },
                 constraints: table =>
@@ -319,7 +322,7 @@ namespace Dau.Data.Migrations
                 name: "EmailAccount",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     EmailAddress = table.Column<string>(unicode: false, maxLength: 256, nullable: true),
                     EmailDisplayName = table.Column<string>(unicode: false, maxLength: 246, nullable: true),
@@ -339,9 +342,9 @@ namespace Dau.Data.Migrations
                 name: "EventLog",
                 columns: table => new
                 {
-                    ID = table.Column<int>(nullable: false)
+                    ID = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    EventID = table.Column<int>(nullable: false),
+                    EventID = table.Column<long>(nullable: false),
                     LogLevel = table.Column<string>(unicode: false, maxLength: 50, nullable: false),
                     Message = table.Column<string>(unicode: false, maxLength: 4000, nullable: false),
                     Ipaddress = table.Column<string>(nullable: true),
@@ -356,7 +359,7 @@ namespace Dau.Data.Migrations
                 name: "facility_table",
                 columns: table => new
                 {
-                    id = table.Column<int>(nullable: false)
+                    id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     facility_icon_url = table.Column<string>(unicode: false, maxLength: 500, nullable: false)
                 },
@@ -369,7 +372,7 @@ namespace Dau.Data.Migrations
                 name: "language_table",
                 columns: table => new
                 {
-                    id = table.Column<int>(nullable: false)
+                    id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     name = table.Column<string>(unicode: false, maxLength: 300, nullable: false),
                     language_code = table.Column<string>(unicode: false, maxLength: 20, nullable: false)
@@ -383,7 +386,7 @@ namespace Dau.Data.Migrations
                 name: "MessageQueue",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     FromAddress = table.Column<string>(unicode: false, maxLength: 256, nullable: true),
                     ToAddress = table.Column<string>(unicode: false, maxLength: 256, nullable: true),
@@ -413,7 +416,7 @@ namespace Dau.Data.Migrations
                 name: "MessageTemplate",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AllowedTokens = table.Column<string>(unicode: false, maxLength: 256, nullable: true),
                     Name = table.Column<string>(unicode: false, maxLength: 256, nullable: true),
@@ -431,7 +434,7 @@ namespace Dau.Data.Migrations
                 name: "NewsletterSubscribers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Email = table.Column<string>(unicode: false, maxLength: 100, nullable: true),
                     Active = table.Column<bool>(nullable: false),
@@ -447,7 +450,7 @@ namespace Dau.Data.Migrations
                 name: "Notification",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -460,7 +463,7 @@ namespace Dau.Data.Migrations
                 name: "OnlineUsers",
                 columns: table => new
                 {
-                    ID = table.Column<int>(nullable: false)
+                    ID = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UserInfo = table.Column<string>(unicode: false, maxLength: 400, nullable: true),
                     IpAddress = table.Column<string>(unicode: false, maxLength: 400, nullable: true),
@@ -478,7 +481,7 @@ namespace Dau.Data.Migrations
                 name: "Poll",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Language = table.Column<int>(nullable: false),
                     Name = table.Column<string>(unicode: false, maxLength: 100, nullable: true),
@@ -499,7 +502,7 @@ namespace Dau.Data.Migrations
                 name: "PushNotification",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AllowedTokens = table.Column<string>(unicode: false, maxLength: 256, nullable: true),
                     Name = table.Column<string>(unicode: false, maxLength: 100, nullable: true),
@@ -518,7 +521,7 @@ namespace Dau.Data.Migrations
                 name: "Review",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     RoomId = table.Column<int>(nullable: false),
                     DormitoryId = table.Column<int>(nullable: false),
@@ -540,7 +543,7 @@ namespace Dau.Data.Migrations
                 name: "RoomReservation",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Picture = table.Column<string>(unicode: false, maxLength: 256, nullable: true),
                     RoomId = table.Column<int>(nullable: false),
@@ -558,7 +561,7 @@ namespace Dau.Data.Migrations
                 name: "Seo",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     MetaKeywords = table.Column<string>(unicode: false, maxLength: 256, nullable: true),
                     MetaDescription = table.Column<string>(unicode: false, maxLength: 2000, nullable: true),
@@ -574,7 +577,7 @@ namespace Dau.Data.Migrations
                 name: "Survey",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Language = table.Column<int>(nullable: false),
                     Name = table.Column<string>(unicode: false, maxLength: 100, nullable: true),
@@ -592,10 +595,28 @@ namespace Dau.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Language",
+                schema: "Localization",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CultureName = table.Column<string>(maxLength: 255, nullable: false),
+                    DisplayName = table.Column<string>(maxLength: 255, nullable: false),
+                    Country = table.Column<string>(maxLength: 255, nullable: false),
+                    Region = table.Column<string>(maxLength: 255, nullable: false),
+                    IsDefaultLanguage = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Language", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Reservation",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     BookingStatus = table.Column<int>(nullable: false),
                     PaymentStatus = table.Column<int>(nullable: false),
@@ -614,7 +635,7 @@ namespace Dau.Data.Migrations
                     BookingTotal = table.Column<double>(nullable: false),
                     Profit = table.Column<double>(nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    BillingAddressId = table.Column<int>(nullable: true),
+                    BillingAddressId = table.Column<long>(nullable: true),
                     IsCancelled = table.Column<bool>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
                     IsAffiliateBooking = table.Column<bool>(nullable: false),
@@ -742,13 +763,13 @@ namespace Dau.Data.Migrations
                 name: "StateAndProvince",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(unicode: false, maxLength: 100, nullable: true),
                     Abbreviation = table.Column<string>(unicode: false, maxLength: 100, nullable: true),
                     Published = table.Column<bool>(nullable: false),
                     DisplayOrder = table.Column<int>(nullable: false),
-                    CountryId = table.Column<int>(nullable: true)
+                    CountryId = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -765,12 +786,12 @@ namespace Dau.Data.Migrations
                 name: "DiscountUsage",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Used = table.Column<bool>(nullable: false),
                     BookingNumber = table.Column<string>(nullable: true),
                     BookingTotal = table.Column<double>(nullable: false),
-                    DiscountId = table.Column<int>(nullable: true)
+                    DiscountId = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -787,9 +808,9 @@ namespace Dau.Data.Migrations
                 name: "dormitories_table",
                 columns: table => new
                 {
-                    id = table.Column<int>(nullable: false)
+                    id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    dormitory_type_id = table.Column<int>(nullable: false),
+                    dormitory_type_id = table.Column<long>(nullable: false),
                     room_price_currency = table.Column<string>(unicode: false, maxLength: 100, nullable: false),
                     room_price_currency_symbol = table.Column<string>(unicode: false, maxLength: 10, nullable: false),
                     map_latitude = table.Column<string>(unicode: false, maxLength: 100, nullable: false),
@@ -810,9 +831,9 @@ namespace Dau.Data.Migrations
                 name: "dormitory_information_table",
                 columns: table => new
                 {
-                    id = table.Column<int>(nullable: false)
+                    id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    dormitory_type_id = table.Column<int>(nullable: false)
+                    dormitory_type_id = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -829,9 +850,9 @@ namespace Dau.Data.Migrations
                 name: "facility_option",
                 columns: table => new
                 {
-                    id = table.Column<int>(nullable: false)
+                    id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    facility_id = table.Column<int>(nullable: false)
+                    facility_id = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -848,9 +869,9 @@ namespace Dau.Data.Migrations
                 name: "account_information_parameter_translation",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
-                    account_info_non_trans_id = table.Column<int>(nullable: false),
-                    language_id = table.Column<int>(nullable: false),
+                    Id = table.Column<long>(nullable: false),
+                    account_info_non_trans_id = table.Column<long>(nullable: false),
+                    language_id = table.Column<long>(nullable: false),
                     parameter = table.Column<string>(unicode: false, maxLength: 400, nullable: false)
                 },
                 constraints: table =>
@@ -874,19 +895,20 @@ namespace Dau.Data.Migrations
                 name: "CountryTranslation",
                 columns: table => new
                 {
-                    LanguageId = table.Column<int>(nullable: false),
+                    LanguageId = table.Column<long>(nullable: false),
                     CountryNonTransId = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(unicode: false, maxLength: 100, nullable: true)
+                    Name = table.Column<string>(unicode: false, maxLength: 100, nullable: true),
+                    CountryNonTransId1 = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CountryTranslation", x => new { x.CountryNonTransId, x.LanguageId });
                     table.ForeignKey(
-                        name: "FK_CountryTranslation_Country_CountryNonTransId",
-                        column: x => x.CountryNonTransId,
+                        name: "FK_CountryTranslation_Country_CountryNonTransId1",
+                        column: x => x.CountryNonTransId1,
                         principalTable: "Country",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_CountryTranslation_language_table_LanguageId",
                         column: x => x.LanguageId,
@@ -899,19 +921,20 @@ namespace Dau.Data.Migrations
                 name: "CurrencyTranslation",
                 columns: table => new
                 {
-                    LanguageId = table.Column<int>(nullable: false),
+                    LanguageId = table.Column<long>(nullable: false),
                     CurrencyNonTransId = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(unicode: false, maxLength: 100, nullable: true)
+                    Name = table.Column<string>(unicode: false, maxLength: 100, nullable: true),
+                    CurrencyNonTransId1 = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CurrencyTranslation", x => new { x.CurrencyNonTransId, x.LanguageId });
                     table.ForeignKey(
-                        name: "FK_CurrencyTranslation_Currency_CurrencyNonTransId",
-                        column: x => x.CurrencyNonTransId,
+                        name: "FK_CurrencyTranslation_Currency_CurrencyNonTransId1",
+                        column: x => x.CurrencyNonTransId1,
                         principalTable: "Currency",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_CurrencyTranslation_language_table_LanguageId",
                         column: x => x.LanguageId,
@@ -924,8 +947,8 @@ namespace Dau.Data.Migrations
                 name: "dormitory_type_translation",
                 columns: table => new
                 {
-                    language_id = table.Column<int>(nullable: false),
-                    dormitory_type_non_trans_id = table.Column<int>(nullable: false),
+                    language_id = table.Column<long>(nullable: false),
+                    dormitory_type_non_trans_id = table.Column<long>(nullable: false),
                     type_name = table.Column<string>(unicode: false, maxLength: 300, nullable: false)
                 },
                 constraints: table =>
@@ -949,8 +972,8 @@ namespace Dau.Data.Migrations
                 name: "facility_table_translation",
                 columns: table => new
                 {
-                    language_id = table.Column<int>(nullable: false),
-                    facility_table_non_trans_id = table.Column<int>(nullable: false),
+                    language_id = table.Column<long>(nullable: false),
+                    facility_table_non_trans_id = table.Column<long>(nullable: false),
                     facility_title = table.Column<string>(unicode: false, maxLength: 300, nullable: false),
                     facility_description = table.Column<string>(unicode: false, maxLength: 500, nullable: false)
                 },
@@ -975,8 +998,8 @@ namespace Dau.Data.Migrations
                 name: "MessageTemplateTranslation",
                 columns: table => new
                 {
-                    LanguageId = table.Column<int>(nullable: false),
-                    MessageTemplateId = table.Column<int>(nullable: false),
+                    LanguageId = table.Column<long>(nullable: false),
+                    MessageTemplateId = table.Column<long>(nullable: false),
                     Subject = table.Column<string>(unicode: false, maxLength: 256, nullable: true),
                     Body = table.Column<string>(unicode: false, maxLength: 1024, nullable: true),
                     BCC = table.Column<string>(unicode: false, maxLength: 256, nullable: true),
@@ -1003,12 +1026,12 @@ namespace Dau.Data.Migrations
                 name: "PollAnswers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(unicode: false, maxLength: 250, nullable: true),
                     NumberOfVotes = table.Column<int>(nullable: false),
                     DisplayOrder = table.Column<int>(nullable: false),
-                    PollId = table.Column<int>(nullable: true)
+                    PollId = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1025,7 +1048,7 @@ namespace Dau.Data.Migrations
                 name: "DormitoryBlock",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(unicode: false, maxLength: 100, nullable: false),
                     Description = table.Column<string>(unicode: false, maxLength: 100, nullable: false),
@@ -1033,7 +1056,7 @@ namespace Dau.Data.Migrations
                     IncludeInTopMenu = table.Column<bool>(nullable: false),
                     Published = table.Column<bool>(nullable: false),
                     DisplayOrder = table.Column<int>(nullable: false),
-                    SeoId = table.Column<int>(nullable: false)
+                    SeoId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1050,7 +1073,7 @@ namespace Dau.Data.Migrations
                 name: "Topic",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(unicode: false, maxLength: 256, nullable: true),
                     SystemName = table.Column<string>(unicode: false, maxLength: 256, nullable: true),
@@ -1063,7 +1086,7 @@ namespace Dau.Data.Migrations
                     IncludeInSitemap = table.Column<bool>(nullable: false),
                     DisplayOrder = table.Column<int>(nullable: false),
                     AccesibleWhenSiteIsClosed = table.Column<bool>(nullable: false),
-                    SeoId = table.Column<int>(nullable: false)
+                    SeoId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1080,12 +1103,12 @@ namespace Dau.Data.Migrations
                 name: "SurveyQuestionsAndAnswers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(unicode: false, maxLength: 100, nullable: true),
                     NumberOfParticipants = table.Column<int>(nullable: false),
                     DisplayOrder = table.Column<int>(nullable: false),
-                    SurveyId = table.Column<int>(nullable: true)
+                    SurveyId = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1099,15 +1122,39 @@ namespace Dau.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Resource",
+                schema: "Localization",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    LanguageId = table.Column<long>(nullable: false),
+                    Key = table.Column<string>(maxLength: 255, nullable: false),
+                    Value = table.Column<string>(nullable: false),
+                    Comment = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Resource", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Resource_Language_LanguageId",
+                        column: x => x.LanguageId,
+                        principalSchema: "Localization",
+                        principalTable: "Language",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OrderNotes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Note = table.Column<string>(unicode: false, maxLength: 512, nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ShowToCustomer = table.Column<bool>(nullable: false),
-                    ReservationId = table.Column<int>(nullable: true)
+                    ReservationId = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1124,8 +1171,8 @@ namespace Dau.Data.Migrations
                 name: "dormitories_table_translation",
                 columns: table => new
                 {
-                    language_id = table.Column<int>(nullable: false),
-                    dormitories_table_non_trans_id = table.Column<int>(nullable: false),
+                    language_id = table.Column<long>(nullable: false),
+                    dormitories_table_non_trans_id = table.Column<long>(nullable: false),
                     dormitory_name = table.Column<string>(unicode: false, maxLength: 300, nullable: false),
                     dormitory_address = table.Column<string>(unicode: false, maxLength: 500, nullable: false),
                     gender_allocation = table.Column<string>(unicode: false, maxLength: 200, nullable: false),
@@ -1152,9 +1199,9 @@ namespace Dau.Data.Migrations
                 name: "dormitory_bank_account_table",
                 columns: table => new
                 {
-                    id = table.Column<int>(nullable: false)
+                    id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    dormitory_id = table.Column<int>(nullable: false),
+                    dormitory_id = table.Column<long>(nullable: false),
                     bank_name = table.Column<string>(unicode: false, maxLength: 50, nullable: false)
                 },
                 constraints: table =>
@@ -1172,9 +1219,9 @@ namespace Dau.Data.Migrations
                 name: "room_table",
                 columns: table => new
                 {
-                    id = table.Column<int>(nullable: false)
+                    id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    dormitory_id = table.Column<int>(nullable: false),
+                    dormitory_id = table.Column<long>(nullable: false),
                     room_picture_url = table.Column<string>(unicode: false, maxLength: 500, nullable: false),
                     room_price = table.Column<double>(nullable: false),
                     room_price_installment = table.Column<double>(nullable: false),
@@ -1196,8 +1243,8 @@ namespace Dau.Data.Migrations
                 name: "dormitory_information_table_translation",
                 columns: table => new
                 {
-                    language_id = table.Column<int>(nullable: false),
-                    dormitory_info_non_trans_id = table.Column<int>(nullable: false),
+                    language_id = table.Column<long>(nullable: false),
+                    dormitory_info_non_trans_id = table.Column<long>(nullable: false),
                     information = table.Column<string>(unicode: false, maxLength: 500, nullable: false)
                 },
                 constraints: table =>
@@ -1221,8 +1268,8 @@ namespace Dau.Data.Migrations
                 name: "facility_option_translation",
                 columns: table => new
                 {
-                    language_id = table.Column<int>(nullable: false),
-                    facility_option_non_trans_id = table.Column<int>(nullable: false),
+                    language_id = table.Column<long>(nullable: false),
+                    facility_option_non_trans_id = table.Column<long>(nullable: false),
                     facility_option = table.Column<string>(unicode: false, maxLength: 300, nullable: false),
                     facility_option_description = table.Column<string>(unicode: false, maxLength: 500, nullable: false)
                 },
@@ -1247,8 +1294,8 @@ namespace Dau.Data.Migrations
                 name: "DormitoryBlockTranslation",
                 columns: table => new
                 {
-                    language_id = table.Column<int>(nullable: false),
-                    DormitoryBlockNonTransId = table.Column<int>(nullable: false),
+                    language_id = table.Column<long>(nullable: false),
+                    DormitoryBlockNonTransId = table.Column<long>(nullable: false),
                     Name = table.Column<string>(unicode: false, maxLength: 100, nullable: false),
                     Description = table.Column<string>(unicode: false, maxLength: 512, nullable: false)
                 },
@@ -1273,8 +1320,8 @@ namespace Dau.Data.Migrations
                 name: "TopicTranslation",
                 columns: table => new
                 {
-                    LanguageId = table.Column<int>(nullable: false),
-                    TopicNonTransId = table.Column<int>(nullable: false),
+                    LanguageId = table.Column<long>(nullable: false),
+                    TopicNonTransId = table.Column<long>(nullable: false),
                     Title = table.Column<string>(unicode: false, maxLength: 400, nullable: true),
                     Body = table.Column<string>(unicode: false, maxLength: 4000, nullable: true)
                 },
@@ -1299,10 +1346,10 @@ namespace Dau.Data.Migrations
                 name: "bank_currency_table",
                 columns: table => new
                 {
-                    id = table.Column<int>(nullable: false)
+                    id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    bank_id = table.Column<int>(nullable: false),
-                    ExchangeRage = table.Column<int>(nullable: false),
+                    bank_id = table.Column<long>(nullable: false),
+                    ExchangeRage = table.Column<long>(nullable: false),
                     currency_name = table.Column<string>(unicode: false, maxLength: 50, nullable: false)
                 },
                 constraints: table =>
@@ -1320,11 +1367,11 @@ namespace Dau.Data.Migrations
                 name: "room_facility",
                 columns: table => new
                 {
-                    id = table.Column<int>(nullable: false)
+                    id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    facility_id = table.Column<int>(nullable: false),
-                    room_id = table.Column<int>(nullable: false),
-                    facility_option_id = table.Column<int>(nullable: true)
+                    facility_id = table.Column<long>(nullable: false),
+                    room_id = table.Column<long>(nullable: false),
+                    facility_option_id = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1347,8 +1394,8 @@ namespace Dau.Data.Migrations
                 name: "room_table_translation",
                 columns: table => new
                 {
-                    language_id = table.Column<int>(nullable: false),
-                    room_table_non_trans_id = table.Column<int>(nullable: false),
+                    language_id = table.Column<long>(nullable: false),
+                    room_table_non_trans_id = table.Column<long>(nullable: false),
                     room_type = table.Column<string>(unicode: false, maxLength: 300, nullable: false),
                     room_title = table.Column<string>(unicode: false, maxLength: 300, nullable: false)
                 },
@@ -1373,10 +1420,10 @@ namespace Dau.Data.Migrations
                 name: "account_parameter_values",
                 columns: table => new
                 {
-                    id = table.Column<int>(nullable: false)
+                    id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    currency_id = table.Column<int>(nullable: false),
-                    parameter_id = table.Column<int>(nullable: false)
+                    currency_id = table.Column<long>(nullable: false),
+                    parameter_id = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1399,9 +1446,9 @@ namespace Dau.Data.Migrations
                 name: "account_parameter_values_translation",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
-                    language_id = table.Column<int>(nullable: false),
-                    account_params_values_non_trans_id = table.Column<int>(nullable: false),
+                    Id = table.Column<long>(nullable: false),
+                    language_id = table.Column<long>(nullable: false),
+                    account_params_values_non_trans_id = table.Column<long>(nullable: false),
                     value = table.Column<string>(unicode: false, maxLength: 300, nullable: false)
                 },
                 constraints: table =>
@@ -1496,9 +1543,19 @@ namespace Dau.Data.Migrations
                 column: "bank_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CountryTranslation_CountryNonTransId1",
+                table: "CountryTranslation",
+                column: "CountryNonTransId1");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CountryTranslation_LanguageId",
                 table: "CountryTranslation",
                 column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CurrencyTranslation_CurrencyNonTransId1",
+                table: "CurrencyTranslation",
+                column: "CurrencyNonTransId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CurrencyTranslation_LanguageId",
@@ -1654,6 +1711,12 @@ namespace Dau.Data.Migrations
                 name: "IX_TopicTranslation_LanguageId",
                 table: "TopicTranslation",
                 column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Resource_LanguageId",
+                schema: "Localization",
+                table: "Resource",
+                column: "LanguageId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -1779,6 +1842,10 @@ namespace Dau.Data.Migrations
                 name: "TopicTranslation");
 
             migrationBuilder.DropTable(
+                name: "Resource",
+                schema: "Localization");
+
+            migrationBuilder.DropTable(
                 name: "account_parameter_values");
 
             migrationBuilder.DropTable(
@@ -1825,6 +1892,10 @@ namespace Dau.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Topic");
+
+            migrationBuilder.DropTable(
+                name: "Language",
+                schema: "Localization");
 
             migrationBuilder.DropTable(
                 name: "bank_currency_table");
