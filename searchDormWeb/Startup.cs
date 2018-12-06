@@ -82,7 +82,7 @@ namespace searchDormWeb
             services.AddScoped<ISearchService, SearchService>();
             services.AddScoped<IDormitoryService, DormitoryService>();
 
-            var connectionString = Configuration.GetConnectionString("fees_and_facilitiesDevContext");
+            var connectionString = Configuration.GetValue<string>("DbSettings:SqlConnectionString");
             services.AddDbContext<Fees_and_facilitiesContext>(options => options.UseSqlServer(connectionString));
 
            
