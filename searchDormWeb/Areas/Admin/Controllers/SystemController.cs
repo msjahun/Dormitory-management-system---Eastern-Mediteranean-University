@@ -400,8 +400,8 @@ namespace searchDormWeb.Areas.Admin.Controllers
         public string ShortMessage { get; set; }
         public DateTime CreatedOn { get; set; }
         public string View { get; set; }
-        public int Id { get; set; }
-        public int EventId { get; set; }
+        public long Id { get; set; }
+        public long EventId { get; set; }
     }
     public class MaintenanceTable {
         public string FileName { get; set; }
