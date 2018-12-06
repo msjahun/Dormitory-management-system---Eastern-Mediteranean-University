@@ -1659,7 +1659,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Localization2\src\NetCoreStack.Localization\NetCoreStack.Localization.csproj" />
     <ProjectReference Include="..\Dau.Core\Dau.Core.csproj" />
     <ProjectReference Include="..\Dau.Data\Dau.Data.csproj" />
     <ProjectReference Include="..\Dau.Services\Dau.Services.csproj" />
