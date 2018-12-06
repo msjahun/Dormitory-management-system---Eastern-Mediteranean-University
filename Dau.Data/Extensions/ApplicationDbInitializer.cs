@@ -15,7 +15,10 @@ namespace Dau.Data.Extensions
                 User user = new User
                 {
                     UserName = "Admin@emu.edu.tr",
-                    Email = "Admin@emu.edu.tr"
+                    Email = "Admin@emu.edu.tr",
+                    FirstName ="Super",
+                    LastName = "Admin"
+                    
                 };
 
                 IdentityResult result = userManager.CreateAsync(user, "Administrator").Result;
