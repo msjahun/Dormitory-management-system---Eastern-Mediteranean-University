@@ -112,10 +112,41 @@
                 </div>
 
 
-                <div>
-                    @*<netcorestack-languageSelector name="culture" set-cookie-with-java-script="true"></netcorestack-languageSelector>*@
+               
+                    <div>
+                        <ul class="nav">
+                            <li class="nav-item dropdown ml-lg-2 dropdown-animate" data-toggle="hover">
 
-                </div>
+                                <a class="nav-link px-0" href="#" style="padding-right:15px" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                   
+                                    @if (CultureInfo.CurrentUICulture.Name =="en-US")
+                                    {
+                                        <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/flags/us.svg">
+                                        <span class="d-none d-lg-inline-block">English - United States</span>
+                                        <span class="d-lg-none">en-US</span>
+                                            }
+                                            else if(CultureInfo.CurrentUICulture.Name == "tr-TR")
+                                    {
+
+                                        <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/flags/tr.svg">
+                                        <span class="d-none d-lg-inline-block">Türkçe - Türkiye</span>
+                                        <span class="d-lg-none">tr-TR</span>
+                                    }
+
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-arrow">
+                                    <a href="?culture=en-US" class="dropdown-item">
+                                        <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/flags/us.svg">English - United States
+                                    </a>
+                                    <a href="?culture=tr-TR" class="dropdown-item">
+                                        <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/flags/tr.svg">Türkçe - Türkiye
+                                    </a>
+
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+             
 
                 @Html.Partial("/Views/Shared/Components/AdminEntryPointNew.cshtml", null)
 

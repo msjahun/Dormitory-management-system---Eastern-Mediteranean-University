@@ -25,11 +25,27 @@
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
                 <!-- Messages: style can be found in dropdown.less-->
-                <li class="" style="margin-top:8px">
+                <li class="" >
                     <!-- Menu toggle button -->
-
                     @*<netcorestack-languageSelector name="culture" set-cookie-with-java-script="true"></netcorestack-languageSelector>*@
+                    <select class="form-control" onchange="changeCulture(this);" id="language_select" style="margin-top:10px">
 
+                        @if (CultureInfo.CurrentUICulture.Name == "en-US")
+                        {
+                            <option value="en-US" selected>English - United States</option>
+                            <option value="tr-TR">Türkçe - Türkiye</option>
+                        }
+                        else if (CultureInfo.CurrentUICulture.Name == "tr-TR")
+                        {
+                            <option value="en-US">English - United States</option>
+                            <option value="tr-TR" selected>Türkçe - Türkiye</option>
+
+                        }
+
+
+
+                    </select>
+                
 
                 </li>
                 <li class="">
@@ -52,7 +68,7 @@
                 </li>
                 <li class="">
                     <!-- Menu toggle button -->
-                    <a href="@Url.Action("Index", "Home",new { Area = "" })" class="">
+                    <a href="@Url.Action("Home", "Debug",new { Area = "" })" class="">
                         @Localizer["Public site"]
                     </a>
 
