@@ -13,7 +13,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 { 
     [Area("Admin")]
     [Route("Admin/[controller]")]
-   // [Authorize]
+   [Authorize]
     public class DashboardController : Controller
     {
         // GET: Dashboard
