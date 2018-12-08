@@ -21,5 +21,11 @@ namespace Dau.Services.Middleware
         {
             return builder.UseMiddleware<AffiliateMiddleware>();
         }
+
+        public static IApplicationBuilder UseCookieCultureMiddleware(
+          this IApplicationBuilder builder)
+        {
+            return builder.UseMiddleware<CultureMiddleware>();
+        }
     }
 }

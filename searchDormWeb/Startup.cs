@@ -70,6 +70,7 @@ namespace searchDormWeb
             //adding our services to the ioc container
             //  services.AddTransient<OnlineUsersMiddleware>();
             services.AddTransient<AffiliateMiddleware>();
+            services.AddTransient<CultureMiddleware>();
 
             services.AddScoped<IOnlineUsersService, OnlineUsersService>();
 
@@ -147,7 +148,7 @@ namespace searchDormWeb
             // identity middleware
             app.UseAuthentication();
             //app.UseIdentity();
-
+            app.UseCookieCultureMiddleware();
           //  app.UseOnlineUsersMiddleware();
             app.UseAffiliatesMiddleware();
 
