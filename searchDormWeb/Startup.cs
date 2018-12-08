@@ -104,15 +104,16 @@ namespace searchDormWeb
                 options.AppName = "NetCoreStack Localization";
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddNetCoreStackLocalization(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, UserManager<User> userManager)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            ApplicationDbInitializer.SeedUsers(userManager);
+            //inject this as parameter , UserManager<User> userManager
+            //  ApplicationDbInitializer.SeedUsers(userManager);
             //loggerFactory.AddProvider(new DBLoggerProvider()); authomatic logger uncomment this
             if (env.IsDevelopment())
             {
@@ -134,7 +135,7 @@ namespace searchDormWeb
 
             app.UseNetCoreStackMvc();
 
-            //Required
+            ////Required
             app.UseNetCoreStackLocalization();
 
             //we're passing RoleManager as a parameter, we declared it above so the service has been instanciated already we just need to call it
