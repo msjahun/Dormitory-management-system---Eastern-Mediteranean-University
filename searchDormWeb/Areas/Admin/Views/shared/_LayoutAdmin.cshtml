@@ -90,7 +90,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         @Html.Partial("../Admin/Admin_Shared/_control_sidebar.cshtml", null)
 
 
- 
+
         @*@RenderPage("~/Views/Admin/Admin_Shared/_control_sidebar.cshtml", null)*@
         <!-- /.control-sidebar -->
     </div>
@@ -101,6 +101,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
     @RenderSection("scripts", false)
+
+
+       <script>
+            function changeCulture(culture) {
+                      
+    window.location.href = "?culture="+culture.value;
+
+           }
+    </script>
     <!-- Optionally, you can add Slimscroll and FastClick plugins.
     Both of these plugins are recommended to enhance the
 
