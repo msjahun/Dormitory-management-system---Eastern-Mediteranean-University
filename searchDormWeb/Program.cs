@@ -32,7 +32,7 @@ namespace searchDormWeb
         })
         .ConfigureLogging((hostingContext, logging) =>
         {
-            logging.AddProvider( new DBLoggerProvider());
+           // logging.AddProvider( new DBLoggerProvider());
             logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
             logging.AddConsole();
             logging.AddDebug();
