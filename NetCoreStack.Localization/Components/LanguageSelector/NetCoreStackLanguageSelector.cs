@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
 
+
 namespace NetCoreStack.Localization.Components
 {
     [HtmlTargetElement("netcorestack-languageSelector")]

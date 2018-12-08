@@ -5,6 +5,7 @@ using NetCoreStack.Localization.Interfaces;
 using NetCoreStack.Localization.MemoryCache;
 using System.Threading.Tasks;
 
+
 namespace NetCoreStack.Localization.Components
 {
     [HtmlTargetElement("netcorestack-languageSelector-scripts")]
