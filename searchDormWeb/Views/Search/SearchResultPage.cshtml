@@ -43,34 +43,41 @@
                                     <br />
 
                                     <h6>@Localizer["Dormitory Type"]</h6>
-                                    <select class="form-control  form-control-sm  " data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Search ...">
-                                        <option></option>
-                                        <option>Badges</option>
-                                        <option>Buttons</option>
-                                        <option>Cards</option>
-                                        <option>Forms</option>
-                                        <option>Modals</option>
+                                    <select class="form-control" data-toggle="select" title="@Localizer["Select Dormitory type"]" data-live-search="true" data-live-search-placeholder="Search ..." multiple>
+                                        <option value="1">EMU Dormitories</option>
+                                        <option value="2">Privately-Owned Campus Dormitories</option>
                                     </select>
 
                                     <br />
                                     <h6>@Localizer["Dormitory name"]</h6>
-                                    <select class="form-control  form-control-sm " data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Search ...">
-                                        <option></option>
-                                        <option>Badges</option>
-                                        <option>Buttons</option>
-                                        <option>Cards</option>
-                                        <option>Forms</option>
-                                        <option>Modals</option>
+                                    <select class="form-control" data-toggle="select" title="@Localizer["Select Dormitory name"]" data-live-search="true" data-live-search-placeholder="Search ..." multiple>
+                                        <optgroup label="School Dormitories">
+
+                                            <option>EMU 1</option>
+                                            <option>EMU Sabanci</option>
+                                            <option>EMU 2</option>
+                                            <option>EMU 3</option>
+                                            <option>EMU 4</option>
+                                        </optgroup>
+                                        <optgroup label="Private Dormitories">
+                                            <option>Alfam</option>
+                                            <option>Ugursal</option>
+                                            <option>Marmara</option>
+                                            <option>Akdeniz</option>
+                                            <option>Longson</option>
+                                            <option>Homedorm</option>
+                                            <option>Ramen</option>
+                                            <option>Prime Living</option>
+                                            <option>Golden Plus</option>
+                                            <option>Kamacioglu</option>
+                                        </optgroup>
                                     </select>
 
                                     <br />
                                     <h6>@Localizer["Semester duration"]</h6>
-                                    <select class="form-control  form-control-sm " data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Search ...">
-                                        <option></option>
+                                    <select class="form-control" data-toggle="select" title="@Localizer["Select semester"]" data-live-search="true" data-live-search-placeholder="Search ..." multiple>
                                         <option>1 semester - Fall 2019</option>
                                         <option>2 semester - Fall/spring 2019</option>
-
-
                                     </select>
 
 
@@ -92,7 +99,6 @@
                                     </div>
 
                                     <br />
-
 
 
 
@@ -145,12 +151,12 @@
                                     </div>
 
                                     <div class="custom-control custom-checkbox mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck2233" >
+                                        <input type="checkbox" class="custom-control-input" id="customCheck2233">
                                         <label class="custom-control-label" for="customCheck2">Common  <span class=" float-right">25</span></label>
                                     </div>
 
                                     <div class="custom-control custom-checkbox mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck23" >
+                                        <input type="checkbox" class="custom-control-input" id="customCheck23">
                                         <label class="custom-control-label" for="customCheck2">Flats  <span class=" float-right">24</span></label>
                                     </div>
 
@@ -163,7 +169,7 @@
                                     </div>
 
                                     <div class="custom-control custom-checkbox mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck245" >
+                                        <input type="checkbox" class="custom-control-input" id="customCheck245">
                                         <label class="custom-control-label" for="customCheck2">Flats  <span class=" float-right">13</span></label>
                                     </div>
 
@@ -179,7 +185,7 @@
                                     </div>
 
                                     <div class="custom-control custom-checkbox mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck223" >
+                                        <input type="checkbox" class="custom-control-input" id="customCheck223">
                                         <label class="custom-control-label" for="customCheck2">Normal  <span class=" float-right">16</span></label>
                                     </div>
 
@@ -198,6 +204,8 @@
 
                 @** this is were it starts*@
                 <h6>@Localizer["Filter and sort all private and school dormitories/ accomodations rooms"]</h6>
+          
+
                 <div class="card ">
 
                     <div class="card-body-search ">
@@ -752,7 +760,7 @@
                                 We have a fitness center, takes 1 minute to cmpe department, not far
                                 from Health center and Bankamatic ATM......
                             </p>
-                          
+
                             <span><i class="fa fa-credit-card"></i><a href="#">Reservation without a credit card</a></span>
                             @*<p class="text-danger">Booked 2 times in the last 6 hours</p>*@
                             <p class="" style="color:#269038;">Don't miss out 2 rooms left</p>

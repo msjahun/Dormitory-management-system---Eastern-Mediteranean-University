@@ -23,34 +23,41 @@
 
 
                             <h6>@Localizer["Dormitory Type"]</h6>
-                            <select class="form-control  form-control-sm  " data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Search ...">
-                                <option></option>
-                                <option>Badges</option>
-                                <option>Buttons</option>
-                                <option>Cards</option>
-                                <option>Forms</option>
-                                <option>Modals</option>
+                            <select class="form-control" data-toggle="select" title="@Localizer["Select Dormitory type"]" data-live-search="true" data-live-search-placeholder="Search ..." multiple>
+                                <option value="1">EMU Dormitories</option>
+                                <option value="2">Privately-Owned Campus Dormitories</option>
                             </select>
 
                             <br />
                             <h6>@Localizer["Dormitory name"]</h6>
-                            <select class="form-control  form-control-sm " data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Search ...">
-                                <option></option>
-                                <option>Badges</option>
-                                <option>Buttons</option>
-                                <option>Cards</option>
-                                <option>Forms</option>
-                                <option>Modals</option>
+                            <select class="form-control" data-toggle="select" title="@Localizer["Select Dormitory name"]" data-live-search="true" data-live-search-placeholder="Search ..." multiple>
+                                <optgroup label="School Dormitories">
+
+                                    <option>EMU 1</option>
+                                    <option>EMU Sabanci</option>
+                                    <option>EMU 2</option>
+                                    <option>EMU 3</option>
+                                    <option>EMU 4</option>
+                                </optgroup>
+                                <optgroup label="Private Dormitories">
+                                    <option>Alfam</option>
+                                    <option>Ugursal</option>
+                                    <option>Marmara</option>
+                                    <option>Akdeniz</option>
+                                    <option>Longson</option>
+                                    <option>Homedorm</option>
+                                    <option>Ramen</option>
+                                    <option>Prime Living</option>
+                                    <option>Golden Plus</option>
+                                    <option>Kamacioglu</option>
+                                </optgroup>
                             </select>
 
                             <br />
                             <h6>@Localizer["Semester duration"]</h6>
-                            <select class="form-control  form-control-sm " data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Search ...">
-                                <option></option>
+                            <select class="form-control" data-toggle="select" title="@Localizer["Select semester"]" data-live-search="true" data-live-search-placeholder="Search ..." multiple>
                                 <option>1 semester - Fall 2019</option>
                                 <option>2 semester - Fall/spring 2019</option>
-
-
                             </select>
 
 
@@ -92,7 +99,7 @@
 
 
 
-                            <a asp-controller="Search" asp-action="Resuls" class="btn btn-primary btn-sm btn-block btn-animated btn-animated-x">
+                            <a asp-controller="Search" asp-action="Results" class="btn btn-primary btn-sm btn-block btn-animated btn-animated-x">
                                 <span class="btn-inner--visible">@Localizer["Search"]</span>
                                 <span class="btn-inner--hidden"><i class="fa fa-search"></i></span>
                             </a>
