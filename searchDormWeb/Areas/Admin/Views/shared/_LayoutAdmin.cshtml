@@ -63,36 +63,35 @@ scratch. This page gets rid of all links and provides the needed markup only.
             color: red;
         }
     </style>
-    @*<netcorestack-javascriptregistrar></netcorestack-javascriptregistrar>*@
-    @*<netcorestack-languageSelector-scripts></netcorestack-languageSelector-scripts>*@
+
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
         <!-- Main Header -->
-        @Html.Partial("../Admin/Admin_Shared/_header.cshtml", null)
-        @*@RenderPage("~/Views/Admin/Admin_Shared/_header.cshtml", null)*@
-        <!-- Left side column. contains the logo and sidebar -->
+        @{await Html.RenderPartialAsync("../Admin/Admin_Shared/_header.cshtml", null);}
+    @*@RenderPage("~/Views/Admin/Admin_Shared/_header.cshtml", null)*@
+    <!-- Left side column. contains the logo and sidebar -->
 
 
-        @Html.Partial("../Admin/Admin_Shared/_side_menu.cshtml", null)
-        @*@RenderPage("~/Views/Admin/Admin_Shared/_side_menu.cshtml", null)*@
+    @{await Html.RenderPartialAsync("../Admin/Admin_Shared/_side_menu.cshtml", null);}
+    @*@RenderPage("~/Views/Admin/Admin_Shared/_side_menu.cshtml", null)*@
 
 
-        <!-- Content Wrapper. Contains page content -->
-        @RenderBody()
-        <!-- /.content-wrapper -->
-        <!-- Main Footer -->
-        @Html.Partial("../Admin/Admin_Shared/_footer.cshtml", null)
-        @*@RenderPage("~/Views/Admin/Admin_Shared/_footer.cshtml", null)*@
-        <!-- /.Main Footer -->
-        <!-- Control Sidebar -->
-        @Html.Partial("../Admin/Admin_Shared/_control_sidebar.cshtml", null)
+    <!-- Content Wrapper. Contains page content -->
+    @RenderBody()
+    <!-- /.content-wrapper -->
+    <!-- Main Footer -->
+    @{await Html.RenderPartialAsync("../Admin/Admin_Shared/_footer.cshtml", null);}
+    @*@RenderPage("~/Views/Admin/Admin_Shared/_footer.cshtml", null)*@
+    <!-- /.Main Footer -->
+    <!-- Control Sidebar -->
+    @{await Html.RenderPartialAsync("../Admin/Admin_Shared/_control_sidebar.cshtml", null);}
 
 
 
-        @*@RenderPage("~/Views/Admin/Admin_Shared/_control_sidebar.cshtml", null)*@
-        <!-- /.control-sidebar -->
+    @*@RenderPage("~/Views/Admin/Admin_Shared/_control_sidebar.cshtml", null)*@
+    <!-- /.control-sidebar -->
     </div>
 
 
@@ -103,12 +102,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
     @RenderSection("scripts", false)
 
 
-       <script>
-            function changeCulture(culture) {
-                      
-    window.location.href = "?culture="+culture.value;
+    <script>
+        function changeCulture(culture) {
 
-           }
+            window.location.href = "?culture=" + culture.value;
+
+        }
     </script>
     <!-- Optionally, you can add Slimscroll and FastClick plugins.
     Both of these plugins are recommended to enhance the
@@ -117,7 +116,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="@Url.Content("~/Content/")bower_components/PACE/pace.min.js"></script>
 
     <!-- Heartbeat Online Users tracking -->
-    @Html.Partial("../../../../Views/Shared/Components/OnlineUsersTrackingCode.cshtml", null)
+    @{await Html.RenderPartialAsync("../../../../Views/Shared/Components/OnlineUsersTrackingCode.cshtml", null);}
 
 </body>
 </html>

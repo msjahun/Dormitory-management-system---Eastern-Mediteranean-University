@@ -112,160 +112,160 @@
                 </div>
 
 
-               
-                    <div>
-                        <ul class="nav">
-                            <li class="nav-item dropdown ml-lg-2 dropdown-animate" data-toggle="hover">
 
-                                <a class="nav-link px-0" href="#" style="padding-right:15px" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                   
-                                    @if (CultureInfo.CurrentUICulture.Name =="en-US")
-                                    {
-                                        <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/flags/us.svg">
-                                        <span class="d-none d-lg-inline-block">English - United States</span>
-                                        <span class="d-lg-none">en-US</span>
-                                            }
-                                            else if(CultureInfo.CurrentUICulture.Name == "tr-TR")
-                                    {
-
-                                        <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/flags/tr.svg">
-                                        <span class="d-none d-lg-inline-block">Türkçe - Türkiye</span>
-                                        <span class="d-lg-none">tr-TR</span>
-                                    }
-
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-arrow">
-                                    <a href="?culture=en-US" class="dropdown-item">
-                                        <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/flags/us.svg">English - United States
-                                    </a>
-                                    <a href="?culture=tr-TR" class="dropdown-item">
-                                        <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/flags/tr.svg">Türkçe - Türkiye
-                                    </a>
-
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-             
-
-                @Html.Partial("/Views/Shared/Components/AdminEntryPointNew.cshtml", null)
-
-
-                <div class="ml-auto">
+                <div>
                     <ul class="nav">
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-
-
-                            <li class="nav-item dropdown dropdown-animate" data-toggle="hover">
-
-
-
-                                <a href="#" class=" avatar avatar-sm rounded-circle mr-3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img alt="Image placeholder" src="https://avatars2.githubusercontent.com/u/19820517?s=460&v=4">
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-arrow py-0">
-                                    <div class="list-group">
-                                        <secure-content asp-action="Index" asp-controller="Admin" asp-area="">
-                                            <a asp-action="Index" asp-controller="Admin" class="list-group-item list-group-item-action">
-                                                <div class="media d-flex align-items-center">
-                                                    <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/browser-window.svg" class="img-saturate d-none d-sm-block" style="width: 50px;">
-                                                    <div class="media-body ml-3">
-                                                        <h6 class="mb-1">@Localizer["Admin Area"]</h6>
-                                                        <p class="mb-0 d-none d-sm-block">@Localizer["Takes you to the Administration area."]</p>
-                                                    </div>
-
-                                                </div>
-
-                                            </a>
-
-                                        </secure-content>
-
-
-
-                                        <a asp-action="AccountBilling" asp-controller="Debug" class="list-group-item list-group-item-action">
-                                            <div class="media d-flex align-items-center">
-                                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/ios-photos.svg" class="img-saturate d-none d-sm-block" style="width: 50px;">
-                                                <div class="media-body ml-3">
-                                                    <h6 class="mb-1">@Localizer["View my bookings"]</h6>
-                                                    <p class="mb-0 d-none d-sm-block">@Localizer["See your booking history."]</p>
-                                                </div>
-
-                                            </div>
-
-                                        </a>
-
-                                        <a asp-action="AccountProfile" asp-controller="Debug" class="list-group-item list-group-item-action">
-                                            <div class="media d-flex align-items-center">
-                                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/maintenance.svg" class="img-saturate d-none d-sm-block" style="width: 50px;">
-                                                <div class="media-body ml-3">
-                                                    <h6 class="mb-1">@Localizer["Account Settings"]</h6>
-                                                    <p class="mb-0 d-none d-sm-block">@Localizer["Your account settings."]</p>
-                                                </div>
-
-                                            </div>
-
-                                        </a>
-
-
-
-                                        <a asp-controller="Login" asp-action="Logout" class="list-group-item list-group-item-action">
-                                            <div class="media d-flex align-items-center">
-                                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/logout-rounded-left.svg" class="img-saturate d-none d-sm-block" style="width: 50px;">
-                                                <div class="media-body ml-3">
-                                                    <h6 class="mb-1">@Localizer["Logout"]</h6>
-                                                    <p class="mb-0 d-none d-sm-block">@Localizer["Signs you out of your account."]</p>
-                                                </div>
-
-                                            </div>
-
-                                        </a>
-
-                                    </div>
-
-                                </div>
-
-                            </li>
-
-                        }
-
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" data-action="search-open" data-target="#search-main"><i class="fas fa-search"></i></a>
-                        </li>
-
-
                         <li class="nav-item dropdown ml-lg-2 dropdown-animate" data-toggle="hover">
-                            <a class="nav-link px-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="d-none d-lg-inline-block">TL</span>
-                                <span class="d-lg-none">USD</span>
+
+                            <a class="nav-link px-0" href="#" style="padding-right:15px" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                @if (CultureInfo.CurrentUICulture.Name == "en-US")
+                                {
+                                    <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/flags/us.svg">
+                                    <span class="d-none d-lg-inline-block">English - United States</span>
+                                    <span class="d-lg-none">en-US</span>
+                                }
+                                else if (CultureInfo.CurrentUICulture.Name == "tr-TR")
+                                {
+
+                                    <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/flags/tr.svg">
+                                    <span class="d-none d-lg-inline-block">Türkçe - Türkiye</span>
+                                    <span class="d-lg-none">tr-TR</span>
+                                }
+
                             </a>
                             <div class="dropdown-menu dropdown-menu-sm dropdown-menu-arrow">
-                                <a href="" class="dropdown-item">
-                                    TL
+                                <a href="?culture=en-US" class="dropdown-item">
+                                    <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/flags/us.svg">English - United States
                                 </a>
-                                <a href="" class="dropdown-item">
-                                    USD
+                                <a href="?culture=tr-TR" class="dropdown-item">
+                                    <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/flags/tr.svg">Türkçe - Türkiye
                                 </a>
 
                             </div>
                         </li>
+                    </ul>
+                </div>
 
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                            <li class="nav-item">
-                                <a href="#" class="nav-link" data-action="search-open" data-target="#search-main"><i class="fas fa-bell"><span class="badge badge-danger ml-2">1</span></i> </a>
-                            </li>
-                        }
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-action="BookingCartEmpty" asp-controller="debug"><i class="fas fa-shopping-cart"></i></a>
+                @{await Html.RenderPartialAsync("/Views/Shared/Components/AdminEntryPointNew.cshtml", null);}
+
+
+            <div class="ml-auto">
+                <ul class="nav">
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+
+
+                        <li class="nav-item dropdown dropdown-animate" data-toggle="hover">
+
+
+
+                            <a href="#" class=" avatar avatar-sm rounded-circle mr-3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img alt="Image placeholder" src="https://avatars2.githubusercontent.com/u/19820517?s=460&v=4">
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-arrow py-0">
+                                <div class="list-group">
+                                    <secure-content asp-action="Index" asp-controller="Admin" asp-area="">
+                                        <a asp-action="Index" asp-controller="Admin" class="list-group-item list-group-item-action">
+                                            <div class="media d-flex align-items-center">
+                                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/browser-window.svg" class="img-saturate d-none d-sm-block" style="width: 50px;">
+                                                <div class="media-body ml-3">
+                                                    <h6 class="mb-1">@Localizer["Admin Area"]</h6>
+                                                    <p class="mb-0 d-none d-sm-block">@Localizer["Takes you to the Administration area."]</p>
+                                                </div>
+
+                                            </div>
+
+                                        </a>
+
+                                    </secure-content>
+
+
+
+                                    <a asp-action="Billing" asp-controller="Account" class="list-group-item list-group-item-action">
+                                        <div class="media d-flex align-items-center">
+                                            <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/ios-photos.svg" class="img-saturate d-none d-sm-block" style="width: 50px;">
+                                            <div class="media-body ml-3">
+                                                <h6 class="mb-1">@Localizer["View my bookings"]</h6>
+                                                <p class="mb-0 d-none d-sm-block">@Localizer["See your booking history."]</p>
+                                            </div>
+
+                                        </div>
+
+                                    </a>
+
+                                    <a asp-action="Profile" asp-controller="Account" class="list-group-item list-group-item-action">
+                                        <div class="media d-flex align-items-center">
+                                            <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/maintenance.svg" class="img-saturate d-none d-sm-block" style="width: 50px;">
+                                            <div class="media-body ml-3">
+                                                <h6 class="mb-1">@Localizer["Account Settings"]</h6>
+                                                <p class="mb-0 d-none d-sm-block">@Localizer["Your account settings."]</p>
+                                            </div>
+
+                                        </div>
+
+                                    </a>
+
+
+
+                                    <a asp-controller="Login" asp-action="Logout" class="list-group-item list-group-item-action">
+                                        <div class="media d-flex align-items-center">
+                                            <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/logout-rounded-left.svg" class="img-saturate d-none d-sm-block" style="width: 50px;">
+                                            <div class="media-body ml-3">
+                                                <h6 class="mb-1">@Localizer["Logout"]</h6>
+                                                <p class="mb-0 d-none d-sm-block">@Localizer["Signs you out of your account."]</p>
+                                            </div>
+
+                                        </div>
+
+                                    </a>
+
+                                </div>
+
+                            </div>
 
                         </li>
 
+                    }
 
-                    </ul>
-                </div>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-action="search-open" data-target="#search-main"><i class="fas fa-search"></i></a>
+                    </li>
+
+
+                    <li class="nav-item dropdown ml-lg-2 dropdown-animate" data-toggle="hover">
+                        <a class="nav-link px-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="d-none d-lg-inline-block">TL</span>
+                            <span class="d-lg-none">USD</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-sm dropdown-menu-arrow">
+                            <a href="" class="dropdown-item">
+                                TL
+                            </a>
+                            <a href="" class="dropdown-item">
+                                USD
+                            </a>
+
+                        </div>
+                    </li>
+
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-action="search-open" data-target="#search-main"><i class="fas fa-bell"><span class="badge badge-danger ml-2">1</span></i> </a>
+                        </li>
+                    }
+
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="CartEmpty" asp-controller="Booking"><i class="fas fa-shopping-cart"></i></a>
+
+                    </li>
+
+
+                </ul>
+            </div>
             </div>
         </div>
     </div>
@@ -278,7 +278,7 @@
 
         <div class="container">
 
-            <a class="navbar-brand mr-lg-5" asp-controller="debug" asp-action="Home">
+            <a class="navbar-brand mr-lg-5" asp-controller="Home" asp-action="">
                 <img alt="Image placeholder" class="logoMain" src="@Url.Content("~/frontend_Content/assets")@Localizer["/img/brand/white.png"]" style="">
             </a>
 
@@ -289,7 +289,7 @@
             <div class="collapse navbar-collapse" id="navbar-main-collapse">
                 <ul class="navbar-nav align-items-lg-center">
                     <li class="nav-item ">
-                        <a class="nav-link" asp-controller="debug" asp-action="Home">@Localizer["Home"]</a>
+                        <a class="nav-link" asp-controller="Home" asp-action="">@Localizer["Home"]</a>
                     </li>
 
 
@@ -298,14 +298,14 @@
 
 
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="debug" asp-action="SearchResultPage" role="button">@Localizer["Accommodation"]</a>
+                        <a class="nav-link" asp-controller="Search" asp-action="Results" role="button">@Localizer["Accommodation"]</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="debug" asp-action="ExploreEMU" role="button">@Localizer["Explore EMU"]</a>
+                        <a class="nav-link" asp-controller="Explore" asp-action="Dormitories" role="button">@Localizer["Explore EMU"]</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="debug" asp-action="Home" asp-fragment="Dormitories-deals" role="button">@Localizer["Deals"]</a>
+                        <a class="nav-link" asp-controller="Home" asp-action="" asp-fragment="Dormitories-deals" role="button">@Localizer["Deals"]</a>
                     </li>
 
 
@@ -318,14 +318,14 @@
                     <ul class="navbar-nav align-items-lg-center ml-lg-auto">
 
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="debug" asp-action="AccountSettings">@Localizer["My Account"]</a>
+                            <a class="nav-link" asp-controller="Account" asp-action="Settings">@Localizer["My Account"]</a>
                         </li>
                         <li class="nav-item mr-0">
-                            <a asp-controller="debug" asp-action="BookingCart" class="nav-link d-lg-none">
+                            <a asp-controller="Booking" asp-action="Cart" class="nav-link d-lg-none">
                                 @Localizer["Checkout"] <span class="badge badge-pill badge-danger text-sm">1</span>
                             </a>
 
-                            <a asp-controller="debug" asp-action="BookingCart" class="btn btn-white btn-sm btn-circle btn-translate--hover d-none d-lg-block"><i class="fas fa-shopping-cart"></i> @Localizer["Checkout"] <span class="badge badge-pill badge-danger text-sm">1</span></a>
+                            <a asp-controller="Booking" asp-action="Cart" class="btn btn-white btn-sm btn-circle btn-translate--hover d-none d-lg-block"><i class="fas fa-shopping-cart"></i> @Localizer["Checkout"] <span class="badge badge-pill badge-danger text-sm">1</span></a>
                         </li>
                     </ul>
                 }

@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Models
 @model LoginViewModel
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = Localizer["Login"];
     Layout = "~/Views/Shared/_LayoutUserNew.cshtml";
 }
 
@@ -76,7 +76,7 @@
 
                             <div class="text-center">
 
-                                <a href="#" class="small font-weight-bold">@Localizer["I forgot my password"]</a>
+                                <a asp-controller="Login" asp-action="RecoverAccount" class="small font-weight-bold">@Localizer["I forgot my password"]</a>
                             </div>
                         </form>
 

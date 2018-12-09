@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "BookingCheckoutCustomer";
+    ViewData["Title"] = Localizer["BookingCheckoutCustomer"];
 
     ViewData["Header"] = Localizer["Checkout"];
     ViewData["SubDescription"] = Localizer["Student information"];
@@ -103,7 +103,7 @@
                     </div>
                     <div class="mt-5 text-right">
                         <button type="button" class="btn btn-link text-sm text-dark font-weight-bold">@Localizer["Return to Home"]</button>
-                        <a asp-controller="debug" asp-action="BookingCheckoutPayment" class="btn btn-sm btn-primary">@Localizer["Next step"]</a>
+                        <a asp-controller="Booking" asp-action="CheckoutPayment" class="btn btn-sm btn-primary">@Localizer["Next step"]</a>
                     </div>
                 </form>
             </div>

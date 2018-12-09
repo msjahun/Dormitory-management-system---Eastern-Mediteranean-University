@@ -15,91 +15,71 @@
 
         <head>
 
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-            <meta name="description" content="">
-            <meta name="author" content="Dau">
-
-            <title>Search Dorms| Eastern Mediterranean University</title>
-
-            <!-- Favicon -->
-            <link rel="icon" href="@Url.Content("~/frontend_Content/assets")/img/brand/favicon.png" type="image/png">
-
-            <!-- Fonts -->
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800">
-
-            <!-- Font Awesome 5 -->
-            <link rel="stylesheet" href="@Url.Content("~/frontend_Content/assets")/vendor/@@fortawesome/fontawesome-free/css/all.min.css">
-
-
-
-            <!-- Theme CSS -->
-            <link rel="stylesheet" href="@Url.Content("~/frontend_Content/assets")/css/theme.css">
+            @{await Html.RenderPartialAsync("/Views/Shared/Components/MetadataHead.cshtml", null);}
 
             @RenderSection("styles", false)
         </head>
 
         <body>
-            @*@Html.Partial("/Views/Shared/Components/AdministratorEntryPoint.cshtml", null)*@
+         
 
-
-            @Html.Partial("/Views/Shared/Components/headerMain.cshtml", null)
-
-
-
-            <main>
+            @{await Html.RenderPartialAsync("/Views/Shared/Components/headerMain.cshtml", null);}
 
 
 
-                @RenderBody()
+        <main>
 
-                <!-- Call to action -->
 
-                <section class="slice slice-lg bg-primary">
 
-                    <span class="tongue tongue-top"><i class="fas fa-angle-up"></i></span>
+            @RenderBody()
 
-                    <div class="container">
-                        <div class="row justify-content-center align-items-center">
-                            <div class="col-lg-8 text-center">
-                                <h3 class="font-weight-400 text-white">@Localizer["I am ready to start booking Now"] </h3>
-                                <div class="mt-5">
-                                    <a href="" target="_blank" class="btn btn-white btn-circle btn-translate--hover px-4">@Localizer["Book my first Room"]<span class="badge badge-pill badge-danger text-sm">@Localizer["Now"]</span></a>
-                                    <a href="" class="btn btn-link text-white">@Localizer["Have an issue?"]</a>
-</div>
+            <!-- Call to action -->
+
+            <section class="slice slice-lg bg-primary">
+
+                <span class="tongue tongue-top"><i class="fas fa-angle-up"></i></span>
+
+                <div class="container">
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-lg-8 text-center">
+                            <h3 class="font-weight-400 text-white">@Localizer["I am ready to start booking Now"] </h3>
+                            <div class="mt-5">
+                                <a href="" target="_blank" class="btn btn-white btn-circle btn-translate--hover px-4">@Localizer["Book my first Room"]<span class="badge badge-pill badge-danger text-sm">@Localizer["Now"]</span></a>
+                                <a href="" class="btn btn-link text-white">@Localizer["Have an issue?"]</a>
                             </div>
                         </div>
                     </div>
-                </section>
+                </div>
+            </section>
 
-            </main>
-
-
-            @Html.Partial("/Views/Shared/Components/_footerMainWhite.cshtml", null)
+        </main>
 
 
-            <!-- Core -->
-            <script src="@Url.Content("~/frontend_Content/assets")/vendor/jquery/dist/jquery.min.js"></script>
-            <script src="@Url.Content("~/frontend_Content/assets")/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-            <script src="@Url.Content("~/frontend_Content/assets")/vendor/in-view/dist/in-view.min.js"></script>
+        @{await Html.RenderPartialAsync("/Views/Shared/Components/_footerMainWhite.cshtml", null);}
 
 
-
-
-            <!-- Page plugins -->
-            <script src="@Url.Content("~/frontend_Content/assets")/vendor/sticky-kit/dist/sticky-kit.min.js"></script>
-            <script src="@Url.Content("~/frontend_Content/assets")/vendor/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
-            <script src="@Url.Content("~/frontend_Content")/assets/vendor/typed.js/lib/typed.min.js"></script>
+        <!-- Core -->
+        <script src="@Url.Content("~/frontend_Content/assets")/vendor/jquery/dist/jquery.min.js"></script>
+        <script src="@Url.Content("~/frontend_Content/assets")/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="@Url.Content("~/frontend_Content/assets")/vendor/in-view/dist/in-view.min.js"></script>
 
 
 
-            <!-- Theme JS -->
 
-            <script src="@Url.Content("~/frontend_Content/assets")/js/theme.min.js"></script>
-            <!-- Heartbeat Online Users tracking -->
-            @Html.Partial("/Views/Shared/Components/OnlineUsersTrackingCode.cshtml", null)
+        <!-- Page plugins -->
+        <script src="@Url.Content("~/frontend_Content/assets")/vendor/sticky-kit/dist/sticky-kit.min.js"></script>
+        <script src="@Url.Content("~/frontend_Content/assets")/vendor/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+        <script src="@Url.Content("~/frontend_Content")/assets/vendor/typed.js/lib/typed.min.js"></script>
 
-            @RenderSection("scripts", false)
+
+
+        <!-- Theme JS -->
+
+        <script src="@Url.Content("~/frontend_Content/assets")/js/theme.min.js"></script>
+        <!-- Heartbeat Online Users tracking -->
+        @{await Html.RenderPartialAsync("/Views/Shared/Components/OnlineUsersTrackingCode.cshtml", null);}
+
+        @RenderSection("scripts", false)
 
         </body>
 

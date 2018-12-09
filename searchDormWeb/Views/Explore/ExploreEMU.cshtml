@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "ExploreEMU";
+    ViewData["Title"] = Localizer["ExploreEMU"];
     Layout = "~/Views/Shared/_LayoutExploreEmu.cshtml";
 }
 
@@ -174,7 +174,7 @@
 
       var infScroll = new InfiniteScroll( '.grid', {
         path: function() {
-          return '@Html.Raw(Url.Action("ExploreEMUPicsApi", "debug"))';
+          return '@Html.Raw(Url.Action("ExploreEMUPicsApi", "Explore"))';
         },
         // load response as flat text
         responseType: 'text',

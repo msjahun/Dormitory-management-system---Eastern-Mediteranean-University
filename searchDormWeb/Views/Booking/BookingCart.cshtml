@@ -1,9 +1,9 @@
 ﻿
 @{
-    ViewData["Title"] = "BookingCart";
+    ViewData["Title"] = Localizer["BookingCart"];
 
-    ViewData["Header"] = "Booking Cart";
-    ViewData["SubDescription"] = "Cart information";
+    ViewData["Header"] = Localizer["Booking Cart"];
+    ViewData["SubDescription"] = Localizer["Cart information"];
 
     Layout = "~/Views/Shared/_LayoutCheckout.cshtml";
 }
@@ -85,7 +85,7 @@
 
                 <div class=" text-right">
                     <button type="button" class="btn btn-link text-sm text-dark font-weight-bold">@Localizer["Go back to Home Page"]</button>
-                    <a asp-controller="debug" asp-action="BookingCheckoutCustomer" class="btn btn-sm btn-primary">@Localizer["Next step"]</a>
+                    <a asp-controller="Booking" asp-action="CheckoutCustomer" class="btn btn-sm btn-primary">@Localizer["Next step"]</a>
                 </div>
             </div>
         </div>

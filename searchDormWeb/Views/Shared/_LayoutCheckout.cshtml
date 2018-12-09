@@ -13,42 +13,18 @@
 <html lang="en">
 
 <head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Dau">
-
-    <title>Search Dorms| Eastern Mediterranean University</title>
-
-    <!-- Favicon -->
-    <link rel="icon" href="@Url.Content("~/frontend_Content/assets")/img/brand/favicon.ico" >
-
-    <!-- Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800">
-
-    <!-- Font Awesome 5 -->
-    <link rel="stylesheet" href="@Url.Content("~/frontend_Content/assets")/vendor/@@fortawesome/fontawesome-free/css/all.min.css">
-
-
-
-    <!-- Theme CSS -->
-    <link rel="stylesheet" href="@Url.Content("~/frontend_Content/assets")/css/theme.css">
-
+    @{await Html.RenderPartialAsync("/Views/Shared/Components/MetadataHead.cshtml", null);}
 
 </head>
 
 <body>
-    @*@Html.Partial("/Views/Shared/Components/AdministratorEntryPoint.cshtml", null)*@
 
 
-    @Html.Partial("/Views/Shared/Components/headerMain.cshtml", null)
+    @{await Html.RenderPartialAsync("/Views/Shared/Components/headerMain.cshtml", null);}
 
 
 
-    <main>
-
-
+<main>
 
 
 
@@ -58,93 +34,95 @@
 
 
 
-        <header class="header-account-page-lg bg-gradient-primary d-flex align-items-end">
-            <div class="container">
-                <div class="row">
-                    <div class=" col-lg-12">
-                        <div class="row align-items-center mb-4">
-                            <div class="col-md-5 mt-4 mb-md-0">
-                                <span class="h2 mb-0 text-white d-block">@ViewData["Header"] </span>
-                                <span class="text-light">@ViewData["SubDescription"]</span>
-                            </div>
+
+
+    <header class="header-account-page-lg bg-gradient-primary d-flex align-items-end">
+        <div class="container">
+            <div class="row">
+                <div class=" col-lg-12">
+                    <div class="row align-items-center mb-4">
+                        <div class="col-md-5 mt-4 mb-md-0">
+                            <span class="h2 mb-0 text-white d-block">@ViewData["Header"] </span>
+                            <span class="text-light">@ViewData["SubDescription"]</span>
                         </div>
-                        <!-- Checkout navigation -->
-                        <div class="d-flex">
-                            <div class="btn-group btn-group-nav shadow" role="group" aria-label="Basic example">
-                                <div class="btn-group" role="group">
-                                    <a asp-controller="debug" asp-action="BookingCart" class="btn btn-secondary btn-icon @(currentAction=="BookingCart"? "active" : "")">
-                                        <span class="btn-inner--icon"><i class="fas fa-shopping-cart"></i></span>
-                                        <span class="btn-inner--text d-none d-md-inline-block">@Localizer["Cart"]</span>
-                                    </a>
-                                    <a asp-controller="debug" asp-action="BookingCartEmpty" class="btn btn-secondary btn-icon @(currentAction=="BookingCartEmpty"? "active" : "")">
-                                        <span class="btn-inner--icon"><i class="fas fa-shopping-cart"></i></span>
-                                        <span class="btn-inner--text d-none d-md-inline-block">@Localizer["Empty Cart"]</span>
-                                    </a>
-                                    <a asp-controller="debug" asp-action="BookingCheckoutCustomer" class="btn btn-secondary btn-icon @(currentAction=="BookingCheckoutCustomer"? "active" : "")">
-                                        <span class="btn-inner--icon"><i class="fas fa-user"></i></span>
-                                        <span class="btn-inner--text d-none d-md-inline-block">@Localizer["Student"]</span>
-                                    </a>
+                    </div>
+                    <!-- Checkout navigation -->
+                    <div class="d-flex">
+                        <div class="btn-group btn-group-nav shadow" role="group" aria-label="Basic example">
+                            <div class="btn-group" role="group">
+                                <a asp-controller="Booking" asp-action="Cart" class="btn btn-secondary btn-icon @(currentAction == "BookingCart" ? "active" : "")">
+                                    <span class="btn-inner--icon"><i class="fas fa-shopping-cart"></i></span>
+                                    <span class="btn-inner--text d-none d-md-inline-block">@Localizer["Cart"]</span>
+                                </a>
+                                <a asp-controller="Booking" asp-action="CartEmpty" class="btn btn-secondary btn-icon @(currentAction == "BookingCartEmpty" ? "active" : "")">
+                                    <span class="btn-inner--icon"><i class="fas fa-shopping-cart"></i></span>
+                                    <span class="btn-inner--text d-none d-md-inline-block">@Localizer["Empty Cart"]</span>
+                                </a>
+                                <a asp-controller="Booking" asp-action="CheckoutCustomer" class="btn btn-secondary btn-icon @(currentAction == "BookingCheckoutCustomer" ? "active" : "")">
+                                    <span class="btn-inner--icon"><i class="fas fa-user"></i></span>
+                                    <span class="btn-inner--text d-none d-md-inline-block">@Localizer["Student"]</span>
+                                </a>
 
-                                    <a asp-controller="debug" asp-action="BookingCheckoutPayment" class="btn btn-secondary btn-icon @(currentAction=="BookingCheckoutPayment"? "active" : "")">
-                                        <span class="btn-inner--icon"><i class="fas fa-credit-card"></i></span>
-                                        <span class="btn-inner--text d-none d-md-inline-block">@Localizer["Payment"]</span>
-                                    </a>
-                                </div>
+                                <a asp-controller="Booking" asp-action="CheckoutPayment" class="btn btn-secondary btn-icon @(currentAction == "BookingCheckoutPayment" ? "active" : "")">
+                                    <span class="btn-inner--icon"><i class="fas fa-credit-card"></i></span>
+                                    <span class="btn-inner--text d-none d-md-inline-block">@Localizer["Payment"]</span>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </header>
+        </div>
+    </header>
 
-        @RenderBody()
+    @RenderBody()
 
-        <!-- Call to action -->
+    <!-- Call to action -->
 
-        <section class="slice slice-lg bg-primary">
+    <section class="slice slice-lg bg-primary">
 
-            <span class="tongue tongue-top"><i class="fas fa-angle-up"></i></span>
+        <span class="tongue tongue-top"><i class="fas fa-angle-up"></i></span>
 
-            <div class="container">
-                <div class="row justify-content-center align-items-center">
-                    <div class="col-lg-8 text-center">
-                        <h3 class="font-weight-400 text-white">@Localizer["I am ready to start booking Now"] </h3>
-                        <div class="mt-5">
-                            <a href="" target="_blank" class="btn btn-white btn-circle btn-translate--hover px-4">@Localizer["Book my first Room"]<span class="badge badge-pill badge-danger text-sm">@Localizer["Now"]</span></a>
-                            <a href="" class="btn btn-link text-white">@Localizer["Have an issue?"]</a>
-                        </div>
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-lg-8 text-center">
+                    <h3 class="font-weight-400 text-white">@Localizer["I am ready to start booking Now"] </h3>
+                    <div class="mt-5">
+                        <a href="" target="_blank" class="btn btn-white btn-circle btn-translate--hover px-4">@Localizer["Book my first Room"]<span class="badge badge-pill badge-danger text-sm">@Localizer["Now"]</span></a>
+                        <a href="" class="btn btn-link text-white">@Localizer["Have an issue?"]</a>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
 
-    </main>
+</main>
 
 
-    @Html.Partial("/Views/Shared/Components/_footerMainWhite.cshtml", null)
+@{await Html.RenderPartialAsync("/Views/Shared/Components/_footerMainWhite.cshtml", null);}
 
 
-    <!-- Core -->
-    <script src="@Url.Content("~/frontend_Content/assets")/vendor/jquery/dist/jquery.min.js"></script>
-    <script src="@Url.Content("~/frontend_Content/assets")/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="@Url.Content("~/frontend_Content/assets")/vendor/in-view/dist/in-view.min.js"></script>
-
-
-
-
-    <!-- Page plugins -->
-    <script src="@Url.Content("~/frontend_Content/assets")/vendor/sticky-kit/dist/sticky-kit.min.js"></script>
-    <script src="@Url.Content("~/frontend_Content/assets")/vendor/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+<!-- Core -->
+<script src="@Url.Content("~/frontend_Content/assets")/vendor/jquery/dist/jquery.min.js"></script>
+<script src="@Url.Content("~/frontend_Content/assets")/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="@Url.Content("~/frontend_Content/assets")/vendor/in-view/dist/in-view.min.js"></script>
 
 
 
-    <!-- Theme JS -->
 
-    <script src="@Url.Content("~/frontend_Content/assets")/js/theme.min.js"></script>
+<!-- Page plugins -->
+<script src="@Url.Content("~/frontend_Content/assets")/vendor/sticky-kit/dist/sticky-kit.min.js"></script>
+<script src="@Url.Content("~/frontend_Content/assets")/vendor/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
 
-    <!-- Heartbeat Online Users tracking -->
-    @Html.Partial("/Views/Shared/Components/OnlineUsersTrackingCode.cshtml", null)
+
+
+<!-- Theme JS -->
+
+<script src="@Url.Content("~/frontend_Content/assets")/js/theme.min.js"></script>
+
+<!-- Heartbeat Online Users tracking -->
+@{await Html.RenderPartialAsync("/Views/Shared/Components/OnlineUsersTrackingCode.cshtml", null);}
 
 
 

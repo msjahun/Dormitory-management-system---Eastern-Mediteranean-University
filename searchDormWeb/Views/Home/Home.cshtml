@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = Localizer["Home"];
     Layout = "~/Views/Shared/_LayoutUserNew.cshtml";
 }
 
@@ -58,52 +58,52 @@
 
                                     <div class="col-md-4">
                                         <h6 class="text-white">@Localizer["Dormitory Type"]</h6>
-                                        <select class="form-control  form-control-sm  " data-toggle="select" title="@Localizer["Select Dormitory type"]" data-live-search="true" data-live-search-placeholder="Search ...">
 
-                                            <option value="0"></option>
+                                        <select class="form-control" data-toggle="select"  title="@Localizer["Select Dormitory type"]" data-live-search="true" data-live-search-placeholder="Search ..." multiple>
                                             <option value="1">EMU Dormitories</option>
                                             <option value="2">Privately-Owned Campus Dormitories</option>
-
                                         </select>
+                                 
                                     </div>
 
                                     <div class="col-md-4">
                                         <h6 class="text-white">@Localizer["Dormitory name"]</h6>
-                                        <select class="form-control  form-control-sm " data-toggle="select" title="@Localizer["Select Dormitory name"]" data-live-search="true" data-live-search-placeholder="Search ...">
 
-
-
-                                            <option></option>
-                                            <option>EMU 1</option>
-                                            <option>EMU Sabanci</option>
-                                            <option>EMU 2</option>
-                                            <option>EMU 3</option>
-                                            <option>EMU 4</option>
-
-                                            <option>Alfam</option>
-                                            <option>Ugursal</option>
-                                            <option>Marmara</option>
-                                            <option>Akdeniz</option>
-                                            <option>Longson</option>
-                                            <option>Homedorm</option>
-                                            <option>Ramen</option>
-                                            <option>Prime Living</option>
-                                            <option>Golden Plus</option>
-                                            <option>Kamacioglu</option>
-
+                       
+                                        <select class="form-control" data-toggle="select" title="@Localizer["Select Dormitory name"]"  data-live-search="true" data-live-search-placeholder="Search ..." multiple>
+                                            <optgroup label="School Dormitories">
+                                           
+                                                <option>EMU 1</option>
+                                                <option>EMU Sabanci</option>
+                                                <option>EMU 2</option>
+                                                <option>EMU 3</option>
+                                                <option>EMU 4</option>
+                                            </optgroup>
+                                            <optgroup label="Private Dormitories">
+                                                <option>Alfam</option>
+                                                <option>Ugursal</option>
+                                                <option>Marmara</option>
+                                                <option>Akdeniz</option>
+                                                <option>Longson</option>
+                                                <option>Homedorm</option>
+                                                <option>Ramen</option>
+                                                <option>Prime Living</option>
+                                                <option>Golden Plus</option>
+                                                <option>Kamacioglu</option>
+                                            </optgroup>
                                         </select>
+                                   
 
                                     </div>
 
                                     <div class="col-md-4">
                                         <h6 class="text-white">@Localizer["Semester duration"]</h6>
-                                        <select class="form-control  form-control-sm " data-toggle="select" title="@Localizer["Select semester"]" data-live-search="true" data-live-search-placeholder="Search ...">
-                                            <option></option>
+
+                                        <select class="form-control" data-toggle="select" title="@Localizer["Select semester"]" data-live-search="true" data-live-search-placeholder="Search ..." multiple>
                                             <option>1 semester - Fall 2019</option>
                                             <option>2 semester - Fall/spring 2019</option>
-
-
                                         </select>
+
                                     </div>
 
 
@@ -164,7 +164,7 @@
 
                                 <div class="col-md-6">
 
-                                    <a asp-controller="debug" asp-action="SearchResultPage" class="btn btn-warning btn-block btn-animated btn-animated-x">
+                                    <a asp-controller="Search" asp-action="Results" class="btn btn-warning btn-block btn-animated btn-animated-x">
                                         <span class="btn-inner--visible">@Localizer["Search"]</span>
                                         <span class="btn-inner--hidden "><i class="fa fa-search"></i></span>
                                     </a>
@@ -186,16 +186,31 @@
     </div>
 </section>
 
-<section class="slice slice-lg">
-   
-</section>
 
 
 <section class="slice slice-lg ">
 
     <div class="container">
 
-        <a href="#" class="link link-underline-warning font-weight-bold py-4 mt-4 delimiter-top h4">@Localizer["Popular dormitories"]</a>
+        <a href="#" class="delimiter-bottom py-4 mt-4 delimiter-top h4">@Localizer["Popular dormitories"]</a>
+
+        <br>
+
+        <div class="swiper-js-container ">
+            <div class="text-center mt-5">
+                <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+<section class="slice slice-lg ">
+
+    <div class="container">
+
+        <a href="#" class="delimiter-bottom  font-weight-bold py-4 mt-4 delimiter-top h4">@Localizer["Popular dormitories"]</a>
 
         <br>
 
@@ -487,7 +502,7 @@
 
     <div class="container">
 
-        <a href="#" class="link link-underline-warning font-weight-bold py-4 mt-4 delimiter-top h4">@Localizer["Highly rated dormitories"]</a>
+        <a href="#" class="delimiter-bottom  font-weight-bold py-4 mt-4 delimiter-top h4">@Localizer["Highly rated dormitories"]</a>
 
         <br>
 
@@ -822,7 +837,7 @@
 
     <div class="container">
 
-        <a href="#" class="link link-underline-warning font-weight-bold py-4 mt-4 delimiter-top h4">@Localizer["Cool offers & deals"]</a>
+        <a href="#" class="delimiter-bottom  font-weight-bold py-4 mt-4 delimiter-top h4">@Localizer["Cool offers & deals"]</a>
 
         <br>
 
@@ -1286,5 +1301,8 @@
 @section styles{
     <link type="text/css" href="@Url.Content("~/frontend_Content/assets")/vendor/swiper/dist/css/swiper.min.css" rel="stylesheet">
     <link type="text/css" href="@Url.Content("~/frontend_Content/assets")/vendor/select2/dist/css/select2.min.css" rel="stylesheet">
+
+
+
 
 }

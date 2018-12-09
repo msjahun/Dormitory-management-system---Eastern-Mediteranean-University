@@ -42,7 +42,7 @@
     <script src="@Url.Content("~/Content/")plugins/iCheck/icheck.min.js"></script>
 
     <!-- Heartbeat Online Users tracking -->
-    @Html.Partial("/Views/Shared/Components/OnlineUsersTrackingCode.cshtml", null)
+   @{await Html.RenderPartialAsync("/Views/Shared/Components/OnlineUsersTrackingCode.cshtml", null);}
 
     <script>
         $(function () {

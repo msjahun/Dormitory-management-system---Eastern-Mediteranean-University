@@ -20,11 +20,11 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <li><a asp-controller="debug" asp-action="AccountSettings">My Account</a></li>}
+    <li><a asp-controller="Account" asp-action="Settings">My Account</a></li>}
 
 <li><a href="https://dormitories.emu.edu.tr/en" target="_blank">@ViewBag.ContentFormat_menu_dormitories_and_cafeteria</a></li>
 
-<li><a asp-controller="debug" asp-action="">Debug new pages</a></li>
+<li><a asp-controller="Home" asp-action="">Home page new</a></li>
 
 @if (!SignInManager.IsSignedIn(User))
 {

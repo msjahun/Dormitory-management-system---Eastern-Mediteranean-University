@@ -52,7 +52,7 @@
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
 <body class="hold-transition skin-blue layout-top-nav">
-    @Html.Partial("/Views/Shared/Components/AdministratorEntryPoint.cshtml", null)
+     @{await Html.RenderPartialAsync("/Views/Shared/Components/AdministratorEntryPoint.cshtml", null); }
 
 
     <div class="wrapper">
@@ -88,7 +88,7 @@
                     <div class="collapse navbar-collapse pull-left " id="navbar-collapse">
                         <ul class="nav navbar-nav visible-xs">
 
-                            @Html.Partial("/Views/Shared/Components/MenuItems.cshtml", null)
+                            @{await Html.RenderPartialAsync("/Views/Shared/Components/MenuItems.cshtml", null); }
 
                         </ul>
 
@@ -138,7 +138,7 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
                         <ul class="nav navbar-nav">
-                            @Html.Partial("/Views/Shared/Components/MenuItems.cshtml", null)
+                            @{await Html.RenderPartialAsync("/Views/Shared/Components/MenuItems.cshtml", null); }
                         </ul>
 
                     </div>
@@ -199,7 +199,7 @@
     <script src="@Url.Content("~/Content/")dist/customScript.js"></script>
 
     <!-- Heartbeat Online Users tracking -->
-    @Html.Partial("/Views/Shared/Components/OnlineUsersTrackingCode.cshtml", null)
+    @{await Html.RenderPartialAsync("/Views/Shared/Components/OnlineUsersTrackingCode.cshtml", null); }
 
     <script>
         $(function () {

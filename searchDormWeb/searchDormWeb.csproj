@@ -6,13 +6,13 @@
 
   <ItemGroup>
     <Compile Remove="Areas\Admin\Views\Reviews\**" />
-    <Compile Remove="Views\Home\**" />
+    <Compile Remove="Views\HomeOld\**" />
     <Content Remove="Areas\Admin\Views\Reviews\**" />
-    <Content Remove="Views\Home\**" />
+    <Content Remove="Views\HomeOld\**" />
     <EmbeddedResource Remove="Areas\Admin\Views\Reviews\**" />
-    <EmbeddedResource Remove="Views\Home\**" />
+    <EmbeddedResource Remove="Views\HomeOld\**" />
     <None Remove="Areas\Admin\Views\Reviews\**" />
-    <None Remove="Views\Home\**" />
+    <None Remove="Views\HomeOld\**" />
   </ItemGroup>
 
   <ItemGroup>

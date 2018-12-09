@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "DormitoryDetail";
+    ViewData["Title"] = Localizer["DormitoryDetail"];
     Layout = "~/Views/Shared/_LayoutUserNew.cshtml";
 }
 
@@ -92,7 +92,7 @@
 
 
 
-                            <a asp-controller="debug" asp-action="SearchResultPage" class="btn btn-primary btn-sm btn-block btn-animated btn-animated-x">
+                            <a asp-controller="Search" asp-action="Resuls" class="btn btn-primary btn-sm btn-block btn-animated btn-animated-x">
                                 <span class="btn-inner--visible">@Localizer["Search"]</span>
                                 <span class="btn-inner--hidden"><i class="fa fa-search"></i></span>
                             </a>
@@ -540,7 +540,7 @@
                                             <td>
                                                 <h4 class="text-bold" style="color:#269038">TL 1.839,00</h4>
                                                 <strike><h4 class="text-bold" style="color:grey; ">TL 1.839,00</h4></strike>
-                                                <a asp-action="BookingCart" asp-controller="debug" class="btn btn-primary btn-block btn-sm">@Localizer["I'll reserve"]</a>
+                                                <a asp-action="Cart" asp-controller="Booking" class="btn btn-primary btn-block btn-sm">@Localizer["I'll reserve"]</a>
                                             </td>
 
                                         </tr>
@@ -612,7 +612,7 @@
                                             </td>
                                             <td> No deposit</td>
                                             <td>
-                                                <a asp-action="BookingCart" asp-controller="debug" class="btn btn-primary btn-block btn-sm">@Localizer["I'll reserve"]</a>
+                                                <a asp-action="Cart" asp-controller="Booking" class="btn btn-primary btn-block btn-sm">@Localizer["I'll reserve"]</a>
                                             </td>
                                         </tr>
 
@@ -641,7 +641,8 @@
                                             </td>
                                             <td> No deposit</td>
                                             <td>
-                                                <a asp-action="BookingCart" asp-controller="debug" class="btn btn-primary btn-block btn-sm">@Localizer["I'll reserve"]</a>
+                                                <a asp-action="Cart" asp-controller="Booking" class="btn btn-primary btn-block btn-sm">@Localizer["I'll reserve"]</a>
+                                                <a asp-action="Cart" asp-controller="Booking" class="btn btn-primary btn-block btn-sm">@Localizer["I'll reserve"]</a>
                                             </td>
                                         </tr>
 
