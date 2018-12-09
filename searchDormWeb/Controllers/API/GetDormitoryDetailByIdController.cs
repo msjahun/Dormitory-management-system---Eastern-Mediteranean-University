@@ -19,6 +19,7 @@ namespace searchDormWeb.Controllers.API
         [HttpGet("{id}")]
         public JsonResult Get(int id)
         {
+            if (id == 5) { 
             string Json = @" {
       ""Response"": ""Success"",
       ""Body"": {
@@ -50,6 +51,16 @@ namespace searchDormWeb.Controllers.API
     }";
              JsonResult result = new JsonResult(JsonConvert.DeserializeObject(Json));
             return result;
+            }
+            else
+            {
+                string Json = @" {
+                ""Response"": ""NotFound""
+                }";
+
+                JsonResult result = new JsonResult(JsonConvert.DeserializeObject(Json));
+                return result;
+            }
         }
         
     }

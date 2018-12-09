@@ -25,7 +25,7 @@ namespace searchDormWeb.Controllers.API
             ""PictureUrl"": ""https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg"",
             ""DormitoryName"": ""1Alfam Dormitories"",
                     ""DealsText"": ""1Deals start at $1990"",
-                    ""DormitoryId"": ""21""
+                    ""DormitoryId"": ""5""
 
           },
           {

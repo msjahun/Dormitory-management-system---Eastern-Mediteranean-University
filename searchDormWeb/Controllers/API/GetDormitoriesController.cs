@@ -29,7 +29,7 @@ namespace searchDormWeb.Controllers.API
                     ""DormitoryDescription"": ""Alfam dormitories has four blocks seperate....."",
                     ""RatingNumber"": ""4.5"",
                     ""RatingText"": ""Very Good"",
-                    ""DormitoryId"": ""23""
+                    ""DormitoryId"": ""5""
           },
           {
             ""PictureUrl"": ""https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg"",
