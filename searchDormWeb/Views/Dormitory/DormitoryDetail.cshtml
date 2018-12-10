@@ -12,266 +12,17 @@
             <div class="col-lg-3">
 
                 <div data-toggle="sticky" data-sticky-offset="100" data-negative-margin=".card-profile-cover">
-
-                    <div class="card">
-                        <div class="card-header-sm  bg-primary ">
-                            <h5 class="text-white">@Localizer["Filter"]: </h5>
-                        </div>
-
-                        <div class="card-body">
+                    @{await Html.RenderPartialAsync("/Views/Dormitory/_FilterSection.cshtml", null);}
 
 
-
-                            <h6>@Localizer["Dormitory Type"]</h6>
-                            <select class="form-control" data-toggle="select" title="@Localizer["Select Dormitory type"]" data-live-search="true" data-live-search-placeholder="Search ..." multiple>
-                                <option value="1">EMU Dormitories</option>
-                                <option value="2">Privately-Owned Campus Dormitories</option>
-                            </select>
-
-                            <br />
-                            <h6>@Localizer["Dormitory name"]</h6>
-                            <select class="form-control" data-toggle="select" title="@Localizer["Select Dormitory name"]" data-live-search="true" data-live-search-placeholder="Search ..." multiple>
-                                <optgroup label="School Dormitories">
-
-                                    <option>EMU 1</option>
-                                    <option>EMU Sabanci</option>
-                                    <option>EMU 2</option>
-                                    <option>EMU 3</option>
-                                    <option>EMU 4</option>
-                                </optgroup>
-                                <optgroup label="Private Dormitories">
-                                    <option>Alfam</option>
-                                    <option>Ugursal</option>
-                                    <option>Marmara</option>
-                                    <option>Akdeniz</option>
-                                    <option>Longson</option>
-                                    <option>Homedorm</option>
-                                    <option>Ramen</option>
-                                    <option>Prime Living</option>
-                                    <option>Golden Plus</option>
-                                    <option>Kamacioglu</option>
-                                </optgroup>
-                            </select>
-
-                            <br />
-                            <h6>@Localizer["Semester duration"]</h6>
-                            <select class="form-control" data-toggle="select" title="@Localizer["Select semester"]" data-live-search="true" data-live-search-placeholder="Search ..." multiple>
-                                <option>1 semester - Fall 2019</option>
-                                <option>2 semester - Fall/spring 2019</option>
-                            </select>
-
-
-                            <br />
-                            <h6>@Localizer["Price"]</h6>
-
-                            <div class="range-slider-wrapper ">
-                                <!-- Range slider container -->
-                                <div id="input-slider-range" class="input-slider" data-range-value-min="100" data-range-value-max="500"></div>
-                                <!-- Range slider values -->
-                                <div class="row">
-                                    <div class="col-6">
-                                        <span class="range-slider-value value-low" data-range-value-low="200" id="input-slider-range-value-low"></span>
-                                    </div>
-                                    <div class="col-6 text-right">
-                                        <span class="range-slider-value value-high" data-range-value-high="400" id="input-slider-range-value-high"></span>
-                                    </div>
-                                </div>
+                    <div id="CommentSectionLgScreens">
+                        <div class="py-4" id="comments_section">
+                            <div class="text-center mt-5">
+                                <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
                             </div>
-
-                            <br />
-
-
-
-
-
-                            <h6>@Localizer["Room area"]</h6>
-
-                            <div class="input-slider-container mb-4">
-                                <div id="input-slider-red" class="input-slider input-slider--red" data-range-value-min="100" data-range-value-max="900"></div>
-                                <!-- Input slider values -->
-                                <div class="row mt-3">
-                                    <div class="col-6">
-                                        <span id="input-slider-red-value" class="range-slider-value" data-range-value-low="200"></span>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-
-                            <a asp-controller="Search" asp-action="Results" class="btn btn-primary btn-sm btn-block btn-animated btn-animated-x">
-                                <span class="btn-inner--visible">@Localizer["Search"]</span>
-                                <span class="btn-inner--hidden"><i class="fa fa-search"></i></span>
-                            </a>
-
-
-
-
                         </div>
                     </div>
 
-
-
-                    <div class="py-4" id="comments_section">
-                        <div class="card bg-secondary px-4 border-0 ">
-
-                            <div class="d-flex align-items-center">
-                                <a href="#" class="avatar rounded-circle shadow">
-                                    <img alt="Image placeholder" src="https://scontent-vie1-1.xx.fbcdn.net/v/t1.0-0/p168x128/16472881_1354143061327538_335400885864373680_n.jpg?_nc_cat=104&_nc_ht=scontent-vie1-1.xx&oh=05d8c8f18b5014a974a5b90ff4a7f7ac&oe=5C8647DD">
-                                </a>
-                                <div class="avatar-content">
-                                    <h6 class="mb-0">Ahmed Bassiouny</h6>
-                                    <span class="static-rating static-rating-sm">
-
-                                        <i class="star fas fa-star voted"></i>
-                                        <i class="star fas fa-star voted"></i>
-                                        <i class="star fas fa-star voted"></i>
-                                        <i class="star fas fa-star voted"></i>
-                                        <i class="star fas fa-star"></i>
-
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="media media-comment">
-
-                                <div class="media-body">
-                                    <div class="media-text-bubble left-top">
-                                        <p class="text-sm ">Cras at, tempus viverra turpis...</p>
-
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <div class="card bg-secondary px-4  border-0 ">
-
-                            <div class="d-flex align-items-center">
-                                <a href="#" class="avatar rounded-circle shadow">
-                                    <img alt="Image placeholder" src="https://www.facebook.com/search/async/profile_picture/?fbid=100000249531894&width=72&height=72">
-                                </a>
-                                <div class="avatar-content">
-                                    <h6 class="mb-0">Ahmet Önder Beşiroğlu</h6>
-                                    <span class="static-rating static-rating-sm">
-
-                                        <i class="star fas fa-star voted"></i>
-                                        <i class="star fas fa-star voted"></i>
-                                        <i class="star fas fa-star voted"></i>
-                                        <i class="star fas fa-star voted"></i>
-                                        <i class="star fas fa-star"></i>
-
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="media media-comment">
-
-                                <div class="media-body">
-                                    <div class="media-text-bubble left-top">
-                                        <p class="text-sm ">Cras at, tempus viverra turpis...</p>
-
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div>
-
-
-                        <div class="card bg-secondary px-4  border-0 mb-0">
-
-                            <div class="d-flex align-items-center">
-                                <a href="#" class="avatar rounded-circle shadow">
-                                    <img alt="Image placeholder" src="https://avatars0.githubusercontent.com/u/14825113?s=400&v=4">
-                                </a>
-                                <div class="avatar-content">
-                                    <h6 class="mb-0">Ivy Thompson</h6>
-                                    <span class="static-rating static-rating-sm">
-
-                                        <i class="star fas fa-star voted"></i>
-                                        <i class="star fas fa-star voted"></i>
-                                        <i class="star fas fa-star voted"></i>
-                                        <i class="star fas fa-star voted"></i>
-                                        <i class="star fas fa-star"></i>
-
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="media media-comment">
-
-                                <div class="media-body">
-                                    <div class="media-text-bubble left-top">
-                                        <p class="text-sm ">Cras sitstibulum in vulputate at, tempus viverra turpis...</p>
-
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <div class="card bg-secondary px-4 py-4 border-0 mb-0">
-
-                            <div class="d-flex align-items-center">
-                                <a href="#" class="avatar rounded-circle shadow">
-                                    <img alt="Image placeholder" src="https://avatars3.githubusercontent.com/u/35945225?s=460&v=4">
-                                </a>
-                                <div class="avatar-content">
-                                    <h6 class="mb-0">Abdullahi Ismail</h6>
-                                    <span class="static-rating static-rating-sm">
-
-                                        <i class="star fas fa-star voted"></i>
-                                        <i class="star fas fa-star voted"></i>
-                                        <i class="star fas fa-star voted"></i>
-                                        <i class="star fas fa-star voted"></i>
-                                        <i class="star fas fa-star"></i>
-
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="media media-comment">
-
-                                <div class="media-body">
-                                    <div class="media-text-bubble left-top">
-                                        <p class="text-sm ">Cras sit amet nibh libero, in gravida nulla. Nulla vel metusras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
-
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div>
-
-                        <div class="card bg-secondary px-4 py-4 border-0 mb-0">
-
-                            <div class="d-flex align-items-center">
-                                <a href="#" class="avatar rounded-circle shadow">
-                                    <img alt="Image placeholder" src="https://www.facebook.com/search/async/profile_picture/?fbid=100001237759702&width=72&height=72">
-                                </a>
-                                <div class="avatar-content">
-                                    <h6 class="mb-0">Kamal MG</h6>
-                                    <span class="static-rating static-rating-sm">
-
-                                        <i class="star fas fa-star voted"></i>
-                                        <i class="star fas fa-star voted"></i>
-                                        <i class="star fas fa-star voted"></i>
-                                        <i class="star fas fa-star voted"></i>
-                                        <i class="star fas fa-star"></i>
-
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="media media-comment">
-
-                                <div class="media-body">
-                                    <div class="media-text-bubble left-top">
-                                        <p class="text-sm ">Cras sit amet nibh libero, in gravida nulla. Nulla vel metusras purus odio, vestibulum in vulputate at, tempus viverra turpis.</p>
-
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </div>
                 </div>
 
 
@@ -282,618 +33,94 @@
             <div class="col-lg-9">
 
                 @** this is were it starts*@
-
-                <div class="card ">
-
-                    <div class="card-body-search ">
-                        <div class="row " style="margin:0px; padding:0px;">
-
-                            <div class="col bg-yellow" style="margin:0px; padding:0px;">
-                                <a href="#Availability" class="btn btn-sm btn-warning btn-block ">@Localizer["Room Info & Price"]</a>
-                            </div>
-                            <div class="col" style="margin:0px; padding:0px;">
-                                <a href="#Facilities" class="btn btn-sm  btn-block btn-outline-warning">@Localizer["Facilities"]</a>
-                            </div>
-                            <div class="col" style="margin:0px; padding:0px;">
-                                <a href="#GoodToKnow" class="btn btn-sm btn-block btn-outline-warning btn-block ">@Localizer["Good to know"]</a>
-                            </div>
-                            <div class="col" style="margin:0px; padding:0px;">
-                                <a href="#StudentReview" class="btn btn-sm btn-block btn-outline-warning btn-block ">@Localizer["Student reviews"]</a>
-                            </div>
-
-
-                        </div>
-
+                <div id="_TopnavDormitorySection">
+                    <div class="text-center mt-5">
+                        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
                     </div>
                 </div>
-              
-                <div class="card border-0 float-right m-1">
-                   
-                        <img alt="Image placeholder" class="" height="90" src="https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/18/c4/73/18c473bc-cd1c-4e6e-4ba0-4a9afcae1fc4/source/512x512bb.jpg">
+
+
+                <div id="_SlidersSection">
+                    <div class="text-center mt-5">
+                        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
                     </div>
+                </div>
 
-                    <h3>Alfam Dormitory EMU University</h3>
-                    <a><i class="fa fa-map-marker text-primary " style="color:#269038;"></i> EMU charles Darwin street-@Localizer["Show on map"]</a>
-                    <span class="address-show-map" style="color:#269038; text-decoration:underline;"> <a href="#" style=" color:#269038">@Localizer["Show map"]</a></span>
-                    <h6>Dormitory belongs to the category of private school dormitories/ accomodations (BOT)</h6>
+                <div class="card" style="border-width:0px; margin-top:15px;">
 
-
-
-                    <div class="overlapRatingParent">
-
-                        <!-- Swiper -->
-                        <div class="swiper-container">
-
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide " data-animate-hover="1"><img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6"></div>
-                                <div class="swiper-slide"><img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=8"></div>
-                                <div class="swiper-slide"><img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=9"></div>
-                                <div class="swiper-slide"><img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=7"></div>
-                                <div class="swiper-slide"><img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6"></div>
-                                <div class="swiper-slide"><img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=8"></div>
-                                <div class="swiper-slide"><img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=5"></div>
-                                <div class="swiper-slide"><img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=0"></div>
-                                <div class="swiper-slide"><img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6"></div>
-                                <div class="swiper-slide"><img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6"></div>
-                                <div class="swiper-slide"><img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6"></div>
-                                <div class="swiper-slide"><img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6"></div>
-                                <div class="swiper-slide"><img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6"></div>
-
-                            </div>
-                            <!-- Add Pagination -->
-                            <div class="swiper-pagination"></div>
-
-                            <!-- Add Arrows -->
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
+                    <div id="_DormitoryDescriptionSection">
+                        <div class="text-center mt-5">
+                            <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
                         </div>
-
-                     
-                    </div>
-
-
-                    <div>
-                        <div class="grid">
-                            <div class="grid-item"><img alt="Image placeholder" class="" height="50" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=1"></div>
-                            <div class="grid-item"><img alt="Image placeholder" class="" height="50" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=1"></div>
-                            <div class="grid-item"><img alt="Image placeholder" class="" height="50" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=1"></div>
-                            <div class="grid-item"><img alt="Image placeholder" class="" height="50" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=1"></div>
-                            <div class="grid-item"><img alt="Image placeholder" class="" height="50" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=1"></div>
-                            <div class="grid-item"><img alt="Image placeholder" class="" height="50" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=1"></div>
-                            <div class="grid-item"><img alt="Image placeholder" class="" height="50" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=1"></div>
-                            <div class="grid-item"><img alt="Image placeholder" class="" height="50" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=1"></div>
-                            <div class="grid-item"><img alt="Image placeholder" class="" height="50" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=1"></div>
-                            <div class="grid-item"><img alt="Image placeholder" class="" height="50" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=1"></div>
-                            <div class="grid-item"><img alt="Image placeholder" class="" height="50" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=1"></div>
-                            <div class="grid-item"><img alt="Image placeholder" class="" height="50" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=1"></div>
-                            <div class="grid-item"><img alt="Image placeholder" class="" height="50" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=1"></div>
-                            <div class="grid-item"><img alt="Image placeholder" class="" height="50" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=1"></div>
-                            <div class="grid-item"><img alt="Image placeholder" class="" height="50" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=1"></div>
-
-                        </div>
-                    </div>
-
-
-                    <div class="card" style="border-width:0px; margin-top:15px;">
-
-
-                        <div class="row row-grid">
-
-                            <div class="col-md-8">
-
-                                <p class="h7">
-                                    Located within the EMU Campus, Alfam Dormitories is the nearest dormitory to the Departments. Spread over 35 acres of land Alfam provides a service based on the needs of the Students.
-                                </p><p>
-                                    Our Dormitory is protected by CCTV in all its buildings and corridors as well as 24 hour attendance of Secuirty members. All our rooms are cleaned by our cleaning staff twice a week, the common areas daily and the bed linen changed every week.
-                                </p><p>With its 12 different types of rooms, Alfam Dormitories offers a choice for all types of budgets and needs. All our students enjoy the benefit of 4 Mbit unlimited and free internet and no deposit.</p>
-                                <p> Alfam Dormitories also includes Fitness Center, Cafe, Restaurant, Stationerer in its capacity. Alfam Dormitories with its friendly personel has been providing a service for students with 20 years experience always continuing to strive for the best. </p>
-
-
-
-
-
-
-
-                            </div>
-                            <div class="col-md-4">
-
-                                <div>
-                                    <div class="card border-0">
-                                    
-                                    </div>
-                                </div>
-                                <div class="card bg-secondary ">
-
-                                    <div class="card-body">
-
-
-                                      
-                                            <div class="rating-detail ">
-
-                                                <a class=" rating-no text-white float-right text-bold h3">9.7</a>
-                                                <span class="rating-text pt-2 mt-2 h3">Excellent</span>
-                                            </div>
-
-
-                                            <span class="block text-primary">13 reviews</span>
-
-                                            <span class="static-rating static-rating-sm">
-                                                <i class="star fas fa-star voted"></i>
-                                                <i class="star fas fa-star voted"></i>
-                                                <i class="star fas fa-star voted"></i>
-                                                <i class="star fas fa-star voted"></i>
-                                                <i class="star fas fa-star voted"></i>
-                                            </span>
-
-                                    
-
-
-                                        <h1 class="h5 ">@Localizer["Students Love.."]</h1>
-
-                                        <p><i class="fa fa-map-marker text-primary"></i> Top Location: Highly rated by recent Students(9.6)</p>
-                                        <p><i class="fa fa-bed text-primary"></i> Top Location: Highly rated by recent Students(9.6)</p>
-
-                                        <h5>@Localizer["Staff"]</h5>
-                                        <p>Staff are very friendly</p>
-
-                                        <span>Has a gym!</span>
-
-
-
-                                        <a asp-fragment="Availability" class="btn btn-primary btn-block btn-sm ">@Localizer["Reserve"]</a>
-
-                                    </div>
-                                </div>
-
-
-                            </div>
-                        </div>
-
-
-
-                        <!-- Badges -->
-                        <div class="d-lg-flex">
-                            <a class="media d-flex align-items-center mr-lg-5 mb-3 mb-lg-0">
-                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/in-progress.svg" style="width: 36px;">
-                                <div class="media-body pl-2">
-                                    <span class="h6">@Localizer["{0} New facilities"]</span>
-                                </div>
-                            </a>
-                            <a class="media d-flex align-items-center mr-lg-5 mb-3 mb-lg-0">
-                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/natural-user-interface-1.svg" style="width: 36px;">
-                                <div class="media-body pl-2">
-                                    <span class="h6">@Localizer["{0} Staff rating"]</span>
-                                </div>
-                            </a>
-                            <a class="media d-flex align-items-center mb-3 mb-lg-0">
-                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/collect.svg" style="width: 36px;">
-                                <div class="media-body pl-2">
-                                    <span class="h6">@Localizer["{0} Awards"]</span>
-                                </div>
-                            </a>
-                        </div>
-
-
-                        <!-- Resume timeline -->
-
-                        <div class="mt-3">
-                            <div class="alert alert-success alert-sm  alert-dismissible fade show" role="alert">
-                                <span class="alert-inner--icon"><i class="fas fa-lock"></i></span>
-
-                                <span class="alert-inner--text">@Localizer["Get instant confirmation with FREE cancelation on most rooms!"]</span>
-
-
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-
-                        </div>
-
-
-                        <div class="pt-2  delimiter-top" id="Availability">
-                            <!-- Resume timeline -->
-                            <h6>@Localizer["Room Availability"]</h6>
-
-                            <div class="overflow">
-                                <table class="table  table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th class="bg-info text-white" scope="col">@Localizer["Sleeps"]</th>
-                                            <th class="bg-info text-white" scope="col">@Localizer["Room Type"]</th>
-                                            <th class="bg-info text-white" scope="col">@Localizer["Prices"]</th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <i class="fas fa-male fa-2x"></i>
-                                                <i class="fas fa-male fa-2x"></i>
-                                                <i class="fas fa-male fa-2x"></i>
-
-                                            </td>
-                                            <td>
-                                                <h5 class="text-primary">Standard Twin Room</h5>
-                                                <p>
-                                                    2 twin beds
-                                                    <i class="fas fa-bed"></i>
-                                                    <i class="fas fa-bed"></i>
-                                                </p>
-                                                <span class="text-danger"> 2 rooms left</span>
-                                            </td>
-                                            <td>
-                                                <button class="btn btn-primary btn-block btn-sm">@Localizer["Show prices"]</button>
-                                            </td>
-
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <i class="fas fa-male"></i>
-                                                <i class="fas fa-male"></i>
-                                                <i class="fas fa-male"></i>
-
-                                            </td>
-                                            <td>
-                                                <h5 class="text-primary">Standard Twin Room</h5>
-                                                <p>
-                                                    2 twin beds
-                                                    <i class="fas fa-bed"></i>
-                                                    <i class="fas fa-bed"></i>
-                                                </p>
-                                                <span class="text-danger"> 2 rooms left</span>
-                                            </td>
-                                            <td>
-                                                <h4 class="text-bold" style="color:#269038">TL 1.839,00</h4>
-                                                <strike><h4 class="text-bold" style="color:grey; ">TL 1.839,00</h4></strike>
-                                                <a asp-action="Cart" asp-controller="Booking" class="btn btn-primary btn-block btn-sm">@Localizer["I'll reserve"]</a>
-                                            </td>
-
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <h3>@Localizer["Or this type of table"]</h3>
-
-                            <div class="overflow">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th class="bg-info text-white" scope="col">@Localizer["Room Type"]</th>
-                                            <th class="bg-info text-white" scope="col">@Localizer["Sleeps"]</th>
-                                            <th class="bg-info text-white" scope="col">@Localizer["Prices"]</th>
-                                            <th class="bg-info text-white" scope="col">@Localizer["Your choices"]</th>
-                                            <th class="bg-info text-white" scope="col"></th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-
-                                            <td>
-                                                <a href="#"><i class="fas fa-play text-warning"></i> <span class="text-primary h5"> Standard Twin Room</span></a>
-                                                <p>
-                                                    2 twin beds
-                                                    <i class="fas fa-bed"></i>
-                                                    <i class="fas fa-bed"></i>
-                                                </p>
-                                                <span class="text-danger"> 2 rooms left</span>
-                                            </td>
-                                            <td>
-                                                <i class="fas fa-male fa-2x"></i>
-                                                <i class="fas fa-male fa-2x"></i>
-                                                <i class="fas fa-male fa-2x"></i>
-
-                                            </td>
-                                            <td>
-                                                <button class="btn btn-primary btn-block btn-sm">@Localizer["Show prices"]</button>
-                                            </td>
-                                            <td><i class="fas fa-check"></i> Includes deposit</td>
-                                            <td></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <h5 class="text-primary">Standard Twin Room</h5>
-                                                <p>
-                                                    2 twin beds
-                                                    <i class="fas fa-bed"></i>
-                                                    <i class="fas fa-bed"></i>
-                                                </p>
-                                                <span class="text-danger"> 2 rooms left</span>
-                                            </td>
-                                            <td>
-                                                <i class="fas fa-male"></i>
-                                                <i class="fas fa-male"></i>
-                                                <i class="fas fa-male"></i>
-
-                                            </td>
-
-                                            <td>
-                                                <h4 class="text-bold" style="color:#269038">TL 1.839,00</h4>
-                                                <strike><h4 class="text-bold" style="color:grey; ">TL 1.839,00</h4></strike>
-
-                                            </td>
-                                            <td> No deposit</td>
-                                            <td>
-                                                <a asp-action="Cart" asp-controller="Booking" class="btn btn-primary btn-block btn-sm">@Localizer["I'll reserve"]</a>
-                                            </td>
-                                        </tr>
-
-
-                                        <tr>
-                                            <td>
-                                                <h5 class="text-primary">Standard Twin Room</h5>
-                                                <p>
-                                                    2 twin beds
-                                                    <i class="fas fa-bed"></i>
-                                                    <i class="fas fa-bed"></i>
-                                                </p>
-                                                <span class="text-danger"> 2 rooms left</span>
-                                            </td>
-                                            <td>
-                                                <i class="fas fa-male"></i>
-                                                <i class="fas fa-male"></i>
-                                                <i class="fas fa-male"></i>
-
-                                            </td>
-
-                                            <td>
-                                                <h4 class="text-bold" style="color:#269038">TL 1.839,00</h4>
-                                                <h6 class="text-bold" style="color:grey; ">per semester</h6>
-
-                                            </td>
-                                            <td> No deposit</td>
-                                            <td>
-                                                <a asp-action="Cart" asp-controller="Booking" class="btn btn-primary btn-block btn-sm">@Localizer["I'll reserve"]</a>
-                                                <a asp-action="Cart" asp-controller="Booking" class="btn btn-primary btn-block btn-sm">@Localizer["I'll reserve"]</a>
-                                            </td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-
-
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <span class="alert-inner--icon"><i class="fas fa-lock"></i></span>
-
-                                <span class="alert-inner--text"><strong>@Localizer["Just booked in EMU"]: </strong>@Localizer["{0} Dormitories like Alfam dormitory were booked!"]</span>
-
-
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-
-
-                        </div>
-
-
-                        <div class="pt-5 mt-5 delimiter-top" id="AreaInfo">
-                            <!-- Resume timeline -->
-                            <h6>@Localizer["Area info"]<span class="text-primary "> -Excellent location - @Localizer["show map"]</span></h6>
-                            <span class="badge badge-md badge-pill badge-info text-uppercase">Students love the garden at alfam!</span>
-
-
-
-                        </div>
-
-
-                        <div class="pt-5 mt-5 delimiter-top" id="Facilities">
-                            <!-- Resume timeline -->
-                            <h6>@Localizer["Most Popular Facilities"]</h6>
-                            <div class="row row-grid">
-                                <div class="col-lg-12 text-success">
-                                    <span><i class="fas fa-wifi"></i> Free Wifi</span>
-                                    <span><i class="fas fa-smile-o"></i> Non-smoking Rooms</span>
-                                    <span><i class="fas fa-long-arrow-up"></i> Laundry</span>
-                                    <span><i class="fas fa-ellipsis-h"></i> Elevator</span>
-                                    <span><i class="fas fa-headphones"></i> Heating</span>
-                                    <span><i class="fas fa-shopping-bag"></i> Baggage Storage</span>
-                                </div>
-                            </div>
-
-                            <div class="row row-grid">
-                                <div class="col-md-4">
-                                    <span class="d-block h5"><i class="fas fa-wifi"></i> Kitched</span>
-                                    <span class="d-block"><i class="fas text-success fa-check"></i> Kitched</span>
-                                    <span class="d-block"><i class="fas text-success fa-check"></i> Kitched</span>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <span class="d-block h5"><i class="fas fa-wifi"></i> Kitched</span>
-                                    <span class="d-block"><i class="fas text-success fa-check"></i> Kitched</span>
-                                    <span class="d-block"><i class="fas text-success fa-check"></i> Kitched</span>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <span class="d-block h5"><i class="fas fa-wifi"></i> Kitched</span>
-                                    <span class="d-block"><i class="fas text-success fa-check"></i> Kitched</span>
-                                    <span class="d-block"><i class="fas text-success fa-check"></i> Kitched</span>
-                                    <span class="d-block"><i class="fas text-success fa-check"></i> Kitched</span>
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <span class="d-block h5"><i class="fas fa-wifi"></i> Kitched</span>
-                                    <span class="d-block"><i class="fas text-success fa-check"></i> Kitched</span>
-                                    <span class="d-block"><i class="fas text-success fa-check"></i> Kitched</span>
-                                    <span class="d-block"><i class="fas text-success fa-check"></i> Kitched</span>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <span class="d-block h5"><i class="fas fa-wifi"></i> Kitched</span>
-                                    <span class="d-block"><i class="fas text-success fa-check"></i> Kitched</span>
-                                    <span class="d-block"><i class="fas text-success fa-check"></i> Kitched</span>
-
-                                </div>
-
-
-
-                            </div>
-
-                        </div>
-
-
-                    </div>
-
-                    <div class="pt-5 mt-5 delimiter-top" id="GoodToKnow">
-                        <!-- Resume timeline -->
-                        <h6>@Localizer["Good to know"]</h6>
-                        <span>@Localizer["Here's some interesting information about Alfam dormitories!"]</span>
-
-                        <div class="card">
-                            <div class="card-body bg-secondary">
-
-                                <div>
-                                    <span><i class="fas fa-calendar"></i> @Localizer["Times we are open weekdays"] </span>
-
-                                    <div class="progress-wrapper">
-
-                                        <h4 class="progress-tooltip" style="left: 75%;">6:00pm</h4>
-                                        <h4 class="progress-tooltip" style="left: 10%;">9:00am</h4>
-                                    </div>
-
-
-                                    <div class="progress ">
-
-                                        <div class="progress-bar " role="progressbar" style="width: 15%; background-color:#eaedf0;" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 60%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-                                        <div class="progress-bar " role="progressbar" style="width: 20%;  background-color:#eaedf0;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-
-                                <div class="py-3">
-                                    <span><i class="fas fa-calendar "></i> @Localizer["Times we are open weekends"] </span>
-
-                                    <div class="progress-wrapper">
-
-                                        <h4 class="progress-tooltip" style="left: 45%;">1:00pm</h4>
-                                        <h4 class="progress-tooltip" style="left: 10%;">9:00am</h4>
-                                    </div>
-
-
-                                    <div class="progress ">
-
-                                        <div class="progress-bar " role="progressbar" style="width: 15%; background-color:#eaedf0;" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-                                        <div class="progress-bar " role="progressbar" style="width: 20%;  background-color:#eaedf0;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <span><i class="fas fa-paw "></i> @Localizer["Pets"] </span>
-                                    <div class="d-inline ml-5">
-                                        <span>@Localizer["Pets are not allowed"]</span>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
 
                     </div>
 
 
-                    @*<div class="pt-5 mt-5 delimiter-top">
-                         Resume timeline 
-                        <h6>Compare your recently viewed Dormitories</h6>
-                        <span class="badge badge-lg badge-pill badge-info text-uppercase">Students loved walking around the neighborhood!</span>
-                        <ul>
-                            <li><i class="fas fa-wifi"> Free wifi</i></li>
-                        </ul>
-
-
-                    </div>*@
-
-
-
-
-                    <div class="pt-5 mt-5 delimiter-top" id="StudentReview">
-                        <!-- Resume timeline -->
-                        <h6>@Localizer["View latest dormitory review"]</h6>
-                        <div class="mb-3">
-
-                            <span>@Localizer["Latest review by a student"]</span>
-                            <div class="card border-0">
-                                <div class="media media-comment ">
-                                    <img alt="Image placeholder" class="rounded-circle shadow mr-4" src="https://scontent-vie1-1.xx.fbcdn.net/v/t1.0-1/p100x100/37488021_1973163882701910_4693767907220389888_n.jpg?_nc_cat=104&_nc_ht=scontent-vie1-1.xx&oh=eaabfdf063dbc534f217ed7e2c535093&oe=5C8060F3" style="width: 64px;">
-                                    <div class="media-body">
-                                        <div class="media-text-bubble left-top">
-                                            <h6 class="mt-0">
-                                                Ahmet Önder Beşiroğlu
-                                            </h6>
-                                            <div class=" border-0">
-                                                <div class=" rating-details float-right py-2">
-                                                    <span class="rating-text inline h4">Good</span>
-                                                    <a class=" rating-no text-white text-bold h3">9.7</a>
-                                                </div>
-                                                <span class="static-rating static-rating-sm">
-
-                                                    <i class="star fas fa-star voted"></i>
-                                                    <i class="star fas fa-star voted"></i>
-                                                    <i class="star fas fa-star voted"></i>
-                                                    <i class="star fas fa-star voted"></i>
-                                                    <i class="star fas fa-star"></i>
-
-                                                </span>
-
-
-                                            </div>
-
-                                            <p class="text-sm lh-160">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scevestibulum in vulputate at, tempus viverra turpis.</p>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="delimiter-top">
-                                <img alt="Image placeholder" class="rounded-circle shadow mr-4" src="https://www.facebook.com/search/async/profile_picture/?fbid=100000839361217&width=72&height=72" style="width: 64px;">
-
-                                <span class="static-rating static-rating-sm">
-
-
-                                    <i class="star fas fa-star"></i>
-                                    <i class="star fas fa-star"></i>
-                                    <i class="star fas fa-star"></i>
-                                    <i class="star fas fa-star"></i>
-                                    <i class="star fas fa-star"></i>
-
-                                </span>
-                                <div class="form-group">
-                                    <label>
-
-                                    </label>
-                                    <textarea class="form-control" placeholder="Write your review" rows="2"></textarea>
-                                    <button class="btn btn-primary btn-sm m-1 float-right">@Localizer["Submit"]</button>
-                                </div>
-
-
-                            </div>
+                    <div id="_RoomSection">
+                        <div class="text-center mt-5">
+                            <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
                         </div>
                     </div>
 
+                    <div id="_AreaInfoSection">
+                        <div class="text-center mt-5">
+                            <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                        </div>
+                    </div>
 
-
+                    <div id="_FacilitiesSection">
+                        <div class="text-center mt-5">
+                            <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                        </div>
+                    </div>
 
                 </div>
 
+                <div id="_GoodToKnowSection">
+                    <div class="text-center mt-5">
+                        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                    </div>
+                </div>
+
+           
 
 
+
+
+                <div class="pt-5 mt-5 delimiter-top" id="StudentReview">
+                    <!-- Resume timeline -->
+
+
+                    <div id="_ReviewBottomSection">
+                        <div class="text-center mt-5">
+                            <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                        </div>
+                    </div>
+
+                    <div id="CommentSectionSmScreens">
+                    </div>
+                </div>
 
 
 
 
             </div>
 
+
+
+
+
+
+
         </div>
+
+    </div>
+    
+
+    <div class="fabb d-lg-none " id="">
+        <button type="button" id="FabBtn" class="btn btn-primary btn-icon-only ">
+            <span class="btn-inner--icon"><i class="fas fa-filter"></i></span>
+        </button>
     </div>
 </section>
 
@@ -923,35 +150,7 @@
     <script src="@Url.Content("~/frontend_Content/assets")/vendor/swiper/dist/js/swiper.min.js"></script>
     <script src="@Url.Content("~/frontend_Content/assets")/vendor/autosize/dist/autosize.min.js"></script>
     <script src="@Url.Content("~/frontend_Content")/node_modules/masonry-layout/dist/masonry.pkgd.min.js"></script>
-
-    <!-- Initialize Swiper -->
-    <script>
-        var swiper = new Swiper('.swiper-container', {
-            slidesPerView: 'auto',
-            centeredSlides: true,
-            spaceBetween: 30,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            autoplay: {
-                delay: 2500,
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-        });
-
-
-        $('.grid').masonry({
-            // options
-            itemSelector: '.grid-item',
-           
-        });
-    </script>
-
+    <script src="@Url.Content("~/viewsjs/Public")/DormitoryDetail.js"></script>
 
 
 
@@ -979,10 +178,14 @@
                 border-width: 2px;
             }
 
+        .grid-item-active {
+            border: solid;
+            border-color: #ff9500;
+            border-width: 2px;
+        }
 
 
         .swiper-container {
-      
             width: 100%;
             height: 400px;
             background-color: #2541820a;
@@ -1010,6 +213,72 @@
             margin: auto;
             width: 100%;
             height: 100%
+        }
+    </style>
+
+    <style>
+
+        .img_icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .fabb {
+            width: 50px;
+            height: 50px;
+            z-index: 999;
+            position: fixed;
+            bottom: 2%;
+            right: 2%;
+            font-size: 2.0em;
+            display: inline-block;
+            cursor: default;
+        }
+
+        .modal_filter {
+            margin: 0px;
+            padding: 0px;
+            display: block;
+        }
+
+
+        @@media only screen and (max-width: 990px) {
+            /* The Modal (background) */
+            .modal_filter {
+                margin: 0px;
+                margin-bottom: 5%;
+                padding: 0px;
+                display: none; /* Hidden by default */
+                position: fixed; /* Stay in place */
+                z-index: 999; /* Sit on top */
+                padding-top: 100px; /* Location of the box */
+                left: 0;
+                top: 0;
+                width: 100%; /* Full width */
+                height: 100%; /* Full height */
+                overflow: auto; /* Enable scroll if needed */
+                background-color: rgb(0,0,0); /* Fallback color */
+                background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            }
+
+
+            .model_filter_content {
+                margin: 20px;
+            }
+            /* The Close Button */
+            .close_filter {
+                color: #aaaaaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+            }
+
+            .close:hover,
+            .close:focus {
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+            }
         }
     </style>
 
