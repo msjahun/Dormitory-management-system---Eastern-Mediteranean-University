@@ -1,0 +1,101 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div id="myModal" class="modal_filter">
+    <div class="card model_filter_content">
+        <div class="card-header-sm  bg-primary ">
+            <h5 class="text-white">@Localizer["Filter"]: </h5>
+        </div>
+
+        <div class="card-body">
+
+
+
+            <h6>@Localizer["Dormitory Type"]</h6>
+            <select class="form-control" data-toggle="select" title="@Localizer["Select Dormitory type"]" data-live-search="true" data-live-search-placeholder="Search ..." multiple>
+                <option value="1">EMU Dormitories</option>
+                <option value="2">Privately-Owned Campus Dormitories</option>
+            </select>
+
+            <br />
+            <h6>@Localizer["Dormitory name"]</h6>
+            <select class="form-control" data-toggle="select" title="@Localizer["Select Dormitory name"]" data-live-search="true" data-live-search-placeholder="Search ..." multiple>
+                <optgroup label="School Dormitories">
+
+                    <option>EMU 1</option>
+                    <option>EMU Sabanci</option>
+                    <option>EMU 2</option>
+                    <option>EMU 3</option>
+                    <option>EMU 4</option>
+                </optgroup>
+                <optgroup label="Private Dormitories">
+                    <option>Alfam</option>
+                    <option>Ugursal</option>
+                    <option>Marmara</option>
+                    <option>Akdeniz</option>
+                    <option>Longson</option>
+                    <option>Homedorm</option>
+                    <option>Ramen</option>
+                    <option>Prime Living</option>
+                    <option>Golden Plus</option>
+                    <option>Kamacioglu</option>
+                </optgroup>
+            </select>
+
+            <br />
+            <h6>@Localizer["Semester duration"]</h6>
+            <select class="form-control" data-toggle="select" title="@Localizer["Select semester"]" data-live-search="true" data-live-search-placeholder="Search ..." multiple>
+                <option>1 semester - Fall 2019</option>
+                <option>2 semester - Fall/spring 2019</option>
+            </select>
+
+
+            <br />
+            <h6>@Localizer["Price"]</h6>
+
+            <div class="range-slider-wrapper ">
+                <!-- Range slider container -->
+                <div id="input-slider-range" class="input-slider" data-range-value-min="100" data-range-value-max="500"></div>
+                <!-- Range slider values -->
+                <div class="row">
+                    <div class="col-6">
+                        <span class="range-slider-value value-low" data-range-value-low="200" id="input-slider-range-value-low"></span>
+                    </div>
+                    <div class="col-6 text-right">
+                        <span class="range-slider-value value-high" data-range-value-high="400" id="input-slider-range-value-high"></span>
+                    </div>
+                </div>
+            </div>
+
+            <br />
+
+
+
+
+
+            <h6>@Localizer["Room area"]</h6>
+
+            <div class="input-slider-container mb-4">
+                <div id="input-slider-red" class="input-slider input-slider--red" data-range-value-min="100" data-range-value-max="900"></div>
+                <!-- Input slider values -->
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <span id="input-slider-red-value" class="range-slider-value" data-range-value-low="200"></span>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <a asp-controller="Search" asp-action="Results" class="btn btn-primary btn-sm btn-block btn-animated btn-animated-x">
+                <span class="btn-inner--visible">@Localizer["Search"]</span>
+                <span class="btn-inner--hidden"><i class="fa fa-search"></i></span>
+            </a>
+
+
+
+
+        </div>
+    </div>
+</div>

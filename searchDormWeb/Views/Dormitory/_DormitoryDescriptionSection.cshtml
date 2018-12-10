@@ -1,0 +1,113 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div class="row row-grid">
+
+    <div class="col-md-8">
+
+        <p class="h7">
+            Located within the EMU Campus, Alfam Dormitories is the nearest dormitory to the Departments. Spread over 35 acres of land Alfam provides a service based on the needs of the Students.
+        </p><p>
+            Our Dormitory is protected by CCTV in all its buildings and corridors as well as 24 hour attendance of Secuirty members. All our rooms are cleaned by our cleaning staff twice a week, the common areas daily and the bed linen changed every week.
+        </p><p>With its 12 different types of rooms, Alfam Dormitories offers a choice for all types of budgets and needs. All our students enjoy the benefit of 4 Mbit unlimited and free internet and no deposit.</p>
+        <p> Alfam Dormitories also includes Fitness Center, Cafe, Restaurant, Stationerer in its capacity. Alfam Dormitories with its friendly personel has been providing a service for students with 20 years experience always continuing to strive for the best. </p>
+
+
+
+
+
+
+
+    </div>
+    <div class="col-md-4">
+
+        <div>
+            <div class="card border-0">
+
+            </div>
+        </div>
+        <div class="card bg-secondary ">
+
+            <div class="card-body">
+
+
+
+                <div class="rating-detail ">
+
+                    <a class=" rating-no text-white float-right text-bold h3">9.7</a>
+                    <span class="rating-text pt-2 mt-2 h3">Excellent</span>
+                </div>
+
+
+                <span class="block text-primary">13 reviews</span>
+
+                <span class="static-rating static-rating-sm">
+                    <i class="star fas fa-star voted"></i>
+                    <i class="star fas fa-star voted"></i>
+                    <i class="star fas fa-star voted"></i>
+                    <i class="star fas fa-star voted"></i>
+                    <i class="star fas fa-star voted"></i>
+                </span>
+
+
+
+
+                <h1 class="h5 ">@Localizer["Students Love.."]</h1>
+
+                <p><i class="fa fa-map-marker text-primary"></i> Top Location: Highly rated by recent Students(9.6)</p>
+                <p><i class="fa fa-bed text-primary"></i> Top Location: Highly rated by recent Students(9.6)</p>
+
+                <h5>@Localizer["Staff"]</h5>
+                <p>Staff are very friendly</p>
+
+                <span>Has a gym!</span>
+
+
+
+                <a asp-fragment="Availability" class="btn btn-primary btn-block btn-sm ">@Localizer["Reserve"]</a>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+<!-- Badges -->
+<div class="d-lg-flex">
+    <a class="media d-flex align-items-center mr-lg-5 mb-3 mb-lg-0">
+        <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/in-progress.svg" style="width: 36px;">
+        <div class="media-body pl-2">
+            <span class="h6">@Localizer["{0} New facilities"]</span>
+        </div>
+    </a>
+    <a class="media d-flex align-items-center mr-lg-5 mb-3 mb-lg-0">
+        <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/natural-user-interface-1.svg" style="width: 36px;">
+        <div class="media-body pl-2">
+            <span class="h6">@Localizer["{0} Staff rating"]</span>
+        </div>
+    </a>
+    <a class="media d-flex align-items-center mb-3 mb-lg-0">
+        <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/collect.svg" style="width: 36px;">
+        <div class="media-body pl-2">
+            <span class="h6">@Localizer["{0} Awards"]</span>
+        </div>
+    </a>
+</div>
+
+
+<div class="mt-3">
+    <div class="alert alert-success alert-sm  alert-dismissible fade show" role="alert">
+        <span class="alert-inner--icon"><i class="fas fa-lock"></i></span>
+
+        <span class="alert-inner--text">@Localizer["Get instant confirmation with FREE cancelation on most rooms!"]</span>
+
+
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+</div>
