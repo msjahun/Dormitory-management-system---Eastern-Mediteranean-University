@@ -20,6 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\frontend_Content\assets\vendor\masonry-layout\dist\masonry.pkgd.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="wwwroot\Content\bower_components\bootstrap-datepicker\dist\css\bootstrap-datepicker.css" />
     <Content Include="wwwroot\Content\bower_components\bootstrap-datepicker\dist\css\bootstrap-datepicker.min.css" />
     <Content Include="wwwroot\Content\bower_components\bootstrap-datepicker\dist\css\bootstrap-datepicker.standalone.css" />
@@ -1657,6 +1661,7 @@
     <None Include="wwwroot\Content\bower_components\select2\dist\js\select2.full.min.js" />
     <None Include="wwwroot\Content\bower_components\select2\dist\js\select2.js" />
     <None Include="wwwroot\Content\bower_components\select2\dist\js\select2.min.js" />
+    <None Include="wwwroot\frontend_Content\assets\vendor\masonry-layout\dist\masonry.pkgd.min.js" />
     <None Include="wwwroot\frontend_Content\node_modules\infinite-scroll\dist\infinite-scroll.pkgd.min.js" />
     <None Include="wwwroot\frontend_Content\node_modules\masonry-layout\dist\masonry.pkgd.min.js" />
   </ItemGroup>
