@@ -19,7 +19,8 @@
         }
         setTimeout(changeBackground, 5000);
     }
-})
+});
+
 
 
 
@@ -29,101 +30,151 @@ var swiper1 = new Swiper('#swiper-row1', {});
 
 var swiper2 = new Swiper('#swiper-row2', {});
 
-$.ajax({
-    type: "POST",
-    url: "Home/GetHomeDormitoriesPartial",
-    data: {
-        SectionId: "CoolOfferAndDeals",
-        SwiperId: "swiper-row3"
-    },
-    success: function (result) {
-        //     alert(result);
-        $("#CoolOfferAndDeals").html(result);
-        swiper3 = new Swiper('#swiper-row3', {
-            slidesPerView: slidesPerView(),
-            centeredSlides: true,
 
-            spaceBetween: 20,
+var lockCoolOfferAndDeals = true;
+$(window).scroll(function () {
+    var hT = $('#CoolOfferAndDeals').offset().top,
+        hH = $('#CoolOfferAndDeals').outerHeight(),
+        wH = $(window).height(),
+        wS = $(this).scrollTop();
+    console.log((hT - wH), wS);
+    if (wS > (hT + hH- wH) && lockCoolOfferAndDeals) {
+        //alert('I have scrolled to Highly Rated Dormitories');
+        lockCoolOfferAndDeals = false;
 
-            autoplay: {
-                delay: 2500,
-                disableOnInteraction: true
+        $.ajax({
+            type: "POST",
+            url: "Home/GetHomeDormitoriesPartial",
+            data: {
+                SectionId: "CoolOfferAndDeals",
+                SwiperId: "swiper-row3"
             },
-            loop: true
+            success: function (result) {
+                //     alert(result);
+                $("#CoolOfferAndDeals").html(result);
+                swiper3 = new Swiper('#swiper-row3', {
+                    slidesPerView: slidesPerView(),
+                    centeredSlides: true,
 
+                    spaceBetween: 20,
+
+                    autoplay: {
+                        delay: 2500,
+                        disableOnInteraction: true
+                    },
+                    loop: true
+
+                });
+
+
+            }
         });
-   
 
     }
 });
 
-$.ajax({
-    type: "POST",
-    url: "Home/GetHomeDormitoriesPartial",
-    data: {
-        SectionId: "HighlyRatedDormitories",
-        SwiperId: "swiper-row2"
-    },
-    success: function (result) {
-        //     alert(result);
-        $("#HighlyRatedDormitories").html(result);
-        swiper2 = new Swiper('#swiper-row2', {
-            slidesPerView: slidesPerView(),
-            centeredSlides: true,
-            resize: true,
-            spaceBetween: 20,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev'
-            },
-            autoplay: {
-                delay: 2200,
-                disableOnInteraction: true
-            },
-            loop: true,
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true
-            },
-        });
 
 
-    }
-})
+var lockHighlyRatedDormitories = true;
+$(window).scroll(function () {
+    var hT = $('#HighlyRatedDormitories').offset().top,
+        hH = $('#HighlyRatedDormitories').outerHeight(),
+        wH = $(window).height(),
+        wS = $(this).scrollTop();
+    //console.log((hT - wH), wS);
+    if (wS > (hT + hH - wH) && lockHighlyRatedDormitories ) {
+        //alert('I have scrolled to Highly Rated Dormitories');
+        lockHighlyRatedDormitories = false;
 
-$.ajax({
-    type: "POST",
-    url: "Home/GetHomeDormitoriesPartial",
-    data: {
-        SectionId: "PopularDormitories",
-        SwiperId: "swiper-row1"
-    },
-    success: function (result) {
-        //     alert(result);
-        $("#PopularDormitories").html(result);
-        swiper1 = new Swiper('#swiper-row1', {
-            slidesPerView: slidesPerView(),
-            centeredSlides: true,
-            resize: true,
-            spaceBetween: 20,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev'
+        $.ajax({
+            type: "POST",
+            url: "Home/GetHomeDormitoriesPartial",
+            data: {
+                SectionId: "HighlyRatedDormitories",
+                SwiperId: "swiper-row2"
             },
-            autoplay: {
-                delay: 3000,
-                disableOnInteraction: true
-            },
-            loop: true,
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true
+            success: function (result) {
+                //     alert(result);
+                $("#HighlyRatedDormitories").html(result);
+                swiper2 = new Swiper('#swiper-row2', {
+                    slidesPerView: slidesPerView(),
+                    centeredSlides: true,
+                    resize: true,
+                    spaceBetween: 20,
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev'
+                    },
+                    autoplay: {
+                        delay: 2200,
+                        disableOnInteraction: true
+                    },
+                    loop: true,
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true
+                    }
+                });
+
+
             }
         });
 
 
     }
-})
+});
+
+
+var lockPopularDormitories = true;
+$(window).scroll(function () {
+    var hT = $('#PopularDormitories').offset().top,
+        hH = $('#PopularDormitories').outerHeight(),
+        wH = $(window).height(),
+        wS = $(this).scrollTop();
+   // console.log((hT - wH), wS);
+    if (wS > (hT + hH- wH) && lockPopularDormitories) {
+        //alert('I have scrolled to Highly Rated Dormitories');
+        lockPopularDormitories = false;
+
+
+        $.ajax({
+            type: "POST",
+            url: "Home/GetHomeDormitoriesPartial",
+            data: {
+                SectionId: "PopularDormitories",
+                SwiperId: "swiper-row1"
+            },
+            success: function (result) {
+                //     alert(result);
+                $("#PopularDormitories").html(result);
+                swiper1 = new Swiper('#swiper-row1', {
+                    slidesPerView: slidesPerView(),
+                    centeredSlides: true,
+                    resize: true,
+                    spaceBetween: 20,
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev'
+                    },
+                    autoplay: {
+                        delay: 3000,
+                        disableOnInteraction: true
+                    },
+                    loop: true,
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true
+                    }
+                });
+
+
+            }
+        });
+
+
+
+    }
+});
 
 
 
