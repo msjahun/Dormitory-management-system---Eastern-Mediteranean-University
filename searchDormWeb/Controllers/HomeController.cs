@@ -59,7 +59,7 @@ namespace searchDormWeb.Controllers
                     DormitoryId ="2244",
                     ImageUrl="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/novel/Double%20suit%2011.jpg?RenditionID=6",
                     RatingText =Localizer["Fantastic"],
-                    RatingNo =8.6,
+                    RatingNo =2.6,
                     ReviewsNo = 12
                 },
 
