@@ -247,3 +247,137 @@ $(window).scroll(function () {
 //});
 
 
+var swiper = new Swiper('.swiper-container', {});
+
+$.ajax({
+    type: "POST",
+    url: "GetSlidersSection",
+    data: {
+        SectionId: "_SlidersSection"
+    },
+    success: function (result) {
+        //     alert(result);
+        $("#_SlidersSection").html(result);
+
+
+        swiper = new Swiper('.swiper-container', {
+            slidesPerView: 'auto',
+            centeredSlides: true,
+            spaceBetween: 30,
+            watchActiveIndex: true,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true
+            }
+        });
+
+
+        swiper.on('slideChange', function () {
+            //  console.log('slide changed' + swiper.activeIndex);
+            $('.grid-item').removeClass('grid-item-active');
+            $('#grid-item' + swiper.activeIndex).addClass('grid-item-active');
+
+
+        });
+
+        setTimeout(function () {
+            $('.grid').masonry({
+                // options
+                itemSelector: '.grid-item'
+
+            });
+
+            $('#grid-item0').addClass('grid-item-active');
+        }, 50);
+
+
+
+
+
+    }
+});
+
+
+
+
+function swiperClick(index) {
+    //   alert(index);
+    swiper.slideTo(index, 1, false);
+}
+
+
+
+
+
+if ($(window).width() >= 991) {
+    //console.log("Conditions are met");
+
+    var element = $('#comments_section').detach();
+    $('#CommentSectionLgScreens').append(element);
+} else {
+    // console.log("Conditions are not met");
+    var element2 = $('#comments_section').detach();
+    $('#CommentSectionSmScreens').append(element2);
+
+
+}
+window.onresize = function (event) {
+    if ($(window).width() >= 991) {
+        //console.log("Conditions are met");
+
+        var element = $('#comments_section').detach();
+        $('#CommentSectionLgScreens').append(element);
+    } else {
+        // console.log("Conditions are not met");
+        var element2 = $('#comments_section').detach();
+        $('#CommentSectionSmScreens').append(element2);
+
+
+    }
+};
+
+
+
+
+// for filter model, responsive I filter style
+var modal = document.getElementById('myModal');
+// Get the button that opens the modal
+var btn = document.getElementById("FabBtn");
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+// When the user clicks the button, open the modal
+btn.onclick = function () {
+    modal.style.display = "block";
+}
+
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+//on screen change check $(window).width(); //then display or hide filter
+window.onresize = function (event) {
+    if ($(window).width() >= 990) {
+        //    console.log("Conditions are met");
+        modal.style.display = "block";
+    } else {
+        // console.log("Conditions are not met");
+        modal.style.display = "none";
+    }
+};
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function () {
+    modal.style.display = "none";
+}
