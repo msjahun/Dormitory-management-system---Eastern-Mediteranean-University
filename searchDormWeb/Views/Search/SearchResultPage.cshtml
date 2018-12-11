@@ -22,6 +22,8 @@
 
 
             <div class="col-lg-9">
+               
+               
                 <div id="_SortingButtonsSection">
                     <div class="text-center mt-5">
                         <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
@@ -76,35 +78,37 @@
     <script src="@Url.Content("~/frontend_Content/assets")/vendor/swiper/dist/js/swiper.min.js"></script>
     <script src="@Url.Content("~/frontend_Content/assets")/vendor/autosize/dist/autosize.min.js"></script>
     <script src="@Url.Content("~/frontend_Content/assets")/vendor/jquery.countdown/jquery.countdown.js"></script>
+    <script src="@Url.Content("~/frontend_Content/assets")/vendor/@@fancyapps/fancybox/dist/jquery.fancybox.min.js"></script>
     <script src="@Url.Content("~/viewsjs/Public")/SearchResultPage.js"></script>
 
-        <script>
-         
-           
+    <script>
 
-            function sortingFunc() {
-              //  alert(event.srcElement.id);
-              
-                $('.sortingBtns').removeClass('btn-warning');
-                $('.sortingBtns').removeClass('btn-outline-warning');
-                $('.sortingBtns').addClass('btn-outline-warning');
-              
-                $('#' + event.srcElement.id).removeClass('btn-outline-warning');
-                $('#' + event.srcElement.id).addClass('btn-warning');
 
-                SearchRooms();
-            }
 
-            function reloadPage() {
-                location.reload();
-            }
-        </script>
+        function sortingFunc() {
+            //  alert(event.srcElement.id);
+
+            $('.sortingBtns').removeClass('btn-warning');
+            $('.sortingBtns').removeClass('btn-outline-warning');
+            $('.sortingBtns').addClass('btn-outline-warning');
+
+            $('#' + event.srcElement.id).removeClass('btn-outline-warning');
+            $('#' + event.srcElement.id).addClass('btn-warning');
+
+            SearchRooms();
+        }
+
+        function reloadPage() {
+            location.reload();
+        }
+    </script>
 
 }
 
 @section styles{
     <link type="text/css" href="@Url.Content("~/frontend_Content/assets")/vendor/swiper/dist/css/swiper.min.css" rel="stylesheet">
     <link type="text/css" href="@Url.Content("~/frontend_Content/assets")/vendor/select2/dist/css/select2.min.css" rel="stylesheet">
+    <link type="text/css" href="@Url.Content("~/frontend_Content/assets")/vendor/@@fancyapps/fancybox/dist/jquery.fancybox.min.css" rel="stylesheet">
     <link type="text/css" href="@Url.Content("~/viewscss/Public")/SearchResultPage.css" rel="stylesheet">
-  
+
 }
