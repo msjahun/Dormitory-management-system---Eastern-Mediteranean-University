@@ -1,0 +1,25 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@** this is were it starts*@
+<h6>@Localizer["Filter and sort all private and school dormitories/ accomodations rooms"]</h6>
+
+
+<div class="card ">
+
+    <div class="card-body-search ">
+        <div class="row " style="margin:0px; padding:0px;">
+
+            <div class="col" style="margin:0px; padding:0px;">
+                <button class="btn btn-sm btn-warning btn-block sortingBtns " onClick="sortingFunc()" id="SortByPriceBtn">@Localizer["Price"]</button>
+            </div>
+            <div class="col" style="margin:0px; padding:0px;">
+                <button class="btn btn-sm  btn-block btn-outline-warning sortingBtns" onClick="sortingFunc()" id="SortByAzBtn">@Localizer["A-Z"]</button>
+            </div>
+            <div class="col" style="margin:0px; padding:0px;">
+                <button class="btn btn-sm btn-block btn-outline-warning btn-block sortingBtns " onClick="sortingFunc()" id="SortByRatingBtn">@Localizer["Rating"]</button>
+            </div>
+        </div>
+
+    </div>
+</div>

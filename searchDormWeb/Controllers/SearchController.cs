@@ -16,6 +16,27 @@ namespace searchDormWeb.Controllers
         }
 
 
+        public IActionResult GetDormitoryResultView()
+        {
+            return PartialView("_DormitoryResultView");
+        }
 
+
+        public IActionResult GetFilterbottomFacilities()
+        {
+            return PartialView("_FilterbottomFacilities");
+        }
+
+
+        public IActionResult GetRoomResultView()
+        {
+            return PartialView("_RoomResultView");
+        }
+
+
+        public IActionResult GetSortingButtonSection()
+        {
+            return PartialView("_SortingButtonsSection");
+        }
     }
 }
