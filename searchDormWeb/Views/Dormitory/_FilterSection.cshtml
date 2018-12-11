@@ -2,6 +2,8 @@
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
 <div id="myModal" class="modal_filter">
+
+
     <div class="card model_filter_content">
         <div class="card-header-sm  bg-primary ">
 
@@ -10,8 +12,12 @@
         </div>
 
         <div class="card-body">
+            <a asp-controller="Search" asp-action="Results" class="btn d-block btn-sm btn-outline-primary btn-block mb-3 " onclick="reloadPage()">
+                <span class="btn-inner--text">@Localizer["Reset"]</span>
 
+            </a>
 
+          
 
             <h6>@Localizer["Dormitory Type"]</h6>
             <select class="form-control" data-toggle="select" title="@Localizer["Select Dormitory type"]" data-live-search="true" data-live-search-placeholder="Search ..." multiple>
@@ -90,10 +96,6 @@
 
 
 
-            <a asp-controller="Search" asp-action="Results" class="btn btn-primary btn-sm btn-block btn-animated btn-animated-x">
-                <span class="btn-inner--visible">@Localizer["Search"]</span>
-                <span class="btn-inner--hidden"><i class="fa fa-search"></i></span>
-            </a>
 
 
 
