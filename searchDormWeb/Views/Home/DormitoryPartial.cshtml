@@ -36,24 +36,8 @@
 
                             <span class="block text-primary">@Dormitory.ReviewsNo @Localizer["reviews"]</span>
 
-
-                            <span class="static-rating static-rating-sm">
-                                @for (int i = 0; i < 10; i += 2)
-                                {
-                                    if (i < Math.Floor(Dormitory.RatingNo))
-                                    {
-                                        <i class="star fas fa-star voted"></i>
-                                    }
-                                    else
-                                    {
-                                        <i class="star fas fa-star "></i>
-                                    }
-                                }
-
-                                
-                            </span>
-
-
+                            <Dau-rating rating="@Dormitory.RatingNo"></Dau-rating>
+                         
                         </div>
                     </div>
 
