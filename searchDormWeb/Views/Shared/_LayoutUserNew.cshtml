@@ -104,7 +104,7 @@
     @RenderSection("scripts", false)
 
 
-    <script src="@Url.Content("~/frontend_Content/assets")/js/theme.min.js"></script>
+    <script src="@Url.Content("~/frontend_Content/assets")/js/theme.js"></script>
 
     <!-- Heartbeat Online Users tracking -->
     @{await Html.RenderPartialAsync("/Views/Shared/Components/OnlineUsersTrackingCode.cshtml", null);}
