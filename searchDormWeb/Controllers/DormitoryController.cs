@@ -70,5 +70,6 @@ namespace searchDormWeb.Controllers
         {
             return PartialView("_TopnavDormitorySection");
         }
+
     }
 }
