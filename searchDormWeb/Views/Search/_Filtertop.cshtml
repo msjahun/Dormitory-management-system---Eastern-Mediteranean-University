@@ -8,8 +8,6 @@
 
 
 
-    <div data-toggle="sticky" data-sticky-offset="100" data-negative-margin=".card-profile-cover">
-
         <div class="card model_filter_content">
             <div class="card-header-sm  bg-primary ">
 
@@ -19,15 +17,16 @@
 
             <div class="card-body">
 
-                <button type="button" class="btn d-inline btn-sm btn-outline-primary btn-block btn-icon" onclick="reloadPage()">
+                <button type="button" class="btn d-block btn-sm btn-outline-primary btn-block btn-icon mb-3 " onclick="reloadPage()">
                     <span class="btn-inner--text">@Localizer["Reset"]</span>
 
                 </button>
 
+
+
                 @*<button type="button" class="btn btn-sm btn-primary  px-4"> <span class="btn-inner--text">@Localizer["Search"]</span></button>*@
 
-                <br />
-                <br />
+             
 
                 <h6>@Localizer["Dormitory Type"]</h6>
                 <select class="form-control targetFilterInput" data-toggle="select" title="@Localizer["Select Dormitory type"]" data-live-search="true" data-live-search-placeholder="Search ..." multiple>
@@ -109,7 +108,7 @@
                 </div>
             </div>
         </div>
-    </div>
+   
 
     <!--model_filter Ends here-->
 </div>

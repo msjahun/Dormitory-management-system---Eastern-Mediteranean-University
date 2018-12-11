@@ -16,27 +16,30 @@
 
             <div class="col-lg-3">
 
-                @{await Html.RenderPartialAsync("/Views/Search/_Filtertop.cshtml", null);}
+                <div data-toggle="sticky" data-sticky-offset="100" data-negative-margin=".card-profile-cover">
 
+                    @{await Html.RenderPartialAsync("/Views/Search/_Filtertop.cshtml", null);}
+                    </div>
+               
             </div>
 
 
-            <div class="col-lg-9">
-               
-               
-                <div id="_SortingButtonsSection">
-                    <Dau-loader></Dau-loader>
+                <div class="col-lg-9">
+
+
+                    <div id="_SortingButtonsSection">
+                        <Dau-loader></Dau-loader>
+                    </div>
+
+                    <div id="SearchResultSection">
+                        <Dau-loader></Dau-loader>
+                    </div>
+
+
+
                 </div>
-
-                <div id="SearchResultSection">
-                    <Dau-loader></Dau-loader>
-                </div>
-
-
 
             </div>
-
-        </div>
 
         <div class="fabb d-lg-none " id="">
             <button type="button" id="FabBtn" class="btn btn-primary btn-icon-only ">

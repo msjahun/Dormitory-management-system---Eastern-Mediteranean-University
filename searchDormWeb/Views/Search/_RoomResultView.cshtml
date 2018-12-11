@@ -1,8 +1,17 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
-<h6>@Localizer["Search result: {0} rooms found",5]</h6>
 
+@using searchDormWeb.Controllers
+@model List<RoomResultViewModel>
+@{ 
+    var modelList = Model;
+    var count = 0;
+}
+<h6 class="text-center mt-3">@Localizer["Search result: {0} rooms found", modelList.Count]</h6>
+
+@foreach (var item in modelList)
+{
 <div class="card  card-dorm-search">
 
 
@@ -19,65 +28,22 @@
             </div>
             <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
 
-
-
             <div class="swiper-container swiper-container-horizontal" data-swiper-items="1" data-swiper-space-between="20" data-swiper-sm-items="2" data-swiper-sm-space-between="20" data-swiper-xl-items="1" data-swiper-xl-space-between="20" style="cursor: grab;">
                 <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
 
 
-                    <div class="swiper-slide swiper-slide-active" style="width: 230px; margin-right: 20px;">
-                        <div class="card border-0">
-                            <div class="text-white">
-                                <img alt="Image placeholder" class="img-fluid rounded" src="https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/18/c4/73/18c473bc-cd1c-4e6e-4ba0-4a9afcae1fc4/source/512x512bb.jpg">
+                    @foreach (var ImageUrl in item.ImageUrls)
+                    {
+                        <div class="swiper-slide swiper-slide-next" style="width: 230px; margin-right: 20px;">
+                            <div class="card border-0">
+                                <div class="text-white">
+                                    <img alt="Image placeholder" class="img-fluid rounded" src="@ImageUrl">
 
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="swiper-slide swiper-slide-next" style="width: 230px; margin-right: 20px;">
-                        <div class="card border-0">
-                            <div class="text-white">
-                                <img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/nural/photo6010428924410047910.jpg?RenditionID=6">
 
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-slide swiper-slide-next" style="width: 230px; margin-right: 20px;">
-                        <div class="card border-0">
-                            <div class="text-white">
-                                <img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6">
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-slide swiper-slide-next" style="width: 230px; margin-right: 20px;">
-                        <div class="card border-0">
-                            <div class="text-white">
-                                <img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6">
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-slide swiper-slide-next" style="width: 230px; margin-right: 20px;">
-                        <div class="card border-0">
-                            <div class="text-white">
-                                <img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/nural/IMG_0027%20(1).jpg?RenditionID=6">
-
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="swiper-slide" style="width: 230px; margin-right: 20px;">
-                        <div class="card border-0">
-                            <div class="text-white">
-                                <img alt="Image placeholder" class="img-fluid rounded" src="https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/popart/TV%20ROOM%20KING%20EXCLUSIVE.jpg?RenditionID=6">
-
-                            </div>
-                        </div>
-                    </div>
+                    }
                 </div>
 
             </div>
@@ -89,53 +55,64 @@
       
 
         <div class="col-lg-5">
-            <span class="badge badge-secondary">Girls only</span><a asp-action="Detail" asp-controller="Dormitory" asp-fragment="_RoomSection" class="h3">Single Room</a>
-            <h4 class="dormitory-name"><a asp-action="Detail" asp-controller="Dormitory">Alfam Dormitory</a></h4>
+            <span class="badge badge-secondary">@item.GenderAllocation</span><a asp-action="Detail" asp-controller="Dormitory" asp-fragment="_RoomSection" class="h3">@item.RoomName</a>
+            <h4 class="dormitory-name d-inline"><a asp-action="Detail" asp-controller="Dormitory">@item.DormitoryName</a></h4> <span class="badge badge-secondary">@item.DormitoryRoomBlock</span>
 
-            <span class="static-rating static-rating-sm   ">
-                <i class="star fas fa-star  voted"></i>
-                <i class="star fas fa-star  voted"></i>
-                <i class="star fas fa-star  voted"></i>
-
-                <i class="star fas fa-star-half-empty "></i>
-
-            </span>
+            <dau-rating rating="@item.RatingNo"></dau-rating>
 
 
             <span><i class="fa fa-thumbs-up" style="color:orange;"></i></span>
 
 
             <div class="location-info">
-                <span class="address-show-map" style="color:#269038; text-decoration:underline;"><i class="fa fa-map-marker text-primary "></i> <a href="javascript:;" data-fancybox data-type="iframe" data-src="https://www.emu.edu.tr/campusmap?design=empty#b85&zoom=8"  style=" color:#269038">EMU charles Darwin street-Show on map</a></span>
+                <span class="address-show-map" style="color:#269038; text-decoration:underline;">
+                    <i class="fa fa-map-marker text-primary "></i>
+                    <a href="javascript:;" data-fancybox data-type="iframe" data-src="@item.MapSection" style=" color:#269038">@item.DormitoryStreetAddress - @Localizer["Show on map"]</a>
+                </span>
 
-                <span class="nearneast-to-subway"> <a href="javascript:;" data-fancybox data-type="iframe" data-src="https://www.emu.edu.tr/campusmap?design=empty#b85&zoom=8" ><i class="fa fa-link text-primary"></i> </a><a href="javascript:;" data-fancybox data-type="iframe" data-src="https://www.emu.edu.tr/campusmap?design=empty#b85&zoom=8"  style="color:#269038">(1.1 km from emu center)-Near health center</a></span>
+                <span class="nearneast-to-subway">
+                    <a href="javascript:;" data-fancybox data-type="iframe" data-src="@item.MapSection">
+                        <i class="fa fa-link text-primary"></i>
+                    </a>
+                    <a href="javascript:;" data-fancybox data-type="iframe" data-src="@item.MapSection" style="color:#269038">@item.ClosestLandMark - @item.UniqueAttribute</a>
+                </span>
+
             </div>
+
             <p class="h6">
-                We have a fitness center, takes 1 minute to cmpe department, not far
-                from Health center and Bankamatic ATM......
+               @item.ShortDescription
             </p>
 
             @*<span><i class="fa fa-credit-card"></i><a href="#">Reservation possible without a credit card</a></span>*@
             @*<p class="text-danger">Booked 2 times in the last 6 hours</p>*@
-            <p class="" style="color:#269038;">Don't miss out 2 rooms left</p>
+
+            @if (item.DisplayNoRoomsLeft)
+            {
+            <p class="" style="color:#269038;">@Localizer["Don't miss out {0} rooms left", item.NumberOfRoomsLeft]</p>
+            }
         </div>
 
         <div class="col-lg-3 rating">
             <div class="rating-detail">
-                <span class="rating-text inline h4">Excellent</span>
-                <a class=" float-right rating-no text-white text-bold h3">9.7</a>
+                <span class="rating-text inline h4">@item.RatingText</span>
+                <a class=" float-right rating-no text-white text-bold h3">@item.RatingNo.ToString("0.#")  </a>
             </div>
 
+            @{count++;  }
+            <span class="block text-primary">@Localizer["{0} reviews", item.ReviewNo]</span>
 
-            <span class="block text-primary">13 reviews</span>
-
-            <span class="h5" id="DealEnds"></span>
+            <span class="h5" id="DealEnds-@count"></span>
 
 
             @*<a href="#" class=" btn btn-sm btn-primary">@Localizer["Show prices"]</a>*@
-            <h5 class="text-bold" style="color:#269038">20% off</h5>
-            <h4 class="text-bold" style="color:#269038">TL 1.839,00</h4>
-            <strike><h4 class="text-bold" style="color:grey; ">TL 1.839,00</h4></strike>
+             @if (item.DisplayDeal)
+             {
+            <h5 class="text-bold d-block" style="color:#269038">@Localizer["{0}% off", item.PercentageOff]</h5>}
+
+            <h4 class="text-bold d-block" style="color:#269038">@String.Format("{0} {1}", "TL", item.Price)</h4>
+            @if (item.OldPrice != null) {
+            <strike><h4 class="text-bold" style="color:grey; ">@String.Format("{0} {1}", "TL", item.OldPrice)</h4></strike>
+            }
             <a href="#" class=" btn btn-sm btn-primary">@Localizer["Book Now"]</a>
 
         </div>
@@ -144,3 +121,26 @@
 </div>
 
 <br />
+
+ @if (item.DisplayDeal) { 
+<script>
+
+    $('#DealEnds-@count').countdown('@item.DealEndTime.ToString("yyyy/MM/dd HH:mm:ss")')
+        .on('update.countdown', function(event) {
+         var format = '%H:%M:%S';
+         if (event.offset.totalDays > 0) {
+         format = '%-d day%!d ' + format;
+     }
+            if (event.offset.weeks > 0) {
+         format = '%-w week%!w ' + format;
+     }
+            $(this).html('@Localizer["Deal ends in"] ' + event.strftime(format));
+        })
+        .on('finish.countdown', function (event) {
+            $(this).html('@Localizer["This offer has expired!"]')
+                .parent().addClass('disabled');
+
+ });
+</script>
+}
+}

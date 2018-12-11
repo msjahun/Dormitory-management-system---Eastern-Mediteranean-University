@@ -1,0 +1,21 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using searchDormWeb.Controllers 
+@model onScrollAlert
+@{ var item = Model;}
+
+<div class="alert @item.Color alert-dismissible fade show" role="alert">
+    <span class="alert-inner--icon"><i class=" @item.Icon"></i></span>
+
+    <span class="alert-inner--text"><strong></strong>@String.Format(item.Text, item.name)
+    @if (item.link != null) {
+    <a target="_blank" class="alert-inner--text text-white" href="@item.link">Click here</a>
+    }
+    </span>
+
+
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
