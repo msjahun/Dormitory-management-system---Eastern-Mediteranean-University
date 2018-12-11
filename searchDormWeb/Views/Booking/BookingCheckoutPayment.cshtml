@@ -29,16 +29,36 @@
                                     <div class="col-8">
                                         <div class="custom-control custom-radio mb-3">
                                             <input type="radio" name="radio-payment" class="custom-control-input" id="radio-payment-paypal">
-                                            <label class="custom-control-label h6 lh-160" for="radio-payment-paypal">@Localizer["Upload payment receipt"]</label>
+                                            <label class="custom-control-label h6 lh-160" for="radio-payment-paypal">@Localizer["Upload payment receipt now"] </label>
                                         </div>
                                         <p class="text-muted text-sm mt-2">@Localizer["You have to upload a receipt of payment before your booking order is confirmed or completed, after order is completed, Dormitory will send you your allocated rooom information/details"]</p>
+
+
+
+                                        <div>
+                                            <input type="file" name="file-1[]" id="file-1" class="custom-input-file" />
+                                            <label for="file-1">
+                                                <i class="fa fa-upload"></i>
+                                                <span>@Localizer["Choose a file…"]</span>
+                                            </label>
+                                        </div>
+
+
+
+                                        <div class="custom-control delimiter-top mt-5 custom-radio mb-3">
+                                            <input type="radio" name="radio-payment" class="custom-control-input" id="radio-payment-paypal">
+                                            <label class="custom-control-label h6 lh-160" for="radio-payment-paypal">@Localizer["Upload payment receipt Later"] </label>
+                                        </div>
+                                        <p class="text-muted text-sm  mt-2">@Localizer["To upload bank receipt later, go to My Account >> Bookings to upload the receipt"]</p>
+
+
                                     </div>
 
                                 </div>
                             </div>
                         </div>
 
-                        <div class="card mt-4">
+                        @*<div class="card mt-4">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-8">
@@ -51,7 +71,7 @@
 
                                 </div>
                             </div>
-                        </div>
+                        </div>*@
                     </div>
                     <div class="mt-5 text-right">
                         <button type="button" class="btn btn-link text-sm text-dark font-weight-bold">@Localizer["Return to Home page"]</button>

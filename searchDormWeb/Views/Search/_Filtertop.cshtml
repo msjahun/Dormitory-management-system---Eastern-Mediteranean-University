@@ -1,0 +1,117 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<!-- The Modal -->
+<div id="myModal" class="modal_filter">
+
+
+
+
+    <div data-toggle="sticky" data-sticky-offset="100" data-negative-margin=".card-profile-cover">
+
+        <div class="card model_filter_content">
+            <div class="card-header-sm  bg-primary ">
+
+                <span class="close float-right d-lg-none">&times;</span>
+                <h5 class="text-white">@Localizer["Filter"]: </h5>
+            </div>
+
+            <div class="card-body">
+
+                <button type="button" class="btn d-inline btn-sm btn-outline-primary btn-block btn-icon" onclick="reloadPage()">
+                    <span class="btn-inner--text">@Localizer["Reset"]</span>
+
+                </button>
+
+                @*<button type="button" class="btn btn-sm btn-primary  px-4"> <span class="btn-inner--text">@Localizer["Search"]</span></button>*@
+
+                <br />
+                <br />
+
+                <h6>@Localizer["Dormitory Type"]</h6>
+                <select class="form-control targetFilterInput" data-toggle="select" title="@Localizer["Select Dormitory type"]" data-live-search="true" data-live-search-placeholder="Search ..." multiple>
+                    <option value="1">EMU Dormitories</option>
+                    <option value="2">Privately-Owned Campus Dormitories</option>
+                </select>
+
+                <br />
+                <h6>@Localizer["Dormitory name"]</h6>
+                <select class="form-control targetFilterInput" data-toggle="select" title="@Localizer["Select Dormitory name"]" data-live-search="true" data-live-search-placeholder="Search ..." multiple>
+                    <optgroup label="School Dormitories">
+
+                        <option>EMU 1</option>
+                        <option>EMU Sabanci</option>
+                        <option>EMU 2</option>
+                        <option>EMU 3</option>
+                        <option>EMU 4</option>
+                    </optgroup>
+                    <optgroup label="Private Dormitories">
+                        <option>Alfam</option>
+                        <option>Ugursal</option>
+                        <option>Marmara</option>
+                        <option>Akdeniz</option>
+                        <option>Longson</option>
+                        <option>Homedorm</option>
+                        <option>Ramen</option>
+                        <option>Prime Living</option>
+                        <option>Golden Plus</option>
+                        <option>Kamacioglu</option>
+                    </optgroup>
+                </select>
+
+                <br />
+                <h6>@Localizer["Semester duration"]</h6>
+                <select class="form-control targetFilterInput" data-toggle="select" title="@Localizer["Select semester"]" data-live-search="true" data-live-search-placeholder="Search ..." multiple>
+                    <option>1 semester - Fall 2019</option>
+                    <option>2 semester - Fall/spring 2019</option>
+                </select>
+
+
+                <br />
+                <h6>@Localizer["Price"]</h6>
+
+                <div class="range-slider-wrapper ">
+                    <!-- Range slider container -->
+                    <div id="input-slider-range" class="input-slider targetFilterInput" data-range-value-min="100" data-range-value-max="500"></div>
+                    <!-- Range slider values -->
+                    <div class="row">
+                        <div class="col-6">
+                            <span class="range-slider-value value-low targetFilterInput" data-range-value-low="200" id="input-slider-range-value-low"></span>
+                        </div>
+                        <div class="col-6 text-right">
+                            <span class="range-slider-value value-high targetFilterInput" data-range-value-high="400" id="input-slider-range-value-high"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+
+
+
+
+                <h6>@Localizer["Room area"]</h6>
+
+                <div class="input-slider-container mb-4">
+                    <div id="input-slider-room" class="input-slider input-slider--red targetFilterInput" data-range-value-min="100" data-range-value-max="900"></div>
+                    <!-- Input slider values -->
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <span id="input-slider-red-value targetFilterInput" class="range-slider-value" data-range-value-low="200"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+
+                <div id="_FilterbottomFacilities">
+                    <div class="text-center mt-5">
+                        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--model_filter Ends here-->
+</div>
