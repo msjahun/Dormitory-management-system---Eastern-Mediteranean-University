@@ -2,7 +2,7 @@
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
-<h6>@Localizer["Search result: {0} dormitories found"]</h6>
+<h6>@Localizer["Search result: {0} dormitories found",5]</h6>
 
 <div class="card  card-dorm-search">
 
@@ -105,6 +105,8 @@
 
             </span>
 
+            <Dau-ratings rating-no="8.5"></Dau-ratings>
+
 
             <span><i class="fa fa-thumbs-up" style="color:orange;"></i></span>
 
@@ -120,7 +122,7 @@
             </p>
 
             <span><i class="fa fa-credit-card"></i><a href="#">Reservation possible without a credit card</a></span>
-            <p class="text-danger">Booked 2 times in the last 6 hours</p>
+            <p class="text-danger">@Localizer["Booked {0} times in the last {1} hours"]</p>
         </div>
 
         <div class="col-lg-3 rating">
@@ -130,10 +132,10 @@
             </div>
 
 
-            <span class="block text-primary">13 reviews</span>
+            <span class="block text-primary">@Localizer["{0} reviews"]</span>
 
-            <h6>Location 10</h6>
-            <h6>Guest Favorite</h6>
+            <h6>@Localizer["Location: {0}"]</h6>
+            <h6>@Localizer["Guest Favorite"]</h6>
             <a href="#" class=" btn btn-sm btn-primary">@Localizer["Show prices"]</a>
             @*<h4 class="text-bold" style="color:#269038">TL 1.839,00</h4>*@
 
