@@ -151,7 +151,39 @@
     <script src="@Url.Content("~/frontend_Content/assets")/vendor/autosize/dist/autosize.min.js"></script>
     <script src="@Url.Content("~/frontend_Content/assets")/vendor/masonry-layout/dist/masonry.pkgd.min.js"></script>
     <script src="@Url.Content("~/viewsjs/Public")/DormitoryDetail.js"></script>
-    
+    <script>
+
+        if ($(window).width() >= 991) {
+            //console.log("Conditions are met");
+           // alert("about to detach comments section");
+            var element = $('#comments_section').detach();
+            $('#CommentSectionLgScreens').append(element);
+        } else {
+            // console.log("Conditions are not met");
+           // alert("about to append comments section");
+            var element2 = $('#comments_section').detach();
+            $('#CommentSectionSmScreens').append(element2);
+
+
+        }
+
+        window.onresize = function (event) {
+            if ($(window).width() >= 991) {
+                //console.log("Conditions are met");
+              //  alert("about to detach comments section lg screens");
+                var element = $('#comments_section').detach();
+                $('#CommentSectionLgScreens').append(element);
+            } else {
+               // alert("about to detach comments section sm screens");
+                // console.log("Conditions are not met");
+                var element2 = $('#comments_section').detach();
+                $('#CommentSectionSmScreens').append(element2);
+
+
+            }
+        }
+
+        </script>
 
 
 

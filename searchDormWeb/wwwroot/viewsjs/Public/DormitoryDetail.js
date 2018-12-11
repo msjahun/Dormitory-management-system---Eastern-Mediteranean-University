@@ -317,33 +317,6 @@ function swiperClick(index) {
 
 
 
-if ($(window).width() >= 991) {
-    //console.log("Conditions are met");
-
-    var element = $('#comments_section').detach();
-    $('#CommentSectionLgScreens').append(element);
-} else {
-    // console.log("Conditions are not met");
-    var element2 = $('#comments_section').detach();
-    $('#CommentSectionSmScreens').append(element2);
-
-
-}
-window.onresize = function (event) {
-    if ($(window).width() >= 991) {
-        //console.log("Conditions are met");
-
-        var element = $('#comments_section').detach();
-        $('#CommentSectionLgScreens').append(element);
-    } else {
-        // console.log("Conditions are not met");
-        var element2 = $('#comments_section').detach();
-        $('#CommentSectionSmScreens').append(element2);
-
-
-    }
-};
-
 
 
 
