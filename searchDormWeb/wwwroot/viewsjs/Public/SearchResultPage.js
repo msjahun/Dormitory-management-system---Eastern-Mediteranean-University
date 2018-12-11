@@ -149,22 +149,6 @@ function SearchRooms() {
 
 
 
-            $('#DealEnds').countdown('2018/12/12 24:00:00')
-                .on('update.countdown', function (event) {
-                    var format = '%H:%M:%S';
-                    if (event.offset.totalDays > 0) {
-                        format = '%-d day%!d ' + format;
-                    }
-                    if (event.offset.weeks > 0) {
-                        format = '%-w week%!w ' + format;
-                    }
-                    $(this).html('Deal ends in ' + event.strftime(format));
-                })
-                .on('finish.countdown', function (event) {
-                    $(this).html('This offer has expired!')
-                        .parent().addClass('disabled');
-
-                });
 
         }
     });
@@ -176,6 +160,40 @@ function insertLoaderInSearchArea() {
 }
 
 
+var lockonScrollAlert = true;
+$(window).scroll(function () {
+    var hT = $('#onScrollAlert').offset().top,
+        hH = $('#onScrollAlert').outerHeight(),
+        wH = $(window).height(),
+        wS = $(this).scrollTop();
+    //console.log((hT - wH), wS);
+    if (wS > (hT + hH + 300 - wH) && lockonScrollAlert) {
+        //alert('I have scrolled to Highly Rated Dormitories');
+        lockonScrollAlert = false;
+        var loader = "<div class=\"text-center mt-5\"> <div class=\"lds-ring\"><div></div><div></div><div></div><div></div></div> </div>";
+        $("#onScrollAlert").html(loader);
+
+        $.ajax({
+            type: "POST",
+            url: "GetOnScrollAlert",
+            data: {
+                SectionId: "onScrollAlert"
+            },
+            success: function (result) {
+                //     alert(result);
+                setTimeout(function () {
+                    $("#onScrollAlert").html(result);
+                }, 500);
+              
+
+
+
+            }
+        });
+
+
+    }
+});
 
 
 
