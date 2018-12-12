@@ -4,126 +4,139 @@
 
 @using searchDormWeb.Controllers
 @model List<RoomResultViewModel>
-@{ 
+@{
     var modelList = Model;
     var count = 0;
+
+    Random rnd = new Random();
+
+    int randomNumber = rnd.Next(Model.Count);
 }
 <h6 class="text-center mt-3">@Localizer["Search result: {0} rooms found", modelList.Count]</h6>
 
 @foreach (var item in modelList)
 {
-<div class="card  card-dorm-search">
+    <div class="card  card-dorm-search">
 
 
-    <div class="card-body row">
-        <div class="col-lg-4 swiper-js-container" style="position:relative">
+        <div class="card-body row">
+            <div class="col-lg-4 swiper-js-container" style="position:relative">
 
-            <!-- Swiper Arrows -->
+                <!-- Swiper Arrows -->
 
-            <div class="swiper-button swiper-button-prev " style="position:absolute; right:10%; top:40%;" tabindex="0" role="button" aria-label="Previous slide" aria-disabled="true">
-                <i class="fa fa-angle-left"></i>
-            </div>
-            <div class="swiper-button swiper-button-next float-right" style="position:absolute; left:93%; top:40%; " tabindex="0" role="button" aria-label="Next slide" aria-disabled="true">
-                <i class="fa fa-angle-right"></i>
-            </div>
-            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                <div class="swiper-button swiper-button-prev " style="position:absolute; right:10%; top:40%;" tabindex="0" role="button" aria-label="Previous slide" aria-disabled="true">
+                    <i class="fa fa-angle-left"></i>
+                </div>
+                <div class="swiper-button swiper-button-next float-right" style="position:absolute; left:93%; top:40%; " tabindex="0" role="button" aria-label="Next slide" aria-disabled="true">
+                    <i class="fa fa-angle-right"></i>
+                </div>
+                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
 
-            <div class="swiper-container swiper-container-horizontal" data-swiper-items="1" data-swiper-space-between="20" data-swiper-sm-items="2" data-swiper-sm-space-between="20" data-swiper-xl-items="1" data-swiper-xl-space-between="20" style="cursor: grab;">
-                <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
+                <div class="swiper-container swiper-container-horizontal" data-swiper-items="1" data-swiper-space-between="20" data-swiper-sm-items="2" data-swiper-sm-space-between="20" data-swiper-xl-items="1" data-swiper-xl-space-between="20" style="cursor: grab;">
+                    <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
 
 
-                    @foreach (var ImageUrl in item.ImageUrls)
-                    {
-                        <div class="swiper-slide swiper-slide-next" style="width: 230px; margin-right: 20px;">
-                            <div class="card border-0">
-                                <div class="text-white">
-                                    <img alt="Image placeholder" class="img-fluid rounded" src="@ImageUrl">
+                        @foreach (var ImageUrl in item.ImageUrls)
+                        {
+                            <div class="swiper-slide swiper-slide-next" style="width: 230px; margin-right: 20px;">
+                                <div class="card border-0">
+                                    <div class="text-white">
+                                        <img alt="Image placeholder" class="img-fluid rounded" src="@ImageUrl">
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                    }
+                        }
+                    </div>
+
                 </div>
 
+
+
             </div>
 
 
 
-        </div>
+            <div class="col-lg-5">
+                <span class="badge badge-secondary">@item.GenderAllocation</span><a asp-action="Detail" asp-controller="Dormitory" asp-fragment="_RoomSection" class="h3">@item.RoomName</a>
+                <h4 class="dormitory-name d-inline"><a asp-action="Detail" asp-controller="Dormitory">@item.DormitoryName</a></h4> <span class="badge badge-secondary">@item.DormitoryRoomBlock</span>
 
-      
-
-        <div class="col-lg-5">
-            <span class="badge badge-secondary">@item.GenderAllocation</span><a asp-action="Detail" asp-controller="Dormitory" asp-fragment="_RoomSection" class="h3">@item.RoomName</a>
-            <h4 class="dormitory-name d-inline"><a asp-action="Detail" asp-controller="Dormitory">@item.DormitoryName</a></h4> <span class="badge badge-secondary">@item.DormitoryRoomBlock</span>
-
-            <dau-rating rating="@item.RatingNo"></dau-rating>
+                <dau-rating rating="@item.RatingNo"></dau-rating>
 
 
-            <span><i class="fa fa-thumbs-up" style="color:orange;"></i></span>
+                <span><i class="fa fa-thumbs-up" style="color:orange;"></i></span>
 
 
-            <div class="location-info">
-                <span class="address-show-map" style="color:#269038; text-decoration:underline;">
-                    <i class="fa fa-map-marker text-primary "></i>
-                    <a href="javascript:;" data-fancybox data-type="iframe" data-src="@item.MapSection" style=" color:#269038">@item.DormitoryStreetAddress - @Localizer["Show on map"]</a>
-                </span>
+                <div class="location-info">
+                    <span class="address-show-map" style="color:#269038; text-decoration:underline;">
+                        <i class="fa fa-map-marker text-primary "></i>
+                        <a href="javascript:;" data-fancybox data-type="iframe" data-src="@item.MapSection" style=" color:#269038">@item.DormitoryStreetAddress - @Localizer["Show on map"]</a>
+                    </span>
 
-                <span class="nearneast-to-subway">
-                    <a href="javascript:;" data-fancybox data-type="iframe" data-src="@item.MapSection">
-                        <i class="fa fa-link text-primary"></i>
-                    </a>
-                    <a href="javascript:;" data-fancybox data-type="iframe" data-src="@item.MapSection" style="color:#269038">@item.ClosestLandMark - @item.UniqueAttribute</a>
-                </span>
+                    <span class="nearneast-to-subway">
+                        <a href="javascript:;" data-fancybox data-type="iframe" data-src="@item.MapSection">
+                            <i class="fa fa-link text-primary"></i>
+                        </a>
+                        <a href="javascript:;" data-fancybox data-type="iframe" data-src="@item.MapSection" style="color:#269038">@item.ClosestLandMark - @item.UniqueAttribute</a>
+                    </span>
+
+                </div>
+
+                <p class="h6">
+                    @item.ShortDescription
+                </p>
+
+                @*<span><i class="fa fa-credit-card"></i><a href="#">Reservation possible without a credit card</a></span>*@
+                @*<p class="text-danger">Booked 2 times in the last 6 hours</p>*@
+
+                @if (item.DisplayNoRoomsLeft)
+                {
+                    <p class="" style="color:#269038;">@Localizer["Don't miss out {0} rooms left", item.NumberOfRoomsLeft]</p>
+                }
+            </div>
+
+            <div class="col-lg-3 rating">
+                <div class="rating-detail">
+                    <span class="rating-text inline h4">@item.RatingText</span>
+                    <a class=" float-right rating-no text-white text-bold h3">@item.RatingNo.ToString("0.#")  </a>
+                </div>
+
+                @{count++; }
+                <span class="block text-primary">@Localizer["{0} reviews", item.ReviewNo]</span>
+
+                <span class="h5" id="DealEnds-@count"></span>
+
+
+                @*<a href="#" class=" btn btn-sm btn-primary">@Localizer["Show prices"]</a>*@
+                @if (item.DisplayDeal)
+                {
+                    <h5 class="text-bold d-block" style="color:#269038">@Localizer["{0}% off", item.PercentageOff]</h5>}
+
+                <h4 class="text-bold d-block" style="color:#269038">@String.Format("{0} {1}", "TL", item.Price)</h4>
+                @if (item.OldPrice != null)
+                {
+                    <strike><h4 class="text-bold" style="color:grey; ">@String.Format("{0} {1}", "TL", item.OldPrice)</h4></strike>
+                }
+                <a href="#" class=" btn btn-sm btn-primary">@Localizer["Book Now"]</a>
 
             </div>
 
-            <p class="h6">
-               @item.ShortDescription
-            </p>
-
-            @*<span><i class="fa fa-credit-card"></i><a href="#">Reservation possible without a credit card</a></span>*@
-            @*<p class="text-danger">Booked 2 times in the last 6 hours</p>*@
-
-            @if (item.DisplayNoRoomsLeft)
-            {
-            <p class="" style="color:#269038;">@Localizer["Don't miss out {0} rooms left", item.NumberOfRoomsLeft]</p>
-            }
         </div>
-
-        <div class="col-lg-3 rating">
-            <div class="rating-detail">
-                <span class="rating-text inline h4">@item.RatingText</span>
-                <a class=" float-right rating-no text-white text-bold h3">@item.RatingNo.ToString("0.#")  </a>
-            </div>
-
-            @{count++;  }
-            <span class="block text-primary">@Localizer["{0} reviews", item.ReviewNo]</span>
-
-            <span class="h5" id="DealEnds-@count"></span>
-
-
-            @*<a href="#" class=" btn btn-sm btn-primary">@Localizer["Show prices"]</a>*@
-             @if (item.DisplayDeal)
-             {
-            <h5 class="text-bold d-block" style="color:#269038">@Localizer["{0}% off", item.PercentageOff]</h5>}
-
-            <h4 class="text-bold d-block" style="color:#269038">@String.Format("{0} {1}", "TL", item.Price)</h4>
-            @if (item.OldPrice != null) {
-            <strike><h4 class="text-bold" style="color:grey; ">@String.Format("{0} {1}", "TL", item.OldPrice)</h4></strike>
-            }
-            <a href="#" class=" btn btn-sm btn-primary">@Localizer["Book Now"]</a>
-
-        </div>
-
     </div>
-</div>
 
-<br />
+    <br />
 
- @if (item.DisplayDeal) { 
-<script>
+    @if (randomNumber == count)
+    {
+        <div id="onScrollAlert">
+
+        </div>
+    }
+
+    @if (item.DisplayDeal)
+    {
+        <script>
 
     $('#DealEnds-@count').countdown('@item.DealEndTime.ToString("yyyy/MM/dd HH:mm:ss")')
         .on('update.countdown', function(event) {
@@ -141,6 +154,6 @@
                 .parent().addClass('disabled');
 
  });
-</script>
-}
+        </script>
+    }
 }
