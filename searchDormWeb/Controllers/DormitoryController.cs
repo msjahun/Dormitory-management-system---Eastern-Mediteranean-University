@@ -296,6 +296,67 @@ new RoomSectionViewModel
             return PartialView("_TopnavDormitorySection", model);
         }
 
+        public IActionResult GetOnScrollAlert()
+        {
+            List<onScrollAlert> modelList = new List<onScrollAlert>
+            {
+                new onScrollAlert
+            {
+                Text="Someone just booked a room from {0}!, book yours now",
+                Icon="fas fa-lock",
+                name="Alfam Dormitory",
+                link="http://35.204.232.129/Dormitory/Detail",
+                Color="alert-danger"
+
+
+            },
+                new onScrollAlert
+            {
+                Text="Would you like to partake in a {0} survey?!",
+            Icon="fas fa-lock",
+                name="Student feedback",
+                link="http://35.204.232.129/Account/Billing",
+                Color="alert-success"
+
+
+            },
+                new onScrollAlert
+            {
+                Text="{0}!, you still haven't confirmed your booking, would you like to do it now",
+                Icon="fas fa-lock",
+                name="Musa",
+                Color="alert-success",
+                 link="http://35.204.232.129/Account/Billing"
+
+
+            },
+                new onScrollAlert
+            {
+                Text="Hi there would you like to check out the  {0}!, students are saying it's awesome",
+                Icon="fas fa-lock",
+                name="EMU explore page",
+                link="https://localhost:44340/Explore/Dormitories",
+                Color="alert-info"
+
+
+            },       new onScrollAlert
+            {
+                Text="Hi did you know you don't need creadit cart to book a dormitory {0}!, isn't that awesome?!",
+                Icon="fas fa-lock",
+                name=" ",
+
+                Color="alert-info"
+
+
+            }
+            };
+
+            Random rnd = new Random();
+
+            int randomNumber = rnd.Next(modelList.Count);
+
+            return PartialView("_onScrollAlert", modelList[randomNumber]);
+        }
     }
 
 

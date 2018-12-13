@@ -1047,7 +1047,7 @@ namespace searchDormWeb.Controllers
             },
                 new onScrollAlert
             {
-                Text="Hi there {0}!, you still haven't done payment confirmation for your booking, would you like to do it now",
+                Text="{0}!, you still haven't confirmed your booking, would you like to do it now",
                 Icon="fas fa-lock",
                 name="Musa",
                 Color="alert-success",
@@ -1066,7 +1066,7 @@ namespace searchDormWeb.Controllers
 
             },       new onScrollAlert
             {
-                Text="Hi did you know you don't need creadit cart to book a dormitory {0}!, isn't that awesome?!",
+                Text="Hi did you know you don't need credit card to book a room {0}!",
                 Icon="fas fa-lock",
                 name=" ",
       
