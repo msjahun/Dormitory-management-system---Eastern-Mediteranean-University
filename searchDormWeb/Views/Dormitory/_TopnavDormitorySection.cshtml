@@ -1,7 +1,11 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
-
+@using searchDormWeb.Controllers
+@model TopNavDormitorySectionViewModel
+@{ 
+    var item = Model;
+}
 
 <div class="card ">
 
@@ -29,10 +33,10 @@
 
 <div class="card border-0 float-right m-1">
 
-    <img alt="Image placeholder" class="" height="90" src="https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/18/c4/73/18c473bc-cd1c-4e6e-4ba0-4a9afcae1fc4/source/512x512bb.jpg">
+    <img alt="Image placeholder" class="" height="90" src="@item.DormitoryLogoUrl">
 </div>
 
-<h3>Alfam Dormitory EMU University</h3>
-<a><i class="fa fa-map-marker text-primary " style="color:#269038;"></i> EMU charles Darwin street-@Localizer["Show on map"]</a>
+<h3>@item.DormitoryName</h3>
+<a><i class="fa fa-map-marker text-primary " style="color:#269038;"></i> @item.DormitoryStreetAddress - @Localizer["Show on map"]</a>
 <span class="address-show-map" style="color:#269038; text-decoration:underline;"> <a href="#" style=" color:#269038">@Localizer["Show map"]</a></span>
-<h6>Dormitory belongs to the category of private school dormitories/ accomodations (BOT)</h6>
+<h6>@item.DormitoryType</h6>

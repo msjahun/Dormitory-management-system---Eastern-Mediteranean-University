@@ -1,16 +1,38 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
+
+@using searchDormWeb.Controllers
+@model AreaInfoSectionViewModel
+@{ 
+    var item = Model;
+}
 <div class="pt-5 mt-5 delimiter-top" id="AreaInfo">
     <!-- Resume timeline -->
-    <h6>@Localizer["Area info"]<span class="text-primary "> -Excellent location - @Localizer["show map"]</span></h6>
-    <span class="badge badge-md badge-pill badge-info text-uppercase">Students love the garden at alfam!</span>
-    <p>Students love the garden at alfam! The dormitory is located at the south campus, it was built at the year 2002, it has a good foundation in eastern mediterranean university
-  
-        The dormitory is known for how good it has been with students, a lot of Eastern mediterranean university recommend it
-    
-        The dormitory is five minutes away from health center and two minutes walk away from Computer engineering department</p>
+    <h4>@Localizer["Area info"]
+        <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/icons8-track-order-64.png" >
+       
+        <span class="text-primary "> -@item.LocationRemark- @Localizer["show map"]</span></h4>
 
+
+
+    <h6 class="title-decorative">@Localizer["Somes popular places close to {0}", "Alfam"]</h6>
+    <p>
+        <a href="javascript:;" data-fancybox data-type="iframe" data-src="@item.MapSection" style=" color:#269038">@item.DormitoryStreetAddress - @Localizer["Show on map"]</a>
+
+    </p>
+
+    @foreach (var location in item.CloseLocations)
+    {
+        <dl class="row justfiy-content-between">
+            <dt class="col-4">
+                <a href="javascript:;" data-fancybox data-type="iframe" data-src="@location.MapSection" style=" color:#269038"> <span class="text-primary">
+    <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/icons8-region-64.png" style="width: 20px;">@location.NameOfLocation
+</span></a>
+</dt>
+            <dd class="col-8">@Html.Raw(Localizer["Is <span class=\"text-primary\">{0}</span>  away & takes <span class=\"text-primary\">{1}</span> to get there from {2}", location.Distance, location.Duration, item.DormitoryName])</dd>
+        </dl>
+    }
 
 
 </div>
