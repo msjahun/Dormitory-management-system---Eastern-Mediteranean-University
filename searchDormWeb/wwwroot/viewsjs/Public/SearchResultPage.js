@@ -33,7 +33,7 @@ window.onresize = function (event) {
 };
 
 
-
+//sessionStorage.setItem('label', 'value');
 var swiper = new Swiper('.swiper-container', {});
 
 

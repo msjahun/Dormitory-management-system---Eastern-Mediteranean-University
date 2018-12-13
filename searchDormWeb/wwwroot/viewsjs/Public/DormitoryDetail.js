@@ -33,7 +33,7 @@ $.ajax({
 });
 
 
-
+//alert(sessionStorage.getItem('label'));
         $.ajax({
             type: "POST",
             url: "GetDormitoryDescriptionSection",
@@ -267,7 +267,7 @@ $.ajax({
             watchActiveIndex: true,
             navigation: {
                 nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
+                prevEl: '.swiper-button-prev'
             },
             autoplay: {
                 delay: 2500,
@@ -283,7 +283,7 @@ $.ajax({
         swiper.on('slideChange', function () {
             //  console.log('slide changed' + swiper.activeIndex);
             $('.grid-item').removeClass('grid-item-active');
-            $('#grid-item' + swiper.activeIndex).addClass('grid-item-active');
+            $('#grid-item-' + swiper.activeIndex).addClass('grid-item-active');
 
 
         });
@@ -295,7 +295,7 @@ $.ajax({
 
             });
 
-            $('#grid-item0').addClass('grid-item-active');
+            $('#grid-item-0').addClass('grid-item-active');
         }, 50);
 
 
@@ -439,7 +439,7 @@ var RangeSlider = (function () {
                 max: parseInt(c.getAttribute('data-range-value-max'))
             }
         }), c.noUiSlider.on("update", function (a, b) {
-            f[b].textContent = a[b]
+            f[b].textContent = a[b];
         });
 
         c.noUiSlider.on('change.one', function () {
