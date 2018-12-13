@@ -457,3 +457,77 @@ var RangeSlider = (function () {
     }
 
 })();
+
+
+
+var lockonScrollAlert-2 = true;
+$(window).scroll(function () {
+    var hT = $('#onScrollAlert-2').offset().top,
+        hH = $('#onScrollAlert-2').outerHeight(),
+        wH = $(window).height(),
+        wS = $(this).scrollTop();
+    //console.log((hT - wH), wS);
+    if (wS > (hT + hH + 300 - wH) && lockonScrollAlert) {
+        //alert('I have scrolled to Highly Rated Dormitories');
+        lockonScrollAlert = false;
+        var loader = "<div class=\"text-center mt-5\"> <div class=\"lds-ring\"><div></div><div></div><div></div><div></div></div> </div>";
+        $("#onScrollAlert-2").html(loader);
+
+        $.ajax({
+            type: "POST",
+            url: "GetOnScrollAlert",
+            data: {
+                SectionId: "onScrollAlert-2"
+            },
+            success: function (result) {
+                //     alert(result);
+                setTimeout(function () {
+                    $("#onScrollAlert-2").html(result);
+                }, 500);
+
+
+
+
+            }
+        });
+
+
+    }
+});
+
+
+
+var lockonScrollAlert-1 = true;
+$(window).scroll(function () {
+    var hT = $('#onScrollAlert-1').offset().top,
+        hH = $('#onScrollAlert-1').outerHeight(),
+        wH = $(window).height(),
+        wS = $(this).scrollTop();
+    //console.log((hT - wH), wS);
+    if (wS > (hT + hH + 300 - wH) && lockonScrollAlert) {
+        //alert('I have scrolled to Highly Rated Dormitories');
+        lockonScrollAlert = false;
+        var loader = "<div class=\"text-center mt-5\"> <div class=\"lds-ring\"><div></div><div></div><div></div><div></div></div> </div>";
+        $("#onScrollAlert").html(loader);
+
+        $.ajax({
+            type: "POST",
+            url: "GetOnScrollAlert",
+            data: {
+                SectionId: "onScrollAlert-1"
+            },
+            success: function (result) {
+                //     alert(result);
+                setTimeout(function () {
+                    $("#onScrollAlert-1").html(result);
+                }, 500);
+
+
+
+
+            }
+        });
+
+
+    }
+});
