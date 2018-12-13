@@ -17,6 +17,8 @@
     @RenderSection("styles", false)
     <!-- Theme CSS -->
     <link rel="stylesheet" href="@Url.Content("~/frontend_Content/assets")/css/theme.css">
+    <link type="text/css" href="@Url.Content("~/frontend_Content/assets")/vendor/@@fancyapps/fancybox/dist/jquery.fancybox.min.css" rel="stylesheet">
+
     <style>
         .lds-ring {
             display: inline-block;
@@ -103,7 +105,7 @@
 
     @RenderSection("scripts", false)
 
-
+    <script src="@Url.Content("~/frontend_Content/assets")/vendor/@@fancyapps/fancybox/dist/jquery.fancybox.min.js"></script>
     <script src="@Url.Content("~/frontend_Content/assets")/js/theme.js"></script>
 
     <!-- Heartbeat Online Users tracking -->
