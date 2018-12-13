@@ -285,3 +285,68 @@
 </div>
 
 <br />
+
+
+@* Room first table *@
+
+
+<div class="overflow">
+    <table class="table  table-bordered">
+        <thead>
+            <tr>
+                <th class="bg-info text-white" scope="col">@Localizer["Sleeps"]</th>
+                <th class="bg-info text-white" scope="col">@Localizer["Room Type"]</th>
+                <th class="bg-info text-white" scope="col">@Localizer["Prices"]</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <i class="fas fa-male fa-2x"></i>
+                    <i class="fas fa-male fa-2x"></i>
+                    <i class="fas fa-male fa-2x"></i>
+
+                </td>
+                <td>
+                    <h5 class="text-primary">Standard Twin Room</h5>
+                    <p>
+                        2 twin beds
+                        <i class="fas fa-bed"></i>
+                        <i class="fas fa-bed"></i>
+                    </p>
+                    <span class="text-danger"> 2 rooms left</span>
+                </td>
+                <td>
+                    <button class="btn btn-primary btn-block btn-sm">@Localizer["Show prices"]</button>
+                </td>
+
+            </tr>
+
+            <tr>
+                <td>
+                    <i class="fas fa-male"></i>
+                    <i class="fas fa-male"></i>
+                    <i class="fas fa-male"></i>
+
+                </td>
+                <td>
+                    <h5 class="text-primary">Standard Twin Room</h5>
+                    <p>
+                        2 twin beds
+                        <i class="fas fa-bed"></i>
+                        <i class="fas fa-bed"></i>
+                    </p>
+                    <span class="text-danger"> 2 rooms left</span>
+                </td>
+                <td>
+                    <h4 class="text-bold" style="color:#269038">TL 1.839,00</h4>
+                    <strike><h4 class="text-bold" style="color:grey; ">TL 1.839,00</h4></strike>
+                    <a asp-action="Cart" asp-controller="Booking" class="btn btn-primary btn-block btn-sm">@Localizer["I'll reserve"]</a>
+                </td>
+
+            </tr>
+
+        </tbody>
+    </table>
+</div>
