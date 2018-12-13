@@ -460,10 +460,10 @@ var RangeSlider = (function () {
 
 
 
-var lockonScrollAlert-2 = true;
+var lockonScrollAlert_2 = true;
 $(window).scroll(function () {
-    var hT = $('#onScrollAlert-2').offset().top,
-        hH = $('#onScrollAlert-2').outerHeight(),
+    var hT = $('#onScrollAlert_2').offset().top,
+        hH = $('#onScrollAlert_2').outerHeight(),
         wH = $(window).height(),
         wS = $(this).scrollTop();
     //console.log((hT - wH), wS);
@@ -471,18 +471,18 @@ $(window).scroll(function () {
         //alert('I have scrolled to Highly Rated Dormitories');
         lockonScrollAlert = false;
         var loader = "<div class=\"text-center mt-5\"> <div class=\"lds-ring\"><div></div><div></div><div></div><div></div></div> </div>";
-        $("#onScrollAlert-2").html(loader);
+        $("#onScrollAlert_2").html(loader);
 
         $.ajax({
             type: "POST",
             url: "GetOnScrollAlert",
             data: {
-                SectionId: "onScrollAlert-2"
+                SectionId: "onScrollAlert_2"
             },
             success: function (result) {
                 //     alert(result);
                 setTimeout(function () {
-                    $("#onScrollAlert-2").html(result);
+                    $("#onScrollAlert_2").html(result);
                 }, 500);
 
 
@@ -497,10 +497,10 @@ $(window).scroll(function () {
 
 
 
-var lockonScrollAlert-1 = true;
+var lockonScrollAlert_1 = true;
 $(window).scroll(function () {
-    var hT = $('#onScrollAlert-1').offset().top,
-        hH = $('#onScrollAlert-1').outerHeight(),
+    var hT = $('#onScrollAlert_1').offset().top,
+        hH = $('#onScrollAlert_1').outerHeight(),
         wH = $(window).height(),
         wS = $(this).scrollTop();
     //console.log((hT - wH), wS);
@@ -514,12 +514,12 @@ $(window).scroll(function () {
             type: "POST",
             url: "GetOnScrollAlert",
             data: {
-                SectionId: "onScrollAlert-1"
+                SectionId: "onScrollAlert_1"
             },
             success: function (result) {
                 //     alert(result);
                 setTimeout(function () {
-                    $("#onScrollAlert-1").html(result);
+                    $("#onScrollAlert_1").html(result);
                 }, 500);
 
 
