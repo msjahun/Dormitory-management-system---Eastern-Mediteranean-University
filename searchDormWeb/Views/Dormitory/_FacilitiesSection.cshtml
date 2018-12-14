@@ -1,45 +1,55 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@using searchDormWeb.Controllers
+@model List<FacilitiesSectionViewModel>
+
+@{ 
+    var modelList = Model;
+    var count = 0;
+    int columnNoItem = Model.Count / 3;
+}
 <div class="pt-5 mt-5 delimiter-top" id="Facilities">
     <!-- Resume timeline -->
-    <h4>@Localizer["Most Popular Facilities"]</h4>
+    <h4>@Localizer["Most Popular Facilities"]<img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/svg/in-progress.svg" style="width: 45px;"></h4>
     
     <span class="mb-5">Here is a list of our most popular facilities in this dormitory</span>
     
 
     <div class="row row-grid mt-4">
-        <div class="col-md-4">
 
-            <span class="d-block"> <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/facilities/icons8-widescreen-64.png" style="width: 30px;"> TV</span>
+        <div class="col-md-4" data-animate-hover="1" data-toggle="hidden">
+            <ul>
 
-            <span class="d-block"> <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/facilities/icons8-shower-50.png" style="width: 30px;"> WC-shower</span>
-            <span class="d-block"> <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/facilities/icons8-fridge-64.png" style="width: 30px;"> Refrigerator</span>
-            <span class="d-block"> <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/facilities/icons8-restaurant-table-64.png" style="width: 20px;"> Cafeteria</span>
-            <span class="d-block"> <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/facilities/icons8-hotel-bed-64.png" style="width: 20px;"> Bed</span>
-            <span class="d-block"> <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/facilities/icons8-exercise-64.png" style="width: 20px;"> Gym</span>
+                @foreach (var item in modelList)
+                {
 
-            @*<span class="d-block"> <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/facilities/icons8-horizontal-line-64.png" style="width: 30px;"> TV</span>
-        <span class="d-block"> <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/facilities/icons8-horizontal-line-64.png" style="width: 30px;"> TV</span>
-        <span class="d-block"> <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/facilities/icons8-horizontal-line-64.png" style="width: 30px;"> TV</span>
-        <span class="d-block"> <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/facilities/icons8-horizontal-line-64.png" style="width: 30px;"> TV</span>*@
+                    <li><span class=" mt-1 facilityCol shadow animate-this"> 
+                        @if(item.FacilityImageUrl!=null){
 
+                        <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets/img/icons")@item.FacilityImageUrl" style="width: 20px;">  
+                        }
+                        @item.FacilityName</span></li>
+
+
+                    @if (count==columnNoItem)
+                    {
+                        count = 0;
+                        var htmlString = @" </ul> </div> <div class=""col-md-4""> <ul>";
+                        @Html.Raw(htmlString)
+                    }
+
+
+                    count++;
+                }
+
+            </ul>
         </div>
 
-        <div class="col-md-4">
-            <span class="d-block"> <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/facilities/icons8-microwave-64.png" style="width: 20px;"> Microwave</span>
-            <span class="d-block"> <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/facilities/icons8-wi-fi-64.png" style="width: 20px;"> Internet</span>
-            <span class="d-block"> <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/facilities/icons8-cooling-64.png" style="width: 20px;"> Air-condition</span>
-            <span class="d-block"> <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/facilities/icons8-office-phone-64.png" style="width: 20px;"> Room tel.</span>
-            <span class="d-block"> <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/facilities/icons8-compressor-64.png" style="width: 20px;"> Generator</span>
-            @*<span class="d-block"> <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/facilities/icons8-horizontal-line-64.png" style="width: 20px;"> facility</span>
-        <span class="d-block"> <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/facilities/icons8-horizontal-line-64.png" style="width: 20px;"> facility</span>
-        <span class="d-block"> <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/facilities/icons8-horizontal-line-64.png" style="width: 20px;"> facility</span>
-        <span class="d-block"> <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/facilities/icons8-horizontal-line-64.png" style="width: 20px;"> facility</span>*@
-
-        </div>
 
       
+
+
     </div>
   
 </div>
