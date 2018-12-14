@@ -11,16 +11,13 @@
         <div class="row row-grid">
             <div class="col-lg-3">
 
-                <div data-toggle="sticky" data-sticky-offset="100" data-negative-margin=".card-profile-cover">
-                    @{await Html.RenderPartialAsync("/Views/Dormitory/_FilterSection.cshtml", null);}
+                @{await Html.RenderPartialAsync("/Views/Dormitory/_FilterSection.cshtml", null);}
 
 
-                    <div id="CommentSectionLgScreens">
-                        <div class="py-4" id="comments_section">
-                            <Dau-loader></Dau-loader>
-                        </div>
+                <div id="CommentSectionLgScreens">
+                    <div class="py-4" id="comments_section">
+                        <Dau-loader></Dau-loader>
                     </div>
-
                 </div>
 
 
@@ -135,6 +132,11 @@
     <script src="@Url.Content("~/viewsjs/Public")/DormitoryDetail.js"></script>
     <script>
 
+
+
+
+     
+
         if ($(window).width() >= 991) {
             //console.log("Conditions are met");
             // alert("about to detach comments section");
@@ -145,6 +147,8 @@
             // alert("about to append comments section");
             var element2 = $('#comments_section').detach();
             $('#CommentSectionSmScreens').append(element2);
+
+
 
 
         }
@@ -175,7 +179,7 @@
     <link type="text/css" href="@Url.Content("~/frontend_Content/assets")/vendor/swiper/dist/css/swiper.min.css" rel="stylesheet">
     <link type="text/css" href="@Url.Content("~/frontend_Content/assets")/vendor/select2/dist/css/select2.min.css" rel="stylesheet">
     <link type="text/css" href="@Url.Content("~/viewscss/Public")/DormitoryDetail.css" rel="stylesheet">
- 
+
 
 
 }
