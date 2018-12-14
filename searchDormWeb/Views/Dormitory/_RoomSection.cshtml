@@ -13,7 +13,7 @@
 
    
 
-    <div class="overflow">
+    <div class="overflow" style="overflow-x:auto;">
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -32,13 +32,13 @@
                 <tr>
 
                     <td>
-                        <a href="#"><i class="fas fa-play text-warning"></i> <span class="text-primary h5"> @item.RoomName </span></a>
+                        <a  data-fancybox  data-type="ajax" data-src="GetSpecificRoomView"  href="javascript:;"><i class="fas fa-play text-warning"></i> <span class="text-primary h5 d-block"> @item.RoomName </span></a>
                         <span class="badge badge-secondary">@item.DormitoryBlock</span>
                         <span class="static-rating static-rating-sm"> 
                         <i class="star fas fa-star voted"></i>
                         </span>
                         
-                                                                                       <span class="badge badge-secondary">@item.GenderAllocation</span>
+                                                                                       <span class="badge badge-secondary ">@item.GenderAllocation</span>
                         <p>
                             @item.NoOfStudents @item.BedType
 
@@ -101,7 +101,7 @@
     </div>
 
 
-    <div id="onScrollAlert_2">
+    <div id="onScrollAlert_2" class="mt-5">
 
     </div>
 
