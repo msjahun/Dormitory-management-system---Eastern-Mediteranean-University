@@ -46,6 +46,42 @@ $.ajax({
 
 
 
+
+                var lockonScrollAlert_1 = true;
+                $(window).scroll(function () {
+                    var hT = $('#onScrollAlert_1').offset().top,
+                        hH = $('#onScrollAlert_1').outerHeight(),
+                        wH = $(window).height(),
+                        wS = $(this).scrollTop();
+                    //console.log((hT - wH), wS);
+                    if (wS > (hT + hH + 300 - wH) && lockonScrollAlert_1) {
+                        //alert('I have scrolled to Highly Rated Dormitories');
+                        lockonScrollAlert_1 = false;
+                        var loader = "<div class=\"text-center mt-5\"> <div class=\"lds-ring\"><div></div><div></div><div></div><div></div></div> </div>";
+                        $("#onScrollAlert").html(loader);
+
+                        $.ajax({
+                            type: "POST",
+                            url: "GetOnScrollAlert",
+                            data: {
+                                SectionId: "onScrollAlert_1"
+                            },
+                            success: function (result) {
+                                //     alert(result);
+                                setTimeout(function () {
+                                    $("#onScrollAlert_1").html(result);
+                                }, 500);
+
+
+
+
+                            }
+                        });
+
+
+                    }
+                });
+
             }
         });
 
@@ -76,6 +112,41 @@ $(window).scroll(function () {
                 //     alert(result);
                 $("#_RoomSection").html(result);
 
+
+                var lockonScrollAlert_2 = true;
+                $(window).scroll(function () {
+                    var hT = $('#onScrollAlert_2').offset().top,
+                        hH = $('#onScrollAlert_2').outerHeight(),
+                        wH = $(window).height(),
+                        wS = $(this).scrollTop();
+                    //console.log((hT - wH), wS);
+                    if (wS > (hT + hH + 300 - wH) && lockonScrollAlert_2) {
+                        //alert('I have scrolled to Highly Rated Dormitories');
+                        lockonScrollAlert_2 = false;
+                        var loader = "<div class=\"text-center mt-5\"> <div class=\"lds-ring\"><div></div><div></div><div></div><div></div></div> </div>";
+                        $("#onScrollAlert_2").html(loader);
+
+                        $.ajax({
+                            type: "POST",
+                            url: "GetOnScrollAlert",
+                            data: {
+                                SectionId: "onScrollAlert_2"
+                            },
+                            success: function (result) {
+                                //     alert(result);
+                                setTimeout(function () {
+                                    $("#onScrollAlert_2").html(result);
+                                }, 500);
+
+
+
+
+                            }
+                        });
+
+
+                    }
+                });
 
 
             }
@@ -328,7 +399,11 @@ var btn = document.getElementById("FabBtn");
 var span = document.getElementsByClassName("close")[0];
 // When the user clicks the button, open the modal
 btn.onclick = function () {
-    modal.style.display = "block";
+    if (modal.style.display == "block") {
+        modal.style.display = "none";
+    } else {
+        modal.style.display = "block";
+    }
 }
 
 
@@ -460,74 +535,3 @@ var RangeSlider = (function () {
 
 
 
-var lockonScrollAlert_2 = true;
-$(window).scroll(function () {
-    var hT = $('#onScrollAlert_2').offset().top,
-        hH = $('#onScrollAlert_2').outerHeight(),
-        wH = $(window).height(),
-        wS = $(this).scrollTop();
-    //console.log((hT - wH), wS);
-    if (wS > (hT + hH + 300 - wH) && lockonScrollAlert) {
-        //alert('I have scrolled to Highly Rated Dormitories');
-        lockonScrollAlert = false;
-        var loader = "<div class=\"text-center mt-5\"> <div class=\"lds-ring\"><div></div><div></div><div></div><div></div></div> </div>";
-        $("#onScrollAlert_2").html(loader);
-
-        $.ajax({
-            type: "POST",
-            url: "GetOnScrollAlert",
-            data: {
-                SectionId: "onScrollAlert_2"
-            },
-            success: function (result) {
-                //     alert(result);
-                setTimeout(function () {
-                    $("#onScrollAlert_2").html(result);
-                }, 500);
-
-
-
-
-            }
-        });
-
-
-    }
-});
-
-
-
-var lockonScrollAlert_1 = true;
-$(window).scroll(function () {
-    var hT = $('#onScrollAlert_1').offset().top,
-        hH = $('#onScrollAlert_1').outerHeight(),
-        wH = $(window).height(),
-        wS = $(this).scrollTop();
-    //console.log((hT - wH), wS);
-    if (wS > (hT + hH + 300 - wH) && lockonScrollAlert) {
-        //alert('I have scrolled to Highly Rated Dormitories');
-        lockonScrollAlert = false;
-        var loader = "<div class=\"text-center mt-5\"> <div class=\"lds-ring\"><div></div><div></div><div></div><div></div></div> </div>";
-        $("#onScrollAlert").html(loader);
-
-        $.ajax({
-            type: "POST",
-            url: "GetOnScrollAlert",
-            data: {
-                SectionId: "onScrollAlert_1"
-            },
-            success: function (result) {
-                //     alert(result);
-                setTimeout(function () {
-                    $("#onScrollAlert_1").html(result);
-                }, 500);
-
-
-
-
-            }
-        });
-
-
-    }
-});
