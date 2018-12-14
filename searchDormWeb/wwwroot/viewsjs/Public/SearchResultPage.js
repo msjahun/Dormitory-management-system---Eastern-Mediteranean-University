@@ -6,7 +6,11 @@ var btn = document.getElementById("FabBtn");
 var span = document.getElementsByClassName("close")[0];
 // When the user clicks the button, open the modal
 btn.onclick = function () {
-    modal.style.display = "block";
+    if (modal.style.display == "block") {
+        modal.style.display = "none";
+    } else {
+        modal.style.display = "block";
+    }
 }
 
 // When the user clicks on <span> (x), close the modal
@@ -85,6 +89,41 @@ $.ajax({
         });
 
 
+        var lockonScrollAlert = true;
+        $(window).scroll(function () {
+            var hT = $('#onScrollAlert').offset().top,
+                hH = $('#onScrollAlert').outerHeight(),
+                wH = $(window).height(),
+                wS = $(this).scrollTop();
+            //console.log((hT - wH), wS);
+            if (wS > (hT + hH + 300 - wH) && lockonScrollAlert) {
+                //alert('I have scrolled to Highly Rated Dormitories');
+                lockonScrollAlert = false;
+                var loader = "<div class=\"text-center mt-5\"> <div class=\"lds-ring\"><div></div><div></div><div></div><div></div></div> </div>";
+                $("#onScrollAlert").html(loader);
+
+                $.ajax({
+                    type: "POST",
+                    url: "GetOnScrollAlert",
+                    data: {
+                        SectionId: "onScrollAlert"
+                    },
+                    success: function (result) {
+                        //     alert(result);
+                        setTimeout(function () {
+                            $("#onScrollAlert").html(result);
+                        }, 500);
+
+
+
+
+                    }
+                });
+
+
+            }
+        });
+
     }
 });
 
@@ -116,7 +155,14 @@ $(".targetFilterInput").change(function () {
 
 function SearchRooms() {
     insertLoaderInSearchArea();
+  
+    var checkedVals = $('.targetFilterInput:checkbox:checked').map(function () {
+        return this.value;
+    }).get();
+ 
+    console.log(checkedVals.join(","));
 
+    //console.log($('.targetFilterInput').val());
     $.ajax({
         type: "POST",
         url: "GetRoomResultView",
@@ -135,7 +181,7 @@ function SearchRooms() {
                 watchActiveIndex: true,
                 navigation: {
                     nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
+                    prevEl: '.swiper-button-prev'
                 },
                 autoplay: {
                     delay: 2500,
@@ -149,6 +195,41 @@ function SearchRooms() {
 
 
 
+            var lockonScrollAlert = true;
+            $(window).scroll(function () {
+                var hT = $('#onScrollAlert').offset().top,
+                    hH = $('#onScrollAlert').outerHeight(),
+                    wH = $(window).height(),
+                    wS = $(this).scrollTop();
+                //console.log((hT - wH), wS);
+                if (wS > (hT + hH + 300 - wH) && lockonScrollAlert) {
+                    //alert('I have scrolled to Highly Rated Dormitories');
+                    lockonScrollAlert = false;
+                    var loader = "<div class=\"text-center mt-5\"> <div class=\"lds-ring\"><div></div><div></div><div></div><div></div></div> </div>";
+                    $("#onScrollAlert").html(loader);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "GetOnScrollAlert",
+                        data: {
+                            SectionId: "onScrollAlert"
+                        },
+                        success: function (result) {
+                            //     alert(result);
+                            setTimeout(function () {
+                                $("#onScrollAlert").html(result);
+                            }, 500);
+
+
+
+
+                        }
+                    });
+
+
+                }
+            });
+
 
         }
     });
@@ -159,41 +240,6 @@ function insertLoaderInSearchArea() {
     $("#SearchResultSection").html(loader);
 }
 
-
-var lockonScrollAlert = true;
-$(window).scroll(function () {
-    var hT = $('#onScrollAlert').offset().top,
-        hH = $('#onScrollAlert').outerHeight(),
-        wH = $(window).height(),
-        wS = $(this).scrollTop();
-    //console.log((hT - wH), wS);
-    if (wS > (hT + hH + 300 - wH) && lockonScrollAlert) {
-        //alert('I have scrolled to Highly Rated Dormitories');
-        lockonScrollAlert = false;
-        var loader = "<div class=\"text-center mt-5\"> <div class=\"lds-ring\"><div></div><div></div><div></div><div></div></div> </div>";
-        $("#onScrollAlert").html(loader);
-
-        $.ajax({
-            type: "POST",
-            url: "GetOnScrollAlert",
-            data: {
-                SectionId: "onScrollAlert"
-            },
-            success: function (result) {
-                //     alert(result);
-                setTimeout(function () {
-                    $("#onScrollAlert").html(result);
-                }, 500);
-              
-
-
-
-            }
-        });
-
-
-    }
-});
 
 
 
@@ -231,7 +277,7 @@ var SingleSlider = (function () {
                 'min': [parseInt(minValue)],
                 'max': [parseInt(maxValue)]
             }
-        }
+        };
 
         noUiSlider.create(c, options);
 
