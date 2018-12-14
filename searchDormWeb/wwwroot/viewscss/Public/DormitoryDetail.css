@@ -62,7 +62,7 @@
     height: 50px;
     z-index: 999;
     position: fixed;
-    bottom: 2%;
+    bottom:15%;
     right: 2%;
     font-size: 2.0em;
     display: inline-block;
@@ -75,6 +75,20 @@
     display: block;
 }
 
+.facilityCol {
+   
+   
+}
+.specificRoomFancyBox {
+    width: 70%;
+   
+}
+
+@media only screen and (min-width: 600px) {
+    .specificRoomFancyBox {
+        width: 100%;
+    }
+} 
 
 @media only screen and (max-width: 990px) {
     /* The Modal (background) */
@@ -95,7 +109,7 @@
         background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
     }
 
-
+  
     .model_filter_content {
         margin: 20px;
     }
