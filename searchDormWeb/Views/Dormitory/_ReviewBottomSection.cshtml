@@ -1,36 +1,34 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@using searchDormWeb.Controllers
+@model ReviewButtomSectionViewModel
+
+@{ 
+    var item = Model;
+}
 <div class="mb-5">
     <h4>@Localizer["View latest dormitory review"]</h4>
     <span>@Localizer["Latest review by a student"]</span>
     <div class="card border-0">
         <div class="media media-comment ">
-            <img alt="Image placeholder" class="rounded-circle shadow mr-4" src="https://scontent-vie1-1.xx.fbcdn.net/v/t1.0-1/p100x100/37488021_1973163882701910_4693767907220389888_n.jpg?_nc_cat=104&_nc_ht=scontent-vie1-1.xx&oh=eaabfdf063dbc534f217ed7e2c535093&oe=5C8060F3" style="width: 64px;">
+            <img alt="Image placeholder" class="rounded-circle shadow mr-4" src="@item.LatestReview.UserImageUrl" style="width: 64px;">
             <div class="media-body">
                 <div class="media-text-bubble left-top">
                     <h6 class="mt-0">
-                        Ahmet Önder Beşiroğlu
+                      @item.LatestReview.UserFullName
                     </h6>
                     <div class=" border-0">
                         <div class=" rating-details float-right py-2">
-                            <span class="rating-text inline h4">Good</span>
-                            <a class=" rating-no text-white text-bold h3">9.7</a>
+                         
+                            <a class=" rating-no text-white text-bold h3">@item.LatestReview.UserRatingNo</a>
                         </div>
-                        <span class="static-rating static-rating-sm">
-
-                            <i class="star fas fa-star voted"></i>
-                            <i class="star fas fa-star voted"></i>
-                            <i class="star fas fa-star voted"></i>
-                            <i class="star fas fa-star voted"></i>
-                            <i class="star fas fa-star"></i>
-
-                        </span>
+                        <dau-rating rating="@item.LatestReview.UserRatingNo"></dau-rating>
 
 
                     </div>
 
-                    <p class="text-sm lh-160">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scevestibulum in vulputate at, tempus viverra turpis.</p>
+                    <p class="text-sm lh-160">@item.LatestReview.UserComment</p>
 
                 </div>
             </div>
@@ -40,7 +38,7 @@
     <h6>@Localizer["Write your own review"]</h6>
     <div class="delimiter-top">
 
-        <img alt="Image placeholder" class="rounded-circle shadow mr-4" src="https://www.facebook.com/search/async/profile_picture/?fbid=100000839361217&width=72&height=72" style="width: 64px;">
+        <img alt="Image placeholder" class="rounded-circle shadow mr-4" src="@item.SignedInUserImage" style="width: 64px;">
 
         <span class="static-rating static-rating-sm">
 
