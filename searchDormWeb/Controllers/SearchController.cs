@@ -635,7 +635,7 @@ namespace searchDormWeb.Controllers
 
             new FiltersFacilityViewModel
             {
-                FacilityName = "Necessities",
+                FacilityName = "Others",
                 FacilityIconUrl = null,
                 FacilityOptions = new List<FacilityOptions>
                 {
@@ -1057,7 +1057,7 @@ namespace searchDormWeb.Controllers
             },
                 new onScrollAlert
             {
-                Text="Hi there would you like to check out the  {0}!, students are saying it's awesome",
+                Text="Check out the  {0}!, students are saying it's awesome",
                 Icon="fas fa-lock",
                 name="EMU explore page",
                 link="https://localhost:44340/Explore/Dormitories",
@@ -1066,7 +1066,7 @@ namespace searchDormWeb.Controllers
 
             },       new onScrollAlert
             {
-                Text="Hi did you know you don't need credit card to book a room {0}!",
+                Text="Did you know you don't need credit card to book a room {0}!",
                 Icon="fas fa-lock",
                 name=" ",
       
