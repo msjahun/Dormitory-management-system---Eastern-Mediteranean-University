@@ -1,15 +1,19 @@
-﻿
-@{
-    ViewData["Title"] = Localizer["BookingCheckoutPayment"];
-
-    ViewData["Header"] = Localizer["Checkout"];
-    ViewData["SubDescription"] = Localizer["Payment information"];
-
-
-    Layout = "~/Views/Shared/_LayoutCheckout.cshtml";
+﻿@using searchDormWeb.Controllers
+@model BookingCheckoutCustomerInfoViewModel
+@{ 
+    var item = Model;
 }
 
-<section class="slice">
+@*<div id="alertArea">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        Please send payment method before you proceed
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>*@
+
+<section class="slice slice-sm">
     <div class="container">
         <div class="row row-grid">
             <div class="col-lg-8">
@@ -17,9 +21,9 @@
                     <div>
 
                         <div class="page-inner-header mb-4">
-                            <h5 class="mb-1">@Localizer["Confirm payment before {0}"]</h5>
+                            <h5 class="mb-1">@Localizer["Confirm payment before {0}", item.DateBookingExpiresWithoutConfirmation]</h5>
 
-                            <p class="text-muted mb-0">@Localizer["You have {0} working days before your bookings gets cancelled without payment confirmation"]</p>
+                            <p class="text-muted mb-0">@Localizer["You have {0} working days before your bookings gets cancelled without payment confirmation", item.NumberOfWorkingDaysBeforeBookingExpires]</p>
 
                         </div>
 
@@ -28,26 +32,28 @@
                                 <div class="row">
                                     <div class="col-8">
                                         <div class="custom-control custom-radio mb-3">
-                                            <input type="radio" name="radio-payment" class="custom-control-input" id="radio-payment-paypal">
-                                            <label class="custom-control-label h6 lh-160" for="radio-payment-paypal">@Localizer["Upload payment receipt now"] </label>
+                                            <input type="radio" name="radio-payment" class="custom-control-input" id="radio-payment-upload-now">
+                                            <label class="custom-control-label h6 lh-160" for="radio-payment-upload-now">@Localizer["Upload payment receipt now"] </label>
                                         </div>
                                         <p class="text-muted text-sm mt-2">@Localizer["You have to upload a receipt of payment before your booking order is confirmed or completed, after order is completed, Dormitory will send you your allocated rooom information/details"]</p>
 
 
 
-                                        <div>
+                                        <div class="d-inline">
                                             <input type="file" name="file-1[]" id="file-1" class="custom-input-file" />
                                             <label for="file-1">
                                                 <i class="fa fa-upload"></i>
                                                 <span>@Localizer["Choose a file…"]</span>
                                             </label>
+
                                         </div>
+                                        <button type="button" class="btn  m-2 d-inline btn-sm btn-info pull-right">@Localizer["Upload receipt"]</button>
 
 
 
                                         <div class="custom-control delimiter-top mt-5 custom-radio mb-3">
-                                            <input type="radio" name="radio-payment" class="custom-control-input" id="radio-payment-paypal">
-                                            <label class="custom-control-label h6 lh-160" for="radio-payment-paypal">@Localizer["Upload payment receipt Later"] </label>
+                                            <input type="radio" name="radio-payment" class="custom-control-input" id="radio-payment-upload-later">
+                                            <label class="custom-control-label h6 lh-160" for="radio-payment-upload-later">@Localizer["Upload payment receipt Later"] </label>
                                         </div>
                                         <p class="text-muted text-sm  mt-2">@Localizer["To upload bank receipt later, go to My Account >> Bookings to upload the receipt"]</p>
 
@@ -58,120 +64,16 @@
                             </div>
                         </div>
 
-                        @*<div class="card mt-4">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-8">
-                                        <div class="custom-control custom-radio mb-3">
-                                            <input type="radio" name="radio-payment2" class="custom-control-input" id="radio-payment-dormitory">
-                                            <label class="custom-control-label h6 lh-160" for="radio-payment-paypal">@Localizer["Pay Dormitory directly"]</label>
-                                        </div>
-                                        <p class="text-muted text-sm mt-2">@Localizer["Pay your dormitory fees directly at the dormitory office, dormitory will confirm your booking once you pay at their office"]</p>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>*@
                     </div>
                     <div class="mt-5 text-right">
-                        <button type="button" class="btn btn-link text-sm text-dark font-weight-bold">@Localizer["Return to Home page"]</button>
-                        <button type="button" class="btn btn-sm btn-primary">@Localizer["Complete booking order"]</button>
+                        <button type="button" id="buttonNext5" class="btn  text-sm text-dark font-weight-bold">@Localizer["Previous step"]</button>
+                        <button type="button" id="CompleteBooking" class="btn btn-sm btn-success">@Localizer["Complete booking order"]</button>
                     </div>
                 </form>
             </div>
             <div class="col-lg-4">
 
-                <div data-toggle="sticky" data-sticky-offset="100">
-
-                    <div class="card" id="card-summary">
-                        <div class="card-header py-3">
-                            <div class="row align-items-center">
-                                <div class="col-6">
-                                    <span class="h6">@Localizer["Summary"]</span>
-                                </div>
-                                <div class="col-6 text-right">
-                                    <span class="badge badge-md badge-pill badge-info">@Localizer["{0} selected Room"]</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-8">
-                                    <div class="media align-items-center">
-                                        <img alt="Image placeholder" class="mr-2" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuzxmbcw2jxGlHQ_ZuICaAowpUUjFoOYTJH9oGmsQmz3WG4IpkSw" style="width: 42px;">
-                                        <div class="media-body">
-                                            <div class="text-limit lh-100">
-                                                <small class="text-dark font-weight-bold mb-0">Alfam Dormitories</small>
-                                            </div>
-                                            <small class="text-muted">2 semsters</small><br />
-                                            <small class="text-muted">Single room</small><br />
-                                            <small class="text-muted">A. block</small><br />
-                                            <small class="text-muted">42.3 m2</small><br />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-4 text-right lh-100">
-                                    <small class="text-dark">$1,800.00</small>
-                                </div>
-                            </div>
-
-                            <!-- Subtotal -->
-                            <div class="row mt-3 pt-3 border-top">
-                                <div class="col-8 text-right">
-                                    <small class="text-dark font-weight-bold">@Localizer["Subtotal"]:</small>
-                                </div>
-                                <div class="col-4 text-right">
-                                    <span class="text-sm font-weight-bold">$330.50</span>
-                                </div>
-                            </div>
-                            <!-- Booking fee -->
-                            <div class="row mt-3 pt-3 border-top">
-                                <div class="col-8 text-right">
-                                    <div class="media align-items-center">
-
-                                        <div class="media-body">
-                                            <div class="text-limit lh-100">
-                                                <small class="text-dark font-weight-bold mb-0">@Localizer["Booking fee"]:</small>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-4 text-right">
-                                    <span class="text-sm font-weight-bold">$25.00</span>
-                                </div>
-                            </div>
-                            <!-- Tax-->
-                            <div class="row mt-3 pt-3 border-top">
-                                <div class="col-8 text-right">
-                                    <div class="media align-items-center">
-
-                                        <div class="media-body">
-                                            <div class="text-limit lh-100">
-                                                <small class="text-dark font-weight-bold mb-0">@Localizer["Tax"]:</small>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-4 text-right">
-                                    <span class="text-sm font-weight-bold">$25.00</span>
-                                </div>
-                            </div>
-                            <!-- Subtotal -->
-                            <div class="row mt-3 pt-3 border-top">
-                                <div class="col-8 text-right">
-                                    <small class="text-uppercase text-dark font-weight-bold">@Localizer["Total"]:</small>
-                                </div>
-                                <div class="col-4 text-right">
-                                    <span class="text-sm text-dark font-weight-bold">$355.50</span>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
+                @{await Html.RenderPartialAsync("/Views/Booking/_bookingSummarySection.cshtml", item.BookingDetails);}
 
             </div>
         </div>

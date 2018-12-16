@@ -1,16 +1,21 @@
 ﻿
-@{
-    ViewData["Title"] = Localizer["BookingCheckoutCustomer"];
+@using searchDormWeb.Controllers
+@model BookingCheckoutCustomerInfoViewModel
 
-    ViewData["Header"] = Localizer["Checkout"];
-    ViewData["SubDescription"] = Localizer["Student information"];
-
-
-    Layout = "~/Views/Shared/_LayoutCheckout.cshtml";
+@{ 
+    var item = Model;
 }
 
+@*<div id="alertArea">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      Please enter a valid phone number before you proceed
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>*@
 
-<section class="slice slice-lg">
+<section class="slice slice-sm">
     <div class="container">
         <div class="row row-grid">
             <div class="col-lg-8">
@@ -18,9 +23,9 @@
                     <!-- General -->
 
                     <div class="page-inner-header mb-4">
-                        <h5 class="mb-1">@Localizer["Billing information"]</h5>
+                        <h5 class="mb-1">@Localizer["Student information"]</h5>
 
-                        <p class="text-muted mb-0">@Localizer["Fill the form below so we can send you the order's invoice."]</p>
+                        <p class="text-muted mb-0">@Localizer["We will use this information to send you the booking invoice."]</p>
 
                     </div>
 
@@ -28,13 +33,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-control-label">@Localizer["First name"]</label>
-                                <input class="form-control" type="text" placeholder="@Localizer["Enter your first name"]">
+                                <input class="form-control"  disabled  value="@item.FirstName" type="text" placeholder="@Localizer["Enter your first name"]">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-control-label">@Localizer["Last name"]</label>
-                                <input class="form-control" type="text" placeholder="@Localizer["Also your last name"]">
+                                <input class="form-control"  disabled  value="@item.LastName"  type="text" placeholder="@Localizer["Also your last name"]">
                             </div>
                         </div>
                     </div>
@@ -42,8 +47,8 @@
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="form-control-label">@Localizer["Student Number"]</label>
-                                <input class="form-control" type="text" placeholder="@Localizer["Student Number or Admission no"]">
+                                <label class="form-control-label">@Localizer["Student Number (Application No. for new students)"]</label>
+                                <input class="form-control"  disabled  value="@item.StudentNumber"  type="text" placeholder="@Localizer["Student Number or Admission no"]">
                             </div>
                         </div>
                     </div>
@@ -52,7 +57,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="form-control-label">@Localizer["Address"]</label>
-                                <input class="form-control" type="text" placeholder="@Localizer["Address, Number"]">
+                                <input class="form-control"  disabled  value="@item.ParmanentAddress" type="text" placeholder="@Localizer["Address, Number"]">
                             </div>
                         </div>
                     </div>
@@ -60,29 +65,21 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-control-label">@Localizer["Country"]</label>
-                                <select class="form-control" data-toggle="select" title="@Localizer["Country"]">
-                                    <option selected>@Localizer["Select your country"]</option>
-                                    <option value="1">Bulgaria</option>
-                                    <option value="2">Croatia</option>
-                                    <option value="3">Denmark</option>
-                                    <option value="4">Finland</option>
-                                    <option value="5">Greece</option>
-                                    <option value="6">Romania</option>
-                                    <option value="7">United Kingdom</option>
+                                <select class="form-control" disabled data-toggle="select" title="@Localizer["Country"]">
+                                    <option>@Localizer["Select your country"]</option>
+                                    <option selected value="4">@item.Country</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-control-label">@Localizer["City"]</label>
-                                <select class="form-control" data-toggle="select" title="@Localizer["City"]">
-                                    <option selected>@Localizer["Select your city"]</option>
-                                    <option value="1">Bucharest</option>
-                                    <option value="2">Bacau</option>
-                                    <option value="3">Cluj Napoca</option>
-                                    <option value="4">Piatra Neamt</option>
-                                    <option value="5">Sibiu</option>
-                                    <option value="6">Timisoara</option>
+                                <select class="form-control"   disabled  data-toggle="select" title="@Localizer["City"]">
+                                    <option >@Localizer["Select your city"]</option>
+                                   
+                             
+                                    <option selected value="4">@item.City</option>
+                              
                                 </select>
                             </div>
                         </div>
@@ -90,117 +87,26 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-control-label">@Localizer["Postal code"]</label>
-                                <input class="form-control" type="text" placeholder="@Localizer["Address, Number"]">
+                                <label class="form-control-label">@Localizer["Email"]</label>
+                                <input class="form-control" disabled type="text" value="@item.EmailAddress" placeholder="@Localizer["Email address"]">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-control-label">@Localizer["Phone"]</label>
-                                <input class="form-control" type="text" placeholder="+90-5** *** ****">
+                                <input class="form-control" type="text" value="@item.PhoneNumber" placeholder="+90-5** *** ****">
                             </div>
                         </div>
                     </div>
                     <div class="mt-5 text-right">
-                        <button type="button" class="btn btn-link text-sm text-dark font-weight-bold">@Localizer["Return to Home"]</button>
-                        <a asp-controller="Booking" asp-action="CheckoutPayment" class="btn btn-sm btn-primary">@Localizer["Next step"]</a>
+                        <button type="button" id="buttonNext3" class="btn  text-sm text-dark font-weight-bold">@Localizer["Previous step"]</button>
+                        <button type="button" id="buttonNext2" class="btn btn-sm btn-primary">@Localizer["Next step"]</button>
                     </div>
                 </form>
             </div>
             <div class="col-lg-4">
 
-                <div data-toggle="sticky" data-sticky-offset="100">
-
-                    <div class="card" id="card-summary">
-                        <div class="card-header py-3">
-                            <div class="row align-items-center">
-                                <div class="col-6">
-                                    <span class="h6">@Localizer["Summary"]</span>
-                                </div>
-                                <div class="col-6 text-right">
-                                    <span class="badge badge-md badge-pill badge-info">1 @Localizer["selected Room"]</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-8">
-                                    <div class="media align-items-center">
-                                        <img alt="Image placeholder" class="mr-2" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuzxmbcw2jxGlHQ_ZuICaAowpUUjFoOYTJH9oGmsQmz3WG4IpkSw" style="width: 42px;">
-                                        <div class="media-body">
-                                            <div class="text-limit lh-100">
-                                                <small class="text-dark font-weight-bold mb-0">Alfam Dormitories</small>
-                                            </div>
-                                            <small class="text-muted">2 semsters</small><br />
-                                            <small class="text-muted">Single room</small><br />
-                                            <small class="text-muted">A. block</small><br />
-                                            <small class="text-muted">42.3 m2</small><br />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-4 text-right lh-100">
-                                    <small class="text-dark">$1,800.00</small>
-                                </div>
-                            </div>
-
-                            <!-- Subtotal -->
-                            <div class="row mt-3 pt-3 border-top">
-                                <div class="col-8 text-right">
-                                    <small class="text-dark font-weight-bold">@Localizer["Subtotal"]:</small>
-                                </div>
-                                <div class="col-4 text-right">
-                                    <span class="text-sm font-weight-bold">$330.50</span>
-                                </div>
-                            </div>
-                            <!-- Booking fee -->
-                            <div class="row mt-3 pt-3 border-top">
-                                <div class="col-8 text-right">
-                                    <div class="media align-items-center">
-
-                                        <div class="media-body">
-                                            <div class="text-limit lh-100">
-                                                <small class="text-dark font-weight-bold mb-0">@Localizer["Booking fee"]:</small>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-4 text-right">
-                                    <span class="text-sm font-weight-bold">$25.00</span>
-                                </div>
-                            </div>
-                            <!-- Tax-->
-                            <div class="row mt-3 pt-3 border-top">
-                                <div class="col-8 text-right">
-                                    <div class="media align-items-center">
-
-                                        <div class="media-body">
-                                            <div class="text-limit lh-100">
-                                                <small class="text-dark font-weight-bold mb-0">@Localizer["Tax"]:</small>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-4 text-right">
-                                    <span class="text-sm font-weight-bold">$25.00</span>
-                                </div>
-                            </div>
-                            <!-- Subtotal -->
-                            <div class="row mt-3 pt-3 border-top">
-                                <div class="col-8 text-right">
-                                    <small class="text-uppercase text-dark font-weight-bold">@Localizer["Total"]:</small>
-                                </div>
-                                <div class="col-4 text-right">
-                                    <span class="text-sm text-dark font-weight-bold">$355.50</span>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                  
-                </div>
-
+                @{await Html.RenderPartialAsync("/Views/Booking/_bookingSummarySection.cshtml", item.BookingDetails);}
             </div>
         </div>
     </div>

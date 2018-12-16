@@ -1,12 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = Localizer["BookingCartEmpty"];
 
-    ViewData["Header"] = Localizer["Booking Cart"];
-    ViewData["SubDescription"] = Localizer["Cart information"];
-
-
-    Layout = "~/Views/Shared/_LayoutCheckout.cshtml";
 }
 
 <section class="slice slice-xl  d-flex align-items-center">
@@ -21,7 +15,7 @@
                     <p class="px-5">
                         @Localizer["Your cart is currently empty. Return to our home page and check out the latest offers. We have some great deals that are waiting for you."]
                     </p>
-                    <a href="#" class="btn btn-dark btn-circle mt-5">@Localizer["Return to Home page"]</a>
+                    <a asp-controller="Dormitories" asp-action="" class="btn btn-dark btn-circle mt-5">@Localizer["Find rooms to book"]</a>
                 </div>
             </div>
         </div>

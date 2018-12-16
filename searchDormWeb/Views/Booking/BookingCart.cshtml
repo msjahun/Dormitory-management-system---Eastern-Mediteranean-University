@@ -1,24 +1,33 @@
 ﻿
+
+@using searchDormWeb.Controllers
+@model BookingCartViewModel
+
 @{
-    ViewData["Title"] = Localizer["BookingCart"];
-
-    ViewData["Header"] = Localizer["Booking Cart"];
-    ViewData["SubDescription"] = Localizer["Cart information"];
-
-    Layout = "~/Views/Shared/_LayoutCheckout.cshtml";
+    var item = Model;
 }
-
-
-<section class="slice slice-lg">
+@*<div id="alertArea">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        The coupon code you entered has expired or does not exist
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>*@
+<section class="slice slice-sm">
     <div class="container">
         <!-- Shopping cart -->
+
+
+
+
         <div class="table-responsive">
             <table class="table align-items-center">
                 <thead>
                     <tr>
                         <th>@Localizer["Dormitory/Room"]</th>
                         <th>@Localizer["Price"]</th>
-                        <th>@Localizer["Number of Semesters"]</th>
+                        <th>@Localizer["Contract time period"]</th>
                         <th>@Localizer["Total"]</th>
                         <th></th>
                     </tr>
@@ -28,26 +37,36 @@
                     <tr>
                         <td>
                             <div class="media align-items-center">
-                                <img alt="Image placeholder" class="mr-3" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuzxmbcw2jxGlHQ_ZuICaAowpUUjFoOYTJH9oGmsQmz3WG4IpkSw" style="width: 80px;">
+                                <img alt="Image placeholder" class="mr-3" src="@item.DormitoryLogoUrl" style="width: 80px;">
                                 <div class="media-body">
                                     <div class="lh-100">
-                                        <span class="text-dark font-weight-bold mb-0">Alfam Dormitories</span>
+                                        <span class="text-dark font-weight-bold mb-0">@item.DormitoryName</span>
                                     </div>
-                                    <span class="font-weight-bold text-muted">Single room</span><br />
-                                    <span class="font-weight-bold text-muted">A. block</span><br />
-                                    <span class="font-weight-bold text-muted">42.5 m2</span><br />
+                                    <span class="font-weight-bold text-muted">@item.RoomName</span><br />
+                                    <span class="font-weight-bold text-muted">@item.RoomBlock</span><br />
+                                    <span class="font-weight-bold text-muted">@item.RoomSize</span><br />
 
                                 </div>
                             </div>
                         </td>
                         <td>
-                            <span class="font-weight-bold">$900 USD</span>
+                            <span class="font-weight-bold">@item.RoomPricePerSemester</span>
                         </td>
                         <td>
-                            <input type="text" class="form-control form-control-sm text-center" style="width: 80px;" value="2">
+
+
+                            <select class="form-control" data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Search ...">
+                          
+                                <option>1 semester - Fall 2019</option>
+                                <option selected>3 months - Summer 2019</option>
+                                <option>1 year -Fall 2019 to Spring 2020</option>
+                                <option>2 years - Fall 2019 to next fall 2021</option>
+
+                            </select>
+
                         </td>
                         <td>
-                            <span class="font-weight-bold text-dark">$1,800 USD</span>
+                            <span class="font-weight-bold text-dark">@item.AmountTotal</span>
                         </td>
                         <td class="text-right">
                             <a href="#" class="text-light" data-toggle="tooltip" data-original-title="Remove item">
@@ -63,13 +82,13 @@
         <div class="">
             <div class="row justify-content-center">
                 <div class="col-md-5 col-lg-4 text-center">
-                    <h5 class="mb-0">@Localizer["Total"]: $1,800 USD</h5>
+                    <h5 class="mb-0">@Localizer["Total"]: @item.AmountTotal</h5>
                     <p class="small mb-0">@Localizer["Have a coupon code? Add the code in the form below"]</p>
                     <form class="mt-4">
                         <div class="input-group">
                             <input type="text" class="form-control form-control-sm" placeholder="@Localizer["Type your coupon code ..."]">
                             <span class="input-group-append">
-                                <button type="button" class="btn btn-sm btn-primary">@Localizer["Apply code"]</button>
+                                <button type="button" class="btn btn-sm btn-info">@Localizer["Apply code"]</button>
                             </span>
                         </div>
                     </form>
@@ -77,15 +96,15 @@
 
             </div>
         </div>
-      
+
 
         <!-- Cart information -->
         <div class="mt-5 pt-5 delimiter-top">
             <div class="row justify-content-center">
 
                 <div class=" text-right">
-                    <button type="button" class="btn btn-link text-sm text-dark font-weight-bold">@Localizer["Go back to Home Page"]</button>
-                    <a asp-controller="Booking" asp-action="CheckoutCustomer" class="btn btn-sm btn-primary">@Localizer["Next step"]</a>
+                    <button type="button" class="btn  text-sm text-dark font-weight-bold disabled">@Localizer["Previous step"]</button>
+                    <button type="button" id="buttonNext" class="btn btn-sm btn-primary">@Localizer["Next step"]</button>
                 </div>
             </div>
         </div>
