@@ -1,7 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@using searchDormWeb.Controllers;
+@using Dau.Services.Domain.SearchResultService
 @model List<FiltersFacilityViewModel>
 @{
     var modelList = Model;
@@ -12,23 +12,23 @@
 {
     <h6>
         @item.FacilityName
-    @if (item.FacilityIconUrl != null)
+        @if (item.FacilityIconUrl != null)
+        {
+            <img class="img_icon float-right" src="@Url.Content("~/Content/")@item.FacilityIconUrl" alt="@item.FacilityName">
+        }
+    </h6>
+
+    @foreach (var option in item.FacilityOptions)
     {
-        <img class="img_icon float-right" src="@Url.Content("~/Content/")@item.FacilityIconUrl" alt="@item.FacilityName">
+        count++;
+        <div class="custom-control custom-checkbox mb-3">
+            <input type="checkbox" class="custom-control-input targetFilterInput" value=" @item.FacilityName-@option.OptionName" id="customCheck-@count">
+            <label class="custom-control-label inline" for="customCheck-@count">@option.OptionName <span class=" float-right">@option.OptionCount</span></label>
+
+        </div>
     }
-</h6>
-
-@foreach (var option in item.FacilityOptions)
-{
-   count++;
-    <div class="custom-control custom-checkbox mb-3">
-        <input type="checkbox" class="custom-control-input targetFilterInput" value=" @item.FacilityName-@option.OptionName" id="customCheck-@count">
-        <label class="custom-control-label inline" for="customCheck-@count">@option.OptionName <span class=" float-right">@option.OptionCount</span></label>
-
-    </div>
-}
 
 
-<br />
+    <br />
 
 }
