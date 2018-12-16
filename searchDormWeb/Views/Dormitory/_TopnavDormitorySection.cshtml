@@ -1,9 +1,9 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@using searchDormWeb.Controllers
+@using Dau.Services.Domain.DormitoryDetailService
 @model TopNavDormitorySectionViewModel
-@{ 
+@{
     var item = Model;
 }
 
@@ -16,10 +16,10 @@
                 <a href="#_RoomSection" class="btn btn-sm btn-warning btn-block ">@Localizer["Room Info & Price"]</a>
             </div>
             <div class="col" style="margin:0px; padding:0px;">
-                <a href="#Facilities" class="btn btn-sm  btn-block btn-outline-warning">@Localizer["Facilities"]</a>
+                <a href="#_FacilitiesSection" class="btn btn-sm  btn-block btn-outline-warning">@Localizer["Facilities"]</a>
             </div>
             <div class="col" style="margin:0px; padding:0px;">
-                <a href="#GoodToKnow" class="btn btn-sm btn-block btn-outline-warning btn-block ">@Localizer["Good to know"]</a>
+                <a href="#_GoodToKnowSection" class="btn btn-sm btn-block btn-outline-warning btn-block ">@Localizer["Good to know"]</a>
             </div>
             <div class="col" style="margin:0px; padding:0px;">
                 <a href="#comments_section" class="btn btn-sm btn-block btn-outline-warning btn-block ">@Localizer["Student reviews"]</a>
