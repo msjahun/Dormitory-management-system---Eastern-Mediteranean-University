@@ -32,7 +32,7 @@ namespace searchDormWeb.Controllers
          // new UserRoleSeed(_roleManager).Seed();
         }
 
-        [Route("Login/")]
+        [Route("Login")]
         // GET: Login
         [HttpGet]
         public ActionResult Index(string ReturnUrl)
