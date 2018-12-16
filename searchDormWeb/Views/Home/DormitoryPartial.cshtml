@@ -1,15 +1,17 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
-
-@{ 
+@using Dau.Services.Domain.HomeService
+@model HomePageModel
+@{
     var item = Model;
 }
 <div class="swiper-js-container">
     <div id="@item.DormitoryPartialModel.SwiperId" class="swiper-container swiper-container-horizontal" data-swiper-items="1" data-swiper-space-between="20" data-swiper-sm-items="2" data-swiper-sm-space-between="20" data-swiper-lg-items="4" data-swiper-lg-space-between="20" data-swiper-xl-items="4" data-swiper-xl-space-between="20" style="cursor: grab;">
         <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px); transition-duration: 5ms;">
 
-            @foreach (var Dormitory in item.DormitoryCardsList){
+            @foreach (var Dormitory in item.DormitoryCardsList)
+            {
 
                 <div class="swiper-slide swiper-slide-active" style="width: 356.667px; margin-right: 20px;">
 
@@ -19,13 +21,13 @@
                     <div class="card overflow-hidden" data-animate-hover="2">
                         <div class="overflow-hidden">
                             <div class="animate-this">
-                                <a href="Dormitory/Detail/@Dormitory.DormitorySeoFriendlyUrl">
+                                <a href="Dormitories/@Dormitory.DormitorySeoFriendlyUrl">
                                     <img alt="Image placeholder" class="card-img-top" src="@Dormitory.ImageUrl">
                                 </a>
                             </div>
                         </div>
                         <div class="card-body text-center">
-                            <a  href="Dormitory/Detail/@Dormitory.DormitorySeoFriendlyUrl" class=" h5 card-title mb-0">@Dormitory.DormitoryName</a>
+                            <a href="Dormitories/@Dormitory.DormitorySeoFriendlyUrl" class=" h5 card-title mb-0">@Dormitory.DormitoryName</a>
 
 
                             <div class="rating-detail py-2">
@@ -37,7 +39,7 @@
                             <span class="block text-primary">@Dormitory.ReviewsNo @Localizer["reviews"]</span>
 
                             <Dau-rating rating="@Dormitory.RatingNo"></Dau-rating>
-                         
+
                         </div>
                     </div>
 
@@ -50,7 +52,7 @@
 
 
 
-      
+
 
 
         </div>
