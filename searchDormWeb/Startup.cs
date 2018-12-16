@@ -30,6 +30,11 @@ using Dau.Core.Domain.Dormitory;
 using NetCoreStack.Mvc;
 using NetCoreStack.Localization;
 using Dau.Data.Extensions;
+using Dau.Services.Domain.DormitoryDetailService;
+using Dau.Services.Domain.OnScrollAlertService;
+using Dau.Services.Domain.SearchResultService;
+using Dau.Services.Domain.HomeService;
+using Dau.Services.Domain.ExploreEmuService;
 
 namespace searchDormWeb
 {
@@ -84,6 +89,33 @@ namespace searchDormWeb
             services.AddScoped<ISearchService, SearchService>();
             services.AddScoped<IDormitoryService, DormitoryService>();
 
+
+            //new Services
+            services.AddScoped<IGetAreaInfoService, GetAreaInfoService>();
+            services.AddScoped<IGetCommentsService, GetCommentsService>();
+            services.AddScoped<IGetDormitoryDescriptionService, GetDormitoryDescriptionService>();
+            services.AddScoped<IGetFacilitiesService, GetFacilitiesService>();
+            services.AddScoped<IGetGoodToKnowService, GetGoodToKnowService>();
+
+
+            services.AddScoped< IOnScrollAlertService, OnScrollAlertService > ();
+
+
+            services.AddScoped<IGetReviewService, GetReviewService>();
+            services.AddScoped<IGetRoomsService, GetRoomsService>();
+            services.AddScoped<IGetSlidersService, GetSlidersService>();
+            services.AddScoped<IGetSpecificRoomService, GetSpecificRoomService>();
+            services.AddScoped<IGetTopNavService, GetTopNavService>();
+
+            services.AddScoped<IRoomResultService, RoomResultService>();
+            services.AddScoped<IFilterBottomService, FilterBottomService>();
+            services.AddScoped<IDormitoryResultService, DormitoryResultService>();
+
+
+            services.AddScoped<IGetHomeDormitoriesService, GetHomeDormitoriesService>();
+            services.AddScoped<IGetHomeBackgroundImagesService, GetHomeBackgroundImagesService>();
+            services.AddScoped< IExploreEmuPicsService, ExploreEmuPicsService > ();
+
             var connectionString = Configuration.GetValue<string>("DbSettings:SqlConnectionString");
             services.AddDbContext<Fees_and_facilitiesContext>(options => options.UseSqlServer(connectionString));
 
@@ -119,8 +151,8 @@ namespace searchDormWeb
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                //app.UseExceptionHandler("/Error/PageNotFound");
-                //app.UseStatusCodePagesWithReExecute("/Error/Status/{0}");
+             //   app.UseExceptionHandler("/Error/PageNotFound");
+             // app.UseStatusCodePagesWithReExecute("/Error/Status/{0}");
 
             //loggingFactory code
                 //loggerFactory.AddContext(LogLevel.Information);
@@ -129,7 +161,7 @@ namespace searchDormWeb
             {
                 app.UseExceptionHandler("/Error/PageNotFound");
                 app.UseStatusCodePagesWithReExecute("/Error/Status/{0}");
-
+              
                 app.UseHsts();
             }
 
