@@ -2,10 +2,11 @@
 @{
     ViewData["Title"] = Localizer["DormitoryDetail"];
     Layout = "~/Views/Shared/_LayoutUserNew.cshtml";
+    var dormitoryid = Model;
 }
 
 
-
+<input type="hidden" value="@dormitoryid" id="dormitoryId">
 <section class="slice" style=" padding-top:20px; ">
     <div class="container">
         <div class="row row-grid">
@@ -135,7 +136,7 @@
 
 
 
-     
+
 
         if ($(window).width() >= 991) {
             //console.log("Conditions are met");
