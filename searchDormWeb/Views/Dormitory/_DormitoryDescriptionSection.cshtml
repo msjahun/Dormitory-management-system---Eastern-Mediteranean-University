@@ -1,9 +1,9 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@using searchDormWeb.Controllers
+@using Dau.Services.Domain.DormitoryDetailService
 @model DormitoryDescriptionSectionViewModel
-@{ 
+@{
     var item = Model;
 }
 <div class="row row-grid">
@@ -11,7 +11,7 @@
     <div class="col-md-8">
 
         <p class="h7">
-            @Html.Raw(item.DormitoryDescription.Replace("\r\n", "<br />")) 
+            @Html.Raw(item.DormitoryDescription.Replace("\r\n", "<br />"))
         </p>
 
 
@@ -41,17 +41,17 @@
                 </div>
 
 
-                <span class="block text-primary">@Localizer["{0} reviews",item.ReviewNo]</span>
+                <span class="block text-primary">@Localizer["{0} reviews", item.ReviewNo]</span>
 
-              <dau-rating rating="@item.ReviewNo"></dau-rating>
+                <dau-rating rating="@item.ReviewNo"></dau-rating>
 
 
 
 
                 <h1 class="h5 ">@Localizer["Students Love.."]</h1>
 
-                <p><i class="fa fa-map-marker text-primary"></i>@Localizer["Location: {0}",item.Location] </p>
-                <p><i class="fa fa-bed text-primary"></i> @Localizer["Home to over {0} students",item.NoOfStudents]</p>
+                <p><i class="fa fa-map-marker text-primary"></i>@Localizer["Location: {0}", item.Location] </p>
+                <p><i class="fa fa-bed text-primary"></i> @Localizer["Home to over {0} students", item.NoOfStudents]</p>
 
                 <h5>@item.Option</h5>
                 <p>@item.OptionValue</p>
@@ -94,7 +94,8 @@
         </a>
     }
 
-    @if (item.NoOfAwards !=null){
+    @if (item.NoOfAwards != null)
+    {
         <a class="media d-flex align-items-center mb-3 mb-lg-0">
             <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/svg/collect.svg" style="width: 36px;">
             <div class="media-body pl-2">
@@ -103,7 +104,7 @@
         </a>
 
     }
-    </div>
+</div>
 
 <div id="onScrollAlert_1" class="my-3">
 
