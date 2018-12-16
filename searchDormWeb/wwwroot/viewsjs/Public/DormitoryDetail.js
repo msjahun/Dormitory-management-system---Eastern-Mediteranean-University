@@ -1,9 +1,9 @@
 ﻿
 
-
+var dormitory_id = $('#dormitoryId').val();
 $.ajax({
     type: "POST",
-    url: "GetTopnavDormitorySection",
+    url: location.origin + "/Dormitory/GetTopnavDormitorySection/" + dormitory_id,
     data: {
         SectionId: "_TopnavDormitorySection"
     },
@@ -19,7 +19,7 @@ $.ajax({
 
 $.ajax({
     type: "POST",
-    url: "GetCommentsSection",
+    url: location.origin + "/Dormitory/GetCommentsSection/" + dormitory_id,
     data: {
         SectionId: "comments_section"
     },
@@ -36,7 +36,7 @@ $.ajax({
 //alert(sessionStorage.getItem('label'));
         $.ajax({
             type: "POST",
-            url: "GetDormitoryDescriptionSection",
+            url: location.origin + "/Dormitory/GetDormitoryDescriptionSection/" + dormitory_id,
             data: {
                 SectionId: "_DormitoryDescriptionSection"
             },
@@ -62,7 +62,7 @@ $.ajax({
 
                         $.ajax({
                             type: "POST",
-                            url: "GetOnScrollAlert",
+                            url: location.origin + "/Dormitory/GetOnScrollAlert/" + dormitory_id,
                             data: {
                                 SectionId: "onScrollAlert_1"
                             },
@@ -104,7 +104,7 @@ $(window).scroll(function () {
 
         $.ajax({
             type: "POST",
-            url: "GetRoomSection",
+            url: location.origin + "/Dormitory/GetRoomSection/" + dormitory_id,
             data: {
                 SectionId: "_RoomSection"
             },
@@ -128,7 +128,7 @@ $(window).scroll(function () {
 
                         $.ajax({
                             type: "POST",
-                            url: "GetOnScrollAlert",
+                            url: location.origin + "/Dormitory/GetOnScrollAlert/" + dormitory_id,
                             data: {
                                 SectionId: "onScrollAlert_2"
                             },
@@ -172,7 +172,7 @@ $(window).scroll(function () {
 
         $.ajax({
             type: "POST",
-            url: "GetAreaInfoSection",
+            url: location.origin + "/Dormitory/GetAreaInfoSection/" + dormitory_id,
             data: {
                 SectionId: "_AreaInfoSection"
             },
@@ -205,7 +205,7 @@ $(window).scroll(function () {
 
         $.ajax({
             type: "POST",
-            url: "GetFacilitiesSection",
+            url: location.origin + "/Dormitory/GetFacilitiesSection/" + dormitory_id,
             data: {
                 SectionId: "_FacilitiesSection"
             },
@@ -237,7 +237,7 @@ $(window).scroll(function () {
 
         $.ajax({
             type: "POST",
-            url: "GetGoodToKnowSection",
+            url: location.origin + "/Dormitory/GetGoodToKnowSection/" + dormitory_id,
             data: {
                 SectionId: "_GoodToKnowSection"
             },
@@ -268,7 +268,7 @@ $(window).scroll(function () {
 
         $.ajax({
             type: "POST",
-            url: "GetReviewBottomSection",
+            url: location.origin + "/Dormitory/GetReviewBottomSection/" + dormitory_id,
             data: {
                 SectionId: "_ReviewBottomSection"
             },
@@ -322,7 +322,7 @@ var swiper = new Swiper('.swiper-container', {});
 
 $.ajax({
     type: "POST",
-    url: "GetSlidersSection",
+    url: location.origin + "/Dormitory/GetSlidersSection/" + dormitory_id,
     data: {
         SectionId: "_SlidersSection"
     },
