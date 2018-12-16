@@ -44,7 +44,7 @@ $(window).scroll(function () {
 
         $.ajax({
             type: "POST",
-            url: "Home/GetHomeDormitoriesPartial",
+            url: "Home/GetCoolOffersDeals",
             data: {
                 SectionId: "CoolOfferAndDeals",
                 SwiperId: "swiper-row3"
@@ -88,7 +88,7 @@ $(window).scroll(function () {
 
         $.ajax({
             type: "POST",
-            url: "Home/GetHomeDormitoriesPartial",
+            url: "Home/GetHighlyRatedDormitories",
             data: {
                 SectionId: "HighlyRatedDormitories",
                 SwiperId: "swiper-row2"
@@ -139,7 +139,7 @@ $(window).scroll(function () {
 
         $.ajax({
             type: "POST",
-            url: "Home/GetHomeDormitoriesPartial",
+            url: "Home/GetPopularDormitories",
             data: {
                 SectionId: "PopularDormitories",
                 SwiperId: "swiper-row1"
