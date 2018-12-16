@@ -1,0 +1,46 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+
+}
+
+<section class="slice slice-xl  d-flex align-items-center">
+    <div class="container ">
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <div class="text-center">
+
+                    @if (true)
+                    {
+                        <div class="icon icon-xl icon-shape icon-green rounded-circle">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        /**/
+                        <h6 class="h4 my-4">@Localizer["Completed booking successfully"]</h6>
+                        <p class="px-5">
+                            @Localizer["Thanks you for booking a room from our dormitory, your booking will be confirmed within 5 working days"]
+                        </p>
+                        <a asp-controller="Account" asp-action="Billing" class="btn btn-info shadow--hover mt-5">@Localizer["View bookings"]</a>
+                    }
+                    else
+                    {
+                        <div class="icon icon-xl icon-shape icon-red rounded-circle">
+                            <i class="fas fa-times"></i>
+                        </div>
+                        <h6 class="h4 my-4">@Localizer["Booking failed to complete successfully"]</h6>
+                        <p class="px-5">
+                            @Localizer["We applogise for the inconvenience, our engineers have been notified of this problem, please try again"]
+                        </p>
+                        <a asp-controller="Search" asp-action="Results" class="btn btn-info shadow--hover mt-5">@Localizer["Go to dormitories"]</a>
+
+
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,104 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@using searchDormWeb.Controllers
+@model BookingCartViewModel
+@{
+    var item = Model;
+}
+<div data-toggle="sticky" data-sticky-offset="100">
+
+    <div class="card" id="card-summary">
+        <div class="card-header py-3">
+            <div class="row align-items-center">
+                <div class="col-6">
+                    <span class="h6">@Localizer["Summary"]</span>
+                </div>
+                <div class="col-6 text-right">
+                    <span class="badge badge-md badge-pill badge-info">@Localizer["{0} selected Room", 1]</span>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col text-center">
+                    <img alt="Image placeholder" class="mr-2 text-center" src="@item.DormitoryLogoUrl">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="media align-items-center">
+                        <div class="media-body">
+                            <div class="text-limit lh-100">
+                                <small class="text-dark h4 font-weight-bold mb-0">@item.DormitoryName</small>
+                            </div>
+                            <small class="text-muted h6">@item.StayDuration</small><br />
+                            <small class="text-muted h6">@item.RoomName</small><br />
+                            <small class="text-muted h6">@item.RoomBlock</small><br />
+                            <small class="text-muted h6">@item.RoomSize</small><br />
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Subtotal -->
+            <div class="row mt-3 pt-3 border-top">
+                <div class="col-8 text-right">
+                    <small class="text-dark font-weight-bold">@Localizer["Subtotal"]:</small>
+                </div>
+                <div class="col-4 text-right">
+                    <span class="text-sm font-weight-bold">@item.SubtotalAmount</span>
+                </div>
+            </div>
+            <!-- Booking fee -->
+            <div class="row mt-3 pt-3 border-top">
+                <div class="col-8 text-right">
+                    <div class="media align-items-center">
+
+                        <div class="media-body">
+                            <div class="text-limit lh-100">
+                                <small class="text-dark font-weight-bold mb-0">@Localizer["Booking fee"]:</small>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 text-right">
+                    <span class="text-sm font-weight-bold">@item.BookingFee</span>
+                </div>
+            </div>
+            <!-- Tax-->
+            <div class="row mt-3 pt-3 border-top">
+                <div class="col-8 text-right">
+                    <div class="media align-items-center">
+
+                        <div class="media-body">
+                            <div class="text-limit lh-100">
+                                <small class="text-dark font-weight-bold mb-0">@Localizer["Tax"]:</small>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 text-right">
+                    <span class="text-sm font-weight-bold">@item.TaxAmount</span>
+                </div>
+            </div>
+            <!-- Subtotal -->
+            <div class="row mt-3 pt-3 border-top">
+                <div class="col-8 text-right">
+                    <small class="text-uppercase text-dark font-weight-bold">@Localizer["Total"]:</small>
+                </div>
+                <div class="col-4 text-right">
+                    <span class="text-sm text-dark font-weight-bold">@item.AmountTotal</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
