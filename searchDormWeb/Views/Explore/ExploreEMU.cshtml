@@ -133,7 +133,7 @@
     <!-- .photo-item template HTML -->
     <script type="text/html" id="photo-item-template">
         <div class="animate-this">
-            <a href="#" class="card border-0" data-animate-hover="1">
+            <a href="@Url.Content("~/Dormitories")/{{dormitorySeoFriendlyUrl}}" class="card border-0" data-animate-hover="1">
 
                 <div class="photo-item animate-this">
                     <img class="photo-item__image  rounded z-depth-3 img-fluid" src="{{imageUrl}}" alt="Photo by {{dormitoryName}}" />
@@ -144,8 +144,9 @@
                                 <h6 class="text-white visible-lg visible-md">{{dormitoryName}}</h6>
                             </div>**@
                     </div>
+                    
                     <p class="photo-item__caption">
-                        <a href="{{imageUrl}}?utm_source=infinite-scroll-demos&utm_medium=referral&utm_campaign=api-credit">{{dormitoryName}}</a>
+                        <a href="@Url.Content("~/Dormitories")/{{dormitorySeoFriendlyUrl}}" >{{dormitoryName}} </a>
                     </p>
                 </div>
             </a>
@@ -169,8 +170,7 @@
 
       //------------------//
 
-      // Get an API key for your demos at https://unsplash.com/developers
-     //var unsplashID = '9ad80b14098bcead9c7de952435e937cc3723ae61084ba8e729adb642daf0251';
+    
 
       var infScroll = new InfiniteScroll( '.grid', {
         path: function() {
