@@ -1,10 +1,10 @@
-﻿@using searchDormWeb.Controllers;
+﻿@using Dau.Services.Domain.SearchResultService
 @model List<DormitoryResultViewModel>
 @{
     var modelList = Model;
-    Random rnd = new Random();
-    var count = 0;
-    int randomNumber = rnd.Next(Model.Count);
+ Random rnd = new Random();
+ var count = 0;
+ int randomNumber = rnd.Next(Model.Count);
 }
 @*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -17,7 +17,7 @@
 
 
         <div class="card-body row">
-            <div class="col-lg-4 swiper-js-container mb-3" style="position:relative">
+            <div class="col-lg-4  col-md-4 swiper-js-container mb-3" style="position:relative">
 
                 <!-- Swiper Arrows -->
 
@@ -53,9 +53,9 @@
 
 
 
-            <div class="col-lg-5">
+            <div class="col-lg-5 col-md-5">
                 <span class="badge badge-secondary">@item.DormitoryType</span>
-                <h4 class="dormitory-name d-inline"><a asp-action="Detail" asp-controller="Dormitory"> @item.DormitoryName </a></h4>
+                <h4 class="dormitory-name d-inline"><a href="@Url.Content("~/Dormitories/"+item.DormitorySeoFriendlyUrl)"> @item.DormitoryName </a></h4>
                 <dau-rating rating="@item.RatingNo"></dau-rating>
                 <span><i class="fa fa-thumbs-up" style="color:orange;"></i></span>
 
@@ -89,7 +89,7 @@
                 }
             </div>
 
-            <div class="col-lg-3 rating">
+            <div class="col-lg-3 col-sm-3 rating">
                 <div class="rating-detail">
                     <span class="rating-text inline h4">@item.RatingText</span>
                     <a class=" float-right rating-no text-white text-bold h3">@item.RatingNo</a>
@@ -112,7 +112,7 @@
     @if (randomNumber == count)
     {
         <div id="onScrollAlert">
-        
+
         </div>
     }
 

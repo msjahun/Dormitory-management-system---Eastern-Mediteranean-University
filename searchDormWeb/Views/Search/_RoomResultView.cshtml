@@ -2,7 +2,7 @@
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
-@using searchDormWeb.Controllers
+@using Dau.Services.Domain.SearchResultService
 @model List<RoomResultViewModel>
 @{
     var modelList = Model;
@@ -20,7 +20,7 @@
 
 
         <div class="card-body row">
-            <div class="col-lg-4 swiper-js-container" style="position:relative">
+            <div class="col-lg-4 col-md-4 swiper-js-container" style="position:relative">
 
                 <!-- Swiper Arrows -->
 
@@ -58,9 +58,9 @@
 
 
 
-            <div class="col-lg-5">
-                <span class="badge badge-secondary">@item.GenderAllocation</span><a asp-action="Detail" asp-controller="Dormitory" asp-fragment="_RoomSection" class="h3">@item.RoomName</a>
-                <h4 class="dormitory-name d-inline"><a asp-action="Detail" asp-controller="Dormitory">@item.DormitoryName</a></h4> <span class="badge badge-secondary">@item.DormitoryRoomBlock</span>
+            <div class="col-lg-5 col-md-5">
+                <span class="badge badge-secondary">@item.GenderAllocation</span><a  href="@Url.Content("~/Dormitories/"+item.DormitorySeoFriendlyUrl)#_RoomSection" class="h3">@item.RoomName</a>
+                <h4 class="dormitory-name d-inline"><a href="@Url.Content("~/Dormitories/"+item.DormitorySeoFriendlyUrl)">@item.DormitoryName</a></h4> <span class="badge badge-secondary">@item.DormitoryRoomBlock</span>
 
                 <dau-rating rating="@item.RatingNo"></dau-rating>
 
@@ -84,23 +84,23 @@
                 </div>
 
                 @*<p class="h6">
-            @item.ShortDescription
+                        @item.ShortDescription
 
-        </p>*@
-               
+                    </p>*@
 
-                    <span class=" mt-1 facilityCol"> <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/facilities/icons8-hotel-bed-64.png" style="width: 20px;"> Bed</span>             
-                  
-                   <span class=" mt-1 facilityCol"> <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/facilities/icons8-widescreen-64.png" style="width: 30px;"> TV</span>              
 
-                   <span class=" mt-1 facilityCol"> <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/facilities/icons8-shower-50.png" style="width: 30px;"> WC-shower</span>           
-                   <span class=" mt-1 facilityCol"> <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/facilities/icons8-office-phone-64.png" style="width: 20px;"> Room tel.</span>     
+                <span class=" mt-1 facilityCol"> <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/facilities/icons8-hotel-bed-64.png" style="width: 20px;"> Bed</span>
 
-                   <span class=" mt-1 facilityCol">  Towel</span>                                                                                                                                                    
-                   <span class=" mt-1 facilityCol"> <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/facilities/icons8-compressor-64.png" style="width: 20px;"> Generator</span>       
+                <span class=" mt-1 facilityCol"> <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/facilities/icons8-widescreen-64.png" style="width: 30px;"> TV</span>
 
-                   <span class=" mt-1 facilityCol">  Towel</span><a asp-action="Detail" asp-controller="Dormitory" asp-fragment="_RoomSection">... view more</a>
-             
+                <span class=" mt-1 facilityCol"> <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/facilities/icons8-shower-50.png" style="width: 30px;"> WC-shower</span>
+                <span class=" mt-1 facilityCol"> <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/facilities/icons8-office-phone-64.png" style="width: 20px;"> Room tel.</span>
+
+                <span class=" mt-1 facilityCol">  Towel</span>
+                <span class=" mt-1 facilityCol"> <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/facilities/icons8-compressor-64.png" style="width: 20px;"> Generator</span>
+
+                <span class=" mt-1 facilityCol">  Towel</span><a asp-action="Detail" asp-controller="Dormitory" asp-fragment="_RoomSection">... view more</a>
+
                 @*<span><i class="fa fa-credit-card"></i><a href="#">Reservation possible without a credit card</a></span>*@
                 @*<p class="text-danger">Booked 2 times in the last 6 hours</p>*@
 
@@ -110,7 +110,7 @@
                 }
             </div>
 
-            <div class="col-lg-3 rating">
+            <div class="col-lg-3  col-md-3 rating">
                 <div class="rating-detail">
                     <span class="rating-text inline h4">@item.RatingText</span>
                     <a class=" float-right rating-no text-white text-bold h3">@item.RatingNo.ToString("0.#")  </a>
