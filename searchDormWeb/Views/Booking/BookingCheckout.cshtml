@@ -1,0 +1,299 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+    Layout = "~/Views/Shared/_LayoutUserNew.cshtml";
+    ViewData["Title"] = Localizer["Booking page"];
+}
+
+
+<header class="header-account-page-sm bg-gradient-primary d-flex align-items-end">
+    <div class="container">
+        <div class="row">
+            <div class=" col-lg-12">
+                <div class="row align-items-center mb-4">
+                    <div class="col-md-5 mt-4 mb-md-0">
+                        <span class="h2 mb-0 text-white d-block">Booking Cart </span>
+                        <span class="text-light">Checkout and complete your booking</span>
+                    </div>
+                </div>
+                <!-- Checkout navigation -->
+
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<section class="slice" style=" padding-top:20px; ">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="nav nav-pills nav-fill flex-column flex-sm-row" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link mb-sm-3  active disabled" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"> <i class="fas fa-shopping-cart"></i>  @Localizer["Cart"]</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link mb-sm-3  disabled" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false"> <i class="fas fa-user"></i>  @Localizer["Student"]</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link mb-sm-3 disabled " id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false"> <i class="fas fa-credit-card"></i> @Localizer["Payment"]</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+                        <div id="Cart_Section">
+                            <dau-loader></dau-loader>
+
+                        </div>
+
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+                        <div id="Student_Section">
+                            <dau-loader></dau-loader>
+
+                        </div>
+
+                    </div>
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+
+                        <div id="Payment_Section">
+                            <dau-loader></dau-loader>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            @*<div id="Content_Section">
+                    <dau-loader></dau-loader>
+
+                </div>*@
+        </div>
+    </div>
+
+</section>
+
+
+
+
+<!-- Call to action -->
+
+<section class="slice slice-lg bg-primary">
+
+    <span class="tongue tongue-top"><i class="fas fa-angle-up"></i></span>
+
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-8 text-center">
+                <h3 class="font-weight-400 text-white">@Localizer["I am ready to start booking Now"] </h3>
+                <div class="mt-5">
+                    <a href="" target="_blank" class="btn btn-white btn-circle btn-translate--hover px-4">@Localizer["Book my first Room"]<span class="badge badge-pill badge-danger text-sm">@Localizer["Now"]</span></a>
+                    <a href="" class="btn btn-link text-white">@Localizer["Have an issue?"]</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts
+    {
+    <script src="@Url.Content("~/frontend_Content/assets")/vendor/select2/dist/js/select2.min.js"></script>
+    <script src="@Url.Content("~/frontend_Content/assets")/vendor/autosize/dist/autosize.min.js"></script>
+    <script>
+        loadCart();
+
+
+
+
+
+
+
+
+
+
+
+
+
+        function loadCart() {
+
+            var loader = "<div class=\"text-center mt-5\"> <div class=\"lds-ring\"><div></div><div></div><div></div><div></div></div> </div>";
+            $("#Cart_Section").html(loader);
+
+            $.ajax({
+                type: "POST",
+                url: location.origin + "/Booking/CheckoutCart/",
+                data: {
+                    SectionId: "_TopnavDormitorySection"
+                },
+                success: function (result) {
+                    //     alert(result);
+                    $("#Cart_Section").html(result);
+                    $("#buttonNext").click(function () {
+                        //first next button to student
+                        //ajax load student
+                        $(".nav-link ").removeClass("active");
+                        $(".tab-pane").removeClass("active show");
+                        $("#profile-tab").addClass("active");
+                        $("#home-tab").addClass("active");
+                        $("#profile").addClass("active show");
+                        $("#profile").addClass("active show");
+                        loadStudentInfo();
+                    });
+
+
+                }
+            });
+
+        }
+
+
+        function loadPayment() {
+
+            var loader = "<div class=\"text-center mt-5\"> <div class=\"lds-ring\"><div></div><div></div><div></div><div></div></div> </div>";
+            $("#Payment_Section").html(loader);
+
+            $.ajax({
+                type: "POST",
+                url: location.origin + "/Booking/CheckoutPayment/",
+                data: {
+                    SectionId: "_TopnavDormitorySection"
+                },
+                success: function (result) {
+                    //     alert(result);
+                    $("#Payment_Section").html(result);
+
+                    $("#buttonNext5").click(function () {
+                        //ajax load student
+                        //back button from payment to student
+                        $(".nav-link ").removeClass("active");
+                        $(".tab-pane").removeClass("active show");
+                        $("#profile-tab").addClass("active");
+                        $("#home-tab").addClass("active");
+                        $("#profile").addClass("active show");
+
+                        loadStudentInfo();
+                    });
+
+
+                    $("#CompleteBooking").click(function () {
+
+                        loadConfirmationPage();
+                    });
+
+                }
+            });
+
+        }
+
+
+        function loadConfirmationPage() {
+
+            var loader = "<div class=\"text-center mt-5\"> <div class=\"lds-ring\"><div></div><div></div><div></div><div></div></div> </div> <div class=\"text-center\"><h3>Completing booking...</h3></div> ";
+            $("#Payment_Section").html(loader);
+
+            $.ajax({
+                type: "POST",
+                url: location.origin + "/Booking/BookingConfirmation/",
+                data: {
+                    SectionId: "_TopnavDormitorySection"
+                },
+                success: function (result) {
+                    //     alert(result);
+                    $("#Payment_Section").html(result);
+
+          
+
+                        loadStudentInfo();
+                
+
+
+                }
+            });
+
+        }
+
+        function loadStudentInfo() {
+
+            var loader = "<div class=\"text-center mt-5\"> <div class=\"lds-ring\"><div></div><div></div><div></div><div></div></div> </div>";
+            $("#Student_Section").html(loader);
+
+            $.ajax({
+                type: "POST",
+                url: location.origin + "/Booking/CheckoutCustomer/",
+                data: {
+                    SectionId: "_TopnavDormitorySection"
+                },
+                success: function (result) {
+                    //     alert(result);
+                    $("#Student_Section").html(result);
+
+                    $("#buttonNext2").click(function () {
+                        //ajax load payment
+                        //second next button to Payment
+                        $(".nav-link ").removeClass("active");
+                        $(".tab-pane").removeClass("active show");
+                        $("#contact-tab").addClass("active");
+                        $("#profile-tab").addClass("active");
+                        $("#home-tab").addClass("active");
+                        $("#contact").addClass("active show");
+
+                        loadPayment();
+                    });
+
+                    $("#buttonNext3").click(function () {
+
+
+                        //ajax load cart
+                        //back button from student to Cart
+                        $(".nav-link ").removeClass("active");
+                        $(".tab-pane").removeClass("active show");
+                        $("#home-tab").addClass("active");
+                        $("#home").addClass("active show");
+
+                        loadCart();
+                    });
+                }
+            });
+
+        }
+    </script>
+
+
+    @*<script>
+
+            $.ajax({
+                type: "POST",
+                url: location.origin + "/Booking/CartEmpty/",
+                data: {
+                    SectionId: "_TopnavDormitorySection"
+                },
+                success: function (result) {
+                    //     alert(result);
+                    $("#Content_Section").html(result);
+
+
+
+                }
+            });
+
+
+        </script>*@
+
+
+
+
+
+
+}
+
+@section styles{
+    <link type="text/css" href="@Url.Content("~/frontend_Content/assets")/vendor/select2/dist/css/select2.min.css" rel="stylesheet">
+
+
+}
