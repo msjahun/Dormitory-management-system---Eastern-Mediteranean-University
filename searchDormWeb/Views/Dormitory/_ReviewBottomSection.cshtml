@@ -1,10 +1,10 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@using searchDormWeb.Controllers
+@using Dau.Services.Domain.DormitoryDetailService
 @model ReviewButtomSectionViewModel
 
-@{ 
+@{
     var item = Model;
 }
 <div class="mb-5">
@@ -16,11 +16,11 @@
             <div class="media-body">
                 <div class="media-text-bubble left-top">
                     <h6 class="mt-0">
-                      @item.LatestReview.UserFullName
+                        @item.LatestReview.UserFullName
                     </h6>
                     <div class=" border-0">
                         <div class=" rating-details float-right py-2">
-                         
+
                             <a class=" rating-no text-white text-bold h3">@item.LatestReview.UserRatingNo</a>
                         </div>
                         <dau-rating rating="@item.LatestReview.UserRatingNo"></dau-rating>

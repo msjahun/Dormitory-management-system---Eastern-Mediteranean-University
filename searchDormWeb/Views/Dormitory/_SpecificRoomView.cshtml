@@ -2,7 +2,7 @@
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
-@using searchDormWeb.Controllers
+@using Dau.Services.Domain.DormitoryDetailService
 @model SpecificRoomViewModel
 @{
     var item = Model;
@@ -10,13 +10,13 @@
     var countFacilities = 0;
     int columnNoItem = item.Facilities.Count / 2;
 }
-<div  style="width: 90%;">
+<div style="width: 90%;">
     @*<div class="col-md-6">
 
-      
 
-      
-    </div>*@
+
+
+        </div>*@
 
 
     <div class="col-md-12">
@@ -26,7 +26,7 @@
 
             <span class="mb-5">@item.DormitoryBlock - @item.GenderAllocation- @Localizer["Here is a list of our most popular facilities in this dormitory"]</span>
 
-           
+
             <div class="row row-grid mt-4">
                 <div class="col-md-12 col-lg-8" data-animate-hover="1" data-toggle="hidden">
 
@@ -69,7 +69,7 @@
 
                     <div class="row row-grid mt-4 pt-2">
                         <div class="col-md-6">
-                            <a ><i class="fas fa-play text-warning"></i> <span class="text-primary h5"> @item.RoomName </span></a>
+                            <a><i class="fas fa-play text-warning"></i> <span class="text-primary h5"> @item.RoomName </span></a>
                             <span class="badge badge-secondary">@item.DormitoryName</span>
                             <span class="static-rating static-rating-sm">
                                 <i class="star fas fa-star voted"></i>
@@ -79,9 +79,9 @@
                             <p>
                                 @String.Format(" {0} {1}", item.NoOfStudents, item.BedType)
 
-                             <dau-bedIcon reapeat-no="@item.NoOfStudents"></dau-bedIcon>
+                                <dau-bedIcon reapeat-no="@item.NoOfStudents"></dau-bedIcon>
                             </p>
-                            <span class="text-danger"> @Localizer["{0} rooms left",item.NoRoomQuota]</span>
+                            <span class="text-danger"> @Localizer["{0} rooms left", item.NoRoomQuota]</span>
                         </div>
 
                         <div class="col-md-6">
@@ -105,8 +105,8 @@
                 </div>
 
                 <div class="col-lg-4 col-md-12  mt-md-5 mt-lg-0">
-                  
-                    
+
+
                     <h4 class="text-primary">List of room facilities</h4>
                     <div class="row row-grid ">
 
@@ -144,8 +144,8 @@
 
 
                     </div>
-                    
-                    </div>
+
+                </div>
 
             </div>
 
@@ -156,7 +156,7 @@
 
 
 <script>
- 
+
     swiper_room = new Swiper('.swiper_container_room', {
         slidesPerView: 'auto',
         centeredSlides: true,

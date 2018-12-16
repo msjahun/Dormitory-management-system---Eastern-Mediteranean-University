@@ -1,9 +1,9 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@using searchDormWeb.Controllers
+@using Dau.Services.Domain.DormitoryDetailService
 @model List<RoomSectionViewModel>
-@{ 
+@{
     var modelList = Model;
 }
 <div class="delimiter-top"></div>
@@ -11,7 +11,7 @@
     <!-- Resume timeline -->
     <h4>@Localizer["Room Availability"]</h4>
 
-   
+
 
     <div class="overflow" style="overflow-x:auto;">
         <table class="table table-bordered">
@@ -21,7 +21,7 @@
                     <th class="bg-info text-white" scope="col">@Localizer["Sleeps"]</th>
                     <th class="bg-info text-white" scope="col">@Localizer["Prices"]</th>
                     <th class="bg-info text-white" scope="col">@Localizer["Your choices"]</th>
-            
+
 
                 </tr>
             </thead>
@@ -29,72 +29,72 @@
 
                 @foreach (var item in modelList)
                 {
-                <tr>
+                    <tr>
 
-                    <td>
-                        <a  data-fancybox  data-type="ajax" data-src="GetSpecificRoomView"  href="javascript:;"><i class="fas fa-play text-warning"></i> <span class="text-primary h5 d-block"> @item.RoomName </span></a>
-                        <span class="badge badge-secondary">@item.DormitoryBlock</span>
-                        <span class="static-rating static-rating-sm"> 
-                        <i class="star fas fa-star voted"></i>
-                        </span>
-                        
-                                                                                       <span class="badge badge-secondary ">@item.GenderAllocation</span>
-                        <p>
-                            @item.NoOfStudents @item.BedType
+                        <td>
+                            <a data-fancybox data-type="ajax" data-src="@Url.Content("~/Dormitory/GetSpecificRoomView")/@item.RoomId" href="javascript:;"><i class="fas fa-play text-warning"></i> <span class="text-primary h5 d-block"> @item.RoomName </span></a>
+                            <span class="badge badge-secondary">@item.DormitoryBlock</span>
+                            <span class="static-rating static-rating-sm">
+                                <i class="star fas fa-star voted"></i>
+                            </span>
 
-                            <dau-bedicon reapeat-no="@item.NoOfStudents"></dau-bedicon>
-                        </p>
-                        @if (item.RoomsQuota > 0 && item.RoomsQuota <= 5)
-                        {
-                            <span class="text-danger"> @Localizer["{0} rooms left", item.RoomsQuota]</span>}
-                    </td>
-                    <td>
+                            <span class="badge badge-secondary ">@item.GenderAllocation</span>
+                            <p>
+                                @item.NoOfStudents @item.BedType
 
-                        <dau-peopleicon  reapeat-no="@item.NoOfStudents"></dau-peopleicon>
-
-
-                    </td>
-                    <td>
-                        @if (item.ShowPrice)
-                        {
-                            <h4 class="text-bold" style="color:#269038">TL @item.Price</h4>
-                            @if (item.PriceOld != null)
+                                <dau-bedicon reapeat-no="@item.NoOfStudents"></dau-bedicon>
+                            </p>
+                            @if (item.RoomsQuota > 0 && item.RoomsQuota <= 5)
                             {
-                                <strike><h4 class="text-bold" style="color:grey; ">TL @item.PriceOld</h4></strike>
+                                <span class="text-danger"> @Localizer["{0} rooms left", item.RoomsQuota]</span>}
+                        </td>
+                        <td>
+
+                            <dau-peopleicon reapeat-no="@item.NoOfStudents"></dau-peopleicon>
+
+
+                        </td>
+                        <td>
+                            @if (item.ShowPrice)
+                            {
+                                <h4 class="text-bold" style="color:#269038">TL @item.Price</h4>
+                                @if (item.PriceOld != null)
+                                {
+                                    <strike><h4 class="text-bold" style="color:grey; ">TL @item.PriceOld</h4></strike>
+                                }
                             }
+                            else
+                            {
+                                <a href="#" class=" btn btn-sm btn-primary">@Localizer["Show prices"]</a>
+                            }
+
+                        </td>
+                        <td>
+                            @if (item.HasDeposit == true)
+                            {
+
+                                <span><i class="fas fa-check"></i>@Localizer["Includes deposit"] <br /></span>
+
+
+                            }
+                            else
+                            {
+
+                                <span> @Localizer["No deposit"]<br /></span>
+                            }
+                            @if (item.RoomsQuota <= 0)
+                            {
+                                <span class="text-danger d-block"> Rooms sold out</span>}
+                            else
+                            { <a asp-action="Cart" asp-controller="Booking" class="btn btn-primary btn-block btn-sm">@Localizer["I'll reserve"]</a>
                         }
-                        else
-                        {
-                            <a href="#" class=" btn btn-sm btn-primary">@Localizer["Show prices"]</a>
-                        }
 
-                    </td>
-                    <td>
-                        @if (item.HasDeposit == true)
-                        {
+                        </td>
 
-                            <span><i class="fas fa-check"></i>@Localizer["Includes deposit"] <br /></span>
-
-
-                        }
-                        else
-                        {
-
-                            <span> @Localizer["No deposit"]<br /></span>
-                        }
-                        @if (item.RoomsQuota <= 0)
-                        {
-                            <span class="text-danger d-block"> Rooms sold out</span>}
-                        else
-                        { <a asp-action="Cart" asp-controller="Booking" class="btn btn-primary btn-block btn-sm">@Localizer["I'll reserve"]</a>
-                    }
-
-                    </td>
-
-                </tr>
+                    </tr>
 
                 }
-           
+
 
             </tbody>
         </table>

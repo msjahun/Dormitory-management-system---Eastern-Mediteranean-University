@@ -1,11 +1,11 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@using searchDormWeb.Controllers
+@using Dau.Services.Domain.DormitoryDetailService
 @model GoodToKnowSectionViewModel
 
 @{
-    var item= Model;
+    var item = Model;
 
 }
 <div class="pt-5 mt-5 delimiter-top" id="GoodToKnow">
@@ -35,7 +35,7 @@
                         {
                             <i class="@info.Icon"></i>
                         }
-                       
+
                         @info.Title
                     </span>
                     <div class="d-inline ml-5 mt-5">
