@@ -11,39 +11,76 @@ namespace searchDormWeb.Controllers.API
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
-    public class GetHighlyRatedDormitoriesController : ControllerBase
+    public class GetHighlyRatedDormitoriesController : Controller
     {
         // GET: api/GetHighlyRatedDormitories
         [HttpGet]
         public JsonResult Get()
         { 
-            string Json = @"{
-      ""Response"": ""Success"",
-      ""Body"": {
-                ""Dormitories"": [
-                  {
-            ""PictureUrl"": ""https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg"",
-            ""DormitoryName"": ""1Alfam Dormitories"",
-                    ""DealsText"": ""1Deals start at $1990"",
-                    ""DormitoryId"": ""5""
 
-          },
-          {
-            ""PictureUrl"": ""https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg"",
-            ""DormitoryName"": ""2Alfam Dormitories"",
-            ""DealsText"": ""2Deals start at $1990"",
-            ""DormitoryId"": ""22""
+            var Response = new
+            {
+                Response = "Success",
+                Body = new
+                {
 
-          }
-        ]
+                    Dormitories = new List<DormitoriesGetHighlyRatedDormitoriesVM>
+                    {
+                        new DormitoriesGetHighlyRatedDormitoriesVM
+                        {  PictureUrl="https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg",
+           DormitoryName="1Alfam Dormitories",
+                    DealsText="1Deals start at $1990",
+                    DormitoryId=5
 
-      }
+                        },
+                        new DormitoriesGetHighlyRatedDormitoriesVM
+                        {
+             PictureUrl="https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg",
+            DormitoryName="2Alfam Dormitories",
+            DealsText="2Deals start at $1990",
+           DormitoryId=22
+                        },
+                        new DormitoriesGetHighlyRatedDormitoriesVM
+                        {
+             PictureUrl="https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg",
+            DormitoryName="2Alfam Dormitories",
+            DealsText="2Deals start at $1990",
+           DormitoryId=22
+                        },
+                        new DormitoriesGetHighlyRatedDormitoriesVM
+                        {
+             PictureUrl="https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg",
+            DormitoryName="2Alfam Dormitories",
+            DealsText="2Deals start at $1990",
+           DormitoryId=22
+                        },
+                        new DormitoriesGetHighlyRatedDormitoriesVM
+                        {
+             PictureUrl="https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg",
+            DormitoryName="2Alfam Dormitories",
+            DealsText="2Deals start at $1990",
+           DormitoryId=22
+                        }
+                    }
+                }
 
-    }";
-             JsonResult result = new JsonResult(JsonConvert.DeserializeObject(Json));
-            return result;
+            };
+
+
+
+            return Json(Response);
+         
         }
 
         
+
+        public class DormitoriesGetHighlyRatedDormitoriesVM
+        {
+            public string PictureUrl  {get; set;}
+           public string  DormitoryName {get; set;}
+            public string DealsText {get; set;}
+            public long   DormitoryId  {get; set;}
+            
+        }
     }
 }

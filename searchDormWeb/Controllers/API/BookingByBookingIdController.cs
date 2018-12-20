@@ -13,31 +13,36 @@ namespace searchDormWeb.Controllers.API
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
-    public class BookingByBookingIdController : ControllerBase
+    public class BookingByBookingIdController : Controller
     {
-       
 
+      
         // GET: api/BookingByBookingId/5
         [HttpGet("{id}")]
         public JsonResult Get(int id)
         {
-            string Json = @"{
-      ""Response"": ""Success"",
-      ""Body"": {
-                ""DormitoryId"": ""23"",
-        ""BookingDate"": ""12 / 2 / 2018"",
-        ""BookingStatus"": ""Confirmed"",
-        ""paymentConfirmationExpiryDate"": ""23 / 4 / 2019"",
-        ""BookingNo"": ""34343434"",
-        ""RoomBooked"": ""Alfam single room"",
-        ""DormitoryName"": ""Alfam dormitories""
-      }
+    
 
-        }";
 
-            JsonResult result = new JsonResult(JsonConvert.DeserializeObject(Json));
+            var Response = new
+            {
+                Response = "Success",
+                Body = new
+                {
+                    DormitoryId = 23,
+                    BookingDate = DateTime.Now.ToString("d"),
+                    BookingStatus = "Confirmed",
+                    paymentConfirmationExpiryDate = DateTime.Now.ToString("d"),
+                    BookingNo = "34343434",
+                    RoomBooked = "Alfam single room",
+                    DormitoryName = "Alfam dormitories"
+                }
 
-            return result;
+            };
+
+
+            return Json(Response);
+           
           
         }
 

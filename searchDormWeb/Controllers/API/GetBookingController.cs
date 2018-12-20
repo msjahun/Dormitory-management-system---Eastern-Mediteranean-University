@@ -12,25 +12,34 @@ namespace searchDormWeb.Controllers.API
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
-    public class GetBookingController : ControllerBase
+    public class GetBookingController : Controller
     {
         // GET: api/GetBooking/34
         [HttpGet("{id}")]
         public JsonResult Get(int id)
         {
-            string Json = @"
-    {
-      ""Response"": ""Success"",
-      ""Body"": {
-        ""DateOfBooking"": ""12/10/2018"",
-        ""TimeOfBooking"": ""2:48PM"",
-        ""CheckInDate"": ""18/10/2018"",
-        ""CheckInSemester"": ""Spring""
-      }
-    }";
-            JsonResult result = new JsonResult(JsonConvert.DeserializeObject(Json));
 
-            return result;
+
+            var Response = new
+            {
+                Response = "Success",
+                Body = new
+                {
+                    DateOfBooking = DateTime.Now.ToString("d"),
+                    TimeOfBooking = DateTime.Now.ToString("T"),
+                    CheckInDate = DateTime.Now.AddDays(50).ToString("d"),
+                    CheckInSemester = "Spring"
+
+
+
+                }
+
+            };
+
+
+
+            return Json(Response);
+       
         }
 
       

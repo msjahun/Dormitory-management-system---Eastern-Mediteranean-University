@@ -12,40 +12,57 @@ namespace searchDormWeb.Controllers.API
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
-    public class FacilitiesFilterController : ControllerBase
+    public class FacilitiesFilterController : Controller
     {
         // GET: api/FacilitiesFilter
         [HttpGet]
         public JsonResult Get()
         {
-            string Json = @"{
-      ""Response"": ""Success"",
-      ""Body"": {
-                ""Facilities"": [
-                  {
-            ""facilityId"": ""1"",
-                    ""facilityname"": ""Refrigerator""
+   
+            
+            var Response = new 
+            {
+                Response = "Success",
+                Body = new
+                {
 
-          },
-          {
-            ""facilityId"": ""2"",
-            ""facilityname"": ""Wifi""
+                    Facilities = new List<FacilityAPIVm>
+                    {
+                      new FacilityAPIVm
+                      {
+                          facilityId = 1,
+                          facilityName = "Refrigerator"
+                      },
 
-          },
-          {
-            ""facilityId"": ""3"",
-            ""facilityname"": ""TV""
+                      new FacilityAPIVm
+                      {
+                          facilityId = 2,
+                          facilityName = "Wifi"
+                      },
 
-          }
-        ]
-      }
+                        new FacilityAPIVm
+                      {
+                          facilityId = 3,
+                          facilityName = "TV"
+                      }
 
-    }";
-            JsonResult result = new JsonResult(JsonConvert.DeserializeObject(Json));
+                       }
 
-            return result;
+                   }
+                
+            };
+
+
+            return Json(Response);
+           
         }
 
        
     }
+
+public class FacilityAPIVm
+{
+    public long facilityId { get; set; }
+    public string facilityName { get; set; }
+}
 }

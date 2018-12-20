@@ -5,26 +5,29 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
+using searchDormWeb.Models;
 
 namespace searchDormWeb.Controllers.API
 {
     [Produces("application/json")]
-    [Route("api/[controller]")]
+  
     [ApiController]
-    public class GiveAppFeedBackController : ControllerBase
+    public class GiveAppFeedBackController : Controller
     {
-       
 
+        [Route("api/[controller]")]
         // POST: api/GiveAppFeedBack
         [HttpPost]
-        public JsonResult Post([FromBody] string value)
+        public JsonResult Post(string value)
         {
-            string Json = @" {
-                ""Response"": ""Success""
-                }";
 
-             JsonResult result = new JsonResult(JsonConvert.DeserializeObject(Json));
-            return result;
+            ResponseResult response = new ResponseResult
+            {
+                Response = true,
+                StatusCode = "0x3234"
+            };
+
+            return Json(response);
         }
         
     }

@@ -5,28 +5,28 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
-
+using searchDormWeb.Models;
 
 namespace searchDormWeb.Controllers.API
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
-    public class CreateBookingController : ControllerBase
+    public class CreateBookingController : Controller
     {
         
 
         // POST: api/CreateBooking
         [HttpPost]
-        public JsonResult Post([FromBody] string value)
+        public JsonResult Post(string value)
         {
-            string Json = @" {
-                ""Response"": ""Success""
-                }";
+            ResponseResult response = new ResponseResult
+            {
+                Response = true,
+                StatusCode = "0x3234"
+            };
 
-            JsonResult result = new JsonResult(JsonConvert.DeserializeObject(Json));
-
-            return result;
+            return Json(response);
         }
 
         

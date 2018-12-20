@@ -11,7 +11,7 @@ namespace searchDormWeb.Controllers.API
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
-    public class GetCurrencyController : ControllerBase
+    public class GetCurrencyController : Controller
     {
        
 
@@ -20,11 +20,27 @@ namespace searchDormWeb.Controllers.API
         [HttpGet("{id}")]
         public JsonResult Get(int id)
         {
-           
-            string Json = @"{ ""Response"": ""Success"",""Body"": {""CurrencyName"": ""Turkish lira"",""CurrencyId"": ""0"",""CurrencyRate"": ""1"" } ";
-            JsonResult result = new JsonResult(JsonConvert.DeserializeObject(Json));
 
-            return result;
+
+
+
+
+            var Response = new
+            {
+                Response = "Success",
+                Body = new
+                {
+                    CurrencyName = "Turkish lira",
+                    CurrencyId = "0",
+                    CurrencyRate = "1"
+
+                }
+
+            };
+
+
+            return Json(Response);
+        
         }
         
     }
