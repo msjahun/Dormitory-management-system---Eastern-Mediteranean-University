@@ -9,7 +9,7 @@ namespace searchDormWeb.Areas.Admin.Models.System
     public class SystemInformationVm
     {
         [Display(Name = "Version",
-        Description = "Dau Reservation system version."),
+        Description = "Dau Booking system version."),
         DataType(DataType.Text),
         MaxLength(256)]
         public string Version { get; set; }

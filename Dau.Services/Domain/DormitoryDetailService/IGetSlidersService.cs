@@ -2,6 +2,6 @@
 {
     public interface IGetSlidersService
     {
-        SlidersSectionViewModel GetSliders();
+        SlidersSectionViewModel GetSliders(long DormitoryId);
     }
 }

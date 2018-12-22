@@ -1,275 +1,58 @@
-﻿using System;
+﻿using Dau.Core.Domain.Catalog;
+using Dau.Core.Domain.Feature;
+using Dau.Data.Repository;
+using Dau.Services.Languages;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Dau.Services.Domain.DormitoryDetailService
 {
    public class GetFacilitiesService : IGetFacilitiesService
     {
+        private readonly ILanguageService _languageService;
+        private readonly IRepository<DormitoryFeatures> _dormitoryFeaturesRepo;
+        private readonly IRepository<Features> _featuresRepo;
+        private readonly IRepository<FeaturesTranslation> _featuresTranslation;
 
-        public List<FacilitiesSectionViewModel> GetFacilities()
+        public GetFacilitiesService(
+            IRepository<DormitoryFeatures> DormitoryFeaturesRepo,
+            IRepository<Features> featuresRepo,
+             ILanguageService languageService,
+            IRepository<FeaturesTranslation> featuresTranslation)
         {
-            List<FacilitiesSectionViewModel> modelList = new List<FacilitiesSectionViewModel>
-            {
-                 new FacilitiesSectionViewModel
-            {
-                
-                FacilityName="Desk lamp"
-            },
-                  new FacilitiesSectionViewModel
-            {
-                FacilityImageUrl="/dusk/png/facilities/icons8-widescreen-64.png",
-                FacilityName="TV"
-            },
-                   new FacilitiesSectionViewModel
-            {
-                FacilityImageUrl="/dusk/png/facilities/icons8-shower-50.png",
-                FacilityName="WC-shower"
-            },
-                    new FacilitiesSectionViewModel
-            {
-                FacilityImageUrl="/dusk/png/facilities/icons8-fridge-64.png",
-                FacilityName="Refrigerator"
-            },
-                    new FacilitiesSectionViewModel
-            {
-                FacilityImageUrl="/dusk/png/facilities/icons8-office-phone-64.png",
-                FacilityName="Room tel."
-            },
-                    new FacilitiesSectionViewModel
-            {
-                FacilityImageUrl="/dusk/png/facilities/icons8-compressor-64.png",
-                FacilityName="Generator"
-            },
-                    new FacilitiesSectionViewModel
-            {
+            _languageService = languageService;
+            _dormitoryFeaturesRepo = DormitoryFeaturesRepo;
+            _featuresRepo = featuresRepo;
+            _featuresTranslation = featuresTranslation;
+        }
 
-                FacilityName="Full-wardrope"
-            },
-                    new FacilitiesSectionViewModel
-            {
+        public List<FacilitiesSectionViewModel> GetFacilities(long DormitoryId)
+        {
+            var CurrentLanguageId = _languageService.GetCurrentLanguageId();
 
-                FacilityName="Study room"
-            },
-                    new FacilitiesSectionViewModel
-            {
+            var features = from feature in _featuresRepo.List().ToList()
+                           join featureTrans in _featuresTranslation.List().ToList() on feature.Id equals featureTrans.FeaturesNonTransId
+                           where featureTrans.LanguageId == CurrentLanguageId
+                           select new { feature.Id, featureTrans.FeatureName, feature.IconUrl };
 
-                FacilityName="Sensor taps"
-            },
-                    new FacilitiesSectionViewModel
-            {
 
-                FacilityName="Kitchenette"
-            },       new FacilitiesSectionViewModel
-            {
-                FacilityImageUrl="/dusk/png/facilities/icons8-restaurant-table-64.png",
-                FacilityName="Cafeteria"
-            },
-                    new FacilitiesSectionViewModel
-            {
-                FacilityImageUrl="/dusk/png/facilities/icons8-hotel-bed-64.png",
-                FacilityName="Bed"
-            },
-                    new FacilitiesSectionViewModel
-            {
-                FacilityImageUrl="/dusk/png/facilities/icons8-exercise-64.png",
-                FacilityName="Gym"
-            },
-                    new FacilitiesSectionViewModel
-            {
-                FacilityImageUrl="/dusk/png/facilities/icons8-microwave-64.png",
-                FacilityName="Microwave"
-            },
-                    new FacilitiesSectionViewModel
-            {
-                FacilityImageUrl="/dusk/png/facilities/icons8-wi-fi-64.png",
-                FacilityName="Internet"
-            },
-                    new FacilitiesSectionViewModel
-            {
-                FacilityImageUrl="/dusk/png/facilities/icons8-cooling-64.png",
-                FacilityName="Air-condition"
-            },
-           
-                    
-                    new FacilitiesSectionViewModel
-            {
-                
-                FacilityName="Full-wardrope"
-            },      new FacilitiesSectionViewModel
-            {
+            var dormFeatures = from dormFeature in _dormitoryFeaturesRepo.List().ToList()
+                               join feature in features.ToList() on dormFeature.FeaturesId equals feature.Id
+                               where dormFeature.DormitoryId == DormitoryId
+                               select new FacilitiesSectionViewModel
+                               {
+                                   FacilityName = feature.FeatureName,
+                                   IconUrl = feature.IconUrl
+                               };
 
-                FacilityName="Desk lamp"
-            },
-                  new FacilitiesSectionViewModel
-            {
-                FacilityImageUrl="/dusk/png/facilities/icons8-widescreen-64.png",
-                FacilityName="TV"
-            },
-                   new FacilitiesSectionViewModel
-            {
-                FacilityImageUrl="/dusk/png/facilities/icons8-shower-50.png",
-                FacilityName="WC-shower"
-            },
-                    new FacilitiesSectionViewModel
-            {
-                FacilityImageUrl="/dusk/png/facilities/icons8-fridge-64.png",
-                FacilityName="Refrigerator"
-            }, new FacilitiesSectionViewModel{
-                FacilityImageUrl="/dusk/png/facilities/icons8-office-phone-64.png",
-                FacilityName="Room tel."
-            },
-                    new FacilitiesSectionViewModel
-            {
-                FacilityImageUrl="/dusk/png/facilities/icons8-compressor-64.png",
-                FacilityName="Generator"
-            },
-                    new FacilitiesSectionViewModel
-            {
 
-                FacilityName="Full-wardrope"
-            },
-                    new FacilitiesSectionViewModel
-            {
-                FacilityImageUrl="/dusk/png/facilities/icons8-restaurant-table-64.png",
-                FacilityName="Cafeteria"
-            },
-                    new FacilitiesSectionViewModel
-            {
-                FacilityImageUrl="/dusk/png/facilities/icons8-hotel-bed-64.png",
-                FacilityName="Bed"
-            },
-                    new FacilitiesSectionViewModel
-            {
-                FacilityImageUrl="/dusk/png/facilities/icons8-exercise-64.png",
-                FacilityName="Gym"
-            },
-                    new FacilitiesSectionViewModel
-            {
-                FacilityImageUrl="/dusk/png/facilities/icons8-microwave-64.png",
-                FacilityName="Microwave"
-            },
-                    new FacilitiesSectionViewModel
-            {
-                FacilityImageUrl="/dusk/png/facilities/icons8-wi-fi-64.png",
-                FacilityName="Internet"
-            },
-                    new FacilitiesSectionViewModel
-            {
-                FacilityImageUrl="/dusk/png/facilities/icons8-cooling-64.png",
-                FacilityName="Air-condition"
-            },
-                    new FacilitiesSectionViewModel
-            
-                   
-            {
 
-                FacilityName="Study room"
-            },
-                    new FacilitiesSectionViewModel
-            {
 
-                FacilityName="Sensor taps"
-            },
-               new FacilitiesSectionViewModel {
-                FacilityImageUrl="/dusk/png/facilities/icons8-widescreen-64.png",
-                FacilityName="TV"
-            },
-                   new FacilitiesSectionViewModel
-            {
-                FacilityImageUrl="/dusk/png/facilities/icons8-shower-50.png",
-                FacilityName="WC-shower"
-            },
-                    new FacilitiesSectionViewModel
-            {
-                FacilityImageUrl="/dusk/png/facilities/icons8-fridge-64.png",
-                FacilityName="Refrigerator"
-            },
-                    new FacilitiesSectionViewModel
-            {
-                FacilityImageUrl="/dusk/png/facilities/icons8-restaurant-table-64.png",
-                FacilityName="Cafeteria"
-            },
-                    new FacilitiesSectionViewModel
-            {
-                FacilityImageUrl="/dusk/png/facilities/icons8-hotel-bed-64.png",
-                FacilityName="Bed"
-            },
-                    new FacilitiesSectionViewModel
-            {
 
-                FacilityName="Kitchenette"
-            },
 
-                    new FacilitiesSectionViewModel
-            {
-
-                FacilityName="Full-wardrope"
-            },      new FacilitiesSectionViewModel
-            {
-
-                FacilityName="Desk lamp"
-            },
-                  new FacilitiesSectionViewModel
-            
-                   
-            {
-                FacilityImageUrl="/dusk/png/facilities/icons8-exercise-64.png",
-                FacilityName="Gym"
-            },
-                    new FacilitiesSectionViewModel
-            {
-                FacilityImageUrl="/dusk/png/facilities/icons8-microwave-64.png",
-                FacilityName="Microwave"
-            },
-                    new FacilitiesSectionViewModel
-            {
-                FacilityImageUrl="/dusk/png/facilities/icons8-wi-fi-64.png",
-                FacilityName="Internet"
-            },
-                    new FacilitiesSectionViewModel
-            {
-                FacilityImageUrl="/dusk/png/facilities/icons8-cooling-64.png",
-                FacilityName="Air-condition"
-            },
-                    new FacilitiesSectionViewModel
-            {
-
-                FacilityName="Sensor taps"
-            },
-                    new FacilitiesSectionViewModel
-            {
-                FacilityImageUrl="/dusk/png/facilities/icons8-office-phone-64.png",
-                FacilityName="Room tel."
-            },
-                    new FacilitiesSectionViewModel
-            {
-                FacilityImageUrl="/dusk/png/facilities/icons8-compressor-64.png",
-                FacilityName="Generator"
-            },
-                    new FacilitiesSectionViewModel
-            {
-
-                FacilityName="Full-wardrope"
-            },
-                    new FacilitiesSectionViewModel
-            {
-
-                FacilityName="Study room"
-            },
-                    new FacilitiesSectionViewModel
-            {
-
-                FacilityName="Kitchenette"
-            },
-
-                    new FacilitiesSectionViewModel
-            {
-
-                FacilityName="Full-wardrope"
-            }
-
-            };
+            List<FacilitiesSectionViewModel> modelList = dormFeatures.ToList();
 
             return modelList;
         }
@@ -279,7 +62,7 @@ namespace Dau.Services.Domain.DormitoryDetailService
     {
 
         public string FacilityName { get; set; }
-        public string FacilityImageUrl { get; set; }
+        public string IconUrl { get; set; }
     }
 
 }

@@ -12,6 +12,8 @@ namespace Dau.Core.Domain.SearchEngineOptimization
         {
             DormitoryBlocks = new HashSet<DormitoryBlock>();
             Topics = new HashSet<Topic>();
+            Rooms = new HashSet<Room>();
+            Dormitories = new HashSet<Dormitory>();
 
         }
 
@@ -25,6 +27,9 @@ namespace Dau.Core.Domain.SearchEngineOptimization
 
 
         public string SearchEngineFriendlyPageName { get; set; }
+
+        public ICollection<Room> Rooms{ get; set; }
+        public ICollection<Dormitory> Dormitories{ get; set; }
 
         public ICollection<DormitoryBlock> DormitoryBlocks{ get; set; }
         public ICollection<Topic> Topics{ get; set; }

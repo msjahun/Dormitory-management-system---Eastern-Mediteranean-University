@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Dau.Core.Domain.User;
+using Dau.Core.Domain.Users;
 
 namespace Dau.Services.Domain.Users
 {

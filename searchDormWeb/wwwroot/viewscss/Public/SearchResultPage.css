@@ -1,4 +1,81 @@
-﻿.img_icon {
+﻿
+
+.img_icon {
+    width: 20px;
+    height: 20px;
+}
+
+.specificRoomFancyBox {
+    width: 70%;
+}
+
+@media only screen and (min-width: 600px) {
+    .specificRoomFancyBox {
+        width: 100%;
+    }
+} 
+
+.grid-item {
+    margin: 2px;
+}
+
+    .grid-item:hover {
+        border: solid;
+        border-color: #ff9500;
+        border-width: 2px;
+    }
+
+.grid-item-active {
+    border: solid;
+    border-color: #ff9500;
+    border-width: 2px;
+}
+
+
+.swiper_container_room {
+    width: 100%;
+    height: 400px;
+    background-color: #2541820a;
+    justify-content: center;
+}
+
+.swiper_slide_room {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    background-color: #2541820a;
+    margin: auto;
+    width: 100%;
+    height: 100%
+
+    /* Center vertically */
+    align-items: center;
+    /*Center horizontaly */
+    justify-content: center;
+    /*Center horizontaly ie */
+    -ms-flex-pack: center;
+    min-height: 220px;
+    height: 100%;
+}
+
+
+
+
+
+.img_icon {
     width: 20px;
     height: 20px;
 }

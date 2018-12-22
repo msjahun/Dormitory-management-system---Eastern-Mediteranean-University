@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Dau.Core.Domain;
+using Dau.Services.Utilities;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using searchDormWeb.Models;
+using System;
 
 namespace searchDormWeb.Controllers.API
 {
@@ -8,6 +12,12 @@ namespace searchDormWeb.Controllers.API
     [ApiController]
     public class PaymentConfirmationController : Controller
     {
+        private readonly IApiLogService _apiLogService;
+
+        public PaymentConfirmationController(IApiLogService apiLogService)
+        {
+            _apiLogService = apiLogService;
+        }
 
 
         // POST: api/PaymentConfirmation
@@ -23,6 +33,15 @@ namespace searchDormWeb.Controllers.API
                 StatusCode= "0x3234"
             };
 
+
+            _apiLogService.LogApiRequest(new ApiDebugLog
+            {
+
+                ApiName = "// POST: api/PaymentConfirmation",
+                Reponse = JsonConvert.SerializeObject(response),
+                CreateDateTime = DateTime.Now,
+                ParameterRecieved = JsonConvert.SerializeObject(_apiLogService.GetRequestBody())
+            });
             return Json(response);
         }
 

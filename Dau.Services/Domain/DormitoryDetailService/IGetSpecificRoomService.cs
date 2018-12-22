@@ -2,6 +2,6 @@
 {
     public interface IGetSpecificRoomService
     {
-        SpecificRoomViewModel GetSpecificRoom();
+        SpecificRoomViewModel GetSpecificRoom(long RoomId);
     }
 }

@@ -10,8 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Dau.Data;
 using Dau.Services.SearchService;
-using Dau.Services.Dormitory;
-using Dau.Core.Domain.User;
+using Dau.Services.DormitoryServiceOld;
+using Dau.Core.Domain.Users;
 using Microsoft.AspNetCore.Identity;
 using searchDormWeb.Configuration;
 using Dau.Services.Security;
@@ -19,14 +19,14 @@ using Dau.Services.Users;
 using Dau.Services.AccessControlList;
 using searchDormWeb.Configuration.SecurityFilter;
 using Dau.Services.Facility;
-using Dau.Services.Room;
+using Dau.Services.RoomServiceOld;
 using Microsoft.Extensions.Logging;
 using Dau.Services.Logging;
 using Dau.Services.Middleware;
 using Dau.Services.Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using Dau.Data.Repository;
-using Dau.Core.Domain.Dormitory;
+//using Dau.Core.Domain.Dormitory;
 using NetCoreStack.Mvc;
 using NetCoreStack.Localization;
 using Dau.Data.Extensions;
@@ -35,6 +35,10 @@ using Dau.Services.Domain.OnScrollAlertService;
 using Dau.Services.Domain.SearchResultService;
 using Dau.Services.Domain.HomeService;
 using Dau.Services.Domain.ExploreEmuService;
+using Dau.Services.Seeding;
+using Dau.Services.Languages;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Dau.Services.Utilities;
 
 namespace searchDormWeb
 {
@@ -67,8 +71,8 @@ namespace searchDormWeb
                
             });
             //http accessor for getting ipaddress of user.
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
+         // services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
@@ -115,6 +119,14 @@ namespace searchDormWeb
             services.AddScoped<IGetHomeDormitoriesService, GetHomeDormitoriesService>();
             services.AddScoped<IGetHomeBackgroundImagesService, GetHomeBackgroundImagesService>();
             services.AddScoped< IExploreEmuPicsService, ExploreEmuPicsService > ();
+            services.AddScoped<  IResolveDormitoryService,ResolveDormitoryService > ();
+            services.AddScoped < IApiLogService, ApiLogService> ();
+
+
+            services.AddScoped<   ISeedingService, SeedingService> ();
+
+
+            services.AddScoped<ILanguageService, LanguageService>();
 
             var connectionString = Configuration.GetValue<string>("DbSettings:SqlConnectionString");
             services.AddDbContext<Fees_and_facilitiesContext>(options => options.UseSqlServer(connectionString));
@@ -122,8 +134,8 @@ namespace searchDormWeb
            
 
 
-            services.AddMvc();
-
+           services.AddMvc();
+          
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.

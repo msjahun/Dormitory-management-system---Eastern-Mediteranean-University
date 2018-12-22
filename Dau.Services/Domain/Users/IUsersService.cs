@@ -5,5 +5,6 @@
         string GetFirstLastNames(string id);
         string GetFirstName(string id);
         string GetLastName(string id);
+        string GetUserPhotoUrl(string id);
     }
 }

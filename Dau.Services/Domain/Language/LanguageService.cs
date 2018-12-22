@@ -1,25 +1,37 @@
-﻿using Dau.Core.Domain.Language;
+﻿//using Dau.Core.Domain.Language;
+using Dau.Core.Domain.Localization;
 using Dau.Data;
+using Dau.Data.Repository;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
-namespace Dau.Services.Language
+namespace Dau.Services.Languages
 {
-    class LanguageService
+    public class LanguageService : ILanguageService
     {
-        //private Fees_and_facilitiesContext _context = new Fees_and_facilitiesContext();
+        private readonly IRepository<Language> _languageRepository;
+        private readonly IHttpContextAccessor _context;
 
-        //public void languageInitiate()
-        //{
-           
+        public LanguageService(IHttpContextAccessor httpContextAccessor, IRepository<Language> LanguageRepository)
+        {
+            _languageRepository=LanguageRepository;
+              _context = httpContextAccessor;
+        }
 
-        //        //   Adding the two languages done
-        //         _context .LanguageTable.Add(new LanguageTable { Name = "English Language", LanguageCode = "EN" });
-        //         _context .LanguageTable.Add(new LanguageTable { Name = "Turkish Language", LanguageCode = "TR" });
-        //         _context .SaveChanges();
-            
+     
 
-        //}
+        public long GetCurrentLanguageId()
+        {
+            var rqf = _context.HttpContext.Features.Get<IRequestCultureFeature>();
+            var culture = rqf.RequestCulture.Culture;
+
+            var Language = _languageRepository.List().Where(l => l.CultureName == culture.ToString()).FirstOrDefault();
+
+            return Language.Id;
+        }
     }
 }

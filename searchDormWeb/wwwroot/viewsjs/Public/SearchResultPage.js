@@ -41,6 +41,7 @@ window.onresize = function (event) {
 var swiper = new Swiper('.swiper-container', {});
 
 
+
 $.ajax({
     type: "POST",
     url: "GetSortingButtonSection",
@@ -87,6 +88,8 @@ $.ajax({
                 clickable: true
             }
         });
+
+      
 
 
         var lockonScrollAlert = true;
@@ -148,6 +151,7 @@ $.ajax({
 
 
 
+var swiper_room = new Swiper('.swiper_container_room', {});
 
 $(".targetFilterInput").change(function () {
     SearchRooms();
@@ -195,6 +199,9 @@ function SearchRooms() {
 
 
 
+
+        
+            //mansory js
             var lockonScrollAlert = true;
             $(window).scroll(function () {
                 var hT = $('#onScrollAlert').offset().top,

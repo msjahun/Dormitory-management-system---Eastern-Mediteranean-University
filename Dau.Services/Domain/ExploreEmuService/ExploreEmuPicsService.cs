@@ -1,61 +1,81 @@
-﻿using System;
+﻿using Dau.Data;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using Dau.Services.Languages;
+using Dau.Services.Domain.DormitoryDetailService;
+using Dau.Core.Domain.Catalog;
+using Dau.Data.Repository;
+using Dau.Core.Domain.SearchEngineOptimization;
 
 namespace Dau.Services.Domain.ExploreEmuService
 {
    public class ExploreEmuPicsService : IExploreEmuPicsService
     {
+        private readonly ILanguageService _languageService;
+        private readonly IResolveDormitoryService _resolveDormitoryService;
+        private readonly IRepository<Dormitory> _dormitoryRepository;
+        private readonly IRepository<DormitoryTranslation> _dormitoryTransRepository;
+        private readonly IRepository<DormitoryCatalogImage> _dormitoryImageRepository;
+        private readonly IRepository<CatalogImage> _imagesRepository;
+        private readonly IRepository<Seo> _seoRepository;
 
-        public List<ExploreImages>  GetExploreEmuPics()
+        public ExploreEmuPicsService(
+             ILanguageService languageService,
+              IResolveDormitoryService resolveDormitoryService,
+              IRepository<Dormitory> DormitoryRepository,
+              IRepository<DormitoryTranslation> DormitoryTransRepository,
+              IRepository<DormitoryCatalogImage> DormitoryImageRepository,
+              IRepository<CatalogImage> ImagesRepository,
+              IRepository<Seo> SeoRepository)
         {
-            var model = new List<ExploreImages> {
-            new ExploreImages{
-                ImageUrl = "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/nural/photo6010428924410047910.jpg?RenditionID=9",
-               DormitoryName = "Alfam Dormitory",
-                 DormitorySeoFriendlyUrl = "Alfam-dormitory",
-                DormitoryDescription = "Wonderful dormitory"},
+            _languageService = languageService;
+            _resolveDormitoryService = resolveDormitoryService;
+            _dormitoryRepository=  DormitoryRepository;
+            _dormitoryTransRepository= DormitoryTransRepository;
+            _dormitoryImageRepository= DormitoryImageRepository;
+            _imagesRepository= ImagesRepository;
+            _seoRepository = SeoRepository;
+
+        }
+
+        public List<ExploreImages> GetExploreEmuPics()
+        {
+            var CurrentLanguageId = _languageService.GetCurrentLanguageId();
+
+            var Dormitories = from dorm in _dormitoryRepository.List().ToList()
+                              join dormTrans in _dormitoryTransRepository.List().ToList() on dorm.Id equals dormTrans.DormitoryNonTransId
+                              where dormTrans.LanguageId == CurrentLanguageId
+                              select new { dorm.Id, dormTrans.DormitoryName, dorm.SeoId};
+
+            var DormSeo = from Dorm in Dormitories.ToList()
+                          join seo in _seoRepository.List().ToList() on Dorm.SeoId equals seo.Id
+                          select new { Dorm.Id, Dorm.DormitoryName, seo.SearchEngineFriendlyPageName };
+
+            var Images = from imageList in _imagesRepository.List().ToList()
+                         join dormImage in _dormitoryImageRepository.List().ToList() on imageList.Id equals dormImage.CatalogImageId
+                         select new { imageList.Id, imageList.ImageUrl, dormImage.DormitoryId };
+
+            var dormImages = from dorm in DormSeo.ToList()
+                             join image in Images.ToList() on dorm.Id equals image.DormitoryId
+                             select new ExploreImages
+                             {
+                                 DormitoryName = dorm.DormitoryName,
+                                 ImageUrl = image.ImageUrl,
+                                 DormitorySeoFriendlyUrl = dorm.SearchEngineFriendlyPageName
+                             };
 
 
-                new ExploreImages { ImageUrl = "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/nural/photo6010428924410047915.jpg?RenditionID=5",
-                DormitoryName = "Akdeniz private Studio",
-                  DormitorySeoFriendlyUrl = "Akdeniz-private-Studio",
-                DormitoryDescription = "Wonderful dormitory"},
+            
 
 
-              new ExploreImages   { ImageUrl = "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/nural/IMG_0050%20(1).jpg?RenditionID=8",
-                  DormitoryName = "EMU Sabanci",
-                DormitorySeoFriendlyUrl = "EMU-Sabanci",
-                DormitoryDescription = "Wonderful dormitory"},
-
-                      new ExploreImages   { ImageUrl = "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/nural/IMG_0027%20(1).jpg?RenditionID=7",
-                DormitoryName = "Novel Dormitory",
-                 DormitorySeoFriendlyUrl = "Novel-dormitory",
-                DormitoryDescription = "Wonderful dormitory"},
 
 
-                              new ExploreImages   { ImageUrl = "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/nural/IMG_0004.jpg?RenditionID=8",
-                DormitoryName = "Pop art Dormitory",
-                 DormitorySeoFriendlyUrl = "Pop-art-dormitory",
-                DormitoryDescription = "Wonderful dormitory"},
+            var model = dormImages.OrderBy(x => Guid.NewGuid()).Take(4).ToList();
 
-                              new ExploreImages   { ImageUrl = "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/astra/IMG-20171014-WA0010.jpg?RenditionID=5",
-                DormitoryName = "Sanel Dormitory",
-                 DormitorySeoFriendlyUrl = "sanel-dormitory",
-                DormitoryDescription = "Wonderful dormitory"},
-
-                              new ExploreImages   { ImageUrl = "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=9",
-                DormitoryName = "Hasan Uzuk Dormitory",
-                 DormitorySeoFriendlyUrl = "Hasan-Uzuk-dormitory",
-                DormitoryDescription = "Wonderful dormitory"},
-
-                              new ExploreImages   { ImageUrl = "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/popart/TV%20ROOM%20KING%20EXCLUSIVE.jpg?RenditionID=8",
-                 DormitoryName = "Longson Dormitory",
-                 DormitorySeoFriendlyUrl = "Longson-dormitory",
-                DormitoryDescription = "Wonderful dormitory"},
-
-
-            };
+          //  var model = new List<ExploreImages>();
             return model;
 
 

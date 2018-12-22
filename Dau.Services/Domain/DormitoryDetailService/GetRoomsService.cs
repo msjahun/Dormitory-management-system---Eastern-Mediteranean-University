@@ -1,104 +1,72 @@
-﻿using System;
+﻿using Dau.Core.Domain.Catalog;
+using Dau.Data;
+using Dau.Data.Repository;
+using Dau.Services.Languages;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using System.Text;
 
 namespace Dau.Services.Domain.DormitoryDetailService
 {
  public   class GetRoomsService : IGetRoomsService
     {
-        public List<RoomSectionViewModel> GetRooms()
+        private readonly IRepository<Room> _roomRepo;
+        private readonly IRepository<RoomTranslation> _roomTransRepo;
+        private readonly IRepository<Dormitory> _dormitoryRepo;
+        private readonly ILanguageService _languageService;
+      
+
+        public GetRoomsService(
+            IRepository<Room> roomRepo,
+            IRepository<RoomTranslation> roomTransRepo,
+            IRepository<Dormitory> dormitoryRepo,
+            ILanguageService languageService
+          
+
+
+
+            )
         {
-            List<RoomSectionViewModel> modelList = new List<RoomSectionViewModel>
-            {
-new RoomSectionViewModel
-            {
-                RoomId = 345,
-                RoomName = "Single Room",
-                DormitoryBlock="A block",
-                GenderAllocation="Females only",
-                NoOfStudents = 1,
-                BedType = "Normal Bed",
-                Price = "5.3456,00",
-                //  PriceOld ,
-                RoomsQuota = 0,
-                HasDeposit = false,
-                ShowPrice = true,
-            },
 
-new RoomSectionViewModel
-            {
-                RoomId = 345,
-                RoomName = "Quadruble Room",
-                 GenderAllocation="Males",
-                NoOfStudents = 4,
-                DormitoryBlock="C block",
-                BedType = "Bunk Bed",
-                Price = "2.3456,00",
-                PriceOld="2.3456,00",
-                RoomsQuota = 2,
-                HasDeposit = false,
-                ShowPrice = true,
-            },
-new RoomSectionViewModel
-            {
-                RoomId = 345,
-                RoomName = "Double room",
-                NoOfStudents = 2,
-                 GenderAllocation="Males and female",
-                DormitoryBlock="Alfam vista",
-                BedType = "Normal Bed",
-                Price = "3.3456,00",
-                //  PriceOld ,
-                RoomsQuota = 3,
-                HasDeposit = true,
-                ShowPrice = true,
-            },
-new RoomSectionViewModel
-            {
-                RoomId = 345,
-                RoomName = "Studio apartment",
-                NoOfStudents = 2,
-                DormitoryBlock="C block",
-                 GenderAllocation="Females only",
-                BedType = "Normal Bed",
-                Price = "6.3456,00",
-                PriceOld="8.3456,00",
-                RoomsQuota = 4,
-                HasDeposit = true,
-                ShowPrice = false,
-            },
+            _languageService = languageService;
+            _roomRepo = roomRepo;
+         
+            _roomTransRepo = roomTransRepo;
+            _dormitoryRepo= dormitoryRepo;
+         
+        }
 
-new RoomSectionViewModel
-            {
-                RoomId = 345,
-                RoomName = "Single Room",
-                NoOfStudents = 1,
-                 GenderAllocation="Males only",
-                DormitoryBlock="B block",
-                BedType = "Normal Bed",
-                Price = "6.3456,00",
-                PriceOld="8.3456,00",
-                RoomsQuota = 0,
-                HasDeposit = false,
-                ShowPrice = true,
-            }
-,
+        public List<RoomSectionViewModel> GetRooms(long DormitoryId)
+        {
+            var CurrentLanguageId = _languageService.GetCurrentLanguageId();
+           
 
-new RoomSectionViewModel
-            {
-                RoomId = 345,
-                RoomName = "Studio apartment",
-                NoOfStudents = 2,
-                BedType = "Normal Bed",
-                 GenderAllocation="Males and female",
-                DormitoryBlock="Alfam studio block",
-                Price = "6.3456,00",
-                PriceOld="8.3456,00",
-                RoomsQuota = 4,
-                HasDeposit = false,
-                ShowPrice = true,
-            }
-            };
+           // var rooms = from DormRooms in _dbContext.Dormitory.Include(d=> d.Rooms).ToList().Where(c => c.Id == DormitoryId).FirstOrDefault().Rooms.ToList()
+            var rooms = from room in _roomRepo.List().ToList()
+                        join roomTrans in _roomTransRepo.List().ToList() on room.Id equals roomTrans.RoomNonTransId
+                        where roomTrans.LanguageId == CurrentLanguageId && room.DormitoryId == DormitoryId
+                        select new RoomSectionViewModel
+                              {
+                                  RoomId = room.Id,
+                                  RoomName = roomTrans.RoomName,
+                                  DormitoryBlock = "A block",
+                                  GenderAllocation = roomTrans.GenderAllocation,
+                                  NoOfStudents = room.NoOfStudents,
+                                  BedType = roomTrans.BedType,
+                                  Price = room.Price.ToString("N2"),
+                                  PriceOld  = room.PriceOld.ToString("N2"),
+                                  RoomsQuota = room.NoRoomQuota,
+                                  HasDeposit = room.HasDeposit,
+                                  ShowPrice = room.ShowPrice,
+                              };
+
+
+
+
+
+            List<RoomSectionViewModel> modelList = rooms.ToList();
 
             return modelList;
         }
@@ -106,7 +74,7 @@ new RoomSectionViewModel
 
     public class RoomSectionViewModel
     {
-        public int RoomId { get; set; }
+        public long RoomId { get; set; }
         public string RoomName { get; set; }
         public string GenderAllocation { get; set; }
         public int NoOfStudents { get; set; }

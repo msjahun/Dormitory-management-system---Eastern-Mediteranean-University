@@ -45,7 +45,7 @@ namespace searchDormWeb.Controllers
 
         public IActionResult GetFilterbottomFacilities()
         {
-            List<FiltersFacilityViewModel> modelList = _filterBottomService.GetFilterBottom();
+            var modelList = _filterBottomService.GetFilterBottom();
          
             return PartialView("_FilterbottomFacilities", modelList);
         }

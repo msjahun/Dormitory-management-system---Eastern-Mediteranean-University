@@ -12,26 +12,10 @@ namespace Dau.Data.Mapping.Catalog
         {
             //table_name
             builder.ToTable("DormitoryBlock");
-
-
+            
             //int
             builder.Property(e => e.Id).HasColumnName("Id");
-
-            //string
-            builder.Property(e => e.Name)
-                .IsRequired()
-                .HasColumnName("Name")
-                .HasMaxLength(100)
-                .IsUnicode(false);
-
-
-            //string
-            builder.Property(e => e.Description)
-                .IsRequired()
-                .HasColumnName("Description")
-                .HasMaxLength(100)
-                .IsUnicode(false);
-
+            
 
             //string
             builder.Property(e => e.PictureUrl)
@@ -48,7 +32,7 @@ namespace Dau.Data.Mapping.Catalog
 
             builder.Property(e => e.DisplayOrder).HasColumnName("DisplayOrder");
 
-            builder.Property(e => e.SeoId).HasColumnName("SeoId");
+          
 
           
            

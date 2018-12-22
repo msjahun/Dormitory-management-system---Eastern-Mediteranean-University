@@ -27,12 +27,20 @@ namespace searchDormWeb.TagHelpers.Common
             output.Content.Clear();
 
 
+            var icon = new TagBuilder("i");
+            if (ReapeatNo > 5)
+            {
+                icon = new TagBuilder("i");
 
-
+                icon.Attributes.Add("class", "fas fa-bed fa-2x");
+                output.PostContent.AppendHtml(ReapeatNo+ "x ");
+                output.PostContent.AppendHtml(icon);
+            }
+            else {
 
             for (int i = 0; i < ReapeatNo; i++)
             {
-                var icon = new TagBuilder("i");
+                icon = new TagBuilder("i");
                if(ReapeatNo >=5)
                     icon.Attributes.Add("class", "fas fa-bed ");
                 
@@ -50,7 +58,7 @@ namespace searchDormWeb.TagHelpers.Common
                 output.PostContent.AppendHtml(icon);
             }
 
-
+            }
 
 
 

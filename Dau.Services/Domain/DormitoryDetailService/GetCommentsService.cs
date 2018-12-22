@@ -1,57 +1,47 @@
-﻿using System;
+﻿using Dau.Core.Domain.Catalog;
+using Dau.Core.Domain.Users;
+using Dau.Data.Repository;
+using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Dau.Services.Domain.DormitoryDetailService
 {
    public class GetCommentsService : IGetCommentsService
     {
-        public List<CommentSectionViewModel> GetComments()
+        private readonly IRepository<Review> _reviewRepo;
+        private readonly UserManager<User> _userManager;
+
+        public GetCommentsService(
+             IRepository<Review> ReviewRepository,
+            UserManager<User> userManager)
         {
-            List<CommentSectionViewModel> modelList = new List<CommentSectionViewModel>
-            {
-                 new CommentSectionViewModel
-                {
-                    UserFullName = "Ahmed Bassiouny",
-                    UserRatingNo = 8.7,
-                    UserImageUrl = "https://scontent-vie1-1.xx.fbcdn.net/v/t1.0-0/p168x128/16472881_1354143061327538_335400885864373680_n.jpg?_nc_cat=104&_nc_ht=scontent-vie1-1.xx&oh=05d8c8f18b5014a974a5b90ff4a7f7ac&oe=5C8647DD",
-                    UserComment = "Cras at, tempus viverra turpis..."
-                },
-                   new CommentSectionViewModel
-                {
-                    UserFullName = "Ahmet Önder Beşiroğlu",
-                    UserRatingNo = 8.7,
-                    UserImageUrl = "https://www.facebook.com/search/async/profile_picture/?fbid=100000249531894&width=72&height=72",
-                    UserComment = "Cras sitstibulum in vulputate at, tempus viverra turpis...."
-                },
+            _reviewRepo = ReviewRepository;
+            _userManager = userManager;
+        }
 
-                            new CommentSectionViewModel
-                {
-                    UserFullName = "Abdullahi Ismail",
-                    UserRatingNo = 8.7,
-                    UserImageUrl = "https://avatars3.githubusercontent.com/u/35945225?s=460&v=4",
-                    UserComment = "Cras sit amet nibh libero, in gravida nulla. Nulla vel metusras purus odio, vestibulum in vulputate at, tempus viverra turpis."
-                },
-                     new CommentSectionViewModel
-                {
-                    UserFullName = "Ivy Thompson",
-                    UserRatingNo = 8.7,
-                    UserImageUrl = "https://avatars0.githubusercontent.com/u/14825113?s=400&v=4",
-                    UserComment = "Cras at, tempus viverra turpis..."
-                },
+        public List<CommentSectionViewModel> GetComments(long DormitoryId)
+        {
 
-              
 
-                         new CommentSectionViewModel
-                {
-                    UserFullName = "Kamal MG",
-                    UserRatingNo = 8.7,
-                    UserImageUrl = "https://www.facebook.com/search/async/profile_picture/?fbid=100001237759702&width=72&height=72",
-                    UserComment = "Cras sit amet nibh libero, in gravida nulla. Nulla vel metusras purus odio, vestibulum in vulputate at, tempus viverra turpis."
-                }
+            var reviews = from _review in _reviewRepo.List().ToList()
+                          where _review.DormitoryId == DormitoryId
+                          select new { _review.UserId, _review.Message, _review.Rating };
 
-               
-            };
+                var ReviewUsers = from user in _userManager.Users.ToList()
+                                      join review in reviews.ToList() on user.Id equals review.UserId
+                                      select new CommentSectionViewModel
+                                      {
+                                          UserFullName = user.FirstName + " " + user.LastName,
+                                          UserRatingNo = review.Rating,
+                                          UserImageUrl = user.UserImageUrl,
+                                          UserComment = review.Message
+                                      };
+
+
+            List<CommentSectionViewModel> modelList = ReviewUsers.ToList();
             return modelList;
         }
     }

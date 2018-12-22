@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Dau.Core.Domain.User;
+using Dau.Core.Domain.Users;
 using System.Linq;
 using Dau.Data.Repository;
 

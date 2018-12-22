@@ -1,18 +1,18 @@
 ﻿
-using Dau.Core.Domain.BankAccount;
-using Dau.Core.Domain.Dormitory;
-using Dau.Core.Domain.Facility;
-using Dau.Core.Domain.Room;
-using Dau.Core.Domain.Language;
+//using Dau.Core.Domain.BankAccount;
+//using Dau.Core.Domain.Dormitory;
+//using Dau.Core.Domain.Facility;
+//using Dau.Core.Domain.Room;
+//using Dau.Core.Domain.Language;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Dau.Core.Domain.User;
+using Dau.Core.Domain.Users;
 using Microsoft.EntityFrameworkCore;
 
-using Dau.Data.Mapping.BankAccount;
-using Dau.Data.Mapping.Dormitory;
-using Dau.Data.Mapping.Facility;
-using Dau.Data.Mapping.Language;
-using Dau.Data.Mapping.Room;
+//using Dau.Data.Mapping.BankAccount;
+//using Dau.Data.Mapping.Dormitory;
+//using Dau.Data.Mapping.Facility;
+//using Dau.Data.Mapping.Language;
+//using Dau.Data.Mapping.Room;
 using Dau.Core.Domain.Logging;
 using Dau.Data.Mapping.Logging;
 using Dau.Data.Mapping.User;
@@ -28,7 +28,7 @@ using Dau.Core.Domain.EmailAccountInformation;
 using Dau.Core.Domain.MobileAppManager;
 using Dau.Core.Domain.Notifications;
 using Dau.Core.Domain.Promotions;
-using Dau.Core.Domain.Reservations;
+
 using Dau.Core.Domain.SearchEngineOptimization;
 using Dau.Core.Domain.System;
 using Dau.Data.Mapping.Activity;
@@ -42,11 +42,16 @@ using Dau.Data.Mapping.EmailAccountInformation;
 using Dau.Data.Mapping.MobileAppManager;
 using Dau.Data.Mapping.Notifications;
 using Dau.Data.Mapping.Promotions;
-using Dau.Data.Mapping.Reservations;
+
 using Dau.Data.Mapping.SearchEngineOptimization;
 using Dau.Data.Mapping.System;
 using Dau.Data.Extensions;
 using Dau.Core.Domain.Localization;
+using Dau.Core.Domain.Feature;
+using Dau.Data.Mapping.Feature;
+using Dau.Core.Domain.Bookings;
+using Dau.Data.Mapping.Bookings;
+using Dau.Core.Domain;
 
 namespace Dau.Data
 {
@@ -58,27 +63,27 @@ namespace Dau.Data
         }
 
       
-        public virtual DbSet<AccountInformationParameter> AccountInformationParameter { get; set; }
-        public virtual DbSet<AccountInformationParameterTranslation> AccountInformationParameterTranslation { get; set; }
-        public virtual DbSet<AccountParameterValues> AccountParameterValues { get; set; }
-        public virtual DbSet<AccountParameterValuesTranslation> AccountParameterValuesTranslation { get; set; }
-        public virtual DbSet<BankCurrencyTable> BankCurrencyTable { get; set; }
-        public virtual DbSet<DormitoriesTable> DormitoriesTable { get; set; }
-        public virtual DbSet<DormitoriesTableTranslation> DormitoriesTableTranslation { get; set; }
-        public virtual DbSet<DormitoryBankAccountTable> DormitoryBankAccountTable { get; set; }
-        public virtual DbSet<DormitoryInformationTable> DormitoryInformationTable { get; set; }
-        public virtual DbSet<DormitoryInformationTableTranslation> DormitoryInformationTableTranslation { get; set; }
-        public virtual DbSet<DormitoryType> DormitoryType { get; set; }
-        public virtual DbSet<DormitoryTypeTranslation> DormitoryTypeTranslation { get; set; }
-        public virtual DbSet<FacilityOption> FacilityOption { get; set; }
-        public virtual DbSet<FacilityOptionTranslation> FacilityOptionTranslation { get; set; }
-        public virtual DbSet<FacilityTable> FacilityTable { get; set; }
-        public virtual DbSet<FacilityTableTranslation> FacilityTableTranslation { get; set; }
-        public virtual DbSet<LanguageTable> LanguageTable { get; set; }
+      // public virtual DbSet<AccountInformationParameter> AccountInformationParameter { get; set; }
+      // public virtual DbSet<AccountInformationParameterTranslation> AccountInformationParameterTranslation { get; set; }
+      // public virtual DbSet<AccountParameterValues> AccountParameterValues { get; set; }
+      // public virtual DbSet<AccountParameterValuesTranslation> AccountParameterValuesTranslation { get; set; }
+      // public virtual DbSet<BankCurrencyTable> BankCurrencyTable { get; set; }
+     //   public virtual DbSet<DormitoriesTable> DormitoriesTable { get; set; }
+      //  public virtual DbSet<DormitoriesTableTranslation> DormitoriesTableTranslation { get; set; }
+      // public virtual DbSet<DormitoryBankAccountTable> DormitoryBankAccountTable { get; set; }
+      // public virtual DbSet<DormitoryInformationTable> DormitoryInformationTable { get; set; }
+      // public virtual DbSet<DormitoryInformationTableTranslation> DormitoryInformationTableTranslation { get; set; }
+      // public virtual DbSet<DormitoryType> DormitoryType { get; set; }
+      // public virtual DbSet<DormitoryTypeTranslation> DormitoryTypeTranslation { get; set; }
+       // public virtual DbSet<FacilityOption> FacilityOption { get; set; }
+       // public virtual DbSet<FacilityOptionTranslation> FacilityOptionTranslation { get; set; }
+       // public virtual DbSet<FacilityTable> FacilityTable { get; set; }
+       // public virtual DbSet<FacilityTableTranslation> FacilityTableTranslation { get; set; }
+       // public virtual DbSet<LanguageTable> LanguageTable { get; set; }
        
-        public virtual DbSet<RoomFacility> RoomFacility { get; set; }
-        public virtual DbSet<RoomTable> RoomTable { get; set; }
-        public virtual DbSet<RoomTableTranslation> RoomTableTranslation { get; set; }
+       // public virtual DbSet<RoomFacility> RoomFacility { get; set; }
+       // public virtual DbSet<RoomTable> RoomTable { get; set; }
+       // public virtual DbSet<RoomTableTranslation> RoomTableTranslation { get; set; }
 
 
         //new tables
@@ -112,16 +117,42 @@ namespace Dau.Data
         public virtual DbSet<Campaign> Campaign { get; set; }
         public virtual DbSet<Discount> Discount { get; set; }
         public virtual DbSet<NewsLetterSubscribers> NewsLetterSubscribers { get; set; }
-        public virtual DbSet<CancelReservationRequests> CancelReservationRequests { get; set; }
+        public virtual DbSet<CancelBookingRequests> CancelReservationRequests { get; set; }
         public virtual DbSet<OrderNotes> OrderNotes { get; set; }
-        public virtual DbSet<Reservation> Reservation { get; set; }
-        public virtual DbSet<RoomReservation> RoomReservation { get; set; }
+        public virtual DbSet<Booking> Reservation { get; set; }
+
         public virtual DbSet<Seo> Seo { get; set; }
         public virtual DbSet<MessageQueue> MessageQueue { get; set; }
 
 
         public virtual DbSet<Language> Language { get; set; }
         public virtual DbSet<Resource> Resource{ get; set; }
+
+
+        public virtual DbSet<Features> Features{ get; set; }
+        public virtual DbSet<FeaturesCategory> FeaturesCategory{ get; set; }
+        public virtual DbSet<FeaturesTranslation> FeaturesTranslations{ get; set; }
+        public virtual DbSet<FeaturesCategoryTranslation> GetFeaturesCategoryTranslations{ get; set; }
+
+
+
+        public virtual DbSet<Dormitory> Dormitory{ get; set; }
+        public virtual DbSet<DormitoryTranslation> DormitoryTranslation { get; set; }
+        public virtual DbSet<GoodToKnow> GoodToKnow { get; set; }
+        public virtual DbSet<GoodToKnowTitleValue> GoodToKnowTitleValue { get; set; }
+        public virtual DbSet<GoodToKonwTitleValueTranslation> GoodToKonwTitleValueTranslation { get; set; }
+        public virtual DbSet<Room> Room { get; set; }
+        public virtual DbSet<RoomTranslation> RoomTranslation { get; set; }
+        public virtual DbSet<CatalogImage> CatalogImages{ get; set; }
+
+
+        public virtual DbSet<BookingStatus> BookingStatus{ get; set; }
+        public virtual DbSet<PaymentStatus> PaymentStatus{ get; set; }
+        public virtual DbSet<PaymentStatusTranslation> PaymentStatusTranslations{ get; set; }
+        public virtual DbSet<BookingStatusTranslation> BookingStatusTranslations{ get; set; }
+
+
+        public virtual DbSet<ApiDebugLog> ApiDebugLog { get; set; }
 
 
 
@@ -141,26 +172,26 @@ namespace Dau.Data
             base.OnModelCreating(modelBuilder);
 
 
-            modelBuilder.ApplyConfiguration(new AccountInformationParameterMap());
-            modelBuilder.ApplyConfiguration(new AccountInformationParameterTranslationMap());
-            modelBuilder.ApplyConfiguration(new AccountParameterValuesMap());
-            modelBuilder.ApplyConfiguration(new AccountParameterValuesTranslationMap());
-            modelBuilder.ApplyConfiguration(new BankCurrencyTableMap());
-            modelBuilder.ApplyConfiguration(new DormitoriesTableMap());
-            modelBuilder.ApplyConfiguration(new DormitoriesTableTranslationMap());
-            modelBuilder.ApplyConfiguration(new DormitoryBankAccountTableMap());
-            modelBuilder.ApplyConfiguration(new DormitoryInformationTableMap());
-            modelBuilder.ApplyConfiguration(new DormitoryInformationTableTranslationMap());
-            modelBuilder.ApplyConfiguration(new DormitoryTypeMap());
-            modelBuilder.ApplyConfiguration(new DormitoryTypeTranslationMap());
-            modelBuilder.ApplyConfiguration(new FacilityOptionMap());
-            modelBuilder.ApplyConfiguration(new FacilityOptionTranslationMap());
-            modelBuilder.ApplyConfiguration(new FacilityTableMap());
-            modelBuilder.ApplyConfiguration(new FacilityTableTranslationMap());
-            modelBuilder.ApplyConfiguration(new LanguageTableMap());
-            modelBuilder.ApplyConfiguration(new RoomFacilityMap());
-            modelBuilder.ApplyConfiguration(new RoomTableMap());
-            modelBuilder.ApplyConfiguration(new RoomTableTranslationMap());
+         //  modelBuilder.ApplyConfiguration(new AccountInformationParameterMap());
+         //  modelBuilder.ApplyConfiguration(new AccountInformationParameterTranslationMap());
+         //  modelBuilder.ApplyConfiguration(new AccountParameterValuesMap());
+         //  modelBuilder.ApplyConfiguration(new AccountParameterValuesTranslationMap());
+         //  modelBuilder.ApplyConfiguration(new BankCurrencyTableMap());
+           // modelBuilder.ApplyConfiguration(new DormitoriesTableMap());
+          // modelBuilder.ApplyConfiguration(new DormitoriesTableTranslationMap());
+          // modelBuilder.ApplyConfiguration(new DormitoryBankAccountTableMap());
+          // modelBuilder.ApplyConfiguration(new DormitoryInformationTableMap());
+          // modelBuilder.ApplyConfiguration(new DormitoryInformationTableTranslationMap());
+          // modelBuilder.ApplyConfiguration(new DormitoryTypeMap());
+          // modelBuilder.ApplyConfiguration(new DormitoryTypeTranslationMap());
+           // modelBuilder.ApplyConfiguration(new FacilityOptionMap());
+           // modelBuilder.ApplyConfiguration(new FacilityOptionTranslationMap());
+           // modelBuilder.ApplyConfiguration(new FacilityTableMap());
+           // modelBuilder.ApplyConfiguration(new FacilityTableTranslationMap());
+         //   modelBuilder.ApplyConfiguration(new LanguageTableMap());
+          // modelBuilder.ApplyConfiguration(new RoomFacilityMap());
+          // modelBuilder.ApplyConfiguration(new RoomTableMap());
+          // modelBuilder.ApplyConfiguration(new RoomTableTranslationMap());
 
 
             
@@ -197,18 +228,50 @@ namespace Dau.Data
             modelBuilder.ApplyConfiguration(new CampaignMap());
             modelBuilder.ApplyConfiguration(new DiscountMap());
             modelBuilder.ApplyConfiguration(new NewsletterSubscribersMap());
-            modelBuilder.ApplyConfiguration(new CancelReservationRequestMap());
+            modelBuilder.ApplyConfiguration(new CancelBookingRequestMap());
             modelBuilder.ApplyConfiguration(new OrderNotesMap());
-            modelBuilder.ApplyConfiguration(new ReservationMap());
-            modelBuilder.ApplyConfiguration(new RoomReservationMap());
+            modelBuilder.ApplyConfiguration(new BookingMap());
+   
             modelBuilder.ApplyConfiguration(new SeoMap());
             modelBuilder.ApplyConfiguration(new MessageQueueMap());
 
- //new tables config
 
-            modelBuilder.Seed();
+            modelBuilder.ApplyConfiguration(new FeaturesMap());
+            modelBuilder.ApplyConfiguration(new FeaturesCategoryMap());
+            modelBuilder.ApplyConfiguration(new FeaturesCategoryTranslationMap());
+            modelBuilder.ApplyConfiguration(new FeaturesTranslationMap());
 
+
+            modelBuilder.ApplyConfiguration(new DormitoryMap());
+            modelBuilder.ApplyConfiguration(new DormitoryTranslationMap());
+            modelBuilder.ApplyConfiguration(new GoodToKnowMap());
+            modelBuilder.ApplyConfiguration(new GoodToKnowTitleValueMap());
+            modelBuilder.ApplyConfiguration(new GoodToKnowTitleValueTranslationMap());
+            modelBuilder.ApplyConfiguration(new RoomMap());
+            modelBuilder.ApplyConfiguration(new RoomTranslationMap());
+            modelBuilder.ApplyConfiguration(new CatalogImageMap());
+
+
+            modelBuilder.ApplyConfiguration(new DormitoryFeaturesMap());
+            modelBuilder.ApplyConfiguration(new RoomFeaturesMap());
+            modelBuilder.ApplyConfiguration(new RoomMap());
+
+            modelBuilder.ApplyConfiguration(new DormitoryCatalogImageMap());
+            modelBuilder.ApplyConfiguration(new RoomCatalogImageMap());
+
+
+            modelBuilder.ApplyConfiguration(new BookingStatusMap());
+            modelBuilder.ApplyConfiguration(new PaymentStatusMap());
+            modelBuilder.ApplyConfiguration(new PaymentStatusTranslationMap());
+            modelBuilder.ApplyConfiguration(new BookingStatusTranslationMap());
            
-        }
+
+
+        //new tables config
+
+        //    modelBuilder.Seed();
+
+
     }
+}
 }

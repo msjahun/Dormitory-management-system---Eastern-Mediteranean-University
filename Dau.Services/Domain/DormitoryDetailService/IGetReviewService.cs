@@ -2,6 +2,6 @@
 {
     public interface IGetReviewService
     {
-        ReviewButtomSectionViewModel GetReview();
+        ReviewButtomSectionViewModel GetReview(long DormitoryId);
     }
 }

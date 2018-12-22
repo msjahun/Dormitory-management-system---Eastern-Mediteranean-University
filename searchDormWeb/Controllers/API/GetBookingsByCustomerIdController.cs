@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
-
+using Dau.Services.Utilities;
+using Dau.Core.Domain;
 
 namespace searchDormWeb.Controllers.API
 {
@@ -14,6 +15,12 @@ namespace searchDormWeb.Controllers.API
     [ApiController]
     public class GetBookingsByCustomerIdController : Controller
     {
+        private readonly IApiLogService _apiLogService;
+
+        public GetBookingsByCustomerIdController(IApiLogService apiLogService)
+        {
+            _apiLogService = apiLogService;
+        }
 
 
         // GET: api/GetBookingsByCustomerId/5
@@ -33,6 +40,7 @@ namespace searchDormWeb.Controllers.API
                         {
                             DormitoryDescription = "Alfam dormitories has four blocks seperate.....",
                         DormitoryId = 23,
+                        BookingNumber = 344,
                         Dormitoryname = "Alfam Dormitories",
                         PictureUrl = "https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg",
                         RatingNumber = 4.5,
@@ -47,6 +55,7 @@ namespace searchDormWeb.Controllers.API
 
                     DormitoryDescription = "Alfam dormitories has four blocks seperate.....",
                     DormitoryId  = 26,
+                    BookingNumber = 34,
                     Dormitoryname = "Alfam Dormitories",
                     PictureUrl = "https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg",
                     RatingNumber = 4.5,
@@ -62,7 +71,14 @@ namespace searchDormWeb.Controllers.API
                 }
             };
 
+            _apiLogService.LogApiRequest(new ApiDebugLog
+            {
 
+                ApiName = "api/GetBookingsByCustomerId/",
+                Reponse = JsonConvert.SerializeObject(Response),
+                CreateDateTime = DateTime.Now,
+                ParameterRecieved = JsonConvert.SerializeObject(_apiLogService.GetRequestBody())
+            });
             return Json(Response);
 
 
@@ -79,6 +95,7 @@ namespace searchDormWeb.Controllers.API
             public string BookingDate { get; set; }
             public string CheckInDate { get; set; }
             public string BookingStatus { get; set; }
+            public long BookingNumber { get; set; }
         }
     }
 }

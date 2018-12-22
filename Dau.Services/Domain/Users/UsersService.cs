@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Dau.Core.Domain.User;
+using Dau.Core.Domain.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 namespace Dau.Services.Users
@@ -33,6 +33,18 @@ namespace Dau.Services.Users
         public string GetFirstLastNames(string id)
         {
            return GetFirstName( id) +" "+ GetLastName(id);
+        }
+
+        public string GetUserPhotoUrl(string id)
+        {
+            var userImage = from user in _userManager.Users.ToList()
+                            where user.Id == id && user.UserImageUrl != null
+                            select user;
+
+            if (userImage.FirstOrDefault() == null)
+                return null;
+            else
+                return userImage.FirstOrDefault().UserImageUrl;
         }
     }
 }

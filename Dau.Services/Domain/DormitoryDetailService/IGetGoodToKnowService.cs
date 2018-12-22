@@ -2,6 +2,6 @@
 {
     public interface IGetGoodToKnowService
     {
-        GoodToKnowSectionViewModel GetGoodToKnowInfo();
+        GoodToKnowSectionViewModel GetGoodToKnowInfo(long DormitoryId);
     }
 }

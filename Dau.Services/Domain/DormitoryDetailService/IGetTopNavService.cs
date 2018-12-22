@@ -2,6 +2,6 @@
 {
     public interface IGetTopNavService
     {
-        TopNavDormitorySectionViewModel GetTopNav();
+        TopNavDormitorySectionViewModel GetTopNav(long DormitoryId);
     }
 }

@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using searchDormWeb.Models;
+using Dau.Services.Utilities;
+using Dau.Core.Domain;
 
 namespace searchDormWeb.Controllers.API
 {
@@ -14,6 +16,13 @@ namespace searchDormWeb.Controllers.API
     [ApiController]
     public class EditBookingController : Controller
     {
+        private readonly IApiLogService _apiLogService;
+
+        public EditBookingController(IApiLogService apiLogService)
+        {
+            _apiLogService = apiLogService;
+        }
+
         [Route("api/[controller]")]
         // POST: api/EditBooking
         [HttpPost]
@@ -25,6 +34,15 @@ namespace searchDormWeb.Controllers.API
                 StatusCode = "0x3234"
             };
 
+
+            _apiLogService.LogApiRequest(new ApiDebugLog
+            {
+
+                ApiName = " // POST: api/EditBooking",
+                Reponse = JsonConvert.SerializeObject(response),
+                CreateDateTime = DateTime.Now,
+                ParameterRecieved = JsonConvert.SerializeObject(_apiLogService.GetRequestBody())
+            });
             return Json(response);
         }
 

@@ -1,4 +1,4 @@
-﻿using Dau.Core.Domain.User;
+﻿using Dau.Core.Domain.Users;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;

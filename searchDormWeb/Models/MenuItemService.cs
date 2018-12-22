@@ -1,5 +1,5 @@
 ﻿using Dau.Core.Configuration.AccessControlList;
-using Dau.Core.Domain.User;
+using Dau.Core.Domain.Users;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

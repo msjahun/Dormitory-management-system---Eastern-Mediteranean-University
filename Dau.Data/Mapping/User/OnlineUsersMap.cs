@@ -1,4 +1,4 @@
-﻿using Dau.Core.Domain.User;
+﻿using Dau.Core.Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;

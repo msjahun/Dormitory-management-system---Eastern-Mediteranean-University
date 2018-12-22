@@ -16,32 +16,7 @@ namespace Dau.Data.Mapping.Catalog
             builder.Property(e => e.Id).HasColumnName("Id");
 
 
-            //int
-            builder.Property(e => e.RoomId)
-                .HasColumnName("RoomId");
-
-            builder.Property(e => e.DormitoryId)
-                .HasColumnName("DormitoryId");
-
-            builder.Property(e => e.UserGuid)
-                .HasColumnName("UserGuid").IsRequired()
-                .HasMaxLength(256)
-                .IsUnicode(false);
-
-            builder.Property(e => e.Title)
-                .HasColumnName("Title").IsRequired()
-                .HasMaxLength(256)
-                .IsUnicode(false);
-
-            builder.Property(e => e.ReviewText)
-                .HasColumnName("ReviewText").IsRequired()
-                .HasMaxLength(256)
-                .IsUnicode(false);
-
-            builder.Property(e => e.ReplyText)
-                .HasColumnName("ReplyText")
-                .HasMaxLength(100)
-                .IsUnicode(false);
+          
 
 
 

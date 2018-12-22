@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
+using Dau.Services.Utilities;
+using Dau.Core.Domain;
 
 namespace searchDormWeb.Controllers.API
 {
@@ -13,7 +15,13 @@ namespace searchDormWeb.Controllers.API
     [ApiController]
     public class GetRoomByIdController : Controller
     {
-       
+        private readonly IApiLogService _apiLogService;
+
+        public GetRoomByIdController(IApiLogService apiLogService)
+        {
+            _apiLogService = apiLogService;
+        }
+
         // GET: api/GetRoomById/5
         [HttpGet("{id}")]
         public JsonResult Get(int id)
@@ -62,7 +70,14 @@ namespace searchDormWeb.Controllers.API
 
             };
 
+            _apiLogService.LogApiRequest(new ApiDebugLog
+            {
 
+                ApiName = " // GET: api/GetRoomById/",
+                Reponse = JsonConvert.SerializeObject(Response),
+                CreateDateTime = DateTime.Now,
+                ParameterRecieved = JsonConvert.SerializeObject(_apiLogService.GetRequestBody())
+            });
             return Json(Response);
 
         }

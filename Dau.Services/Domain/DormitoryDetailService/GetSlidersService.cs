@@ -1,32 +1,50 @@
-﻿using System;
+﻿using Dau.Core.Domain.Catalog;
+using Dau.Data;
+using Dau.Data.Repository;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dau.Services.Domain.DormitoryDetailService
 {
    public class GetSlidersService : IGetSlidersService
     {
-        public SlidersSectionViewModel GetSliders()
+        private readonly IRepository<CatalogImage> _imagesRepo;
+        private readonly IRepository<DormitoryCatalogImage> _dormitoryImageRepo;
+
+        public GetSlidersService(IRepository<CatalogImage> imagesRepository,
+                    IRepository<Dormitory> DormitoryRepository,
+                    IRepository<DormitoryCatalogImage> DormitoryImageRepository
+              
+            )
         {
+            _imagesRepo = imagesRepository;
+            _dormitoryImageRepo = DormitoryImageRepository;
+          
+        }
+
+        public SlidersSectionViewModel GetSliders(long DormitoryId)
+        {
+
+            var Images = from imageList in _imagesRepo.List().ToList()
+                         join dormImage in _dormitoryImageRepo.List().ToList() on imageList.Id equals dormImage.CatalogImageId
+                         where dormImage.DormitoryId == DormitoryId
+         select new { imageList.ImageUrl };
+
+
+
+            var flatList = Images.Select(x => x.ImageUrl).ToList();
+
+
+
             SlidersSectionViewModel model = new SlidersSectionViewModel
             {
-                ImageUrls = new List<string>
-                {
-                    "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
-                    "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=9",
-                    "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=7",
-                    "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=4",
-                    "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=8",
-                    "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=10",
-                    "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=12",
-                    "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=7",
-                    "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=5",
-                    "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=8",
-                    "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=7",
-                    "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
-                    "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=9"
-                }
+                ImageUrls = flatList
             };
+
+         
             return model;
         }
     }

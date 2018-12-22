@@ -1,4 +1,4 @@
-﻿using Dau.Core.Domain.User;
+﻿using Dau.Core.Domain.Users;
 using Dau.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;

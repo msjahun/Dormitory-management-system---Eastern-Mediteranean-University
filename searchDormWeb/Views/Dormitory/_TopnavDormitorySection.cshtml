@@ -37,6 +37,7 @@
 </div>
 
 <h3>@item.DormitoryName</h3>
-<a><i class="fa fa-map-marker text-primary " style="color:#269038;"></i> @item.DormitoryStreetAddress - @Localizer["Show on map"]</a>
-<span class="address-show-map" style="color:#269038; text-decoration:underline;"> <a href="#" style=" color:#269038">@Localizer["Show map"]</a></span>
+<a href="javascript:;" data-fancybox data-type="iframe" data-src="@item.MapSection" ><i class="far fa-map  text-warning " style="color:#269038;"></i> @item.DormitoryStreetAddress </a>
+<span class="address-show-map" style="color:#269038; text-decoration:underline;"> 
+    <a href="javascript:;" data-fancybox data-type="iframe" data-src="@item.MapSection" style=" color:#269038">@Localizer["Show map"]</a></span>
 <h6>@item.DormitoryType</h6>

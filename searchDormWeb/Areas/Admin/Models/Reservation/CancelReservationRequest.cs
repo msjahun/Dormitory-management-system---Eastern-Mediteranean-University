@@ -9,7 +9,7 @@ namespace searchDormWeb.Areas.Admin.Models.Reservation
     public class CancelReservationRequestEdit
     {
         [Display(Name = "Id",
-        Description = "Cancel Reservation request Id"), DataType(DataType.Text), MaxLength(256)]
+        Description = "Cancel Booking request Id"), DataType(DataType.Text), MaxLength(256)]
         public string Id { get; set; }
 
         [Display(Name = "Booking Number",

@@ -2,6 +2,6 @@
 {
     public interface IGetAreaInfoService
     {
-        AreaInfoSectionViewModel GetAreaInfo();
+        AreaInfoSectionViewModel GetAreaInfo(long DormitoryId);
     }
 }

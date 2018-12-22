@@ -28,7 +28,7 @@
 </section>
 
 
-<section class="slice slice-xl bg-darker">
+@*<section class="slice slice-xl bg-darker">
     <div class="container">
         <div class="row row-grid justify-content-center">
             <div class="col-lg-6">
@@ -40,12 +40,31 @@
             </div>
         </div>
     </div>
+</section>*@
+
+<section class="slice slice-lg pt-md-xl bg-secondary">
+    <div class="container">
+        <div class="mb-md text-center">
+            <h3 class="h3">@Localizer["Why EMU Dormitories ?"]</h3>
+            <div class="fluid-paragraph text-center mt-4">
+                <p class="lead lh-180">
+
+                    <span class="typed" id="type-example2" data-type-this="- @Localizer["Academic Success"],-  @Localizer["Healthy"],- @Localizer["Security"],- @Localizer["Economical Benefits"],- @Localizer["Computer Facilities"],
+                                                              - @Localizer["Communication features"],- @Localizer["Basic Needs"],- @Localizer["Transportation"],- @Localizer["Healthy Eating"],- @Localizer["Long Lasting Friendships"],- @Localizer["Cultural and Social Life"],- @Localizer["Sport Facilities"] "></span>
+
+                </p>
+            </div>
+        </div>
+      
+    </div>
 </section>
+
+
 
 <section class="slice slice-sm">
     <div class="container-fluid">
 
-        <div class="grid">
+        <div class="grid ">
             <div class="grid__col-sizer animate-this"></div>
             <div class="grid__gutter-sizer animate-this"></div>
         </div>
@@ -74,20 +93,37 @@
 @section styles
     {
 
-    <style>
+<style>
 
+@@media only screen and (min-width: 600px) {
+
+    .grid__col-sizer,
+    .photo-item {
+        width: 100%;
+    }
+
+    .grid__gutter-sizer {
+        width: 0%;
+    }
+
+    .photo-item {
+        margin-bottom: 0.1%;
+        float: left;
+    }
+
+}
 
         .grid__col-sizer,
         .photo-item {
-            width: 32%;
+            width: 33.26%;
         }
 
         .grid__gutter-sizer {
-            width: 2%;
+            width: 0.1%;
         }
 
         .photo-item {
-            margin-bottom: 10px;
+            margin-bottom: 0.1%;
             float: left;
         }
 
@@ -119,7 +155,7 @@
 
         /* loader ellips in separate pen CSS */
 
-    </style>
+</style>
 
 }
 
@@ -136,7 +172,7 @@
             <a href="@Url.Content("~/Dormitories")/{{dormitorySeoFriendlyUrl}}" class="card border-0" data-animate-hover="1">
 
                 <div class="photo-item animate-this">
-                    <img class="photo-item__image  rounded z-depth-3 img-fluid" src="{{imageUrl}}" alt="Photo by {{dormitoryName}}" />
+                    <img class="photo-item__image  z-depth-3 img-fluid" src="{{imageUrl}}" alt="Photo by {{dormitoryName}}" />
                     <span class="mask mask--hover bg-gradient-primary opacity-4"></span>
                     <div class="card-img-overlay d-flex">
                         @** <div class="col pt-2">

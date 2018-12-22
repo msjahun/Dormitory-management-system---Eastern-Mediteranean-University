@@ -19,27 +19,27 @@
                 <div data-toggle="sticky" data-sticky-offset="100" data-negative-margin=".card-profile-cover">
 
                     @{await Html.RenderPartialAsync("/Views/Search/_Filtertop.cshtml", null);}
-                    </div>
-               
-            </div>
-
-
-                <div class="col-lg-9">
-
-
-                    <div id="_SortingButtonsSection">
-                        <Dau-loader></Dau-loader>
-                    </div>
-
-                    <div id="SearchResultSection">
-                        <Dau-loader></Dau-loader>
-                    </div>
-
-
-
                 </div>
 
             </div>
+
+
+            <div class="col-lg-9">
+
+
+                <div id="_SortingButtonsSection">
+                    <Dau-loader></Dau-loader>
+                </div>
+
+                <div id="SearchResultSection">
+                    <Dau-loader></Dau-loader>
+                </div>
+
+
+
+            </div>
+
+        </div>
 
         <div class="fabb d-lg-none " id="">
             <button type="button" id="FabBtn" class="btn btn-primary btn-icon-only ">
@@ -78,11 +78,12 @@
     <script src="@Url.Content("~/frontend_Content/assets")/vendor/autosize/dist/autosize.min.js"></script>
     <script src="@Url.Content("~/frontend_Content/assets")/vendor/jquery.countdown/jquery.countdown.js"></script>
     <script src="@Url.Content("~/frontend_Content/assets")/vendor/@@fancyapps/fancybox/dist/jquery.fancybox.min.js"></script>
+    <script src="@Url.Content("~/frontend_Content/assets")/vendor/masonry-layout/dist/masonry.pkgd.min.js"></script>
     <script src="@Url.Content("~/viewsjs/Public")/SearchResultPage.js"></script>
 
     <script>
 
-       
+
 
         function sortingFunc() {
             //  alert(event.srcElement.id);
@@ -107,6 +108,6 @@
 @section styles{
     <link type="text/css" href="@Url.Content("~/frontend_Content/assets")/vendor/swiper/dist/css/swiper.min.css" rel="stylesheet">
     <link type="text/css" href="@Url.Content("~/frontend_Content/assets")/vendor/select2/dist/css/select2.min.css" rel="stylesheet">
-   <link type="text/css" href="@Url.Content("~/viewscss/Public")/SearchResultPage.css" rel="stylesheet">
+    <link type="text/css" href="@Url.Content("~/viewscss/Public")/SearchResultPage.css" rel="stylesheet">
 
 }

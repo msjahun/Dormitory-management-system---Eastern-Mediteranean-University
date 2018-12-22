@@ -30,11 +30,7 @@ namespace Dau.Data.Mapping.BankAccount
                 .HasMaxLength(50)
                 .IsUnicode(false);
 
-            builder.HasOne(d => d.Bank)
-                .WithMany(p => p.BankCurrencyTable)
-                .HasForeignKey(d => d.BankId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_dbo.bank_currency_table_dbo.dormitory_bank_account_table_bank_id");
+          
 
         }
     }

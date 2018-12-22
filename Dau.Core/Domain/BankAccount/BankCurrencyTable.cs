@@ -1,4 +1,4 @@
-﻿using Dau.Core.Domain.Dormitory;
+﻿//using Dau.Core.Domain.Dormitory;
 using System;
 using System.Collections.Generic;
 
@@ -15,7 +15,7 @@ namespace Dau.Core.Domain.BankAccount
     public long ExchangeRage { get; set; }
         public string CurrencyName { get; set; }
 
-        public DormitoryBankAccountTable Bank { get; set; }
+       // public DormitoryBankAccountTable Bank { get; set; }
         public ICollection<AccountParameterValues> AccountParameterValues { get; set; }
     }
 }

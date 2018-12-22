@@ -1,4 +1,4 @@
-﻿using Dau.Services.Dormitory;
+﻿using Dau.Services.DormitoryServiceOld;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;

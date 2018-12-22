@@ -5,6 +5,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Mapping\BankAccount\**" />
+    <Compile Remove="Mapping\Dormitory\**" />
+    <Compile Remove="Mapping\Facility\**" />
+    <Compile Remove="Mapping\Language\**" />
+    <Compile Remove="Mapping\Room\**" />
+    <EmbeddedResource Remove="Mapping\BankAccount\**" />
+    <EmbeddedResource Remove="Mapping\Dormitory\**" />
+    <EmbeddedResource Remove="Mapping\Facility\**" />
+    <EmbeddedResource Remove="Mapping\Language\**" />
+    <EmbeddedResource Remove="Mapping\Room\**" />
+    <None Remove="Mapping\BankAccount\**" />
+    <None Remove="Mapping\Dormitory\**" />
+    <None Remove="Mapping\Facility\**" />
+    <None Remove="Mapping\Language\**" />
+    <None Remove="Mapping\Room\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="EfRepository.cs" />
   </ItemGroup>
 

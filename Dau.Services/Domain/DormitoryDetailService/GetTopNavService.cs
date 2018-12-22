@@ -1,20 +1,47 @@
-﻿using System;
+﻿using Dau.Core.Domain.Catalog;
+using Dau.Data.Repository;
+using Dau.Services.Languages;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Dau.Services.Domain.DormitoryDetailService
 {
    public class GetTopNavService : IGetTopNavService
     {
-        public TopNavDormitorySectionViewModel GetTopNav()
+        private readonly ILanguageService _languageService;
+        private readonly IRepository<Dormitory> _dormitoryRepo;
+        private readonly IRepository<DormitoryTranslation> _dormitoryTranslationRepo;
+
+        public GetTopNavService(
+             ILanguageService languageService,
+            IRepository<Dormitory> DormitoryRepository,
+            IRepository<DormitoryTranslation> DormitoryTranslationRepository)
         {
-            TopNavDormitorySectionViewModel model = new TopNavDormitorySectionViewModel
-            {
-                DormitoryName = "Alfam Dormitory EMU University",
-                DormitoryStreetAddress = "EMU charles Darwin street",
-                DormitoryType = "Dormitory belongs to the category of private school dormitories/ accomodations (BOT),",
-                DormitoryLogoUrl = "https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/18/c4/73/18c473bc-cd1c-4e6e-4ba0-4a9afcae1fc4/source/512x512bb.jpg"
-            };
+            _languageService = languageService;
+            _dormitoryRepo = DormitoryRepository;
+            _dormitoryTranslationRepo= DormitoryTranslationRepository;
+        }
+
+        public TopNavDormitorySectionViewModel GetTopNav(long DormitoryId)
+        {
+            var CurrentLanguageId = _languageService.GetCurrentLanguageId();
+            var Dormitory = from dorm in _dormitoryRepo.List().ToList()
+                            join dormTrans in _dormitoryTranslationRepo.List().ToList() on dorm.Id equals dormTrans.DormitoryNonTransId
+                            where dorm.Id == DormitoryId && dormTrans.LanguageId == CurrentLanguageId
+                            select new TopNavDormitorySectionViewModel {
+                                DormitoryName = dormTrans.DormitoryName,
+                                DormitoryStreetAddress = dorm.DormitoryStreetAddress,
+                                DormitoryType = "Dormitory belongs to the category of private school dormitories/ accomodations (BOT),",
+                                DormitoryLogoUrl = dorm.DormitoryLogoUrl,
+                                MapSection = "https://www.emu.edu.tr/campusmap?design=empty#" + dorm.MapSection,
+
+
+                            };
+
+
+            TopNavDormitorySectionViewModel model = Dormitory.FirstOrDefault();
 
             return model; }
     }
@@ -22,6 +49,7 @@ namespace Dau.Services.Domain.DormitoryDetailService
 
     public class TopNavDormitorySectionViewModel
     {
+        public string MapSection { get; set; }
         public string DormitoryName { get; set; }
         public string DormitoryStreetAddress { get; set; }
         public string DormitoryType { get; set; }

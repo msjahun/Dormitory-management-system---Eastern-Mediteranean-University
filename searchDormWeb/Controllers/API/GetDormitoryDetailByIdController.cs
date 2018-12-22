@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using searchDormWeb.Models;
+using Dau.Services.Utilities;
+using Dau.Core.Domain;
 
 namespace searchDormWeb.Controllers.API
 {
@@ -14,6 +16,12 @@ namespace searchDormWeb.Controllers.API
     [ApiController]
     public class GetDormitoryDetailByIdController : Controller
     {
+        private readonly IApiLogService _apiLogService;
+
+        public GetDormitoryDetailByIdController(IApiLogService apiLogService)
+        {
+            _apiLogService = apiLogService;
+        }
 
 
         // GET: api/GetDormitoryDetailById/5
@@ -60,7 +68,14 @@ namespace searchDormWeb.Controllers.API
 
                 };
 
+                _apiLogService.LogApiRequest(new ApiDebugLog
+                {
 
+                    ApiName = "// GET: api/GetDormitoryDetailById/",
+                    Reponse = JsonConvert.SerializeObject(Response),
+                    CreateDateTime = DateTime.Now,
+                    ParameterRecieved = JsonConvert.SerializeObject(_apiLogService.GetRequestBody())
+                });
                 return Json(Response);
 
 
@@ -73,7 +88,16 @@ namespace searchDormWeb.Controllers.API
                     StatusCode = "0x3234"
                 };
 
-                return Json(Response);
+
+                _apiLogService.LogApiRequest(new ApiDebugLog
+                {
+
+                    ApiName = "// GET: api/GetDormitoryDetailById/",
+                    Reponse = JsonConvert.SerializeObject(response),
+                    CreateDateTime = DateTime.Now,
+                    ParameterRecieved = JsonConvert.SerializeObject(_apiLogService.GetRequestBody())
+                });
+                return Json(response);
 
             }
 

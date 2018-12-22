@@ -5,6 +5,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Domain\BankAccount\**" />
+    <Compile Remove="Domain\DormitoryOld\**" />
+    <Compile Remove="Domain\Facility\**" />
+    <Compile Remove="Domain\Language\**" />
+    <Compile Remove="Domain\RoomOld\**" />
+    <EmbeddedResource Remove="Domain\BankAccount\**" />
+    <EmbeddedResource Remove="Domain\DormitoryOld\**" />
+    <EmbeddedResource Remove="Domain\Facility\**" />
+    <EmbeddedResource Remove="Domain\Language\**" />
+    <EmbeddedResource Remove="Domain\RoomOld\**" />
+    <None Remove="Domain\BankAccount\**" />
+    <None Remove="Domain\DormitoryOld\**" />
+    <None Remove="Domain\Facility\**" />
+    <None Remove="Domain\Language\**" />
+    <None Remove="Domain\RoomOld\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.0" />
   </ItemGroup>

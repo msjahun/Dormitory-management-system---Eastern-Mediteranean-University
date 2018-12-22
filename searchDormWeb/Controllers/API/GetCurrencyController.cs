@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
+using Dau.Services.Utilities;
+using Dau.Core.Domain;
 
 namespace searchDormWeb.Controllers.API
 {
@@ -13,7 +15,13 @@ namespace searchDormWeb.Controllers.API
     [ApiController]
     public class GetCurrencyController : Controller
     {
-       
+        private readonly IApiLogService _apiLogService;
+
+        public GetCurrencyController(IApiLogService apiLogService)
+        {
+            _apiLogService = apiLogService;
+        }
+
 
 
         // GET: api/GetCurrency/5
@@ -38,7 +46,14 @@ namespace searchDormWeb.Controllers.API
 
             };
 
+            _apiLogService.LogApiRequest(new ApiDebugLog
+            {
 
+                ApiName = "// GET: api/GetCurrency",
+                Reponse = JsonConvert.SerializeObject(Response),
+                CreateDateTime = DateTime.Now,
+                ParameterRecieved = JsonConvert.SerializeObject(_apiLogService.GetRequestBody())
+            });
             return Json(Response);
         
         }

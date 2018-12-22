@@ -6,6 +6,10 @@ namespace Dau.Services.Domain.SearchResultService
 {
   public  class RoomResultService : IRoomResultService
     {
+        public RoomResultService()
+        {
+        }
+
         public List<RoomResultViewModel> GetRoomResult()
         {
             List<RoomResultViewModel> modelList = new List<RoomResultViewModel>
@@ -22,6 +26,38 @@ namespace Dau.Services.Domain.SearchResultService
                     "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/novel/Double%20suit%205.jpg?RenditionID=6"
 
                 },
+                Features = new List<FeaturesViewModel>
+                {
+                    new FeaturesViewModel{ 
+                       FeatureName="Desk lamp"
+            },
+                  new FeaturesViewModel
+            {
+                IconUrl="/dusk/png/facilities/icons8-widescreen-64.png",
+                FeatureName="TV"
+            },
+                   new FeaturesViewModel
+            {
+                 IconUrl="/dusk/png/facilities/icons8-shower-50.png",
+                FeatureName="WC-shower"
+            },
+                    new FeaturesViewModel
+            {
+                 IconUrl="/dusk/png/facilities/icons8-fridge-64.png",
+                FeatureName="Refrigerator"
+            },
+                    new FeaturesViewModel
+            {
+                 IconUrl="/dusk/png/facilities/icons8-office-phone-64.png",
+                FeatureName="Room tel."
+            },
+                    new FeaturesViewModel
+            {
+                 IconUrl="/dusk/png/facilities/icons8-compressor-64.png",
+                FeatureName="Generator"
+            }
+                },
+                 RoomId=235,
                 GenderAllocation = "Boys only",
                 DormitoryName = "Akdeniz Dormitory",
                 DormitoryRoomBlock = "A Block",
@@ -56,6 +92,39 @@ namespace Dau.Services.Domain.SearchResultService
                     "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/novel/Double%20suit%205.jpg?RenditionID=6"
 
                 },
+
+                         Features = new List<FeaturesViewModel>
+                {
+                    new FeaturesViewModel{
+                       FeatureName="Desk lamp"
+            },
+                  new FeaturesViewModel
+            {
+                IconUrl="/dusk/png/facilities/icons8-widescreen-64.png",
+                FeatureName="TV"
+            },
+                   new FeaturesViewModel
+            {
+                 IconUrl="/dusk/png/facilities/icons8-shower-50.png",
+                FeatureName="WC-shower"
+            },
+                    new FeaturesViewModel
+            {
+                 IconUrl="/dusk/png/facilities/icons8-fridge-64.png",
+                FeatureName="Refrigerator"
+            },
+                    new FeaturesViewModel
+            {
+                 IconUrl="/dusk/png/facilities/icons8-office-phone-64.png",
+                FeatureName="Room tel."
+            },
+                    new FeaturesViewModel
+            {
+                 IconUrl="/dusk/png/facilities/icons8-compressor-64.png",
+                FeatureName="Generator"
+            }
+                },
+                 RoomId=2454,
                 GenderAllocation = "Boys and girls",
                 DormitoryName = "Novel Dormitory",
                   DormitoryRoomBlock = "A Block",
@@ -98,6 +167,38 @@ namespace Dau.Services.Domain.SearchResultService
                     "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/novel/Double%20suit%205.jpg?RenditionID=6"
 
                 },
+                         Features = new List<FeaturesViewModel>
+                {
+                    new FeaturesViewModel{
+                       FeatureName="Desk lamp"
+            },
+                  new FeaturesViewModel
+            {
+                IconUrl="/dusk/png/facilities/icons8-widescreen-64.png",
+                FeatureName="TV"
+            },
+                   new FeaturesViewModel
+            {
+                 IconUrl="/dusk/png/facilities/icons8-shower-50.png",
+                FeatureName="WC-shower"
+            },
+                    new FeaturesViewModel
+            {
+                 IconUrl="/dusk/png/facilities/icons8-fridge-64.png",
+                FeatureName="Refrigerator"
+            },
+                    new FeaturesViewModel
+            {
+                 IconUrl="/dusk/png/facilities/icons8-office-phone-64.png",
+                FeatureName="Room tel."
+            },
+                    new FeaturesViewModel
+            {
+                 IconUrl="/dusk/png/facilities/icons8-compressor-64.png",
+                FeatureName="Generator"
+            }
+                },
+                 RoomId=454,
                 GenderAllocation = "Boys & Girls only",
                 DormitoryName = "Alfam Dormitory",
                 RoomName ="Single Room",
@@ -132,6 +233,8 @@ namespace Dau.Services.Domain.SearchResultService
                     "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/novel/Double%20suit%205.jpg?RenditionID=6"
 
                 },
+                      
+                 RoomId=344,
                 GenderAllocation = "Boys only",
                 DormitoryName = "Akdeniz Dormitory",
                 DormitoryRoomBlock = "A Block",
@@ -166,6 +269,39 @@ namespace Dau.Services.Domain.SearchResultService
                     "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/novel/Double%20suit%205.jpg?RenditionID=6"
 
                 },
+
+                         Features = new List<FeaturesViewModel>
+                {
+                    new FeaturesViewModel{
+                       FeatureName="Desk lamp"
+            },
+                  new FeaturesViewModel
+            {
+                IconUrl="/dusk/png/facilities/icons8-widescreen-64.png",
+                FeatureName="TV"
+            },
+                   new FeaturesViewModel
+            {
+                 IconUrl="/dusk/png/facilities/icons8-shower-50.png",
+                FeatureName="WC-shower"
+            },
+                    new FeaturesViewModel
+            {
+                 IconUrl="/dusk/png/facilities/icons8-fridge-64.png",
+                FeatureName="Refrigerator"
+            },
+                    new FeaturesViewModel
+            {
+                 IconUrl="/dusk/png/facilities/icons8-office-phone-64.png",
+                FeatureName="Room tel."
+            },
+                    new FeaturesViewModel
+            {
+                 IconUrl="/dusk/png/facilities/icons8-compressor-64.png",
+                FeatureName="Generator"
+            }
+                },
+                 RoomId=264,
                 GenderAllocation = "Boys and girls",
                 DormitoryName = "Novel Dormitory",
                   DormitoryRoomBlock = "A Block",
@@ -208,6 +344,38 @@ namespace Dau.Services.Domain.SearchResultService
                     "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/novel/Double%20suit%205.jpg?RenditionID=6"
 
                 },
+                         Features = new List<FeaturesViewModel>
+                {
+                    new FeaturesViewModel{
+                       FeatureName="Desk lamp"
+            },
+                  new FeaturesViewModel
+            {
+                IconUrl="/dusk/png/facilities/icons8-widescreen-64.png",
+                FeatureName="TV"
+            },
+                   new FeaturesViewModel
+            {
+                 IconUrl="/dusk/png/facilities/icons8-shower-50.png",
+                FeatureName="WC-shower"
+            },
+                    new FeaturesViewModel
+            {
+                 IconUrl="/dusk/png/facilities/icons8-fridge-64.png",
+                FeatureName="Refrigerator"
+            },
+                    new FeaturesViewModel
+            {
+                 IconUrl="/dusk/png/facilities/icons8-office-phone-64.png",
+                FeatureName="Room tel."
+            },
+                    new FeaturesViewModel
+            {
+                 IconUrl="/dusk/png/facilities/icons8-compressor-64.png",
+                FeatureName="Generator"
+            }
+                },
+                 RoomId=253,
                 GenderAllocation = "Boys & Girls only",
                 DormitoryName = "Alfam Dormitory",
                 RoomName ="Single Room",
@@ -242,6 +410,38 @@ namespace Dau.Services.Domain.SearchResultService
                     "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/novel/Double%20suit%205.jpg?RenditionID=6"
 
                 },
+                         Features = new List<FeaturesViewModel>
+                {
+                    new FeaturesViewModel{
+                       FeatureName="Desk lamp"
+            },
+                  new FeaturesViewModel
+            {
+                IconUrl="/dusk/png/facilities/icons8-widescreen-64.png",
+                FeatureName="TV"
+            },
+                   new FeaturesViewModel
+            {
+                 IconUrl="/dusk/png/facilities/icons8-shower-50.png",
+                FeatureName="WC-shower"
+            },
+                    new FeaturesViewModel
+            {
+                 IconUrl="/dusk/png/facilities/icons8-fridge-64.png",
+                FeatureName="Refrigerator"
+            },
+                    new FeaturesViewModel
+            {
+                 IconUrl="/dusk/png/facilities/icons8-office-phone-64.png",
+                FeatureName="Room tel."
+            },
+                    new FeaturesViewModel
+            {
+                 IconUrl="/dusk/png/facilities/icons8-compressor-64.png",
+                FeatureName="Generator"
+            }
+                },
+                 RoomId=34,
                 GenderAllocation = "Boys only",
                 DormitoryName = "Akdeniz Dormitory",
                 DormitoryRoomBlock = "A Block",
@@ -276,6 +476,38 @@ namespace Dau.Services.Domain.SearchResultService
                     "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/novel/Double%20suit%205.jpg?RenditionID=6"
 
                 },
+                         Features = new List<FeaturesViewModel>
+                {
+                    new FeaturesViewModel{
+                       FeatureName="Desk lamp"
+            },
+                  new FeaturesViewModel
+            {
+                IconUrl="/dusk/png/facilities/icons8-widescreen-64.png",
+                FeatureName="TV"
+            },
+                   new FeaturesViewModel
+            {
+                 IconUrl="/dusk/png/facilities/icons8-shower-50.png",
+                FeatureName="WC-shower"
+            },
+                    new FeaturesViewModel
+            {
+                 IconUrl="/dusk/png/facilities/icons8-fridge-64.png",
+                FeatureName="Refrigerator"
+            },
+                    new FeaturesViewModel
+            {
+                 IconUrl="/dusk/png/facilities/icons8-office-phone-64.png",
+                FeatureName="Room tel."
+            },
+                    new FeaturesViewModel
+            {
+                 IconUrl="/dusk/png/facilities/icons8-compressor-64.png",
+                FeatureName="Generator"
+            }
+                },
+                 RoomId=264,
                 GenderAllocation = "Boys and girls",
                 DormitoryName = "Novel Dormitory",
                   DormitoryRoomBlock = "A Block",
@@ -318,6 +550,38 @@ namespace Dau.Services.Domain.SearchResultService
                     "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/novel/Double%20suit%205.jpg?RenditionID=6"
 
                 },
+                         Features = new List<FeaturesViewModel>
+                {
+                    new FeaturesViewModel{
+                       FeatureName="Desk lamp"
+            },
+                  new FeaturesViewModel
+            {
+                IconUrl="/dusk/png/facilities/icons8-widescreen-64.png",
+                FeatureName="TV"
+            },
+                   new FeaturesViewModel
+            {
+                 IconUrl="/dusk/png/facilities/icons8-shower-50.png",
+                FeatureName="WC-shower"
+            },
+                    new FeaturesViewModel
+            {
+                 IconUrl="/dusk/png/facilities/icons8-fridge-64.png",
+                FeatureName="Refrigerator"
+            },
+                    new FeaturesViewModel
+            {
+                 IconUrl="/dusk/png/facilities/icons8-office-phone-64.png",
+                FeatureName="Room tel."
+            },
+                    new FeaturesViewModel
+            {
+                 IconUrl="/dusk/png/facilities/icons8-compressor-64.png",
+                FeatureName="Generator"
+            }
+                },
+                 RoomId=234,
                 GenderAllocation = "Boys & Girls only",
                 DormitoryName = "Alfam Dormitory",
                 RoomName ="Single Room",
@@ -348,6 +612,7 @@ namespace Dau.Services.Domain.SearchResultService
 
     public class RoomResultViewModel
     {
+        public long RoomId { get; set; }
         public List<string> ImageUrls { get; set; }
         public string GenderAllocation { get; set; }
         public string RoomName { get; set; }
@@ -359,7 +624,7 @@ namespace Dau.Services.Domain.SearchResultService
 
         public DateTime DealEndTime { get; set; }
         public bool DisplayDeal { get; set; }
-
+        public List<FeaturesViewModel> Features { get; set; }
         public int PercentageOff { get; set; }
 
         public string DormitoryRoomBlock { get; set; }
@@ -383,4 +648,10 @@ namespace Dau.Services.Domain.SearchResultService
 
 
     }
+    public class FeaturesViewModel
+    {
+        public string IconUrl { get; set; }
+        public string FeatureName { get; set; }
+    }
+
 }

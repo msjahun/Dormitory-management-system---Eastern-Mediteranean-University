@@ -1,14 +1,15 @@
-﻿using System;
+﻿using Dau.Core.Domain.Bookings;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using Dau.Core.Domain.Reservations;
+
 namespace Dau.Core.Domain.Addresses
 {
    public class Address : BaseEntity
     {
         public Address()
         {
-            Reservations = new HashSet<Reservation>();
+            Bookings = new HashSet<Booking>();
         }
 
         //public string FullName { get; set; }
@@ -27,6 +28,6 @@ namespace Dau.Core.Domain.Addresses
 
         //a lot of the entities will use address
         //relationship with countryId and stateProvinceId
-        public ICollection<Reservation> Reservations{ get; set; }
+        public ICollection<Booking> Bookings{ get; set; }
     }
 }

@@ -41,7 +41,7 @@
                             <div class="swiper-wrapper">
                                 @foreach (var ImageUrl in item.Sliders.ImageUrls)
                                 {
-                                    <div class="swiper-slide"><img alt="Image placeholder" class="img-fluid rounded" src="@ImageUrl"></div>
+                                    <div class="swiper-slide swiper_slide_room"><img alt="Image placeholder" class="img-fluid rounded" src="@ImageUrl"></div>
                                 }
                             </div>
                             <!-- Add Pagination -->
@@ -118,10 +118,10 @@
 
                                     <li>
                                         <span class=" mt-1 facilityCol shadow animate-this">
-                                            @if (facility.FacilityImageUrl != null)
+                                            @if (facility.IconUrl != null)
                                             {
 
-                                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets/img/icons")@facility.FacilityImageUrl" style="width: 20px;">
+                                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets/img/icons")@facility.IconUrl" style="width: 20px;">
                                             }
                                             @facility.FacilityName
                                         </span>
@@ -181,9 +181,10 @@
         swiper_room.slideTo(index, 1, false);
     }
     swiper_room.on('slideChange', function () {
-        //  console.log('slide changed' + swiper.activeIndex);
+        console.log('slide changed' + swiper_room.activeIndex);
+        console.log('swiper' + swiper_room);
         $('.grid_item_room').removeClass('grid-item-active');
-        $('#grid-item_room_' + swiper.activeIndex).addClass('grid-item-active');
+        $('#grid-item_room_' + swiper_room.activeIndex).addClass('grid-item-active');
 
 
     });

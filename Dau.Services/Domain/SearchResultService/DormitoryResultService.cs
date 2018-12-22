@@ -6,6 +6,10 @@ namespace Dau.Services.Domain.SearchResultService
 {
     public class DormitoryResultService : IDormitoryResultService
     {
+        public DormitoryResultService()
+        {
+        }
+
         public List<DormitoryResultViewModel> GetDormitoryResult()
         {
             List<DormitoryResultViewModel> modelList = new List<DormitoryResultViewModel>
@@ -108,7 +112,8 @@ namespace Dau.Services.Domain.SearchResultService
                 UniqueAttribute = "Cafeteria access",
                    IsbookedInlast24hours=false
 
-            },   new DormitoryResultViewModel
+            },
+                new DormitoryResultViewModel
             {
                 ImageUrls = new List<string>
                 {
@@ -237,7 +242,8 @@ namespace Dau.Services.Domain.SearchResultService
                 UniqueAttribute = "Cafeteria access",
                    IsbookedInlast24hours=false
 
-            },   new DormitoryResultViewModel
+            },
+                new DormitoryResultViewModel
             {
                 ImageUrls = new List<string>
                 {
@@ -366,7 +372,8 @@ namespace Dau.Services.Domain.SearchResultService
                 UniqueAttribute = "Cafeteria access",
                    IsbookedInlast24hours=false
 
-            },   new DormitoryResultViewModel
+            },
+                new DormitoryResultViewModel
             {
                 ImageUrls = new List<string>
                 {
@@ -496,7 +503,8 @@ namespace Dau.Services.Domain.SearchResultService
                 UniqueAttribute = "Cafeteria access",
                    IsbookedInlast24hours=false
 
-            },   new DormitoryResultViewModel
+            },
+                new DormitoryResultViewModel
             {
                 ImageUrls = new List<string>
                 {

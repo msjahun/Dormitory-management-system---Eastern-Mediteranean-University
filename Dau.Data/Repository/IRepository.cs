@@ -13,5 +13,6 @@ namespace Dau.Data.Repository
         IEnumerable<T> List();
         IEnumerable<T> List(Expression<Func<T, bool>> predicate);
         void Update(T entity);
+        IEnumerable<T> Include(string path);
     }
 }

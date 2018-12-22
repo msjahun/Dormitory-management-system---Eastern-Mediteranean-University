@@ -26,7 +26,7 @@
 
                 @*<button type="button" class="btn btn-sm btn-primary  px-4"> <span class="btn-inner--text">@Localizer["Search"]</span></button>*@
 
-             
+
 
                 <h6>@Localizer["Dormitory Type"]</h6>
                 <select class="form-control targetFilterInput" data-toggle="select" title="@Localizer["Select Dormitory type"]" data-live-search="true" data-live-search-placeholder="Search ..." multiple>
@@ -105,6 +105,21 @@
                 </div>
 
                 <br />
+
+                <h6>@Localizer["Availability"]</h6>
+                <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input targetFilterInput" value="Check" id="customCheck-x0">
+                    <label class="custom-control-label inline" for="customCheck-x0">@Localizer["Show only Available"] @*<span class=" float-right">@option.OptionCount</span>*@</label>
+
+                </div>
+
+
+                <h6>@Localizer["Campains"]</h6>
+                <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input targetFilterInput" value="Check" id="customCheck-x1">
+                    <label class="custom-control-label inline" for="customCheck-x1">@Localizer["Show Discounts only"] @*<span class=" float-right">@option.OptionCount</span>*@</label>
+
+                </div>
 
                 <div id="_FilterbottomFacilities">
                     <Dau-loader></Dau-loader>

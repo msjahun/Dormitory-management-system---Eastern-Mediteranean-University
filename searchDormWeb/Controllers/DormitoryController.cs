@@ -23,6 +23,7 @@ namespace searchDormWeb.Controllers
         private readonly IGetSlidersService _getSlidersService;
         private readonly IGetSpecificRoomService _getSpecificRoomService;
         private readonly IGetTopNavService _getTopNavService;
+        private readonly IResolveDormitoryService _resolveDormitoryService;
 
         public DormitoryController(
             IGetAreaInfoService AreaInfoService,
@@ -35,7 +36,8 @@ namespace searchDormWeb.Controllers
             IGetRoomsService getRoomsService,
             IGetSlidersService getSlidersService,
             IGetSpecificRoomService getSpecificRoomService,
-            IGetTopNavService getTopNavService
+            IGetTopNavService getTopNavService,
+            IResolveDormitoryService resolveDormitoryService
 
 
 
@@ -53,146 +55,129 @@ namespace searchDormWeb.Controllers
             _getSlidersService = getSlidersService;
             _getSpecificRoomService = getSpecificRoomService;
             _getTopNavService = getTopNavService;
+            _resolveDormitoryService = resolveDormitoryService;
         }
         [Route("Dormitories/{id}")]
         [Route("Dormitories")]
         public IActionResult Detail(string id)
         {
             string dorm_url = id;
-            if(dorm_url == null) return RedirectToAction("Results", "Search");
-           
-            return View("DormitoryDetail", dorm_url);
+            if (dorm_url == null) return RedirectToAction("Results", "Search");
+            var dormitoryId = _resolveDormitoryService.GetDormitoryIdBySEOFriendlyName(dorm_url);
+
+            if (dormitoryId != 0)
+            {
+
+                return View("DormitoryDetail", dormitoryId);
+
+            }
+            return RedirectToAction("Results", "Search");
+
         }
 
 
 
-        public IActionResult GetAreaInfoSection(string id)
+        public IActionResult GetAreaInfoSection(long id)
         {
-            string dorm_url = id;
-            if (dorm_url == null) return NotFound();
-
-
-            var model = _areaInfoService.GetAreaInfo();
+            var DormitoryId = id;
+            var model = _areaInfoService.GetAreaInfo(DormitoryId);
 
             return PartialView("_AreaInfoSection", model);
         }
 
 
-        public IActionResult GetCommentsSection(string id)
+        public IActionResult GetCommentsSection(long id)
         {
-            string dorm_url = id;
-            if (dorm_url == null) return NotFound();
 
-
-            var modelList = _getCommentsService.GetComments();
+            var DormitoryId = id;
+            var modelList = _getCommentsService.GetComments(DormitoryId);
             
             return PartialView("_CommentsSection", modelList);
         }
 
-        public IActionResult GetDormitoryDescriptionSection(string id)
+        public IActionResult GetDormitoryDescriptionSection(long id)
         {
-            string dorm_url = id;
-            if (dorm_url == null) return NotFound();
 
-            var model = _getDormitoryDescriptionService.GetDormitoryDescription();
+            var DormitoryId = id;
+            var model = _getDormitoryDescriptionService.GetDormitoryDescription(DormitoryId);
             return PartialView("_DormitoryDescriptionSection", model);
         }
 
 
-        public IActionResult GetFacilitiesSection(string id)
+        public IActionResult GetFacilitiesSection(long id)
         {
-            string dorm_url = id;
-            if (dorm_url == null) return NotFound();
 
-
-            var modelList = _getFacilitiesService.GetFacilities();
+            var DormitoryId = id;
+            var modelList = _getFacilitiesService.GetFacilities(DormitoryId);
         
             return PartialView("_FacilitiesSection", modelList);
         }
 
 
-        public IActionResult GetFilterSection(string id)
+        public IActionResult GetFilterSection(long id)
         {
-            string dorm_url = id;
-            if (dorm_url == null) return NotFound();
-
+          
 
             return PartialView("_FilterSection");
         }
 
 
-        public IActionResult GetGoodToKnowSection(string id)
+        public IActionResult GetGoodToKnowSection(long id)
         {
-            string dorm_url = id;
-            if (dorm_url == null) return NotFound();
 
-
-            var model = _getGoodToKnowService.GetGoodToKnowInfo();
+            var DormitoryId = id;
+            var model = _getGoodToKnowService.GetGoodToKnowInfo(DormitoryId);
             return PartialView("_GoodToKnowSection", model);
         }
 
 
-        public IActionResult GetReviewBottomSection(string id)
+        public IActionResult GetReviewBottomSection(long id)
         {
-            string dorm_url = id;
-            if (dorm_url == null) return NotFound();
 
-
-            var model = _getReviewService.GetReview();
+            var DormitoryId = id;
+            var model = _getReviewService.GetReview(DormitoryId);
             return PartialView("_ReviewBottomSection",model);
         }
 
 
-        public IActionResult GetRoomSection(string id)
+        public IActionResult GetRoomSection(long id)
         {
-            string dorm_url = id;
-            if (dorm_url == null) return NotFound();
 
-
-            var modelList = _getRoomsService.GetRooms();
+            var DormitoryId = id;
+            var modelList = _getRoomsService.GetRooms(DormitoryId);
             return PartialView("_RoomSection", modelList);
         }
 
-        public IActionResult GetSpecificRoomView(string id)
+        public IActionResult GetSpecificRoomView(long id)
 
         {
-            string dorm_url = id;
-            if (dorm_url == null) return NotFound();
-
-
-            var model = _getSpecificRoomService.GetSpecificRoom();
+            var RoomId = id;
+            var model = _getSpecificRoomService.GetSpecificRoom(RoomId);
 
             return PartialView("_SpecificRoomView", model);
         }
 
 
-        public IActionResult GetSlidersSection(string id)
+        public IActionResult GetSlidersSection(long id)
 
         {
-            string dorm_url = id;
-            if (dorm_url == null) return NotFound();
-
-
-            var model = _getSlidersService.GetSliders();
+            var DormitoryId = id;
+            var model = _getSlidersService.GetSliders(DormitoryId);
             return PartialView("_SlidersSection", model);
         }
 
-        public IActionResult GetTopnavDormitorySection(string id)
+        public IActionResult GetTopnavDormitorySection(long id)
         {
-            string dorm_url = id;
-            if (dorm_url == null) return NotFound();
 
-
-            var model = _getTopNavService.GetTopNav();
+            var DormitoryId = id;
+            var model = _getTopNavService.GetTopNav(DormitoryId);
 
             return PartialView("_TopnavDormitorySection", model);
         }
 
-        public IActionResult GetOnScrollAlert(string id)
+        public IActionResult GetOnScrollAlert(long id)
         {
-            string dorm_url = id;
-            if (dorm_url == null) return NotFound();
-
+            
             var modelList = _getOnScrollAlertService.GetOnScrollAlert();
 
             Random rnd = new Random();

@@ -17,7 +17,7 @@
     <Folder Include="Event\" />
     <Folder Include="Export\" />
     <Folder Include="ExchangeRate\" />
-    <Folder Include="Language\" />
+    <Folder Include="Languages\" />
     <Folder Include="Configuration\" />
     <Folder Include="System\" />
     <Folder Include="Template\" />

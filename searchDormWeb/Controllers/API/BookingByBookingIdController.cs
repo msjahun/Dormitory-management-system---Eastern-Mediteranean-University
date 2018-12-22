@@ -7,6 +7,8 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 
 using Newtonsoft.Json.Linq;
+using Dau.Services.Utilities;
+using Dau.Core.Domain;
 
 namespace searchDormWeb.Controllers.API
 {
@@ -15,8 +17,14 @@ namespace searchDormWeb.Controllers.API
     [ApiController]
     public class BookingByBookingIdController : Controller
     {
+        private readonly IApiLogService _apiLogService;
 
-      
+        public BookingByBookingIdController(IApiLogService apiLogService)
+        {
+            _apiLogService = apiLogService;
+        }
+
+
         // GET: api/BookingByBookingId/5
         [HttpGet("{id}")]
         public JsonResult Get(int id)
@@ -40,7 +48,14 @@ namespace searchDormWeb.Controllers.API
 
             };
 
+            _apiLogService.LogApiRequest(new ApiDebugLog
+            {
 
+                ApiName = "// GET: api/BookingByBookingId",
+                Reponse = JsonConvert.SerializeObject(Response),
+                CreateDateTime = DateTime.Now,
+                ParameterRecieved = JsonConvert.SerializeObject(_apiLogService.GetRequestBody())
+            });
             return Json(Response);
            
           

@@ -3,7 +3,7 @@
 *@
 
 @using Microsoft.AspNetCore.Identity
-@using Dau.Core.Domain.User;
+@using Dau.Core.Domain.Users;
 @using Dau.Services.Users;
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
@@ -162,12 +162,27 @@
 
 
                             <a href="#" class=" avatar avatar-sm rounded-circle mr-3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img alt="Image placeholder" src="https://avatars2.githubusercontent.com/u/19820517?s=460&v=4">
+
+                                @if (_userService.GetUserPhotoUrl(SignInManager.UserManager.GetUserId(User)) == null)
+                                {
+                                <i class="fas fa-user-circle fa-2x"></i>
+
+                                }
+                                else
+                                {
+                                    <img alt="Image placeholder" src="@_userService.GetUserPhotoUrl(SignInManager.UserManager.GetUserId(User))">
+                                }
+
+
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-arrow py-0">
+                               
+                               
+
                                 <div class="list-group">
                                     <secure-content asp-action="Index" asp-controller="Admin" asp-area="">
+                                        <span class="p-3  text-center">@Localizer["Signed in as"] @_userService.GetFirstLastNames(SignInManager.UserManager.GetUserId(User))</span>
                                         <a asp-action="Index" asp-controller="Admin" class="list-group-item list-group-item-action">
                                             <div class="media d-flex align-items-center">
                                                 <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/browser-window.svg" class="img-saturate d-none d-sm-block" style="width: 50px;">

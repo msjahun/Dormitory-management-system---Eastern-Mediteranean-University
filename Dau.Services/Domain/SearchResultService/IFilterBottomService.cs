@@ -4,6 +4,6 @@ namespace Dau.Services.Domain.SearchResultService
 {
     public interface IFilterBottomService
     {
-        List<FiltersFacilityViewModel> GetFilterBottom();
+        IEnumerable<FiltersFacilityViewModel> GetFilterBottom();
     }
 }

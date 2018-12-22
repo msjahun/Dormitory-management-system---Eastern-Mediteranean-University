@@ -2,6 +2,6 @@
 {
     public interface IGetDormitoryDescriptionService
     {
-        DormitoryDescriptionSectionViewModel GetDormitoryDescription();
+        DormitoryDescriptionSectionViewModel GetDormitoryDescription(long DormitoryId);
     }
 }

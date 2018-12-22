@@ -2,7 +2,7 @@
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @using Dau.Services.Domain.SearchResultService
-@model List<FiltersFacilityViewModel>
+@model IEnumerable<FiltersFacilityViewModel>
 @{
     var modelList = Model;
     var count = 0;
@@ -22,8 +22,8 @@
     {
         count++;
         <div class="custom-control custom-checkbox mb-3">
-            <input type="checkbox" class="custom-control-input targetFilterInput" value=" @item.FacilityName-@option.OptionName" id="customCheck-@count">
-            <label class="custom-control-label inline" for="customCheck-@count">@option.OptionName <span class=" float-right">@option.OptionCount</span></label>
+            <input type="checkbox" class="custom-control-input targetFilterInput" value="@option.OptionId-@item.FacilityName-@option.OptionName" id="customCheck-@count">
+            <label class="custom-control-label inline" for="customCheck-@count">@option.OptionName @*<span class=" float-right">@option.OptionCount</span>*@</label>
 
         </div>
     }

@@ -16,6 +16,11 @@ namespace Dau.Data.Repository
             _dbContext = dbContext;
         }
 
+        public virtual IEnumerable<T> Include(string path)
+        {
+            return _dbContext.Set<T>().Include(path).AsEnumerable();
+        }
+
         public virtual T GetById(int id)
         {
             return _dbContext.Set<T>().Find(id);
@@ -25,6 +30,8 @@ namespace Dau.Data.Repository
         {
             return _dbContext.Set<T>().AsEnumerable();
         }
+
+
 
         public virtual IEnumerable<T> List(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
         {

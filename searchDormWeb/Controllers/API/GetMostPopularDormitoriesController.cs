@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using static searchDormWeb.Controllers.API.GetHighlyRatedDormitoriesController;
+using Dau.Services.Utilities;
+using Dau.Core.Domain;
 
 namespace searchDormWeb.Controllers.API
 {
@@ -14,6 +16,13 @@ namespace searchDormWeb.Controllers.API
     [ApiController]
     public class GetMostPopularDormitoriesController : Controller
     {
+        private readonly IApiLogService _apiLogService;
+
+        public GetMostPopularDormitoriesController(IApiLogService apiLogService)
+        {
+            _apiLogService = apiLogService;
+        }
+
         // GET: api/GetMostPopularDormitories
         [HttpGet]
         public JsonResult Get()
@@ -69,7 +78,14 @@ namespace searchDormWeb.Controllers.API
             };
 
 
+            _apiLogService.LogApiRequest(new ApiDebugLog
+            {
 
+                ApiName = "// GET: api/GetMostPopularDormitories",
+                Reponse = JsonConvert.SerializeObject(Response),
+                CreateDateTime = DateTime.Now,
+                ParameterRecieved = JsonConvert.SerializeObject(_apiLogService.GetRequestBody())
+            });
             return Json(Response);
 
             

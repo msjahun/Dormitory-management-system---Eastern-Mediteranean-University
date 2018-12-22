@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Dau.Services.Facility;
-using Dau.Services.Room;
+using Dau.Services.RoomServiceOld;
 
 namespace searchDormWeb.Areas.Admin.Controllers
 {

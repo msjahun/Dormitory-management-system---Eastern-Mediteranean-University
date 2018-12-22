@@ -1,4 +1,4 @@
-﻿using Dau.Core.Domain.Room;
+﻿//using Dau.Core.Domain.Room;
 using System;
 using System.Collections.Generic;
 
@@ -10,7 +10,7 @@ namespace Dau.Core.Domain.Facility
         {
             FacilityOption = new HashSet<FacilityOption>();
             FacilityTableTranslation = new HashSet<FacilityTableTranslation>();
-            RoomFacility = new HashSet<RoomFacility>();
+         //   RoomFacility = new HashSet<RoomFacility>();
         }
 
       
@@ -18,6 +18,6 @@ namespace Dau.Core.Domain.Facility
 
         public ICollection<FacilityOption> FacilityOption { get; set; }
         public ICollection<FacilityTableTranslation> FacilityTableTranslation { get; set; }
-        public ICollection<RoomFacility> RoomFacility { get; set; }
+       // public ICollection<RoomFacility> RoomFacility { get; set; }
     }
 }

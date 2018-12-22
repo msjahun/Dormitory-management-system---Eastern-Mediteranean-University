@@ -26,26 +26,44 @@ namespace searchDormWeb.TagHelpers.Common
             output.Content.Clear();
 
 
-
-          
-
-            for (int i = 0; i < ReapeatNo; i ++)
+            var icon = new TagBuilder("i");
+            if (ReapeatNo > 5)
             {
-                var icon = new TagBuilder("i");
-                if (Icon == null) {
-                icon.Attributes.Add("class", "fas fa-male fa-2x");
+                icon = new TagBuilder("i");
+                if (Icon == null)
+                {
+                    icon.Attributes.Add("class", "fas fa-male fa-2x");
                 }
                 else
                 {
-                    icon.Attributes.Add("class", "fas "+Icon);
+                    icon.Attributes.Add("class", "fas " + Icon);
 
                 }
-
-                output.PostContent.AppendHtml(" ");
+                output.PostContent.AppendHtml(ReapeatNo + "x ");
                 output.PostContent.AppendHtml(icon);
             }
+            else
+            {
 
 
+                for (int i = 0; i < ReapeatNo; i++)
+                {
+                     icon = new TagBuilder("i");
+                    if (Icon == null)
+                    {
+                        icon.Attributes.Add("class", "fas fa-male fa-2x");
+                    }
+                    else
+                    {
+                        icon.Attributes.Add("class", "fas " + Icon);
+
+                    }
+
+                    output.PostContent.AppendHtml(" ");
+                    output.PostContent.AppendHtml(icon);
+                }
+
+            }
 
 
 

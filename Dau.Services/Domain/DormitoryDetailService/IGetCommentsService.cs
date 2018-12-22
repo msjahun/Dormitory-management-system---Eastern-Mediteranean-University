@@ -4,6 +4,6 @@ namespace Dau.Services.Domain.DormitoryDetailService
 {
     public interface IGetCommentsService
     {
-        List<CommentSectionViewModel> GetComments();
+        List<CommentSectionViewModel> GetComments(long DormitoryId);
     }
 }
