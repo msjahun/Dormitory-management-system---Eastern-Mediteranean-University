@@ -1,0 +1,204 @@
+﻿
+@{
+    ViewData["Title"] = "Seeding";
+    Layout = "~/Views/Shared/_LayoutUserNew.cshtml";
+}
+
+<section class="slice" style=" padding-top:20px; ">
+    <div class="container">
+        <table class="table table-hover table-cards align-items-center">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Button</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="bg-white">
+                    <th scope="row">
+                       Check json
+                    </th>
+                    <td>Inspect element -> network -- I use this to test api json results</td>
+                    <td><button type="button" id="CheckJson" class="btn btn-outline-primary">check Json</button>   </td>
+                </tr>
+                <tr class="table-divider"></tr>
+                
+                <tr class="bg-white">
+                    <th scope="row">
+                        Seed dormitory features
+                    </th>
+                    <td>This seeds our database with sample features</td>
+                    <td><button type="button" id="seedFacilities" class="btn btn-outline-primary">Seed</button>   </td>
+                </tr>
+                <tr class="table-divider"></tr>
+
+                <tr class="bg-white">
+                    <th scope="row">
+                        Seed Dormitories & Rooms
+                    </th>
+                    <td>This seeds our database with Dormitories</td>
+                    <td><button type="button" id="seedDormitories" class="btn btn-outline-primary">Seed</button>   </td>
+                </tr>
+                <tr class="table-divider"></tr>
+
+
+                <tr class="bg-white">
+                    <th scope="row">
+                        Seed Users and roles
+                    </th>
+                    <td>These seeds admin user and role</td>
+                    <td><button type="button" id="seedUsers" class="btn btn-outline-primary">Seed</button>   </td>
+                </tr>
+                <tr class="table-divider"></tr>
+                
+                <tr class="bg-white">
+                    <th scope="row">
+                        Seed User Reviews
+                    </th>
+                    <td>These seeds reviews in dormitories</td>
+                    <td><button type="button" id="seedReviews" class="btn btn-outline-primary">Seed</button>   </td>
+                </tr>
+                <tr class="table-divider"></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+
+@section scripts
+    {
+ 
+    <script>
+
+
+        $("#seedFacilities").click(function () {
+
+           // alert("button clicked");
+            $.ajax({
+                type: "POST",
+                url: "SeedFacilities",
+                data: {
+                    SectionId: "comments_section"
+                },
+                success: function (result, textStatus, xhr) {
+                    //     alert(result);
+                    $("#comments_section").html(result);
+                    if (JSON.stringify(result) === 'true') {
+                        alert("Facilities seeded successfully");
+                    } else {
+                        alert("Failed to seed data");
+                    }
+                }
+                
+            });
+        
+        });  
+
+
+        $("#seedDormitories").click(function () {
+
+            // alert("button clicked");
+            $.ajax({
+                type: "POST",
+                url: "seedDormitories",
+                data: {
+                    SectionId: "comments_section"
+                },
+                success: function (result, textStatus, xhr) {
+                    //     alert(result);
+                    $("#comments_section").html(result);
+                    if (JSON.stringify(result) === 'true') {
+                        alert("Facilities seeded successfully");
+                    } else {
+                        alert("Failed to seed data");
+                    }
+                }
+
+            });
+
+        });
+
+
+
+        $("#seedUsers").click(function () {
+
+            // alert("button clicked");
+            $.ajax({
+                type: "POST",
+                url: "SeedUsersAndRolesAsync",
+                data: {
+                    SectionId: "comments_section"
+                },
+                success: function (result, textStatus, xhr) {
+                    //     alert(result);
+                    $("#comments_section").html(result);
+                    if (JSON.stringify(result) === 'true') {
+                        alert("User roles seeded successfully");
+                    } else {
+                        alert("Failed to seed data");
+                    }
+                }
+
+            });
+
+        });
+
+
+        $("#seedReviews").click(function () {
+
+            // alert("button clicked");
+            $.ajax({
+                type: "POST",
+                url: "seedReviews",
+                data: {
+                    SectionId: "comments_section"
+                },
+                success: function (result, textStatus, xhr) {
+                    //     alert(result);
+                    $("#comments_section").html(result);
+                    if (JSON.stringify(result) === 'true') {
+                        alert("User Reviews seeded successfully");
+                    } else {
+                        alert("Failed to seed data");
+                    }
+                }
+
+            });
+
+        });
+
+
+        $("#CheckJson").click(function () {
+
+            // alert("button clicked");
+            $.ajax({
+                type: "POST",
+                url: "CheckJsonResult",
+                data: {
+                    SectionId: "comments_section"
+                },
+                success: function (result, textStatus, xhr) {
+                    //     alert(result);
+                    $("#comments_section").html(result);
+                    if (JSON.stringify(result) === 'true') {
+                        alert("Json returned successfully");
+                    } else {
+                        alert("Failed to get data");
+                    }
+                }
+
+            });
+
+        });
+
+    </script>
+
+
+
+}
+
+@section styles{
+
+
+}
