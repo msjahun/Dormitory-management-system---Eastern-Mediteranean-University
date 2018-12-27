@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dau.Core.Domain.Users;
+using Dau.Services.Domain.BookingService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,10 +14,13 @@ namespace searchDormWeb.Controllers
     public class BookingController : Controller
     {
         private readonly SignInManager<User> _signInManager;
+        private readonly IBookingService _bookingService;
 
-        public BookingController(SignInManager<User> signInManager)
+        public BookingController(SignInManager<User> signInManager,
+            IBookingService bookingService)
         {
             _signInManager = signInManager;
+            _bookingService = bookingService;
         }
 
         public IActionResult Cart()
@@ -28,53 +32,20 @@ namespace searchDormWeb.Controllers
             return View("BookingCheckout");
         }
 
-
+        //create booking Services and abstract all these stuff there
 
         public IActionResult CheckoutCustomer()
         {
 
-            BookingCheckoutCustomerInfoViewModel model = new BookingCheckoutCustomerInfoViewModel
-            {
-                BookingDetails = new BookingCartViewModel
-                {
-                    DormitoryName = "Alfam Dormitories",
-                    RoomName = "Single room",
-                    RoomBlock = "A. block",
-                    RoomSize = "42.5 m2",
-                    TaxAmount="$25.00",
-                    BookingFee="25.00",
-                    StayDuration= "3 months - Summer 2019",
-                    SubtotalAmount ="$800 USD",
-                    RoomPricePerSemester = "$900 USD",
-                    AmountTotal = "$1,800 USD",
-                    DormitoryLogoUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuzxmbcw2jxGlHQ_ZuICaAowpUUjFoOYTJH9oGmsQmz3WG4IpkSw"
-                },
-          FirstName="Musa Suleiman",
-       
-      LastName ="Jahun",
-      StudentNumber ="153923",
-      ParmanentAddress="No.13 karkasara qtrs kano",
-      Country ="Nigeria",
-      City ="Kano",
-      EmailAddress ="msjahun@live.com",
-      PhoneNumber ="+905338264432"
-    };
+            var model = _bookingService.GetCheckoutCustomerService();
             return PartialView("BookingCheckoutCustomer", model);
         }
+
+
         public IActionResult CheckoutCart()
         {
-            BookingCartViewModel model = new BookingCartViewModel
-            {
-                DormitoryName = "Alfam Dormitories",
-                RoomName = "Single room",
-                RoomBlock = "A. block",
-                RoomSize = "42.5 m2",
-                RoomPricePerSemester = "$900 USD",
-                AmountTotal = "$1,800 USD",
-                DormitoryLogoUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuzxmbcw2jxGlHQ_ZuICaAowpUUjFoOYTJH9oGmsQmz3WG4IpkSw"
-            };
-
-         
+            var model = _bookingService.GetCheckoutCartService();
+            
             if (model == null) {
                 return PartialView("BookingCartEmpty");
 
@@ -95,33 +66,7 @@ namespace searchDormWeb.Controllers
         public IActionResult CheckoutPayment()
         {
 
-            BookingCheckoutCustomerInfoViewModel model = new BookingCheckoutCustomerInfoViewModel
-            {
-                BookingDetails = new BookingCartViewModel
-                {
-                    DormitoryName = "Alfam Dormitories",
-                    RoomName = "Single room",
-                    RoomBlock = "A. block",
-                    RoomSize = "42.5 m2",
-                    TaxAmount = "$25.00",
-                    BookingFee = "25.00",
-                    StayDuration = "3 months - Summer 2019",
-                    SubtotalAmount = "$800 USD",
-                    RoomPricePerSemester = "$900 USD",
-                    AmountTotal = "$1,800 USD",
-                    DormitoryLogoUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuzxmbcw2jxGlHQ_ZuICaAowpUUjFoOYTJH9oGmsQmz3WG4IpkSw"
-                },
-                FirstName = "Musa Suleiman",
-                DateBookingExpiresWithoutConfirmation ="09 January 2019",
-       NumberOfWorkingDaysBeforeBookingExpires=14,
-                LastName = "Jahun",
-                StudentNumber = "153923",
-                ParmanentAddress = "No.13 karkasara qtrs kano",
-                Country = "Nigeria",
-                City = "Kano",
-                EmailAddress = "msjahun@live.com",
-                PhoneNumber = "+905338264432"
-            };
+            var model = _bookingService.GetCheckoutPaymentService();
             return PartialView("BookingCheckoutPayment", model);
         }
 
@@ -129,38 +74,27 @@ namespace searchDormWeb.Controllers
         {
             return PartialView("BookingCartEmpty");
         }
+
+        public IActionResult DeleteCartItem()
+        {
+            var success =_bookingService.DeleteItemFromCart();
+          
+            return Json(success);
+        }
+
+        public IActionResult AddToCart(int Id)
+        {
+            bool isAuthenticated = User.Identity.IsAuthenticated;
+            if (!isAuthenticated)
+            {
+                return RedirectToAction("", "Login");
+            }
+            var RoomId = Id;
+            var success = _bookingService.AddToCart(RoomId);
+            return RedirectToAction("Cart", "Booking");
+       
+        }
     }
 
-    public class BookingCartViewModel
-    {
-        public string DormitoryName { get; set; }
-        public string DormitoryLogoUrl { get; set; }
-        public string RoomName { get; set; }
-        public string RoomBlock { get; set; }
-        public string RoomSize { get; set; }
-        public string AmountTotal { get; set; }
-        public string StayDuration { get; set; }
-        public string RoomPricePerSemester { get; set; }
-
-        public string SubtotalAmount { get; set; }
-        public string BookingFee { get; set; }
-        public string TaxAmount { get; set; }
-    }
-
-    public class BookingCheckoutCustomerInfoViewModel
-    {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string StudentNumber { get; set; }
-        public string ParmanentAddress { get; set; }
-        public string Country { get; set; }
-        public string City { get; set; }
-        public string EmailAddress { get; set; }
-        public string PhoneNumber { get; set; }
-        public string DateBookingExpiresWithoutConfirmation { get; set; }
-        public int NumberOfWorkingDaysBeforeBookingExpires { get; set; }
-        public BookingCartViewModel BookingDetails { get; set; }
-        //summary
-
-    }
+  
 }
