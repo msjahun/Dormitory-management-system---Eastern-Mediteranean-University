@@ -71,7 +71,27 @@
         <script src="@Url.Content("~/frontend_Content/assets")/vendor/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
         <script src="@Url.Content("~/frontend_Content")/assets/vendor/typed.js/lib/typed.min.js"></script>
 
+<script>
+    
+        $("#searchBar").on('change keyup paste', function () {
+            console.log($('#searchBar').val());
 
+              $.ajax({
+            type: "POST",
+            url: "@Html.Raw(Url.Action("GetSearchSuggestion", "Home"))",
+            data: {
+                searchTerm: $('#searchBar').val()
+            },
+            success: function (result, textStatus, xhr) {
+                //     alert(result);
+                $("#searchBarResults").html(result);
+              
+            }
+
+            });
+
+        });
+</script>
 
         <!-- Theme JS -->
 
