@@ -39,6 +39,7 @@ using Dau.Services.Seeding;
 using Dau.Services.Languages;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Dau.Services.Utilities;
+using Dau.Services.Domain.BookingService;
 
 namespace searchDormWeb
 {
@@ -121,9 +122,11 @@ namespace searchDormWeb
             services.AddScoped< IExploreEmuPicsService, ExploreEmuPicsService > ();
             services.AddScoped<  IResolveDormitoryService,ResolveDormitoryService > ();
             services.AddScoped < IApiLogService, ApiLogService> ();
+            services.AddScoped < IBookingService, BookingService > ();
 
 
             services.AddScoped<   ISeedingService, SeedingService> ();
+            services.AddScoped <  IHomeService,HomeService > ();
 
 
             services.AddScoped<ILanguageService, LanguageService>();
