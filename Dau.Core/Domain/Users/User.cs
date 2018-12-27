@@ -15,6 +15,8 @@ namespace Dau.Core.Domain.Users
         public DateTime DateOfBirth { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
+        public string StudentNumber { get; set; }
+        public string ParmanentAddress { get; set; }
 
         /// <summary>
         /// Gets or sets the affiliate identifier
@@ -54,20 +56,8 @@ namespace Dau.Core.Domain.Users
         /// </summary>
         public DateTime LastActivityDateUtc { get; set; }
 
-        /// <summary>
-        ///  Gets or sets the store identifier in which customer registered
-        /// </summary>
-        public int RegisteredInStoreId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the billing address identifier
-        /// </summary>
-        public int? BillingAddressId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the shipping address identifier
-        /// </summary>
-        public int? ShippingAddressId { get; set; }
+         
+             
 
      
     }
