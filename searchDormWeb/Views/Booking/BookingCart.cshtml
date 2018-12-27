@@ -1,6 +1,6 @@
 ﻿
 
-@using searchDormWeb.Controllers
+@using Dau.Services.Domain.BookingService
 @model BookingCartViewModel
 
 @{
@@ -69,7 +69,7 @@
                             <span class="font-weight-bold text-dark">@item.AmountTotal</span>
                         </td>
                         <td class="text-right">
-                            <a href="#" class="text-light" data-toggle="tooltip" data-original-title="Remove item">
+                            <a id="DeleteCartItem" class="text-light" data-toggle="tooltip" data-original-title="Remove item">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                         </td>
@@ -114,3 +114,34 @@
 
 </section>
 
+<script>      
+
+    $("#DeleteCartItem").click(function () {
+
+        // alert("button clicked");
+        var r = confirm("@Localizer["Are you sure you want to delete cart item?"]");
+        if (r == true) {
+         
+       
+        $.ajax({
+            type: "POST",
+            url: "DeleteCartItem",
+            data: {
+                SectionId: "comments_section"
+            },
+            success: function (result, textStatus, xhr) {
+                //     alert(result);
+               // $("#comments_section").html(result);
+                if (JSON.stringify(result) === 'true') {
+                    alert("@Localizer["Cart item deleted successfully"]");
+                    location.reload();
+                } else {
+                    alert("@Localizer["Failed to delete cart item"]");
+                }
+            }
+
+        });
+        } 
+    });
+
+</script>

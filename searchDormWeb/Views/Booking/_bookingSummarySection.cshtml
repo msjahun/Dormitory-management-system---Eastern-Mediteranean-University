@@ -2,7 +2,7 @@
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
-@using searchDormWeb.Controllers
+@using Dau.Services.Domain.BookingService
 @model BookingCartViewModel
 @{
     var item = Model;
@@ -23,7 +23,7 @@
         <div class="card-body">
             <div class="row mb-4">
                 <div class="col text-center">
-                    <img alt="Image placeholder" class="mr-2 text-center" src="@item.DormitoryLogoUrl">
+                    <img  width="150" alt="Image placeholder" class="mr-2 text-center" src="@item.DormitoryLogoUrl">
                 </div>
             </div>
 
