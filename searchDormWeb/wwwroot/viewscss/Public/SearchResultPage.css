@@ -13,10 +13,19 @@
     .specificRoomFancyBox {
         width: 100%;
     }
-} 
+}
+
+.FluidImage {
+    width: 100%;
+    height: auto;
+}
+
+
 
 .grid-item {
     margin: 2px;
+    height: 80px;
+    width: 80px;
 }
 
     .grid-item:hover {

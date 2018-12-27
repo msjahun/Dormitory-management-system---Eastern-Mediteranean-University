@@ -87,10 +87,13 @@ $.ajax({
                 el: '.swiper-pagination',
                 clickable: true
             }
+
+
         });
 
       
 
+ 
 
         var lockonScrollAlert = true;
         $(window).scroll(function () {

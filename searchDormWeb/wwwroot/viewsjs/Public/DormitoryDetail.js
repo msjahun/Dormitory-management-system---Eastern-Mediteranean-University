@@ -367,6 +367,10 @@ $.ajax({
             });
 
             $('#grid-item-0').addClass('grid-item-active');
+           
+            $('.grid-item').imagefill({ throttle: 1000 / 60 });
+     
+
         }, 50);
 
 

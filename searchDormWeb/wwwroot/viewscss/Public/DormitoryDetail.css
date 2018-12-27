@@ -7,6 +7,8 @@
 
 .grid-item {
     margin: 2px;
+    height:80px;
+    width:80px;
 }
 
     .grid-item:hover {
