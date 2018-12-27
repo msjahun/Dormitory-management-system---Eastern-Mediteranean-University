@@ -75,61 +75,6 @@ namespace Dau.Services.Domain.SearchResultService
 
         public List<DormitoryResultViewModel> GetDormitoryResult()
         {
-            
-       
-
-
-            //var dormitoryBlock = from dormBlock in _dormitoryBlockRepo.List().ToList()
-            //                     join dormBlockTrans in _dormitoryBlockTransRepo.List().ToList() on dormBlock.Id equals dormBlockTrans.DormitoryBlockNonTransId
-            //                     where dormBlockTrans.LanguageId == CurrentLanguageId
-            //                     select new { dormBlock.Published, dormBlockTrans.Name, dormBlock.Id };
-
-
-
-            //var rooms = from room in _roomRepository.List().ToList()
-            //            join roomTrans in _roomTransRepository.List().ToList() on room.Id equals roomTrans.RoomNonTransId
-            //            where roomTrans.LanguageId == CurrentLanguageId
-            //            select new { room.Id, room.DormitoryId, room.DormitoryBlockId, roomTrans.RoomName, room.Price, room.PriceOld, room.ShowPrice, room.RoomsQuota, room.RoomSize };
-
-            ////var roomsDormitoryBlock = from room in rooms.ToList()
-            ////                          join dormBlock in dormitoryBlock.ToList() on room.DormitoryBlockId equals dormBlock.Id
-            ////                          select new
-            ////                          {
-            ////                              DormitoryBlockPublished = dormBlock.Published,
-            ////                              DormitoryBlockName = dormBlock.Name,
-            ////                              room.Id,
-            ////                              room.DormitoryId,
-            ////                              room.DormitoryBlockId,
-            ////                              room.RoomName,
-            ////                              room.Price,
-            ////                              room.PriceOld,
-            ////                              room.ShowPrice,
-            ////                              room.RoomsQuota,
-            ////                              room.RoomSize
-            ////                          };
-
-            //var roomDormitory = from room in roomsDormitoryBlock.ToList()
-            //                    join dorm in dormitories.ToList() on room.DormitoryId equals dorm.Id
-            //                    select new
-            //                    {
-            //                        room.DormitoryBlockPublished,
-            //                        room.DormitoryBlockName,
-            //                        room.Id,
-            //                        room.DormitoryId,
-            //                        room.DormitoryBlockId,
-            //                        room.RoomName,
-            //                        room.Price,
-            //                        room.PriceOld,
-            //                        room.ShowPrice,
-            //                        room.RoomsQuota,
-            //                        room.RoomSize,
-            //                        dorm.DormitorySeoId,
-            //                        dorm.DormitoryName,
-            //                        dorm.DormitoryLogoUrl
-            //                    };
-            // for dormitory images list
-            
-
 
             var Images = from imageList in _imagesRepo.List().Distinct().ToList()
                          join dormImage in _dormitoryImageRepo.List().ToList() on imageList.Id equals dormImage.CatalogImageId
