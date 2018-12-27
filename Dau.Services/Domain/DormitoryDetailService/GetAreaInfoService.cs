@@ -27,11 +27,14 @@ namespace Dau.Services.Domain.DormitoryDetailService
         {
             var CurrentLanguageId = _languageService.GetCurrentLanguageId();
             var locations = _dbContext.Dormitory.Include(c => c.CloseLocations).Include(k=> k.DormitoryTranslation). Where(d => d.Id == DormitoryId).FirstOrDefault();
-
+            foreach(var closeLocation in locations.CloseLocations)
+            {
+                closeLocation.MapSection = "https://www.emu.edu.tr/campusmap?design=empty#" + closeLocation.MapSection;
+            }
             AreaInfoSectionViewModel Model = new AreaInfoSectionViewModel
             { LocationRemark = locations.DormitoryTranslation.Where(l => l.LanguageId == CurrentLanguageId).FirstOrDefault().LocationRemark,
                 DormitoryName = locations.DormitoryTranslation.Where(l => l.LanguageId == CurrentLanguageId).FirstOrDefault().DormitoryName,
-                MapSection = locations.MapSection,
+                MapSection = "https://www.emu.edu.tr/campusmap?design=empty#" + locations.MapSection,
                 DormitoryStreetAddress = locations.DormitoryStreetAddress,
                 CloseLocations = locations.CloseLocations.ToList()
 
