@@ -22,6 +22,8 @@ namespace searchDormWeb.Controllers
     //[Authorize]
     public class HomeController : Controller
     {
+        private readonly IHomeService _homeService;
+
         public IStringLocalizer Localizer { get; }
 
         private readonly IGetHomeDormitoriesService _getHomeDormitoriesService;
@@ -29,10 +31,12 @@ namespace searchDormWeb.Controllers
 
         public HomeController(IStringLocalizer _Localizer,
 
-            IGetHomeDormitoriesService getHomeDormitoriesService, 
-            IGetHomeBackgroundImagesService getHomeBackgroundImagesService
+            IGetHomeDormitoriesService getHomeDormitoriesService,
+            IGetHomeBackgroundImagesService getHomeBackgroundImagesService,
+             IHomeService homeService
             )
         {
+            _homeService = homeService;
             Localizer = _Localizer;
             _getHomeDormitoriesService = getHomeDormitoriesService;
             _getHomeBackgroundImagesService = getHomeBackgroundImagesService;
@@ -46,16 +50,16 @@ namespace searchDormWeb.Controllers
 
         public IActionResult GetPopularDormitories(DormitoryPartialModel Model)
         {
-            var model = _getHomeDormitoriesService.GetPopularDormitories   (Model);
+            var model = _getHomeDormitoriesService.GetPopularDormitories(Model);
 
-        
+
             return PartialView("DormitoryPartial", model);
         }
 
 
         public IActionResult GetHighlyRatedDormitories(DormitoryPartialModel Model)
         {
-            var model = _getHomeDormitoriesService.GetHighlyRatedDormitories (Model);
+            var model = _getHomeDormitoriesService.GetHighlyRatedDormitories(Model);
 
 
             return PartialView("DormitoryPartial", model);
@@ -64,7 +68,7 @@ namespace searchDormWeb.Controllers
 
         public IActionResult GetCoolOffersDeals(DormitoryPartialModel Model)
         {
-            var model = _getHomeDormitoriesService.GetCoolOffersDeals (Model);
+            var model = _getHomeDormitoriesService.GetCoolOffersDeals(Model);
 
 
             return PartialView("DormitoryPartial", model);
@@ -78,7 +82,14 @@ namespace searchDormWeb.Controllers
         }
 
 
+        public IActionResult GetSearchSuggestion(string searchTerm)
+        {
+            var model = _homeService.GetSearchSuggestions(searchTerm);
 
-     
-}
+            return PartialView(model);
+        }
+
+    }
+
+    
 }
