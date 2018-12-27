@@ -70,12 +70,16 @@
                         <a href="javascript:;" data-fancybox data-type="iframe" data-src="@item.MapSection">
                             <i class="far fa-map  text-warning"></i>
                         </a>
-                        <a href="javascript:;" data-fancybox data-type="iframe" data-src="@item.MapSection" style="color:#269038">@item.ClosestLandMark - @item.UniqueAttribute</a>
+                        <a href="javascript:;" data-fancybox data-type="iframe" data-src="@item.ClosestLandMarkMapSection" style="color:#269038">@item.ClosestLandMark</a> 
+                        
+                        @if (item.UniqueAttribute!=null) { 
+                                        <a>- @item.UniqueAttribute</a>
+                        }
                     </span>
 
                 </div>
-                <p class="h6">
-                    @item.ShortDescription
+                <p class="h-50">
+                    @item.ShortDescription <a href="@Url.Content("~/Dormitories/"+item.DormitorySeoFriendlyUrl)"> @Localizer["read more"]</a>
                 </p>
 
                 @if (item.ReservationPosibleWithoutCreditCard)
@@ -95,12 +99,25 @@
                     <a class=" float-right rating-no text-white text-bold h3">@item.RatingNo</a>
                 </div>
 
-
-                <span class="block text-primary">@Localizer["{0} reviews", item.ReviewNo]</span>
-
+                @if (item.ReviewNo > 0)
+                {
+                    <span class="block text-primary">@Localizer["{0} reviews", item.ReviewNo]</span>
+                }
+                else
+                {
+                    <span class="block text-primary">@Localizer["No reviews"]</span>
+                }
                 <h6>@Localizer["Location: {0}", item.Location]</h6>
-                <h6>@Localizer["Guest Favorite"]</h6>
-                <a href="#" class=" btn btn-sm btn-primary">@Localizer["Show prices"]</a>
+
+                @if (item.DormitoryIconUrl != null)
+                {
+
+                    <a href="@Url.Content("~/Dormitories/"+item.DormitorySeoFriendlyUrl)">
+                        <img alt="Image placeholder" class="mr-3" src="@item.DormitoryIconUrl" style="width: 120px;">
+                    </a>
+                }
+                @*<h6>@Localizer["Guest Favorite"]</h6>*@
+                @*<a href="#" class=" btn btn-sm btn-primary">@Localizer["Show prices"]</a>*@
                 @*<h4 class="text-bold" style="color:#269038">TL 1.839,00</h4>*@
 
             </div>

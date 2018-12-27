@@ -115,11 +115,18 @@
             <div class="col-lg-3  col-md-3 rating">
                 <div class="rating-detail">
                     <span class="rating-text inline h4">@item.RatingText</span>
-                    <a class=" float-right rating-no text-white text-bold h3">@item.RatingNo.ToString("0.#")  </a>
+                    <a class=" float-right rating-no text-white text-bold h3">@item.RatingNo  </a>
                 </div>
 
                 @{count++; }
-                <span class="block text-primary">@Localizer["{0} reviews", item.ReviewNo]</span>
+                @if (item.ReviewNo > 0)
+                {
+                    <span class="d-block text-primary">@Localizer["{0} reviews", item.ReviewNo]</span>
+                }
+                else
+                {
+                    <span class="d-block text-primary">@Localizer["No reviews"]</span>
+                }
 
                 <span class="h5" id="DealEnds-@count"></span>
 
@@ -134,6 +141,24 @@
                 {
                     <strike><h4 class="text-bold" style="color:grey; ">@String.Format("{0} {1}", "TL", item.OldPrice)</h4></strike>
                 }
+                @if (item.PaymentPerSemesterNotYear)
+                {
+                    <h5 class="text-bold d-block" style="color:#269038">@Localizer["Per semester"]</h5>
+                }
+                else
+                {
+                    <h5 class="text-bold d-block" style="color:#269038">@Localizer["Per year"]</h5>
+                }
+
+                @*<ul class="list-inline mb-2">
+            <li class="list-inline-item pr-2">
+                <a href="#"><i class="fas fa-star mr-1"></i> /a>
+            </li>
+            <li class="list-inline-item">
+                <i class="fas fa-comparetext-muted mr-1"></i>
+            </li>
+        </ul>*@
+
                 <a href="#" class=" btn btn-sm btn-primary">@Localizer["Book Now"]</a>
 
             </div>
@@ -154,7 +179,7 @@
     {
         <script>
 
-    $('#DealEnds-@count').countdown('@item.DealEndTime.ToString("yyyy/MM/dd HH:mm:ss")')
+    $('#DealEnds-@count').countdown('@item.DealEndTime.ToString("yyyy/MM/dd HH:mm:ss",CultureInfo.InvariantCulture)')
         .on('update.countdown', function(event) {
          var format = '%H:%M:%S';
          if (event.offset.totalDays > 0) {
