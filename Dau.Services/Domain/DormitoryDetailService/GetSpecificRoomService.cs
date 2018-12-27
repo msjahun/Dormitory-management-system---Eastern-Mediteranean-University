@@ -25,10 +25,10 @@ namespace Dau.Services.Domain.DormitoryDetailService
                     IRepository<Room> RoomRepository,
                     IRepository<RoomTranslation> RoomTranslationRepository,
                     IRepository<RoomCatalogImage> RoomImageRepository,
-
+    ILanguageService languageService,
                    IRepository<RoomFeatures> RoomFeaturesRepo,
             IRepository<Features> featuresRepo,
-             ILanguageService languageService,
+         
             IRepository<FeaturesTranslation> featuresTranslation)
         {
             _imagesRepo = imagesRepository;
@@ -97,7 +97,7 @@ namespace Dau.Services.Domain.DormitoryDetailService
 
                             },
 
-
+                            RoomId = room.Id,
                             Facilities = roomFeatures.ToList(),
                             RoomName = roomTrans.RoomName,
                             DormitoryBlock = "A block",
@@ -119,7 +119,7 @@ namespace Dau.Services.Domain.DormitoryDetailService
     }
 
     public class SpecificRoomViewModel
-    {
+    {public long RoomId { get; set; }
         public SlidersSectionViewModel Sliders { get; set; }
         public List<FacilitiesSectionViewModel> Facilities { get; set; }
         public string RoomName { get; set; }
