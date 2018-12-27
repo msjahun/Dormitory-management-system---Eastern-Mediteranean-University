@@ -17,8 +17,21 @@ namespace Dau.Data.Mapping.Catalog
 
             //int
             builder.Property(e => e.Id).HasColumnName("Id");
+            builder.HasOne(pt => pt.DormitoryBlock)
+              .WithMany(p => p.Rooms)
+              .HasForeignKey(pt => pt.DormitoryBlockId)
+             .OnDelete(DeleteBehavior.Restrict);
+            //this might generate an eror in the feature
 
-               
+            builder.HasOne(pt => pt.Dormitory)
+    .WithMany(p => p.Rooms)
+    .HasForeignKey(pt => pt.DormitoryId)
+   .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Property(e => e.DealEndTime)
+              .HasColumnType("datetime2");
+
+
         }
     }
 }

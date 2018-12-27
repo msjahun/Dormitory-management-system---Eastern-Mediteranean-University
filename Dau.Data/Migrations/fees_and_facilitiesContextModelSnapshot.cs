@@ -195,8 +195,6 @@ namespace Dau.Data.Migrations
 
                     b.Property<double>("BookingFee");
 
-                    b.Property<int>("BookingNotes");
-
                     b.Property<double>("BookingOrderSubtotal");
 
                     b.Property<long>("BookingStatusId");
@@ -207,8 +205,6 @@ namespace Dau.Data.Migrations
 
                     b.Property<string>("CustomerIpAddress");
 
-                    b.Property<int>("DormitoryId");
-
                     b.Property<bool>("IsCancelled");
 
                     b.Property<bool>("IsDeleted");
@@ -217,10 +213,7 @@ namespace Dau.Data.Migrations
 
                     b.Property<long>("RoomId");
 
-                    b.Property<int>("UserId");
-
-                    b.Property<string>("UserId1")
-                        .IsRequired();
+                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
@@ -232,9 +225,37 @@ namespace Dau.Data.Migrations
 
                     b.HasIndex("RoomId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Booking");
+                });
+
+            modelBuilder.Entity("Dau.Core.Domain.Bookings.BookingNotes", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("Id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("BookingId");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnName("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Note")
+                        .HasColumnName("Note")
+                        .HasMaxLength(512)
+                        .IsUnicode(false);
+
+                    b.Property<bool>("ShowToCustomer")
+                        .HasColumnName("ShowToCustomer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookingId");
+
+                    b.ToTable("BookingNotes");
                 });
 
             modelBuilder.Entity("Dau.Core.Domain.Bookings.BookingStatus", b =>
@@ -319,32 +340,29 @@ namespace Dau.Data.Migrations
                     b.ToTable("CancelBookingRequest");
                 });
 
-            modelBuilder.Entity("Dau.Core.Domain.Bookings.OrderNotes", b =>
+            modelBuilder.Entity("Dau.Core.Domain.Bookings.Cart", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("Id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("BookingId");
+                    b.Property<long>("RoomId");
 
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnName("CreatedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<long>("SemesterPeriodId");
 
-                    b.Property<string>("Note")
-                        .HasColumnName("Note")
-                        .HasMaxLength(512)
-                        .IsUnicode(false);
+                    b.Property<double>("TotalAmount");
 
-                    b.Property<bool>("ShowToCustomer")
-                        .HasColumnName("ShowToCustomer");
+                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookingId");
+                    b.HasIndex("RoomId");
 
-                    b.ToTable("OrderNotes");
+                    b.HasIndex("SemesterPeriodId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Cart");
                 });
 
             modelBuilder.Entity("Dau.Core.Domain.Bookings.PaymentStatus", b =>
@@ -378,6 +396,49 @@ namespace Dau.Data.Migrations
                     b.HasIndex("PaymentStatusNonTransId");
 
                     b.ToTable("PaymentStatusTranslations");
+                });
+
+            modelBuilder.Entity("Dau.Core.Domain.Bookings.SemesterPeriod", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("Id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("DisplayOrder");
+
+                    b.Property<DateTime>("EndDate");
+
+                    b.Property<bool>("IsCurrentSemester");
+
+                    b.Property<bool>("IsNextSemester");
+
+                    b.Property<bool>("IsPublished");
+
+                    b.Property<DateTime>("StartDate");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SemesterPeriod");
+                });
+
+            modelBuilder.Entity("Dau.Core.Domain.Bookings.SemesterPeriodTranslation", b =>
+                {
+                    b.Property<long>("LanguageId")
+                        .HasColumnName("language_id");
+
+                    b.Property<long>("SemesterPeriodNonTransId")
+                        .HasColumnName("SemesterPeriodNonTransId");
+
+                    b.Property<long>("Id");
+
+                    b.Property<string>("SemesterPeriodName");
+
+                    b.HasKey("LanguageId", "SemesterPeriodNonTransId");
+
+                    b.HasIndex("SemesterPeriodNonTransId");
+
+                    b.ToTable("SemesterPeriodTranslation");
                 });
 
             modelBuilder.Entity("Dau.Core.Domain.Catalog.CatalogImage", b =>
@@ -419,6 +480,8 @@ namespace Dau.Data.Migrations
 
                     b.Property<string>("DormitoryStreetAddress");
 
+                    b.Property<long>("DormitoryTypeId");
+
                     b.Property<string>("Location");
 
                     b.Property<string>("MapSection");
@@ -441,6 +504,8 @@ namespace Dau.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DormitoryTypeId");
+
                     b.HasIndex("SeoId");
 
                     b.ToTable("Dormitory");
@@ -456,21 +521,12 @@ namespace Dau.Data.Migrations
                     b.Property<int>("DisplayOrder")
                         .HasColumnName("DisplayOrder");
 
-                    b.Property<long?>("DormitoryId");
-
-                    b.Property<bool>("IncludeInTopMenu")
-                        .HasColumnName("IncludeInTopMenu");
-
-                    b.Property<string>("PictureUrl")
-                        .IsRequired()
-                        .HasColumnName("PictureUrl")
-                        .HasMaxLength(100)
-                        .IsUnicode(false);
+                    b.Property<long>("DormitoryId");
 
                     b.Property<bool>("Published")
                         .HasColumnName("Published");
 
-                    b.Property<long>("SeoId");
+                    b.Property<long?>("SeoId");
 
                     b.HasKey("Id");
 
@@ -569,6 +625,43 @@ namespace Dau.Data.Migrations
                     b.HasIndex("LanguageId");
 
                     b.ToTable("DormitoryTranslation");
+                });
+
+            modelBuilder.Entity("Dau.Core.Domain.Catalog.DormitoryType", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("Id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<bool>("IsPublished");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DormitoryType");
+                });
+
+            modelBuilder.Entity("Dau.Core.Domain.Catalog.DormitoryTypeTranslation", b =>
+                {
+                    b.Property<long>("DormitoryTypeNonTransId")
+                        .HasColumnName("DormitoryTypeNonTransId");
+
+                    b.Property<long>("LanguageId")
+                        .HasColumnName("language_id");
+
+                    b.Property<string>("Description");
+
+                    b.Property<long>("Id");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("DormitoryTypeNonTransId", "LanguageId");
+
+                    b.HasIndex("LanguageId");
+
+                    b.ToTable("DormitoryTypeTranslation");
                 });
 
             modelBuilder.Entity("Dau.Core.Domain.Catalog.GoodToKnow", b =>
@@ -715,9 +808,18 @@ namespace Dau.Data.Migrations
                         .HasColumnName("Id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<double>("BookingFee");
+
+                    b.Property<DateTime>("DealEndTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("DisplayDeal");
+
+                    b.Property<bool>("DisplayNoRoomsLeft");
+
                     b.Property<int>("DisplayOrder");
 
-                    b.Property<long?>("DormitoryBlockId");
+                    b.Property<long>("DormitoryBlockId");
 
                     b.Property<long>("DormitoryId");
 
@@ -727,17 +829,25 @@ namespace Dau.Data.Migrations
 
                     b.Property<int>("NoRoomQuota");
 
+                    b.Property<bool>("PaymentPerSemesterNotYear");
+
+                    b.Property<int>("PercentageOff");
+
                     b.Property<double>("Price");
 
                     b.Property<double>("PriceOld");
 
                     b.Property<bool>("Published");
 
+                    b.Property<double>("RoomSize");
+
                     b.Property<int>("RoomsQuota");
 
                     b.Property<long?>("SeoId");
 
                     b.Property<bool>("ShowPrice");
+
+                    b.Property<double>("TaxAmount");
 
                     b.HasKey("Id");
 
@@ -1966,8 +2076,6 @@ namespace Dau.Data.Migrations
 
                     b.Property<long>("AffiliateId");
 
-                    b.Property<int?>("BillingAddressId");
-
                     b.Property<string>("City");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -2012,17 +2120,17 @@ namespace Dau.Data.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256);
 
+                    b.Property<string>("ParmanentAddress");
+
                     b.Property<string>("PasswordHash");
 
                     b.Property<string>("PhoneNumber");
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
-                    b.Property<int>("RegisteredInStoreId");
-
                     b.Property<string>("SecurityStamp");
 
-                    b.Property<int?>("ShippingAddressId");
+                    b.Property<string>("StudentNumber");
 
                     b.Property<bool>("TwoFactorEnabled");
 
@@ -2185,7 +2293,14 @@ namespace Dau.Data.Migrations
 
                     b.HasOne("Dau.Core.Domain.Users.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId1")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("Dau.Core.Domain.Bookings.BookingNotes", b =>
+                {
+                    b.HasOne("Dau.Core.Domain.Bookings.Booking", "Booking")
+                        .WithMany("BookingNotes")
+                        .HasForeignKey("BookingId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -2202,11 +2317,21 @@ namespace Dau.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Dau.Core.Domain.Bookings.OrderNotes", b =>
+            modelBuilder.Entity("Dau.Core.Domain.Bookings.Cart", b =>
                 {
-                    b.HasOne("Dau.Core.Domain.Bookings.Booking", "Booking")
-                        .WithMany("OrderNotes")
-                        .HasForeignKey("BookingId");
+                    b.HasOne("Dau.Core.Domain.Catalog.Room", "Room")
+                        .WithMany()
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Dau.Core.Domain.Bookings.SemesterPeriod", "SemesterPeriod")
+                        .WithMany()
+                        .HasForeignKey("SemesterPeriodId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Dau.Core.Domain.Users.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Dau.Core.Domain.Bookings.PaymentStatusTranslation", b =>
@@ -2222,8 +2347,26 @@ namespace Dau.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("Dau.Core.Domain.Bookings.SemesterPeriodTranslation", b =>
+                {
+                    b.HasOne("Dau.Core.Domain.Localization.Language", "Language")
+                        .WithMany()
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Dau.Core.Domain.Bookings.SemesterPeriod", "SemesterPeriodNonTrans")
+                        .WithMany("SemesterPeriodTranslations")
+                        .HasForeignKey("SemesterPeriodNonTransId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("Dau.Core.Domain.Catalog.Dormitory", b =>
                 {
+                    b.HasOne("Dau.Core.Domain.Catalog.DormitoryType", "DormitoryType")
+                        .WithMany("Dormitories")
+                        .HasForeignKey("DormitoryTypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("Dau.Core.Domain.SearchEngineOptimization.Seo", "Seo")
                         .WithMany("Dormitories")
                         .HasForeignKey("SeoId")
@@ -2234,12 +2377,12 @@ namespace Dau.Data.Migrations
                 {
                     b.HasOne("Dau.Core.Domain.Catalog.Dormitory", "Dormitory")
                         .WithMany("DormitoryBlocks")
-                        .HasForeignKey("DormitoryId");
-
-                    b.HasOne("Dau.Core.Domain.SearchEngineOptimization.Seo", "Seo")
-                        .WithMany("DormitoryBlocks")
-                        .HasForeignKey("SeoId")
+                        .HasForeignKey("DormitoryId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Dau.Core.Domain.SearchEngineOptimization.Seo")
+                        .WithMany("DormitoryBlocks")
+                        .HasForeignKey("SeoId");
                 });
 
             modelBuilder.Entity("Dau.Core.Domain.Catalog.DormitoryBlockTranslation", b =>
@@ -2286,6 +2429,19 @@ namespace Dau.Data.Migrations
                     b.HasOne("Dau.Core.Domain.Catalog.Dormitory", "DormitoryNonTrans")
                         .WithMany("DormitoryTranslation")
                         .HasForeignKey("DormitoryNonTransId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Dau.Core.Domain.Localization.Language", "Language")
+                        .WithMany()
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Dau.Core.Domain.Catalog.DormitoryTypeTranslation", b =>
+                {
+                    b.HasOne("Dau.Core.Domain.Catalog.DormitoryType", "DormitoryTypeNonTrans")
+                        .WithMany("DormitoryTypeTranslation")
+                        .HasForeignKey("DormitoryTypeNonTransId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Dau.Core.Domain.Localization.Language", "Language")
@@ -2355,7 +2511,8 @@ namespace Dau.Data.Migrations
                 {
                     b.HasOne("Dau.Core.Domain.Catalog.DormitoryBlock", "DormitoryBlock")
                         .WithMany("Rooms")
-                        .HasForeignKey("DormitoryBlockId");
+                        .HasForeignKey("DormitoryBlockId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Dau.Core.Domain.Catalog.Dormitory", "Dormitory")
                         .WithMany("Rooms")

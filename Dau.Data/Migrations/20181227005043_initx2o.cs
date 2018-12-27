@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Dau.Data.Migrations
 {
-    public partial class init : Migration
+    public partial class initx2o : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -116,6 +116,22 @@ namespace Dau.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ApiDebugLog",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ParameterRecieved = table.Column<string>(nullable: true),
+                    ApiName = table.Column<string>(nullable: true),
+                    Reponse = table.Column<string>(nullable: true),
+                    CreateDateTime = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ApiDebugLog", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "APISettings",
                 columns: table => new
                 {
@@ -172,6 +188,8 @@ namespace Dau.Data.Migrations
                     DateOfBirth = table.Column<DateTime>(nullable: false),
                     City = table.Column<string>(nullable: true),
                     Country = table.Column<string>(nullable: true),
+                    StudentNumber = table.Column<string>(nullable: true),
+                    ParmanentAddress = table.Column<string>(nullable: true),
                     AffiliateId = table.Column<long>(nullable: false),
                     UserImageUrl = table.Column<string>(nullable: true),
                     DormitoryId = table.Column<long>(nullable: false),
@@ -182,10 +200,7 @@ namespace Dau.Data.Migrations
                     LastIpAddress = table.Column<string>(nullable: true),
                     CreatedOnUtc = table.Column<DateTime>(nullable: false),
                     LastLoginDateUtc = table.Column<DateTime>(nullable: true),
-                    LastActivityDateUtc = table.Column<DateTime>(nullable: false),
-                    RegisteredInStoreId = table.Column<int>(nullable: false),
-                    BillingAddressId = table.Column<int>(nullable: true),
-                    ShippingAddressId = table.Column<int>(nullable: true)
+                    LastActivityDateUtc = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -322,6 +337,20 @@ namespace Dau.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Discount", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DormitoryType",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    IsPublished = table.Column<bool>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DormitoryType", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -533,6 +562,24 @@ namespace Dau.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PushNotification", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SemesterPeriod",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    IsPublished = table.Column<bool>(nullable: false),
+                    DisplayOrder = table.Column<int>(nullable: false),
+                    IsCurrentSemester = table.Column<bool>(nullable: false),
+                    IsNextSemester = table.Column<bool>(nullable: false),
+                    StartDate = table.Column<DateTime>(nullable: false),
+                    EndDate = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SemesterPeriod", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -802,11 +849,18 @@ namespace Dau.Data.Migrations
                     DormitoryLogoUrl = table.Column<string>(nullable: true),
                     Published = table.Column<bool>(nullable: false),
                     DisplayOrder = table.Column<int>(nullable: false),
-                    SeoId = table.Column<long>(nullable: false)
+                    SeoId = table.Column<long>(nullable: false),
+                    DormitoryTypeId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Dormitory", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Dormitory_DormitoryType_DormitoryTypeId",
+                        column: x => x.DormitoryTypeId,
+                        principalTable: "DormitoryType",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Dormitory_Seo_SeoId",
                         column: x => x.SeoId,
@@ -951,6 +1005,34 @@ namespace Dau.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DormitoryTypeTranslation",
+                columns: table => new
+                {
+                    language_id = table.Column<long>(nullable: false),
+                    DormitoryTypeNonTransId = table.Column<long>(nullable: false),
+                    Id = table.Column<long>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DormitoryTypeTranslation", x => new { x.DormitoryTypeNonTransId, x.language_id });
+                    table.ForeignKey(
+                        name: "FK_DormitoryTypeTranslation_DormitoryType_DormitoryTypeNonTransId",
+                        column: x => x.DormitoryTypeNonTransId,
+                        principalTable: "DormitoryType",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DormitoryTypeTranslation_Language_language_id",
+                        column: x => x.language_id,
+                        principalSchema: "Localization",
+                        principalTable: "Language",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "FeaturesCategoryTranslation",
                 columns: table => new
                 {
@@ -1036,6 +1118,33 @@ namespace Dau.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SemesterPeriodTranslation",
+                columns: table => new
+                {
+                    language_id = table.Column<long>(nullable: false),
+                    SemesterPeriodNonTransId = table.Column<long>(nullable: false),
+                    Id = table.Column<long>(nullable: false),
+                    SemesterPeriodName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SemesterPeriodTranslation", x => new { x.language_id, x.SemesterPeriodNonTransId });
+                    table.ForeignKey(
+                        name: "FK_SemesterPeriodTranslation_Language_language_id",
+                        column: x => x.language_id,
+                        principalSchema: "Localization",
+                        principalTable: "Language",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SemesterPeriodTranslation_SemesterPeriod_SemesterPeriodNonTransId",
+                        column: x => x.SemesterPeriodNonTransId,
+                        principalTable: "SemesterPeriod",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Resource",
                 schema: "Localization",
                 columns: table => new
@@ -1093,12 +1202,10 @@ namespace Dau.Data.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    PictureUrl = table.Column<string>(unicode: false, maxLength: 100, nullable: false),
-                    IncludeInTopMenu = table.Column<bool>(nullable: false),
                     Published = table.Column<bool>(nullable: false),
                     DisplayOrder = table.Column<int>(nullable: false),
-                    DormitoryId = table.Column<long>(nullable: true),
-                    SeoId = table.Column<long>(nullable: false)
+                    DormitoryId = table.Column<long>(nullable: false),
+                    SeoId = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1108,13 +1215,13 @@ namespace Dau.Data.Migrations
                         column: x => x.DormitoryId,
                         principalTable: "Dormitory",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_DormitoryBlock_Seo_SeoId",
                         column: x => x.SeoId,
                         principalTable: "Seo",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -1352,11 +1459,19 @@ namespace Dau.Data.Migrations
                     RoomsQuota = table.Column<int>(nullable: false),
                     HasDeposit = table.Column<bool>(nullable: false),
                     ShowPrice = table.Column<bool>(nullable: false),
-                    DormitoryBlockId = table.Column<long>(nullable: true),
+                    DormitoryBlockId = table.Column<long>(nullable: false),
                     DormitoryId = table.Column<long>(nullable: false),
                     Price = table.Column<double>(nullable: false),
                     PriceOld = table.Column<double>(nullable: false),
                     NoRoomQuota = table.Column<int>(nullable: false),
+                    RoomSize = table.Column<double>(nullable: false),
+                    TaxAmount = table.Column<double>(nullable: false),
+                    BookingFee = table.Column<double>(nullable: false),
+                    PaymentPerSemesterNotYear = table.Column<bool>(nullable: false),
+                    DealEndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DisplayDeal = table.Column<bool>(nullable: false),
+                    PercentageOff = table.Column<int>(nullable: false),
+                    DisplayNoRoomsLeft = table.Column<bool>(nullable: false),
                     SeoId = table.Column<long>(nullable: true),
                     Published = table.Column<bool>(nullable: false),
                     DisplayOrder = table.Column<int>(nullable: false)
@@ -1412,10 +1527,7 @@ namespace Dau.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     BookingStatusId = table.Column<long>(nullable: false),
                     PaymentStatusId = table.Column<long>(nullable: false),
-                    BookingNotes = table.Column<int>(nullable: false),
-                    DormitoryId = table.Column<int>(nullable: false),
-                    UserId = table.Column<int>(nullable: false),
-                    UserId1 = table.Column<string>(nullable: false),
+                    UserId = table.Column<string>(nullable: true),
                     CustomerIpAddress = table.Column<string>(nullable: true),
                     BookingOrderSubtotal = table.Column<double>(nullable: false),
                     BookingFee = table.Column<double>(nullable: false),
@@ -1455,11 +1567,45 @@ namespace Dau.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Booking_AspNetUsers_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_Booking_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cart",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    RoomId = table.Column<long>(nullable: false),
+                    SemesterPeriodId = table.Column<long>(nullable: false),
+                    TotalAmount = table.Column<double>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cart", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cart_Room_RoomId",
+                        column: x => x.RoomId,
+                        principalTable: "Room",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Cart_SemesterPeriod_SemesterPeriodId",
+                        column: x => x.SemesterPeriodId,
+                        principalTable: "SemesterPeriod",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Cart_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -1570,7 +1716,7 @@ namespace Dau.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrderNotes",
+                name: "BookingNotes",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -1578,17 +1724,17 @@ namespace Dau.Data.Migrations
                     Note = table.Column<string>(unicode: false, maxLength: 512, nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ShowToCustomer = table.Column<bool>(nullable: false),
-                    BookingId = table.Column<long>(nullable: true)
+                    BookingId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderNotes", x => x.Id);
+                    table.PrimaryKey("PK_BookingNotes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrderNotes_Booking_BookingId",
+                        name: "FK_BookingNotes_Booking_BookingId",
                         column: x => x.BookingId,
                         principalTable: "Booking",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -1651,14 +1797,34 @@ namespace Dau.Data.Migrations
                 column: "RoomId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Booking_UserId1",
+                name: "IX_Booking_UserId",
                 table: "Booking",
-                column: "UserId1");
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BookingNotes_BookingId",
+                table: "BookingNotes",
+                column: "BookingId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BookingStatusTranslations_BookingStatusNonTransId",
                 table: "BookingStatusTranslations",
                 column: "BookingStatusNonTransId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cart_RoomId",
+                table: "Cart",
+                column: "RoomId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cart_SemesterPeriodId",
+                table: "Cart",
+                column: "SemesterPeriodId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cart_UserId",
+                table: "Cart",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CountryTranslation_CountryNonTransId1",
@@ -1684,6 +1850,11 @@ namespace Dau.Data.Migrations
                 name: "IX_DiscountUsage_DiscountId",
                 table: "DiscountUsage",
                 column: "DiscountId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Dormitory_DormitoryTypeId",
+                table: "Dormitory",
+                column: "DormitoryTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Dormitory_SeoId",
@@ -1718,6 +1889,11 @@ namespace Dau.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_DormitoryTranslation_language_id",
                 table: "DormitoryTranslation",
+                column: "language_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DormitoryTypeTranslation_language_id",
+                table: "DormitoryTypeTranslation",
                 column: "language_id");
 
             migrationBuilder.CreateIndex(
@@ -1772,11 +1948,6 @@ namespace Dau.Data.Migrations
                 column: "LanguageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderNotes_BookingId",
-                table: "OrderNotes",
-                column: "BookingId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_PaymentStatusTranslations_PaymentStatusNonTransId",
                 table: "PaymentStatusTranslations",
                 column: "PaymentStatusNonTransId");
@@ -1827,6 +1998,11 @@ namespace Dau.Data.Migrations
                 column: "language_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_SemesterPeriodTranslation_SemesterPeriodNonTransId",
+                table: "SemesterPeriodTranslation",
+                column: "SemesterPeriodNonTransId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_StateAndProvince_CountryId",
                 table: "StateAndProvince",
                 column: "CountryId");
@@ -1868,6 +2044,9 @@ namespace Dau.Data.Migrations
                 name: "ApiClient");
 
             migrationBuilder.DropTable(
+                name: "ApiDebugLog");
+
+            migrationBuilder.DropTable(
                 name: "APISettings");
 
             migrationBuilder.DropTable(
@@ -1886,6 +2065,9 @@ namespace Dau.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "BookingNotes");
+
+            migrationBuilder.DropTable(
                 name: "BookingStatusTranslations");
 
             migrationBuilder.DropTable(
@@ -1893,6 +2075,9 @@ namespace Dau.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "CancelBookingRequest");
+
+            migrationBuilder.DropTable(
+                name: "Cart");
 
             migrationBuilder.DropTable(
                 name: "CountryTranslation");
@@ -1914,6 +2099,9 @@ namespace Dau.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "DormitoryTranslation");
+
+            migrationBuilder.DropTable(
+                name: "DormitoryTypeTranslation");
 
             migrationBuilder.DropTable(
                 name: "EmailAccount");
@@ -1949,9 +2137,6 @@ namespace Dau.Data.Migrations
                 name: "OnlineUsers");
 
             migrationBuilder.DropTable(
-                name: "OrderNotes");
-
-            migrationBuilder.DropTable(
                 name: "PaymentStatusTranslations");
 
             migrationBuilder.DropTable(
@@ -1973,6 +2158,9 @@ namespace Dau.Data.Migrations
                 name: "RoomTranslationTranslation");
 
             migrationBuilder.DropTable(
+                name: "SemesterPeriodTranslation");
+
+            migrationBuilder.DropTable(
                 name: "StateAndProvince");
 
             migrationBuilder.DropTable(
@@ -1989,6 +2177,9 @@ namespace Dau.Data.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "Booking");
+
+            migrationBuilder.DropTable(
                 name: "Currency");
 
             migrationBuilder.DropTable(
@@ -2001,9 +2192,6 @@ namespace Dau.Data.Migrations
                 name: "MessageTemplate");
 
             migrationBuilder.DropTable(
-                name: "Booking");
-
-            migrationBuilder.DropTable(
                 name: "Poll");
 
             migrationBuilder.DropTable(
@@ -2011,6 +2199,9 @@ namespace Dau.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Features");
+
+            migrationBuilder.DropTable(
+                name: "SemesterPeriod");
 
             migrationBuilder.DropTable(
                 name: "Country");
@@ -2024,9 +2215,6 @@ namespace Dau.Data.Migrations
             migrationBuilder.DropTable(
                 name: "Language",
                 schema: "Localization");
-
-            migrationBuilder.DropTable(
-                name: "GoodToKnow");
 
             migrationBuilder.DropTable(
                 name: "Address");
@@ -2044,16 +2232,22 @@ namespace Dau.Data.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "FeaturesCategory");
+                name: "GoodToKnow");
 
             migrationBuilder.DropTable(
-                name: "OpeningClosingTime");
+                name: "FeaturesCategory");
 
             migrationBuilder.DropTable(
                 name: "DormitoryBlock");
 
             migrationBuilder.DropTable(
+                name: "OpeningClosingTime");
+
+            migrationBuilder.DropTable(
                 name: "Dormitory");
+
+            migrationBuilder.DropTable(
+                name: "DormitoryType");
 
             migrationBuilder.DropTable(
                 name: "Seo");

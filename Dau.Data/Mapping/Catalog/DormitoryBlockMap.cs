@@ -17,15 +17,7 @@ namespace Dau.Data.Mapping.Catalog
             builder.Property(e => e.Id).HasColumnName("Id");
             
 
-            //string
-            builder.Property(e => e.PictureUrl)
-                .IsRequired()
-                .HasColumnName("PictureUrl")
-                .HasMaxLength(100)
-                .IsUnicode(false);
-
-            //string
-            builder.Property(e => e.IncludeInTopMenu).HasColumnName("IncludeInTopMenu");
+          
 
 
             builder.Property(e => e.Published).HasColumnName("Published");

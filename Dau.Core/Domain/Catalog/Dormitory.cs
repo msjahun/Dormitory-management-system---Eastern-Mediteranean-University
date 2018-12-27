@@ -56,7 +56,11 @@ namespace Dau.Core.Domain.Catalog
         public ICollection<DormitoryCatalogImage> DormitoryCatalogImage { get; set; }
         public ICollection<DormitoryTranslation> DormitoryTranslation{ get; set; }
 
-  
+        public DormitoryType DormitoryType{ get; set; }
+        public long DormitoryTypeId{ get; set; }
+
+
+
     }
 
 

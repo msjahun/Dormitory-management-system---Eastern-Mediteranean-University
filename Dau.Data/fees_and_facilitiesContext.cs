@@ -118,7 +118,7 @@ namespace Dau.Data
         public virtual DbSet<Discount> Discount { get; set; }
         public virtual DbSet<NewsLetterSubscribers> NewsLetterSubscribers { get; set; }
         public virtual DbSet<CancelBookingRequests> CancelReservationRequests { get; set; }
-        public virtual DbSet<OrderNotes> OrderNotes { get; set; }
+        public virtual DbSet<BookingNotes> OrderNotes { get; set; }
         public virtual DbSet<Booking> Reservation { get; set; }
 
         public virtual DbSet<Seo> Seo { get; set; }
@@ -154,6 +154,14 @@ namespace Dau.Data
 
         public virtual DbSet<ApiDebugLog> ApiDebugLog { get; set; }
 
+        public virtual DbSet<DormitoryType> DormitoryType{ get; set; }
+        public virtual DbSet<DormitoryTypeTranslation> DormitoryTypeTranslation { get; set; }
+
+
+        public virtual DbSet<Cart> Cart{ get; set; }
+        public virtual DbSet<SemesterPeriod> SemesterPeriod{ get; set; }
+        public virtual DbSet<SemesterPeriodTranslation> SemesterPeriodTranslation{ get; set; }
+
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -170,28 +178,6 @@ namespace Dau.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-
-         //  modelBuilder.ApplyConfiguration(new AccountInformationParameterMap());
-         //  modelBuilder.ApplyConfiguration(new AccountInformationParameterTranslationMap());
-         //  modelBuilder.ApplyConfiguration(new AccountParameterValuesMap());
-         //  modelBuilder.ApplyConfiguration(new AccountParameterValuesTranslationMap());
-         //  modelBuilder.ApplyConfiguration(new BankCurrencyTableMap());
-           // modelBuilder.ApplyConfiguration(new DormitoriesTableMap());
-          // modelBuilder.ApplyConfiguration(new DormitoriesTableTranslationMap());
-          // modelBuilder.ApplyConfiguration(new DormitoryBankAccountTableMap());
-          // modelBuilder.ApplyConfiguration(new DormitoryInformationTableMap());
-          // modelBuilder.ApplyConfiguration(new DormitoryInformationTableTranslationMap());
-          // modelBuilder.ApplyConfiguration(new DormitoryTypeMap());
-          // modelBuilder.ApplyConfiguration(new DormitoryTypeTranslationMap());
-           // modelBuilder.ApplyConfiguration(new FacilityOptionMap());
-           // modelBuilder.ApplyConfiguration(new FacilityOptionTranslationMap());
-           // modelBuilder.ApplyConfiguration(new FacilityTableMap());
-           // modelBuilder.ApplyConfiguration(new FacilityTableTranslationMap());
-         //   modelBuilder.ApplyConfiguration(new LanguageTableMap());
-          // modelBuilder.ApplyConfiguration(new RoomFacilityMap());
-          // modelBuilder.ApplyConfiguration(new RoomTableMap());
-          // modelBuilder.ApplyConfiguration(new RoomTableTranslationMap());
 
 
             
@@ -229,7 +215,7 @@ namespace Dau.Data
             modelBuilder.ApplyConfiguration(new DiscountMap());
             modelBuilder.ApplyConfiguration(new NewsletterSubscribersMap());
             modelBuilder.ApplyConfiguration(new CancelBookingRequestMap());
-            modelBuilder.ApplyConfiguration(new OrderNotesMap());
+            modelBuilder.ApplyConfiguration(new BookingNotesMap());
             modelBuilder.ApplyConfiguration(new BookingMap());
    
             modelBuilder.ApplyConfiguration(new SeoMap());
@@ -264,6 +250,14 @@ namespace Dau.Data
             modelBuilder.ApplyConfiguration(new PaymentStatusMap());
             modelBuilder.ApplyConfiguration(new PaymentStatusTranslationMap());
             modelBuilder.ApplyConfiguration(new BookingStatusTranslationMap());
+
+
+            modelBuilder.ApplyConfiguration(new DormitoryTypeMap());
+            modelBuilder.ApplyConfiguration(new DormitoryTypeTranslationMap());
+
+
+            modelBuilder.ApplyConfiguration(new SemesterPeriodMap());
+            modelBuilder.ApplyConfiguration(new SemesterPeriodTranslationMap());
            
 
 
