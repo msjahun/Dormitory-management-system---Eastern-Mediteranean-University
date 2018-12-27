@@ -35,14 +35,12 @@
                     <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px); transition-duration: 12ms;">
                         @foreach (var imageUrl in item.ImageUrls)
                         {
-                            <div class="swiper-slide swiper-slide-next" style="width: 230px; margin-right: 20px;">
-                                <div class="card border-0">
-                                    <div class="text-white">
-                                        <img alt="Image placeholder" class="img-fluid " src="@imageUrl">
+                        <div class="swiper-slide swiper_dormitory_image_fill swiper-slide-next" style="width: 230px; margin-right: 20px;" >
 
-                                    </div>
-                                </div>
-                            </div>
+
+                            <img alt="Image placeholder" class="FluidImage" src="@imageUrl">
+
+                        </div>
                         }
 
                     </div>
