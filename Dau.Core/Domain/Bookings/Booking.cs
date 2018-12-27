@@ -11,7 +11,7 @@ namespace Dau.Core.Domain.Bookings
     {
         public Booking()
         {
-            OrderNotes = new HashSet<OrderNotes>();
+            BookingNotes = new HashSet<BookingNotes>();
         }
 
        
@@ -23,12 +23,11 @@ namespace Dau.Core.Domain.Bookings
         public long PaymentStatusId { get; set; }
         public PaymentStatus PaymentStatus { get; set; }
 
-       
-        public int BookingNotes { get; set; }
- 
-        public int DormitoryId { get; set; }
 
-        public int UserId { get; set; }
+ 
+     
+
+        public string UserId { get; set; }
         public User User { get; set;  }
 
         public string CustomerIpAddress { get; set; }
@@ -40,7 +39,7 @@ namespace Dau.Core.Domain.Bookings
         public bool IsCancelled { get; set; }
         public bool IsDeleted { get; set; }
         public bool AffiliateId { get; set; }
-        public ICollection<OrderNotes> OrderNotes{ get; set; }
+        public ICollection<BookingNotes> BookingNotes { get; set; }
 
         public long RoomId { get; set; }
         public Room Room { get; set; }

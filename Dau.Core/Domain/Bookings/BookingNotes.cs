@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dau.Core.Domain.Bookings
 {
-   public class OrderNotes : BaseEntity
+   public class BookingNotes : BaseEntity
 
     {
        
@@ -13,6 +13,7 @@ namespace Dau.Core.Domain.Bookings
         public bool ShowToCustomer { get; set; }
 
         public Booking Booking { get; set; }
+        public long BookingId { get; set; }
         //where are the fields
     }
 }

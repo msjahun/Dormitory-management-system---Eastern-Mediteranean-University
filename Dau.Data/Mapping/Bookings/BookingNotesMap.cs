@@ -7,12 +7,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dau.Data.Mapping.Bookings
 {
-    public class OrderNotesMap : IEntityTypeConfiguration<OrderNotes>
+    public class BookingNotesMap : IEntityTypeConfiguration<BookingNotes>
     {
-        public void Configure(EntityTypeBuilder<OrderNotes> builder)
+        public void Configure(EntityTypeBuilder<BookingNotes> builder)
         {
             //table_name
-            builder.ToTable("OrderNotes");
+            builder.ToTable("BookingNotes");
 
             builder.Property(e => e.Id).HasColumnName("Id");
             builder.Property(e => e.Note).HasColumnName("Note").HasMaxLength(512)
