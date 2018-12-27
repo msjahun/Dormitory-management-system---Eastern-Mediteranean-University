@@ -99,7 +99,7 @@
                 }
 
             @if(item.Features.Count > 0) { 
-                <a asp-action="Detail" asp-controller="Dormitory" asp-fragment="_RoomSection">... @Localizer["view more"]</a>
+                <a href="@Url.Content("~/Dormitories/"+item.DormitorySeoFriendlyUrl)#_RoomSection">... @Localizer["view more"]</a>
             }
                 }
 
