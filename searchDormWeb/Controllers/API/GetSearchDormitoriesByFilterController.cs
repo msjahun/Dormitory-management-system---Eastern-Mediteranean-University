@@ -26,7 +26,7 @@ namespace searchDormWeb.Controllers.API
         // POST: api/GetSearchDormitoriesByFilter
         [HttpPost]
         [Route("api/[controller]")]
-        public JsonResult Post(string value)
+        public JsonResult Post()
         {
 
             var Response = new
