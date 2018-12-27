@@ -257,6 +257,47 @@ namespace searchDormWeb.Controllers
           return Json(success);
         }
 
+
+        public IActionResult SeedBookings()
+        {
+            _seedingService.SeedBookings();
+            var success = true;
+            return Json(success);
+        }
+
+
+        public IActionResult SeedRoomData()
+        {
+            _seedingService.SeedRoomData();
+            var success = true;
+            return Json(success);
+        }
+
+
+        public IActionResult seedDormitoryBlocks()
+        {
+            _seedingService.seedDormitoryBlocks();
+            var success = true;
+            return Json(success);
+        }
+
+
+        public IActionResult SeedDormitoryType()
+        {
+            _seedingService.SeedDormitoryType();
+            var success = true;
+            return Json(success);
+        }
+
+
+        public IActionResult SeedCartItems()
+        {
+            _seedingService.SeedCartItems();
+            var success = true;
+            return Json(success);
+        }
+
+
         public IActionResult seedReviews()
         {
             _seedingService.SeedReviews();
