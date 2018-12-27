@@ -5,9 +5,11 @@
 @using Microsoft.AspNetCore.Identity
 @using Dau.Core.Domain.Users;
 @using Dau.Services.Users;
+@using Dau.Services.Domain.BookingService;
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 @inject IUsersService _userService
+@inject IBookingService _bookingService
 
 <style>
 
@@ -42,7 +44,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-search"></i></span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Type and hit enter ...">
+                        <input type="text" id="searchBar" class="form-control" placeholder="@Localizer["Type and hit enter ..."]">
                     </div>
                 </div>
             </form>
@@ -51,49 +53,9 @@
                     @Localizer["Search Suggestions"]
                 </h6>
                 <div class="row">
-                    <div class="col-sm-6">
-                        <ul class="list-unstyled mb-0">
-                            <li>
-                                <a class="list-link" href="#">
-                                    <i class="fas fa-search"></i>
-                                    <span>Alfam dormitories</span> in private dormitories
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="list-link" href="#">
-                                    <i class="fas fa-search"></i>
-                                    <span>Akdeniz dormitories</span> in private dormitories
-                                </a>
-                            </li>
-
-
-
-                            <li>
-                                <a class="list-link" href="#">
-                                    <i class="fas fa-search"></i>
-                                    <span>EMU 1 dormitories</span> in EMU dormitories
-                                </a>
-                            </li>
-
-
-                            <li>
-                                <a class="list-link" href="#">
-                                    <i class="fas fa-search"></i>
-                                    <span>EMU 2 dormitories</span> in EMU dormitories
-                                </a>
-                            </li>
-
-
-                            <li>
-                                <a class="list-link" href="#">
-                                    <i class="fas fa-search"></i>
-                                    <span>Alfam dormitories</span> in private dormitories
-                                </a>
-                            </li>
-
-                        </ul>
-                    </div>
+                    <div class="col-sm-6" id="searchBarResults">
+                        <span class="text-center">@Localizer["Type name of any dormitory you know then hit enter ..."]</span>
+</div>
                 </div>
             </div>
         </div>
@@ -151,139 +113,176 @@
                 @{await Html.RenderPartialAsync("/Views/Shared/Components/AdminEntryPointNew.cshtml", null);}
 
 
-            <div class="ml-auto">
-                <ul class="nav">
-                    @if (SignInManager.IsSignedIn(User))
-                    {
+                <div class="ml-auto">
+                    <ul class="nav">
+                        @if (SignInManager.IsSignedIn(User))
+                        {
 
 
-                        <li class="nav-item dropdown dropdown-animate" data-toggle="hover">
+                            <li class="nav-item dropdown dropdown-animate" data-toggle="hover">
 
 
 
-                            <a href="#" class=" avatar avatar-sm rounded-circle mr-3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a href="#" class=" avatar avatar-sm rounded-circle mr-3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
-                                @if (_userService.GetUserPhotoUrl(SignInManager.UserManager.GetUserId(User)) == null)
-                                {
-                                <i class="fas fa-user-circle fa-2x"></i>
+                                    @if (_userService.GetUserPhotoUrl(SignInManager.UserManager.GetUserId(User)) == null)
+                                    {
+                                        <i class="fas fa-user-circle fa-2x"></i>
 
-                                }
-                                else
-                                {
-                                    <img alt="Image placeholder" src="@_userService.GetUserPhotoUrl(SignInManager.UserManager.GetUserId(User))">
-                                }
+                                    }
+                                    else
+                                    {
+                                        <img alt="Image placeholder" src="@_userService.GetUserPhotoUrl(SignInManager.UserManager.GetUserId(User))">
+                                    }
 
 
-                            </a>
+                                </a>
 
-                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-arrow py-0">
-                               
-                               
+                                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-arrow py-0">
 
-                                <div class="list-group">
-                                    <secure-content asp-action="Index" asp-controller="Admin" asp-area="">
-                                        <span class="p-3  text-center">@Localizer["Signed in as"] @_userService.GetFirstLastNames(SignInManager.UserManager.GetUserId(User))</span>
-                                        <a asp-action="Index" asp-controller="Admin" class="list-group-item list-group-item-action">
+
+
+                                    <div class="list-group">
+                                        <secure-content asp-action="Index" asp-controller="Admin" asp-area="">
+                                            <span class="p-3  text-center">@Localizer["Signed in as"] @_userService.GetFirstLastNames(SignInManager.UserManager.GetUserId(User))</span>
+                                            <a asp-action="Index" asp-controller="Admin" class="list-group-item list-group-item-action">
+                                                <div class="media d-flex align-items-center">
+                                                    <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/browser-window.svg" class="img-saturate d-none d-sm-block" style="width: 50px;">
+                                                    <div class="media-body ml-3">
+                                                        <h6 class="mb-1">@Localizer["Admin Area"]</h6>
+                                                        <p class="mb-0 d-none d-sm-block">@Localizer["Takes you to the Administration area."]</p>
+                                                    </div>
+
+                                                </div>
+
+                                            </a>
+
+                                        </secure-content>
+
+
+
+                                        <a asp-action="Billing" asp-controller="Account" class="list-group-item list-group-item-action">
                                             <div class="media d-flex align-items-center">
-                                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/browser-window.svg" class="img-saturate d-none d-sm-block" style="width: 50px;">
+                                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/ios-photos.svg" class="img-saturate d-none d-sm-block" style="width: 50px;">
                                                 <div class="media-body ml-3">
-                                                    <h6 class="mb-1">@Localizer["Admin Area"]</h6>
-                                                    <p class="mb-0 d-none d-sm-block">@Localizer["Takes you to the Administration area."]</p>
+                                                    <h6 class="mb-1">@Localizer["View my bookings"]</h6>
+                                                    <p class="mb-0 d-none d-sm-block">@Localizer["See your booking history."]</p>
                                                 </div>
 
                                             </div>
 
                                         </a>
 
-                                    </secure-content>
+                                        <a asp-action="Profile" asp-controller="Account" class="list-group-item list-group-item-action">
+                                            <div class="media d-flex align-items-center">
+                                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/maintenance.svg" class="img-saturate d-none d-sm-block" style="width: 50px;">
+                                                <div class="media-body ml-3">
+                                                    <h6 class="mb-1">@Localizer["Account Settings"]</h6>
+                                                    <p class="mb-0 d-none d-sm-block">@Localizer["Your account settings."]</p>
+                                                </div>
 
-
-
-                                    <a asp-action="Billing" asp-controller="Account" class="list-group-item list-group-item-action">
-                                        <div class="media d-flex align-items-center">
-                                            <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/ios-photos.svg" class="img-saturate d-none d-sm-block" style="width: 50px;">
-                                            <div class="media-body ml-3">
-                                                <h6 class="mb-1">@Localizer["View my bookings"]</h6>
-                                                <p class="mb-0 d-none d-sm-block">@Localizer["See your booking history."]</p>
                                             </div>
 
-                                        </div>
+                                        </a>
 
-                                    </a>
 
-                                    <a asp-action="Profile" asp-controller="Account" class="list-group-item list-group-item-action">
-                                        <div class="media d-flex align-items-center">
-                                            <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/maintenance.svg" class="img-saturate d-none d-sm-block" style="width: 50px;">
-                                            <div class="media-body ml-3">
-                                                <h6 class="mb-1">@Localizer["Account Settings"]</h6>
-                                                <p class="mb-0 d-none d-sm-block">@Localizer["Your account settings."]</p>
+
+                                        <a asp-controller="Login" asp-action="Logout" class="list-group-item list-group-item-action">
+                                            <div class="media d-flex align-items-center">
+                                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/logout-rounded-left.svg" class="img-saturate d-none d-sm-block" style="width: 50px;">
+                                                <div class="media-body ml-3">
+                                                    <h6 class="mb-1">@Localizer["Logout"]</h6>
+                                                    <p class="mb-0 d-none d-sm-block">@Localizer["Signs you out of your account."]</p>
+                                                </div>
+
                                             </div>
 
-                                        </div>
+                                        </a>
 
-                                    </a>
-
-
-
-                                    <a asp-controller="Login" asp-action="Logout" class="list-group-item list-group-item-action">
-                                        <div class="media d-flex align-items-center">
-                                            <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/dusk/svg/logout-rounded-left.svg" class="img-saturate d-none d-sm-block" style="width: 50px;">
-                                            <div class="media-body ml-3">
-                                                <h6 class="mb-1">@Localizer["Logout"]</h6>
-                                                <p class="mb-0 d-none d-sm-block">@Localizer["Signs you out of your account."]</p>
-                                            </div>
-
-                                        </div>
-
-                                    </a>
+                                    </div>
 
                                 </div>
 
+                            </li>
+
+                        }
+
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-action="search-open" data-target="#search-main"><i class="fas fa-search"></i></a>
+                        </li>
+
+
+                        <li class="nav-item dropdown ml-lg-2 dropdown-animate" data-toggle="hover">
+                            <a class="nav-link px-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="d-none d-lg-inline-block">TL</span>
+                                <span class="d-lg-none">USD</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-arrow">
+                                <a href="" class="dropdown-item">
+                                    TL
+                                </a>
+                                <a href="" class="dropdown-item">
+                                    USD
+                                </a>
+
+                            </div>
+                        </li>
+
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+
+                            <!-- Notifications -->
+                            <div class="dropdown">
+
+                                <a href="#" class="nav-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bell"><span class="badge badge-danger ml-2">1</span></i> </a>
+
+                                <div class="dropdown-menu dropdown-menu-lg py-0">
+                                    <div class="py-3 px-3">
+                                        <h5 class="heading h6 mb-0">Notifications</h5>
+                                    </div>
+                                    <div class="list-group">
+                                        <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                                            <div class="list-group-content">
+                                                <div class="list-group-heading">Alfam dormitory <small>10:05 PM</small></div>
+                                                <p class="text-sm">Booking confirmed</p>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                                            <div class="list-group-content">
+                                                <div class="list-group-heading">Alfam dormitory <small>11:30 PM</small></div>
+                                                <p class="text-sm">Booking cancelled</p>
+                                            </div>
+                                        </a>
+                                       <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                                            <div class="list-group-content">
+                                                <div class="list-group-heading">Alfam dormitory<small>15:45 PM</small></div>
+                                                <p class="text-sm">Discount ends by wednessday</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="py-3 text-center">
+                                        <a href="#" class="link link-sm link--style-3">View all notifications</a>
+                                    </div>
+                                </div>
                             </div>
 
-                        </li>
 
-                    }
+                        }
 
-                    <li class="nav-item">
-                        <a href="#" class="nav-link" data-action="search-open" data-target="#search-main"><i class="fas fa-search"></i></a>
-                    </li>
+                        @*<li class="nav-item">
+            <a class="nav-link" asp-action="CartEmpty" asp-controller="Booking"><i class="fas fa-shopping-cart"></i></a>
 
-
-                    <li class="nav-item dropdown ml-lg-2 dropdown-animate" data-toggle="hover">
-                        <a class="nav-link px-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="d-none d-lg-inline-block">TL</span>
-                            <span class="d-lg-none">USD</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-sm dropdown-menu-arrow">
-                            <a href="" class="dropdown-item">
-                                TL
-                            </a>
-                            <a href="" class="dropdown-item">
-                                USD
-                            </a>
-
-                        </div>
-                    </li>
-
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" data-action="search-open" data-target="#search-main"><i class="fas fa-bell"><span class="badge badge-danger ml-2">1</span></i> </a>
-                        </li>
-                    }
-
-                    @*<li class="nav-item">
-                        <a class="nav-link" asp-action="CartEmpty" asp-controller="Booking"><i class="fas fa-shopping-cart"></i></a>
-
-                    </li>*@
+        </li>*@
 
 
-                </ul>
-            </div>
+                    </ul>
+                
+
+                </div>
             </div>
         </div>
     </div>
+
 
 
     <!-- Main navbar -->
@@ -292,7 +291,7 @@
 
 
         <div class="container">
-
+            
             <a class="navbar-brand mr-lg-5" asp-controller="Home" asp-action="">
                 <img alt="Image placeholder" class="logoMain" src="@Url.Content("~/frontend_Content/assets")@Localizer["/img/brand/white.png"]" style="">
             </a>
@@ -335,13 +334,29 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Account" asp-action="Settings">@Localizer["My Account"]</a>
                         </li>
-                        <li class="nav-item mr-0">
-                            <a asp-controller="Booking" asp-action="Cart" class="nav-link d-lg-none">
-                                @Localizer["Checkout"] <span class="badge badge-pill badge-danger text-sm">1</span>
-                            </a>
 
-                            <a asp-controller="Booking" asp-action="Cart" class="btn btn-white btn-sm btn-circle btn-translate--hover d-none d-lg-block"><i class="fas fa-shopping-cart"></i> @Localizer["Checkout"] <span class="badge badge-pill badge-danger text-sm">1</span></a>
-                        </li>
+                        @if (_bookingService.GetCheckoutCartService() != null)
+                        {
+                            <li class="nav-item mr-0">
+                                <a asp-controller="Booking" asp-action="Cart" class="nav-link d-lg-none">
+                                    @Localizer["Checkout"] <span class="badge badge-pill badge-danger text-sm">1</span>
+                                </a>
+
+                                <a asp-controller="Booking" asp-action="Cart" class="btn btn-white btn-sm btn-circle btn-translate--hover d-none d-lg-block"><i class="fas fa-shopping-cart"></i> @Localizer["Checkout"] <span class="badge badge-pill badge-danger text-sm">1</span></a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item mr-0">
+                                <a asp-controller="Booking" asp-action="Cart" class="nav-link d-lg-none">
+                                    @Localizer["Checkout"]
+                                </a>
+
+                                <a asp-controller="Booking" asp-action="Cart" class="btn btn-white btn-sm btn-circle btn-translate--hover d-none d-lg-block"><i class="fas fa-shopping-cart"></i> @Localizer["Checkout"] </a>
+                            </li>
+                        }
+
+
                     </ul>
                 }
                 else
