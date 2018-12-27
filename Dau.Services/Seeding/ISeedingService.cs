@@ -5,5 +5,10 @@
         void SeedDormitoryData();
         void SeedFeatures();
         void SeedReviews();
+        void SeedBookings();
+        void SeedCartItems();
+        void SeedRoomData();
+        void seedDormitoryBlocks();
+        void SeedDormitoryType();
     }
 }

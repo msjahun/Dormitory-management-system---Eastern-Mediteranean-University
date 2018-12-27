@@ -1,10 +1,14 @@
-﻿using Dau.Core.Domain.Catalog;
+﻿using Dau.Core.Domain.Bookings;
+using Dau.Core.Domain.Catalog;
 using Dau.Core.Domain.Feature;
 using Dau.Core.Domain.SearchEngineOptimization;
+using Dau.Core.Domain.Users;
 using Dau.Data.Repository;
 using Dau.Services.Domain.SearchResultService;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Dau.Services.Seeding
@@ -17,30 +21,173 @@ namespace Dau.Services.Seeding
         private readonly IRepository<FeaturesCategoryTranslation> _featuresCategoryTransRepo;
         private readonly IRepository<Review> _reviewRepo;
         private readonly IRepository<Dormitory> _dormitoryRepo;
+        private readonly UserManager<User> _userManager;
+        private readonly IRepository<Cart> _cartRepository;
+        private readonly IRepository<SemesterPeriod> _semesterPeriodRepository;
+        private readonly IRepository<Booking> _bookingRepository;
+        private readonly IRepository<PaymentStatus> _paymentStatusRepository;
+        private readonly IRepository<BookingStatus> _bookingStatusRepository;
+        private readonly IRepository<Room> _roomRepo;
+        private readonly IRepository<DormitoryType> _dormitoryTypeRepo;
+        private readonly IRepository<DormitoryBlock> _dormitoryBlockRepo;
 
         public SeedingService(IRepository<Features> featuresRepo,
             IRepository<FeaturesCategory> featuresCategoryRepo,
             IRepository<FeaturesCategoryTranslation> featuresCategoryTransRepo,
             IRepository<FeaturesTranslation> featuresTransRepo,
             IRepository<Review> reviewRepo,
-
+            IRepository<Room> roomRepo,
+            IRepository<DormitoryType> dormitoryTypeRepo,
+            IRepository<DormitoryBlock> dormitoryBlockRepo,
             IRepository<Dormitory> dormitoryRepo,
-            IRepository<DormitoryTranslation> dormitoryTransRepo)
+            IRepository<DormitoryTranslation> dormitoryTransRepo,
+            IRepository<Booking> bookingRepository,
+            IRepository<PaymentStatus> paymentStatusRepository,
+            IRepository<BookingStatus> bookingStatusRepository,
+            IRepository<Cart> cartRepository,
+            IRepository<SemesterPeriod> semesterPeriodRepository,
+            UserManager<User> userManager
+            )
         {
+
+            _roomRepo= roomRepo;
+            _dormitoryTypeRepo= dormitoryTypeRepo;
+            _dormitoryBlockRepo= dormitoryBlockRepo;
+            _bookingRepository = bookingRepository;
+            _paymentStatusRepository= paymentStatusRepository;
+            _bookingStatusRepository= bookingStatusRepository;
             _featuresRepo = featuresRepo;
             _featuresTransRepo = featuresTransRepo;
             _featuresCategoryRepo = featuresCategoryRepo;
             _featuresCategoryTransRepo = featuresCategoryTransRepo;
             _reviewRepo= reviewRepo;
             _dormitoryRepo = dormitoryRepo;
+            _userManager = userManager;
+            _cartRepository= cartRepository;
+            _semesterPeriodRepository= semesterPeriodRepository;
 
         }
 
+        //seed dormitoryType and dormitory blocks 
+        //seed rooms seperately
+        //seed dormitories seperately
+
         public void SeedFeatures()
         {
-
+            //seed Semester periods
             int EnglishId = 1;
             int TurkishId = 2;
+
+            var SemesterPeriodsList = new List<SemesterPeriod>
+            {
+                new SemesterPeriod
+                {
+                 IsPublished= true,
+                 DisplayOrder = 0,
+                 IsCurrentSemester = true,
+                 IsNextSemester = false,
+                 StartDate =DateTime.Now,
+                 EndDate = DateTime.Now.AddMonths(3),
+                 SemesterPeriodTranslations = new List<SemesterPeriodTranslation>
+                 {
+                     new SemesterPeriodTranslation
+                     {
+                         LanguageId = EnglishId,
+                         SemesterPeriodName = "1 Semester - Fall 2019"
+                     },
+                      new SemesterPeriodTranslation
+                     {
+                         LanguageId = TurkishId,
+                         SemesterPeriodName = "1 Semester - Fall 2019TR"
+                     }
+
+                 }
+
+                },
+
+                 new SemesterPeriod
+                {
+                 IsPublished= true,
+                 DisplayOrder = 0,
+                 IsCurrentSemester = false,
+                 IsNextSemester = true,
+                 StartDate =DateTime.Now,
+                 EndDate = DateTime.Now.AddMonths(3),
+                 SemesterPeriodTranslations = new List<SemesterPeriodTranslation>
+                 {
+                     new SemesterPeriodTranslation
+                     {
+                         LanguageId = EnglishId,
+                         SemesterPeriodName = "3 months - Summer 2019"
+                     },
+                      new SemesterPeriodTranslation
+                     {
+                         LanguageId = TurkishId,
+                         SemesterPeriodName = "3 months - Summer 2019TR"
+                     }
+
+                 }
+
+                },
+
+                   new SemesterPeriod
+                {
+                 IsPublished= true,
+                 DisplayOrder = 0,
+                 IsCurrentSemester = false,
+                 IsNextSemester = false,
+                 StartDate =DateTime.Now,
+                 EndDate = DateTime.Now.AddMonths(3),
+                 SemesterPeriodTranslations = new List<SemesterPeriodTranslation>
+                 {
+                     new SemesterPeriodTranslation
+                     {
+                         LanguageId = EnglishId,
+                         SemesterPeriodName = "1 year - Fall 2019 to Spring 2020"
+                     },
+                      new SemesterPeriodTranslation
+                     {
+                         LanguageId = TurkishId,
+                         SemesterPeriodName = "1 year - Fall 2019 to Spring 2020TR"
+                     }
+
+                 }
+
+                },
+
+
+                    new SemesterPeriod
+                {
+                 IsPublished= true,
+                 DisplayOrder = 0,
+                 IsCurrentSemester = false,
+                 IsNextSemester = false,
+                 StartDate =DateTime.Now,
+                 EndDate = DateTime.Now.AddMonths(3),
+                 SemesterPeriodTranslations = new List<SemesterPeriodTranslation>
+                 {
+                     new SemesterPeriodTranslation
+                     {
+                         LanguageId = EnglishId,
+                         SemesterPeriodName = "2 years - Fall 2019 to next fall 2021"
+                     },
+                      new SemesterPeriodTranslation
+                     {
+                         LanguageId = TurkishId,
+                         SemesterPeriodName = "2 years - Fall 2019 to next fall 2021TR"
+                     }
+
+                 }
+
+                }
+
+            };
+
+            foreach( var semesterPeriod in SemesterPeriodsList)
+            {
+                _semesterPeriodRepository.Insert(semesterPeriod);
+            }
+
             List<FeaturesCategory> modelList = new List<FeaturesCategory>
             {
 
@@ -1040,15 +1187,83 @@ namespace Dau.Services.Seeding
 
         }
 
+        public void SeedDormitoryType()
+        {
+            int _englishLanguageId = 1;
+            int _turkishLanguageId = 2;
+
+            var DormitoryTypeList = new List<DormitoryType>
+            {
+                new DormitoryType
+                {
+                    IsPublished = true,
+       CreatedDate= DateTime.Now,
+       
+         DormitoryTypeTranslation = new List<DormitoryTypeTranslation>
+         {
+             new DormitoryTypeTranslation
+             {
+                 LanguageId = _englishLanguageId,
+                Title ="School dormitory",
+                 Description ="School dormitory description"
+                },
+
+             new DormitoryTypeTranslation
+             {
+                 LanguageId = _turkishLanguageId,
+                Title ="School dormitoryTR",
+                 Description ="School dormitory descriptionTR"
+                }
+            }
+
+           },
+                         new DormitoryType
+                {
+                    IsPublished = true,
+       CreatedDate= DateTime.Now,
+
+         DormitoryTypeTranslation = new List<DormitoryTypeTranslation>
+         {
+             new DormitoryTypeTranslation
+             {
+                 LanguageId = _englishLanguageId,
+                Title ="Private Dormitory",
+                 Description ="Private Dormitory description"
+                },
+
+             new DormitoryTypeTranslation
+             {
+                 LanguageId = _turkishLanguageId,
+                Title ="Private DormitoryTR",
+                 Description ="Private Dormitory descriptionTR"
+                }
+            }
+
+           }
+
+
+            };
+
+            foreach(var DormitoryType in DormitoryTypeList)
+            {
+                _dormitoryTypeRepo.Insert(DormitoryType);
+            }
+
+
+        }
+
         public void SeedDormitoryData()
         {
+            //seedDormitoryType 
+            //DormitoryBlock
+
             int _englishLanguageId = 1;
             int _turkishLanguageId = 2;
             var modelList = new List<Dormitory>
             {
                 new Dormitory
             {
-
+                    DormitoryTypeId = 1,
                 NoOfStudents = 214,
                 RatingNo = 9.5,
                 ReviewNo = 43,
@@ -1105,189 +1320,7 @@ namespace Dau.Services.Seeding
                     SearchEngineFriendlyPageName = "Akdeniz-private-Studio"
                 },
 
-                Rooms = new List<Room>
-                {
-                    new Room
-                    {
-
-                        NoOfStudents =2,
-
-
-        RoomsQuota =6,
-     HasDeposit =true,
-     ShowPrice =true,
-
-
-       Price = 4300,
-        PriceOld =5000,
-         NoRoomQuota= 2,
-
-       RoomCatalogImage = new List<RoomCatalogImage>
-              {
-                new RoomCatalogImage
-                {
-                    CatalogImage = new CatalogImage
-                    {
-                  ImageUrl=  "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
-    CreatedDate =DateTime.Now,
-                         Published=true,
-                         DisplayOrder=0
-                     }
-                },
-
-                new RoomCatalogImage
-                {
-                    CatalogImage=  new CatalogImage
-                    {
-
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=9",
-                       CreatedDate =DateTime.Now,
-                         Published=true,
-                         DisplayOrder=0
-                     }
-                },
-
-
-                   new RoomCatalogImage
-                {
-                    CatalogImage= new CatalogImage
-                    {
-
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=7",
-
-                       CreatedDate =DateTime.Now,
-                         Published=true,
-                         DisplayOrder=0
-                     }
-                },
-
-                      new RoomCatalogImage
-                {
-                    CatalogImage= new CatalogImage
-                    {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=4",
-
-                       CreatedDate =DateTime.Now,
-                         Published=true,
-                         DisplayOrder=0
-                     }
-                },
-
-
-                         new RoomCatalogImage
-                {
-                    CatalogImage=new CatalogImage
-                    {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=8",
-
-                       CreatedDate =DateTime.Now,
-                         Published=true,
-                         DisplayOrder=0
-                     }
-                },
-
-
-                            new RoomCatalogImage
-                {
-                    CatalogImage=new CatalogImage
-                    {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=10",
-
-                       CreatedDate =DateTime.Now,
-                         Published=true,
-                         DisplayOrder=0
-                     }
-                },
-
-
-                               new RoomCatalogImage
-                {
-                    CatalogImage=new CatalogImage
-                    {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=12",
-
-                       CreatedDate =DateTime.Now,
-                         Published=true,
-                         DisplayOrder=0
-                     }
-                },
-              },
-       RoomFeatures = new List<RoomFeatures>
-       {
-           new RoomFeatures
-           {
-              RoomId=1,
-                   FeaturesId = 1
-           },
-           new RoomFeatures
-           {
-              RoomId=1,
-                   FeaturesId = 2
-           },
-           new RoomFeatures
-           {
-              RoomId=1,
-                   FeaturesId = 3
-           },
-           new RoomFeatures
-           {
-              RoomId=1,
-                   FeaturesId = 4
-           },
-           new RoomFeatures
-           {
-              RoomId=1,
-                   FeaturesId = 5
-           },
-           new RoomFeatures
-           {
-              RoomId=1,
-                   FeaturesId = 6
-           },
-           new RoomFeatures
-           {
-              RoomId=1,
-                   FeaturesId =7
-           },
-           new RoomFeatures
-           {
-              RoomId=1,
-                   FeaturesId = 8
-           }
-
-       },
-         Seo = new Seo
-         {
-               MetaKeywords = "Dormitory, alfam, emu",
-                    MetaDescription = "Dormitory description",
-                    MetaTitle = "Akdeniz dormitory",
-                    SearchEngineFriendlyPageName = "Double-room"
-         },
-
-
-
-       Published = true,
-        DisplayOrder = 4,
-        RoomTranslation = new List<RoomTranslation>
-                        {
-            new RoomTranslation
-            {LanguageId = _englishLanguageId,
-                RoomName ="Single room",
-                                GenderAllocation ="Girls and boys on seperate floors",
-                            BedType ="Super size king bed"
-            },
-                new RoomTranslation
-            {LanguageId = _turkishLanguageId,
-                RoomName ="Single roomTR",
-                                GenderAllocation ="Girls and boys on seperate floorsTR",
-                            BedType ="Super size king bedTR"
-            }
-
-
-    }
-}
-
-                },
+            
 
                 CloseLocations = new List<Locationinformation>
                 {
@@ -1296,14 +1329,14 @@ namespace Dau.Services.Seeding
                 NameOfLocation="Electrical Engineering dept.",
                 Distance="7 mi",
                 Duration="6 mins",
-                MapSection="https://www.emu.edu.tr/campusmap?design=empty#b21"
+                MapSection="b21"
             },
              new Locationinformation
             {
                 NameOfLocation="Eco supermarket",
                 Distance="7 mi",
                 Duration="3 mins"
-                , MapSection="https://www.emu.edu.tr/campusmap?design=empty#b32"
+                , MapSection="b32"
             },
 
               new Locationinformation
@@ -1311,7 +1344,7 @@ namespace Dau.Services.Seeding
                 NameOfLocation="Koop bank atm machine",
                 Distance="12 mi",
                 Duration="13 mins"
-                , MapSection="https://www.emu.edu.tr/campusmap?design=empty#b87"
+                , MapSection="b87"
             }
 
                 },
@@ -1364,7 +1397,7 @@ namespace Dau.Services.Seeding
                     CatalogImage=  new CatalogImage
                     {
 
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=9",
+                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
                        CreatedDate =DateTime.Now,
                          Published=true,
                          DisplayOrder=0
@@ -1377,7 +1410,7 @@ namespace Dau.Services.Seeding
                     CatalogImage= new CatalogImage
                     {
 
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=7",
+                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -1389,7 +1422,7 @@ namespace Dau.Services.Seeding
                 {
                     CatalogImage= new CatalogImage
                     {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=4",
+                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -1402,7 +1435,7 @@ namespace Dau.Services.Seeding
                 {
                     CatalogImage=new CatalogImage
                     {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=8",
+                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -1415,7 +1448,7 @@ namespace Dau.Services.Seeding
                 {
                     CatalogImage=new CatalogImage
                     {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=10",
+                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -1428,7 +1461,7 @@ namespace Dau.Services.Seeding
                 {
                     CatalogImage=new CatalogImage
                     {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=12",
+                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -1491,7 +1524,7 @@ namespace Dau.Services.Seeding
             }
                  ,  new Dormitory
       {
-
+                      DormitoryTypeId = 2,
                 NoOfStudents = 234,
                 RatingNo = 8.4,
                 ReviewNo = 12,
@@ -1548,22 +1581,406 @@ namespace Dau.Services.Seeding
                     SearchEngineFriendlyPageName = "Alfam-dormitory"
                 },
 
-                Rooms = new List<Room>
+            
+
+                CloseLocations = new List<Locationinformation>
                 {
+                   new Locationinformation
+            {
+                NameOfLocation="Computer Engineering dept.",
+                Distance="4 mi",
+                Duration="2 mins",
+                MapSection="b21"
+            },
+             new Locationinformation
+            {
+                NameOfLocation="Health center",
+                Distance="7 mi",
+                Duration="3 mins"
+                , MapSection="b32"
+            },
+
+              new Locationinformation
+            {
+                NameOfLocation="Koop bank atm machine",
+                Distance="12 mi",
+                Duration="13 mins"
+                , MapSection="b87"
+            }
+
+                },
+
+                DormitoryFeatures = new List<DormitoryFeatures>
+                {
+                   new DormitoryFeatures
+                   {DormitoryId =1,
+                   FeaturesId = 1
+                   },
+
+                    new DormitoryFeatures
+                   {DormitoryId =1,
+                   FeaturesId = 2
+                   },
+
+                    new DormitoryFeatures
+                   {DormitoryId =1,
+                   FeaturesId = 3
+                   },
+
+                    new DormitoryFeatures
+                   {DormitoryId =1,
+                   FeaturesId = 4
+                   },new DormitoryFeatures
+                   {DormitoryId =1,
+                   FeaturesId = 5
+                   },new DormitoryFeatures
+                   {DormitoryId =1,
+                   FeaturesId = 6
+                   },new DormitoryFeatures
+                   {DormitoryId =1,
+                   FeaturesId = 7
+                   },new DormitoryFeatures
+                   {DormitoryId =1,
+                   FeaturesId = 8
+                   },new DormitoryFeatures
+                   {DormitoryId =1,
+                   FeaturesId = 9
+                   }
+                },
+
+              DormitoryCatalogImage = new List<DormitoryCatalogImage>
+              {
+                new DormitoryCatalogImage
+                {
+                    CatalogImage = new CatalogImage
+                    {
+                  ImageUrl=  "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+    CreatedDate =DateTime.Now,
+                         Published=true,
+                         DisplayOrder=0
+                     }
+                },
+
+                new DormitoryCatalogImage
+                {
+                    CatalogImage=  new CatalogImage
+                    {
+
+                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                       CreatedDate =DateTime.Now,
+                         Published=true,
+                         DisplayOrder=0
+                     }
+                },
+
+
+                   new DormitoryCatalogImage
+                {
+                    CatalogImage= new CatalogImage
+                    {
+
+                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+
+                       CreatedDate =DateTime.Now,
+                         Published=true,
+                         DisplayOrder=0
+                     }
+                },
+
+                      new DormitoryCatalogImage
+                {
+                    CatalogImage= new CatalogImage
+                    {
+                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+
+                       CreatedDate =DateTime.Now,
+                         Published=true,
+                         DisplayOrder=0
+                     }
+                },
+
+
+                         new DormitoryCatalogImage
+                {
+                    CatalogImage=new CatalogImage
+                    {
+                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+
+                       CreatedDate =DateTime.Now,
+                         Published=true,
+                         DisplayOrder=0
+                     }
+                },
+
+
+                            new DormitoryCatalogImage
+                {
+                    CatalogImage=new CatalogImage
+                    {
+                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+
+                       CreatedDate =DateTime.Now,
+                         Published=true,
+                         DisplayOrder=0
+                     }
+                },
+
+
+                               new DormitoryCatalogImage
+                {
+                    CatalogImage=new CatalogImage
+                    {
+                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+
+                       CreatedDate =DateTime.Now,
+                         Published=true,
+                         DisplayOrder=0
+                     }
+                },
+              },
+
+
+
+                DormitoryTranslation = new List<DormitoryTranslation>
+                {
+                    new DormitoryTranslation
+                    {
+                LocationRemark = "Excellent location",
+                DormitoryName = "Alfam Dormitory",
+                        LanguageId=_englishLanguageId,
+                         RatingText = "Excellent",
+
+
+                Option = "Staff",
+                OptionValue = "Staff are very friendly",
+                StandAloneOption = "Has a gym!",
+
+
+                DormitoryDescription = " Located within the EMU Campus, Alfam Dormitories is the nearest dormitory to the Departments. Spread over 35 acres of land Alfam provides a service based on the needs of the Students." +
+
+          " <br><br> Our Dormitory is protected by CCTV in all its buildings and corridors as well as 24 hour attendance of Secuirty members. All our rooms are cleaned by our cleaning staff twice a week, the common areas daily and the bed linen changed every week." +
+
+           "<br><br>with its 12 different types of rooms, Alfam Dormitories offers a choice for all types of budgets and needs. All our students enjoy the benefit of 4 Mbit unlimited and free internet and no deposit." +
+
+          "<br><br> Alfam Dormitories also includes Fitness Center, Cafe, Restaurant, Stationerer in its capacity. Alfam Dormitories with its friendly personel has been providing a service for students with 20 years experience always continuing to strive for the best."
+
+
+                    },
+                        new DormitoryTranslation
+                    {  LocationRemark = "Excellent locationTR",
+                DormitoryName = "Alfam DormitoryTR",
+                        LanguageId=_turkishLanguageId,
+                         RatingText = "ExcellentTR",
+
+
+                Option = "StaffTR",
+                OptionValue = "Staff are very friendlyTR",
+                StandAloneOption = "Has a gym!TR",
+
+
+                DormitoryDescription = "Turkish-text Located within the EMU Campus, Alfam Dormitories is the nearest dormitory to the Departments. Spread over 35 acres of land Alfam provides a service based on the needs of the Students." +
+
+          " <br><br> Our Dormitory is protected by CCTV in all its buildings and corridors as well as 24 hour attendance of Secuirty members. All our rooms are cleaned by our cleaning staff twice a week, the common areas daily and the bed linen changed every week." +
+
+           "<br><br>with its 12 different types of rooms, Alfam Dormitories offers a choice for all types of budgets and needs. All our students enjoy the benefit of 4 Mbit unlimited and free internet and no deposit." +
+
+          "<br><br> Alfam Dormitories also includes Fitness Center, Cafe, Restaurant, Stationerer in its capacity. Alfam Dormitories with its friendly personel has been providing a service for students with 20 years experience always continuing to strive for the best."
+
+
+                    }
+
+                }
+
+
+            }
+        };
+      
+
+
+
+            foreach (var dormitory in modelList)
+            {
+                _dormitoryRepo.Insert(dormitory);
+            }
+         
+
+
+        }
+
+        public void seedDormitoryBlocks()
+        {
+            int _englishLanguageId = 1;
+            int _turkishLanguageId = 2;
+
+            var DormitoryBlockList = new List<DormitoryBlock>
+            {
+                new DormitoryBlock
+                {
+                  Published = true,
+                  DisplayOrder= 0,
+
+
+                  DormitoryId= 1,
+                  DormitoryBlockTranslations = new List<DormitoryBlockTranslation>
+                  {
+                      new DormitoryBlockTranslation{
+                          LanguageId = _englishLanguageId,
+                          Name = "A block",
+                         Description ="The first block in dormitory"
+
+                         },
+
+                       new DormitoryBlockTranslation{
+                          LanguageId =_turkishLanguageId,
+                          Name = "A blockTR",
+                         Description ="The first block in dormitoryTR"
+
+                         }
+
+                    }
+                },
+                new DormitoryBlock
+                {
+                  Published = true,
+                  DisplayOrder= 0,
+
+
+                  DormitoryId= 1,
+                  DormitoryBlockTranslations = new List<DormitoryBlockTranslation>
+                  {
+                      new DormitoryBlockTranslation{
+                          LanguageId = _englishLanguageId,
+                          Name = "A block",
+                         Description ="The first block in dormitory"
+
+                         },
+
+                       new DormitoryBlockTranslation{
+                          LanguageId =_turkishLanguageId,
+                          Name = "A blockTR",
+                         Description ="The first block in dormitoryTR"
+
+                         }
+
+                    }
+                },
+                new DormitoryBlock
+                {
+                  Published = true,
+                  DisplayOrder= 0,
+
+
+                  DormitoryId= 1,
+                  DormitoryBlockTranslations = new List<DormitoryBlockTranslation>
+                  {
+                      new DormitoryBlockTranslation{
+                          LanguageId = _englishLanguageId,
+                          Name = "Alfam Vista block",
+                         Description ="The Best block in dormitory"
+
+                         },
+
+                       new DormitoryBlockTranslation{
+                          LanguageId =_turkishLanguageId,
+                          Name = "Alfam Vista blockTR",
+                         Description ="The Best block in dormitoryTR"
+
+                         }
+
+                    }
+                },
+                new DormitoryBlock
+                {
+                  Published = true,
+                  DisplayOrder= 0,
+
+
+                  DormitoryId= 2,
+                  DormitoryBlockTranslations = new List<DormitoryBlockTranslation>
+                  {
+                      new DormitoryBlockTranslation{
+                          LanguageId = _englishLanguageId,
+                          Name = "A block",
+                         Description ="The first block in dormitory"
+
+                         },
+
+                       new DormitoryBlockTranslation{
+                          LanguageId =_turkishLanguageId,
+                          Name = "A blockTR",
+                         Description ="The first block in dormitoryTR"
+
+                         }
+
+                    }
+                },
+                 new DormitoryBlock
+                {
+                  Published = true,
+                  DisplayOrder= 0,
+
+
+                  DormitoryId= 2,
+                  DormitoryBlockTranslations = new List<DormitoryBlockTranslation>
+                  {
+                      new DormitoryBlockTranslation{
+                          LanguageId = _englishLanguageId,
+                          Name = "b block",
+                         Description ="The b block in dormitory"
+
+                         },
+
+                       new DormitoryBlockTranslation{
+                          LanguageId =_turkishLanguageId,
+                          Name = "bblockTR",
+                         Description ="The first b in dormitoryTR"
+
+                         }
+
+                    }
+                }
+            };
+
+            foreach(var dormitoryBlock in DormitoryBlockList)
+            {
+                _dormitoryBlockRepo.Insert(dormitoryBlock);
+            }
+
+        }
+
+        public void SeedRoomData()
+        {
+            int _englishLanguageId = 1;
+            int _turkishLanguageId = 2;
+
+         
+          
+            var _domritoryId_1 = (from dorm in _dormitoryRepo.List().ToList() where dorm.DormitoryTypeId == 1 select new { dorm.Id }).FirstOrDefault().Id;
+            var _domritoryId_2 = (from dorm in _dormitoryRepo.List().ToList() where dorm.DormitoryTypeId == 2 select new { dorm.Id }).FirstOrDefault().Id;
+            var RoomsList = new List<Room>
+            {
+              
                     new Room
                     {
 
                         NoOfStudents =2000,
-
-
+DormitoryId = _domritoryId_1,
+  PaymentPerSemesterNotYear= true,
+DormitoryBlockId=1,
+     TaxAmount =10,
+      BookingFee =15,
         RoomsQuota =23,
      HasDeposit =true,
      ShowPrice =true,
-
-
+     RoomSize = 43.3,
+   
        Price = 2300,
         PriceOld =5000,
          NoRoomQuota= 23,
+          PercentageOff = 30, //from database
+                                    DealEndTime = DateTime.Now.AddDays(3), //change this to come from db
+                                    DisplayNoRoomsLeft = true,
+                                    DisplayDeal = true,
 
           RoomCatalogImage = new List<RoomCatalogImage>
               {
@@ -1583,7 +2000,7 @@ namespace Dau.Services.Seeding
                     CatalogImage=  new CatalogImage
                     {
 
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=9",
+                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
                        CreatedDate =DateTime.Now,
                          Published=true,
                          DisplayOrder=0
@@ -1596,7 +2013,7 @@ namespace Dau.Services.Seeding
                     CatalogImage= new CatalogImage
                     {
 
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=7",
+                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -1608,7 +2025,7 @@ namespace Dau.Services.Seeding
                 {
                     CatalogImage= new CatalogImage
                     {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=4",
+                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -1621,7 +2038,7 @@ namespace Dau.Services.Seeding
                 {
                     CatalogImage=new CatalogImage
                     {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=8",
+                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -1634,7 +2051,7 @@ namespace Dau.Services.Seeding
                 {
                     CatalogImage=new CatalogImage
                     {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=10",
+                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -1647,7 +2064,7 @@ namespace Dau.Services.Seeding
                 {
                     CatalogImage=new CatalogImage
                     {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=12",
+                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -1729,78 +2146,31 @@ namespace Dau.Services.Seeding
 
 
     }
-}
+},
+                
+                    new Room
+                    {
 
-                },
+                        NoOfStudents =2,
+        TaxAmount =23,
+      BookingFee =0,
+       DormitoryId = _domritoryId_1,
+DormitoryBlockId=2,
+        RoomsQuota =6,
+     HasDeposit =true,
+     ShowPrice =true,
+       DisplayNoRoomsLeft = true,
+                                    DisplayDeal = false,
+      RoomSize = 15,
+      PaymentPerSemesterNotYear= false,
+       Price = 4300,
+        PriceOld =5000,
 
-                CloseLocations = new List<Locationinformation>
-                {
-                   new Locationinformation
-            {
-                NameOfLocation="Computer Engineering dept.",
-                Distance="4 mi",
-                Duration="2 mins",
-                MapSection="https://www.emu.edu.tr/campusmap?design=empty#b21"
-            },
-             new Locationinformation
-            {
-                NameOfLocation="Health center",
-                Distance="7 mi",
-                Duration="3 mins"
-                , MapSection="https://www.emu.edu.tr/campusmap?design=empty#b32"
-            },
+         NoRoomQuota= 2,
 
-              new Locationinformation
-            {
-                NameOfLocation="Koop bank atm machine",
-                Distance="12 mi",
-                Duration="13 mins"
-                , MapSection="https://www.emu.edu.tr/campusmap?design=empty#b87"
-            }
-
-                },
-
-                DormitoryFeatures = new List<DormitoryFeatures>
-                {
-                   new DormitoryFeatures
-                   {DormitoryId =1,
-                   FeaturesId = 1
-                   },
-
-                    new DormitoryFeatures
-                   {DormitoryId =1,
-                   FeaturesId = 2
-                   },
-
-                    new DormitoryFeatures
-                   {DormitoryId =1,
-                   FeaturesId = 3
-                   },
-
-                    new DormitoryFeatures
-                   {DormitoryId =1,
-                   FeaturesId = 4
-                   },new DormitoryFeatures
-                   {DormitoryId =1,
-                   FeaturesId = 5
-                   },new DormitoryFeatures
-                   {DormitoryId =1,
-                   FeaturesId = 6
-                   },new DormitoryFeatures
-                   {DormitoryId =1,
-                   FeaturesId = 7
-                   },new DormitoryFeatures
-                   {DormitoryId =1,
-                   FeaturesId = 8
-                   },new DormitoryFeatures
-                   {DormitoryId =1,
-                   FeaturesId = 9
-                   }
-                },
-
-              DormitoryCatalogImage = new List<DormitoryCatalogImage>
+       RoomCatalogImage = new List<RoomCatalogImage>
               {
-                new DormitoryCatalogImage
+                new RoomCatalogImage
                 {
                     CatalogImage = new CatalogImage
                     {
@@ -1811,12 +2181,12 @@ namespace Dau.Services.Seeding
                      }
                 },
 
-                new DormitoryCatalogImage
+                new RoomCatalogImage
                 {
                     CatalogImage=  new CatalogImage
                     {
 
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=9",
+                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
                        CreatedDate =DateTime.Now,
                          Published=true,
                          DisplayOrder=0
@@ -1824,12 +2194,12 @@ namespace Dau.Services.Seeding
                 },
 
 
-                   new DormitoryCatalogImage
+                   new RoomCatalogImage
                 {
                     CatalogImage= new CatalogImage
                     {
 
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=7",
+                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -1837,11 +2207,11 @@ namespace Dau.Services.Seeding
                      }
                 },
 
-                      new DormitoryCatalogImage
+                      new RoomCatalogImage
                 {
                     CatalogImage= new CatalogImage
                     {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=4",
+                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -1850,11 +2220,11 @@ namespace Dau.Services.Seeding
                 },
 
 
-                         new DormitoryCatalogImage
+                         new RoomCatalogImage
                 {
                     CatalogImage=new CatalogImage
                     {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=8",
+                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -1863,11 +2233,11 @@ namespace Dau.Services.Seeding
                 },
 
 
-                            new DormitoryCatalogImage
+                            new RoomCatalogImage
                 {
                     CatalogImage=new CatalogImage
                     {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=10",
+                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -1876,11 +2246,11 @@ namespace Dau.Services.Seeding
                 },
 
 
-                               new DormitoryCatalogImage
+                               new RoomCatalogImage
                 {
                     CatalogImage=new CatalogImage
                     {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=12",
+                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -1888,78 +2258,286 @@ namespace Dau.Services.Seeding
                      }
                 },
               },
+       RoomFeatures = new List<RoomFeatures>
+       {
+           new RoomFeatures
+           {
+              RoomId=1,
+                   FeaturesId = 1
+           },
+           new RoomFeatures
+           {
+              RoomId=1,
+                   FeaturesId = 2
+           },
+           new RoomFeatures
+           {
+              RoomId=1,
+                   FeaturesId = 3
+           },
+           new RoomFeatures
+           {
+              RoomId=1,
+                   FeaturesId = 4
+           },
+           new RoomFeatures
+           {
+              RoomId=1,
+                   FeaturesId = 5
+           },
+           new RoomFeatures
+           {
+              RoomId=1,
+                   FeaturesId = 6
+           },
+           new RoomFeatures
+           {
+              RoomId=1,
+                   FeaturesId =7
+           },
+           new RoomFeatures
+           {
+              RoomId=1,
+                   FeaturesId = 8
+           }
+
+       },
+         Seo = new Seo
+         {
+               MetaKeywords = "Dormitory, alfam, emu",
+                    MetaDescription = "Dormitory description",
+                    MetaTitle = "Akdeniz dormitory",
+                    SearchEngineFriendlyPageName = "Double-room"
+         },
 
 
 
-                DormitoryTranslation = new List<DormitoryTranslation>
-                {
-                    new DormitoryTranslation
+       Published = true,
+        DisplayOrder = 4,
+        RoomTranslation = new List<RoomTranslation>
+                        {
+            new RoomTranslation
+            {LanguageId = _englishLanguageId,
+                RoomName ="Single room",
+                                GenderAllocation ="Girls and boys on seperate floors",
+                            BedType ="Super size king bed"
+            },
+                new RoomTranslation
+            {LanguageId = _turkishLanguageId,
+                RoomName ="Single roomTR",
+                                GenderAllocation ="Girls and boys on seperate floorsTR",
+                            BedType ="Super size king bedTR"
+            }
+
+
+    }
+},
+                       new Room
                     {
-                LocationRemark = "Excellent location",
-                DormitoryName = "Alfam Dormitory",
-                        LanguageId=_englishLanguageId,
-                         RatingText = "Excellent",
+
+                        NoOfStudents =4,
+                             TaxAmount =50,
+      BookingFee =0,
+DormitoryId =  _domritoryId_2,
+DormitoryBlockId = 1,
+  PaymentPerSemesterNotYear= true,
+        RoomsQuota =6,
+     HasDeposit =true,
+     ShowPrice =true,
+      RoomSize = 23.3,
+   
+       Price = 4300,
+        PriceOld =5000,
+         NoRoomQuota= 2,
+          PercentageOff = 20, //from database
+                                    DealEndTime = DateTime.Now.AddDays(6), //change this to come from db
+                                    DisplayNoRoomsLeft = false,
+                                    DisplayDeal = true,
+       RoomCatalogImage = new List<RoomCatalogImage>
+              {
+                new RoomCatalogImage
+                {
+                    CatalogImage = new CatalogImage
+                    {
+                  ImageUrl=  "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+    CreatedDate =DateTime.Now,
+                         Published=true,
+                         DisplayOrder=0
+                     }
+                },
+
+                new RoomCatalogImage
+                {
+                    CatalogImage=  new CatalogImage
+                    {
+
+                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                       CreatedDate =DateTime.Now,
+                         Published=true,
+                         DisplayOrder=0
+                     }
+                },
 
 
-                Option = "Staff",
-                OptionValue = "Staff are very friendly",
-                StandAloneOption = "Has a gym!",
+                   new RoomCatalogImage
+                {
+                    CatalogImage= new CatalogImage
+                    {
+
+                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+
+                       CreatedDate =DateTime.Now,
+                         Published=true,
+                         DisplayOrder=0
+                     }
+                },
+
+                      new RoomCatalogImage
+                {
+                    CatalogImage= new CatalogImage
+                    {
+                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+
+                       CreatedDate =DateTime.Now,
+                         Published=true,
+                         DisplayOrder=0
+                     }
+                },
 
 
-                DormitoryDescription = " Located within the EMU Campus, Alfam Dormitories is the nearest dormitory to the Departments. Spread over 35 acres of land Alfam provides a service based on the needs of the Students." +
+                         new RoomCatalogImage
+                {
+                    CatalogImage=new CatalogImage
+                    {
+                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
 
-          " <br><br> Our Dormitory is protected by CCTV in all its buildings and corridors as well as 24 hour attendance of Secuirty members. All our rooms are cleaned by our cleaning staff twice a week, the common areas daily and the bed linen changed every week." +
-
-           "<br><br>with its 12 different types of rooms, Alfam Dormitories offers a choice for all types of budgets and needs. All our students enjoy the benefit of 4 Mbit unlimited and free internet and no deposit." +
-
-          "<br><br> Alfam Dormitories also includes Fitness Center, Cafe, Restaurant, Stationerer in its capacity. Alfam Dormitories with its friendly personel has been providing a service for students with 20 years experience always continuing to strive for the best."
-
-
-                    },
-                        new DormitoryTranslation
-                    {  LocationRemark = "Excellent locationTR",
-                DormitoryName = "Alfam DormitoryTR",
-                        LanguageId=_turkishLanguageId,
-                         RatingText = "ExcellentTR",
+                       CreatedDate =DateTime.Now,
+                         Published=true,
+                         DisplayOrder=0
+                     }
+                },
 
 
-                Option = "StaffTR",
-                OptionValue = "Staff are very friendlyTR",
-                StandAloneOption = "Has a gym!TR",
+                            new RoomCatalogImage
+                {
+                    CatalogImage=new CatalogImage
+                    {
+                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+
+                       CreatedDate =DateTime.Now,
+                         Published=true,
+                         DisplayOrder=0
+                     }
+                },
 
 
-                DormitoryDescription = "Turkish-text Located within the EMU Campus, Alfam Dormitories is the nearest dormitory to the Departments. Spread over 35 acres of land Alfam provides a service based on the needs of the Students." +
+                               new RoomCatalogImage
+                {
+                    CatalogImage=new CatalogImage
+                    {
+                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
 
-          " <br><br> Our Dormitory is protected by CCTV in all its buildings and corridors as well as 24 hour attendance of Secuirty members. All our rooms are cleaned by our cleaning staff twice a week, the common areas daily and the bed linen changed every week." +
+                       CreatedDate =DateTime.Now,
+                         Published=true,
+                         DisplayOrder=0
+                     }
+                },
+              },
+       RoomFeatures = new List<RoomFeatures>
+       {
+           new RoomFeatures
+           {
+              RoomId=1,
+                   FeaturesId = 1
+           },
+           new RoomFeatures
+           {
+              RoomId=1,
+                   FeaturesId = 2
+           },
+           new RoomFeatures
+           {
+              RoomId=1,
+                   FeaturesId = 3
+           },
+           new RoomFeatures
+           {
+              RoomId=1,
+                   FeaturesId = 4
+           },
+           new RoomFeatures
+           {
+              RoomId=1,
+                   FeaturesId = 5
+           },
+           new RoomFeatures
+           {
+              RoomId=1,
+                   FeaturesId = 6
+           },
+           new RoomFeatures
+           {
+              RoomId=1,
+                   FeaturesId =7
+           },
+           new RoomFeatures
+           {
+              RoomId=1,
+                   FeaturesId = 8
+           }
 
-           "<br><br>with its 12 different types of rooms, Alfam Dormitories offers a choice for all types of budgets and needs. All our students enjoy the benefit of 4 Mbit unlimited and free internet and no deposit." +
+       },
+         Seo = new Seo
+         {
+               MetaKeywords = "Dormitory, alfam, emu",
+                    MetaDescription = "Dormitory description",
+                    MetaTitle = "Akdeniz dormitory",
+                    SearchEngineFriendlyPageName = "Double-room"
+         },
 
-          "<br><br> Alfam Dormitories also includes Fitness Center, Cafe, Restaurant, Stationerer in its capacity. Alfam Dormitories with its friendly personel has been providing a service for students with 20 years experience always continuing to strive for the best."
 
 
-                    }
-
-                }
-
-
+       Published = true,
+        DisplayOrder = 4,
+        RoomTranslation = new List<RoomTranslation>
+                        {
+            new RoomTranslation
+            {LanguageId = _englishLanguageId,
+                RoomName ="Quadruple room",
+                                GenderAllocation ="Girls and boys on seperate floors",
+                            BedType ="Super size king bed"
+            },
+                new RoomTranslation
+            {LanguageId = _turkishLanguageId,
+                RoomName ="Quadruple roomTR",
+                                GenderAllocation ="Girls and boys on seperate floorsTR",
+                            BedType ="Super size king bedTR"
             }
-        };
-      
 
 
+    }
+}
 
-            foreach (var dormitory in modelList)
+
+            };
+
+            foreach(var room in RoomsList)
             {
-                _dormitoryRepo.Insert(dormitory);
+                _roomRepo.Insert(room);
             }
-         
-
-
         }
 
 
         public void SeedReviews()
         {
+            //get user ids dynamicaly when seeding the reviews
+            var UsersList = _userManager.Users;
+
+            var user1Id = from user in UsersList.ToList() where user.UserName == "msjahun@live.com" select new { user.Id };
+            var user2Id = from user in UsersList.ToList() where user.UserName == "Chivy1221@gmail.com" select new { user.Id };
+            var user3Id = from user in UsersList.ToList() where user.UserName == "Abdullahiismailabubakar@gmail.com" select new { user.Id };
+            var user4Id = from user in UsersList.ToList() where user.UserName == "kamaluddeen02@gmail.com" select new { user.Id };
+
             List<Review> reviews = new List<Review>
             {
                 new Review
@@ -1969,7 +2547,7 @@ namespace Dau.Services.Seeding
                    IsApproved= true,
                    CreatedOn = DateTime.Now,
                    Message = "I love this dormitory - Review 1 dormitory 1",
-                   UserId = "1e2617d6-b572-4ba9-88ec-d6c89b644fd6"
+                   UserId = user1Id.FirstOrDefault().Id
                 },
                  new Review
                 {
@@ -1978,7 +2556,7 @@ namespace Dau.Services.Seeding
                    IsApproved= true,
                    CreatedOn = DateTime.Now,
                    Message = "I love this dormitory Review 2  dormitory 2",
-                   UserId = "1e2617d6-b572-4ba9-88ec-d6c89b644fd6"
+                   UserId = user1Id.FirstOrDefault().Id
                 },
                   new Review
                 {
@@ -1987,7 +2565,7 @@ namespace Dau.Services.Seeding
                    IsApproved= true,
                    CreatedOn = DateTime.Now,
                    Message = "I love this dormitory Review 3 dormitory 1",
-                   UserId = "2bfc2aba-73aa-45da-a212-b4512c91557a"
+                   UserId = user3Id.FirstOrDefault().Id
                 },
                    new Review
                 {
@@ -1996,7 +2574,7 @@ namespace Dau.Services.Seeding
                    IsApproved= true,
                    CreatedOn = DateTime.Now,
                    Message = "I love this dormitory Review 4 dormitory 2",
-                   UserId ="68c78b20-dd95-4df1-8e10-e16247dd87e6"
+                   UserId =user2Id.FirstOrDefault().Id
                 },
                     new Review
                 {
@@ -2005,7 +2583,7 @@ namespace Dau.Services.Seeding
                    IsApproved= true,
                    CreatedOn = DateTime.Now,
                    Message = "I love this dormitory Review 5 dormitory 1",
-                   UserId = "e050a363-7543-47fd-bd76-1eb9adf5bea0"
+                   UserId = user2Id.FirstOrDefault().Id
                 },
                      new Review
                 {
@@ -2014,7 +2592,7 @@ namespace Dau.Services.Seeding
                    IsApproved= true,
                    CreatedOn = DateTime.Now,
                    Message = "I love this dormitory Review 6 dormitory 2",
-                   UserId = "e050a363-7543-47fd-bd76-1eb9adf5bea0"
+                   UserId = user3Id.FirstOrDefault().Id
                 }
 
         };
@@ -2025,7 +2603,250 @@ namespace Dau.Services.Seeding
             }
         }
 
+        public void SeedBookings()
+        {
+            var EnglishLangId = 1;
+            var TurkishLangId = 2;
+               //seed payment status
+               var paymentStatusList = new List<PaymentStatus>
+            {
+                new PaymentStatus
+                {
+                         CreatedDate = DateTime.Now,
+                         PaymentStatusTranslations = new List<PaymentStatusTranslation>{
+                             new PaymentStatusTranslation
+                             {
+                                 LanguageId = EnglishLangId,
+                                 PaymentStatus = "Payment complete"
+                             },
 
+                              new PaymentStatusTranslation
+                             {
+                                 LanguageId = TurkishLangId,
+                                 PaymentStatus = "Payment completeTR"
+                             }
+
+                                 }
+
+
+                 },
+
+                new PaymentStatus
+                {
+                         CreatedDate = DateTime.Now,
+                         PaymentStatusTranslations = new List<PaymentStatusTranslation>{
+                             new PaymentStatusTranslation
+                             {
+                                 LanguageId = EnglishLangId,
+                                 PaymentStatus = "Pending"
+                             },
+
+                              new PaymentStatusTranslation
+                             {
+                                 LanguageId = TurkishLangId,
+                                 PaymentStatus = "PendingTR"
+                             }
+
+                                 }
+
+
+                 },
+
+                new PaymentStatus
+                {
+                         CreatedDate = DateTime.Now,
+                         PaymentStatusTranslations = new List<PaymentStatusTranslation>{
+                             new PaymentStatusTranslation
+                             {
+                                 LanguageId = EnglishLangId,
+                                 PaymentStatus = "Not paid"
+                             },
+
+                              new PaymentStatusTranslation
+                             {
+                                 LanguageId = TurkishLangId,
+                                 PaymentStatus = "Not paidTR"
+                             }
+
+                                 }
+
+
+                 }
+
+               };
+            foreach(var paymentstatus in paymentStatusList)
+            {
+                _paymentStatusRepository.Insert(paymentstatus);
+            }
+
+            //seed booking status
+            var bookingStatusList = new List<BookingStatus>
+            {
+                new BookingStatus
+                {
+                    CreatedDate= DateTime.Now,
+                     BookingStatusTranslations = new List<BookingStatusTranslation>
+                     {
+                        new BookingStatusTranslation
+                        {
+                            LanguageId = EnglishLangId,
+                            BookingStatus = "Completed"
+                        },
+                         new BookingStatusTranslation
+                        {
+                            LanguageId = TurkishLangId,
+                            BookingStatus = "CompletedTR"
+                        }
+                     }
+                },
+
+                 new BookingStatus
+                {
+                    CreatedDate= DateTime.Now,
+                     BookingStatusTranslations = new List<BookingStatusTranslation>
+                     {
+                        new BookingStatusTranslation
+                        {
+                            LanguageId = EnglishLangId,
+                            BookingStatus = "Pending"
+                        },
+                         new BookingStatusTranslation
+                        {
+                            LanguageId = TurkishLangId,
+                            BookingStatus = "PendingTR"
+                        }
+                     }
+                },
+
+                  new BookingStatus
+                {
+                    CreatedDate= DateTime.Now,
+                     BookingStatusTranslations = new List<BookingStatusTranslation>
+                     {
+                        new BookingStatusTranslation
+                        {
+                            LanguageId = EnglishLangId,
+                            BookingStatus = "Cancelled"
+                        },
+                         new BookingStatusTranslation
+                        {
+                            LanguageId = TurkishLangId,
+                            BookingStatus = "CancelledTR"
+                        }
+                     }
+                }
+
+
+
+
+            };
+
+            foreach(var bookingstatus in bookingStatusList)
+            {
+                _bookingStatusRepository.Insert(bookingstatus);
+            }
+
+            //seed Users vs dormitory room booking data
+            var UsersList = _userManager.Users;
+
+            var user1Id = from user in UsersList.ToList() where user.UserName == "msjahun@live.com" select new { user.Id };
+            var user2Id = from user in UsersList.ToList() where user.UserName == "Chivy1221@gmail.com" select new { user.Id };
+            var user3Id = from user in UsersList.ToList() where user.UserName == "Abdullahiismailabubakar@gmail.com" select new { user.Id };
+            var user4Id = from user in UsersList.ToList() where user.UserName == "kamaluddeen02@gmail.com" select new { user.Id };
+
+            var bookings = new List<Booking>
+            {
+                new Booking
+                { BookingStatusId =1,
+                PaymentStatusId = 2,
+                UserId = user1Id.FirstOrDefault().Id,
+                CustomerIpAddress = "23.21.203.43", 
+                BookingOrderSubtotal = 2300,
+                BookingFee = 25,
+                BookingTotal = 2325,
+                CreatedOn =DateTime.Now,
+                RoomId =2
+                },
+
+                new Booking
+                { BookingStatusId =2,
+                PaymentStatusId = 2,
+                UserId = user2Id.FirstOrDefault().Id,
+                CustomerIpAddress = "53.21.203.43",
+                BookingOrderSubtotal = 6300,
+                BookingFee = 25,
+                BookingTotal = 6325,
+                CreatedOn =DateTime.Now,
+                RoomId =2
+                },
+
+                new Booking
+                { BookingStatusId =1,
+                PaymentStatusId = 1,
+                UserId = user3Id.FirstOrDefault().Id,
+                CustomerIpAddress = "23.21.203.43",
+                BookingOrderSubtotal = 4300,
+                BookingFee = 25,
+                BookingTotal = 4325,
+                CreatedOn =DateTime.Now,
+                RoomId =2
+                },
+
+                new Booking
+                { BookingStatusId =2,
+                PaymentStatusId = 1,
+                UserId = user4Id.FirstOrDefault().Id,
+                CustomerIpAddress = "25.21.203.43",
+                BookingOrderSubtotal = 5300,
+                BookingFee = 25,
+                BookingTotal = 5325,
+                CreatedOn =DateTime.Now,
+                RoomId =1
+                }
+            };
+
+            foreach(var booking in bookings)
+            {
+                _bookingRepository.Insert(booking);
+            }
+
+        }
+
+        public void SeedCartItems()
+        {
+            //seed Users and cart items
+            var UsersList = _userManager.Users;
+
+            var user1Id = from user in UsersList.ToList() where user.UserName == "msjahun@live.com" select new { user.Id };
+            var user2Id = from user in UsersList.ToList() where user.UserName == "Chivy1221@gmail.com" select new { user.Id };
+            var user3Id = from user in UsersList.ToList() where user.UserName == "Abdullahiismailabubakar@gmail.com" select new { user.Id };
+            var user4Id = from user in UsersList.ToList() where user.UserName == "kamaluddeen02@gmail.com" select new { user.Id };
+
+            var Carts = new List<Cart>
+            {
+                new Cart
+                { RoomId=1,
+                    SemesterPeriodId = 1,
+                    UserId = user1Id.FirstOrDefault().Id
+                },
+
+                  new Cart
+                { RoomId=2,
+                    SemesterPeriodId = 2,
+                    UserId = user2Id.FirstOrDefault().Id
+                }
+
+                  
+
+
+            };
+
+            foreach(var cart in Carts)
+            {
+                _cartRepository.Insert(cart);
+            }
+
+        }
 
 
 
