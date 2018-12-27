@@ -90,7 +90,7 @@
                             {
                                 <span class="text-danger d-block"> Rooms sold out</span>}
                             else
-                            { <a asp-action="Cart" asp-controller="Booking" class="btn btn-primary btn-block btn-sm">@Localizer["I'll reserve"]</a>
+                            { <a href="@Html.Raw(Url.Action("AddToCart", "Booking"))/@item.RoomId"  class="btn btn-primary btn-block btn-sm">@Localizer["I'll reserve"]</a>
                         }
 
                         </td>

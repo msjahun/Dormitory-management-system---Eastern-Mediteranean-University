@@ -98,7 +98,7 @@
                                 <span><i class="fas fa-check"></i>@Localizer["No deposit Included"]<br></span>
                             }
 
-                            <a class="btn btn-primary btn-block btn-sm" href="/Booking/Cart">I'll reserve</a>
+                            <a class="btn btn-primary btn-block btn-sm" href="@Html.Raw(Url.Action("AddToCart", "Booking"))/@item.RoomId" >@Localizer["I'll reserve"]</a>
 
                         </div>
                     </div>
