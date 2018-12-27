@@ -1,0 +1,28 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using Dau.Services.Domain.HomeService
+@model List<GetSearchSuggestionsViewModel>
+@{ 
+    var items = Model;
+}
+
+@if (items.Count > 0)
+{
+<ul class="list-unstyled mb-0">
+
+    @foreach (var item in items)
+    {
+        <li>
+            <a class="list-link" href="@Url.Content("~/Dormitories")/@item.SeoFriendlyUrlName">
+                <i class="fas fa-search"></i>
+                <span>@item.DormitoryName</span> @Localizer[" in {0} ", @item.DormitoryType]
+            </a>
+        </li>
+    }
+</ul>
+}
+else
+{
+    <span class="text-center"> @Localizer["No dormitory found with this name"]</span>
+}
