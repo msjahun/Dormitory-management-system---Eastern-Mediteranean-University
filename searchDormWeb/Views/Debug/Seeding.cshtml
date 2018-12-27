@@ -17,13 +17,15 @@
             <tbody>
                 <tr class="bg-white">
                     <th scope="row">
-                       Check json
+                        Check json
                     </th>
                     <td>Inspect element -> network -- I use this to test api json results</td>
                     <td><button type="button" id="CheckJson" class="btn btn-outline-primary">check Json</button>   </td>
                 </tr>
                 <tr class="table-divider"></tr>
-                
+
+
+
                 <tr class="bg-white">
                     <th scope="row">
                         Seed dormitory features
@@ -33,14 +35,57 @@
                 </tr>
                 <tr class="table-divider"></tr>
 
+
+
                 <tr class="bg-white">
                     <th scope="row">
-                        Seed Dormitories & Rooms
+                        Seed  Dormitory Type
+                    </th>
+                    <td>This seeds our database with Dormitory Type</td>
+                    <td><button type="button" id="SeedDormitoryType" class="btn btn-outline-primary">Seed</button>   </td>
+                </tr>
+                <tr class="table-divider"></tr>
+
+
+                <tr class="bg-white">
+                    <th scope="row">
+                        Seed Dormitories
                     </th>
                     <td>This seeds our database with Dormitories</td>
                     <td><button type="button" id="seedDormitories" class="btn btn-outline-primary">Seed</button>   </td>
                 </tr>
                 <tr class="table-divider"></tr>
+
+
+
+                <tr class="bg-white">
+                    <th scope="row">
+                        seed Dormitory Blocks
+                    </th>
+                    <td>This seeds our database with Dormitory blocks</td>
+                    <td><button type="button" id="seedDormitoryBlocks" class="btn btn-outline-primary">Seed</button>   </td>
+                </tr>
+                <tr class="table-divider"></tr>
+
+
+
+
+
+
+                <tr class="bg-white">
+                    <th scope="row">
+                        Seed RoomData
+                    </th>
+                    <td>This seeds our database with Rooms</td>
+                    <td><button type="button" id="SeedRoomData" class="btn btn-outline-primary">Seed</button>   </td>
+                </tr>
+                <tr class="table-divider"></tr>
+
+
+
+
+
+
 
 
                 <tr class="bg-white">
@@ -51,13 +96,32 @@
                     <td><button type="button" id="seedUsers" class="btn btn-outline-primary">Seed</button>   </td>
                 </tr>
                 <tr class="table-divider"></tr>
-                
+
                 <tr class="bg-white">
                     <th scope="row">
                         Seed User Reviews
                     </th>
                     <td>These seeds reviews in dormitories</td>
                     <td><button type="button" id="seedReviews" class="btn btn-outline-primary">Seed</button>   </td>
+                </tr>
+                <tr class="table-divider"></tr>
+
+                <tr class="bg-white">
+                    <th scope="row">
+                        Seed Bookings
+                    </th>
+                    <td>This seeds sample bookings to dormitories and users</td>
+                    <td><button type="button" id="SeedBookings" class="btn btn-outline-primary">Seed</button>   </td>
+                </tr>
+                <tr class="table-divider"></tr>
+
+
+                <tr class="bg-white">
+                    <th scope="row">
+                        Seed Cart items
+                    </th>
+                    <td>This seeds sample cart items for some users</td>
+                    <td><button type="button" id="SeedCartItems" class="btn btn-outline-primary">Seed</button>   </td>
                 </tr>
                 <tr class="table-divider"></tr>
             </tbody>
@@ -135,6 +199,129 @@
                     $("#comments_section").html(result);
                     if (JSON.stringify(result) === 'true') {
                         alert("User roles seeded successfully");
+                    } else {
+                        alert("Failed to seed data");
+                    }
+                }
+
+            });
+
+        });
+
+
+
+
+        $("#SeedBookings").click(function () {
+
+            // alert("button clicked");
+            $.ajax({
+                type: "POST",
+                url: "SeedBookings",
+                data: {
+                    SectionId: "comments_section"
+                },
+                success: function (result, textStatus, xhr) {
+                    //     alert(result);
+                    $("#comments_section").html(result);
+                    if (JSON.stringify(result) === 'true') {
+                        alert("Sample bookings seeded successfully");
+                    } else {
+                        alert("Failed to seed data");
+                    }
+                }
+
+            });
+
+        });
+
+
+        $("#SeedRoomData").click(function () {
+
+            // alert("button clicked");
+            $.ajax({
+                type: "POST",
+                url: "SeedRoomData",
+                data: {
+                    SectionId: "comments_section"
+                },
+                success: function (result, textStatus, xhr) {
+                    //     alert(result);
+                    $("#comments_section").html(result);
+                    if (JSON.stringify(result) === 'true') {
+                        alert("Sample room data seeded successfully");
+                    } else {
+                        alert("Failed to seed data");
+                    }
+                }
+
+            });
+
+        });
+
+
+        $("#seedDormitoryBlocks").click(function () {
+
+            // alert("button clicked");
+            $.ajax({
+                type: "POST",
+                url: "seedDormitoryBlocks",
+                data: {
+                    SectionId: "comments_section"
+                },
+                success: function (result, textStatus, xhr) {
+                    //     alert(result);
+                    $("#comments_section").html(result);
+                    if (JSON.stringify(result) === 'true') {
+                        alert("Sample Dormitory blocks seeded successfully");
+                    } else {
+                        alert("Failed to seed data");
+                    }
+                }
+
+            });
+
+        });
+
+
+        $("#SeedDormitoryType").click(function () {
+
+            // alert("button clicked");
+            $.ajax({
+                type: "POST",
+                url: "SeedDormitoryType",
+                data: {
+                    SectionId: "comments_section"
+                },
+                success: function (result, textStatus, xhr) {
+                    //     alert(result);
+                    $("#comments_section").html(result);
+                    if (JSON.stringify(result) === 'true') {
+                        alert("Sample Dormitory type seeded successfully");
+                    } else {
+                        alert("Failed to seed data");
+                    }
+                }
+
+            });
+
+        });
+
+
+
+        $("#SeedCartItems").click(function () {
+
+            // alert("button clicked");
+            $.ajax({
+                type: "POST",
+                url: "SeedCartItems",
+                data: {
+                    SectionId: "comments_section"
+                },
+                success: function (result, textStatus, xhr) {
+                    //     alert(result);
+                    $("#comments_section").html(result);
+                    if (JSON.stringify(result) === 'true') {
+                        alert("Cart Items seeded successfully");
                     } else {
                         alert("Failed to seed data");
                     }
