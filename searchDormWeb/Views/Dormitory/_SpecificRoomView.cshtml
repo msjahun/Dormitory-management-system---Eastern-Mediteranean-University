@@ -58,7 +58,7 @@
                         <div class="grid_room">
                             @foreach (var ImageUrl in item.Sliders.ImageUrls)
                             {
-                                <div class="grid-item grid_item_room" id="grid-item_room_@count" onclick="swiperClickRoom(@count)"><img alt="Image placeholder" height="50" src="@ImageUrl"></div>
+                                <div class="grid-item grid_item_room" id="grid-item_room_@count" onclick="swiperClickRoom(@count)"><img alt="Image placeholder" src="@ImageUrl"></div>
 
 
                                 count++;
@@ -196,6 +196,7 @@
 
         });
 
+        $('.grid-item').imagefill({ throttle: 1000 / 60 });
         $('#grid-item_room_0').addClass('grid-item-active');
     }, 50);
 

@@ -35,10 +35,11 @@
     <div class="grid">
         @foreach (var ImageUrl in item.ImageUrls)
         {
-            <div class="grid-item" id="grid-item-@count"  onclick="swiperClick(@count)"><img alt="Image placeholder" height="50" style="object-fit: contain;" src="@ImageUrl"></div>
+            <div class="grid-item"  id="grid-item-@count"  onclick="swiperClick(@count)"><img alt="Image placeholder" style="object-fit: contain;" src="@ImageUrl"></div>
 
 
             count++;
         }
     </div>
 </div>
+
