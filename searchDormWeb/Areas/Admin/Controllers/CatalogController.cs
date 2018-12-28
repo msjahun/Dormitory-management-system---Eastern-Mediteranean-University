@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Dau.Services.Facility;
-using Dau.Services.RoomServiceOld;
+using Dau.Services.Domain.RoomServices;
 
 namespace searchDormWeb.Areas.Admin.Controllers
 {
@@ -54,7 +54,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
                 // List<RoomsListTable> List = _RoomService.GetAllRooms();
-                List<RoomsListTable> List = new List<RoomsListTable>();
+                var List = new List<RoomReviewsTable>();
              
 
                 // getting all Discount data  
