@@ -21,7 +21,7 @@ namespace Dau.Data.Repository
             return _dbContext.Set<T>().Include(path).AsEnumerable();
         }
 
-        public virtual T GetById(int id)
+        public virtual T GetById(long id)
         {
             return _dbContext.Set<T>().Find(id);
         }
