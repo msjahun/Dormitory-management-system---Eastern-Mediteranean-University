@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Dau.Data;
-using Dau.Services.SearchService;
 using Dau.Services.DormitoryServiceOld;
 using Dau.Core.Domain.Users;
 using Microsoft.AspNetCore.Identity;
@@ -19,7 +18,7 @@ using Dau.Services.Users;
 using Dau.Services.AccessControlList;
 using searchDormWeb.Configuration.SecurityFilter;
 using Dau.Services.Facility;
-using Dau.Services.RoomServiceOld;
+
 using Microsoft.Extensions.Logging;
 using Dau.Services.Logging;
 using Dau.Services.Middleware;
@@ -40,6 +39,8 @@ using Dau.Services.Languages;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Dau.Services.Utilities;
 using Dau.Services.Domain.BookingService;
+using Dau.Services.Domain.RoomServices;
+using Dau.Services.Domain.FeaturesServices;
 
 namespace searchDormWeb
 {
@@ -91,7 +92,7 @@ namespace searchDormWeb
             services.AddScoped<IFacilityService, FacilityService>();
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IUserRolesService, UserRolesService>();
-            services.AddScoped<ISearchService, SearchService>();
+           
             services.AddScoped<IDormitoryService, DormitoryService>();
 
 
@@ -123,6 +124,8 @@ namespace searchDormWeb
             services.AddScoped<  IResolveDormitoryService,ResolveDormitoryService > ();
             services.AddScoped < IApiLogService, ApiLogService> ();
             services.AddScoped < IBookingService, BookingService > ();
+            services.AddScoped < IFeaturesService, FeaturesService > ();
+            services.AddScoped <ISearchService ,SearchService> ();
 
 
             services.AddScoped<   ISeedingService, SeedingService> ();
@@ -215,7 +218,9 @@ namespace searchDormWeb
             app.UseMvc(routes =>
             {
 
-                routes.MapRoute("areaRoute", "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
+                routes.MapRoute(
+                     name: "areaRoute",
+                    template:"{area:exists}/{controller=Admin}/{action=Index}/{id?}");
 
                 routes.MapRoute(
                     name: "default",
