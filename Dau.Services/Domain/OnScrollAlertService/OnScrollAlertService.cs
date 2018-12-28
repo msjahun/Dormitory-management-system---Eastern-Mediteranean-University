@@ -15,7 +15,7 @@ namespace Dau.Services.Domain.OnScrollAlertService
                 Text="Someone just booked a room from {0}!, book yours now",
                 Icon="fas fa-lock",
                 name="Alfam Dormitory",
-                link="http://35.204.232.129/Dormitory/Detail",
+                link="/Dormitories/Akdeniz-private-Studio",
                 Color="alert-danger"
 
 
@@ -25,7 +25,7 @@ namespace Dau.Services.Domain.OnScrollAlertService
                 Text="Would you like to partake in a {0} survey?!",
             Icon="fas fa-lock",
                 name="Student feedback",
-                link="http://35.204.232.129/Account/Billing",
+                link="/Account/Billing",
                 Color="alert-success"
 
 
@@ -36,7 +36,7 @@ namespace Dau.Services.Domain.OnScrollAlertService
                 Icon="fas fa-lock",
                 name="Musa",
                 Color="alert-success",
-                 link="http://35.204.232.129/Account/Billing"
+                 link="/Account/Billing"
 
 
             },
@@ -45,7 +45,7 @@ namespace Dau.Services.Domain.OnScrollAlertService
                 Text="Check out the  {0}!, students are saying it's awesome",
                 Icon="fas fa-lock",
                 name="EMU explore page",
-                link="https://localhost:44340/Explore/Dormitories",
+                link="/Explore/Dormitories",
                 Color="alert-info"
 
 
