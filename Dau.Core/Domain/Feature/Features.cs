@@ -18,7 +18,8 @@ namespace Dau.Core.Domain.Feature
 
         public bool IsPublished { get; set; }
         public string IconUrl { get; set; }
-     
+        public int HitCount { get; set; }
+
         public FeaturesCategory FeaturesCategory{ get; set; }
         public ICollection<DormitoryFeatures> DormitoryFeatures { get; set; }
         public ICollection<RoomFeatures> RoomFeatures { get; set; }
