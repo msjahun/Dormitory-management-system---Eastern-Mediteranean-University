@@ -8,7 +8,7 @@ using System.Collections;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Globalization;
-using Dau.Services.SearchService;
+
 using Microsoft.Extensions.Localization;
 using Dau.Data;
 using Dau.Services.DormitoryServiceOld;
