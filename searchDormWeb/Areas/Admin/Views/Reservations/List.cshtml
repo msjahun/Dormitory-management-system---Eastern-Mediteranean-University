@@ -356,7 +356,7 @@
                     {"data": "createdOn" },
                     {"data": "bookingTotal" },
                     {"render": function (data, type, full, meta) {
-                     return '<a class="btn btn-primary" href="/Admin/Reservations/ReservationsEdit/"><i class="fa fa-eye"></i> @Localizer["View"]</a>'; }
+                        return '<a class="btn btn-primary" href="/Admin/Reservations/ReservationEdit/?bookingNo=' + full.bookingNo + '"><i class="fa fa-eye"></i> @Localizer["View"]</a>'; }
                     }
 
 
