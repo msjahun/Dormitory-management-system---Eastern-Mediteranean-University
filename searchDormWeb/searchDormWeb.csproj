@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <Compile Remove="Areas\Admin\Controllers\ReviewsController.cs" />
+    <Compile Remove="Controllers\HomeOldController.cs" />
   </ItemGroup>
 
   <ItemGroup>

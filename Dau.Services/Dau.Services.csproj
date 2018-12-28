@@ -5,6 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Domain\RoomServiceOld\**" />
+    <Compile Remove="Domain\SearchService\**" />
+    <EmbeddedResource Remove="Domain\RoomServiceOld\**" />
+    <EmbeddedResource Remove="Domain\SearchService\**" />
+    <None Remove="Domain\RoomServiceOld\**" />
+    <None Remove="Domain\SearchService\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
   </ItemGroup>
 
