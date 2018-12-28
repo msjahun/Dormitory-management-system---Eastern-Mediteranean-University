@@ -1,0 +1,23 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using Dau.Services.Domain.SearchResultService
+
+@model List<DormitoryNamesTypesViewModel>
+
+@{
+    var items = Model;
+}
+
+@if (Model.Count <= 0 || Model == null)
+{
+    <option disabled>@Localizer["No results found"]</option>
+}
+else
+{
+    <option></option>
+    @foreach (var item in items)
+    {
+        <option value="@item.Id">@item.Name</option>
+    }
+}
