@@ -152,6 +152,55 @@ $.ajax({
 });
 
 
+$.ajax({
+    type: "POST",
+    url: "GetDormitoryTypesFilter",
+    data: {
+        SectionId: "_DormitoryTypes"
+    },
+    success: function (result) {
+        //     alert(result);
+        $("#_DormitoryTypesFilter").html(result);
+     
+
+    }
+});
+
+
+$.ajax({
+    type: "POST",
+    url: "GetDormitoriesFilter",
+    data: {
+        SectionId: "_DormitoriesList"
+    },
+    success: function (result) {
+        //     alert(result);
+        $("#_DormitoriesFilter").html(result);
+     
+
+
+    }
+});
+
+$("#_DormitoryTypesFilter").change(function () {
+
+    $.ajax({
+        type: "POST",
+        url: "GetDormitoriesFilter/" + $("#_DormitoryTypesFilter option:selected").val(),
+        data: {
+            SectionId: "_DormitoriesList"
+        },
+        success: function (result) {
+            //     alert(result);
+            $("#_DormitoriesFilter").html(result);
+
+
+
+        }
+    });
+
+});
+
 
 
 var swiper_room = new Swiper('.swiper_container_room', {});
@@ -159,7 +208,14 @@ var swiper_room = new Swiper('.swiper_container_room', {});
 $(".targetFilterInput").change(function () {
     SearchRooms();
 });
+$(".targetFilterInputStatic").change(function () {
+    SearchRooms();
+});
 
+//Global vars
+var PriceMin = 0;
+var PriceMax = 10000000;
+var RoomArea = 1000000;
 function SearchRooms() {
     insertLoaderInSearchArea();
   
@@ -167,14 +223,26 @@ function SearchRooms() {
         return this.value;
     }).get();
  
-    console.log(checkedVals.join(","));
-
+    console.log("dynamic values",checkedVals.join(","));
+    var isCheckedShowAvailable = $('#ShowAvailable').is(':checked');
+    var isCheckedShowDiscountsOnly = $('#ShowDiscounts').is(':checked');
+    var DormitoriesMultiSelect = $('#_DormitoriesFilter').val();
+    var DormitoryType = $('#_DormitoryTypesFilter').val();
     //console.log($('.targetFilterInput').val());
     $.ajax({
         type: "POST",
         url: "GetRoomResultView",
         data: {
-            SectionId: "SearchResultSection"
+            SectionId: "SearchResultSection",
+            FeaturesIds: checkedVals,
+            DormitoryTypeIds: DormitoryType,
+            DormitoryNameIds: DormitoriesMultiSelect,
+            PriceMin: PriceMin,
+            PriceMax: PriceMax,
+            RoomArea: RoomArea,
+            ShowAvailable: isCheckedShowAvailable,
+            ShowDiscountsOnly: isCheckedShowDiscountsOnly
+
         },
         success: function (result) {
             //     alert(result);
@@ -245,6 +313,10 @@ function SearchRooms() {
     });
 }
 
+
+
+
+
 function insertLoaderInSearchArea() {
     var loader = "<div class=\"text-center mt-5\"> <div class=\"lds-ring\"><div></div><div></div><div></div><div></div></div> </div>";
     $("#SearchResultSection").html(loader);
@@ -293,9 +365,13 @@ var SingleSlider = (function () {
 
         c.noUiSlider.on('update', function (a, b) {
             d.textContent = a[b];
+            //console.log(a + "update " + b);
         });
 
-        c.noUiSlider.on('change.one', function () {
+        c.noUiSlider.on('change.one', function (a, b) {
+            console.log(a + "Room area");
+            RoomArea = a[0];
+
             SearchRooms();
         });
 
@@ -338,10 +414,13 @@ var RangeSlider = (function () {
                 max: parseInt(c.getAttribute('data-range-value-max'))
             }
         }), c.noUiSlider.on("update", function (a, b) {
-            f[b].textContent = a[b]
+            f[b].textContent = a[b];
         });
 
-        c.noUiSlider.on('change.one', function () {
+        c.noUiSlider.on('change.one', function (a, b) {
+            console.log(a[0] + "min " + a[1] + "max " + "Price range");
+            PriceMin = a[0];
+            PriceMax = a[1];
             SearchRooms();
         });
     }
