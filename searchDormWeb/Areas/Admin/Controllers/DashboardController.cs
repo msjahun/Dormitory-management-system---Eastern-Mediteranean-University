@@ -4,10 +4,13 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Dau.Services.Domain.BookingService;
+using Dau.Services.Domain.FeaturesServices;
+using Dau.Services.Domain.RoomServices;
+using Dau.Services.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
-
+using Microsoft.Extensions.Localization;
 
 namespace searchDormWeb.Areas.Admin.Controllers
 { 
@@ -16,6 +19,26 @@ namespace searchDormWeb.Areas.Admin.Controllers
    [Authorize]
     public class DashboardController : Controller
     {
+        private readonly IUsersService _usersService;
+        private readonly IBookingService _bookingService;
+        private readonly IRoomService _roomService;
+        private readonly IStringLocalizer _localizer;
+        private readonly IFeaturesService _featuresService;
+
+        public DashboardController(
+            IUsersService usersService,
+            IBookingService bookingService,
+            IRoomService roomService,
+            IStringLocalizer Localizer,
+             IFeaturesService featuresService)
+        {
+            _usersService = usersService;
+            _bookingService=bookingService;
+            _roomService = roomService;
+            _localizer = Localizer;
+            _featuresService=featuresService;
+        }
+
         // GET: Dashboard
         [HttpGet("[action]")]
         [HttpGet("")]
@@ -48,7 +71,49 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
                 // getting all Discount data  
-                var Data = new List<int>();
+                var Data = new List<BookingTotalsTable>
+                {
+                    new BookingTotalsTable
+                    {
+                        OrderStatus=_localizer["Pending"],
+                        Today="0,00 tl",
+                        ThisWeek="0,00 tl",
+                        ThisMonth="0,00 tl",
+                        ThisYear="0,00 tl",
+                        AllTime="0,00 tl"
+                    },
+
+                     new BookingTotalsTable
+                    {
+                        OrderStatus=_localizer["Processing"],
+                        Today="0,00 tl",
+                        ThisWeek="0,00 tl",
+                        ThisMonth="0,00 tl",
+                        ThisYear="0,00 tl",
+                        AllTime="0,00 tl"
+                    },
+
+                      new BookingTotalsTable
+                    {
+                        OrderStatus=_localizer["Complete"],
+                        Today="0,00 tl",
+                        ThisWeek="0,00 tl",
+                        ThisMonth="0,00 tl",
+                        ThisYear="0,00 tl",
+                        AllTime="0,00 tl"
+                    },
+
+                       new BookingTotalsTable
+                    {
+                        OrderStatus=_localizer["Cancelled"],
+                        Today="0,00 tl",
+                        ThisWeek="0,00 tl",
+                        ThisMonth="0,00 tl",
+                        ThisYear="0,00 tl",
+                        AllTime="0,00 tl"
+                    }
+
+                };
 
                 ////Sorting  
                 //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
@@ -98,7 +163,29 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
                 // getting all Discount data  
-                var Data = new List<int>();
+                var Data = new List<IncompleteBookingsTable> {
+
+                new IncompleteBookingsTable{
+                    Item=_localizer["Total unpain Orders(pending payment status)"],
+                    Total="328,97 tl",
+                    Count="4"
+
+                },
+                    new IncompleteBookingsTable{
+                    Item=_localizer["Total awaiting comfirmation"],
+                    Total="34,4 tl",
+                    Count="7"
+
+                },
+                        new IncompleteBookingsTable{
+                    Item=_localizer["Total incomplete orders (pending order status)"],
+                    Total="328,97 tl",
+                    Count="3"
+
+                }
+
+
+                };
 
                 ////Sorting  
                 //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
@@ -148,7 +235,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
                 // getting all Discount data  
-                var Data = new List<int>();
+                var Data = _bookingService.GetLatestBookingsDashboardList();
 
                 ////Sorting  
                 //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
@@ -199,7 +286,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
                 // getting all Discount data  
-                var Data = new List<int>();
+                var Data = _featuresService.GetFeaturesHitCount();
 
                 ////Sorting  
                 //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
@@ -331,22 +418,89 @@ namespace searchDormWeb.Areas.Admin.Controllers
         }
 
 
+        [HttpPost("[action]")]
+        public ActionResult NoOfBookings()
+        {
+            int numberOfBookings = _bookingService.GetTotalNumberOfBookings();
+            return Json(numberOfBookings);
+        }
+
+
+        [HttpPost("[action]")]
+        public ActionResult NoOfUsers()
+        {
+            int numberOfUser = _usersService.GetTotalNumberOfUser();
+            return Json(numberOfUser);
+        }
+
+
+        [HttpPost("[action]")]
+        public ActionResult NoOfPendingCancelledRequests()
+        {
+            int numberOfPendingCancelRequests = _bookingService.GetTotalNumberOfCancelRequests();
+            return Json(numberOfPendingCancelRequests);
+        }
+
+        [HttpPost("[action]")]
+        public ActionResult NoOfLowQuotaRooms()
+        {
+           int noOfLowQuotaRooms = _roomService.GetNumberOfRoomsWithLowQuota();
+            return Json(noOfLowQuotaRooms);
+        }
+
+
+        [HttpPost("[action]")]
+        public ActionResult GetBookingsChart()
+        {
+            Random rnd = new Random();
+            int randomNumber = rnd.Next(100);
+            var data = new Charts
+            {
+                Labels = new List<string> { "3 Saturday", "4 Sunday", "5 Monday", "6 Tuesday", "7 Wednesday", "8 Thursday", "9 Friday", "10 Saturday" },
+                Data = new List<int> { rnd.Next(100), rnd.Next(100), rnd.Next(100), rnd.Next(100), rnd.Next(100), rnd.Next(100), rnd.Next(100), rnd.Next(100) }
+
+
+       
+        };
+            return Json(data);
+        }
+
+
+
+        [HttpPost("[action]")]
+        public ActionResult GetnewCustomersChart()
+        {
+            Random rnd = new Random();
+            int randomNumber = rnd.Next(57);
+            var data = new Charts
+            {
+                Labels = new List<string> { "3 Saturday", "4 Sunday", "5 Monday", "6 Tuesday", "7 Wednesday", "8 Thursday", "9 Friday", "10 Saturday" },
+                Data = new List<int> { rnd.Next(57), rnd.Next(57), rnd.Next(57), rnd.Next(57), rnd.Next(57), rnd.Next(57), rnd.Next(57), rnd.Next(57) }
+
+            };
+            return Json(data);
+        }
+
 
 
     }
 
 
 
-
+    public class Charts
+    {
+        public List<string> Labels { get; set; }
+        public List<int> Data { get; set; }
+    }
 
     public class BookingTotalsTable
     {
-        public string OrderStatus { get; set; }
-        public string Today { get; set; }
-        public string ThisWeek { get; set; }
-        public string ThisMonth { get; set; }
-        public string ThisYear { get; set; }
-        public string AllTime { get; set; }
+        public string OrderStatus    { get; set; }
+        public string Today         { get; set; }
+        public string ThisWeek      { get; set; }
+        public string ThisMonth      { get; set; }
+        public string ThisYear      { get; set; }
+        public string AllTime       { get; set; }
 
 
     }
@@ -372,13 +526,6 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
     }
 
-    public class PopularFiltersTable
-    {
-        public string Filter { get; set; }
-        public string Count { get; set; }
-
-
-    }
 
 
     public class BestSellersTable

@@ -147,68 +147,79 @@
                         <!-- /.box-tools -->
                     </div>
                     <!-- /.box-header -->
-                    <div class="box-body" style="">
-                        <div class="row">
-                            <div class="col-lg-3 col-xs-6">
-                                <!-- small box -->
-                                <div class="small-box bg-aqua">
-                                    <div class="inner">
-                                        <h3>150</h3>
+                    <div class="box-body center-block" style="">
+                        <div class="row center-block">
 
-                                        <p>Bookings</p>
-                                    </div>
-                                    <div class="icon">
-                                        <i class="ion ion-ios-bookmarks"></i>
-                                    </div>
-                                    <a asp-action="List" asp-controller="Reservations" asp-area="Admin" class="small-box-footer">@Localizer["More info"]<i class="fa fa-arrow-circle-right"></i></a>
-                                </div>
-                            </div>
-                            <!-- ./col -->
-                            <div class="col-lg-3 col-xs-6">
-                                <!-- small box -->
-                                <div class="small-box bg-yellow ">
-                                    <div class="inner">
-                                        <h3>3</h3>
+                            <secure-content asp-action="List" asp-controller="Reservations" asp-area="Admin">
+                                <div class="col-lg-3 col-xs-6">
+                                    <!-- small box -->
+                                    <div class="small-box bg-aqua">
+                                        <div class="inner">
+                                            <h3 id="NoOfBookings">0</h3>
 
-                                        <p>@Localizer["Pending cancellation requests"]</p>
+                                            <p>@Localizer["Bookings"]</p>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="ion ion-ios-bookmarks"></i>
+                                        </div>
+                                        <a asp-action="List" asp-controller="Reservations" asp-area="Admin" class="small-box-footer">@Localizer["More info"]<i class="fa fa-arrow-circle-right"></i></a>
                                     </div>
-                                    <div class="icon">
-                                        <i class="ion ion-stats-bars"></i>
-                                    </div>
-                                    <a asp-action="CancelRequest" asp-controller="Reservations" asp-area="Admin"  class="small-box-footer">@Localizer["More info"] <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
-                            </div>
-                            <!-- ./col -->
-                            <div class="col-lg-3 col-xs-6">
-                                <!-- small box -->
-                                <div class="small-box bg-green">
-                                    <div class="inner">
-                                        <h3>44</h3>
+                                <!-- ./col -->
+                            </secure-content>
+                                <secure-content asp-action="CancelRequest" asp-controller="Reservations" asp-area="Admin">
+                                    <div class="col-lg-3 col-xs-6">
+                                        <!-- small box -->
+                                        <div class="small-box bg-yellow ">
+                                            <div class="inner">
+                                                <h3 id="NoOfPendingCancelledRequests">0</h3>
 
-                                        <p>@Localizer["User Registrations"]</p>
+                                                <p>@Localizer["Pending cancellation requests"]</p>
+                                            </div>
+                                            <div class="icon">
+                                                <i class="ion ion-stats-bars"></i>
+                                            </div>
+                                            <a asp-action="CancelRequest" asp-controller="Reservations" asp-area="Admin" class="small-box-footer">@Localizer["More info"] <i class="fa fa-arrow-circle-right"></i></a>
+                                        </div>
                                     </div>
-                                    <div class="icon">
-                                        <i class="ion ion-person-add"></i>
-                                    </div>
-                                    <a asp-action="List" asp-controller="Users" asp-area="Admin" class="small-box-footer">@Localizer["More info"] <i class="fa fa-arrow-circle-right"></i></a>
-                                </div>
-                            </div>
-                            <!-- ./col -->
-                            <div class="col-lg-3 col-xs-6">
-                                <!-- small box -->
-                                <div class="small-box bg-red">
-                                    <div class="inner">
-                                        <h3>65</h3>
+                                    <!-- ./col -->
+                                </secure-content>
 
-                                        <p>@Localizer["Low quota rooms"]</p>
+
+                                <secure-content asp-area="Admin" asp-controller="Users" asp-action="List">
+                                    <div class="col-lg-3 col-xs-6">
+                                        <!-- small box -->
+                                        <div class="small-box bg-green">
+                                            <div class="inner">
+                                                <h3 id="NoOfUsers">0</h3>
+
+                                                <p>@Localizer["User Registrations"]</p>
+                                            </div>
+                                            <div class="icon">
+                                                <i class="ion ion-person-add"></i>
+                                            </div>
+                                            <a asp-action="List" asp-controller="Users" asp-area="Admin" class="small-box-footer">@Localizer["More info"] <i class="fa fa-arrow-circle-right"></i></a>
+                                        </div>
                                     </div>
-                                    <div class="icon">
-                                        <i class="ion ion-pie-graph"></i>
+                                    <!-- ./col -->
+                                </secure-content>
+                                <secure-content asp-action="LowQuotaReport" asp-controller="Catalog" asp-area="Admin">
+                                    <div class="col-lg-3 col-xs-6">
+                                        <!-- small box -->
+                                        <div class="small-box bg-red">
+                                            <div class="inner">
+                                                <h3  id="NoOfLowQuotaRooms">0</h3>
+
+                                                <p>@Localizer["Low quota rooms"]</p>
+                                            </div>
+                                            <div class="icon">
+                                                <i class="ion ion-pie-graph"></i>
+                                            </div>
+                                            <a asp-action="LowQuotaReport" asp-controller="Catalog" asp-area="Admin" class="small-box-footer">@Localizer["More info"] <i class="fa fa-arrow-circle-right"></i></a>
+                                        </div>
                                     </div>
-                                    <a asp-action="LowQuotaReport" asp-controller="Catalog" asp-area="Admin" class="small-box-footer">@Localizer["More info"] <i class="fa fa-arrow-circle-right"></i></a>
-                                </div>
-                            </div>
-                            <!-- ./col -->
+                                    <!-- ./col -->
+                                </secure-content>
                         </div>
                     </div>
                     <!-- /.box-body -->
@@ -218,56 +229,57 @@
 
             <div class="row">
 
-               
-                <div class="col-md-6">
-                    <div class="box box-info">
-                        <div class="box-header with-border">
-                            <h3 class="box-title"><i class="fa fa-shopping-cart"></i> @Localizer["Bookings/orders"]</h3>
+                <secure-content asp-action="List" asp-controller="Reservations" asp-area="Admin">
+                    <div class="col-md-6">
+                        <div class="box box-info">
+                            <div class="box-header with-border">
+                                <h3 class="box-title"><i class="fa fa-shopping-cart"></i> @Localizer["Bookings/orders"]</h3>
 
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-xs btn-info btn-flat">@Localizer["Day"]</button>
-                                <button type="button" class="btn btn-xs btn-info btn-flat">@Localizer["Month"]</button>
-                                <button type="button" class="btn btn-xs btn-info btn-flat">@Localizer["Year"]</button>
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                                    <i class="fa fa-minus"></i>
-                                </button>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-xs btn-info btn-flat">@Localizer["Day"]</button>
+                                    <button type="button" class="btn btn-xs btn-info btn-flat">@Localizer["Month"]</button>
+                                    <button type="button" class="btn btn-xs btn-info btn-flat">@Localizer["Year"]</button>
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <!-- /.box-tools -->
                             </div>
-                            <!-- /.box-tools -->
-                        </div>
-                        <!-- /.box-header -->
-                        <div class="box-body" style="">
-                            <canvas id="bookingsChart"></canvas>
+                            <!-- /.box-header -->
+                            <div class="box-body" style="">
+                                <canvas id="bookingsChart"></canvas>
 
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                    <!-- /.box -->
-                </div>
-
-                <div class="col-md-6">
-                    <div class="box box-info">
-                        <div class="box-header with-border">
-                            <h3 class="box-title"><i class="fa fa-user"></i> @Localizer["New customers"]</h3>
-
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-xs btn-info btn-flat">@Localizer["Day"]</button>
-                                <button type="button" class="btn btn-xs btn-info btn-flat">@Localizer["Month"]</button>
-                                <button type="button" class="btn btn-xs btn-info btn-flat">@Localizer["Year"]</button>
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                                    <i class="fa fa-minus"></i>
-                                </button>
                             </div>
-                            <!-- /.box-tools -->
+                            <!-- /.box-body -->
                         </div>
-                        <!-- /.box-header -->
-                        <div class="box-body" style="">
-                            <canvas id="newCustomersChart"></canvas>
-                        </div>
-                        <!-- /.box-body -->
+                        <!-- /.box -->
                     </div>
-                    <!-- /.box -->
-                </div>
+                </secure-content>
+                <secure-content asp-area="Admin" asp-controller="Users" asp-action="List">
+                    <div class="col-md-6">
+                        <div class="box box-info">
+                            <div class="box-header with-border">
+                                <h3 class="box-title"><i class="fa fa-user"></i> @Localizer["New customers"]</h3>
 
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-xs btn-info btn-flat">@Localizer["Day"]</button>
+                                    <button type="button" class="btn btn-xs btn-info btn-flat">@Localizer["Month"]</button>
+                                    <button type="button" class="btn btn-xs btn-info btn-flat">@Localizer["Year"]</button>
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <!-- /.box-tools -->
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body" style="">
+                                <canvas id="newCustomersChart"></canvas>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                        <!-- /.box -->
+                    </div>
+                    </secure-content>
             </div>
 
 
@@ -303,46 +315,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Pending</td>
-                                            <td>0,00 tl</td>
-                                            <td>0,00 tl</td>
-                                            <td>0,00 tl</td>
-                                            <td>0,00 tl</td>
-                                            <td>0,00 tl</td>
-
-                                        </tr>
-
-                                        <tr>
-                                            <td>Processing</td>
-                                            <td>0,00 tl</td>
-                                            <td>0,00 tl</td>
-                                            <td>456,00 tl</td>
-                                            <td>456,00 tl</td>
-                                            <td>345,03 tl</td>
-
-                                        </tr>
-
-                                        <tr>
-                                            <td>Complete</td>
-                                            <td>0,00 tl</td>
-                                            <td>34,00 tl</td>
-                                            <td>0,00 tl</td>
-                                            <td>33,344 tl</td>
-                                            <td>34,50 tl</td>
-
-                                        </tr>
-
-                                        <tr>
-                                            <td>Cancelled</td>
-                                            <td>0,00 tl</td>
-                                            <td>55,00 tl</td>
-                                            <td>34,00 tl</td>
-                                            <td>23,34 tl</td>
-                                            <td>34,50 tl</td>
-
-                                        </tr>
-
+                                      
 
                                     </tbody>
 
@@ -382,25 +355,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Total unpain Orders(pending payment status)</td>
-                                            <td>328,97 tl</td>
-                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> 7-view all</button></td>
-                                        </tr>
-
-
-                                        <tr>
-                                            <td>Total awaiting comfirmation</td>
-                                            <td>328,97 tl</td>
-                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> 2-view all</button></td>
-                                        </tr>
-
-
-                                        <tr>
-                                            <td>Total incomplete orders (pending order status)</td>
-                                            <td>328,97 tl</td>
-                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> 0-view all</button></td>
-                                        </tr>
+                                    
 
 
 
@@ -450,70 +405,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1232343</td>
-                                            <td><span class=" label label-success  label-lg green ">Complete</span></td>
-                                            <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
-                                            <td> 8/31/2018 5:13:24AM</td>
-                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>1232343</td>
-                                            <td><span class=" label label-success  label-lg green ">Complete</span></td>
-                                            <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
-                                            <td> 8/31/2018 5:13:24AM</td>
-                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>1232343</td>
-                                            <td><span class=" label label-success  label-lg green ">Complete</span></td>
-                                            <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
-                                            <td> 8/31/2018 5:13:24AM</td>
-                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>1232343</td>
-                                            <td><span class=" label label-success  label-lg green ">Complete</span></td>
-                                            <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
-                                            <td> 8/31/2018 5:13:24AM</td>
-                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>1232343</td>
-                                            <td><span class=" label label-success  label-lg green ">Complete</span></td>
-                                            <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
-                                            <td> 8/31/2018 5:13:24AM</td>
-                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>1232343</td>
-                                            <td><span class=" label label-success  label-lg green ">Complete</span></td>
-                                            <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
-                                            <td> 8/31/2018 5:13:24AM</td>
-                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>1232343</td>
-                                            <td><span class=" label label-success  label-lg green ">Complete</span></td>
-                                            <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
-                                            <td> 8/31/2018 5:13:24AM</td>
-                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>1232343</td>
-                                            <td><span class=" label label-success  label-lg green ">Complete</span></td>
-                                            <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
-                                            <td> 8/31/2018 5:13:24AM</td>
-                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>1232343</td>
-                                            <td><span class=" label label-success  label-lg green ">Complete</span></td>
-                                            <td>Odai Zakarneh (odai.zakarneh@gmail.com)</td>
-                                            <td> 8/31/2018 5:13:24AM</td>
-                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                        </tr>
+                                       
 
 
                                     </tbody>
@@ -789,9 +681,67 @@
 
     <script>
 
-        $(function () {
+  
+         $.ajax({
+            type: "POST",
+            url: "@Html.Raw(Url.Action("NoOfBookings", "Dashboard"))",
+            success: function (result, textStatus, xhr) {
+                //     alert(result);
+                $("#NoOfBookings").html(result);
+              
+            }
 
+            });
+
+       
         
+
+        // //get number of newly registered users, 
+         $.ajax({
+            type: "POST",
+            url: "@Html.Raw(Url.Action("NoOfUsers", "Dashboard"))",
+            
+            success: function (result, textStatus, xhr) {
+                //     alert(result);
+                $("#NoOfUsers").html(result);
+              
+            }
+
+            });
+
+       
+
+
+        // //get number of cancelled booking requests, 
+         $.ajax({
+            type: "POST",
+            url: "@Html.Raw(Url.Action("NoOfPendingCancelledRequests", "Dashboard"))",
+           
+            success: function (result, textStatus, xhr) {
+                //     alert(result);
+                $("#NoOfPendingCancelledRequests").html(result);
+              
+            }
+
+            });
+
+       
+
+
+        // //get number of low quota rooms, 
+         $.ajax({
+            type: "POST",
+            url: "@Html.Raw(Url.Action("NoOfLowQuotaRooms", "Dashboard"))",
+           
+            success: function (result, textStatus, xhr) {
+                //     alert(result);
+                $("#NoOfLowQuotaRooms").html(result);
+              
+            }
+
+            });
+
+     
 
 
             $('#latestBookingsDt').on('processing.dt', function (e, settings, processing) {
@@ -838,7 +788,7 @@
                     { "data": "createdOn" },
                     {
                         "render": function (data, type, full, meta) {
-                            return '<a class="btn btn-primary" href=""><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>';
+                            return '<a class="btn btn-primary" href=""><i class="fa fa-eye"></i> @Localizer["View"]</a>';
                         }
                     }
 
@@ -933,7 +883,7 @@
                     { "data": "total" },
                     {
                         "render": function (data, type, full, meta) {
-                            return '<a class="btn btn-default btn-xs" ><i class="fa fa-eye"></i> ' + full.Count + '-@Localizer["View all"]</a>';
+                            return '<a class="btn btn-default btn-xs" ><i class="fa fa-eye"></i> ' + full.count + '-@Localizer["View all"]</a>';
                         }
                     }
 
@@ -1002,7 +952,8 @@
                 } else {
                     Pace.stop();
                 }
-            }).DataTable({
+            })
+                .DataTable({
                 'paging': true,
                 'lengthChange': true,
                  "language": {
@@ -1098,15 +1049,23 @@
             })
 
 
-
+    $.ajax({
+            type: "POST",
+            url: "@Html.Raw(Url.Action("GetBookingsChart", "Dashboard"))",
+           
+            success: function (result, textStatus, xhr) {
+                //     alert(result);
+             
+               
+           
             var ctx = document.getElementById("bookingsChart").getContext('2d');
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ["3 Saturday", "4 Sunday", "5 Monday", "6 Tuesday", "7 Wednesday", "8 Thursday", "9 Friday", "10 Saturday"],
+                    labels: result.labels,
                     datasets: [{
 
-                        data: [2, 3, 3, 5, 2, 3,5,9],
+                        data: result.data,
 
                         backgroundColor: [
                             'rgba(		60, 141, 188,0.5)'
@@ -1146,16 +1105,28 @@
                 }
             });
 
+        }
+
+    });
 
 
+                 $.ajax({
+            type: "POST",
+            url: "@Html.Raw(Url.Action("GetnewCustomersChart", "Dashboard"))",
+           
+            success: function (result, textStatus, xhr) {
+                //     alert(result);
+          
+              
+       
             var ctx2 = document.getElementById("newCustomersChart").getContext('2d');
             var myChart = new Chart(ctx2, {
                 type: 'line',
                 data: {
-                    labels: ["3 Saturday", "4 Sunday", "5 Monday", "6 Tuesday", "7 Wednesday", "8 Thursday", "9 Friday", "10 Saturday"],
+                    labels: result.labels,
                     datasets: [{
 
-                        data: [0, 0, 0, 3, 2, 2, 3, 2],
+                        data: result.data,
                         backgroundColor: [
                             'rgba(		0, 166, 90,0.5)'
 
@@ -1193,8 +1164,10 @@
                     }
                 }
             });
+                     }
 
-        })
+                 });
+     
     </script>
 
 }
