@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Dau.Services.Domain.BookingService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,6 +16,12 @@ namespace searchDormWeb.Areas.Admin.Controllers
     [Route("admin/[controller]")]
     public class ReservationsController : Controller
     {
+        private readonly IBookingService _bookingService;
+
+        public ReservationsController(IBookingService bookingService)
+        {
+            _bookingService = bookingService;
+        }
 
 
         #region Reservations
@@ -46,7 +53,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
                 // getting all Discount data  
-                var Data = new List<int>();
+                var Data = _bookingService.GetBookingTableList();
 
                 ////Sorting  
                 //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
@@ -76,7 +83,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
         }
 
         [HttpGet("[action]")]
-        public ActionResult ReservationEdit()
+        public ActionResult ReservationEdit(long Id)
         {
             return View("_ReservationEdit");
 
@@ -391,15 +398,6 @@ namespace searchDormWeb.Areas.Admin.Controllers
     }
 
 
-    public class ReservationListTable {
-        public string BookingNo { get; set; }
-        public string BookingStatus { get; set; }
-        public string PaymentStatus { get; set; }
-        public string User { get; set; }
-        public string CreatedOn { get; set; }
-        public string BookingTotal { get; set; }
-        public string View { get; set; }
-    }
     public class CancelBookingRequestTable {
         public string Id { get; set; }
         public string Room { get; set; }
