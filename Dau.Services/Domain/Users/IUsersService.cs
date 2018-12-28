@@ -6,5 +6,6 @@
         string GetFirstName(string id);
         string GetLastName(string id);
         string GetUserPhotoUrl(string id);
+       int GetTotalNumberOfUser();
     }
 }

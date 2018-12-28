@@ -46,5 +46,10 @@ namespace Dau.Services.Users
             else
                 return userImage.FirstOrDefault().UserImageUrl;
         }
+
+        public int GetTotalNumberOfUser()
+        {
+            return _userManager.Users.ToList().Count;
+        }
     }
 }
