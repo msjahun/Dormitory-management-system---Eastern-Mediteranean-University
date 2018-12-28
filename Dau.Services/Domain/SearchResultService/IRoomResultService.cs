@@ -4,6 +4,6 @@ namespace Dau.Services.Domain.SearchResultService
 {
     public interface IRoomResultService
     {
-        List<RoomResultViewModel> GetRoomResult();
+        List<RoomResultViewModel> GetRoomResult(GetRoomResultViewModel filters);
     }
 }

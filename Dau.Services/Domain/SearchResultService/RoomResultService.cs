@@ -85,7 +85,7 @@ namespace Dau.Services.Domain.SearchResultService
             _featuresTranslation = featuresTranslation;
         }
 
-        public List<RoomResultViewModel> GetRoomResult()
+        public List<RoomResultViewModel> GetRoomResult(GetRoomResultViewModel filters)
         {
             //get all room images + dormitory images
             //get the top 4 room features and images images
@@ -308,6 +308,19 @@ namespace Dau.Services.Domain.SearchResultService
     {
         public string IconUrl { get; set; }
         public string FeatureName { get; set; }
+    }
+
+    public class GetRoomResultViewModel
+    {
+        public string SectionId { get; set; }
+        public List<int> FeaturesIds { get; set; }
+        public int DormitoryTypeIds { get; set; }
+        public List<int> DormitoryNameIds { get; set; }
+        public double PriceMin { get; set; }
+        public double PriceMax { get; set; }
+        public double RoomArea { get; set; }
+        public bool ShowAvailable { get; set; }
+        public bool ShowDiscountsOnly { get; set; }
     }
 
 }
