@@ -192,87 +192,6 @@ namespace Dau.Services.Seeding
             {
 
 
-            // new FeaturesCategory
-            //{
-            //    FeaturesCategoryTranslations = new List<FeaturesCategoryTranslation>{
-            //             new FeaturesCategoryTranslation
-            //                 {
-            //                LanguageId=EnglishId,
-            //               CategoryName="Availability",
-            //              CategoryDescription ="Feature Description"
-            //                  },
-            //            new FeaturesCategoryTranslation
-            //              {
-            //              LanguageId=TurkishId,
-            //                CategoryName="AvailabilityTR",
-            //               CategoryDescription ="Feature DescriptionTR"
-            //                  }
-
-            //         },
-            //    Features = new List<Features>
-            //    {
-            //        new Features
-            //        {
-            //            IsPublished= true,
-            //            FeaturesTranslations = new List<FeaturesTranslation>
-            //            {
-            //                new FeaturesTranslation
-            //                {LanguageId = EnglishId,
-            //                    FeatureName = "Show only Available rooms",
-            //                    FeatureDescription = "Description"
-            //                },
-
-            //                  new FeaturesTranslation
-            //                {LanguageId = TurkishId,
-            //                    FeatureName = "Show only Available roomsTR",
-            //                    FeatureDescription = "DescriptionTR"
-            //                }
-            //            }
-            //        }
-            //    }
-            //    },
-
-//#new#########################################----
-
-            // new FeaturesCategory
-            //{
-            //    FeaturesCategoryTranslations = new List<FeaturesCategoryTranslation>{
-            //             new FeaturesCategoryTranslation
-            //                 {
-            //                LanguageId=EnglishId,
-            //               CategoryName="Campaigns",
-            //              CategoryDescription ="Description campaign"
-            //                  },
-            //            new FeaturesCategoryTranslation
-            //              {
-            //              LanguageId=TurkishId,
-            //                CategoryName="CampaignsTR",
-            //               CategoryDescription ="Description campaignTR"
-            //                  }
-
-            //         },
-            //    Features = new List<Features>
-            //    {
-            //        new Features
-            //        {
-            //            IsPublished= true,
-            //            FeaturesTranslations = new List<FeaturesTranslation>
-            //            {
-            //                new FeaturesTranslation
-            //                {LanguageId = EnglishId,
-            //                    FeatureName = "Show Discounts",
-            //                    FeatureDescription = "Description"
-            //                },
-
-            //                  new FeaturesTranslation
-            //                {LanguageId = TurkishId,
-            //                    FeatureName = "Show DiscountsTR",
-            //                    FeatureDescription = "DescriptionTR"
-            //                }
-            //            }
-            //        }
-            //    }
-            //    },
 
 //#new#########################################----
              new FeaturesCategory
@@ -296,6 +215,7 @@ namespace Dau.Services.Seeding
                 {
                     new Features
                     {
+                        HitCount=3,
                         IsPublished= true,
                         FeaturesTranslations = new List<FeaturesTranslation>
                         {
@@ -420,6 +340,7 @@ namespace Dau.Services.Seeding
                 {
                     new Features
                     { IconUrl="/dusk/png/facilities/icons8-exercise-64.png",
+                    HitCount= 2,
                         IsPublished= true,
                         FeaturesTranslations = new List<FeaturesTranslation>
                         {
