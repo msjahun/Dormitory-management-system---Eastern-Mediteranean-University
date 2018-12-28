@@ -1,4 +1,6 @@
-﻿namespace Dau.Services.Domain.BookingService
+﻿using System.Collections.Generic;
+
+namespace Dau.Services.Domain.BookingService
 {
     public interface IBookingService
     {
@@ -7,5 +9,9 @@
         BookingCheckoutCustomerInfoViewModel GetCheckoutPaymentService();
         bool DeleteItemFromCart();
         bool AddToCart(long RoomId);
+        int GetTotalNumberOfBookings();
+        int GetTotalNumberOfCancelRequests();
+        List<ReservationListTable> GetBookingTableList();
+        List<LatestBookingsTable> GetLatestBookingsDashboardList();
     }
 }

@@ -22,8 +22,14 @@ namespace Dau.Services.Domain.BookingService
         private readonly IRepository<DormitoryTranslation> _dormitoryTranslationRepository;
         private readonly IRepository<SemesterPeriod> _SemesterPeriodRepo;
         private readonly IRepository<SemesterPeriodTranslation> _semesterPeriodTransRepo;
+        private readonly IRepository<Booking> _bookingRepository;
+        private readonly IRepository<CancelBookingRequests> _cancelBookingRequests;
         private readonly UserManager<User> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IRepository<BookingStatus> _bookingStatusRepo;
+        private readonly IRepository<BookingStatusTranslation> _bookingStatusTransRepo;
+        private readonly IRepository<PaymentStatus> _paymentStatusRepo;
+        private readonly IRepository<PaymentStatusTranslation> _paymentStatusTransRepo;
         private readonly ILanguageService _languageService;
         private readonly IRepository<DormitoryBlock> _dormitoryBlockRepo;
         private readonly IRepository<DormitoryBlockTranslation> _dormitoryBlockTransRepo;
@@ -38,6 +44,12 @@ namespace Dau.Services.Domain.BookingService
             IRepository<DormitoryBlockTranslation> DormitoryBlockTranslationRepository,
             IRepository<SemesterPeriod> SemesterPeriodRepository,
             IRepository<SemesterPeriodTranslation> semesterPeriodTransRepository,
+            IRepository<Booking> bookingRepository,
+            IRepository<BookingStatus> bookingStatusRepository,
+            IRepository<BookingStatusTranslation> bookingStatusTransRepository,
+            IRepository<PaymentStatus> paymentStatusRepository,
+            IRepository<PaymentStatusTranslation> paymentStatusTransRepository,
+            IRepository<CancelBookingRequests> cancelBookingRequests,
              ILanguageService languageService,
              UserManager<User> userManager,
           IHttpContextAccessor httpContextAccessor
@@ -53,10 +65,16 @@ namespace Dau.Services.Domain.BookingService
             _dormitoryTranslationRepository= DormitoryTranslationRepository;
             _SemesterPeriodRepo= SemesterPeriodRepository;
             _semesterPeriodTransRepo= semesterPeriodTransRepository;
-
-
+            _bookingRepository=bookingRepository;
+            _cancelBookingRequests = cancelBookingRequests;
             _userManager = userManager;
             _httpContextAccessor= httpContextAccessor;
+
+
+        _bookingStatusRepo  = bookingStatusRepository;
+         _bookingStatusTransRepo  = bookingStatusTransRepository;
+           _paymentStatusRepo = paymentStatusRepository;
+          _paymentStatusTransRepo=paymentStatusTransRepository;
 
         }
 
@@ -450,9 +468,94 @@ namespace Dau.Services.Domain.BookingService
             _cartRepository.Insert(Cart);
             return true;
         }
+
+
+        public int  GetTotalNumberOfBookings()
+        {
+            return _bookingRepository.List().ToList().Count;
+        }
+
+        public int GetTotalNumberOfCancelRequests()
+        {
+            return _cancelBookingRequests.List().ToList().Count;
+        }
+
+
+        public List<ReservationListTable> GetBookingTableList()
+        {
+            var CurrentLanguageId = _languageService.GetCurrentLanguageId();
+            var bookingStatus = from bookingStats in _bookingStatusRepo.List().ToList()
+                                join bookingStatsTrans in _bookingStatusTransRepo.List().ToList() on bookingStats.Id equals bookingStatsTrans.BookingStatusNonTransId
+                                where bookingStatsTrans.LanguageId == CurrentLanguageId
+                                select new { bookingStats.Id, bookingStatsTrans.BookingStatus };
+
+            var paymentStatus = from payStats in _paymentStatusRepo.List().ToList()
+                                join payStatsTrans in _paymentStatusTransRepo.List().ToList() on payStats.Id equals payStatsTrans.PaymentStatusNonTransId
+                                where payStatsTrans.LanguageId == CurrentLanguageId
+                                select new { payStats.Id, payStatsTrans.PaymentStatus };
+
+
+
+            var Bookings = from booking in _bookingRepository.List().ToList()
+                           select new ReservationListTable
+                           {
+                               BookingNo = booking.Id.ToString(),
+                               BookingStatus = bookingStatus.Where(c => c.Id == booking.BookingStatusId).FirstOrDefault().BookingStatus,
+                               PaymentStatus = paymentStatus.Where(p => p.Id == booking.PaymentStatusId).FirstOrDefault().PaymentStatus,
+                               User = _userManager.Users.Where(c => c.Id == booking.UserId).FirstOrDefault().UserName,
+                               CreatedOn = booking.CreatedOn.ToString("d"),
+                               BookingTotal = booking.BookingTotal.ToString("N2"),
+
+
+                           };
+
+            return Bookings.ToList();
+        }
+
+
+        public List<LatestBookingsTable> GetLatestBookingsDashboardList()
+        {
+            var CurrentLanguageId = _languageService.GetCurrentLanguageId();
+            var bookingStatus = from bookingStats in _bookingStatusRepo.List().ToList()
+                                join bookingStatsTrans in _bookingStatusTransRepo.List().ToList() on bookingStats.Id equals bookingStatsTrans.BookingStatusNonTransId
+                                where bookingStatsTrans.LanguageId == CurrentLanguageId
+                                select new { bookingStats.Id, bookingStatsTrans.BookingStatus };
+
+            var paymentStatus = from payStats in _paymentStatusRepo.List().ToList()
+                                join payStatsTrans in _paymentStatusTransRepo.List().ToList() on payStats.Id equals payStatsTrans.PaymentStatusNonTransId
+                                where payStatsTrans.LanguageId == CurrentLanguageId
+                                select new { payStats.Id, payStatsTrans.PaymentStatus };
+
+
+
+            var Bookings = from booking in _bookingRepository.List().ToList()
+                           select new LatestBookingsTable
+                           {
+                               OrderNo = booking.Id.ToString(),
+                               OrderStatus = bookingStatus.Where(c => c.Id == booking.BookingStatusId).FirstOrDefault().BookingStatus,
+                               Customer = _userManager.Users.Where(c => c.Id == booking.UserId).FirstOrDefault().UserName,
+                               CreatedOn = booking.CreatedOn.ToString("d"),
+                              
+
+
+                           };
+
+            return Bookings.ToList();
+        }
+
     }
 
 
+    public class LatestBookingsTable
+    {
+        public string OrderNo { get; set; }
+        public string OrderStatus { get; set; }
+        public string Customer { get; set; }
+        public string CreatedOn { get; set; }
+        //public button View { get; set; }
+
+
+    }
 
     public class BookingCartViewModel
     {
@@ -485,5 +588,18 @@ namespace Dau.Services.Domain.BookingService
         public BookingCartViewModel BookingDetails { get; set; }
         //summary
 
+    }
+
+
+      
+    public class ReservationListTable
+    {
+        public string BookingNo { get; set; }
+        public string BookingStatus { get; set; }
+        public string PaymentStatus { get; set; }
+        public string User { get; set; }
+        public string CreatedOn { get; set; }
+        public string BookingTotal { get; set; }
+        public string View { get; set; }
     }
 }
