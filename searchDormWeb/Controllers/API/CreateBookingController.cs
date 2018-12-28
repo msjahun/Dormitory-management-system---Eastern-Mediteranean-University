@@ -12,7 +12,7 @@ using Dau.Core.Domain;
 namespace searchDormWeb.Controllers.API
 {
     [Produces("application/json")]
-    [Route("api/[controller]")]
+   
     [ApiController]
     public class CreateBookingController : Controller
     {
@@ -24,9 +24,13 @@ namespace searchDormWeb.Controllers.API
         }
 
 
+       
+
+
+        [Route("api/[controller]")]
         // POST: api/CreateBooking
         [HttpPost]
-        public JsonResult Post(string value)
+        public JsonResult Post()
         {
             ResponseResult response = new ResponseResult
             {
@@ -38,14 +42,15 @@ namespace searchDormWeb.Controllers.API
             _apiLogService.LogApiRequest(new ApiDebugLog
             {
 
-                ApiName = "// POST: api/CreateBooking",
-                Reponse = JsonConvert.SerializeObject(Response),
+                ApiName = " // POST: api/CreateBooking",
+                Reponse = JsonConvert.SerializeObject(response),
                 CreateDateTime = DateTime.Now,
                 ParameterRecieved = JsonConvert.SerializeObject(_apiLogService.GetRequestBody())
             });
             return Json(response);
         }
 
-        
+
+
     }
 }
