@@ -117,7 +117,8 @@
 
 
             @{ SubActions = new List<MenuSubItems>(new MenuSubItems[] {
-                                  new MenuSubItems {ActionName = "Facilities", ActionDisplayName =Localizer["Facilities"] }
+                                  new MenuSubItems {ActionName = "Features", ActionDisplayName =Localizer["Features"] },
+                                   new MenuSubItems { ActionName = "FeaturesCategory", ActionDisplayName =Localizer["Features Category"] }
                                                                                                       });
 
 
@@ -133,7 +134,7 @@
 
                 subItem = new MenuItemViewModel
                 {
-                    ControllerDisplayName =Localizer["Facilities"],
+                    ControllerDisplayName =Localizer["Features"],
                     ControllerName = "Catalog",
                     CurrentController = currentController,
                     CurrentAction = currentAction,
