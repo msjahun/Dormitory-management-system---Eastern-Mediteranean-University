@@ -13,5 +13,6 @@ namespace Dau.Services.Domain.BookingService
         int GetTotalNumberOfCancelRequests();
         List<ReservationListTable> GetBookingTableList();
         List<LatestBookingsTable> GetLatestBookingsDashboardList();
+        bool AddBooking();
     }
 }

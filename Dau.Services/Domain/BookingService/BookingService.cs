@@ -101,7 +101,7 @@ namespace Dau.Services.Domain.BookingService
             var rooms = from room in _roomRepository.List().ToList()
                         join roomTrans in _roomTransRepository.List().ToList() on room.Id equals roomTrans.RoomNonTransId
                         where roomTrans.LanguageId == CurrentLanguageId
-                        select new { room.Id, room.DormitoryId, room.DormitoryBlockId, roomTrans.RoomName, room.Price, room.PriceOld, room.ShowPrice, room.RoomsQuota, room.RoomSize };
+                        select new { room.Id, room.DormitoryId, room.DormitoryBlockId, roomTrans.RoomName, room.Price, room.PriceOld, room.ShowPrice, room.NoRoomQuota, room.RoomSize };
 
             var roomsDormitoryBlock = from room in rooms.ToList()
                                       join dormBlock in dormitoryBlock.ToList() on room.DormitoryBlockId equals dormBlock.Id
@@ -116,7 +116,7 @@ namespace Dau.Services.Domain.BookingService
                                           room.Price,
                                           room.PriceOld,
                                           room.ShowPrice,
-                                          room.RoomsQuota,
+                                          room.NoRoomQuota,
                                           room.RoomSize
                                       };
 
@@ -133,7 +133,7 @@ namespace Dau.Services.Domain.BookingService
                                     room.Price,
                                     room.PriceOld,
                                     room.ShowPrice,
-                                    room.RoomsQuota,
+                                    room.NoRoomQuota,
                                     room.RoomSize,
                                     dorm.DormitorySeoId ,
                                     dorm.DormitoryName,
@@ -220,7 +220,7 @@ namespace Dau.Services.Domain.BookingService
             var rooms = from room in _roomRepository.List().ToList()
                         join roomTrans in _roomTransRepository.List().ToList() on room.Id equals roomTrans.RoomNonTransId
                         where roomTrans.LanguageId == CurrentLanguageId
-                        select new { room.Id, room.DormitoryId, room.DormitoryBlockId, roomTrans.RoomName, room.Price, room.PriceOld, room.ShowPrice, room.RoomsQuota, room.RoomSize, room.TaxAmount, room.BookingFee};
+                        select new { room.Id, room.DormitoryId, room.DormitoryBlockId, roomTrans.RoomName, room.Price, room.PriceOld, room.ShowPrice, room.NoRoomQuota, room.RoomSize, room.TaxAmount, room.BookingFee};
 
             var roomsDormitoryBlock = from room in rooms.ToList()
                                       join dormBlock in dormitoryBlock.ToList() on room.DormitoryBlockId equals dormBlock.Id
@@ -235,7 +235,7 @@ namespace Dau.Services.Domain.BookingService
                                           room.Price,
                                           room.PriceOld,
                                           room.ShowPrice,
-                                          room.RoomsQuota,
+                                        room.NoRoomQuota,
                                           room.RoomSize,
                                           room.TaxAmount,
                                           room.BookingFee
@@ -254,7 +254,7 @@ namespace Dau.Services.Domain.BookingService
                                     room.Price,
                                     room.PriceOld,
                                     room.ShowPrice,
-                                    room.RoomsQuota,
+                                    room.NoRoomQuota,
                                     room.RoomSize,
                                     room.TaxAmount,
                                     room.BookingFee,
@@ -337,7 +337,7 @@ namespace Dau.Services.Domain.BookingService
             var rooms = from room in _roomRepository.List().ToList()
                         join roomTrans in _roomTransRepository.List().ToList() on room.Id equals roomTrans.RoomNonTransId
                         where roomTrans.LanguageId == CurrentLanguageId
-                        select new { room.Id, room.DormitoryId, room.DormitoryBlockId, roomTrans.RoomName, room.Price, room.PriceOld, room.ShowPrice, room.RoomsQuota, room.RoomSize, room.TaxAmount, room.BookingFee };
+                        select new { room.Id, room.DormitoryId, room.DormitoryBlockId, roomTrans.RoomName, room.Price, room.PriceOld, room.ShowPrice, room.NoRoomQuota, room.RoomSize, room.TaxAmount, room.BookingFee };
 
             var roomsDormitoryBlock = from room in rooms.ToList()
                                       join dormBlock in dormitoryBlock.ToList() on room.DormitoryBlockId equals dormBlock.Id
@@ -352,7 +352,7 @@ namespace Dau.Services.Domain.BookingService
                                           room.Price,
                                           room.PriceOld,
                                           room.ShowPrice,
-                                          room.RoomsQuota,
+                                          room.NoRoomQuota,
                                           room.RoomSize,
                                           room.TaxAmount,
                                           room.BookingFee
@@ -371,7 +371,7 @@ namespace Dau.Services.Domain.BookingService
                                     room.Price,
                                     room.PriceOld,
                                     room.ShowPrice,
-                                    room.RoomsQuota,
+                                    room.NoRoomQuota,
                                     room.RoomSize,
                                     room.TaxAmount,
                                     room.BookingFee,
@@ -497,6 +497,7 @@ namespace Dau.Services.Domain.BookingService
 
 
             var Bookings = from booking in _bookingRepository.List().ToList()
+                           orderby booking.Id descending
                            select new ReservationListTable
                            {
                                BookingNo = booking.Id.ToString(),
@@ -529,6 +530,7 @@ namespace Dau.Services.Domain.BookingService
 
 
             var Bookings = from booking in _bookingRepository.List().ToList()
+                           orderby booking.Id descending
                            select new LatestBookingsTable
                            {
                                OrderNo = booking.Id.ToString(),
@@ -541,6 +543,119 @@ namespace Dau.Services.Domain.BookingService
                            };
 
             return Bookings.ToList();
+        }
+
+
+        public bool AddBooking()
+        {
+            var CurrentUserId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+           
+            var CurrentLanguageId = _languageService.GetCurrentLanguageId();
+
+            var dormitories = from dorm in _dormitoryRepository.List().ToList()
+                              join dormTrans in _dormitoryTranslationRepository.List().ToList() on dorm.Id equals dormTrans.DormitoryNonTransId
+                              where dormTrans.LanguageId == CurrentLanguageId
+                              select new { dorm.Id, DormitorySeoId = dorm.SeoId, dormTrans.DormitoryName, dorm.DormitoryLogoUrl };
+
+            var dormitoryBlock = from dormBlock in _dormitoryBlockRepo.List().ToList()
+                                 join dormBlockTrans in _dormitoryBlockTransRepo.List().ToList() on dormBlock.Id equals dormBlockTrans.DormitoryBlockNonTransId
+                                 where dormBlockTrans.LanguageId == CurrentLanguageId
+                                 select new { dormBlock.Published, dormBlockTrans.Name, dormBlock.Id };
+
+            var rooms = from room in _roomRepository.List().ToList()
+                        join roomTrans in _roomTransRepository.List().ToList() on room.Id equals roomTrans.RoomNonTransId
+                        where roomTrans.LanguageId == CurrentLanguageId
+                        select new { room.Id, room.DormitoryId, room.DormitoryBlockId, roomTrans.RoomName, room.Price, room.PriceOld, room.ShowPrice, room.NoRoomQuota, room.RoomSize, room.TaxAmount, room.BookingFee };
+
+            var roomsDormitoryBlock = from room in rooms.ToList()
+                                      join dormBlock in dormitoryBlock.ToList() on room.DormitoryBlockId equals dormBlock.Id
+                                      select new
+                                      {
+                                          DormitoryBlockPublished = dormBlock.Published,
+                                          DormitoryBlockName = dormBlock.Name,
+                                          room.Id,
+                                          room.DormitoryId,
+                                          room.DormitoryBlockId,
+                                          room.RoomName,
+                                          room.Price,
+                                          room.PriceOld,
+                                          room.ShowPrice,
+                                          room.NoRoomQuota,
+                                          room.RoomSize,
+                                          room.TaxAmount,
+                                          room.BookingFee
+                                      };
+
+            var roomDormitory = from room in roomsDormitoryBlock.ToList()
+                                join dorm in dormitories.ToList() on room.DormitoryId equals dorm.Id
+                                select new
+                                {
+                                    room.DormitoryBlockPublished,
+                                    room.DormitoryBlockName,
+                                    room.Id,
+                                    room.DormitoryId,
+                                    room.DormitoryBlockId,
+                                    room.RoomName,
+                                    room.Price,
+                                    room.PriceOld,
+                                    room.ShowPrice,
+                                    room.NoRoomQuota,
+                                    room.RoomSize,
+                                    room.TaxAmount,
+                                    room.BookingFee,
+                                    dorm.DormitorySeoId,
+                                    dorm.DormitoryName,
+                                    dorm.DormitoryLogoUrl
+                                };
+
+            var semesterPeriods = from semPeriod in _SemesterPeriodRepo.List().ToList()
+                                  join semPeriodTrans in _semesterPeriodTransRepo.List().ToList() on semPeriod.Id equals semPeriodTrans.SemesterPeriodNonTransId
+                                  where semPeriodTrans.LanguageId == CurrentLanguageId
+                                  select new { semPeriod.Id, semPeriodTrans.SemesterPeriodName };
+
+
+            var Carts = from cart in _cartRepository.List().ToList()
+                        where cart.UserId == CurrentUserId
+                        select new { cart.RoomId, cart.UserId, cart.TotalAmount, cart.SemesterPeriodId };
+
+            var CartToBooking = (from cart in Carts.ToList()
+                           join room in roomDormitory.ToList() on cart.RoomId equals room.Id
+                           select new Booking
+                           {
+                               BookingStatusId = 1,
+                               PaymentStatusId = 1,
+                               UserId = CurrentUserId,
+                               CustomerIpAddress = _httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString(),
+                               BookingOrderSubtotal = room.Price,
+                               BookingFee = room.BookingFee,
+                               BookingTotal = room.Price + room.BookingFee + room.TaxAmount,
+                               CreatedOn = DateTime.Now,
+                               RoomId =room.Id
+
+                           }).FirstOrDefault();
+
+            try
+            {//reduce room quota and check if room quota
+             var room=   _roomRepository.GetById(CartToBooking.RoomId);
+                if (room.NoRoomQuota > 0)
+                {
+                    room.NoRoomQuota--;
+                    _roomRepository.Update(room);
+                    _bookingRepository.Insert(CartToBooking);
+
+                    return true;
+                }else
+                {
+                    return false; //room quota is not enough
+                }
+
+                }
+            catch
+            {
+                return false;
+            }
+
+           
         }
 
     }
