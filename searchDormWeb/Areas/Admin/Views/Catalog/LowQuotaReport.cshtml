@@ -161,7 +161,7 @@
     <!-- page script -->
     <script>
         $(function () {
-      
+       $.getJSON("@Url.Content("~/frontend_Content/")assets/js/DataTable_aLenthMenu/aLenthMenu_20_200.json", function (aLength) {
             $('#LowQuotaReportTable').on('processing.dt', function (e, settings, processing) {
                 if (processing) {
                     Pace.start();
@@ -171,7 +171,7 @@
             }).DataTable({
                 'paging': true,
                 'lengthChange': true,
-                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
+                "aLengthMenu": aLength,
                 'searching': false,
                 'ordering': false,
                    "language": {
@@ -221,7 +221,7 @@
                 ]
 
 
-            })
+            })})
 
 
         })

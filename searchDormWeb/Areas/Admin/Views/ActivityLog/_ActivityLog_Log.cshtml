@@ -173,56 +173,59 @@
             })
 
 
-            $('#activityLogTable').on('processing.dt', function (e, settings, processing) {
-                if (processing) {
-                    Pace.start();
-                } else {
-                    Pace.stop();
-                }
-            }).DataTable({
-                'paging': true,
-                'lengthChange': true,
-                "language": {
-                    "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
-                },
-               
-                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
-                'searching': false,
-                'ordering': false,
-                'info': true,
-                'autoWidth': false,
-                "processing": true, // for show progress bar
-                "serverSide": true, // for process server side
-                "filter": true, // this is for disable filter (search box)
-                "orderMulti": true, // for disable multiple column at once
-                "ajax": {
-                    "url": "/Admin/ActivityLog/Log",
-                    "type": "POST",
-                    "data": function (d) {
-                        d.myKey = "myValue";
-                        d.DiscountName = "myValue";
-                        d.CouponCode = "myValue";
-                        d.DiscountType = "myValue";
-                    },
-                    "datatype": "json"
-                },
-                "columns": [
-                    { "data": "activityLogType" },
-                    { "data": "user" },
-                    { "data": "ipAddress" },
-                    { "data": "messageAction" },
-                    { "data": "createdOn" },
-                    {
-                        "render": function (data, type, full, meta) {
-                            return '<a class="btn btn-danger" ><i class="fa fa-times"></i> @Localizer["Delete"]</a>';
-                        }
+            $.getJSON("@Url.Content("~/frontend_Content/")assets/js/DataTable_aLenthMenu/aLenthMenu_20_200.json", function (aLength) {
+                $('#activityLogTable').on('processing.dt', function (e, settings, processing) {
+                    if (processing) {
+                        Pace.start();
+                    } else {
+                        Pace.stop();
                     }
+                }).DataTable({
+                    'paging': true,
+                    'lengthChange': true,
+                    "language": {
+                        "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
+                    },
+
+                    "aLengthMenu": aLength,
+                    'searching': false,
+                    'ordering': false,
+                    'info': true,
+                    'autoWidth': false,
+                    "processing": true, // for show progress bar
+                    "serverSide": true, // for process server side
+                    "filter": true, // this is for disable filter (search box)
+                    "orderMulti": true, // for disable multiple column at once
+                    "ajax": {
+                        "url": "/Admin/ActivityLog/Log",
+                        "type": "POST",
+                        "data": function (d) {
+                            d.myKey = "myValue";
+                            d.DiscountName = "myValue";
+                            d.CouponCode = "myValue";
+                            d.DiscountType = "myValue";
+                        },
+                        "datatype": "json"
+                    },
+                    "columns": [
+                        { "data": "activityLogType" },
+                        { "data": "user" },
+                        { "data": "ipAddress" },
+                        { "data": "messageAction" },
+                        { "data": "createdOn" },
+                        {
+                            "render": function (data, type, full, meta) {
+                                return '<a class="btn btn-danger" ><i class="fa fa-times"></i> @Localizer["Delete"]</a>';
+                            }
+                        }
 
 
-                ]
+                    ]
 
 
-            })
+                })
+            });//getJson
+
 
         })
     </script>

@@ -196,7 +196,7 @@
             $('.select2').select2()
 
 
-           
+            $.getJSON("@Url.Content("~/frontend_Content/")assets/js/DataTable_aLenthMenu/aLenthMenu_20_200.json", function (aLength) {
             $('#RoomsListTable').on('processing.dt', function (e, settings, processing) {
                 if (processing) {
                     Pace.start();
@@ -209,7 +209,7 @@
                     "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
                 },
                 'lengthChange': true,
-                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
+                "aLengthMenu": aLength,
                 'searching': false,
                 'ordering': false,
                 'info': true,
@@ -271,6 +271,7 @@
             })
 
 
+        })
         })
     </script>
 }

@@ -680,7 +680,7 @@
     <script src="@Url.Content("~/Content/")dist/js/demo.js"></script>
 
     <script>
-
+      
   
          $.ajax({
             type: "POST",
@@ -694,7 +694,7 @@
             });
 
        
-        
+      
 
         // //get number of newly registered users, 
          $.ajax({
@@ -742,7 +742,9 @@
             });
 
      
-
+             $.getJSON("@Url.Content("~/frontend_Content/")assets/js/DataTable_aLenthMenu/aLenthMenu_5_25.json", function (aLength) {
+           // console.log(json); // this will show the info it in firebug console
+  
 
             $('#latestBookingsDt').on('processing.dt', function (e, settings, processing) {
                 if (processing) {
@@ -756,7 +758,7 @@
                  "language": {
                     "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
                 },
-                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
+                "aLengthMenu":aLength,
                 'searching': false,
                 'ordering': false,
                 'info': true,
@@ -812,7 +814,7 @@
                  "language": {
                     "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
                 },
-                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
+                "aLengthMenu":aLength,
                 'searching': false,
                 'ordering': false,
                 'info': true,
@@ -857,7 +859,7 @@
                  "language": {
                     "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
                 },
-                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
+                "aLengthMenu": aLength,
                 'searching': false,
                 'ordering': false,
                 'info': true,
@@ -908,7 +910,7 @@
                  "language": {
                     "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
                 },
-                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
+                "aLengthMenu": aLength,
                 'searching': false,
                 'ordering': false,
                 'info': true,
@@ -959,7 +961,7 @@
                  "language": {
                     "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
                 },
-                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
+                "aLengthMenu": aLength,
                 'searching': false,
                 'ordering': false,
                 'info': true,
@@ -1011,7 +1013,7 @@
                  "language": {
                     "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
                 },
-                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
+                "aLengthMenu": aLength,
                 'searching': false,
                 'ordering': false,
                 'info': true,
@@ -1047,7 +1049,7 @@
 
 
             })
-
+             });//get alength json
 
     $.ajax({
             type: "POST",

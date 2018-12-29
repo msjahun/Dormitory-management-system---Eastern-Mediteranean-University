@@ -184,7 +184,7 @@
         $(function () {
 
          
-
+             $.getJSON("@Url.Content("~/frontend_Content/")assets/js/DataTable_aLenthMenu/aLenthMenu_20_200.json", function (aLength) {
           
             $('#DormitoryBlockTable').on('processing.dt', function (e, settings, processing) {
                 if (processing) {
@@ -198,7 +198,7 @@
                    "language": {
                     "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
                 },
-                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
+                "aLengthMenu": aLength,
                 'searching': false,
                 'ordering': false,
                 'info': true,
@@ -243,6 +243,7 @@
                 ]
 
 
+            })
             })
 
 
