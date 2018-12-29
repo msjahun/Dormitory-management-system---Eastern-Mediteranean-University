@@ -354,13 +354,4 @@ namespace Dau.Services.DormitoryServiceOld
 
     }
 
-    public class DormitoriesDataTable
-    { public int DormitoryId { get; set; }
-        public string Picture { get; set; }
-        public string DormitoryName { get; set; }
-        public string SKU { get; set; }
-        public string DormitoryType { get; set; }
-        public bool Published { get; set; }
-        //public string Edit { get; set; }
-    }
 }
