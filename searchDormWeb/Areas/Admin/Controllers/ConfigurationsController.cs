@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Dau.Core.Configuration.AccessControlList;
 using Dau.Core.Domain.Users;
 using Dau.Services.AccessControlList;
-using Dau.Services.DormitoryServiceOld;
+using Dau.Services.Domain.DormitoryServices;
 using Dau.Services.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -27,14 +27,14 @@ namespace searchDormWeb.Areas.Admin.Controllers
         private readonly RoleManager<UserRole> _roleManager;
         private readonly IUserRolesService _userRolesService;
         private readonly IMvcControllerDiscovery _mvcControllerDiscovery;
-        private readonly IDormitoryService _DormitoryService;
+        private readonly IDormitoryService _dormitoryService;
 
         public ConfigurationsController(IDormitoryService dormitoryService, IMvcControllerDiscovery mvcControllerDiscovery, IUserRolesService userRolesService, RoleManager<UserRole> roleManager)
         {
             _roleManager = roleManager;
             _userRolesService = userRolesService;
             _mvcControllerDiscovery = mvcControllerDiscovery;
-            _DormitoryService = dormitoryService;
+            _dormitoryService = dormitoryService;
         }
 
 
@@ -140,8 +140,8 @@ namespace searchDormWeb.Areas.Admin.Controllers
                 int skip = start != null ? Convert.ToInt32(start) : 0;
 
 
-              //  List<DormitoriesDataTable> List = _DormitoryService.GetAllDormitoriesForTable();
-                List<DormitoriesDataTable> List = new List<DormitoriesDataTable>();
+                //  List<DormitoriesDataTable> List = _DormitoryService.GetAllDormitoriesForTable();
+                var List = _dormitoryService.GetDormitoryListTable();
               
 
                 // getting all Discount data  
@@ -649,6 +649,9 @@ namespace searchDormWeb.Areas.Admin.Controllers
         public string DisplayOrder { get; set; }
         public string Edit { get; set; }
     }
+
+
+   
     //public class AccessControlListTable {
     //    public string PermissionName { get; set; }
     //    public string Registered { get; set; }
