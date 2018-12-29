@@ -207,10 +207,28 @@
                     //     alert(result);
                     $("#Payment_Section").html(result);
 
-          
 
-                        loadStudentInfo();
+                    //check and update
+                    $.ajax({
+                        type: "POST",
+                        url: "GetCartItemJson",
+                        data: {
+                            SectionId: "comments_section"
+                        },
+                        success: function (result, textStatus, xhr) {
+                            //     alert(result);
+                            // $("#comments_section").html(result);
+                            if (JSON.stringify(result) === 'null') {
+                               
+                                $(".badge-danger").remove();
+                               
+                            }
+
+                        }
+                    });
+                        
                 
+                       
 
 
                 }
