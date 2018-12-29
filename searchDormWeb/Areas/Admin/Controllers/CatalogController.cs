@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Dau.Services.Facility;
 using Dau.Services.Domain.RoomServices;
+using Dau.Services.Domain.DormitoryBlockServices;
+using Dau.Services.Domain.ReviewsServices;
 
 namespace searchDormWeb.Areas.Admin.Controllers
 {
@@ -16,13 +18,22 @@ namespace searchDormWeb.Areas.Admin.Controllers
     public class CatalogController : Controller
     {
         private readonly IFacilityService FacilityService;
-        private readonly IRoomService _RoomService;
+        private readonly IRoomService _roomService;
+        private readonly IDormitoryBlockService _dormitoryBlockService;
+        private readonly IReviewService _reviewService;
 
-        public CatalogController(IFacilityService _FacilityService, IRoomService roomService)
+        public CatalogController(
+            IFacilityService _FacilityService,
+            IRoomService roomService, 
+            IDormitoryBlockService dormitoryBlockService,
+            IReviewService reviewService)
         {
             this.FacilityService = _FacilityService;
-            this._RoomService = roomService;
-                
+            _roomService = roomService;
+            _dormitoryBlockService = dormitoryBlockService;
+            _reviewService = reviewService;
+
+
         }
         
 
@@ -54,9 +65,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
                 // List<RoomsListTable> List = _RoomService.GetAllRooms();
-                var List = new List<RoomReviewsTable>();
-             
-
+                var List = _roomService.GetRoomsListTable();
                 // getting all Discount data  
                 var Data = List;
 
@@ -129,41 +138,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
 
-                List<DormitoryBlocksTable> List = new List<DormitoryBlocksTable>();
-
-                List.Add(new DormitoryBlocksTable
-                {
-                    Name = "B block",
-                    Published = true,
-                    DisplayOrder = "4"
-                });
-
-
-                List.Add(new DormitoryBlocksTable
-                {
-                    Name = "B block",
-                    Published = true,
-                    DisplayOrder = "4"
-                });
-
-
-                List.Add(new DormitoryBlocksTable
-                {
-                    Name = "B block",
-                    Published = true,
-                    DisplayOrder = "4"
-                });
-
-
-                List.Add(new DormitoryBlocksTable
-                {
-                    Name = "B block",
-                    Published = true,
-                    DisplayOrder = "4"
-                });
-
-
-
+                var List = _dormitoryBlockService.GetDormitoryBlockListTable();
                 // getting all Discount data  
                 var Data = List;
 
@@ -430,45 +405,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
 
-                List<RoomReviewsTable> List = new List<RoomReviewsTable>();
-                List.Add(new RoomReviewsTable {
-                    Room = "Alfam B block 112",
-                    User = "msjahun@live.com",
-                    Title = "I like this room",
-                    ReviewText = "I like this room, they play human music...",
-                    Rating = "4",
-                    IsApproved = true,
-                    createdOn = DateTime.Now
-
-
-                });
-
-
-                List.Add(new RoomReviewsTable
-                {
-                    Room = "Alfam B block 112",
-                    User = "msjahun@live.com",
-                    Title = "I like this room",
-                    ReviewText = "I like this room, they play human music...",
-                    Rating = "4",
-                    IsApproved = true,
-                    createdOn = DateTime.Now
-
-
-                });
-
-                List.Add(new RoomReviewsTable
-                {
-                    Room = "Alfam B block 112",
-                    User = "msjahun@live.com",
-                    Title = "I like this room",
-                    ReviewText = "I like this room, they play human music...",
-                    Rating = "4",
-                    IsApproved = true,
-                    createdOn = DateTime.Now
-
-
-                });
+                var List = _reviewService.GetReviewsListTable();
 
                 // getting all Discount data  
                 var Data = List;
@@ -667,13 +604,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
     }
 
 
- 
-    public class DormitoryBlocksTable {
-        public string Name { get; set; }
-        public bool Published { get; set; }
-        public string DisplayOrder { get; set; }
-        //public string Edit { get; set; }
-    }
+   
     public class BulkEditRoomsTable {
         public string Name { get; set; }
         //public string View { get; set; }
@@ -684,16 +615,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
         public bool published { get; set; }
         //public string Delete { get; set; }
     }
-    public class RoomReviewsTable {
-        public string Room { get; set; }
-        public string User { get; set; }
-        public string Title { get; set; }
-        public string ReviewText { get; set; }
-        public string Rating { get; set; }
-        public bool IsApproved { get; set; }
-        public DateTime createdOn { get; set; }
-        //public string Edit { get; set; }
-    }
+
     public class LowQuotaReportTable {
         public string RoomName { get; set; }
         public string RoomRemainingQuota { get; set; }
