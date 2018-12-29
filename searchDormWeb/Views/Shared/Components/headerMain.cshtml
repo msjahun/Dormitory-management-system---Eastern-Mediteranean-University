@@ -81,20 +81,13 @@
 
                             <a class="nav-link px-0" href="#" style="padding-right:15px" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
-                                @if (CultureInfo.CurrentUICulture.Name == "en-US")
-                                {
-                                    <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/flags/us.svg">
-                                    <span class="d-none d-lg-inline-block">English - United States</span>
-                                    <span class="d-lg-none">en-US</span>
-                                }
+                                @if (CultureInfo.CurrentUICulture.Name == "en-US") { 
+                                    <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/flags/us.svg">}
                                 else if (CultureInfo.CurrentUICulture.Name == "tr-TR")
-                                {
+                                {<img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/flags/tr.svg">}
 
-                                    <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets")/img/icons/flags/tr.svg">
-                                    <span class="d-none d-lg-inline-block">Türkçe - Türkiye</span>
-                                    <span class="d-lg-none">tr-TR</span>
-                                }
-
+                                <span class="d-none d-lg-inline-block">@CultureInfo.CurrentUICulture.NativeName</span>
+                                <span class="d-lg-none">@CultureInfo.CurrentUICulture.Name</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-sm dropdown-menu-arrow">
                                 <a href="?culture=en-US" class="dropdown-item">
@@ -234,7 +227,7 @@
                             <!-- Notifications -->
                             <div class="dropdown">
 
-                                <a href="#" class="nav-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bell"><span class="badge badge-danger ml-2">1</span></i> </a>
+                                <a href="#" class="nav-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bell"><span class="badge badge-success ml-2">1</span></i> </a>
 
                                 <div class="dropdown-menu dropdown-menu-lg py-0">
                                     <div class="py-3 px-3">
@@ -261,7 +254,7 @@
                                         </a>
                                     </div>
                                     <div class="py-3 text-center">
-                                        <a href="#" class="link link-sm link--style-3">View all notifications</a>
+                                        <a href="#" class="link link-sm link--style-3">Clear all notifications</a>
                                     </div>
                                 </div>
                             </div>
@@ -339,7 +332,7 @@
                         {
                             <li class="nav-item mr-0">
                                 <a asp-controller="Booking" asp-action="Cart" class="nav-link d-lg-none">
-                                    @Localizer["Checkout"] <span class="badge badge-pill badge-danger text-sm">1</span>
+                                    @Localizer["Checkout"] <span class="badge badgeCart badge-pill badge-danger text-sm">1</span>
                                 </a>
 
                                 <a asp-controller="Booking" asp-action="Cart" class="btn btn-white btn-sm btn-circle btn-translate--hover d-none d-lg-block"><i class="fas fa-shopping-cart"></i> @Localizer["Checkout"] <span class="badge badge-pill badge-danger text-sm">1</span></a>
