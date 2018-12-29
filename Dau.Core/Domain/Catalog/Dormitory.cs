@@ -23,7 +23,7 @@ namespace Dau.Core.Domain.Catalog
 
 
         public string Location { get; set; }
-
+        public string SKU { get; set; }
 
         public int NoOfNewFacilities { get; set; }
         public int NoOfStaff { get; set; }

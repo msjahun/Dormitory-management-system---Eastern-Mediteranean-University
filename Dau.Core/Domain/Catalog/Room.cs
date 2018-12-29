@@ -35,6 +35,8 @@ namespace Dau.Core.Domain.Catalog
         public double BookingFee { get; set; }
         public bool PaymentPerSemesterNotYear { get; set; }
 
+        public string SKU { get; set; }
+
         public DateTime DealEndTime { get; set; }
         public bool DisplayDeal { get; set; }
         public int PercentageOff { get; set; }
