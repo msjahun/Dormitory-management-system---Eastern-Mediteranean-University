@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Dau.Data;
-using Dau.Services.DormitoryServiceOld;
+
 using Dau.Core.Domain.Users;
 using Microsoft.AspNetCore.Identity;
 using searchDormWeb.Configuration;
@@ -41,6 +41,9 @@ using Dau.Services.Utilities;
 using Dau.Services.Domain.BookingService;
 using Dau.Services.Domain.RoomServices;
 using Dau.Services.Domain.FeaturesServices;
+using Dau.Services.Domain.DormitoryServices;
+using Dau.Services.Domain.DormitoryBlockServices;
+using Dau.Services.Domain.ReviewsServices;
 
 namespace searchDormWeb
 {
@@ -130,6 +133,8 @@ namespace searchDormWeb
 
             services.AddScoped<   ISeedingService, SeedingService> ();
             services.AddScoped <  IHomeService,HomeService > ();
+            services.AddScoped <IDormitoryBlockService, DormitoryBlockService > ();
+            services.AddScoped <  IReviewService, ReviewService > ();
 
 
             services.AddScoped<ILanguageService, LanguageService>();
