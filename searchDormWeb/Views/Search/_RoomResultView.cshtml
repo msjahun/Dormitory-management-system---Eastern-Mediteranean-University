@@ -87,20 +87,23 @@
             @item.ShortDescription
 
         </p>*@
-                @if (item.Features != null) {
-                @foreach (var feature in item.Features)
+                @if (item.Features != null)
                 {
-                    <span class=" mt-1 facilityCol">
-            @if (feature.IconUrl != null) {
-                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets/img/icons")@feature.IconUrl" style="width: 20px;">
-            }
-              @feature.FeatureName
-                    </span>
-                }
+                    @foreach (var feature in item.Features)
+                    {
+                        <span class=" mt-1 facilityCol">
+                            @if (feature.IconUrl != null)
+                            {
+                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets/img/icons")@feature.IconUrl" style="width: 20px;">
+                            }
+                            @feature.FeatureName
+                        </span>
+                    }
 
-            @if(item.Features.Count > 0) { 
-                <a href="@Url.Content("~/Dormitories/"+item.DormitorySeoFriendlyUrl)#_RoomSection">... @Localizer["view more"]</a>
-            }
+                    @if (item.Features.Count > 0)
+                    {
+                        <a href="@Url.Content("~/Dormitories/"+item.DormitorySeoFriendlyUrl)#_RoomSection">... @Localizer["view more"]</a>
+                    }
                 }
 
                 @*<span><i class="fa fa-credit-card"></i><a href="#">Reservation possible without a credit card</a></span>*@
@@ -108,7 +111,15 @@
 
                 @if (item.DisplayNoRoomsLeft)
                 {
-                    <p class="" style="color:#269038;">@Localizer["Don't miss out {0} rooms left", item.NumberOfRoomsLeft]</p>
+                    if (item.NumberOfRoomsLeft > 5)
+                    {
+                        <p class="" style="color:#269038;">@Localizer["Don't miss out {0} rooms left", item.NumberOfRoomsLeft]</p>
+                    }
+                    else if (item.NumberOfRoomsLeft > 0 && item.NumberOfRoomsLeft <= 5)
+                    {
+                        <p class="text-danger" >@Localizer["Don't miss out {0} rooms left", item.NumberOfRoomsLeft]</p>
+                    }
+
                 }
             </div>
 
@@ -136,19 +147,31 @@
                 {
                     <h5 class="text-bold d-block" style="color:#269038">@Localizer["{0}% off", item.PercentageOff]</h5>}
 
-                <h4 class="text-bold d-block" style="color:#269038">@String.Format("{0} {1}", "TL", item.Price)</h4>
-                @if (item.OldPrice != null)
+                @if (item.ShowPrice)
                 {
-                    <strike><h4 class="text-bold" style="color:grey; ">@String.Format("{0} {1}", "TL", item.OldPrice)</h4></strike>
-                }
-                @if (item.PaymentPerSemesterNotYear)
-                {
-                    <h5 class="text-bold d-block" style="color:#269038">@Localizer["Per semester"]</h5>
+
+                    <h4 class="text-bold d-block" style="color:#269038">@String.Format("{0} {1}", "TL", item.Price)</h4>
+                    @if (item.OldPrice != null)
+                    {
+                        <strike><h4 class="text-bold" style="color:grey; ">@String.Format("{0} {1}", "TL", item.OldPrice)</h4></strike>
+                    }
+
+
+                    @if (item.PaymentPerSemesterNotYear)
+                    {
+                        <h5 class="text-bold d-block" style="color:#269038">@Localizer["Per semester"]</h5>
+                    }
+                    else
+                    {
+                        <h5 class="text-bold d-block" style="color:#269038">@Localizer["Per year"]</h5>
+                    }
                 }
                 else
                 {
-                    <h5 class="text-bold d-block" style="color:#269038">@Localizer["Per year"]</h5>
+                    <a href="@Url.Content("~/Dormitories/"+item.DormitorySeoFriendlyUrl)#_RoomSection" class="mt-5 btn btn-sm btn-primary">@Localizer["Show price"]</a>
                 }
+
+
 
                 @*<ul class="list-inline mb-2">
             <li class="list-inline-item pr-2">
@@ -158,9 +181,14 @@
                 <i class="fas fa-comparetext-muted mr-1"></i>
             </li>
         </ul>*@
-
-                <a href="#" class=" btn btn-sm btn-primary">@Localizer["Book Now"]</a>
-
+                @if (item.NumberOfRoomsLeft > 0)
+                {
+                    <a href="@Url.Content("~/Dormitories/"+item.DormitorySeoFriendlyUrl)#_RoomSection" class="mt-1 btn btn-sm btn-primary">@Localizer["Book Now"]</a>
+                }
+                else
+                {
+                    <span class="text-danger d-block"> @Localizer["Rooms sold out"]</span>
+                }
             </div>
 
         </div>
