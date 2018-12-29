@@ -59,8 +59,9 @@
 
                         </td>
                         <td>
-                            @if (item.ShowPrice)
+                            @if (true)
                             {
+                                ////might come in handy when I implement the semester prices feature*
                                 <h4 class="text-bold" style="color:#269038">TL @item.Price</h4>
                                 @if (item.PriceOld != null)
                                 {
@@ -88,7 +89,7 @@
                             }
                             @if (item.RoomsQuota <= 0)
                             {
-                                <span class="text-danger d-block"> Rooms sold out</span>}
+                                <span class="text-danger d-block"> @Localizer["Rooms sold out"]</span>}
                             else
                             { <a href="@Html.Raw(Url.Action("AddToCart", "Booking"))/@item.RoomId"  class="btn btn-primary btn-block btn-sm">@Localizer["I'll reserve"]</a>
                         }
