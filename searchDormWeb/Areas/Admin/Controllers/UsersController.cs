@@ -5,8 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dau.Core.Domain.Users;
 using Dau.Data;
+using Dau.Services.Domain.DormitoryServices;
 using Dau.Services.Domain.Users;
-using Dau.Services.DormitoryServiceOld;
+
 using Dau.Services.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
