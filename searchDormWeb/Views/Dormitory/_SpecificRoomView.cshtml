@@ -81,26 +81,37 @@
 
                                 <dau-bedIcon reapeat-no="@item.NoOfStudents"></dau-bedIcon>
                             </p>
-                            <span class="text-danger"> @Localizer["{0} rooms left", item.NoRoomQuota]</span>
-                        </div>
+                            @if (item.NoRoomQuota > 0)
+                            {
+                                <span class="text-danger"> @Localizer["{0} rooms left", item.NoRoomQuota]</span>}
+                            </div>
 
                         <div class="col-md-6">
 
                             <h4 class="text-bold" style="color:#269038">TL @item.Price</h4>
-                            <strike><h4 class="text-bold" style="color:grey; ">TL @item.OldPrice</h4></strike>
-
-                            @if (item.HasDeposit)
+                            @if (item.OldPrice != null)
                             {
-                                <span><i class="fas fa-check"></i>@Localizer["Includes deposit"] <br></span>
-                            }
-                            else
-                            {
-                                <span><i class="fas fa-check"></i>@Localizer["No deposit Included"]<br></span>
+                                <strike><h4 class="text-bold" style="color:grey; ">TL @item.OldPrice</h4></strike>} 
+
+                                @if (item.HasDeposit)
+                                {
+                                    <span><i class="fas fa-check"></i>@Localizer["Includes deposit"] <br></span>
+                                }
+                                else
+                                {
+                                    <span><i class="fas fa-check"></i>@Localizer["No deposit Included"]<br></span>
+                                }
+
+
+                                @if (item.NoRoomQuota <= 0)
+                                {
+                                    <span class="text-danger d-block"> @Localizer["Rooms sold out"]</span>}
+                                else
+                                { <a href="@Html.Raw(Url.Action("AddToCart", "Booking"))/@item.RoomId" class="btn btn-primary btn-block btn-sm">@Localizer["I'll reserve"]</a>
                             }
 
-                            <a class="btn btn-primary btn-block btn-sm" href="@Html.Raw(Url.Action("AddToCart", "Booking"))/@item.RoomId" >@Localizer["I'll reserve"]</a>
 
-                        </div>
+                            </div>
                     </div>
                 </div>
 
