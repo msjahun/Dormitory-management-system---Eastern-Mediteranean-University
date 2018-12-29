@@ -5,10 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Domain\DormitoryServiceOld\**" />
     <Compile Remove="Domain\RoomServiceOld\**" />
     <Compile Remove="Domain\SearchService\**" />
+    <EmbeddedResource Remove="Domain\DormitoryServiceOld\**" />
     <EmbeddedResource Remove="Domain\RoomServiceOld\**" />
     <EmbeddedResource Remove="Domain\SearchService\**" />
+    <None Remove="Domain\DormitoryServiceOld\**" />
     <None Remove="Domain\RoomServiceOld\**" />
     <None Remove="Domain\SearchService\**" />
   </ItemGroup>
