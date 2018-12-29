@@ -53,6 +53,12 @@ namespace searchDormWeb.Controllers
             return PartialView("BookingCart", model);
         }
 
+        public IActionResult GetCartItemJson()
+        {
+            var model = _bookingService.GetCheckoutCartService();
+            return Json(model);
+        }
+
         public IActionResult CheckoutAddress()
         {
             return PartialView("BookingCheckoutAddress");
@@ -60,7 +66,14 @@ namespace searchDormWeb.Controllers
 
         public IActionResult BookingConfirmation()
         {
-            return PartialView("_bookingConfirmationPage");
+            //transfer cart data to bookingData,
+            //delete cart items
+            var AddBookingSuccess = _bookingService.AddBooking();
+
+            var DeleteItemFromCart = _bookingService.DeleteItemFromCart();
+
+            
+            return PartialView("_bookingConfirmationPage", AddBookingSuccess && DeleteItemFromCart);
         }
 
         public IActionResult CheckoutPayment()
