@@ -107,7 +107,7 @@ namespace Dau.Services.Domain.SearchResultService
                         join roomTrans in _roomTransRepository.List().ToList() on room.Id equals roomTrans.RoomNonTransId
                         where roomTrans.LanguageId == CurrentLanguageId
                         select new { room.Id, room.DormitoryId, room.DormitoryBlockId, roomTrans.RoomName,
-                            room.Price, room.PriceOld, room.ShowPrice, room.RoomsQuota, room.RoomSize,
+                            room.Price, room.PriceOld, room.ShowPrice, room.NoRoomQuota, room.RoomSize,
                             roomTrans.GenderAllocation, room.PaymentPerSemesterNotYear,
                             room.PercentageOff,
                             room.DealEndTime,
@@ -142,7 +142,7 @@ namespace Dau.Services.Domain.SearchResultService
                                           room.Price,
                                           room.PriceOld,
                                           room.ShowPrice,
-                                          room.RoomsQuota,
+                                          room.NoRoomQuota,
                                           room.RoomSize,
                                           room.GenderAllocation,
                                           room.PaymentPerSemesterNotYear,
@@ -238,14 +238,14 @@ namespace Dau.Services.Domain.SearchResultService
                                     ReviewNo = dorm.ReviewNo,
                                     ShortDescription =dorm.ShortDescription,
                                     DormitoryStreetAddress = dorm.DormitoryStreetAddress,
-                                    NumberOfRoomsLeft = room.RoomsQuota,
+                                    NumberOfRoomsLeft = room.NoRoomQuota,
                                     MapSection =  dorm.MapSection,
                                     ClosestLandMark = dorm.ClosestLandMark,
                                     UniqueAttribute = dorm.UniqueAttribute,
                                     Price = room.Price.ToString("N2"),
                                     OldPrice = (room.PriceOld>0)?room.PriceOld.ToString("N2"):null,
                                     PaymentPerSemesterNotYear = room.PaymentPerSemesterNotYear,
-
+                                    ShowPrice= room.ShowPrice,
                                     //should come from promotions table
                                     PercentageOff = room.PercentageOff, //from database
                                     DealEndTime = room.DealEndTime, //change this to come from db
@@ -274,7 +274,7 @@ namespace Dau.Services.Domain.SearchResultService
         public string DormitorySeoFriendlyUrl { get; set; }
         public string RatingText { get; set; }
         public int ReviewNo { get; set; }
-
+        public bool ShowPrice { get; set; }
         public DateTime DealEndTime { get; set; }
         public bool DisplayDeal { get; set; }
         public int PercentageOff { get; set; }
