@@ -8,34 +8,7 @@
 
 
 }
-@section styles{
 
-    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/font-awesome/css/font-awesome.min.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/Ionicons/css/ionicons.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/AdminLTE.min.css">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-         folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/skins/_all-skins.min.css">
-    <!-- Morris chart -->
-    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/morris.js/morris.css">
-    <!-- jvectormap -->
-    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/jvectormap/jquery-jvectormap.css">
-    <!-- DataTables -->
-    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
-
-    <!-- Date Picker -->
-    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
-    <!-- Daterange picker -->
-    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap-daterangepicker/daterangepicker.css">
-    <!-- bootstrap wysihtml5 - text editor -->
-    <link rel="stylesheet" href="@Url.Content("~/Content/")plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-
-
-}
 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -90,7 +63,7 @@
                                 </div>
                                 <!-- /.box -->
                             </div>
-                            
+
                             <div class="col-lg-4 col-xs-12 col-sm-6">
                                 <div class="box box-info box-solid">
                                     <div class="box-header with-border">
@@ -167,59 +140,59 @@
                                 </div>
                                 <!-- ./col -->
                             </secure-content>
-                                <secure-content asp-action="CancelRequest" asp-controller="Reservations" asp-area="Admin">
-                                    <div class="col-lg-3 col-xs-6">
-                                        <!-- small box -->
-                                        <div class="small-box bg-yellow ">
-                                            <div class="inner">
-                                                <h3 id="NoOfPendingCancelledRequests">0</h3>
+                            <secure-content asp-action="CancelRequest" asp-controller="Reservations" asp-area="Admin">
+                                <div class="col-lg-3 col-xs-6">
+                                    <!-- small box -->
+                                    <div class="small-box bg-yellow ">
+                                        <div class="inner">
+                                            <h3 id="NoOfPendingCancelledRequests">0</h3>
 
-                                                <p>@Localizer["Pending cancellation requests"]</p>
-                                            </div>
-                                            <div class="icon">
-                                                <i class="ion ion-stats-bars"></i>
-                                            </div>
-                                            <a asp-action="CancelRequest" asp-controller="Reservations" asp-area="Admin" class="small-box-footer">@Localizer["More info"] <i class="fa fa-arrow-circle-right"></i></a>
+                                            <p>@Localizer["Pending cancellation requests"]</p>
                                         </div>
-                                    </div>
-                                    <!-- ./col -->
-                                </secure-content>
-
-
-                                <secure-content asp-area="Admin" asp-controller="Users" asp-action="List">
-                                    <div class="col-lg-3 col-xs-6">
-                                        <!-- small box -->
-                                        <div class="small-box bg-green">
-                                            <div class="inner">
-                                                <h3 id="NoOfUsers">0</h3>
-
-                                                <p>@Localizer["User Registrations"]</p>
-                                            </div>
-                                            <div class="icon">
-                                                <i class="ion ion-person-add"></i>
-                                            </div>
-                                            <a asp-action="List" asp-controller="Users" asp-area="Admin" class="small-box-footer">@Localizer["More info"] <i class="fa fa-arrow-circle-right"></i></a>
+                                        <div class="icon">
+                                            <i class="ion ion-stats-bars"></i>
                                         </div>
+                                        <a asp-action="CancelRequest" asp-controller="Reservations" asp-area="Admin" class="small-box-footer">@Localizer["More info"] <i class="fa fa-arrow-circle-right"></i></a>
                                     </div>
-                                    <!-- ./col -->
-                                </secure-content>
-                                <secure-content asp-action="LowQuotaReport" asp-controller="Catalog" asp-area="Admin">
-                                    <div class="col-lg-3 col-xs-6">
-                                        <!-- small box -->
-                                        <div class="small-box bg-red">
-                                            <div class="inner">
-                                                <h3  id="NoOfLowQuotaRooms">0</h3>
+                                </div>
+                                <!-- ./col -->
+                            </secure-content>
 
-                                                <p>@Localizer["Low quota rooms"]</p>
-                                            </div>
-                                            <div class="icon">
-                                                <i class="ion ion-pie-graph"></i>
-                                            </div>
-                                            <a asp-action="LowQuotaReport" asp-controller="Catalog" asp-area="Admin" class="small-box-footer">@Localizer["More info"] <i class="fa fa-arrow-circle-right"></i></a>
+
+                            <secure-content asp-area="Admin" asp-controller="Users" asp-action="List">
+                                <div class="col-lg-3 col-xs-6">
+                                    <!-- small box -->
+                                    <div class="small-box bg-green">
+                                        <div class="inner">
+                                            <h3 id="NoOfUsers">0</h3>
+
+                                            <p>@Localizer["User Registrations"]</p>
                                         </div>
+                                        <div class="icon">
+                                            <i class="ion ion-person-add"></i>
+                                        </div>
+                                        <a asp-action="List" asp-controller="Users" asp-area="Admin" class="small-box-footer">@Localizer["More info"] <i class="fa fa-arrow-circle-right"></i></a>
                                     </div>
-                                    <!-- ./col -->
-                                </secure-content>
+                                </div>
+                                <!-- ./col -->
+                            </secure-content>
+                            <secure-content asp-action="LowQuotaReport" asp-controller="Catalog" asp-area="Admin">
+                                <div class="col-lg-3 col-xs-6">
+                                    <!-- small box -->
+                                    <div class="small-box bg-red">
+                                        <div class="inner">
+                                            <h3 id="NoOfLowQuotaRooms">0</h3>
+
+                                            <p>@Localizer["Low quota rooms"]</p>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="ion ion-pie-graph"></i>
+                                        </div>
+                                        <a asp-action="LowQuotaReport" asp-controller="Catalog" asp-area="Admin" class="small-box-footer">@Localizer["More info"] <i class="fa fa-arrow-circle-right"></i></a>
+                                    </div>
+                                </div>
+                                <!-- ./col -->
+                            </secure-content>
                         </div>
                     </div>
                     <!-- /.box-body -->
@@ -259,7 +232,7 @@
                     <div class="col-md-6">
                         <div class="box box-info">
                             <div class="box-header with-border">
-                                <h3 class="box-title"><i class="fa fa-user"></i> @Localizer["New customers"]</h3>
+                                <h3 class="box-title"><i class="fa fa-user"></i> @Localizer["New Users"]</h3>
 
                                 <div class="box-tools pull-right">
                                     <button type="button" class="btn btn-xs btn-info btn-flat">@Localizer["Day"]</button>
@@ -279,7 +252,7 @@
                         </div>
                         <!-- /.box -->
                     </div>
-                    </secure-content>
+                </secure-content>
             </div>
 
 
@@ -287,89 +260,81 @@
 
 
                 <secure-content asp-area="Admin" asp-controller="Dashboard" asp-action="BookingTotals">
-                <div class="col-md-8">
-                    <div class="box box-info">
-                        <div class="box-header with-border">
-                            <h3 class="box-title"><i class="fa fa-money"></i> @Localizer["Booking totals"]</h3>
+                    <div class="col-md-8">
+                        <div class="box box-info">
+                            <div class="box-header with-border">
+                                <h3 class="box-title"><i class="fa fa-money"></i> @Localizer["Booking totals"]</h3>
 
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                                    <i class="fa fa-minus"></i>
-                                </button>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <!-- /.box-tools -->
                             </div>
-                            <!-- /.box-tools -->
-                        </div>
-                        <!-- /.box-header -->
-                        <div class="box-body">
+                            <!-- /.box-header -->
+                            <div class="box-body">
 
-                            <div class="overflow">
-                                <table id="bookingTotalsDt" class="table table-bordered table-hover pull-right">
-                                    <thead>
-                                        <tr>
-                                            <th>@Localizer["Order Status"]</th>
-                                            <th>@Localizer["Today"]</th>
-                                            <th>@Localizer["This Week"]</th>
-                                            <th>@Localizer["This Month"]</th>
-                                            <th>@Localizer["This Year"]</th>
-                                            <th>@Localizer["All Time"]</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                      
+                                <div class="overflow">
+                                    <table id="bookingTotalsDt" class="table table-bordered table-hover pull-right">
+                                        <thead>
+                                            <tr>
+                                                <th>@Localizer["Order Status"]</th>
+                                                <th>@Localizer["Today"]</th>
+                                                <th>@Localizer["This Week"]</th>
+                                                <th>@Localizer["This Month"]</th>
+                                                <th>@Localizer["This Year"]</th>
+                                                <th>@Localizer["All Time"]</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
 
-                                    </tbody>
-
-                                </table>
+                                    </table>
+                                </div>
                             </div>
+                            <!-- /.box-body -->
                         </div>
-                        <!-- /.box-body -->
+                        <!-- /.box -->
                     </div>
-                    <!-- /.box -->
-                </div>
-                    </secure-content>
+                </secure-content>
 
                 <secure-content asp-area="Admin" asp-controller="Dashboard" asp-action="IncompleteBookings">
-                <div class="col-md-4">
-                    <div class="box box-info">
-                        <div class="box-header with-border">
-                            <h3 class="box-title"><i class="fa fa-hourglass-start"></i> @Localizer["Incomplete bookings"]</h3>
+                    <div class="col-md-4">
+                        <div class="box box-info">
+                            <div class="box-header with-border">
+                                <h3 class="box-title"><i class="fa fa-hourglass-start"></i> @Localizer["Incomplete bookings"]</h3>
 
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                                    <i class="fa fa-minus"></i>
-                                </button>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <!-- /.box-tools -->
                             </div>
-                            <!-- /.box-tools -->
-                        </div>
-                        <!-- /.box-header -->
-                        <!-- /.box-header -->
-                        <div class="box-body">
+                            <!-- /.box-header -->
+                            <!-- /.box-header -->
+                            <div class="box-body">
 
-                            <div class="overflow">
-                                <table id="incompleteBookingsDt" class="table table-bordered table-hover pull-right">
-                                    <thead>
-                                        <tr>
-                                            <th>@Localizer["Item"]</th>
-                                            <th>@Localizer["Total"]</th>
-                                            <th>@Localizer["Count"]</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    
+                                <div class="overflow">
+                                    <table id="incompleteBookingsDt" class="table table-bordered table-hover pull-right">
+                                        <thead>
+                                            <tr>
+                                                <th>@Localizer["Item"]</th>
+                                                <th>@Localizer["Total"]</th>
+                                                <th>@Localizer["Count"]</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
 
-
-
-                                    </tbody>
-
-                                </table>
+                                    </table>
+                                </div>
                             </div>
+                            <!-- /.box-body -->
+                            <!-- /.box-body -->
                         </div>
-                        <!-- /.box-body -->
-                        <!-- /.box-body -->
+                        <!-- /.box -->
                     </div>
-                    <!-- /.box -->
-                </div>
-                    </secure-content>
+                </secure-content>
             </div>
 
 
@@ -378,178 +343,174 @@
 
 
                 <secure-content asp-area="Admin" asp-controller="Dashboard" asp-action="LatestBookings">
-                <div class="col-md-8">
-                    <div class="box box-info">
-                        <div class="box-header with-border">
-                            <h3 class="box-title"><i class="fa fa-cart-plus"></i> @Localizer["Latest bookings"] </h3> <a asp-action="List" asp-controller="Reservations" asp-area="Admin" class="btn btn-info btn-flat btn-xs">@Localizer["View All Bookings"]</a>
+                    <div class="col-md-8">
+                        <div class="box box-info">
+                            <div class="box-header with-border">
+                                <h3 class="box-title"><i class="fa fa-cart-plus"></i> @Localizer["Latest bookings"] </h3> <a asp-action="List" asp-controller="Reservations" asp-area="Admin" class="btn btn-info btn-flat btn-xs">@Localizer["View All Bookings"]</a>
 
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                                    <i class="fa fa-minus"></i>
-                                </button>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <!-- /.box-tools -->
                             </div>
-                            <!-- /.box-tools -->
-                        </div>
-                        <!-- /.box-header -->
-                        <div class="box-body">
+                            <!-- /.box-header -->
+                            <div class="box-body">
 
-                            <div class="overflow">
-                                <table id="latestBookingsDt" class="table table-bordered table-hover pull-right">
-                                    <thead>
-                                        <tr>
-                                            <th>@Localizer["Booking #"]</th>
-                                            <th>@Localizer["Booking status"]</th>
-                                            <th>@Localizer["Student"]</th>
-                                            <th>@Localizer["Created on"]</th>
-                                            <th>@Localizer["View"]</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                       
+                                <div class="overflow">
+                                    <table id="latestBookingsDt" class="table table-bordered table-hover pull-right">
+                                        <thead>
+                                            <tr>
+                                                <th>@Localizer["Booking #"]</th>
+                                                <th>@Localizer["Booking status"]</th>
+                                                <th>@Localizer["Student"]</th>
+                                                <th>@Localizer["Created on"]</th>
+                                                <th>@Localizer["View"]</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
 
-
-                                    </tbody>
-
-                                </table>
+                                    </table>
+                                </div>
                             </div>
+                            <!-- /.box-body -->
                         </div>
-                        <!-- /.box-body -->
+                        <!-- /.box -->
                     </div>
-                    <!-- /.box -->
-                </div>
-                    </secure-content>
+                </secure-content>
 
                 <secure-content asp-area="Admin" asp-controller="Dashboard" asp-action="PopularFilters">
-                <div class="col-md-4">
-                    <div class="box box-info">
-                        <div class="box-header with-border">
-                            <h3 class="box-title"><i class="fa fa-search"></i> @Localizer["Popular filters"]</h3>
+                    <div class="col-md-4">
+                        <div class="box box-info">
+                            <div class="box-header with-border">
+                                <h3 class="box-title"><i class="fa fa-search"></i> @Localizer["Popular filters"]</h3>
 
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                                    <i class="fa fa-minus"></i>
-                                </button>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <!-- /.box-tools -->
                             </div>
-                            <!-- /.box-tools -->
-                        </div>
-                        <!-- /.box-header -->
-                        <div class="box-body">
+                            <!-- /.box-header -->
+                            <div class="box-body">
 
-                            <div class="overflow">
-                                <table id="popularFiltersDt" class="table table-bordered table-hover pull-right">
-                                    <thead>
-                                        <tr>
-                                            <th>@Localizer["Filter"]</th>
-                                            <th>@Localizer["Count"]</th>
+                                <div class="overflow">
+                                    <table id="popularFiltersDt" class="table table-bordered table-hover pull-right">
+                                        <thead>
+                                            <tr>
+                                                <th>@Localizer["Filter"]</th>
+                                                <th>@Localizer["Count"]</th>
 
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>TV-in room</td>
-                                            <td>45</td>
-                                        </tr>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>TV-in room</td>
+                                                <td>45</td>
+                                            </tr>
 
-                                        <tr>
-                                            <td>Kitchen shared</td>
-                                            <td>21</td>
-                                        </tr>
+                                            <tr>
+                                                <td>Kitchen shared</td>
+                                                <td>21</td>
+                                            </tr>
 
-                                        <tr>
-                                            <td>TV-in room</td>
-                                            <td>45</td>
-                                        </tr>
+                                            <tr>
+                                                <td>TV-in room</td>
+                                                <td>45</td>
+                                            </tr>
 
-                                        <tr>
-                                            <td>TV-in room</td>
-                                            <td>45</td>
-                                        </tr>
+                                            <tr>
+                                                <td>TV-in room</td>
+                                                <td>45</td>
+                                            </tr>
 
 
 
-                                    </tbody>
+                                        </tbody>
 
-                                </table>
+                                    </table>
+                                </div>
                             </div>
+                            <!-- /.box-body -->
                         </div>
-                        <!-- /.box-body -->
+                        <!-- /.box -->
                     </div>
-                    <!-- /.box -->
-                </div>
-                    </secure-content>
+                </secure-content>
             </div>
 
             <div class="row">
 
 
                 <secure-content asp-area="Admin" asp-controller="Dashboard" asp-action="BestSellersQuantity">
-                <div class="col-md-6">
-                    <div class="box box-info">
-                        <div class="box-header with-border">
-                            <h3 class="box-title"><i class="fa fa-star"></i> @Localizer["Bestsellers(rooms) by quantity"]</h3>
+                    <div class="col-md-6">
+                        <div class="box box-info">
+                            <div class="box-header with-border">
+                                <h3 class="box-title"><i class="fa fa-star"></i> @Localizer["Bestsellers(rooms) by quantity"]</h3>
 
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                                    <i class="fa fa-minus"></i>
-                                </button>
+                                <div class="box-tools pull-right">
+                                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <!-- /.box-tools -->
                             </div>
-                            <!-- /.box-tools -->
-                        </div>
-                        <!-- /.box-header -->
-                        <div class="box-body">
+                            <!-- /.box-header -->
+                            <div class="box-body">
 
-                            <div class="overflow">
-                                <table id="bestSellersByQtyDt" class="table table-bordered table-hover pull-right">
-                                    <thead>
-                                        <tr>
-                                            <th>@Localizer["Name"]</th>
-                                            <th>@Localizer["Total quantity"]</th>
-                                            <th>@Localizer["Total amount"]</th>
-                                            <th>@Localizer["View"]</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Ramen suits</td>
-                                            <td>23</td>
-                                            <td>82,000 USD</td>
+                                <div class="overflow">
+                                    <table id="bestSellersByQtyDt" class="table table-bordered table-hover pull-right">
+                                        <thead>
+                                            <tr>
+                                                <th>@Localizer["Name"]</th>
+                                                <th>@Localizer["Total quantity"]</th>
+                                                <th>@Localizer["Total amount"]</th>
+                                                <th>@Localizer["View"]</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Ramen suits</td>
+                                                <td>23</td>
+                                                <td>82,000 USD</td>
 
-                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Prime living suits</td>
-                                            <td>23</td>
-                                            <td>82,000 USD</td>
+                                                <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Prime living suits</td>
+                                                <td>23</td>
+                                                <td>82,000 USD</td>
 
-                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>EMU 1</td>
-                                            <td>23</td>
-                                            <td>82,000 USD</td>
+                                                <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>EMU 1</td>
+                                                <td>23</td>
+                                                <td>82,000 USD</td>
 
-                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Alfam studio suits</td>
-                                            <td>23</td>
-                                            <td>82,000 USD</td>
+                                                <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Alfam studio suits</td>
+                                                <td>23</td>
+                                                <td>82,000 USD</td>
 
-                                            <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                        </tr>
+                                                <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
+                                            </tr>
 
 
 
-                                    </tbody>
+                                        </tbody>
 
-                                </table>
+                                    </table>
+                                </div>
                             </div>
+                            <!-- /.box-body -->
                         </div>
-                        <!-- /.box-body -->
+                        <!-- /.box -->
                     </div>
-                    <!-- /.box -->
-                </div>
-                    </secure-content>
+                </secure-content>
 
                 <secure-content asp-area="Admin" asp-controller="Dashboard" asp-action="BestSellersAmount">
                     <div class="col-md-6">
@@ -635,6 +596,37 @@
     <!-- /.content -->
 </div>
 
+
+
+
+@section styles{
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/skins/_all-skins.min.css">
+    <!-- Morris chart -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/morris.js/morris.css">
+    <!-- jvectormap -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/jvectormap/jquery-jvectormap.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
+    <!-- Date Picker -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap-daterangepicker/daterangepicker.css">
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+
+
+}
 @section scripts
 
     {
@@ -680,71 +672,71 @@
     <script src="@Url.Content("~/Content/")dist/js/demo.js"></script>
 
     <script>
-      
-  
+
+
          $.ajax({
             type: "POST",
             url: "@Html.Raw(Url.Action("NoOfBookings", "Dashboard"))",
             success: function (result, textStatus, xhr) {
                 //     alert(result);
                 $("#NoOfBookings").html(result);
-              
+
             }
 
             });
 
-       
-      
 
-        // //get number of newly registered users, 
+
+
+        // //get number of newly registered users,
          $.ajax({
             type: "POST",
             url: "@Html.Raw(Url.Action("NoOfUsers", "Dashboard"))",
-            
+
             success: function (result, textStatus, xhr) {
                 //     alert(result);
                 $("#NoOfUsers").html(result);
-              
+
             }
 
             });
 
-       
 
 
-        // //get number of cancelled booking requests, 
+
+        // //get number of cancelled booking requests,
          $.ajax({
             type: "POST",
             url: "@Html.Raw(Url.Action("NoOfPendingCancelledRequests", "Dashboard"))",
-           
+
             success: function (result, textStatus, xhr) {
                 //     alert(result);
                 $("#NoOfPendingCancelledRequests").html(result);
-              
+
             }
 
             });
 
-       
 
 
-        // //get number of low quota rooms, 
+
+        // //get number of low quota rooms,
          $.ajax({
             type: "POST",
             url: "@Html.Raw(Url.Action("NoOfLowQuotaRooms", "Dashboard"))",
-           
+
             success: function (result, textStatus, xhr) {
                 //     alert(result);
                 $("#NoOfLowQuotaRooms").html(result);
-              
+
             }
 
             });
 
-     
+
              $.getJSON("@Url.Content("~/frontend_Content/")assets/js/DataTable_aLenthMenu/aLenthMenu_5_25.json", function (aLength) {
            // console.log(json); // this will show the info it in firebug console
-  
+
 
             $('#latestBookingsDt').on('processing.dt', function (e, settings, processing) {
                 if (processing) {
@@ -801,7 +793,7 @@
             })
 
 
-            
+
             $('#popularFiltersDt').on('processing.dt', function (e, settings, processing) {
                 if (processing) {
                     Pace.start();
@@ -897,7 +889,7 @@
 
 
 
-     
+
                 $('#bookingTotalsDt').on('processing.dt', function (e, settings, processing) {
                 if (processing) {
                     Pace.start();
@@ -947,7 +939,7 @@
             })
 
 
-            
+
             $('#bestSellersByAmtDt').on('processing.dt', function (e, settings, processing) {
                 if (processing) {
                     Pace.start();
@@ -1054,12 +1046,12 @@
     $.ajax({
             type: "POST",
             url: "@Html.Raw(Url.Action("GetBookingsChart", "Dashboard"))",
-           
+
             success: function (result, textStatus, xhr) {
                 //     alert(result);
-             
-               
-           
+
+
+
             var ctx = document.getElementById("bookingsChart").getContext('2d');
             var myChart = new Chart(ctx, {
                 type: 'line',
@@ -1115,12 +1107,12 @@
                  $.ajax({
             type: "POST",
             url: "@Html.Raw(Url.Action("GetnewCustomersChart", "Dashboard"))",
-           
+
             success: function (result, textStatus, xhr) {
                 //     alert(result);
-          
-              
-       
+
+
+
             var ctx2 = document.getElementById("newCustomersChart").getContext('2d');
             var myChart = new Chart(ctx2, {
                 type: 'line',
@@ -1169,7 +1161,7 @@
                      }
 
                  });
-     
+
     </script>
 
 }
