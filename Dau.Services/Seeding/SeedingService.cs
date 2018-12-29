@@ -1193,7 +1193,7 @@ namespace Dau.Services.Seeding
                 NoOfStaff = 32,
                 NoOfAwards = 7,
                 DormitoryStreetAddress = "Wolfgang Amadeus Mozart Street",
-
+                SKU = "434lkjsdf",
                 //public string DormitoryType { get; set; }//should be tableLized
                 DormitoryLogoUrl = "https://www.kibrisuniversiteleri.org/wp-content/uploads/2016/07/dogu-akdeniz-universitesi-akademik-takvim-2016.png",
                 Published = true,
@@ -1454,7 +1454,7 @@ namespace Dau.Services.Seeding
                 NoOfStaff = 22,
                 NoOfAwards = 5,
                 DormitoryStreetAddress = "Wolfgang Amadeus Mozart Street",
-
+                 SKU = "rerjsdf",
                 //public string DormitoryType { get; set; }//should be tableLized
                 DormitoryLogoUrl = "https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/18/c4/73/18c473bc-cd1c-4e6e-4ba0-4a9afcae1fc4/source/512x512bb.jpg",
                 Published = true,
@@ -1890,7 +1890,7 @@ DormitoryId = _domritoryId_1,
 DormitoryBlockId=1,
      TaxAmount =10,
       BookingFee =15,
-      
+       SKU = "Er90fd",
      HasDeposit =true,
      ShowPrice =true,
      RoomSize = 43.3,
@@ -2077,7 +2077,7 @@ DormitoryBlockId=1,
       BookingFee =0,
        DormitoryId = _domritoryId_1,
 DormitoryBlockId=2,
-       
+        SKU = "5g0fd",
      HasDeposit =true,
      ShowPrice =true,
        DisplayNoRoomsLeft = true,
@@ -2266,7 +2266,7 @@ DormitoryBlockId = 1,
      HasDeposit =true,
      ShowPrice =true,
       RoomSize = 23.3,
-   
+    SKU = "ttdfg4",
        Price = 4300,
         PriceOld =5000,
          NoRoomQuota= 2,
