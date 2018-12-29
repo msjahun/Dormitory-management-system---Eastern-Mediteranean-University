@@ -20,17 +20,18 @@ namespace searchDormWeb.Controllers.API
         }
 
 
-        // POST: api/PaymentConfirmation
-        [HttpPost]
+    
+
+
         [Route("api/[controller]")]
-        public IActionResult Post(string value)
+        // POST: api/PaymentConfirmation"
+        [HttpPost]
+        public JsonResult Post()
         {
-
-
             ResponseResult response = new ResponseResult
             {
                 Response = true,
-                StatusCode= "0x3234"
+                StatusCode = "0x3234"
             };
 
 
@@ -45,11 +46,10 @@ namespace searchDormWeb.Controllers.API
             return Json(response);
         }
 
-       
 
 
 
     }
 
-  
+
 }
