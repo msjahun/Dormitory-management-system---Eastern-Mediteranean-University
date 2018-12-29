@@ -508,15 +508,15 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
         #endregion
 
-        #region Facilities
+        #region Features
         [HttpGet("[action]")]
-        public ActionResult Facilities()
+        public ActionResult Features()
         {
             return View("Facilities");
         }
 
         [HttpPost("[action]")]
-        public ActionResult Facilities(int dummy)
+        public ActionResult Features(int dummy)
         {
             try
             {
@@ -574,17 +574,95 @@ namespace searchDormWeb.Areas.Admin.Controllers
         }
 
         [HttpGet("[action]")]
-        public ActionResult FacilityAdd()
+        public ActionResult FeaturesAdd()
         {
             return View("_FacilityAdd");
         }
 
         [HttpGet("[action]")]
-        public ActionResult FacilityEdit()
+        public ActionResult FeaturesEdit()
         {
             return View("_FacilityEdit");
         }
 
+        #endregion
+
+        #region FeaturesCategory
+        [HttpGet("[action]")]
+        public ActionResult FeaturesCategory()
+        {
+            return View("Facilities");
+        }
+
+        [HttpPost("[action]")]
+        public ActionResult FeaturesCategory(int dummy)
+        {
+            try
+            {
+                var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                var start = Request.Form["start"].FirstOrDefault(); // Skip number of Rows count
+                var passedParam = Request.Form["myKey"].FirstOrDefault();//passed parameter
+                var length = Request.Form["length"].FirstOrDefault();  // Paging Length 10,20  
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault(); // Sort Column Name  
+                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();// Sort Column Direction (asc, desc)  
+                var searchValue = Request.Form["search[value]"].FirstOrDefault();// Search Value from (Search box) 
+                int pageSize = length != null ? Convert.ToInt32(length) : 0; //Paging Size (10, 20, 50,100)  
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+
+
+                //var newList =  FacilityService.GetFacilities();
+                //  var List = new List<FacilitiesSpecificationAttributesTable>();
+                var List = new List<FacilitiesSpecificationAttributesTable>();
+                //  foreach (var item in newList)
+                //  {
+                //      List.Add(new FacilitiesSpecificationAttributesTable
+                //      {
+                //          Name = item.FacilityTitle,
+                //          DisplayOrder = "2"
+                //      });
+
+                //  }
+                // getting all Discount data  
+                var Data = List;
+
+                ////Sorting  
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                //{
+                //    DiscountData = DiscountData.OrderBy(c => c.sortColumn sortColumnDirection);
+                //}
+                ////Search  
+                //if (!string.IsNullOrEmpty(searchValue))
+                //{
+                //    DiscountData = DiscountData.Where(m => m.Name == searchValue);
+                //}
+
+
+                //total number of rows counts   
+                int recordsTotal = 0;
+                recordsTotal = Data.Count();
+                //Paging   
+                var data = Data.Skip(skip).Take(pageSize).ToList();
+                //Returning Json Data  
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet("[action]")]
+        public ActionResult FeaturesCategoryAdd()
+        {
+            return View("_FacilityAdd");
+        }
+
+        [HttpGet("[action]")]
+        public ActionResult FeaturesCategoryEdit()
+        {
+            return View("_FacilityEdit");
+        }
         #endregion
     }
 
