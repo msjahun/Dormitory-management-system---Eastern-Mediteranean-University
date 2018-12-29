@@ -1,4 +1,4 @@
-﻿using Dau.Services.DormitoryServiceOld;
+﻿
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace searchDormWeb.Areas.Admin.Models.User
 {
     public class UserAddViewModel
     {
-        private DormitoryService _dormitoryService;
+      
 
      
 
