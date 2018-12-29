@@ -105,7 +105,7 @@ namespace Dau.Services.Domain.DormitoryDetailService
                             NoOfStudents = room.NoOfStudents,
                             BedType = roomTrans.BedType,
                             Price = room.Price.ToString("N2"),
-                            OldPrice = room.PriceOld.ToString("N2"),
+                            OldPrice = (room.PriceOld > 0) ? room.PriceOld.ToString("N2") : null,
                             NoRoomQuota = room.NoRoomQuota,
                             HasDeposit = room.HasDeposit,
                             ShowPrice = room.ShowPrice,
