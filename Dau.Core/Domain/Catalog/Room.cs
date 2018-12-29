@@ -19,7 +19,7 @@ namespace Dau.Core.Domain.Catalog
         public int NoOfStudents { get; set; }
 
 
-        public int RoomsQuota { get; set; }
+     
         public bool HasDeposit { get; set; }
         public bool ShowPrice { get; set; }
         public DormitoryBlock DormitoryBlock { get; set; }
