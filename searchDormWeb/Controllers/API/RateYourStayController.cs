@@ -53,6 +53,7 @@ namespace searchDormWeb.Controllers.API
     }
 
     public class RateYourStayModel{
+        public string DormitoryId { get; set; }
         public string FeedbackType { get; set; }
         public string Addcomment { get; set; }
         public string Facilities { get; set; }

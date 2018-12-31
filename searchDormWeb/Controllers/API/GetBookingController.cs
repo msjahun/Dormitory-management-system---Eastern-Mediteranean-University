@@ -32,7 +32,7 @@ namespace searchDormWeb.Controllers.API
             {
                 Response = "Success",
                 Body = new
-                {
+                {   BookingId = 233443,
                     DateOfBooking = DateTime.Now.ToString("d"),
                     TimeOfBooking = DateTime.Now.ToString("T"),
                     CheckInDate = DateTime.Now.AddDays(50).ToString("d"),

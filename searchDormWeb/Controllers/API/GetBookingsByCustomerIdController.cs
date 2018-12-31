@@ -47,7 +47,9 @@ namespace searchDormWeb.Controllers.API
                         RatingText = "Very Good",
                         BookingDate = DateTime.Now.ToString("d"),
                         CheckInDate = DateTime.Now.AddDays(43).ToString("d"),
-                        BookingStatus = "Competed"
+                        BookingStatus = "Competed",
+                        RoomId = 2342
+
                         },
 
                         new BookingByIdAPIVM
@@ -62,7 +64,8 @@ namespace searchDormWeb.Controllers.API
                     RatingText= "Very Good",
                     BookingDate  =  DateTime.Now.ToString("d"),
                     CheckInDate  = DateTime.Now.AddDays(543).ToString("d"),
-                    BookingStatus = "Competed"
+                    BookingStatus = "Competed",
+                       RoomId = 2242
                         }
                     }
 
@@ -86,6 +89,7 @@ namespace searchDormWeb.Controllers.API
 
         public class BookingByIdAPIVM
         {
+            public long RoomId { get; set; }
             public string DormitoryDescription { get; set; }
             public long DormitoryId { get; set; }
             public string Dormitoryname { get; set; }
