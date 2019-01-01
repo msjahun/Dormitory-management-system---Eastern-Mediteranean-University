@@ -8,8 +8,11 @@ using System.Threading.Tasks;
 
 namespace searchDormWeb.TagHelpers.Common
 {
+    [HtmlTargetElement("dau-editor", Attributes = ForAttributeName)]
     public class DauEditorTagHelper : TextAreaTagHelper
     {
+
+        private const string ForAttributeName = "asp-for";
         public DauEditorTagHelper(IHtmlGenerator generator) : base(generator)
         {
         }
@@ -24,7 +27,7 @@ namespace searchDormWeb.TagHelpers.Common
 
             output.PreElement.SetHtmlContent("<div class=\"col-sm-9\">");
             output.PostElement.SetHtmlContent("</div>");
-
+            base.Process(context, output);
             //if (For.Metadata.IsRequired && !For.Metadata.IsReadOnly)
             //    output.PostElement.AppendHtml("</div><div><i class=\"required hidden-xs \" style=\"color:red; \">*</i></div>");
         }

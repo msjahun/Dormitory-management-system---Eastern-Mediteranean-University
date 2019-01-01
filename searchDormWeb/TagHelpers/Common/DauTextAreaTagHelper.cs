@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 
 namespace searchDormWeb.TagHelpers.Common
 {
-    [HtmlTargetElement("dau-textarea")]
+    [HtmlTargetElement("dau-textarea", Attributes = ForAttributeName)]
     public class DauTextAreaTagHelper : TextAreaTagHelper
     {
-       
+
+        private const string ForAttributeName = "asp-for";
         public DauTextAreaTagHelper(IHtmlGenerator generator) : base(generator)
         {
         }
@@ -29,7 +30,7 @@ namespace searchDormWeb.TagHelpers.Common
         
             output.PreElement.SetHtmlContent("<div class=\"col-sm-9\">");
             output.PostElement.SetHtmlContent("</div>");
-
+            base.Process(context, output);
             //if (For.Metadata.IsRequired && !For.Metadata.IsReadOnly)
             //    output.PostElement.AppendHtml("</div><div><i class=\"required hidden-xs \" style=\"color:red; \">*</i>");
         }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
@@ -9,18 +10,50 @@ using System.Threading.Tasks;
 namespace searchDormWeb.TagHelpers.Common
 {
     [HtmlTargetElement("dau-input", Attributes = ForAttributeName)]
-    public class DauInputTagHelper : TagHelper
+    public class DauInputTagHelper : InputTagHelper
     {
+
         private const string ForAttributeName = "asp-for";
+
+        [HtmlAttributeName("asp-is-disabled")]
+        public bool IsDisabled { set; get; }
+
+        public DauInputTagHelper(IHtmlGenerator generator) : base(generator)
+        {
+        }
+
+        public override void Process(TagHelperContext context, TagHelperOutput output)
+        {
+            output.TagName = "input";
+            output.Attributes.Add("class", "form-control");
+
+            if (IsDisabled)
+            {
+                var d = new TagHelperAttribute("disabled", "disabled");
+                output.Attributes.Add(d);
+            }
+            output.PreElement.SetHtmlContent("<div class=\"col-sm-8\" >");
+            output.PostElement.SetHtmlContent("</div>");
+            base.Process(context, output);
+        }
+
+    }
+}
+
+
+
+/*
+ private const string ForAttributeName = "asp-for";
         private const string ValueAttributeName = "value";
 
 
-        [HtmlAttributeName(ForAttributeName)]
-        public ModelExpression For { set; get; }
+       
 
+        public DauInputTagHelper(IHtmlGenerator generator) : base(generator)
+        {
+        }
 
-        [HtmlAttributeName(ValueAttributeName)]
-        public string Value { get; set; }
+       
 
         public string Type { get; set; }
 
@@ -48,5 +81,4 @@ namespace searchDormWeb.TagHelpers.Common
             output.PostContent.SetHtmlContent("</div><div><i class=\"required hidden-xs \" style=\"color:red; \">*</i>");
            
         }
-    }
-}
+     */

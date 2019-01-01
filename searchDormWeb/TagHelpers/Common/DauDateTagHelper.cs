@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
@@ -10,9 +11,47 @@ using System.Threading.Tasks;
 namespace searchDormWeb.TagHelpers.Common
 {
     [HtmlTargetElement("dau-date", Attributes = ForAttributeName)]
-    public class DauDateTagHelper:TagHelper
+    public class DauDateTagHelper : InputTagHelper
     {
 
+
+        private const string ForAttributeName = "asp-for";
+     
+
+        [HtmlAttributeName("asp-is-disabled")]
+        public bool IsDisabled { set; get; }
+
+        public DauDateTagHelper(IHtmlGenerator generator) : base(generator)
+        {
+        }
+
+     
+        public override void Process(TagHelperContext context, TagHelperOutput output)
+        {
+            output.TagName = "input";
+            output.Attributes.Add("class", "form-control date-control");
+            output.Attributes.Add("type", "text");
+            output.Attributes.Add("id", For.Name + "DateID");
+
+            if (IsDisabled)
+            {
+                var d = new TagHelperAttribute("disabled", "disabled");
+                output.Attributes.Add(d);
+            }
+
+            output.PreElement.SetHtmlContent("<div class=\"col-sm-8\" >  <div class=\"input-group\">");
+
+
+            output.PostElement.SetHtmlContent($"<div class=\"input-group-addon\"><i class=\"fa fa-calendar\"></i></div></div></div>");
+
+            base.Process(context, output);
+        }
+    }
+}
+
+
+/*
+ 
 
         private const string ForAttributeName = "asp-for";
         private const string ValueAttributeName = "value";
@@ -68,7 +107,4 @@ namespace searchDormWeb.TagHelpers.Common
 
             //if (For.Metadata.ModelType.IsValueType  && For.Metadata.IsRequired && !For.Metadata.IsReadOnly)
             //    output.PostContent.SetHtmlContent("</div><div><i class=\"required hidden-xs \" style=\"color:red; \">*</i>");
-
-        }
-    }
-}
+*/
