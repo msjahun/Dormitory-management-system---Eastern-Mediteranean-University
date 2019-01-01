@@ -9,6 +9,8 @@ using Dau.Services.Facility;
 using Dau.Services.Domain.RoomServices;
 using Dau.Services.Domain.DormitoryBlockServices;
 using Dau.Services.Domain.ReviewsServices;
+using searchDormWeb.Areas.Admin.Models.Catalog;
+using System.Globalization;
 
 namespace searchDormWeb.Areas.Admin.Controllers
 {
@@ -101,6 +103,23 @@ namespace searchDormWeb.Areas.Admin.Controllers
         public ActionResult RoomAdd()
         {
             return View("_RoomAdd");
+        }
+
+        [HttpPost("[action]")]
+        public ActionResult RoomAdd(RoomAdd vm)
+        {
+            string input = vm.AvailableStartDate;
+            DateTime dateTime;
+            DateTime.TryParseExact(input, "MM/dd/yyyy", CultureInfo.InvariantCulture,
+                     DateTimeStyles.None, out dateTime);
+            vm.AvailableStartDate = dateTime.ToString();
+
+
+            if (!ModelState.IsValid)
+                return View("_RoomAdd", vm);
+
+
+            return View("_RoomAdd", vm);
         }
 
 
