@@ -5,6 +5,7 @@
 @using searchDormWeb.Configuration.SecurityFilter
 @using searchDormWeb.Models;
 @using System.Globalization
+@using Dau.Services.Domain.DropdownServices
 
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper "*, searchDormWeb.TagHelpers"
@@ -12,6 +13,7 @@
 
 @using Microsoft.Extensions.Localization
 @inject IStringLocalizer Localizer
+@inject IDropdownService _dropdown
 
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, NetCoreStack.Localization
