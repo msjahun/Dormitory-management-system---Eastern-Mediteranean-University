@@ -55,6 +55,9 @@ namespace Dau.Services.Domain.DormitoryBlockServices
             return model;
           
         }
+
+
+
     }
 
     public class DormitoryBlocksTable

@@ -108,18 +108,15 @@ namespace searchDormWeb.Areas.Admin.Controllers
         [HttpPost("[action]")]
         public ActionResult RoomAdd(RoomAdd vm)
         {
-            string input = vm.AvailableStartDate;
-            DateTime dateTime;
-            DateTime.TryParseExact(input, "MM/dd/yyyy", CultureInfo.InvariantCulture,
-                     DateTimeStyles.None, out dateTime);
-            vm.AvailableStartDate = dateTime.ToString();
+            
 
 
             if (!ModelState.IsValid)
                 return View("_RoomAdd", vm);
 
-
-            return View("_RoomAdd", vm);
+            var roomId = _roomService.AddRoom(vm);
+            return RedirectToAction("RoomEdit", "Catalog", new { @id = roomId });
+         //   return View("_RoomAdd", vm);
         }
 
 
