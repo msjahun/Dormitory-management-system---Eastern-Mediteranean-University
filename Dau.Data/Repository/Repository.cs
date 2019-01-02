@@ -40,10 +40,13 @@ namespace Dau.Data.Repository
                    .AsEnumerable();
         }
 
-        public void Insert(T entity)
+        public long Insert(T entity)
         {
             _dbContext.Set<T>().Add(entity);
             _dbContext.SaveChanges();
+
+            long id = entity.Id;
+            return id;
         }
 
         public void Update(T entity)
