@@ -1,4 +1,4 @@
-﻿@using searchDormWeb.Areas.Admin.Models.Catalog
+﻿@using  Dau.Services.Domain.RoomServices
 @model RoomAdd
 @{
     ViewData["Title"] = Localizer["Add room"];
@@ -70,9 +70,15 @@
 
 
                                                     <div class="form-group">
-                                                        <dau-label asp-for="localizedContent[0].FullDescription"> </dau-label>
-                                                        <dau-editor asp-for="localizedContent[0].FullDescription"></dau-editor>
-                                                        <span asp-validation-for="localizedContent[0].FullDescription"></span>
+                                                        <dau-label asp-for="localizedContent[0].GenderAllocation"> </dau-label>
+                                                        <dau-input asp-for="localizedContent[0].GenderAllocation"></dau-input>
+                                                        <span asp-validation-for="localizedContent[0].GenderAllocation"></span>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <dau-label asp-for="localizedContent[0].BedType"> </dau-label>
+                                                        <dau-input asp-for="localizedContent[0].BedType"></dau-input>
+                                                        <span asp-validation-for="localizedContent[0].BedType"></span>
                                                     </div>
                                                 </dau-tab>
 
@@ -90,9 +96,15 @@
 
 
                                                     <div class="form-group">
-                                                        <dau-label asp-for="localizedContent[1].FullDescription"> </dau-label>
-                                                        <dau-editor asp-for="localizedContent[1].FullDescription"></dau-editor>
-                                                        <span asp-validation-for="localizedContent[1].FullDescription"></span>
+                                                        <dau-label asp-for="localizedContent[1].GenderAllocation"> </dau-label>
+                                                        <dau-input asp-for="localizedContent[1].GenderAllocation"></dau-input>
+                                                        <span asp-validation-for="localizedContent[1].GenderAllocation"></span>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <dau-label asp-for="localizedContent[1].BedType"> </dau-label>
+                                                        <dau-input asp-for="localizedContent[1].BedType"></dau-input>
+                                                        <span asp-validation-for="localizedContent[1].BedType"></span>
                                                     </div>
 
 
@@ -107,16 +119,16 @@
 
 
 
-
-
-
-
-
+                                                    <div class="form-group">
+                                                        <dau-label asp-for="localizedContent[2].GenderAllocation"> </dau-label>
+                                                        <dau-input asp-for="localizedContent[2].GenderAllocation"></dau-input>
+                                                        <span asp-validation-for="localizedContent[2].GenderAllocation"></span>
+                                                    </div>
 
                                                     <div class="form-group">
-                                                        <dau-label asp-for="localizedContent[2].FullDescription"> </dau-label>
-                                                        <dau-editor asp-for="localizedContent[2].FullDescription"></dau-editor>
-                                                        <span asp-validation-for="localizedContent[2].FullDescription"></span>
+                                                        <dau-label asp-for="localizedContent[2].BedType"> </dau-label>
+                                                        <dau-input asp-for="localizedContent[2].BedType"></dau-input>
+                                                        <span asp-validation-for="localizedContent[2].BedType"></span>
                                                     </div>
 
                                                 </dau-tab>
@@ -130,6 +142,17 @@
 
 
 
+                                            <div class="form-group">
+                                                <dau-label asp-for="NoOfStudents"></dau-label>
+                                                <dau-input asp-for="NoOfStudents" type="number"></dau-input>
+                                                <span asp-validation-for="NoOfStudents"></span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <dau-label asp-for="RoomSize"></dau-label>
+                                                <dau-input asp-for="RoomSize" type="number"></dau-input>
+                                                <span asp-validation-for="RoomSize"></span>
+                                            </div>
 
                                             <div class="form-group">
                                                 <dau-label asp-for="SKU"></dau-label>
@@ -145,6 +168,11 @@
                                                 <span asp-validation-for="Published"></span>
                                             </div>
 
+                                            <div class="form-group">
+                                                <dau-label asp-for="DisplayOrder"></dau-label>
+                                                <dau-input asp-for="DisplayOrder" type="number"></dau-input>
+                                                <span asp-validation-for="DisplayOrder"></span>
+                                            </div>
 
 
 
@@ -157,8 +185,8 @@
 
                                             <div class="form-group">
                                                 <dau-label asp-for="AvailableEndDate"></dau-label>
-                            <dau-date asp-for="AvailableEndDate"></dau-date>
-                            <span asp-validation-for="AvailableEndDate"></span>
+                                                <dau-date asp-for="AvailableEndDate"></dau-date>
+                                                <span asp-validation-for="AvailableEndDate"></span>
 
                                             </div>
 
@@ -167,10 +195,10 @@
                                             <div class="form-group">
 
                                                 <dau-label asp-for="MarkAsNew"></dau-label>
-                            <div class="col-sm-8">
-                                <input asp-for="MarkAsNew" type="checkbox">
-                            </div>
-                            <span asp-validation-for="MarkAsNew"></span>
+                                                <div class="col-sm-8">
+                                                    <input asp-for="MarkAsNew" type="checkbox">
+                                                </div>
+                                                <span asp-validation-for="MarkAsNew"></span>
 
                                             </div>
 
@@ -178,8 +206,8 @@
                                             <div class="form-group">
 
                                                 <dau-label asp-for="AdminComment"></dau-label>
-                            <dau-textarea asp-for="AdminComment"></dau-textarea>
-                            <span asp-validation-for="AdminComment"></span>
+                                                <dau-textarea asp-for="AdminComment"></dau-textarea>
+                                                <span asp-validation-for="AdminComment"></span>
 
                                             </div>
 
@@ -209,13 +237,23 @@
 
                                             <div class="form-group">
                                                 <dau-label asp-for="OldPrice"></dau-label>
-                                                <dau-inputaddon type="number" asp-for="OldPrice" cols="4" text="TRY" min="0" ></dau-inputaddon>
-                                           
+                                                <dau-inputaddon type="number" asp-for="OldPrice" cols="4" text="TRY" min="0"></dau-inputaddon>
+
                                                 <span asp-validation-for="OldPrice"></span>
 
                                             </div>
 
-                                   
+                                            <div class="form-group">
+
+                                                <dau-label asp-for="ShowPrice"></dau-label>
+                                                <div class="col-sm-8">
+                                                    <input asp-for="ShowPrice" type="checkbox">
+                                                </div>
+                                                <span asp-validation-for="ShowPrice"></span>
+
+                                            </div>
+
+
                                             <div class="form-group">
                                                 <dau-label asp-for="RoomCost"></dau-label>
                                                 <dau-inputaddon type="number" asp-for="RoomCost" cols="4" text="TRY"></dau-inputaddon>
@@ -223,50 +261,86 @@
                                             </div>
 
                                             <div class="form-group">
+                                                <dau-label asp-for="TaxAmount"></dau-label>
+                                                <dau-inputaddon type="number" asp-for="TaxAmount" cols="4" text="TRY" min="0"></dau-inputaddon>
+
+                                                <span asp-validation-for="TaxAmount"></span>
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <dau-label asp-for="BookingFee"></dau-label>
+                                                <dau-inputaddon type="number" asp-for="BookingFee" cols="4" text="TRY" min="0"></dau-inputaddon>
+
+                                                <span asp-validation-for="BookingFee"></span>
+
+                                            </div>
+
+                                            <div class="form-group">
+
+                                                <dau-label asp-for="PaymentPerSemesterNotYear"></dau-label>
+                                                <div class="col-sm-8">
+                                                    <input asp-for="PaymentPerSemesterNotYear" type="checkbox">
+                                                </div>
+                                                <span asp-validation-for="PaymentPerSemesterNotYear"></span>
+
+                                            </div>
+
+                                            <div class="form-group">
+
+                                                <dau-label asp-for="HasDeposit"></dau-label>
+                                                <div class="col-sm-8">
+                                                    <input asp-for="HasDeposit" type="checkbox">
+                                                </div>
+                                                <span asp-validation-for="HasDeposit"></span>
+
+                                            </div>
+
+                                            <div class="form-group">
 
                                                 <dau-label asp-for="DisableBookingButton"></dau-label>
-                            <div class="col-sm-8">
-                                <input asp-for="DisableBookingButton" type="checkbox">
-                            </div>
-                            <span asp-validation-for="DisableBookingButton"></span>
+                                                <div class="col-sm-8">
+                                                    <input asp-for="DisableBookingButton" type="checkbox">
+                                                </div>
+                                                <span asp-validation-for="DisableBookingButton"></span>
 
                                             </div>
 
                                             <div class="form-group">
 
                                                 <dau-label asp-for="DisableWishlistButton"></dau-label>
-                            <div class="col-sm-8">
-                                <input asp-for="DisableWishlistButton" type="checkbox">
-                            </div>
-                            <span asp-validation-for="DisableWishlistButton"></span>
+                                                <div class="col-sm-8">
+                                                    <input asp-for="DisableWishlistButton" type="checkbox">
+                                                </div>
+                                                <span asp-validation-for="DisableWishlistButton"></span>
 
                                             </div>
 
                                             <div class="form-group">
 
                                                 <dau-label asp-for="AvailableForPreBooking"></dau-label>
-                            <div class="col-sm-8">
-                                <input asp-for="AvailableForPreBooking" type="checkbox">
-                            </div>
-                            <span asp-validation-for="AvailableForPreBooking"></span>
+                                                <div class="col-sm-8">
+                                                    <input asp-for="AvailableForPreBooking" type="checkbox">
+                                                </div>
+                                                <span asp-validation-for="AvailableForPreBooking"></span>
 
                                             </div>
 
                                             <div class="form-group">
 
                                                 <dau-label asp-for="CallForPrice"></dau-label>
-                            <div class="col-sm-8">
-                                <input asp-for="CallForPrice" type="checkbox">
-                            </div>
-                            <span asp-validation-for="CallForPrice"></span>
+                                                <div class="col-sm-8">
+                                                    <input asp-for="CallForPrice" type="checkbox">
+                                                </div>
+                                                <span asp-validation-for="CallForPrice"></span>
 
                                             </div>
 
                                             <div class="form-group">
 
                                                 <dau-label asp-for="Discounts"></dau-label>
-                            <dau-select asp-for="Discounts" multiple-select="true"></dau-select>
-                            <span asp-validation-for="Discounts"></span>
+                                                <dau-select asp-for="Discounts" multiple-select="true"></dau-select>
+                                                <span asp-validation-for="Discounts"></span>
                                             </div>
 
 
@@ -286,13 +360,61 @@
 
                                         <div class="box-body">
                                             <div class="form-horizontal">
-                            <div class="form-group">
-                                <dau-label asp-for="RoomQuota"></dau-label>
-                                <dau-input asp-for="RoomQuota" type="number"></dau-input>
-                                <span asp-validation-for="RoomQuota"></span>
+                                                <div class="form-group">
+                                                    <dau-label asp-for="RoomQuota"></dau-label>
+                                                    <dau-input asp-for="RoomQuota" type="number"></dau-input>
+                                                    <span asp-validation-for="RoomQuota"></span>
 
-                            </div>
-                      </div>
+                                                </div>
+
+                                                <div class="form-group">
+
+                                                    <dau-label asp-for="DisplayNoRoomsLeft"></dau-label>
+                                                    <div class="col-sm-8">
+                                                        <input asp-for="DisplayNoRoomsLeft" type="checkbox">
+                                                    </div>
+                                                    <span asp-validation-for="DisplayNoRoomsLeft"></span>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="box box-solid">
+                                        <div class="box-header">@Localizer["Discount deal/offer"]</div>
+                                        <!-- /.box-header -->
+                                        <!-- form start -->
+
+                                        <div class="box-body">
+                                            <div class="form-horizontal">
+
+                                                <div class="form-group">
+                                                    <dau-label asp-for="DealEndTime"></dau-label>
+                                                    <dau-date asp-for="DealEndTime"></dau-date>
+                                                    <span asp-validation-for="DealEndTime"></span>
+
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <dau-label asp-for="PercentageOff"></dau-label>
+                                                    <dau-input asp-for="PercentageOff" type="number"></dau-input>
+                                                    <span asp-validation-for="PercentageOff"></span>
+
+                                                </div>
+
+                                                <div class="form-group">
+
+                                                    <dau-label asp-for="DisplayDeal"></dau-label>
+                                                    <div class="col-sm-8">
+                                                        <input asp-for="DisplayDeal" type="checkbox">
+                                                    </div>
+                                                    <span asp-validation-for="DisplayDeal"></span>
+
+                                                </div>
+
+                                            </div>
                                         </div>
                                     </div>
 
@@ -306,7 +428,7 @@
                                                 <div class="form-group">
                                                     <dau-label asp-for="Dormitory"></dau-label>
                                                     <div class="col-sm-8">
-                                                        <select asp-for="Dormitory" asp-items="_dropdown.DormitoryBlocks()" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true"></select>
+                                                        <select asp-for="Dormitory" asp-items="_dropdown.Dormitories()" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true"></select>
                                                     </div>
                                                     <span asp-validation-for="Dormitory"></span>
 
@@ -344,17 +466,10 @@
                         </form>
                     </div>
                     <!-- /.tab-pane -->
-
-
-
-
-
-
-         
                     <!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_2">
                         <div class="box box-solid">
-                            
+
 
                             <div class="box-body">
 
@@ -446,9 +561,9 @@
     <script>
         $(function () {
 
-            CKEDITOR.replace('localizedContent[0].FullDescriptionId')
-            CKEDITOR.replace('localizedContent[1].FullDescriptionId')
-            CKEDITOR.replace('localizedContent[2].FullDescriptionId')
+            //CKEDITOR.replace('localizedContent[0].FullDescriptionId')
+            //CKEDITOR.replace('localizedContent[1].FullDescriptionId')
+            //CKEDITOR.replace('localizedContent[2].FullDescriptionId')
 
 
             $('.date-control').datepicker({
@@ -465,7 +580,7 @@
             })
 
 
-        
+
         });
 
     </script>

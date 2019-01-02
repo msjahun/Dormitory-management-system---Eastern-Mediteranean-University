@@ -118,7 +118,7 @@
                                 <tr>
                                     <th><input type="checkbox" /></th>
                                     <th>@Localizer["Room #"]</th>
-                                    <th>@Localizer["Picture"]</th>
+                                    @*<th>@Localizer["Picture"]</th>*@
                                     <th>@Localizer["Dormitory name"]</th>
                                     <th>@Localizer["Room name"]</th>
                                     <th>@Localizer["SKU"]</th>
@@ -236,11 +236,11 @@
                         }
                     },
                     { "data": "roomId" },
-                    {
-                        "render": function (data, type, full, meta) {
-                            return '<img src="'+ full.picture+'" style="width:100px; height:80px;">';
-                        }
-                    },
+                    //{
+                    //    "render": function (data, type, full, meta) {
+                    //        return '<img src="'+ full.picture+'" style="width:100px; height:80px;">';
+                    //    }
+                    //},
                   
                     { "data": "dormitoryName" },
                     { "data": "roomName" },
@@ -259,7 +259,7 @@
                     },
                     {
                         "render": function (data, type, full, meta) {
-                            return '<a class="btn btn-primary" href="/Admin/Catalog/RoomEdit"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>';
+                            return '<a class="btn btn-primary" href="/Admin/Catalog/RoomEdit?id=' + full.roomId+'"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>';
                         }
                     }
 
