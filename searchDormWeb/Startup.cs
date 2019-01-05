@@ -45,6 +45,7 @@ using Dau.Services.Domain.DormitoryServices;
 using Dau.Services.Domain.DormitoryBlockServices;
 using Dau.Services.Domain.ReviewsServices;
 using Dau.Services.Domain.DropdownServices;
+using Dau.Services.Domain.ImageServices;
 
 namespace searchDormWeb
 {
@@ -137,6 +138,7 @@ namespace searchDormWeb
             services.AddScoped <IDormitoryBlockService, DormitoryBlockService > ();
             services.AddScoped <  IReviewService, ReviewService > ();
             services.AddScoped <  IDropdownService,DropdownService > ();
+            services.AddScoped <IImageService, ImageService > ();
 
 
             services.AddScoped<ILanguageService, LanguageService>();
