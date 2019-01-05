@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Dau.Services.Domain.RoomServices
 {
-   public class RoomService : IRoomService
+    public class RoomService : IRoomService
     {
         private readonly ILanguageService _languageService;
         private readonly IRepository<RoomTranslation> _roomTransRepo;
@@ -27,15 +27,16 @@ namespace Dau.Services.Domain.RoomServices
             IRepository<Dormitory> dormitoryRepository,
             IRepository<DormitoryTranslation> dormitoryTransRepository,
             IRepository<RoomCatalogImage> roomImageRepository,
-            IRepository<CatalogImage> imageRepository)
+            IRepository<CatalogImage> imageRepository
+            )
         {
             _languageService = languageService;
-            _roomTransRepo =roomTransRepository;
-           _roomRepo = roomRepository;
-            _dormitoryRepo=dormitoryRepository;
-            _dormitoryTransRepo=dormitoryTransRepository;
-            _roomImageRepo=roomImageRepository;
-            _imageRepo=imageRepository;
+            _roomTransRepo = roomTransRepository;
+            _roomRepo = roomRepository;
+            _dormitoryRepo = dormitoryRepository;
+            _dormitoryTransRepo = dormitoryTransRepository;
+            _roomImageRepo = roomImageRepository;
+            _imageRepo = imageRepository;
 
 
         }
@@ -56,7 +57,7 @@ namespace Dau.Services.Domain.RoomServices
             var rooms = from room in _roomRepo.List().ToList()
                         join roomTrans in _roomTransRepo.List().ToList() on room.Id equals roomTrans.RoomNonTransId
                         where roomTrans.LanguageId == CurrentLanguageId
-                        select new { room.Id, roomTrans.RoomName, room.NoRoomQuota, room.Price, room.Published, room.SKU, room.DormitoryId};
+                        select new { room.Id, roomTrans.RoomName, room.NoRoomQuota, room.Price, room.Published, room.SKU, room.DormitoryId };
 
             var dormitory = from dorm in _dormitoryRepo.List().ToList()
                             join dormTrans in _dormitoryTransRepo.List().ToList() on dorm.Id equals dormTrans.DormitoryNonTransId
@@ -75,7 +76,7 @@ namespace Dau.Services.Domain.RoomServices
                                     dormitoryName = dorm.DormitoryName,
                                     dormitoryId = dorm.Id,
                                     roomId = room.Id,
-                                   // Picture = RoomImages.ToList().Where(c=> c.RoomId == room.Id).FirstOrDefault().ImageUrl,
+                                    // Picture = RoomImages.ToList().Where(c=> c.RoomId == room.Id).FirstOrDefault().ImageUrl,
                                     RoomName = room.RoomName,
                                     SKU = room.SKU,
                                     Price = room.Price,
@@ -87,32 +88,35 @@ namespace Dau.Services.Domain.RoomServices
             return model;
         }
 
-        public long AddRoom(RoomAdd vm)
+        public long AddRoom(RoomViewCrud vm)
         {//vm.NoOfStudents
             //vm.HasDeposit
             string input = vm.DealEndTime;
             DateTime DealEndTime;
             DateTime.TryParseExact(input, "MM/dd/yyyy", CultureInfo.InvariantCulture,
                      DateTimeStyles.None, out DealEndTime);
-            
 
-        var id=  _roomRepo.Insert(new Room
+
+            var id = _roomRepo.Insert(new Room
             {
-                DealEndTime = DealEndTime, //?
+                CreatedOn = DateTime.Now,
+                UpdatedOn = DateTime.Now,
 
-                DormitoryBlockId =vm.DormitoryBlock,
-               DormitoryId =vm.Dormitory,
-               Price =vm.Price,
-               PriceOld=vm.OldPrice,
-               NoRoomQuota =vm.RoomQuota,
-               SKU =vm.SKU,
-             
-               DisplayDeal =vm.DisplayDeal,
-               PercentageOff =vm.PercentageOff,
-               DisplayNoRoomsLeft=vm.DisplayNoRoomsLeft,
-               Published =vm.Published,
-               DisplayOrder =vm.DisplayOrder,
-               
+                DormitoryBlockId = vm.DormitoryBlock,
+                DormitoryId = vm.Dormitory,
+                Price = vm.Price,
+                PriceOld = vm.OldPrice,
+                NoRoomQuota = vm.RoomQuota,
+                SKU = vm.SKU,
+                AdminComment = vm.AdminComment,
+                DisplayDeal = vm.DisplayDeal,
+                PercentageOff = vm.PercentageOff,
+                DealEndTime = DealEndTime, //?
+                RoomCost = vm.RoomCost,
+                DisplayNoRoomsLeft = vm.DisplayNoRoomsLeft,
+                Published = vm.Published,
+                DisplayOrder = vm.DisplayOrder,
+                MarkAsNew = vm.MarkAsNew,
                 NoOfStudents = vm.NoOfStudents,
                 HasDeposit = vm.HasDeposit,
                 ShowPrice = vm.ShowPrice,
@@ -120,34 +124,196 @@ namespace Dau.Services.Domain.RoomServices
                 RoomSize = vm.RoomSize,
                 TaxAmount = vm.TaxAmount,
                 BookingFee = vm.BookingFee,
-                PaymentPerSemesterNotYear = vm.PaymentPerSemesterNotYear, 
+                PaymentPerSemesterNotYear = vm.PaymentPerSemesterNotYear,
                 RoomTranslation = new List<RoomTranslation>
                {
                         new RoomTranslation
                         {
-                          RoomName =(vm.localizedContent[1].RoomName!=null)?vm.localizedContent[1].RoomName:vm.localizedContent[0].RoomName,
-                          GenderAllocation =(vm.localizedContent[1].GenderAllocation!=null)?vm.localizedContent[1].GenderAllocation:vm.localizedContent[0].GenderAllocation,
-                          BedType =(vm.localizedContent[1].BedType!=null)?vm.localizedContent[1].BedType:vm.localizedContent[0].BedType,
-                          LanguageId = 1//english
+                            RoomName =(vm.localizedContent[0].RoomName),
+                           GenderAllocation =(vm.localizedContent[0].GenderAllocation),
+                           BedType =(vm.localizedContent[0].BedType),
+                            LanguageId = 1//english
                                
                         },
                         new RoomTranslation
                         {
-                           RoomName =(vm.localizedContent[2].RoomName!=null)?vm.localizedContent[2].RoomName:vm.localizedContent[0].RoomName,
-                           GenderAllocation =(vm.localizedContent[2].GenderAllocation!=null)?vm.localizedContent[2].GenderAllocation:vm.localizedContent[0].GenderAllocation,
-                           BedType =(vm.localizedContent[2].BedType!=null)?vm.localizedContent[2].BedType:vm.localizedContent[0].BedType,
-                           LanguageId = 2//english
+                           RoomName =(vm.localizedContent[1].RoomName),
+                           GenderAllocation =(vm.localizedContent[1].GenderAllocation),
+                           BedType =(vm.localizedContent[1].BedType),
+                           LanguageId = 2//turkish
                                
                         }
                 }
 
-    
-    });
+
+            });
 
             return id;
         }
-    }
+          public bool updateRoom(RoomViewCrud vm)
+        {//vm.NoOfStudents
+            //vm.HasDeposit
+            try {
+           
+            string input = vm.DealEndTime;
+            DateTime DealEndTime;
+            DateTime.TryParseExact(input, "MM/dd/yyyy", CultureInfo.InvariantCulture,
+                     DateTimeStyles.None, out DealEndTime);
+            var Room= _roomRepo.GetById(vm.Id);
+            if (Room == null) return false;
 
+            Room.UpdatedOn = DateTime.Now;
+                Room.DormitoryBlockId = vm.DormitoryBlock;
+                Room.DormitoryId = vm.Dormitory;
+                Room.Price = vm.Price;
+                Room.PriceOld = vm.OldPrice;
+                Room.NoRoomQuota = vm.RoomQuota;
+                Room.SKU = vm.SKU;
+                Room.AdminComment = vm.AdminComment;
+                Room.DisplayDeal = vm.DisplayDeal;
+                Room.PercentageOff = vm.PercentageOff;
+                Room.DealEndTime = DealEndTime; //?
+                Room.RoomCost = vm.RoomCost;
+                Room.DisplayNoRoomsLeft = vm.DisplayNoRoomsLeft;
+                Room.Published = vm.Published;
+                Room.DisplayOrder = vm.DisplayOrder;
+                Room.MarkAsNew = vm.MarkAsNew;
+                Room.NoOfStudents = vm.NoOfStudents;
+                Room.HasDeposit = vm.HasDeposit;
+                Room.ShowPrice = vm.ShowPrice;
+                Room.RoomSize = vm.RoomSize;
+                Room.TaxAmount = vm.TaxAmount;
+                Room.BookingFee = vm.BookingFee;
+                Room.PaymentPerSemesterNotYear = vm.PaymentPerSemesterNotYear;
+
+         
+            var englishId = 1;
+            var turkishId = 2;
+
+          var englishTrans=  _roomTransRepo.List().Where(l => l.LanguageId == englishId && l.RoomNonTransId == vm.Id).FirstOrDefault();
+          var turkishTrans=  _roomTransRepo.List().Where(l => l.LanguageId == turkishId && l.RoomNonTransId == vm.Id).FirstOrDefault();
+
+                           englishTrans.RoomName = vm.localizedContent[0].RoomName;
+                           englishTrans.GenderAllocation = vm.localizedContent[0].GenderAllocation;
+                           englishTrans.BedType = vm.localizedContent[0].BedType;
+
+            turkishTrans.RoomName = vm.localizedContent[1].RoomName;
+            turkishTrans.GenderAllocation = vm.localizedContent[1].GenderAllocation;
+            turkishTrans.BedType = vm.localizedContent[1].BedType;
+
+            _roomRepo.Update(Room);
+            _roomTransRepo.Update(englishTrans);
+            _roomTransRepo.Update(turkishTrans);
+
+
+            return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
+        public RoomViewCrud GetRoomById(long id)
+        {
+            var room = _roomRepo.GetById(id);
+            if (room == null)
+                return null;
+            var roomT = from roomTrans in _roomTransRepo.List().ToList()
+                        where roomTrans.RoomNonTransId == room.Id
+                        select roomTrans;
+            var englishRoom = roomT.Where(c => c.LanguageId == 1).FirstOrDefault();
+            var turkishRoom = roomT.Where(c => c.LanguageId == 2).FirstOrDefault();
+
+            return new RoomViewCrud
+            {
+                Id = room.Id,
+                SKU = room.SKU,
+                Published = room.Published,
+                MarkAsNew = room.MarkAsNew,
+              
+                Price = room.Price,
+                OldPrice = room.PriceOld,
+                RoomCost = room.RoomCost,
+                AdminComment = room.AdminComment,
+                CreatedOn =room.CreatedOn.ToString(),
+                UpdatedOn = room.UpdatedOn.ToString(),
+                RoomQuota = room.NoRoomQuota,
+                DisplayOrder = room.DisplayOrder,
+
+
+                DormitoryBlock = room.DormitoryBlockId,
+                Dormitory = room.DormitoryId,
+
+
+                DisplayDeal = room.DisplayDeal,
+                DealEndTime = room.DealEndTime.ToString("MM/dd/yyyy"),
+                PercentageOff=room.PercentageOff,
+             DisplayNoRoomsLeft=room.DisplayNoRoomsLeft,
+
+                NoOfStudents=room.NoOfStudents,
+               HasDeposit=room.HasDeposit,
+                ShowPrice=room.ShowPrice,
+
+                RoomSize=room.RoomSize,
+                TaxAmount=room.TaxAmount,
+                BookingFee=room.BookingFee,
+               PaymentPerSemesterNotYear=room.PaymentPerSemesterNotYear,
+                localizedContent = new List<LocalizedContent>
+                  {
+                      
+                      new LocalizedContent
+                      {
+                          RoomName =englishRoom.RoomName,
+                         GenderAllocation =englishRoom.GenderAllocation,
+                             BedType =englishRoom.BedType,
+                             languageId = englishRoom.LanguageId
+                      },
+                      new LocalizedContent
+                      {RoomName =turkishRoom.RoomName,
+                         GenderAllocation =turkishRoom.GenderAllocation,
+                             BedType =turkishRoom.BedType,
+                             languageId = turkishRoom.LanguageId
+
+                      }
+                  }
+            };
+        }
+
+        public bool Delete(RoomViewCrud vm)
+        {
+            try
+            {
+                var Room = _roomRepo.GetById(vm.Id);
+              //  if (Room == null) return false;
+                _roomRepo.Delete(Room);
+                return true;
+            }
+            catch
+            {
+                return false;
+
+            }
+        }
+
+        public List<PicturesTable> GetRoomImagesTables(long id)
+        {
+            var RoomImages = from roomImage in _roomImageRepo.List().ToList()
+                             join Image in _imageRepo.List().ToList() on roomImage.CatalogImageId equals Image.Id
+                             where roomImage.RoomId == id
+                             orderby Image.CreatedDate descending
+                             select new PicturesTable { Id=Image.Id, Picture= Image.ImageUrl, 
+                                 DisplayOrder = "4",
+                                 Alt = "image",
+                                 UploadDate = Image.CreatedDate.ToString(),
+                             };
+            var model = RoomImages.ToList();
+            return model;
+        }
+
+
+    }
 
     public class RoomsListTable
     {
@@ -163,12 +329,15 @@ namespace Dau.Services.Domain.RoomServices
         //public string Edit { get; set; }
     }
 
-    public class RoomAdd
+
+
+
+    public class RoomViewCrud
     {
 
         public List<LocalizedContent> localizedContent { get; set; }
 
-
+        public bool SavedSuccessful { get; set; }
         public string DealEndTime { get; set; }
         public bool DisplayDeal { get; set; }
         public int PercentageOff { get; set; }
@@ -196,13 +365,7 @@ namespace Dau.Services.Domain.RoomServices
 
 
 
-        [Display(Name = "Available Start Date",
-        Description = "The start of the room's availability in Coordinated Universal Time (UTC).")]
-        public string AvailableStartDate { get; set; }
-
-        [Display(Name = "Available End Date",
-        Description = "The end of the room's availability in Coordinated Universal Time (UTC).")]
-        public string AvailableEndDate { get; set; }
+   
 
         [Display(Name = "Mark As New",
         Description = "Check to mark the room as new. Use this option for promoting new rooms.")]
@@ -228,22 +391,7 @@ namespace Dau.Services.Domain.RoomServices
         Description = "Room cost is a prime room cost.This field is only for internal use, not visible for customers.")]
         public double RoomCost { get; set; }
 
-        [Display(Name = "Disable Booking Button",
-        Description = "Check to disable the book room button for this room.This may be necessary for rooms that are 'available upon request'.")]
-        public bool DisableBookingButton { get; set; }
-
-        [Display(Name = "Disable Wishlist Button",
-        Description = "Check to disable the wishlist button for this product.")]
-        public bool DisableWishlistButton { get; set; }
-
-
-        [Display(Name = "Available For Pre-Booking",
-        Description = "Check if this item is available for Pre-Booking.It also displays \"Pre-Booking\" button instead of \"Add to booking list\".")]
-        public bool AvailableForPreBooking { get; set; }
-
-        [Display(Name = "Call For Price",
-        Description = "Check to show \"Call for Pricing\" or \"Call for quote\" instead of price.")]
-        public bool CallForPrice { get; set; }
+     
 
         [Display(Name = "Discounts",
         Description = "Select discounts to apply to this room.You can manage discounts by selecting Discounts from the Promotions menu.")]
@@ -253,51 +401,21 @@ namespace Dau.Services.Domain.RoomServices
                Description = "Select inventory method.There are two methods: Don’t track inventory and Track inventory. ")]
         public int RoomQuota { get; set; }
 
-
+        [Required]
         [Display(Name = "Dormitory Block",
         Description = "Choose dormitory block.You can manage dormitory block by selecting Dormitory blocks> Dormitory blocks")]
-        public int DormitoryBlock { get; set; }
-
+        public long DormitoryBlock { get; set; }
+        [Required]
         [Display(Name = "Dormitory",
         Description = "Choose dormitory to associate room with.")]
-        public int Dormitory { get; set; }
+        public long Dormitory { get; set; }
 
 
-    }
 
-
-    public class RoomEdit
-    {
         [Display(Name = "Id",
-        Description = ""), DataType(DataType.Text), MaxLength(256)]
-        public string Id { get; set; }
+        Description = "")]
+        public long Id { get; set; }
 
-
-
-        [Display(Name = "SKU",
-        Description = "Room stock keeping unit(SKU). Your internal unique identifier that can be used to track this room."), DataType(DataType.Text), MaxLength(256)]
-        public string SKU { get; set; }
-
-        [Display(Name = "Published",
-        Description = "Check to publish this roomt (visible in customer area). Uncheck to unpublish (room not available in customer area).")]
-        public bool Published { get; set; }
-
-
-        [Display(Name = "Available Start Date",
-        Description = "The start of the room's availability in Coordinated Universal Time (UTC).")]
-        public DateTime AvailableStartDate { get; set; }
-
-        [Display(Name = "Available End Date",
-        Description = "The end of the room's availability in Coordinated Universal Time (UTC).")]
-        public DateTime AvailableEndDate { get; set; }
-
-        [Display(Name = "Mark As New",
-        Description = "Check to mark the room as new. Use this option for promoting new rooms.")]
-        public bool MarkAsNew { get; set; }
-
-        [Display(Name = "Admin Comment",
-        Description = "This comment is for internal use only, not visible for customers."), DataType(DataType.Text), MaxLength(256)]
-        public string AdminComment { get; set; }
 
         [Display(Name = "Created On",
         Description = "Date and time when this room was created."), DataType(DataType.Text), MaxLength(256)]
@@ -308,62 +426,20 @@ namespace Dau.Services.Domain.RoomServices
         public string UpdatedOn { get; set; }
 
 
-        [Display(Name = "Price",
-        Description = "The price of the room.You can manage currency by selecting Configuration > Currencies.")]
-        public int Price { get; set; }
+      
+    
 
-        [Display(Name = "Old Price",
-        Description = "The old price of the room.If you set an old price, this will display alongside the current price on the room page to show the difference in price."), MaxLength(256)]
-        public int OldPrice { get; set; }
-
-        [Display(Name = "Room Cost",
-        Description = "Room cost is a prime room cost.This field is only for internal use, not visible for customers.")]
-        public int RoomCost { get; set; }
-
-        [Display(Name = "Disable Booking Button",
-        Description = "Check to disable the book room button for this room.This may be necessary for rooms that are 'available upon request'.")]
-        public bool DisableBookingButton { get; set; }
-
-        [Display(Name = "Disable Wishlist Button",
-        Description = "Check to disable the wishlist button for this product.")]
-        public bool DisableWishlistButton { get; set; }
-
-        [Display(Name = "Available For Pre-Booking",
-        Description = "Check if this item is available for Pre-Booking.It also displays \"Pre-Booking\" button instead of \"Add to booking list\".")]
-        public bool AvailableForPreBooking { get; set; }
-
-        [Display(Name = "Call For Price",
-        Description = "Check to show \"Call for Pricing\" or \"Call for quote\" instead of price.")]
-        public bool CallForPrice { get; set; }
-
-        [Display(Name = "Discounts",
-        Description = "Select discounts to apply to this room.You can manage discounts by selecting Discounts from the Promotions menu.")]
-        public IEnumerable<int> Discounts { get; set; }
-
-        [Display(Name = "Room Quota",
-        Description = "Select inventory method.There are two methods: Don’t track inventory and Track inventory. ")]
-        public int RoomQuota { get; set; }
-
-        [Display(Name = "Dormitory Block",
-        Description = "Choose dormitory block.You can manage dormitory block by selecting Dormitory blocks> Dormitory blocks")]
-        public int DormitoryBlock { get; set; }
-
-        [Display(Name = "Dormitory",
-        Description = "Choose dormitory to associate room with.")]
-        public int Dormitory { get; set; }
-
+        
 
         [Display(Name = "Room",
         Description = "null"), DataType(DataType.Text), MaxLength(256)]
         public string Room { get; set; }
 
-        [Display(Name = "Display Order",
-        Description = "null"), DataType(DataType.Text), MaxLength(256)]
-        public string DisplayOrder { get; set; }
+     
 
 
         public PicturesTab picturesTab { get; set; }
-        public LocalizedContent[] localizedContent { get; set; }
+      
         public FacilitiesTab facilitiesTab { get; set; }
     }
 
@@ -372,22 +448,18 @@ namespace Dau.Services.Domain.RoomServices
 
     public class LocalizedContent
     {
+        public long languageId { get; set; }
+        [Required]
         [Display(Name = "Room Name",
       Description = ""), DataType(DataType.Text), MaxLength(256)]
         public string RoomName { get; set; }
 
-        //[Display(Name = "Short Description",
-        //Description = ""), DataType(DataType.Text), MaxLength(256)]
-        //public string ShortDescription { get; set; }
-
-        //[Display(Name = "Full Description",
-        //Description = ""), DataType(DataType.Text), MaxLength(256)]
-        //public string FullDescription { get; set; }
-
+       
+        [Required]
         [Display(Name = "Gender Allocation",
        Description = ""), DataType(DataType.Text),MinLength(13), MaxLength(256)]
         public string GenderAllocation { get; set; }
-
+        [Required]
         [Display(Name = "Bed Type",
         Description = ""), DataType(DataType.Text), MaxLength(256)]
         public string BedType { get; set; }
@@ -405,7 +477,9 @@ namespace Dau.Services.Domain.RoomServices
         public string Picture { get; set; }
         public string DisplayOrder { get; set; }
         public string Alt { get; set; }
-        public string Title { get; set; }
+        public string UploadDate { get; set; }
+        public long Id { get; set; }
+
 
     }
 
@@ -442,23 +516,14 @@ namespace Dau.Services.Domain.RoomServices
 
     public class FacilitiesTab
     {
-        [Display(Name = "Attribute Type", Description = ""), MaxLength(256)]
-        public int AttributeType { get; set; }
+        public long RoomId { get; set; }
+        [Display(Name = "Feature Category", Description = "The category of the feature, it may be under room feature category, bed type and so on")]
+        public long FeatureCategory { get; set; }
 
-        [Display(Name = "Attribute", Description = ""), MaxLength(256)]
-        public int Attribute { get; set; }
-
-        [Display(Name = "Attribute Options", Description = ""), MaxLength(256)]
-        public int AttributeOptions { get; set; }
-
-        [Display(Name = "Allow Filtering", Description = ""), MaxLength(256)]
-        public bool AllowFiltering { get; set; }
-
-        [Display(Name = "Show On RoomPage", Description = ""), MaxLength(256)]
-        public bool ShowOnRoomPage { get; set; }
-
-        [Display(Name = "Display Order", Description = ""), MaxLength(256)]
-        public int DisplayOrder { get; set; }
+        [Display(Name = "Feature", Description = "Feature name")]
+        public long Feature { get; set; }
+        
+    
 
 
     }

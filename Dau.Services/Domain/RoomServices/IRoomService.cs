@@ -6,6 +6,10 @@ namespace Dau.Services.Domain.RoomServices
     {
         int GetNumberOfRoomsWithLowQuota();
         List<RoomsListTable> GetRoomsListTable();
-        long AddRoom(RoomAdd vm);
+        long AddRoom(RoomViewCrud vm);
+        RoomViewCrud GetRoomById(long id);
+         bool   updateRoom(RoomViewCrud vm);
+        bool Delete(RoomViewCrud vm);
+        List<PicturesTable> GetRoomImagesTables(long id);
     }
 }
