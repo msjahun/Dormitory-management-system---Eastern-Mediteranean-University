@@ -3,6 +3,7 @@ using Dau.Core.Domain.Catalog;
 using Dau.Core.Domain.Feature;
 using Dau.Core.Domain.SearchEngineOptimization;
 using Dau.Data.Repository;
+using Dau.Services.Domain.ImageServices;
 using Dau.Services.Languages;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,7 @@ namespace Dau.Services.Domain.SearchResultService
         private readonly ILanguageService _languageService;
         private readonly IRepository<DormitoryBlock> _dormitoryBlockRepo;
         private readonly IRepository<DormitoryBlockTranslation> _dormitoryBlockTransRepo;
+        private readonly IImageService _imageService;
         private readonly IRepository<DormitoryTypeTranslation> _dormitoryTypeTranslationRepo;
         private readonly IRepository<CatalogImage> _imagesRepo;
 
@@ -57,6 +59,7 @@ namespace Dau.Services.Domain.SearchResultService
                     IRepository<Locationinformation> locationRepository,
                       IRepository<RoomFeatures> RoomFeaturesRepo,
             IRepository<Features> featuresRepo,
+            IImageService imageService,
 
             IRepository<FeaturesTranslation> featuresTranslation
 
@@ -67,8 +70,8 @@ namespace Dau.Services.Domain.SearchResultService
             _languageService = languageService;
             _dormitoryBlockRepo = DormitoryBlockRepository;
             _dormitoryBlockTransRepo = DormitoryBlockTranslationRepository;
-
-            _roomRepository = RoomRepository;
+            _imageService = imageService;
+           _roomRepository = RoomRepository;
             _roomTransRepository = RoomTransRepository;
             _dormitoryRepository = DormitoryRepository;
             _dormitoryTranslationRepository = DormitoryTranslationRepository;
@@ -226,7 +229,7 @@ namespace Dau.Services.Domain.SearchResultService
                                                     FeatureName = feature.FeatureName,
                                                     IconUrl = feature.IconUrl
                                                 }).Take(5).ToList(),
-            ImageUrls = Images.Where(d => d.RoomId == room.Id).Select(x => x.ImageUrl).ToList(),
+            ImageUrls = _imageService.ImageSplitterList(Images.Where(d => d.RoomId == room.Id).Select(x => x.ImageUrl).ToList(), "_p6"),
                                     RoomId =room.Id,
                                     GenderAllocation = room.GenderAllocation.Substring(0, 12)+"...",
                                     DormitoryName = dorm.DormitoryName,

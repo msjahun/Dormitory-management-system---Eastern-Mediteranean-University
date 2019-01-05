@@ -3,6 +3,7 @@ using Dau.Core.Domain.Catalog;
 using Dau.Core.Domain.Feature;
 using Dau.Core.Domain.SearchEngineOptimization;
 using Dau.Data.Repository;
+using Dau.Services.Domain.ImageServices;
 using Dau.Services.Languages;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ namespace Dau.Services.Domain.SearchResultService
         private IRepository<DormitoryType> _dormitoryTypeRepo;
      
         private readonly IRepository<Seo> _seoRepo;
+        private readonly IImageService _imageService;
         private readonly ILanguageService _languageService;
         private readonly IRepository<DormitoryBlock> _dormitoryBlockRepo;
         private readonly IRepository<DormitoryBlockTranslation> _dormitoryBlockTransRepo;
@@ -47,12 +49,13 @@ namespace Dau.Services.Domain.SearchResultService
                     IRepository<DormitoryCatalogImage> DormitoryImageRepository,
                     IRepository<Seo> seoRepository,
                     IRepository<Review> reviewRepository,
-                    IRepository<Locationinformation> locationRepository
+                    IRepository<Locationinformation> locationRepository,
+                      IImageService imageService
 
           )
         {
             _seoRepo = seoRepository;
-
+            _imageService = imageService;
             _languageService = languageService;
             _dormitoryBlockRepo = DormitoryBlockRepository;
             _dormitoryBlockTransRepo = DormitoryBlockTranslationRepository;
@@ -100,7 +103,7 @@ namespace Dau.Services.Domain.SearchResultService
                                   join dormType in dormitoryType.ToList() on dorm.DormitoryTypeId equals dormType.Id
                                   select new DormitoryResultViewModel
                             {
-                                ImageUrls = Images.Where(d => d.DormitoryId == dorm.Id).Select(x => x.ImageUrl).ToList(),
+                                ImageUrls = _imageService.ImageSplitterList(Images.Where(d => d.DormitoryId == dorm.Id).Select(x => x.ImageUrl).ToList(),"_p6"),
                                 DormitoryType = dormType.Title, //dormitory type table
                                 DormitoryName = dorm.DormitoryName,
                                 DormitoryIconUrl = dorm.DormitoryLogoUrl,
