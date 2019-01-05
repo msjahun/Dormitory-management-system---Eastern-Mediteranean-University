@@ -52,9 +52,9 @@ namespace Dau.Services.Domain.DormitoryServices
 
             var CurrentLanguageId = _languageService.GetCurrentLanguageId();
 
-            var dormImages = from dormImage in _dormImageRepo.List().ToList()
-                             join Image in _imageRepo.List().ToList() on dormImage.CatalogImageId equals Image.Id
-                             select new { dormImage.DormitoryId, Image.ImageUrl, Image.Published };
+            //var dormImages = from dormImage in _dormImageRepo.List().ToList()
+            //                 join Image in _imageRepo.List().ToList() on dormImage.CatalogImageId equals Image.Id
+            //                 select new { dormImage.DormitoryId, Image.ImageUrl, Image.Published };
 
             var dormitoryType = from dormType in _dormitoryTypeRepo.List().ToList()
                                 join dormTypeTrans in _dormitoryTypeTransRepo.List().ToList() on dormType.Id equals dormTypeTrans.DormitoryTypeNonTransId
@@ -66,7 +66,7 @@ namespace Dau.Services.Domain.DormitoryServices
                             where dormTrans.LanguageId == CurrentLanguageId
                             select new DormitoriesDataTable {
                                  DormitoryId=dorm.Id,
-                                 Picture = dormImages.ToList().Where(c=> c.DormitoryId == dorm.Id).FirstOrDefault().ImageUrl,
+                                 Picture = (dorm.DormitoryLogoUrl.Length>0) ? dorm.DormitoryLogoUrl : "/Content/dist/img/default-image_100.png",
                                  DormitoryName = dormTrans.DormitoryName,
                                  SKU =dorm.SKU,
                                  DormitoryType =dormitoryType.ToList().Where(c=> c.Id == dorm.DormitoryTypeId).FirstOrDefault().Title,
