@@ -107,11 +107,11 @@
                 }
                 <h6>@Localizer["Location: {0}", item.Location]</h6>
 
-                @if (item.DormitoryIconUrl != null)
+                @if (item.DormitoryIconUrl != null || item.DormitoryIconUrl !="" || item.DormitoryIconUrl.Length>0)
                 {
 
                     <a href="@Url.Content("~/Dormitories/"+item.DormitorySeoFriendlyUrl)">
-                        <img alt="Image placeholder" class="mr-3" src="@item.DormitoryIconUrl" style="width: 120px;">
+                        <img  class="mr-3" src="@item.DormitoryIconUrl" style="width: 120px;">
                     </a>
                 }
                 @*<h6>@Localizer["Guest Favorite"]</h6>*@
