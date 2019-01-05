@@ -37,7 +37,9 @@
                     <tr>
                         <td>
                             <div class="media align-items-center">
+                                @if (item.DormitoryLogoUrl.Length > 0) { 
                                 <img alt="Image placeholder" class="mr-3" src="@item.DormitoryLogoUrl" style="width: 80px;">
+                                }
                                 <div class="media-body">
                                     <div class="lh-100">
                                         <span class="text-dark font-weight-bold mb-0">@item.DormitoryName</span>
