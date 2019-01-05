@@ -4,14 +4,16 @@ using Dau.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dau.Data.Migrations
 {
     [DbContext(typeof(Fees_and_facilitiesContext))]
-    partial class Fees_and_facilitiesContextModelSnapshot : ModelSnapshot
+    [Migration("20190103170233_updatedRoomFields")]
+    partial class updatedRoomFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -448,8 +450,6 @@ namespace Dau.Data.Migrations
                         .HasColumnName("Id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Alt");
-
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<int>("DisplayOrder")
@@ -833,8 +833,6 @@ namespace Dau.Data.Migrations
                     b.Property<long>("DormitoryId");
 
                     b.Property<bool>("HasDeposit");
-
-                    b.Property<bool>("MarkAsNew");
 
                     b.Property<int>("NoOfStudents");
 
@@ -1440,7 +1438,7 @@ namespace Dau.Data.Migrations
                         .HasColumnName("id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("FeaturesCategoryId");
+                    b.Property<long?>("FeaturesCategoryId");
 
                     b.Property<int>("HitCount");
 
@@ -2665,8 +2663,7 @@ namespace Dau.Data.Migrations
                 {
                     b.HasOne("Dau.Core.Domain.Feature.FeaturesCategory", "FeaturesCategory")
                         .WithMany("Features")
-                        .HasForeignKey("FeaturesCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("FeaturesCategoryId");
                 });
 
             modelBuilder.Entity("Dau.Core.Domain.Feature.FeaturesCategoryTranslation", b =>
