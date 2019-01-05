@@ -21,5 +21,8 @@ namespace Dau.Services.Domain.DropdownServices
         List<SelectListItem> Priority();
         List<SelectListItem> Published();
         List<SelectListItem> UserRoles();
+        List<SelectListItem> FeatureCategory();
+        List<SelectListItem> Features();
+        List<SelectListItem> FeaturesByCategoryId(long id);
     }
 }

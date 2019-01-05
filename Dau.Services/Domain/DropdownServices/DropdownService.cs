@@ -1,4 +1,5 @@
 ﻿using Dau.Core.Domain.Catalog;
+using Dau.Core.Domain.Feature;
 using Dau.Data.Repository;
 using Dau.Services.Languages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -16,19 +17,32 @@ namespace Dau.Services.Domain.DropdownServices
         private readonly ILanguageService _languageService;
         private readonly IRepository<Dormitory> _dormitoryRepo;
         private readonly IRepository<DormitoryTranslation> _dormitoryTransRepo;
+        private readonly IRepository<Features> _featuresRepo;
+        private readonly IRepository<FeaturesTranslation> _featuresTransRepo;
+        private readonly IRepository<FeaturesCategory> _featuresCategoryRepo;
+        private readonly IRepository<FeaturesCategoryTranslation> _featuresCategoryTransRepo;
 
         public DropdownService(
             IRepository<DormitoryBlock> dormitoryBlockRepo,
             IRepository<DormitoryBlockTranslation> dormitoryBlockTransRepo,
               ILanguageService languageService,
                    IRepository<Dormitory> dormitoryRepository,
-            IRepository<DormitoryTranslation> dormitoryTransRepository)
+            IRepository<DormitoryTranslation> dormitoryTransRepository,
+             IRepository<Features> featuresRepository,
+            IRepository<FeaturesTranslation> featuresTransRepository,
+             IRepository<FeaturesCategory> featuresCategoryRepository,
+            IRepository<FeaturesCategoryTranslation> featuresCategoryTransRepository)
         {
             _dormitoryBlockRepo = dormitoryBlockRepo;
             _dormitoryBlockTransRepo = dormitoryBlockTransRepo;
             _languageService = languageService;
             _dormitoryRepo = dormitoryRepository;
             _dormitoryTransRepo = dormitoryTransRepository;
+
+            _featuresRepo= featuresRepository;
+            _featuresTransRepo=  featuresTransRepository;
+            _featuresCategoryRepo=featuresCategoryRepository;
+            _featuresCategoryTransRepo=featuresCategoryTransRepository;
         }
 
        public static SelectListGroup NorthAmericaGroup = new SelectListGroup { Name = "Europe" };
@@ -107,6 +121,56 @@ namespace Dau.Services.Domain.DropdownServices
 
             return dormitory.ToList();
         }
+
+
+        public List<SelectListItem> FeatureCategory()
+        {
+            var CurrentLanguageId = _languageService.GetCurrentLanguageId();
+            var featuresCategory = from featureCat in _featuresCategoryRepo.List().ToList()
+                           join featureCatTrans in _featuresCategoryTransRepo.List().ToList() on featureCat.Id equals featureCatTrans.FeaturesCategoryNonTransId
+                           where featureCatTrans.LanguageId == CurrentLanguageId
+                           select new SelectListItem
+                           {
+                               Value = featureCat.Id.ToString(),
+                               Text = featureCatTrans.CategoryName
+                           };
+
+            return featuresCategory.ToList();
+        }
+
+        
+
+        public List<SelectListItem> Features()
+        {
+            var CurrentLanguageId = _languageService.GetCurrentLanguageId();
+            var features = from feature in _featuresRepo.List().ToList()
+                           join featureTrans in _featuresTransRepo.List().ToList() on feature.Id equals featureTrans.FeaturesNonTransId
+                           where featureTrans.LanguageId == CurrentLanguageId
+                           select new SelectListItem
+                           {
+                               Value = feature.Id.ToString(),
+                               Text = featureTrans.FeatureName
+                           };
+           
+            return features.ToList();
+        }
+
+
+           public List<SelectListItem> FeaturesByCategoryId(long id)
+        {
+            var CurrentLanguageId = _languageService.GetCurrentLanguageId();
+            var features = from feature in _featuresRepo.List().ToList()
+                           join featureTrans in _featuresTransRepo.List().ToList() on feature.Id equals featureTrans.FeaturesNonTransId
+                           where featureTrans.LanguageId == CurrentLanguageId && feature.FeaturesCategoryId == id
+                           select new SelectListItem
+                           {
+                               Value = feature.Id.ToString(),
+                               Text = featureTrans.FeatureName
+                           };
+           
+            return features.ToList();
+        }
+
 
 
         public List<SelectListItem> UserRoles()
