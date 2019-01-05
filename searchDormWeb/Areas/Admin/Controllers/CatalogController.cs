@@ -11,6 +11,13 @@ using Dau.Services.Domain.DormitoryBlockServices;
 using Dau.Services.Domain.ReviewsServices;
 using searchDormWeb.Areas.Admin.Models.Catalog;
 using System.Globalization;
+using Microsoft.Extensions.Localization;
+using Dau.Services.Domain.DropdownServices;
+using Dau.Services.Domain.FeaturesServices;
+using System.Net.Http.Headers;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using Dau.Services.Domain.ImageServices;
 
 namespace searchDormWeb.Areas.Admin.Controllers
 {
@@ -19,22 +26,34 @@ namespace searchDormWeb.Areas.Admin.Controllers
     [Route("admin/[controller]")]
     public class CatalogController : Controller
     {
-        private readonly IFacilityService FacilityService;
+       
+        private readonly IFeaturesService _featuresService;
         private readonly IRoomService _roomService;
         private readonly IDormitoryBlockService _dormitoryBlockService;
         private readonly IReviewService _reviewService;
+        private readonly IStringLocalizer _localizer;
+        private readonly IDropdownService _dropdownService;
+        private readonly IHostingEnvironment _environment;
+        private readonly IImageService _imageService;
 
         public CatalogController(
-            IFacilityService _FacilityService,
+           IFeaturesService featuresService,
             IRoomService roomService, 
             IDormitoryBlockService dormitoryBlockService,
-            IReviewService reviewService)
+            IReviewService reviewService,
+            IStringLocalizer Localizer,
+            IDropdownService dropdownService,
+            IHostingEnvironment IHostingEnvironment,
+            IImageService imageService)
         {
-            this.FacilityService = _FacilityService;
+            _featuresService = featuresService;
             _roomService = roomService;
             _dormitoryBlockService = dormitoryBlockService;
             _reviewService = reviewService;
-
+            _localizer = Localizer;
+            _dropdownService = dropdownService;
+            _environment = IHostingEnvironment;
+            _imageService = imageService;
 
         }
         
@@ -106,7 +125,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
         }
 
         [HttpPost("[action]")]
-        public ActionResult RoomAdd(RoomAdd vm)
+        public ActionResult RoomAdd(RoomViewCrud vm)
         {
             
 
@@ -121,12 +140,208 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
         [HttpGet("[action]")]
-        public ActionResult RoomEdit()
+        public ActionResult RoomEdit(long id)
         {
-           
-            return View("_RoomEdit");
+          var keyValue =  HttpContext.Request.Query["Section"];
+            ViewData["section"] = "";
+            if (!string.IsNullOrWhiteSpace(keyValue))
+            { ViewData["section"] = keyValue; }
+
+                var model = _roomService.GetRoomById(id);
+            if(model==null)
+                return RedirectToAction("Rooms", "Catalog");
+            return View("_RoomEdit", model);
         }
 
+
+        [HttpPost("[action]")]
+        public ActionResult RoomEdit(RoomViewCrud vm)
+        {
+
+
+
+            if (!ModelState.IsValid)
+                return View("_RoomEdit", vm);
+
+            var model = new RoomsVm();
+            vm.SavedSuccessful = _roomService.updateRoom(vm);
+            model.AlertSuccessful = vm.SavedSuccessful;
+            if (!model.AlertSuccessful)
+            {
+                model.AlertMessage = _localizer["Unable to update room, error encountered while updating room"];
+                return View("Rooms", model);
+            }
+
+
+           
+            return View("_RoomEdit", vm);
+        }
+
+
+        [HttpPost("[action]")]
+        public ActionResult AddRoomFeature(FacilitiesTab vm)
+        {
+          var success=  _featuresService.AddRoomFeature(vm);
+
+            return Json(true);
+        }
+
+        [HttpPost("[action]")]
+        public ActionResult RemoveRoomFeature(FacilitiesTab vm)
+        {
+            var success = _featuresService.RemoveRoomFeature(vm);
+
+            return Json(true);
+        }
+
+
+         [HttpPost("[action]")]
+        public ActionResult RemoveRoomImage(long Id)
+        {
+            var success = _imageService.RemoveImage(Id);
+
+            return Json(true);
+        }
+
+
+        [HttpPost("[action]")]
+        public ActionResult GetFeaturesDropdown(long id)
+        {
+            return Json(_dropdownService.FeaturesByCategoryId(id));
+        }
+
+
+          [HttpPost("[action]")]
+        public ActionResult RoomFeaturesMapping(long id)
+        {
+
+            try
+            {
+                var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                var start = Request.Form["start"].FirstOrDefault(); // Skip number of Rows count
+                var passedParam = Request.Form["myKey"].FirstOrDefault();//passed parameter
+                var length = Request.Form["length"].FirstOrDefault();  // Paging Length 10,20  
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault(); // Sort Column Name  
+                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();// Sort Column Direction (asc, desc)  
+                var searchValue = Request.Form["search[value]"].FirstOrDefault();// Search Value from (Search box) 
+                int pageSize = length != null ? Convert.ToInt32(length) : 0; //Paging Size (10, 20, 50,100)  
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+
+
+             
+
+               
+                var List = _featuresService.GetRoomFeatures(id);
+                var Data = List;
+
+                ////Sorting  
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                //{
+                //    DiscountData = DiscountData.OrderBy(c => c.sortColumn sortColumnDirection);
+                //}
+                ////Search  
+                //if (!string.IsNullOrEmpty(searchValue))
+                //{
+                //    DiscountData = DiscountData.Where(m => m.Name == searchValue);
+                //}
+
+
+                //total number of rows counts   
+                int recordsTotal = 0;
+                recordsTotal = Data.Count();
+                //Paging   
+                var data = Data.Skip(skip).Take(pageSize).ToList();
+                //Returning Json Data  
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost("[action]")]
+        public ActionResult DeleteRoom(RoomViewCrud vm)
+        {
+
+
+
+            var model = new RoomsVm();
+
+           model.AlertSuccessful = _roomService.Delete(vm);
+            if (model.AlertSuccessful)
+            {
+               model.AlertMessage = _localizer["Room has been deleted successfully"];
+            }
+            else
+            {
+                model.AlertMessage = _localizer["Unable to delete room, error encountered while deleting room"];
+            }
+
+        
+            return View("Rooms",model);
+        }
+
+        [HttpPost("[action]")]
+        public ActionResult GetRoomImages(long id)
+        {
+
+            try
+            {
+                var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                var start = Request.Form["start"].FirstOrDefault(); // Skip number of Rows count
+                var passedParam = Request.Form["myKey"].FirstOrDefault();//passed parameter
+                var length = Request.Form["length"].FirstOrDefault();  // Paging Length 10,20  
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault(); // Sort Column Name  
+                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();// Sort Column Direction (asc, desc)  
+                var searchValue = Request.Form["search[value]"].FirstOrDefault();// Search Value from (Search box) 
+                int pageSize = length != null ? Convert.ToInt32(length) : 0; //Paging Size (10, 20, 50,100)  
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+
+
+
+
+
+                var List = _roomService.GetRoomImagesTables(id);
+                var Data = List;
+
+                ////Sorting  
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                //{
+                //    DiscountData = DiscountData.OrderBy(c => c.sortColumn sortColumnDirection);
+                //}
+                ////Search  
+                //if (!string.IsNullOrEmpty(searchValue))
+                //{
+                //    DiscountData = DiscountData.Where(m => m.Name == searchValue);
+                //}
+
+
+                //total number of rows counts   
+                int recordsTotal = 0;
+                recordsTotal = Data.Count();
+                //Paging   
+                var data = Data.Skip(skip).Take(pageSize).ToList();
+                //Returning Json Data  
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+        [HttpPost("[action]")]
+        public ActionResult UploadRoomImage(long id)
+        {
+           
+
+         var success =   _imageService.UploadRoomImage(id).Result;
+            return RedirectToAction("RoomEdit", "Catalog", new {  id, @section="picture"});
+        }
 
         #endregion
 
@@ -620,7 +835,6 @@ namespace searchDormWeb.Areas.Admin.Controllers
     }
 
 
-   
     public class BulkEditRoomsTable {
         public string Name { get; set; }
         //public string View { get; set; }
@@ -639,12 +853,13 @@ namespace searchDormWeb.Areas.Admin.Controllers
         public bool Published { get; set; }
         //public string Edit { get; set; }
     }
-    public class FacilitiesSpecificationAttributesTable {
+
+
+    public class FacilitiesSpecificationAttributesTable
+    {
         public string Name { get; set; }
         public string DisplayOrder { get; set; }
         public string Edit { get; set; }
     }
-
-
 
 }
