@@ -33,7 +33,7 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
 
     }
 
-    public class DormitoryAdd
+    public class DormitoryCrud
     {
 
 
@@ -41,24 +41,25 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
                 Description = "Dormitory type can be School own dormitory and private dormitory."), MaxLength(256)]
         public int DormitoryType { get; set; }
 
-        public LocalizedContent[] localizedContent { get; set; }
+        public List<LocalizedContent> localizedContent { get; set; }
+
+        [Display(Name = "Dormitory Logo",
+      Description = "The Logo of the dormitory "), DataType(DataType.Text), MaxLength(256)]
+        public string DormitoryLogo { get; set; }
 
 
-        [Display(Name = "Dormitory Url",
+        [Display(Name = "Dormitory Website Url",
                 Description = "The URL of the website e.g.http://dormitory.emu.edu.tr"), DataType(DataType.Text), MaxLength(256)]
-        public string DormitoryUrl { get; set; }
-
-        [Display(Name = "Display Order",
-        Description = "The display order for this dormitory. 1 represents the top of the list."), MaxLength(256)]
-        public int DisplayOrder { get; set; }
+        public string DormitoryWebsiteUrl { get; set; }
 
         [Display(Name = "Company Name",
         Description = "Enter your company name."), DataType(DataType.Text), MaxLength(256)]
         public string CompanyName { get; set; }
+        public string CompanyAddress { get; set; }//placeholder that will be deleted later
 
-        [Display(Name = "Company Address",
-        Description = "Enter your company address."), DataType(DataType.Text), MaxLength(256)]
-        public string CompanyAddress { get; set; }
+        [Display(Name = "Dormitory Address",
+        Description = "Enter your Dormitory Address."), DataType(DataType.Text), MaxLength(256)]
+        public string DormitoryAddress { get; set; }
 
         [Display(Name = "Company Phone Number",
         Description = "Enter your company phone number."), DataType(DataType.Text), MaxLength(256)]
@@ -68,9 +69,9 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
         Description = "Check to publish this dormitory (visible in customer area). Uncheck to unpublish (dormitory not available in customer area).")]
         public bool Published { get; set; }
 
-        [Display(Name = "Show On Home Page",
-        Description = "Check to display this dormitory on your home page.Recommended for your most popular dormitory.")]
-        public bool ShowOnHomePage { get; set; }
+        //[Display(Name = "Show On Home Page",
+        //Description = "Check to display this dormitory on your home page.Recommended for your most popular dormitory.")]
+        //public bool ShowOnHomePage { get; set; }
 
         [Display(Name = "Allow Customer Reviews",
         Description = "Check to allow customers to review this dormitory.")]
@@ -85,70 +86,15 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
         public string AdminComment { get; set; }
 
 
-        [Display(Name = "User Roles",
-        Description = "Choose one or several customer roles i.e.administrators, guests, who will be able to see this dormitory in dormitory list.If you don't need this option just leave this field empty."), MaxLength(256)]
-        public int UserRoles { get; set; }
+   
 
+        public SeoTab seoTab {get; set;}
 
-
-        public SeoTab[] seoTab {get; set;}
-        
-       
-    }
-
-    
-    public class DormitoryEdit
-    {
         [Display(Name = "ID",
               Description = "The Dormitory Id"), DataType(DataType.Text), MaxLength(256)]
         public string Id { get; set; }
 
-        [Display(Name = "Dormitory Type",
-             Description = "Dormitory type can be School own dormitory and private dormitory."), MaxLength(256)]
-        public int DormitoryType { get; set; }
-
-        public LocalizedContent[] localizedContent { get; set; }
-
-        [Display(Name = "Dormitory Url",
-                Description = "The URL of the website e.g.http://dormitory.emu.edu.tr"), DataType(DataType.Text), MaxLength(256)]
-        public string DormitoryUrl { get; set; }
-
-        [Display(Name = "Display Order",
-        Description = "The display order for this dormitory. 1 represents the top of the list."), MaxLength(256)]
-        public int DisplayOrder { get; set; }
-
-        [Display(Name = "Company Name",
-        Description = "Enter your company name."), DataType(DataType.Text), MaxLength(256)]
-        public string CompanyName { get; set; }
-
-        [Display(Name = "Company Address",
-        Description = "Enter your company address."), DataType(DataType.Text), MaxLength(256)]
-        public string CompanyAddress { get; set; }
-
-        [Display(Name = "Company Phone Number",
-        Description = "Enter your company phone number."), DataType(DataType.Text), MaxLength(256)]
-        public string CompanyPhoneNumber { get; set; }
-
-        [Display(Name = "Published",
-        Description = "Check to publish this dormitory (visible in customer area). Uncheck to unpublish (dormitory not available in customer area).")]
-        public bool Published { get; set; }
-
-        [Display(Name = "Show On HomePage",
-        Description = "Check to display this dormitory on your home page.Recommended for your most popular dormitory.")]
-        public bool ShowOnHomePage { get; set; }
-
-        [Display(Name = "Allow Customer Reviews",
-        Description = "Check to allow customers to review this dormitory.")]
-        public bool AllowCustomerReviews { get; set; }
-
-        [Display(Name = "Mark As New",
-        Description = "Check to mark the dormitory as new. Use this option for promoting new dormitories.")]
-        public bool MarkAsNew { get; set; }
-
-        [Display(Name = "Admin Comment",
-        Description = "This comment is for internal use only, not visible for customers."), DataType(DataType.Text), MaxLength(256)]
-        public string AdminComment { get; set; }
-
+     
         [Display(Name = "Created On",
         Description = "Date/Time this dormitory was created."), DataType(DataType.Text), MaxLength(256)]
         public string CreatedOn { get; set; }
@@ -157,17 +103,62 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
         Description = "Date/Time this dormitory was last updated."), DataType(DataType.Text), MaxLength(256)]
         public string UpdatedOn { get; set; }
 
-        [Display(Name = "User Roles",
-        Description = "Choose one or several customer roles i.e.administrators, guests, who will be able to see this dormitory in dormitory list.If you don't need this option just leave this field empty."), MaxLength(256)]
-        public int UserRoles { get; set; }
-
-        public SeoTab[] seoTab { get; set; }
+                                                   //what students love
+                                            //number of students
+                                            //number of staffs
+                                            //number of awards
 
         public PicturesTab picturesTab { get; set; }
 
         public FacilitiesTab facilitiesTab { get; set; }
 
+
+        //Booking settings
+        public bool AllowSummerBooking { get; set; }
+        public int BookingLimit { get; set; }//1year, 1 semester
+
+        [Display(Name = "Cancel Wait Days",
+        Description = "Days Booking Will Be Cancelled If Not Confirmed")]
+        public int CancelWaitDays { get; set; }
+
+
+        //
+        public bool AllowReviews { get; set; }
+
+        [Display(Name = "Building for map",
+     Description = "The building that you select here will be used to show building location on the map")]
+        public int BuildingsOnMap { get; set; }
+
+
+        [Display(Name = "Close location",
+     Description = "The building that you select here will be shown on the Area information close locations list")]
+        public int CloseLocation { get; set; } 
+
+
+        public bool PetsAreAllowed { get; set; }
+
+        public string OpeningTimeWeekdays { get; set; }
+        public string OpeningTimeWeekends { get; set; }
+        public bool OpenedOnSundays { get; set; }
+
+
+        public int LocationOnCampus { get; set; }
+
+
+        //Additional information
+        public int NumberOfStudents { get; set; }
+        public int NumberOfStaffs { get; set; }
+        public int NumberOfAwards { get; set; }
+        public int NumberOfNewFacilities { get; set; }
+
+        [Display(Name = "Students love",
+   Description = "What students love about the dormitory")]
+
+        public string WhatStudentsLove { get; set; }
     }
+
+
+
 
     public class LocalizedContent
     {
@@ -175,9 +166,7 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
        Description = "Name of the dormotory"), DataType(DataType.Text), MaxLength(256)]
         public string DormitoryName { get; set; }
 
-        [Display(Name = "Short Description",
-        Description = "Short description is the text that is displayed in dormitory list pages."), DataType(DataType.Text), MaxLength(256)]
-        public string ShortDescription { get; set; }
+   
 
         [Display(Name = "Full Description",
         Description = "Full description is the text that is displayed in dormitory page."), DataType(DataType.Text), MaxLength(256)]
@@ -228,23 +217,13 @@ namespace searchDormWeb.Areas.Admin.Models.Configuration
 
     public class FacilitiesTab
     {
-        [Display(Name = "Attribute Type", Description = ""), MaxLength(256)]
-        public int AttributeType { get; set; }
 
-        [Display(Name = "Attribute", Description = ""), MaxLength(256)]
-        public int Attribute { get; set; }
+        public long DormitoryId { get; set; }
+        [Display(Name = "Feature Category", Description = "The category of the feature, it may be under room feature category, bed type and so on")]
+        public long FeatureCategory { get; set; }
 
-        [Display(Name = "Attribute Options", Description = ""), MaxLength(256)]
-        public int AttributeOptions { get; set; }
-
-        [Display(Name = "Allow Filtering", Description = ""), MaxLength(256)]
-        public bool AllowFiltering { get; set; }
-
-        [Display(Name = "Show On Room Page", Description = ""), MaxLength(256)]
-        public bool ShowOnRoomPage { get; set; }
-
-        [Display(Name = "Display Order", Description = ""), MaxLength(256)]
-        public int DisplayOrder { get; set; }
+        [Display(Name = "Feature", Description = "Feature name")]
+        public long Feature { get; set; }
 
 
     }
