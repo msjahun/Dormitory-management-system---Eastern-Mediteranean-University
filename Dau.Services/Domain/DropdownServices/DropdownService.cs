@@ -17,6 +17,8 @@ namespace Dau.Services.Domain.DropdownServices
         private readonly ILanguageService _languageService;
         private readonly IRepository<Dormitory> _dormitoryRepo;
         private readonly IRepository<DormitoryTranslation> _dormitoryTransRepo;
+        private readonly IRepository<DormitoryType> _dormitoryTypeRepo;
+        private readonly IRepository<DormitoryTypeTranslation> _dormitoryTypeTranslationRepo;
         private readonly IRepository<Features> _featuresRepo;
         private readonly IRepository<FeaturesTranslation> _featuresTransRepo;
         private readonly IRepository<FeaturesCategory> _featuresCategoryRepo;
@@ -29,6 +31,8 @@ namespace Dau.Services.Domain.DropdownServices
                    IRepository<Dormitory> dormitoryRepository,
             IRepository<DormitoryTranslation> dormitoryTransRepository,
              IRepository<Features> featuresRepository,
+              IRepository<DormitoryType> dormitoryTypeRepository,
+            IRepository<DormitoryTypeTranslation> dormitoryTypeTranslationRepository,
             IRepository<FeaturesTranslation> featuresTransRepository,
              IRepository<FeaturesCategory> featuresCategoryRepository,
             IRepository<FeaturesCategoryTranslation> featuresCategoryTransRepository)
@@ -38,8 +42,9 @@ namespace Dau.Services.Domain.DropdownServices
             _languageService = languageService;
             _dormitoryRepo = dormitoryRepository;
             _dormitoryTransRepo = dormitoryTransRepository;
-
-            _featuresRepo= featuresRepository;
+            _dormitoryTypeRepo = dormitoryTypeRepository;
+            _dormitoryTypeTranslationRepo = dormitoryTypeTranslationRepository;
+            _featuresRepo = featuresRepository;
             _featuresTransRepo=  featuresTransRepository;
             _featuresCategoryRepo=featuresCategoryRepository;
             _featuresCategoryTransRepo=featuresCategoryTransRepository;
@@ -173,7 +178,87 @@ namespace Dau.Services.Domain.DropdownServices
 
 
 
-        public List<SelectListItem> UserRoles()
+        public List<SelectListItem> DormitoryTypes()
+        {
+            var CurrentLanguageId = _languageService.GetCurrentLanguageId();
+            var dormitoryType = from dormType in _dormitoryTypeRepo.List().ToList()
+                                join dormTypeTrans in _dormitoryTypeTranslationRepo.List().ToList() on dormType.Id equals dormTypeTrans.DormitoryTypeNonTransId
+                                where dormTypeTrans.LanguageId == CurrentLanguageId
+                                select new SelectListItem
+                                {
+                                    Value = dormType.Id.ToString(),
+                                    Text = dormTypeTrans.Title
+                                };
+            return dormitoryType.ToList();
+        }
+
+
+        public List<SelectListItem> BookingLimit()
+        {
+            var model = new List<SelectListItem> {
+            new SelectListItem
+            {
+                Value ="1",
+                Text = "1 Semester commitment"
+            },
+              new SelectListItem
+            {
+                Value ="2",
+                Text = "1 Year commitment"
+            },
+             };
+            return model;
+        }
+
+
+        public List<SelectListItem> BuildingsOnMap()
+        {
+
+            var model = new List<SelectListItem> {
+            new SelectListItem
+            {
+                Value ="1",
+                Text = "Alfam dormitory A block"
+            },
+              new SelectListItem
+            {
+                Value ="2",
+                Text = "Akdeniz dormitory"
+            },
+                new SelectListItem
+            {
+                Value ="3",
+                Text = "Sanel b block"
+            },
+             };
+            return model;
+        }
+
+        public List<SelectListItem> LocationOnCampus()
+        {
+
+            var model = new List<SelectListItem> {
+            new SelectListItem
+            {
+                Value ="1",
+                Text = "South Campus"
+            },
+              new SelectListItem
+            {
+                Value ="2",
+                Text = "North Campus"
+            },
+                new SelectListItem
+            {
+                Value ="3",
+                Text = "Other"
+            },
+             };
+            return model;
+        }
+
+
+         public List<SelectListItem> UserRoles()
         {
             return model;
         }

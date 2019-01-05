@@ -24,5 +24,9 @@ namespace Dau.Services.Domain.DropdownServices
         List<SelectListItem> FeatureCategory();
         List<SelectListItem> Features();
         List<SelectListItem> FeaturesByCategoryId(long id);
+        List<SelectListItem> DormitoryTypes();
+        List<SelectListItem> BookingLimit();
+        List<SelectListItem> BuildingsOnMap();
+        List<SelectListItem> LocationOnCampus();
     }
 }
