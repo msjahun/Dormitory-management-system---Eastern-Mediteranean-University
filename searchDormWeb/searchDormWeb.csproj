@@ -696,6 +696,8 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\Dashboard\" />
     <Folder Include="Areas\Admin\Views\shared\" />
+    <Folder Include="wwwroot\demoImages\" />
+    <Folder Include="wwwroot\Images\UploadedReceipts\" />
     <Folder Include="wwwroot\viewscss\Admin\" />
     <Folder Include="wwwroot\viewsjs\Admin\" />
   </ItemGroup>
