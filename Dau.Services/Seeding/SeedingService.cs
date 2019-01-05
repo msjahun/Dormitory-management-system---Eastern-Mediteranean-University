@@ -1306,7 +1306,7 @@ namespace Dau.Services.Seeding
                 {
                     CatalogImage = new CatalogImage
                     {
-                  ImageUrl=  "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                  ImageUrl=  "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
     CreatedDate =DateTime.Now,
                          Published=true,
                          DisplayOrder=0
@@ -1318,7 +1318,7 @@ namespace Dau.Services.Seeding
                     CatalogImage=  new CatalogImage
                     {
 
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                   ImageUrl= "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
                        CreatedDate =DateTime.Now,
                          Published=true,
                          DisplayOrder=0
@@ -1331,7 +1331,7 @@ namespace Dau.Services.Seeding
                     CatalogImage= new CatalogImage
                     {
 
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                   ImageUrl= "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -1343,7 +1343,7 @@ namespace Dau.Services.Seeding
                 {
                     CatalogImage= new CatalogImage
                     {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                   ImageUrl= "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -1356,7 +1356,7 @@ namespace Dau.Services.Seeding
                 {
                     CatalogImage=new CatalogImage
                     {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                   ImageUrl= "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -1369,7 +1369,7 @@ namespace Dau.Services.Seeding
                 {
                     CatalogImage=new CatalogImage
                     {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                   ImageUrl= "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -1382,7 +1382,7 @@ namespace Dau.Services.Seeding
                 {
                     CatalogImage=new CatalogImage
                     {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                   ImageUrl= "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -1575,7 +1575,7 @@ namespace Dau.Services.Seeding
                 {
                     CatalogImage = new CatalogImage
                     {
-                  ImageUrl=  "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                  ImageUrl=  "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
     CreatedDate =DateTime.Now,
                          Published=true,
                          DisplayOrder=0
@@ -1587,7 +1587,7 @@ namespace Dau.Services.Seeding
                     CatalogImage=  new CatalogImage
                     {
 
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                   ImageUrl= "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
                        CreatedDate =DateTime.Now,
                          Published=true,
                          DisplayOrder=0
@@ -1600,7 +1600,7 @@ namespace Dau.Services.Seeding
                     CatalogImage= new CatalogImage
                     {
 
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                   ImageUrl= "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -1612,7 +1612,7 @@ namespace Dau.Services.Seeding
                 {
                     CatalogImage= new CatalogImage
                     {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                   ImageUrl= "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -1625,7 +1625,7 @@ namespace Dau.Services.Seeding
                 {
                     CatalogImage=new CatalogImage
                     {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                   ImageUrl= "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -1638,7 +1638,7 @@ namespace Dau.Services.Seeding
                 {
                     CatalogImage=new CatalogImage
                     {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                   ImageUrl= "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -1651,7 +1651,7 @@ namespace Dau.Services.Seeding
                 {
                     CatalogImage=new CatalogImage
                     {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                   ImageUrl= "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -1909,7 +1909,7 @@ DormitoryBlockId=1,
                 {
                     CatalogImage = new CatalogImage
                     {
-                  ImageUrl=  "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                  ImageUrl=  "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
     CreatedDate =DateTime.Now,
                          Published=true,
                          DisplayOrder=0
@@ -1921,7 +1921,7 @@ DormitoryBlockId=1,
                     CatalogImage=  new CatalogImage
                     {
 
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                   ImageUrl= "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
                        CreatedDate =DateTime.Now,
                          Published=true,
                          DisplayOrder=0
@@ -1934,7 +1934,7 @@ DormitoryBlockId=1,
                     CatalogImage= new CatalogImage
                     {
 
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                   ImageUrl= "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -1946,7 +1946,7 @@ DormitoryBlockId=1,
                 {
                     CatalogImage= new CatalogImage
                     {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                   ImageUrl= "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -1959,7 +1959,7 @@ DormitoryBlockId=1,
                 {
                     CatalogImage=new CatalogImage
                     {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                   ImageUrl= "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -1972,7 +1972,7 @@ DormitoryBlockId=1,
                 {
                     CatalogImage=new CatalogImage
                     {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                   ImageUrl= "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -1985,7 +1985,7 @@ DormitoryBlockId=1,
                 {
                     CatalogImage=new CatalogImage
                     {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                   ImageUrl= "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -2095,7 +2095,7 @@ DormitoryBlockId=2,
                 {
                     CatalogImage = new CatalogImage
                     {
-                  ImageUrl=  "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                  ImageUrl=  "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
     CreatedDate =DateTime.Now,
                          Published=true,
                          DisplayOrder=0
@@ -2107,7 +2107,7 @@ DormitoryBlockId=2,
                     CatalogImage=  new CatalogImage
                     {
 
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                   ImageUrl= "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
                        CreatedDate =DateTime.Now,
                          Published=true,
                          DisplayOrder=0
@@ -2120,7 +2120,7 @@ DormitoryBlockId=2,
                     CatalogImage= new CatalogImage
                     {
 
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                   ImageUrl= "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -2132,7 +2132,7 @@ DormitoryBlockId=2,
                 {
                     CatalogImage= new CatalogImage
                     {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                   ImageUrl= "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -2145,7 +2145,7 @@ DormitoryBlockId=2,
                 {
                     CatalogImage=new CatalogImage
                     {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                   ImageUrl= "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -2158,7 +2158,7 @@ DormitoryBlockId=2,
                 {
                     CatalogImage=new CatalogImage
                     {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                   ImageUrl= "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -2171,7 +2171,7 @@ DormitoryBlockId=2,
                 {
                     CatalogImage=new CatalogImage
                     {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                   ImageUrl= "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -2280,7 +2280,7 @@ DormitoryBlockId = 1,
                 {
                     CatalogImage = new CatalogImage
                     {
-                  ImageUrl=  "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                  ImageUrl=  "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
     CreatedDate =DateTime.Now,
                          Published=true,
                          DisplayOrder=0
@@ -2292,7 +2292,7 @@ DormitoryBlockId = 1,
                     CatalogImage=  new CatalogImage
                     {
 
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                   ImageUrl= "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
                        CreatedDate =DateTime.Now,
                          Published=true,
                          DisplayOrder=0
@@ -2305,7 +2305,7 @@ DormitoryBlockId = 1,
                     CatalogImage= new CatalogImage
                     {
 
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                   ImageUrl= "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -2317,7 +2317,7 @@ DormitoryBlockId = 1,
                 {
                     CatalogImage= new CatalogImage
                     {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                   ImageUrl= "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -2330,7 +2330,7 @@ DormitoryBlockId = 1,
                 {
                     CatalogImage=new CatalogImage
                     {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                   ImageUrl= "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -2343,7 +2343,7 @@ DormitoryBlockId = 1,
                 {
                     CatalogImage=new CatalogImage
                     {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                   ImageUrl= "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
@@ -2356,7 +2356,7 @@ DormitoryBlockId = 1,
                 {
                     CatalogImage=new CatalogImage
                     {
-                   ImageUrl= "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/kamacioglu/S%C3%9C%C4%B0T_1.jpg?RenditionID=6",
+                   ImageUrl= "/Files/Images/RoomImages/S%C3%9C%C4%B0T_1.jpg",
 
                        CreatedDate =DateTime.Now,
                          Published=true,
