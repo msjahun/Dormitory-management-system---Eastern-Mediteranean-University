@@ -30,9 +30,12 @@ namespace searchDormWeb.Areas.Admin.Models.Catalog
         MaxLength(256)]
         public string GoDirectoryToRoomSKU { get; set; }
 
+         public bool AlertSuccessful { get; set; }
+        public string  AlertMessage { get; set; }
+
     }
 
- 
+
 
 
 }

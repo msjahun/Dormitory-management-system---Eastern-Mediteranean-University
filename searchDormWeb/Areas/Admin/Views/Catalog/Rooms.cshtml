@@ -43,10 +43,15 @@
     <!-- Main content -->
     <!-- Main content -->
     <section class="content container-fluid">
+        @if (Model!=null)
+        {
+         string alerttype = (Model.AlertSuccessful)?"alert-success":"alert-danger";
 
+            <div class="alert @alerttype alert-dismissible"> <button type="button" class="close text-white" data-dismiss="alert" aria-hidden="true">×</button> <i class="icon fa fa-check"></i> @Model.AlertMessage</div>
+        }
         <!--------------------------
-        | Your Page Content Here |
-        -------------------------->
+    | Your Page Content Here |
+    -------------------------->
 
         <div class="col-md-12">
             <!-- Horizontal Form -->
@@ -128,7 +133,7 @@
                                     <th>@Localizer["Edit"]</th>
                                 </tr>
                             </thead>
-                      
+
 
                         </table>
                     </div>
