@@ -12,6 +12,7 @@ namespace Dau.Core.Domain.Catalog
         }
 
         public string ImageUrl { get; set; }
+        public string Alt { get; set; }
         public DateTime CreatedDate { get; set; }
         public bool Published { get; set; }
         public int DisplayOrder { get; set; }

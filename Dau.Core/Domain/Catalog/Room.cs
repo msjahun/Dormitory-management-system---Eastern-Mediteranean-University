@@ -41,6 +41,12 @@ namespace Dau.Core.Domain.Catalog
         public bool DisplayDeal { get; set; }
         public int PercentageOff { get; set; }
         public bool DisplayNoRoomsLeft { get; set; }
+        public bool MarkAsNew { get; set; }
+
+       public double RoomCost { get; set; }
+       public string AdminComment{ get; set; }
+    public DateTime CreatedOn { get; set; }
+public DateTime UpdatedOn { get; set; }
 
 
         public ICollection<RoomCatalogImage> RoomCatalogImage { get; set; }
