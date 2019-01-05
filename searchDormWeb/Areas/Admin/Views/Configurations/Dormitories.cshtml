@@ -95,7 +95,7 @@
 
                                     <th><input type="checkbox"></th>
                                     <th>@Localizer["Id"]</th>
-                                    <th>@Localizer["Picture"]</th>
+                                    <th>@Localizer["Logo"]</th>
                                     <th>@Localizer["Dormitory name"]</th>
                                     <th>@Localizer["SKU"]</th>
                                     <th>@Localizer["Dormitory type"]</th>
@@ -211,7 +211,7 @@
                     { "data": "dormitoryId" },
                     {
                         "render": function (data, type, full, meta) {
-                            return '<img src="' + full.picture + '" style="width:100px; height:80px;">';
+                            return '<img src="' + full.picture + '" style="height:100px;">';
                         }
                     },
                     {"data": "dormitoryName" },
