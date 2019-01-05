@@ -30,11 +30,12 @@
 
     </div>
 </div>
-
+@if(item.DormitoryLogoUrl!=null || item.DormitoryLogoUrl != "" ||item.DormitoryLogoUrl.Length>0) {
 <div class="card border-0 float-right m-1">
-
-    <img alt="Image placeholder" class="" height="90" src="@item.DormitoryLogoUrl">
+    
+    <img  class="" height="90" src="@item.DormitoryLogoUrl">
 </div>
+}
 
 <h3>@item.DormitoryName</h3>
 <a href="javascript:;" data-fancybox data-type="iframe" data-src="@item.MapSection" ><i class="far fa-map  text-warning " style="color:#269038;"></i> @item.DormitoryStreetAddress </a>
