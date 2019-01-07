@@ -3,7 +3,9 @@ using Dau.Core.Domain.Catalog;
 using Dau.Core.Domain.Feature;
 using Dau.Core.Domain.SearchEngineOptimization;
 using Dau.Data.Repository;
+using Dau.Services.Domain.DropdownServices;
 using Dau.Services.Domain.ImageServices;
+using Dau.Services.Domain.MapServices;
 using Dau.Services.Languages;
 using System;
 using System.Collections.Generic;
@@ -24,6 +26,7 @@ namespace Dau.Services.Domain.SearchResultService
         private IRepository<DormitoryType> _dormitoryTypeRepo;
 
         private readonly IRepository<Seo> _seoRepo;
+        private readonly IMapService _mapService;
         private readonly ILanguageService _languageService;
         private readonly IRepository<DormitoryBlock> _dormitoryBlockRepo;
         private readonly IRepository<DormitoryBlockTranslation> _dormitoryBlockTransRepo;
@@ -33,12 +36,13 @@ namespace Dau.Services.Domain.SearchResultService
 
         public IRepository<RoomCatalogImage> _roomImageRepo { get; }
 
-        private readonly IRepository<DormitoryCatalogImage> _dormitoryImageRepo;
+       
         private readonly IRepository<Review> _reviewRepo;
         private readonly IRepository<Locationinformation> _locationRepo;
         private readonly IRepository<RoomFeatures> _roomFeaturesRepo;
         private readonly IRepository<Features> _featuresRepo;
         private readonly IRepository<FeaturesTranslation> _featuresTranslation;
+        private readonly IDropdownService _dropdownService;
 
         public RoomResultService(
             IRepository<Room> RoomRepository,
@@ -60,13 +64,15 @@ namespace Dau.Services.Domain.SearchResultService
                       IRepository<RoomFeatures> RoomFeaturesRepo,
             IRepository<Features> featuresRepo,
             IImageService imageService,
+            IMapService mapService,
+            IDropdownService dropdownService,
 
             IRepository<FeaturesTranslation> featuresTranslation
 
             )
         {
             _seoRepo = seoRepository;
-
+            _mapService = mapService;
             _languageService = languageService;
             _dormitoryBlockRepo = DormitoryBlockRepository;
             _dormitoryBlockTransRepo = DormitoryBlockTranslationRepository;
@@ -86,6 +92,7 @@ namespace Dau.Services.Domain.SearchResultService
             _roomFeaturesRepo = RoomFeaturesRepo;
             _featuresRepo = featuresRepo;
             _featuresTranslation = featuresTranslation;
+            _dropdownService = dropdownService;
         }
 
         public List<RoomResultViewModel> GetRoomResult(GetRoomResultViewModel filters)
@@ -164,11 +171,11 @@ namespace Dau.Services.Domain.SearchResultService
                          join roomImage in _roomImageRepo.List().ToList() on imageList.Id equals roomImage.CatalogImageId
                         select new { imageList.ImageUrl, roomImage.RoomId};
 
-    
 
+            var LocationsOnCampus = _dropdownService.LocationOnCampus();
             var dormitories = from dorm in _dormitoryRepository.List().ToList()
                               join dormTrans in _dormitoryTranslationRepository.List().ToList() on dorm.Id equals dormTrans.DormitoryNonTransId
-                              where dormTrans.LanguageId == CurrentLanguageId
+                              where dormTrans.LanguageId == CurrentLanguageId && dorm.Published == true
                               select new
                               {
                                   dorm.Id,
@@ -178,11 +185,11 @@ namespace Dau.Services.Domain.SearchResultService
                                   dorm.DormitoryTypeId,
                                   dorm.RatingNo,
                                   dorm.ReviewNo,
-                                  dorm.Location,
+                                  Location = _dropdownService.ResolveDropdown(dorm.LocationOnCampus, LocationsOnCampus),
                                   dormTrans.DormitoryDescription,
                                   dorm.DormitoryStreetAddress,
-                                  dorm.MapSection,
-                                  dormTrans.StandAloneOption
+                                 dorm.MapSectionId,
+                                
                               };
 
             var dormitoryType = from dormType in _dormitoryTypeRepo.List().ToList()
@@ -203,20 +210,21 @@ namespace Dau.Services.Domain.SearchResultService
                                        RatingText = "Fantastic", //create a service that resolves this
                                        ReviewNo = _reviewRepo.List().Where(c => c.DormitoryId == dorm.Id).ToList().Count,
                                        Location = dorm.Location,
-                                       ShortDescription = dorm.DormitoryDescription.Substring(0, 90) + "...",
+                                       ShortDescription =(dorm.DormitoryDescription.Length>=91) ? dorm.DormitoryDescription.Substring(0, 90) + "...": dorm.DormitoryDescription,
                                        ReservationPosibleWithoutCreditCard = false, //
                                        DormitoryStreetAddress = dorm.DormitoryStreetAddress,
-                                       MapSection = "https://www.emu.edu.tr/campusmap?design=empty#" + dorm.MapSection,
-                                       ClosestLandMark = String.Format("({0} to {1})", _locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault().Duration, _locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault().NameOfLocation), // I can put locations here
-                                       ClosestLandMarkMapSection = "https://www.emu.edu.tr/campusmap?design=empty#" + _locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault().MapSection,
-                                       UniqueAttribute = dorm.StandAloneOption, //use bus stop coordinate to determine time to get to bus stop and distance
-                                                                                //  IsbookedInlast24hours = false //has to do with booking
+                                      MapSection = _mapService.GetMapSectionById(dorm.MapSectionId),
+                                       ClosestLandMark =(_locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault() != null && _locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault().Duration!=null&& _locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault().NameOfLocation!=null)?
+                                       String.Format("({0} to {1})", _locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault().Duration, _locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault().NameOfLocation):"", // I can put locations here
+                                       ClosestLandMarkMapSection =(_locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault()!= null && _locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault().MapSection!=null) ?
+                                       "https://www.emu.edu.tr/campusmap?design=empty#" + _locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault().MapSection:"",
+                                                                            //  IsbookedInlast24hours = false //has to do with booking
 
 
 
                                    };
 
-
+            var dormtypeListToList = dormitoryAndtype.ToList();
             var roomDormitory = from room in roomsDormitoryBlock.ToList()
                                 join dorm in dormitoryAndtype.ToList() on room.DormitoryId equals dorm.Id
                                 select  new RoomResultViewModel
@@ -231,7 +239,7 @@ namespace Dau.Services.Domain.SearchResultService
                                                 }).Take(5).ToList(),
             ImageUrls = _imageService.ImageSplitterList(Images.Where(d => d.RoomId == room.Id).Select(x => x.ImageUrl).ToList(), "_p6"),
                                     RoomId =room.Id,
-                                    GenderAllocation = room.GenderAllocation.Substring(0, 12)+"...",
+                                    GenderAllocation = (room.GenderAllocation.Length>12) ?room.GenderAllocation.Substring(0, 12)+"...": room.GenderAllocation,
                                     DormitoryName = dorm.DormitoryName,
                                     DormitoryRoomBlock = room.DormitoryBlockName,
                                     RatingNo = dorm.RatingNo,
@@ -244,7 +252,6 @@ namespace Dau.Services.Domain.SearchResultService
                                     NumberOfRoomsLeft = room.NoRoomQuota,
                                     MapSection =  dorm.MapSection,
                                     ClosestLandMark = dorm.ClosestLandMark,
-                                    UniqueAttribute = dorm.UniqueAttribute,
                                     Price = room.Price.ToString("N2"),
                                     OldPrice = (room.PriceOld>0)?room.PriceOld.ToString("N2"):null,
                                     PaymentPerSemesterNotYear = room.PaymentPerSemesterNotYear,
@@ -253,7 +260,7 @@ namespace Dau.Services.Domain.SearchResultService
                                     PercentageOff = room.PercentageOff, //from database
                                     DealEndTime = room.DealEndTime, //change this to come from db
                                     DisplayNoRoomsLeft = room.DisplayNoRoomsLeft,
-                                    DisplayDeal = (room.DealEndTime>DateTime.Now.AddDays(1)),
+                                    DisplayDeal = (room.DealEndTime>DateTime.Now.AddDays(-2)),
                                 };
 
 

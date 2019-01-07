@@ -297,6 +297,14 @@ namespace searchDormWeb.Controllers
             return Json(success);
         }
 
+       
+            public IActionResult SeedEMUMapLocations()
+        {
+            _seedingService.SeedEMUMapLocations();
+            var success = true;
+            return Json(success);
+        }
+
 
         public IActionResult seedReviews()
         {

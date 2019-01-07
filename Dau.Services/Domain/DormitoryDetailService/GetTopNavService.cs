@@ -1,5 +1,6 @@
 ﻿using Dau.Core.Domain.Catalog;
 using Dau.Data.Repository;
+using Dau.Services.Domain.MapServices;
 using Dau.Services.Languages;
 using System;
 using System.Collections.Generic;
@@ -13,15 +14,18 @@ namespace Dau.Services.Domain.DormitoryDetailService
         private readonly ILanguageService _languageService;
         private readonly IRepository<Dormitory> _dormitoryRepo;
         private readonly IRepository<DormitoryTranslation> _dormitoryTranslationRepo;
+        private readonly IMapService _mapService;
 
         public GetTopNavService(
              ILanguageService languageService,
             IRepository<Dormitory> DormitoryRepository,
-            IRepository<DormitoryTranslation> DormitoryTranslationRepository)
+            IRepository<DormitoryTranslation> DormitoryTranslationRepository,
+            IMapService mapService)
         {
             _languageService = languageService;
             _dormitoryRepo = DormitoryRepository;
             _dormitoryTranslationRepo= DormitoryTranslationRepository;
+            _mapService = mapService;
         }
 
         public TopNavDormitorySectionViewModel GetTopNav(long DormitoryId)
@@ -35,7 +39,7 @@ namespace Dau.Services.Domain.DormitoryDetailService
                                 DormitoryStreetAddress = dorm.DormitoryStreetAddress,
                                 DormitoryType = "Dormitory belongs to the category of private school dormitories/ accomodations (BOT),",
                                 DormitoryLogoUrl = dorm.DormitoryLogoUrl,
-                                MapSection = "https://www.emu.edu.tr/campusmap?design=empty#" + dorm.MapSection,
+                               MapSection = _mapService.GetMapSectionById(dorm.MapSectionId),
 
 
                             };

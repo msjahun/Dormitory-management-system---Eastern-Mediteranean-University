@@ -10,10 +10,10 @@ namespace Dau.Core.Domain.Feature
     {
 
 
-        public long FeaturesCategoryNonTransId { get; set; }
+    
         public string CategoryName { get; set; }
         public string CategoryDescription { get; set; }
-
+        public long FeaturesCategoryNonTransId { get; set; }
         public FeaturesCategory FeaturesCategoryNonTrans { get; set; }
     }
 }

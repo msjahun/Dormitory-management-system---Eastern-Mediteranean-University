@@ -339,7 +339,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
         {
            
 
-         var success =   _imageService.UploadRoomImage(id).Result;
+         var success =   _imageService.UploadRoomImage(id);
             return RedirectToAction("RoomEdit", "Catalog", new {  id, @section="picture"});
         }
 

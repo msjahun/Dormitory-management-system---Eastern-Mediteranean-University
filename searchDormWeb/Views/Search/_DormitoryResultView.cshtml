@@ -33,6 +33,7 @@
 
                 <div class="swiper-container swiper-container-horizontal" data-swiper-items="1" data-swiper-space-between="0" data-swiper-sm-items="1" data-swiper-sm-space-between="0" data-swiper-xl-items="1" data-swiper-xl-space-between="20" style="cursor: grab;">
                     <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px); transition-duration: 12ms;">
+                        @if (item.ImageUrls != null) { 
                         @foreach (var imageUrl in item.ImageUrls)
                         {
                         <div class="swiper-slide swiper_dormitory_image_fill swiper-slide-next" style="width: 230px; margin-right: 20px;" >
@@ -41,7 +42,7 @@
                             <img alt="Image placeholder" class="FluidImage" src="@imageUrl">
 
                         </div>
-                        }
+                        }}
 
                     </div>
                 </div>
@@ -77,7 +78,7 @@
 
                 </div>
                 <p class="h-50">
-                    @item.ShortDescription <a href="@Url.Content("~/Dormitories/"+item.DormitorySeoFriendlyUrl)"> @Localizer["read more"]</a>
+                    @item.ShortDescription <a href="@Url.Content("~/Dormitories/"+item.DormitorySeoFriendlyUrl)">
                 </p>
 
                 @if (item.ReservationPosibleWithoutCreditCard)

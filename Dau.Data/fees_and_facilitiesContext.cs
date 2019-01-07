@@ -52,6 +52,8 @@ using Dau.Data.Mapping.Feature;
 using Dau.Core.Domain.Bookings;
 using Dau.Data.Mapping.Bookings;
 using Dau.Core.Domain;
+using Dau.Data.Mapping.EmuMap;
+using Dau.Core.Domain.EmuMap;
 
 namespace Dau.Data
 {
@@ -63,29 +65,7 @@ namespace Dau.Data
         }
 
       
-      // public virtual DbSet<AccountInformationParameter> AccountInformationParameter { get; set; }
-      // public virtual DbSet<AccountInformationParameterTranslation> AccountInformationParameterTranslation { get; set; }
-      // public virtual DbSet<AccountParameterValues> AccountParameterValues { get; set; }
-      // public virtual DbSet<AccountParameterValuesTranslation> AccountParameterValuesTranslation { get; set; }
-      // public virtual DbSet<BankCurrencyTable> BankCurrencyTable { get; set; }
-     //   public virtual DbSet<DormitoriesTable> DormitoriesTable { get; set; }
-      //  public virtual DbSet<DormitoriesTableTranslation> DormitoriesTableTranslation { get; set; }
-      // public virtual DbSet<DormitoryBankAccountTable> DormitoryBankAccountTable { get; set; }
-      // public virtual DbSet<DormitoryInformationTable> DormitoryInformationTable { get; set; }
-      // public virtual DbSet<DormitoryInformationTableTranslation> DormitoryInformationTableTranslation { get; set; }
-      // public virtual DbSet<DormitoryType> DormitoryType { get; set; }
-      // public virtual DbSet<DormitoryTypeTranslation> DormitoryTypeTranslation { get; set; }
-       // public virtual DbSet<FacilityOption> FacilityOption { get; set; }
-       // public virtual DbSet<FacilityOptionTranslation> FacilityOptionTranslation { get; set; }
-       // public virtual DbSet<FacilityTable> FacilityTable { get; set; }
-       // public virtual DbSet<FacilityTableTranslation> FacilityTableTranslation { get; set; }
-       // public virtual DbSet<LanguageTable> LanguageTable { get; set; }
-       
-       // public virtual DbSet<RoomFacility> RoomFacility { get; set; }
-       // public virtual DbSet<RoomTable> RoomTable { get; set; }
-       // public virtual DbSet<RoomTableTranslation> RoomTableTranslation { get; set; }
-
-
+  
         //new tables
         public virtual DbSet<Log> Log{ get; set; }
         public virtual DbSet<OnlineUsers> OnlineUsers{ get; set; }
@@ -138,9 +118,6 @@ namespace Dau.Data
 
         public virtual DbSet<Dormitory> Dormitory{ get; set; }
         public virtual DbSet<DormitoryTranslation> DormitoryTranslation { get; set; }
-        public virtual DbSet<GoodToKnow> GoodToKnow { get; set; }
-        public virtual DbSet<GoodToKnowTitleValue> GoodToKnowTitleValue { get; set; }
-        public virtual DbSet<GoodToKonwTitleValueTranslation> GoodToKonwTitleValueTranslation { get; set; }
         public virtual DbSet<Room> Room { get; set; }
         public virtual DbSet<RoomTranslation> RoomTranslation { get; set; }
         public virtual DbSet<CatalogImage> CatalogImages{ get; set; }
@@ -161,6 +138,14 @@ namespace Dau.Data
         public virtual DbSet<Cart> Cart{ get; set; }
         public virtual DbSet<SemesterPeriod> SemesterPeriod{ get; set; }
         public virtual DbSet<SemesterPeriodTranslation> SemesterPeriodTranslation{ get; set; }
+
+
+        public virtual DbSet<MapSection> MapSection{ get; set; }
+        public virtual DbSet<MapSectionTranslation> MapSectionTranslation{ get; set; }
+
+        public virtual DbSet<MapSectionCategory> MapSectionCategory { get; set; }
+        public virtual DbSet<MapSectionCategoryTranslation> MapSectionCategoryTranslation { get; set; }
+
 
 
 
@@ -230,9 +215,6 @@ namespace Dau.Data
 
             modelBuilder.ApplyConfiguration(new DormitoryMap());
             modelBuilder.ApplyConfiguration(new DormitoryTranslationMap());
-            modelBuilder.ApplyConfiguration(new GoodToKnowMap());
-            modelBuilder.ApplyConfiguration(new GoodToKnowTitleValueMap());
-            modelBuilder.ApplyConfiguration(new GoodToKnowTitleValueTranslationMap());
             modelBuilder.ApplyConfiguration(new RoomMap());
             modelBuilder.ApplyConfiguration(new RoomTranslationMap());
             modelBuilder.ApplyConfiguration(new CatalogImageMap());
@@ -258,14 +240,19 @@ namespace Dau.Data
 
             modelBuilder.ApplyConfiguration(new SemesterPeriodMap());
             modelBuilder.ApplyConfiguration(new SemesterPeriodTranslationMap());
-           
 
 
-        //new tables config
+            modelBuilder.ApplyConfiguration(new MapSectionMap());
+            modelBuilder.ApplyConfiguration(new MapSectionTranslationMap());
 
-        //    modelBuilder.Seed();
 
 
+            modelBuilder.ApplyConfiguration(new MapSectionCategoryMap());
+            modelBuilder.ApplyConfiguration(new MapSectionCategoryTranslationMap());
+
+
+
+
+        }
     }
-}
 }

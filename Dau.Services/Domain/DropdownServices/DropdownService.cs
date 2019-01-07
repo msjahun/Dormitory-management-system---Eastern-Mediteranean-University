@@ -1,8 +1,10 @@
 ﻿using Dau.Core.Domain.Catalog;
+using Dau.Core.Domain.EmuMap;
 using Dau.Core.Domain.Feature;
 using Dau.Data.Repository;
 using Dau.Services.Languages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +14,7 @@ namespace Dau.Services.Domain.DropdownServices
 {
     public class DropdownService : IDropdownService
     {
+        private readonly IStringLocalizer _localizer;
         private readonly IRepository<DormitoryBlock> _dormitoryBlockRepo;
         private readonly IRepository<DormitoryBlockTranslation> _dormitoryBlockTransRepo;
         private readonly ILanguageService _languageService;
@@ -23,6 +26,10 @@ namespace Dau.Services.Domain.DropdownServices
         private readonly IRepository<FeaturesTranslation> _featuresTransRepo;
         private readonly IRepository<FeaturesCategory> _featuresCategoryRepo;
         private readonly IRepository<FeaturesCategoryTranslation> _featuresCategoryTransRepo;
+        private readonly IRepository<MapSection> _mapSectionRepo;
+        private readonly IRepository<MapSectionTranslation> _mapSectionTransRepo;
+        private readonly IRepository<MapSectionCategory> _mapSectionCategoryRepo;
+        private readonly IRepository<MapSectionCategoryTranslation> _mapSectionCategoryTransRepo;
 
         public DropdownService(
             IRepository<DormitoryBlock> dormitoryBlockRepo,
@@ -35,8 +42,14 @@ namespace Dau.Services.Domain.DropdownServices
             IRepository<DormitoryTypeTranslation> dormitoryTypeTranslationRepository,
             IRepository<FeaturesTranslation> featuresTransRepository,
              IRepository<FeaturesCategory> featuresCategoryRepository,
-            IRepository<FeaturesCategoryTranslation> featuresCategoryTransRepository)
+            IRepository<FeaturesCategoryTranslation> featuresCategoryTransRepository,
+            IRepository<MapSection> mapSectionRepo,
+            IRepository<MapSectionTranslation> mapSectionTranslationRepo,
+            IRepository<MapSectionCategory> mapSectionCategoryRepo,
+            IRepository<MapSectionCategoryTranslation> mapSectionCategoryTranslationRepo,
+            IStringLocalizer Localizer)
         {
+            _localizer = Localizer;
             _dormitoryBlockRepo = dormitoryBlockRepo;
             _dormitoryBlockTransRepo = dormitoryBlockTransRepo;
             _languageService = languageService;
@@ -48,6 +61,11 @@ namespace Dau.Services.Domain.DropdownServices
             _featuresTransRepo=  featuresTransRepository;
             _featuresCategoryRepo=featuresCategoryRepository;
             _featuresCategoryTransRepo=featuresCategoryTransRepository;
+
+            _mapSectionRepo=mapSectionRepo;
+            _mapSectionTransRepo= mapSectionTranslationRepo;
+            _mapSectionCategoryRepo=mapSectionCategoryRepo;
+            _mapSectionCategoryTransRepo=mapSectionCategoryTranslationRepo;
         }
 
        public static SelectListGroup NorthAmericaGroup = new SelectListGroup { Name = "Europe" };
@@ -199,39 +217,106 @@ namespace Dau.Services.Domain.DropdownServices
             new SelectListItem
             {
                 Value ="1",
-                Text = "1 Semester commitment"
+                Text = _localizer["1 Semester commitment"]
             },
               new SelectListItem
             {
                 Value ="2",
-                Text = "1 Year commitment"
+                Text = _localizer["1 Year commitment"]
             },
              };
             return model;
         }
+       
+        public string ResolveDropdown(int id,List<SelectListItem> dropdownList)
+        {
+            foreach(var item in dropdownList)
+            {
+                if (item.Value == id.ToString()) return item.Text;
+            }
+            return null;
+        }
+        public List<SelectListItem> DormitoryBuildingsOnMap()
+        {
+            //all the buildings in dormitory category
+            var CurrentLanguageId = _languageService.GetCurrentLanguageId();
+            var DormitoriesMapSectionCategoryId = _mapSectionCategoryTransRepo.List().ToList().Where(c => c.CategoryName == "Dormitories and accomodations").FirstOrDefault().MapSectionCategoryNonTransId;
+            var locations = from mapSection in _mapSectionRepo.List().ToList()
+                            join MapSectionTrans in _mapSectionTransRepo.List().ToList() on mapSection.Id equals MapSectionTrans.MapSectionNonTransId
+                            where MapSectionTrans.LanguageId == CurrentLanguageId && mapSection.MapSectionCategoryId== DormitoriesMapSectionCategoryId
+                            select new SelectListItem
+                            {
+                                Value = mapSection.Id.ToString(),
+                                Text = MapSectionTrans.LocationName
+                            };
 
+             
+            return locations.ToList();
+        }
 
         public List<SelectListItem> BuildingsOnMap()
         {
+            //all buildings with groupings
+            var CurrentLanguageId = _languageService.GetCurrentLanguageId();
+            var MapSections = from mapSection in _mapSectionRepo.List().ToList()
+                            join MapSectionTrans in _mapSectionTransRepo.List().ToList() on mapSection.Id equals MapSectionTrans.MapSectionNonTransId
+                            where MapSectionTrans.LanguageId == CurrentLanguageId
+                            select new 
+                            { mapSection.Id, MapSectionTrans.LocationName, mapSection.MapSectionCategoryId};
 
-            var model = new List<SelectListItem> {
-            new SelectListItem
+
+
+            var MapSectionCategories = from mapSectionCat in _mapSectionCategoryRepo.List().ToList()
+                                       join mapSectionCatTrans in _mapSectionCategoryTransRepo.List().ToList() on mapSectionCat.Id equals mapSectionCatTrans.MapSectionCategoryNonTransId
+                                       where mapSectionCatTrans.LanguageId == CurrentLanguageId
+                                       select new
+                                       {
+                                           mapSectionCat.Id,
+                                           mapSectionCatTrans.CategoryName
+                                       };
+
+            var MapSectionJoin = from mapSection in MapSections.ToList()
+                                 join mapSectionCat in MapSectionCategories.ToList() on mapSection.MapSectionCategoryId equals mapSectionCat.Id
+                               select new{ mapSection.Id, mapSection.LocationName, CategoryId = mapSectionCat.Id, CategoryName = mapSectionCat.CategoryName };
+
+            var Groupings =
+        from MapSection in MapSectionJoin
+        group MapSection by MapSection.CategoryName  into newGroup
+        orderby newGroup.Key
+        select newGroup;
+            //  group mapSectionCat by mapSectionCat.CategoryName into newGroup
+
+            // select newGroup;
+
+
+            var model = new List<SelectListItem>();
+            foreach (var newGroup in Groupings)
             {
-                Value ="1",
-                Text = "Alfam dormitory A block"
-            },
-              new SelectListItem
-            {
-                Value ="2",
-                Text = "Akdeniz dormitory"
-            },
-                new SelectListItem
-            {
-                Value ="3",
-                Text = "Sanel b block"
-            },
-             };
+                SelectListGroup CategoryGroup = new SelectListGroup { Name = newGroup.Key };
+                foreach (var mapSection in newGroup)
+                {
+                    model.Add(new SelectListItem
+                    {
+
+                        Value = mapSection.Id.ToString(),
+                        Text = mapSection.LocationName,
+                        Group = CategoryGroup
+
+                    });
+                }
+            }
+
+            //select new SelectListItem
+            //{
+            //    Value = mapSection.Id.ToString(),
+            //    Text = mapSection.LocationName,
+
+            //   // Group =   mapSectionCat.CategoryName
+            //};
+
+
             return model;
+          //  return MapSectionJoin.ToList();
         }
 
         public List<SelectListItem> LocationOnCampus()
@@ -241,12 +326,12 @@ namespace Dau.Services.Domain.DropdownServices
             new SelectListItem
             {
                 Value ="1",
-                Text = "South Campus"
+                Text = _localizer["South Campus"]
             },
               new SelectListItem
             {
                 Value ="2",
-                Text = "North Campus"
+                Text = _localizer["North Campus"]
             },
                 new SelectListItem
             {

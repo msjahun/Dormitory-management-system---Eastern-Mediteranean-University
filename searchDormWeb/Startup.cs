@@ -46,6 +46,7 @@ using Dau.Services.Domain.DormitoryBlockServices;
 using Dau.Services.Domain.ReviewsServices;
 using Dau.Services.Domain.DropdownServices;
 using Dau.Services.Domain.ImageServices;
+using Dau.Services.Domain.MapServices;
 
 namespace searchDormWeb
 {
@@ -89,7 +90,7 @@ namespace searchDormWeb
             services.AddTransient<CultureMiddleware>();
 
             services.AddScoped<IOnlineUsersService, OnlineUsersService>();
-
+            services.AddScoped<IDropdownService, DropdownService>();
             services.AddScoped<ILoggingService, LoggingService>();
           
             services.AddScoped<ILogger, DBLogger>();
@@ -137,8 +138,9 @@ namespace searchDormWeb
             services.AddScoped <  IHomeService,HomeService > ();
             services.AddScoped <IDormitoryBlockService, DormitoryBlockService > ();
             services.AddScoped <  IReviewService, ReviewService > ();
-            services.AddScoped <  IDropdownService,DropdownService > ();
+            
             services.AddScoped <IImageService, ImageService > ();
+            services.AddScoped < IMapService, MapService  > ();
 
 
             services.AddScoped<ILanguageService, LanguageService>();

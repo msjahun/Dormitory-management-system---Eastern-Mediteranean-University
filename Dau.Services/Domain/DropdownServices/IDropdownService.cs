@@ -28,5 +28,9 @@ namespace Dau.Services.Domain.DropdownServices
         List<SelectListItem> BookingLimit();
         List<SelectListItem> BuildingsOnMap();
         List<SelectListItem> LocationOnCampus();
+        List<SelectListItem> DormitoryBuildingsOnMap();
+        string ResolveDropdown(int id, List<SelectListItem> dropdownList);
+
+
     }
 }

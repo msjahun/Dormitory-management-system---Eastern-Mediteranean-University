@@ -7,6 +7,7 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Dau.Services.Languages;
 using Dau.Core.Domain.Catalog;
+using Dau.Services.Domain.MapServices;
 
 namespace Dau.Services.Domain.DormitoryDetailService
 {
@@ -14,13 +15,16 @@ namespace Dau.Services.Domain.DormitoryDetailService
     {
         private readonly Fees_and_facilitiesContext _dbContext;
         private readonly ILanguageService _languageService;
+        private readonly IMapService _mapService;
 
         public GetAreaInfoService(
             Fees_and_facilitiesContext dbContext,
-              ILanguageService languageService)
+              ILanguageService languageService,
+                IMapService mapService)
         {
             _dbContext = dbContext;
             _languageService = languageService;
+            _mapService = mapService;
         }
 
         public AreaInfoSectionViewModel GetAreaInfo(long DormitoryId)
@@ -31,10 +35,9 @@ namespace Dau.Services.Domain.DormitoryDetailService
             {
                 closeLocation.MapSection = "https://www.emu.edu.tr/campusmap?design=empty#" + closeLocation.MapSection;
             }
-            AreaInfoSectionViewModel Model = new AreaInfoSectionViewModel
-            { LocationRemark = locations.DormitoryTranslation.Where(l => l.LanguageId == CurrentLanguageId).FirstOrDefault().LocationRemark,
+            AreaInfoSectionViewModel Model = new AreaInfoSectionViewModel { 
                 DormitoryName = locations.DormitoryTranslation.Where(l => l.LanguageId == CurrentLanguageId).FirstOrDefault().DormitoryName,
-                MapSection = "https://www.emu.edu.tr/campusmap?design=empty#" + locations.MapSection,
+               MapSection = _mapService.GetMapSectionById(locations.MapSectionId),
                 DormitoryStreetAddress = locations.DormitoryStreetAddress,
                 CloseLocations = locations.CloseLocations.ToList()
 

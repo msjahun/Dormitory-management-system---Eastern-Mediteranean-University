@@ -3,7 +3,9 @@ using Dau.Core.Domain.Catalog;
 using Dau.Core.Domain.Feature;
 using Dau.Core.Domain.SearchEngineOptimization;
 using Dau.Data.Repository;
+using Dau.Services.Domain.DropdownServices;
 using Dau.Services.Domain.ImageServices;
+using Dau.Services.Domain.MapServices;
 using Dau.Services.Languages;
 using System;
 using System.Collections.Generic;
@@ -21,7 +23,8 @@ namespace Dau.Services.Domain.SearchResultService
         private readonly IRepository<SemesterPeriod> _SemesterPeriodRepo;
         private readonly IRepository<SemesterPeriodTranslation> _semesterPeriodTransRepo;
         private IRepository<DormitoryType> _dormitoryTypeRepo;
-     
+        private readonly IDropdownService _dropdownService;
+        private readonly IMapService _mapService;
         private readonly IRepository<Seo> _seoRepo;
         private readonly IImageService _imageService;
         private readonly ILanguageService _languageService;
@@ -50,10 +53,14 @@ namespace Dau.Services.Domain.SearchResultService
                     IRepository<Seo> seoRepository,
                     IRepository<Review> reviewRepository,
                     IRepository<Locationinformation> locationRepository,
-                      IImageService imageService
+                      IImageService imageService,
+                        IMapService mapService,
+                        IDropdownService dropdownService
 
           )
         {
+            _dropdownService = dropdownService;
+            _mapService = mapService;
             _seoRepo = seoRepository;
             _imageService = imageService;
             _languageService = languageService;
@@ -87,39 +94,46 @@ namespace Dau.Services.Domain.SearchResultService
 
             var dormitories = from dorm in _dormitoryRepository.List().ToList()
                               join dormTrans in _dormitoryTranslationRepository.List().ToList() on dorm.Id equals dormTrans.DormitoryNonTransId
-                              where dormTrans.LanguageId == CurrentLanguageId
+                              where dormTrans.LanguageId == CurrentLanguageId && dorm.Published== true
                               select new { dorm.Id, DormitorySeoId = dorm.SeoId,
                                   dormTrans.DormitoryName, dorm.DormitoryLogoUrl,
                                   dorm.DormitoryTypeId, dorm.RatingNo, dorm.ReviewNo,
-                                  dorm.Location, dormTrans.DormitoryDescription,
-                              dorm.DormitoryStreetAddress, dorm.MapSection, dormTrans.StandAloneOption};
+                                  Location = _dropdownService.ResolveDropdown(dorm.LocationOnCampus, _dropdownService.LocationOnCampus()),
+                                DormitoryDescription=  dormTrans.ShortDescription,
+                                  dorm.MapSectionId,
+                                  dorm.DormitoryStreetAddress
+                              };
 
             var dormitoryType = from dormType in _dormitoryTypeRepo.List().ToList()
                                 join dormTypeTrans in _dormitoryTypeTranslationRepo.List().ToList() on dormType.Id equals dormTypeTrans.DormitoryTypeNonTransId
                                 where dormTypeTrans.LanguageId == CurrentLanguageId
                                 select new { dormType.Id, dormTypeTrans.Title };
 
-           var dormitoryAndtype = from dorm in dormitories.ToList()
-                                  join dormType in dormitoryType.ToList() on dorm.DormitoryTypeId equals dormType.Id
-                                  select new DormitoryResultViewModel
-                            {
-                                ImageUrls = _imageService.ImageSplitterList(Images.Where(d => d.DormitoryId == dorm.Id).Select(x => x.ImageUrl).ToList(),"_p6"),
-                                DormitoryType = dormType.Title, //dormitory type table
-                                DormitoryName = dorm.DormitoryName,
-                                DormitoryIconUrl = dorm.DormitoryLogoUrl,
-                                DormitorySeoFriendlyUrl = _seoRepo.List().ToList().Where(c=> c.Id== dorm.DormitorySeoId).FirstOrDefault().SearchEngineFriendlyPageName, //use seo table
-                                      RatingNo = dorm.RatingNo.ToString("N1"),
-                                RatingText = "Fantastic", //create a service that resolves this
-                                ReviewNo = _reviewRepo.List().Where(c=> c.DormitoryId ==dorm.Id).ToList().Count,
-                                Location = dorm.Location,
-                                ShortDescription = dorm.DormitoryDescription.Substring(0, 90)+"...",
-                                ReservationPosibleWithoutCreditCard = false, //
+            var dormitoryAndtype = from dorm in dormitories.ToList()
+                                   join dormType in dormitoryType.ToList() on dorm.DormitoryTypeId equals dormType.Id
+                                   select new DormitoryResultViewModel
+                                   {
+                                       ImageUrls = _imageService.ImageSplitterList(Images.Where(d => d.DormitoryId == dorm.Id).Select(x => x.ImageUrl).ToList(), "_p6"),
+                                       DormitoryType = dormType.Title, //dormitory type table
+                                       DormitoryName = dorm.DormitoryName,
+                                       DormitoryIconUrl = dorm.DormitoryLogoUrl,
+                                       DormitorySeoFriendlyUrl = _seoRepo.List().ToList().Where(c => c.Id == dorm.DormitorySeoId).FirstOrDefault().SearchEngineFriendlyPageName, //use seo table
+                                       RatingNo = dorm.RatingNo.ToString("N1"),
+                                       RatingText = "Fantastic", //create a service that resolves this
+                                       ReviewNo = _reviewRepo.List().Where(c => c.DormitoryId == dorm.Id).ToList().Count,
+                                       Location = dorm.Location,
+                                       ShortDescription = dorm.DormitoryDescription ,
+                                      ReservationPosibleWithoutCreditCard = false, //
                                 DormitoryStreetAddress = dorm.DormitoryStreetAddress,
-                                MapSection = "https://www.emu.edu.tr/campusmap?design=empty#" + dorm.MapSection,
-                                ClosestLandMark = String.Format("({0} to {1})", _locationRepo.List().ToList().Where(d=> d.DormitoryId == dorm.Id).FirstOrDefault().Duration, _locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault().NameOfLocation), // I can put locations here
-                                      ClosestLandMarkMapSection = "https://www.emu.edu.tr/campusmap?design=empty#" + _locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault().MapSection,
-                     UniqueAttribute=dorm.StandAloneOption, //use bus stop coordinate to determine time to get to bus stop and distance
-                              //  IsbookedInlast24hours = false //has to do with booking
+                             MapSection = _mapService.GetMapSectionById(dorm.MapSectionId),
+
+
+                                ClosestLandMark =(_locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault() != null && _locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault().Duration!=null && _locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault().NameOfLocation!=null)?
+                                                      String.Format("({0} to {1})", _locationRepo.List().ToList().Where(d=> d.DormitoryId == dorm.Id).FirstOrDefault().Duration, _locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault().NameOfLocation):null, // I can put locations here
+
+                                      ClosestLandMarkMapSection = (_locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault()!= null && _locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault().MapSection!=null)?
+                                  "https://www.emu.edu.tr/campusmap?design=empty#" + _locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault().MapSection:null,
+                        //  IsbookedInlast24hours = false //has to do with booking
                                                               
                               
 

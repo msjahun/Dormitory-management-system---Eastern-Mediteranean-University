@@ -457,7 +457,7 @@ namespace Dau.Services.Domain.RoomServices
        
         [Required]
         [Display(Name = "Gender Allocation",
-       Description = ""), DataType(DataType.Text),MinLength(13), MaxLength(256)]
+       Description = ""), DataType(DataType.Text),MinLength(3), MaxLength(256)]
         public string GenderAllocation { get; set; }
         [Required]
         [Display(Name = "Bed Type",

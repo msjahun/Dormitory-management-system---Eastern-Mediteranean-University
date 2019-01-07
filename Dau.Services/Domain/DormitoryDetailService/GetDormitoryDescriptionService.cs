@@ -1,5 +1,6 @@
 ﻿using Dau.Core.Domain.Catalog;
 using Dau.Data.Repository;
+using Dau.Services.Domain.DropdownServices;
 using Dau.Services.Languages;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace Dau.Services.Domain.DormitoryDetailService
 {
     public class GetDormitoryDescriptionService : IGetDormitoryDescriptionService
     {
+        private readonly IDropdownService _dropdownService;
         private readonly ILanguageService _languageService;
         private readonly IRepository<Dormitory> _dormitoryRepo;
         private readonly IRepository<DormitoryTranslation> _dormitoryTransRepo;
@@ -17,9 +19,11 @@ namespace Dau.Services.Domain.DormitoryDetailService
         public GetDormitoryDescriptionService(
              ILanguageService languageService,
             IRepository<Dormitory> dormitoryRepo, 
-            IRepository<DormitoryTranslation> dormitoryTransRepo
+            IRepository<DormitoryTranslation> dormitoryTransRepo,
+            IDropdownService dropdownService
             )
         {
+            _dropdownService = dropdownService;
             _languageService = languageService;
             _dormitoryRepo = dormitoryRepo;
             _dormitoryTransRepo = dormitoryTransRepo;
@@ -37,11 +41,9 @@ namespace Dau.Services.Domain.DormitoryDetailService
                                 RatingText = "Excellent",
                              
                                 ReviewNo = 23,
-                                Location = dorm.Location,
+                                Location =  _dropdownService.ResolveDropdown(dorm.LocationOnCampus,_dropdownService.LocationOnCampus()),
                                 NoOfStudents = dorm.NoOfStudents,
-                                Option = dormTrans.Option,
-                                OptionValue = dormTrans.OptionValue,
-                                StandAloneOption = dormTrans.StandAloneOption,
+                               
                              
                                 NoOfAwards =dorm.NoOfAwards.ToString(),
                                 NoOfNewFacilities = dorm.NoOfNewFacilities.ToString(),

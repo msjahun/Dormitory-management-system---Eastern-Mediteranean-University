@@ -7,6 +7,7 @@ using Dau.Core.Configuration.AccessControlList;
 using Dau.Core.Domain.Users;
 using Dau.Services.AccessControlList;
 using Dau.Services.Domain.DormitoryServices;
+using Dau.Services.Domain.ImageServices;
 using Dau.Services.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -28,13 +29,17 @@ namespace searchDormWeb.Areas.Admin.Controllers
         private readonly IUserRolesService _userRolesService;
         private readonly IMvcControllerDiscovery _mvcControllerDiscovery;
         private readonly IDormitoryService _dormitoryService;
+        private readonly IImageService _imageService;
 
-        public ConfigurationsController(IDormitoryService dormitoryService, IMvcControllerDiscovery mvcControllerDiscovery, IUserRolesService userRolesService, RoleManager<UserRole> roleManager)
+        public ConfigurationsController(IDormitoryService dormitoryService,
+             IImageService imageService,
+             IMvcControllerDiscovery mvcControllerDiscovery, IUserRolesService userRolesService, RoleManager<UserRole> roleManager)
         {
             _roleManager = roleManager;
             _userRolesService = userRolesService;
             _mvcControllerDiscovery = mvcControllerDiscovery;
             _dormitoryService = dormitoryService;
+            _imageService = imageService;
         }
 
 
@@ -181,10 +186,294 @@ namespace searchDormWeb.Areas.Admin.Controllers
         }
 
 
-        [HttpGet("[action]")]
-        public ActionResult DormitoryEdit()
+        [HttpPost("[action]")]
+        public ActionResult DormitoryAdd(DormitoryCrud vm)
         {
-            return View("_DormitoryEdit");
+            if (!ModelState.IsValid)
+                return View("_DormitoryAdd", vm);
+
+            var dormitoryId = _dormitoryService.AddDormitory(vm);
+            return RedirectToAction("DormitoryEdit", "Configurations", new { @id = dormitoryId });
+        }
+
+
+        [HttpGet("[action]")]
+        public ActionResult DormitoryEdit(long id)
+        {
+
+            //send id, bringmodel, if false, redirect to Dormitories
+            var model = _dormitoryService.GetDormitoryById(id);
+            if (model == null)
+                return RedirectToAction("Dormitories", "Configurations");
+            return View("_DormitoryEdit",model);
+        }
+
+        [HttpPost("[action]")]
+        public ActionResult DormitoryEdit(DormitoryCrud vm)
+        {
+            if (!ModelState.IsValid)
+                return View("_DormitoryEdit", vm);
+            var updateSuccess = _dormitoryService.UpdateDormitoryById(vm);
+            var success = _imageService.uploadDormitoryLogoImage(vm.Id);
+
+            var model = _dormitoryService.GetDormitoryById(vm.Id);
+            return View("_DormitoryEdit", model);
+        }
+
+
+        [HttpPost("[action]")]
+        public ActionResult CloseLocationsTable(int dummy)
+        {
+            try
+            {
+                var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                var start = Request.Form["start"].FirstOrDefault(); // Skip number of Rows count
+                var passedParam = Request.Form["myKey"].FirstOrDefault();//passed parameter
+                var length = Request.Form["length"].FirstOrDefault();  // Paging Length 10,20  
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault(); // Sort Column Name  
+                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();// Sort Column Direction (asc, desc)  
+                var searchValue = Request.Form["search[value]"].FirstOrDefault();// Search Value from (Search box) 
+                int pageSize = length != null ? Convert.ToInt32(length) : 0; //Paging Size (10, 20, 50,100)  
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+
+
+                //  List<DormitoriesDataTable> List = _DormitoryService.GetAllDormitoriesForTable();
+                var List = new List<CloseLocationsTable>();
+
+
+                // getting all Discount data  
+                var Data = List;
+
+                ////Sorting  
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                //{
+                //    DiscountData = DiscountData.OrderBy(c => c.sortColumn sortColumnDirection);
+                //}
+                ////Search  
+                //if (!string.IsNullOrEmpty(searchValue))
+                //{
+                //    DiscountData = DiscountData.Where(m => m.Name == searchValue);
+                //}
+
+
+                //total number of rows counts   
+                int recordsTotal = 0;
+                recordsTotal = Data.Count();
+                //Paging   
+                var data = Data.Skip(skip).Take(pageSize).ToList();
+                //Returning Json Data  
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+
+        [HttpPost("[action]")]
+        public ActionResult DormitoryPicturesTable(int dummy)
+        {
+            try
+            {
+                var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                var start = Request.Form["start"].FirstOrDefault(); // Skip number of Rows count
+                var passedParam = Request.Form["myKey"].FirstOrDefault();//passed parameter
+                var length = Request.Form["length"].FirstOrDefault();  // Paging Length 10,20  
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault(); // Sort Column Name  
+                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();// Sort Column Direction (asc, desc)  
+                var searchValue = Request.Form["search[value]"].FirstOrDefault();// Search Value from (Search box) 
+                int pageSize = length != null ? Convert.ToInt32(length) : 0; //Paging Size (10, 20, 50,100)  
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+
+
+                //  List<DormitoriesDataTable> List = _DormitoryService.GetAllDormitoriesForTable();
+                var List = new List<DormitoryPicturesTable>();
+
+
+                // getting all Discount data  
+                var Data = List;
+
+                ////Sorting  
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                //{
+                //    DiscountData = DiscountData.OrderBy(c => c.sortColumn sortColumnDirection);
+                //}
+                ////Search  
+                //if (!string.IsNullOrEmpty(searchValue))
+                //{
+                //    DiscountData = DiscountData.Where(m => m.Name == searchValue);
+                //}
+
+
+                //total number of rows counts   
+                int recordsTotal = 0;
+                recordsTotal = Data.Count();
+                //Paging   
+                var data = Data.Skip(skip).Take(pageSize).ToList();
+                //Returning Json Data  
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+        [HttpPost("[action]")]
+        public ActionResult DormitoryFeaturesTable(int dummy)
+        {
+            try
+            {
+                var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                var start = Request.Form["start"].FirstOrDefault(); // Skip number of Rows count
+                var passedParam = Request.Form["myKey"].FirstOrDefault();//passed parameter
+                var length = Request.Form["length"].FirstOrDefault();  // Paging Length 10,20  
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault(); // Sort Column Name  
+                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();// Sort Column Direction (asc, desc)  
+                var searchValue = Request.Form["search[value]"].FirstOrDefault();// Search Value from (Search box) 
+                int pageSize = length != null ? Convert.ToInt32(length) : 0; //Paging Size (10, 20, 50,100)  
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+
+
+                //  List<DormitoriesDataTable> List = _DormitoryService.GetAllDormitoriesForTable();
+                var List = new List<DormitoryFeaturesTable>();
+
+
+                // getting all Discount data  
+                var Data = List;
+
+                ////Sorting  
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                //{
+                //    DiscountData = DiscountData.OrderBy(c => c.sortColumn sortColumnDirection);
+                //}
+                ////Search  
+                //if (!string.IsNullOrEmpty(searchValue))
+                //{
+                //    DiscountData = DiscountData.Where(m => m.Name == searchValue);
+                //}
+
+
+                //total number of rows counts   
+                int recordsTotal = 0;
+                recordsTotal = Data.Count();
+                //Paging   
+                var data = Data.Skip(skip).Take(pageSize).ToList();
+                //Returning Json Data  
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+        [HttpPost("[action]")]
+        public ActionResult DormitoryRoomsTable(int dummy)
+        {
+            try
+            {
+                var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                var start = Request.Form["start"].FirstOrDefault(); // Skip number of Rows count
+                var passedParam = Request.Form["myKey"].FirstOrDefault();//passed parameter
+                var length = Request.Form["length"].FirstOrDefault();  // Paging Length 10,20  
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault(); // Sort Column Name  
+                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();// Sort Column Direction (asc, desc)  
+                var searchValue = Request.Form["search[value]"].FirstOrDefault();// Search Value from (Search box) 
+                int pageSize = length != null ? Convert.ToInt32(length) : 0; //Paging Size (10, 20, 50,100)  
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+
+
+                //  List<DormitoriesDataTable> List = _DormitoryService.GetAllDormitoriesForTable();
+                var List = new List<DormitoryRoomsTable>();
+
+
+                // getting all Discount data  
+                var Data = List;
+
+                ////Sorting  
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                //{
+                //    DiscountData = DiscountData.OrderBy(c => c.sortColumn sortColumnDirection);
+                //}
+                ////Search  
+                //if (!string.IsNullOrEmpty(searchValue))
+                //{
+                //    DiscountData = DiscountData.Where(m => m.Name == searchValue);
+                //}
+
+
+                //total number of rows counts   
+                int recordsTotal = 0;
+                recordsTotal = Data.Count();
+                //Paging   
+                var data = Data.Skip(skip).Take(pageSize).ToList();
+                //Returning Json Data  
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+        [HttpPost("[action]")]
+        public ActionResult DormitoryBlocksTable(int dummy)
+        {
+            try
+            {
+                var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                var start = Request.Form["start"].FirstOrDefault(); // Skip number of Rows count
+                var passedParam = Request.Form["myKey"].FirstOrDefault();//passed parameter
+                var length = Request.Form["length"].FirstOrDefault();  // Paging Length 10,20  
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault(); // Sort Column Name  
+                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();// Sort Column Direction (asc, desc)  
+                var searchValue = Request.Form["search[value]"].FirstOrDefault();// Search Value from (Search box) 
+                int pageSize = length != null ? Convert.ToInt32(length) : 0; //Paging Size (10, 20, 50,100)  
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+
+
+                //  List<DormitoriesDataTable> List = _DormitoryService.GetAllDormitoriesForTable();
+                var List = new List<DormitoryBlocksTable>();
+
+
+                // getting all Discount data  
+                var Data = List;
+
+                ////Sorting  
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                //{
+                //    DiscountData = DiscountData.OrderBy(c => c.sortColumn sortColumnDirection);
+                //}
+                ////Search  
+                //if (!string.IsNullOrEmpty(searchValue))
+                //{
+                //    DiscountData = DiscountData.Where(m => m.Name == searchValue);
+                //}
+
+
+                //total number of rows counts   
+                int recordsTotal = 0;
+                recordsTotal = Data.Count();
+                //Paging   
+                var data = Data.Skip(skip).Take(pageSize).ToList();
+                //Returning Json Data  
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
 
@@ -651,7 +940,55 @@ namespace searchDormWeb.Areas.Admin.Controllers
     }
 
 
-   
+
+    public class CloseLocationsTable
+    {
+
+        public string LocationName { get; set; }
+        public string Distance { get; set; }
+        public string TimeItTakes { get; set; }
+
+    }
+
+    public class DormitoryPicturesTable
+    {
+        public string Picture { get; set; }
+        public string DisplayOrder { get; set; }
+        public string Alt { get; set; }
+        public string Title { get; set; }
+
+    }
+
+    public class DormitoryFeaturesTable
+    {
+
+        public string Feature { get; set; }
+        public string FeatureCategory { get; set; }
+        public string AllowFiltering { get; set; }
+    }
+
+    public class DormitoryRoomsTable
+    {
+
+        public string RoomId { get; set; }
+        public string RoomName { get; set; }
+        public string DormitoryBlock { get; set; }
+        public string SKU { get; set; }
+        public string Price { get; set; }
+        public string Quota { get; set; }
+        public string Published { get; set; }
+
+    }
+
+    public class DormitoryBlocksTable
+    {
+        public string Name { get; set; }
+        public string Published { get; set; }
+        public string DisplayOrder { get; set; }
+        public string DormitoryBlockId { get; set; }
+
+    }
+
     //public class AccessControlListTable {
     //    public string PermissionName { get; set; }
     //    public string Registered { get; set; }
