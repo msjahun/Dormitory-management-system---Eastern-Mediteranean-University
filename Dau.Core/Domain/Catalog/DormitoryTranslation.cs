@@ -9,16 +9,8 @@ namespace Dau.Core.Domain.Catalog
     {
         public string DormitoryName { get; set; }
         public string DormitoryDescription { get; set; }
+        public string ShortDescription { get; set; }
         public string RatingText { get; set; }
-
-
-        public string Option { get; set; }//staff
-        public string OptionValue { get; set; }//staff are very friendly
-        public string StandAloneOption { get; set; }//has a gym!
-
-
-        public string LocationRemark { get; set; }
-
         public long DormitoryNonTransId { get; set; }
         public Dormitory DormitoryNonTrans { get; set; }
     }

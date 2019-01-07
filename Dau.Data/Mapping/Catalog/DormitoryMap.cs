@@ -17,7 +17,29 @@ namespace Dau.Data.Mapping.Catalog
             //int
             builder.Property(e => e.Id).HasColumnName("Id");
 
-        
+            builder.Property(e => e.CreatedOn)
+                 .HasColumnType("datetime2");
+
+            builder.Property(e => e.WeekendsOpeningTime)
+              .HasColumnType("datetime2");
+
+            builder.Property(e => e.UpdatedOn)
+              .HasColumnType("datetime2");
+
+            builder.Property(e => e.WeekendsClosingTime)
+              .HasColumnType("datetime2");
+
+
+            builder.Property(e => e.WeekdaysOpeningTime)
+              .HasColumnType("datetime2");
+
+            builder.Property(e => e.WeekdaysClosingTime)
+              .HasColumnType("datetime2");
+
+
+          
+            
+           
 
         }
     }
