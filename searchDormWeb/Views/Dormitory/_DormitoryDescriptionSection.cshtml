@@ -11,7 +11,7 @@
     <div class="col-md-8">
 
         <p class="h7">
-            @Html.Raw(item.DormitoryDescription.Replace("\r\n", "<br />"))
+            @Html.Raw(item.DormitoryDescription))
         </p>
 
 
@@ -53,12 +53,7 @@
                 <p><i class="fa fa-map-marker text-primary"></i>@Localizer["Location: {0}", item.Location] </p>
                 <p><i class="fa fa-bed text-primary"></i> @Localizer["Home to over {0} students", item.NoOfStudents]</p>
 
-                <h5>@item.Option</h5>
-                <p>@item.OptionValue</p>
-
-                <span>@item.StandAloneOption</span>
-
-
+             
 
                 <a href="#Availability" class="btn btn-primary btn-block btn-sm ">@Localizer["Reserve"]</a>
 
