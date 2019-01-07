@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Dau.Data.Migrations
 {
-    public partial class initx2o : Migration
+    public partial class inity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -268,6 +268,7 @@ namespace Dau.Data.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ImageUrl = table.Column<string>(unicode: false, maxLength: 256, nullable: false),
+                    Alt = table.Column<string>(nullable: true),
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     Published = table.Column<bool>(nullable: false),
                     DisplayOrder = table.Column<int>(nullable: false)
@@ -403,6 +404,19 @@ namespace Dau.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MapSectionCategory",
+                columns: table => new
+                {
+                    id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MapSectionCategory", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "MessageQueue",
                 columns: table => new
                 {
@@ -495,20 +509,6 @@ namespace Dau.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OnlineUsers", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "OpeningClosingTime",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    OpeningTime = table.Column<int>(nullable: false),
-                    ClosingTime = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OpeningClosingTime", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -796,7 +796,8 @@ namespace Dau.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     IsPublished = table.Column<bool>(nullable: false),
                     IconUrl = table.Column<string>(nullable: true),
-                    FeaturesCategoryId = table.Column<long>(nullable: true)
+                    HitCount = table.Column<int>(nullable: false),
+                    FeaturesCategoryId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -806,7 +807,30 @@ namespace Dau.Data.Migrations
                         column: x => x.FeaturesCategoryId,
                         principalTable: "FeaturesCategory",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MapSection",
+                columns: table => new
+                {
+                    id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    BuildingId = table.Column<int>(nullable: false),
+                    Latitude = table.Column<double>(nullable: false),
+                    Longitude = table.Column<double>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    MapSectionCategoryId = table.Column<long>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MapSection", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_MapSection_MapSectionCategory_MapSectionCategoryId",
+                        column: x => x.MapSectionCategoryId,
+                        principalTable: "MapSectionCategory",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -829,44 +853,6 @@ namespace Dau.Data.Migrations
                         principalTable: "Poll",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Dormitory",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    NoOfStudents = table.Column<int>(nullable: false),
-                    RatingNo = table.Column<double>(nullable: false),
-                    ReviewNo = table.Column<int>(nullable: false),
-                    Location = table.Column<string>(nullable: true),
-                    NoOfNewFacilities = table.Column<int>(nullable: false),
-                    NoOfStaff = table.Column<int>(nullable: false),
-                    NoOfAwards = table.Column<int>(nullable: false),
-                    MapSection = table.Column<string>(nullable: true),
-                    DormitoryStreetAddress = table.Column<string>(nullable: true),
-                    DormitoryLogoUrl = table.Column<string>(nullable: true),
-                    Published = table.Column<bool>(nullable: false),
-                    DisplayOrder = table.Column<int>(nullable: false),
-                    SeoId = table.Column<long>(nullable: false),
-                    DormitoryTypeId = table.Column<long>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Dormitory", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Dormitory_DormitoryType_DormitoryTypeId",
-                        column: x => x.DormitoryTypeId,
-                        principalTable: "DormitoryType",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Dormitory_Seo_SeoId",
-                        column: x => x.SeoId,
-                        principalTable: "Seo",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -1061,6 +1047,34 @@ namespace Dau.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MapSectionCategoryTranslation",
+                columns: table => new
+                {
+                    language_id = table.Column<long>(nullable: false),
+                    MapSectionCategoryNonTransId = table.Column<long>(nullable: false),
+                    Id = table.Column<long>(nullable: false),
+                    CategoryName = table.Column<string>(nullable: true),
+                    CategoryDescription = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MapSectionCategoryTranslation", x => new { x.language_id, x.MapSectionCategoryNonTransId });
+                    table.ForeignKey(
+                        name: "FK_MapSectionCategoryTranslation_Language_language_id",
+                        column: x => x.language_id,
+                        principalSchema: "Localization",
+                        principalTable: "Language",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MapSectionCategoryTranslation_MapSectionCategory_MapSectionCategoryNonTransId",
+                        column: x => x.MapSectionCategoryNonTransId,
+                        principalTable: "MapSectionCategory",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "MessageTemplateTranslation",
                 columns: table => new
                 {
@@ -1197,6 +1211,116 @@ namespace Dau.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Dormitory",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    NoOfStudents = table.Column<int>(nullable: false),
+                    RatingNo = table.Column<double>(nullable: false),
+                    ReviewNo = table.Column<int>(nullable: false),
+                    Location = table.Column<string>(nullable: true),
+                    SKU = table.Column<string>(nullable: true),
+                    NoOfNewFacilities = table.Column<int>(nullable: false),
+                    NoOfStaff = table.Column<int>(nullable: false),
+                    NoOfAwards = table.Column<int>(nullable: false),
+                    MapSectionId = table.Column<long>(nullable: false),
+                    DormitoryStreetAddress = table.Column<string>(nullable: true),
+                    DormitoryLogoUrl = table.Column<string>(nullable: true),
+                    Published = table.Column<bool>(nullable: false),
+                    WeekendsOpeningTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    WeekendsClosingTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    WeekdaysOpeningTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    WeekdaysClosingTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SeoId = table.Column<long>(nullable: false),
+                    AdminComment = table.Column<string>(nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CancelWaitDays = table.Column<int>(nullable: false),
+                    MarkAsNew = table.Column<bool>(nullable: false),
+                    AllowReviewsWithBookingOnly = table.Column<bool>(nullable: false),
+                    OpenedOnSundays = table.Column<bool>(nullable: false),
+                    DormitoryTypeId = table.Column<long>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Dormitory", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Dormitory_DormitoryType_DormitoryTypeId",
+                        column: x => x.DormitoryTypeId,
+                        principalTable: "DormitoryType",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Dormitory_MapSection_MapSectionId",
+                        column: x => x.MapSectionId,
+                        principalTable: "MapSection",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Dormitory_Seo_SeoId",
+                        column: x => x.SeoId,
+                        principalTable: "Seo",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MapSectionTranslation",
+                columns: table => new
+                {
+                    language_id = table.Column<long>(nullable: false),
+                    MapSectionNonTransId = table.Column<long>(nullable: false),
+                    Id = table.Column<long>(nullable: false),
+                    LocationName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MapSectionTranslation", x => new { x.language_id, x.MapSectionNonTransId });
+                    table.ForeignKey(
+                        name: "FK_MapSectionTranslation_Language_language_id",
+                        column: x => x.language_id,
+                        principalSchema: "Localization",
+                        principalTable: "Language",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MapSectionTranslation_MapSection_MapSectionNonTransId",
+                        column: x => x.MapSectionNonTransId,
+                        principalTable: "MapSection",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TopicTranslation",
+                columns: table => new
+                {
+                    LanguageId = table.Column<long>(nullable: false),
+                    TopicNonTransId = table.Column<long>(nullable: false),
+                    Id = table.Column<long>(nullable: false),
+                    Title = table.Column<string>(unicode: false, maxLength: 400, nullable: true),
+                    Body = table.Column<string>(unicode: false, maxLength: 4000, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TopicTranslation", x => new { x.TopicNonTransId, x.LanguageId });
+                    table.ForeignKey(
+                        name: "FK_TopicTranslation_Language_LanguageId",
+                        column: x => x.LanguageId,
+                        principalSchema: "Localization",
+                        principalTable: "Language",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TopicTranslation_Topic_TopicNonTransId",
+                        column: x => x.TopicNonTransId,
+                        principalTable: "Topic",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DormitoryBlock",
                 columns: table => new
                 {
@@ -1283,11 +1407,8 @@ namespace Dau.Data.Migrations
                     Id = table.Column<long>(nullable: false),
                     DormitoryName = table.Column<string>(nullable: true),
                     DormitoryDescription = table.Column<string>(nullable: true),
-                    RatingText = table.Column<string>(nullable: true),
-                    Option = table.Column<string>(nullable: true),
-                    OptionValue = table.Column<string>(nullable: true),
-                    StandAloneOption = table.Column<string>(nullable: true),
-                    LocationRemark = table.Column<string>(nullable: true)
+                    ShortDescription = table.Column<string>(nullable: true),
+                    RatingText = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1305,39 +1426,6 @@ namespace Dau.Data.Migrations
                         principalTable: "Language",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "GoodToKnow",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    DormitoryId = table.Column<long>(nullable: false),
-                    WeekdaysOpeningTimeId = table.Column<long>(nullable: true),
-                    WeekendsOpeningTimeId = table.Column<long>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GoodToKnow", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_GoodToKnow_Dormitory_DormitoryId",
-                        column: x => x.DormitoryId,
-                        principalTable: "Dormitory",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_GoodToKnow_OpeningClosingTime_WeekdaysOpeningTimeId",
-                        column: x => x.WeekdaysOpeningTimeId,
-                        principalTable: "OpeningClosingTime",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_GoodToKnow_OpeningClosingTime_WeekendsOpeningTimeId",
-                        column: x => x.WeekendsOpeningTimeId,
-                        principalTable: "OpeningClosingTime",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -1394,34 +1482,6 @@ namespace Dau.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TopicTranslation",
-                columns: table => new
-                {
-                    LanguageId = table.Column<long>(nullable: false),
-                    TopicNonTransId = table.Column<long>(nullable: false),
-                    Id = table.Column<long>(nullable: false),
-                    Title = table.Column<string>(unicode: false, maxLength: 400, nullable: true),
-                    Body = table.Column<string>(unicode: false, maxLength: 4000, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TopicTranslation", x => new { x.TopicNonTransId, x.LanguageId });
-                    table.ForeignKey(
-                        name: "FK_TopicTranslation_Language_LanguageId",
-                        column: x => x.LanguageId,
-                        principalSchema: "Localization",
-                        principalTable: "Language",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_TopicTranslation_Topic_TopicNonTransId",
-                        column: x => x.TopicNonTransId,
-                        principalTable: "Topic",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "DormitoryBlockTranslation",
                 columns: table => new
                 {
@@ -1456,7 +1516,6 @@ namespace Dau.Data.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     NoOfStudents = table.Column<int>(nullable: false),
-                    RoomsQuota = table.Column<int>(nullable: false),
                     HasDeposit = table.Column<bool>(nullable: false),
                     ShowPrice = table.Column<bool>(nullable: false),
                     DormitoryBlockId = table.Column<long>(nullable: false),
@@ -1468,10 +1527,16 @@ namespace Dau.Data.Migrations
                     TaxAmount = table.Column<double>(nullable: false),
                     BookingFee = table.Column<double>(nullable: false),
                     PaymentPerSemesterNotYear = table.Column<bool>(nullable: false),
+                    SKU = table.Column<string>(nullable: true),
                     DealEndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DisplayDeal = table.Column<bool>(nullable: false),
                     PercentageOff = table.Column<int>(nullable: false),
                     DisplayNoRoomsLeft = table.Column<bool>(nullable: false),
+                    MarkAsNew = table.Column<bool>(nullable: false),
+                    RoomCost = table.Column<double>(nullable: false),
+                    AdminComment = table.Column<string>(nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     SeoId = table.Column<long>(nullable: true),
                     Published = table.Column<bool>(nullable: false),
                     DisplayOrder = table.Column<int>(nullable: false)
@@ -1497,26 +1562,6 @@ namespace Dau.Data.Migrations
                         principalTable: "Seo",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "GoodToKnowTitleValue",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Icon = table.Column<string>(nullable: true),
-                    GoodToKnowId = table.Column<long>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GoodToKnowTitleValue", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_GoodToKnowTitleValue_GoodToKnow_GoodToKnowId",
-                        column: x => x.GoodToKnowId,
-                        principalTable: "GoodToKnow",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -1688,34 +1733,6 @@ namespace Dau.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "GoodToKnowTitleValueTranslation",
-                columns: table => new
-                {
-                    language_id = table.Column<long>(nullable: false),
-                    GoodToKnowTitleValueNonTransId = table.Column<long>(nullable: false),
-                    Id = table.Column<long>(nullable: false),
-                    Title = table.Column<string>(nullable: true),
-                    Value = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GoodToKnowTitleValueTranslation", x => new { x.GoodToKnowTitleValueNonTransId, x.language_id });
-                    table.ForeignKey(
-                        name: "FK_GoodToKnowTitleValueTranslation_GoodToKnowTitleValue_GoodToKnowTitleValueNonTransId",
-                        column: x => x.GoodToKnowTitleValueNonTransId,
-                        principalTable: "GoodToKnowTitleValue",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_GoodToKnowTitleValueTranslation_Language_language_id",
-                        column: x => x.language_id,
-                        principalSchema: "Localization",
-                        principalTable: "Language",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "BookingNotes",
                 columns: table => new
                 {
@@ -1857,6 +1874,11 @@ namespace Dau.Data.Migrations
                 column: "DormitoryTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Dormitory_MapSectionId",
+                table: "Dormitory",
+                column: "MapSectionId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Dormitory_SeoId",
                 table: "Dormitory",
                 column: "SeoId");
@@ -1912,35 +1934,24 @@ namespace Dau.Data.Migrations
                 column: "FeaturesNonTransId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GoodToKnow_DormitoryId",
-                table: "GoodToKnow",
-                column: "DormitoryId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GoodToKnow_WeekdaysOpeningTimeId",
-                table: "GoodToKnow",
-                column: "WeekdaysOpeningTimeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GoodToKnow_WeekendsOpeningTimeId",
-                table: "GoodToKnow",
-                column: "WeekendsOpeningTimeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GoodToKnowTitleValue_GoodToKnowId",
-                table: "GoodToKnowTitleValue",
-                column: "GoodToKnowId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GoodToKnowTitleValueTranslation_language_id",
-                table: "GoodToKnowTitleValueTranslation",
-                column: "language_id");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Locationinformation_DormitoryId",
                 table: "Locationinformation",
                 column: "DormitoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MapSection_MapSectionCategoryId",
+                table: "MapSection",
+                column: "MapSectionCategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MapSectionCategoryTranslation_MapSectionCategoryNonTransId",
+                table: "MapSectionCategoryTranslation",
+                column: "MapSectionCategoryNonTransId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MapSectionTranslation_MapSectionNonTransId",
+                table: "MapSectionTranslation",
+                column: "MapSectionNonTransId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MessageTemplateTranslation_LanguageId",
@@ -2116,10 +2127,13 @@ namespace Dau.Data.Migrations
                 name: "FeaturesTranslation");
 
             migrationBuilder.DropTable(
-                name: "GoodToKnowTitleValueTranslation");
+                name: "Locationinformation");
 
             migrationBuilder.DropTable(
-                name: "Locationinformation");
+                name: "MapSectionCategoryTranslation");
+
+            migrationBuilder.DropTable(
+                name: "MapSectionTranslation");
 
             migrationBuilder.DropTable(
                 name: "MessageQueue");
@@ -2186,9 +2200,6 @@ namespace Dau.Data.Migrations
                 name: "Discount");
 
             migrationBuilder.DropTable(
-                name: "GoodToKnowTitleValue");
-
-            migrationBuilder.DropTable(
                 name: "MessageTemplate");
 
             migrationBuilder.DropTable(
@@ -2232,16 +2243,10 @@ namespace Dau.Data.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "GoodToKnow");
-
-            migrationBuilder.DropTable(
                 name: "FeaturesCategory");
 
             migrationBuilder.DropTable(
                 name: "DormitoryBlock");
-
-            migrationBuilder.DropTable(
-                name: "OpeningClosingTime");
 
             migrationBuilder.DropTable(
                 name: "Dormitory");
@@ -2250,7 +2255,13 @@ namespace Dau.Data.Migrations
                 name: "DormitoryType");
 
             migrationBuilder.DropTable(
+                name: "MapSection");
+
+            migrationBuilder.DropTable(
                 name: "Seo");
+
+            migrationBuilder.DropTable(
+                name: "MapSectionCategory");
         }
     }
 }
