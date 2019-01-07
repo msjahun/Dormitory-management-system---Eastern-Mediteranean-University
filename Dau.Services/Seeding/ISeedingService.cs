@@ -10,5 +10,6 @@
         void SeedRoomData();
         void seedDormitoryBlocks();
         void SeedDormitoryType();
+        void SeedEMUMapLocations();
     }
 }
