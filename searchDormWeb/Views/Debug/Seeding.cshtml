@@ -35,7 +35,14 @@
                 </tr>
                 <tr class="table-divider"></tr>
 
-
+                <tr class="bg-white">
+                    <th scope="row">
+                        Seed EMU Map Locations
+                    </th>
+                    <td>This seeds Emu map locations for users</td>
+                    <td><button type="button" id="SeedEMUMapLocations" class="btn btn-outline-primary">Seed</button>   </td>
+                </tr>
+                <tr class="table-divider"></tr>
 
                 <tr class="bg-white">
                     <th scope="row">
@@ -124,6 +131,8 @@
                     <td><button type="button" id="SeedCartItems" class="btn btn-outline-primary">Seed</button>   </td>
                 </tr>
                 <tr class="table-divider"></tr>
+
+
             </tbody>
         </table>
     </div>
@@ -225,6 +234,30 @@
                     $("#comments_section").html(result);
                     if (JSON.stringify(result) === 'true') {
                         alert("Sample bookings seeded successfully");
+                    } else {
+                        alert("Failed to seed data");
+                    }
+                }
+
+            });
+
+        });
+
+
+        $("#SeedEMUMapLocations").click(function () {
+
+            // alert("button clicked");
+            $.ajax({
+                type: "POST",
+                url: "SeedEMUMapLocations",
+                data: {
+                    SectionId: "comments_section"
+                },
+                success: function (result, textStatus, xhr) {
+                    //     alert(result);
+                    $("#comments_section").html(result);
+                    if (JSON.stringify(result) === 'true') {
+                        alert("Emu map locations seeded successfully");
                     } else {
                         alert("Failed to seed data");
                     }
