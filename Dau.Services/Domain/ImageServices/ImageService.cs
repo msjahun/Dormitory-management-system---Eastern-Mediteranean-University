@@ -26,16 +26,23 @@ namespace Dau.Services.Domain.ImageServices
         private readonly IHostingEnvironment _environment;
         private readonly IRepository<RoomCatalogImage> _roomCatalogImageRepo;
         private readonly IRepository<CatalogImage> _catalogImageRepo;
+        private readonly IRepository<DormitoryCatalogImage> _dormCatalogImageRepo;
+        private readonly IRepository<Dormitory> _dormRepo;
 
         public ImageService(IHttpContextAccessor httpContextAccessor,
             IHostingEnvironment IHostingEnvironment,
             IRepository<RoomCatalogImage> roomCatalogImageRepo,
-            IRepository<CatalogImage> catalogImageRepo)
+            IRepository<CatalogImage> catalogImageRepo,
+            IRepository<DormitoryCatalogImage> dormCatalogImageRepo,
+            IRepository<Dormitory> dormRepo)
         {
             _httpContextAccessor = httpContextAccessor;
             _environment = IHostingEnvironment;
             _roomCatalogImageRepo= roomCatalogImageRepo;
             _catalogImageRepo= catalogImageRepo;
+            _dormCatalogImageRepo=dormCatalogImageRepo;
+            _dormRepo = dormRepo;
+
         }
 
 
@@ -45,7 +52,7 @@ namespace Dau.Services.Domain.ImageServices
         //    var newFileName = "foo.jpg";
         //    using (var httpClient = new HttpClient())
         //    {
-             
+
         //        using (FileStream fs = System.IO.File.Open(imagePath, FileMode.Open))
         //        {
         //            using (var image = Image.Load(fs))
@@ -62,9 +69,58 @@ namespace Dau.Services.Domain.ImageServices
         //        }
         //    }
         //}
-        public async Task<bool> UploadRoomImage(long RoomId)
-        { var imagePath = UploadImage();
+
+
+
+
+        public bool uploadDormitoryLogoImage(long DormitoryId)
+        {
+            var imagePath = UploadImage("Files/Images/DormitoryImages/");
+            if (imagePath == null || imagePath.Length <= 0) return false;
+            //map the image to room and catalogImage in the database
+            //insert it in CatalogImage, get id then
+            //insert foreignkeys in RoomCatalog image
+
+            var dormitory = _dormRepo.GetById(DormitoryId);
+            dormitory.DormitoryLogoUrl = "/" + imagePath;
+            _dormRepo.Update(dormitory);
+
+           
+            return true;
+        }
+
+
+
+        public bool uploadDormitoryImage(long DormitoryId)
+        {
+            var imagePath = UploadImage("Files/Images/DormitoryImages/");
             if (imagePath == null) return false;
+            //map the image to room and catalogImage in the database
+            //insert it in CatalogImage, get id then
+            //insert foreignkeys in RoomCatalog image
+
+            var CatalogImage = new CatalogImage
+            {
+                ImageUrl = "/" + imagePath,
+                Alt = "Alt",
+                CreatedDate = DateTime.Now,
+                Published = true,
+                DisplayOrder = 0
+            };
+
+            var InsertId = _catalogImageRepo.Insert(CatalogImage);
+            var DormitoryCatalogImage = new DormitoryCatalogImage
+            {
+                DormitoryId = DormitoryId,
+                CatalogImageId = InsertId
+            };
+            _dormCatalogImageRepo.Insert(DormitoryCatalogImage);
+            return true;
+        }
+
+        public bool UploadRoomImage(long RoomId)
+        { var imagePath = UploadImage("Files/Images/RoomImages/");
+            if (imagePath == null || imagePath.Length<=0) return false;
             //map the image to room and catalogImage in the database
             //insert it in CatalogImage, get id then
             //insert foreignkeys in RoomCatalog image
@@ -105,7 +161,7 @@ namespace Dau.Services.Domain.ImageServices
         }
 
 
-       private string UploadImage()
+       private string UploadImage(string _storageFolder)
         {
             var newFileName = string.Empty;
 
@@ -115,7 +171,7 @@ namespace Dau.Services.Domain.ImageServices
                 string PathDB = string.Empty;
 
                 var files = _httpContextAccessor.HttpContext.Request.Form.Files;
-                var storageFolder = "Files/Images/RoomImages/";
+                var storageFolder = _storageFolder;
 
                 foreach (var file in files)
                 {
@@ -171,6 +227,8 @@ namespace Dau.Services.Domain.ImageServices
 
             return null;
         }
+
+
 
         public string ImageSplitter(string imageUrl, string imagePostfix)
         {

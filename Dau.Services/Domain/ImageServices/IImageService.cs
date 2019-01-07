@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Dau.Services.Domain.ImageServices
 {
@@ -8,6 +7,8 @@ namespace Dau.Services.Domain.ImageServices
         string ImageSplitter(string imageUrl, string imagePostfix);
         List<string> ImageSplitterList(List<string> imageUrls, string imagePostfix);
         bool RemoveImage(long CatalogImageId);
-        Task<bool> UploadRoomImage(long RoomId);
+        bool uploadDormitoryImage(long DormitoryId);
+        bool uploadDormitoryLogoImage(long DormitoryId);
+        bool UploadRoomImage(long RoomId);
     }
 }
