@@ -32,7 +32,7 @@ namespace searchDormWeb.TagHelpers.Common
                 var d = new TagHelperAttribute("disabled", "disabled");
                 output.Attributes.Add(d);
             }
-            output.PreElement.SetHtmlContent("<div class=\"col-sm-8\" >");
+            output.PreElement.SetHtmlContent("<div class=\"col-sm-8 center-block\"  >");
             output.PostElement.SetHtmlContent("</div>");
             base.Process(context, output);
         }
