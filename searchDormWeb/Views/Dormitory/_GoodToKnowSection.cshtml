@@ -27,22 +27,7 @@
                 <dau-timerange min="@item.WeekendsOpeningTime.OpeningTime" max="@item.WeekendsOpeningTime.ClosingTime"></dau-timerange>
             </div>
 
-            @foreach (var info in item.OtherInfosList)
-            {
-                <div>
-                    <span>
-                        @if (info.Icon != null)
-                        {
-                            <i class="@info.Icon"></i>
-                        }
-
-                        @info.Title
-                    </span>
-                    <div class="d-inline ml-5 mt-5">
-                        <span>@info.Value</span>
-                    </div>
-                </div>
-            }
+     
         </div>
     </div>
 
