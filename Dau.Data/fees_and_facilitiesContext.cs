@@ -54,6 +54,8 @@ using Dau.Data.Mapping.Bookings;
 using Dau.Core.Domain;
 using Dau.Data.Mapping.EmuMap;
 using Dau.Core.Domain.EmuMap;
+using Dau.Data.Mapping.LocationInformations;
+using Dau.Core.Domain.LocationInformations;
 
 namespace Dau.Data
 {
@@ -145,6 +147,8 @@ namespace Dau.Data
 
         public virtual DbSet<MapSectionCategory> MapSectionCategory { get; set; }
         public virtual DbSet<MapSectionCategoryTranslation> MapSectionCategoryTranslation { get; set; }
+
+        public virtual DbSet<Locationinformation> Locationinformation{ get; set; }
 
 
 
@@ -249,6 +253,7 @@ namespace Dau.Data
 
             modelBuilder.ApplyConfiguration(new MapSectionCategoryMap());
             modelBuilder.ApplyConfiguration(new MapSectionCategoryTranslationMap());
+            modelBuilder.ApplyConfiguration(new LocationInformationMap());
 
 
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dau.Core.Domain.LocationInformations;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -9,6 +10,7 @@ namespace Dau.Core.Domain.EmuMap
         public MapSection()
         {
             MapSectionTranslation = new HashSet<MapSectionTranslation>();
+            Locationinformation = new HashSet<Locationinformation>();
         }
 
         public int BuildingId { get; set; }
@@ -19,5 +21,6 @@ namespace Dau.Core.Domain.EmuMap
         public MapSectionCategory MapSectionCategory{ get; set; }
         public long MapSectionCategoryId { get; set; }
         public ICollection<MapSectionTranslation> MapSectionTranslation{ get; set; }
+        public ICollection<Locationinformation> Locationinformation { get; set; }
     }
 }

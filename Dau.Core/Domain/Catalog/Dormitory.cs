@@ -1,5 +1,6 @@
 ﻿using Dau.Core.Domain.EmuMap;
 using Dau.Core.Domain.Feature;
+using Dau.Core.Domain.LocationInformations;
 using Dau.Core.Domain.SearchEngineOptimization;
 using System;
 using System.Collections.Generic;
@@ -83,14 +84,6 @@ namespace Dau.Core.Domain.Catalog
 
 
     
-    public class Locationinformation:BaseEntity
-    {
-        public long DormitoryId { get; set; }
-        public string NameOfLocation { get; set; }
-        public string Distance { get; set; }
-        public string MapSection { get; set; }
-        public string Duration { get; set; }
-    }
 
 
 
