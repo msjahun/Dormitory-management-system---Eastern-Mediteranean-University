@@ -1,0 +1,37 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using Dau.Services.Domain.DormitoryDetailService
+@model LocationinformationViewModel
+@{
+    var item = Model;
+}
+
+
+@if (item != null)
+{
+
+    <dl class="row justfiy-content-between mt-5">
+        <dt class="col-12">
+            <a href="javascript:;" data-fancybox data-type="iframe" data-src="@item.MapSection" style=" color:#269038">
+                <span class="text-primary h5">
+                    <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/icons8-region-64.png" style="width: 50px;">@item.LocationName
+                </span>
+            </a>
+        </dt>
+        <dd class="col-8">@Html.Raw(Localizer["Is <span class=\"text-primary\">{0}</span>  away & takes <span class=\"text-primary\">{1}</span> to get there from {2}", item.Distance, item.Duration, item.ReferenceDormitory])</dd>
+    </dl>
+}
+else
+{
+
+    <dl class="row justfiy-content-between mt-4">
+        <dt class="col-12 text-center">
+            <a style=" color:#269038">
+                <span class="text-primary">
+                    <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/icons8-region-64.png" style="width: 20px;">@Localizer["Sorry the system is unable to calculate the distance of the location you selected at the moment"]
+                </span>
+            </a>
+        </dt>
+    </dl>
+}

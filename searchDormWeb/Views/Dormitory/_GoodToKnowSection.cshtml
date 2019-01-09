@@ -27,7 +27,24 @@
                 <dau-timerange min="@item.WeekendsOpeningTime.OpeningTime" max="@item.WeekendsOpeningTime.ClosingTime"></dau-timerange>
             </div>
 
-     
+           
+                <div>
+                    <span>
+                            <i class="fas fa-clock"></i>
+                    </span>
+                    <div class="d-inline ml-5 mt-5">
+                        @if (item.openOnSundays)
+                        {
+                            <span>@Localizer["We are open on Sundays"]</span>
+                        }
+                        else
+                        {
+                            <span>@Localizer["We are closed on Sundays"]</span>
+                        }
+                    </div>
+                </div>
+            
+
         </div>
     </div>
 

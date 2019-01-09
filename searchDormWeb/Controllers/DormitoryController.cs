@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Dau.Services.Domain.DormitoryDetailService;
 using Dau.Services.Domain.OnScrollAlertService;
+using Dau.Services.Domain.LocationServices;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,6 +14,7 @@ namespace searchDormWeb.Controllers
     public class DormitoryController : Controller
     {
         private readonly IGetAreaInfoService _areaInfoService;
+        private readonly ILocationService _locationService;
         private readonly IGetCommentsService _getCommentsService;
         private readonly IGetDormitoryDescriptionService _getDormitoryDescriptionService;
         private readonly IGetFacilitiesService _getFacilitiesService;
@@ -37,14 +39,15 @@ namespace searchDormWeb.Controllers
             IGetSlidersService getSlidersService,
             IGetSpecificRoomService getSpecificRoomService,
             IGetTopNavService getTopNavService,
-            IResolveDormitoryService resolveDormitoryService
+            IResolveDormitoryService resolveDormitoryService,
+            ILocationService locationService
 
 
 
             )
         {
             _areaInfoService = AreaInfoService;
-
+            _locationService = locationService;
          _getCommentsService  = getCommentsService;
             _getDormitoryDescriptionService = getDormitoryDescriptionService;
             _getFacilitiesService = getFacilitiesService;
@@ -174,6 +177,22 @@ namespace searchDormWeb.Controllers
 
             return PartialView("_TopnavDormitorySection", model);
         }
+        
+        public IActionResult CalculateDistanceToEMULocation(CalculateDistanceToEMULocationVm vm)
+        {
+            var Inputmodel = vm;
+            var model = _locationService.GetCalculatedDistanceToEmulocationAsync(vm).Result;
+                
+            
+
+           // model = null;
+          //  var model = _getTopNavService.GetTopNav(DormitoryId);
+
+           return PartialView("_DistanceToEMULocation", model);
+         //   return PartialView();
+        }
+
+
 
         public IActionResult GetOnScrollAlert(long id)
         {
@@ -186,8 +205,6 @@ namespace searchDormWeb.Controllers
             return PartialView("_onScrollAlert", modelList[randomNumber]);
         }
     }
-
-
 
 
 

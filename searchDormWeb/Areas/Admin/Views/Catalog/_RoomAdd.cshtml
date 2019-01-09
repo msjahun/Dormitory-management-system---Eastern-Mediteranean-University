@@ -347,7 +347,7 @@
                                                 <div class="form-group">
                                                     <dau-label asp-for="Dormitory"></dau-label>
                                                     <div class="col-sm-8">
-                                                        <select asp-for="Dormitory" asp-items="_dropdown.Dormitories()" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true"></select>
+                                                        <select asp-for="Dormitory" asp-items="_dropdown.Dormitories()" id="DormitorySelect" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true"></select>
                                                     </div>
                                                     <span asp-validation-for="Dormitory"></span>
 
@@ -356,7 +356,7 @@
                                                 <div class="form-group">
                                                     <dau-label asp-for="DormitoryBlock"></dau-label>
                                                     <div class="col-sm-8">
-                                                        <select asp-for="DormitoryBlock" asp-items="_dropdown.DormitoryBlocks()" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true"></select>
+                                                        <select asp-for="DormitoryBlock" id="DormitoryBlockSelect" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true"></select>
                                                     </div>
                                                     <span asp-validation-for="DormitoryBlock"></span>
 
@@ -364,8 +364,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-
 
 
                                 </div>
@@ -473,8 +471,31 @@
             //CKEDITOR.replace('localizedContent[0].FullDescriptionId')
             //CKEDITOR.replace('localizedContent[1].FullDescriptionId')
             //CKEDITOR.replace('localizedContent[2].FullDescriptionId')
+            function ajaxGetDormitoryBlocks(dormitoryId) {
+                $.ajax({
+                    type: "POST",
+                    url: "GetDormitoryBlockByDormitoryIdDropdown/?id=" + dormitoryId,
+                    data: {
+                        SectionId: "_dormitoryBlockDropdown"
+
+                    },
+                    success: function (result) {
+                        $("#DormitoryBlockSelect").html("");
+                        for (i = 0; i < result.length; i++) {
+                            $("#DormitoryBlockSelect").append("<option value=\"" + result[i].value + "\"> " + result[i].text + "</option>");
+                        }
 
 
+
+
+                    }
+                });
+            }
+            ajaxGetDormitoryBlocks(document.getElementById('DormitorySelect').value);
+            $('#DormitorySelect').on('change', function () {
+                console.log(this.value);
+                ajaxGetDormitoryBlocks(this.value);
+            });
             $('.date-control').datepicker({
                 autoclose: true,
                 orientation: "left bottom",

@@ -186,6 +186,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
             return Json(true);
         }
 
+
         [HttpPost("[action]")]
         public ActionResult RemoveRoomFeature(FacilitiesTab vm)
         {
@@ -208,6 +209,12 @@ namespace searchDormWeb.Areas.Admin.Controllers
         public ActionResult GetFeaturesDropdown(long id)
         {
             return Json(_dropdownService.FeaturesByCategoryId(id));
+        }
+
+        [HttpPost("[action]")]
+        public ActionResult GetDormitoryBlockByDormitoryIdDropdown(long id)
+        {
+            return Json(_dropdownService.GetDormitoryBlockByDormitoryIdDropdown(id));
         }
 
 
@@ -342,6 +349,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
          var success =   _imageService.UploadRoomImage(id);
             return RedirectToAction("RoomEdit", "Catalog", new {  id, @section="picture"});
         }
+
 
         #endregion
 

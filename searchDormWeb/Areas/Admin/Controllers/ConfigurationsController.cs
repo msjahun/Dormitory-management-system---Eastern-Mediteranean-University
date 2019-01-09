@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 using Dau.Core.Configuration.AccessControlList;
 using Dau.Core.Domain.Users;
 using Dau.Services.AccessControlList;
+using Dau.Services.Domain.DormitoryBlockServices;
 using Dau.Services.Domain.DormitoryServices;
+using Dau.Services.Domain.FeaturesServices;
 using Dau.Services.Domain.ImageServices;
+using Dau.Services.Domain.LocationServices;
+using Dau.Services.Domain.RoomServices;
 using Dau.Services.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -18,8 +22,8 @@ using searchDormWeb.Areas.Admin.Models.Configuration;
 
 namespace searchDormWeb.Areas.Admin.Controllers
 {
-   
-  
+
+
     [Authorize]
     [Area("Admin")]
     [Route("admin/[controller]")]
@@ -30,33 +34,45 @@ namespace searchDormWeb.Areas.Admin.Controllers
         private readonly IMvcControllerDiscovery _mvcControllerDiscovery;
         private readonly IDormitoryService _dormitoryService;
         private readonly IImageService _imageService;
+        private readonly IFeaturesService _featuresService;
+        private readonly IRoomService _roomService;
+        private readonly IDormitoryBlockService _dormitoryBlockService;
+        private readonly ILocationService _locationService;
 
         public ConfigurationsController(IDormitoryService dormitoryService,
              IImageService imageService,
-             IMvcControllerDiscovery mvcControllerDiscovery, IUserRolesService userRolesService, RoleManager<UserRole> roleManager)
+             IMvcControllerDiscovery mvcControllerDiscovery, IUserRolesService userRolesService, RoleManager<UserRole> roleManager,
+             IFeaturesService featuresService,
+             IRoomService roomService,
+             IDormitoryBlockService dormitoryBlockService,
+             ILocationService locationService)
         {
             _roleManager = roleManager;
             _userRolesService = userRolesService;
             _mvcControllerDiscovery = mvcControllerDiscovery;
             _dormitoryService = dormitoryService;
             _imageService = imageService;
+            _featuresService = featuresService;
+            _roomService = roomService;
+            _dormitoryBlockService = dormitoryBlockService;
+            _locationService = locationService;
         }
 
 
-       
+
 
 
         #region EmailAccounts
 
         [HttpGet("[action]")]
-       
+
         public ActionResult EmailAccounts()
         {
             return View("EmailAccounts");
         }
 
         [HttpPost("[action]")]
-       
+
         public ActionResult EmailAccounts(int dummy)
         {
             try
@@ -147,7 +163,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
                 //  List<DormitoriesDataTable> List = _DormitoryService.GetAllDormitoriesForTable();
                 var List = _dormitoryService.GetDormitoryListTable();
-              
+
 
                 // getting all Discount data  
                 var Data = List;
@@ -200,12 +216,23 @@ namespace searchDormWeb.Areas.Admin.Controllers
         [HttpGet("[action]")]
         public ActionResult DormitoryEdit(long id)
         {
+            var keyValue = HttpContext.Request.Query["Section"];
+            ViewData["section"] = "";
+            if (!string.IsNullOrWhiteSpace(keyValue))
+            { ViewData["section"] = keyValue; }
+
+            bool savedStatus = false;
+            var saved = HttpContext.Request.Query["saved"];
+            if (!string.IsNullOrWhiteSpace(saved))
+            { savedStatus = bool.Parse(saved); }
+
 
             //send id, bringmodel, if false, redirect to Dormitories
             var model = _dormitoryService.GetDormitoryById(id);
             if (model == null)
                 return RedirectToAction("Dormitories", "Configurations");
-            return View("_DormitoryEdit",model);
+            model.SavedSuccessful = savedStatus;
+            return View("_DormitoryEdit", model);
         }
 
         [HttpPost("[action]")]
@@ -215,14 +242,77 @@ namespace searchDormWeb.Areas.Admin.Controllers
                 return View("_DormitoryEdit", vm);
             var updateSuccess = _dormitoryService.UpdateDormitoryById(vm);
             var success = _imageService.uploadDormitoryLogoImage(vm.Id);
-
+            
             var model = _dormitoryService.GetDormitoryById(vm.Id);
+            model.SavedSuccessful = updateSuccess;
             return View("_DormitoryEdit", model);
         }
 
 
         [HttpPost("[action]")]
-        public ActionResult CloseLocationsTable(int dummy)
+        public ActionResult DormitorySeoEdit(DormitoryCrud vm)
+        {
+        
+            var saveStatus = _dormitoryService.UpdateDormSeo(vm);
+           
+            return RedirectToAction("DormitoryEdit", "Configurations", new { @id = vm.Id , @section = "seo",@saved=saveStatus });
+        }
+
+
+        [HttpPost("[action]")]
+        public ActionResult AddDormitoryFeature(FacilitiesTabDormitory vm)
+        {
+            var success = _featuresService.AddDormitoryFeature(vm);
+
+            return Json(success);
+        }
+
+        [HttpPost("[action]")]
+        public ActionResult RemoveDormitoryFeature(FacilitiesTabDormitory vm)
+        {
+            var success = _featuresService.RemoveDormitoryFeature(vm);
+
+            return Json(success);
+        }
+
+
+        [HttpPost("[action]")]
+        public ActionResult AddCloseLocation(CloseLocationVm vm)
+        {
+            var success = _locationService.AddDormitoryCloseLocationAsync(vm).Result; 
+               
+
+            return Json(success);
+        }
+
+        [HttpPost("[action]")]
+        public ActionResult RemoveCloseLocation(CloseLocationVm vm)
+        {
+            var success = _locationService.RemoveDormitoryCloseLocation(vm);
+
+            return Json(success);
+        }
+
+
+        [HttpPost("[action]")]
+        public ActionResult UploadDormitoryImage(long id)
+        {
+
+
+            var success = _imageService.uploadDormitoryImage(id);
+            return RedirectToAction("DormitoryEdit", "Configurations", new { id, @section = "picture" });
+        }
+
+        [HttpPost("[action]")]
+        public ActionResult RemoveDormitoryImage(long Id)
+        {
+            var success = _imageService.RemoveImage(Id);
+
+            return Json(success);
+        }
+
+        [HttpPost("[action]")]
+        public ActionResult CloseLocationsTable(long id)
         {
             try
             {
@@ -238,7 +328,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
                 //  List<DormitoriesDataTable> List = _DormitoryService.GetAllDormitoriesForTable();
-                var List = new List<CloseLocationsTable>();
+                var List = _locationService.GetDormitoryCloseLocationsListTable(id);
 
 
                 // getting all Discount data  
@@ -274,7 +364,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
         [HttpPost("[action]")]
-        public ActionResult DormitoryPicturesTable(int dummy)
+        public ActionResult DormitoryPicturesTable(long id)
         {
             try
             {
@@ -290,7 +380,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
                 //  List<DormitoriesDataTable> List = _DormitoryService.GetAllDormitoriesForTable();
-                var List = new List<DormitoryPicturesTable>();
+                var List = _dormitoryService.GetDormitoryImagesTables(id);
 
 
                 // getting all Discount data  
@@ -325,7 +415,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
         [HttpPost("[action]")]
-        public ActionResult DormitoryFeaturesTable(int dummy)
+        public ActionResult DormitoryFeaturesTable(long id)
         {
             try
             {
@@ -341,7 +431,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
                 //  List<DormitoriesDataTable> List = _DormitoryService.GetAllDormitoriesForTable();
-                var List = new List<DormitoryFeaturesTable>();
+                var List = _featuresService.GetDormitoryFeatures(id);
 
 
                 // getting all Discount data  
@@ -376,7 +466,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
         [HttpPost("[action]")]
-        public ActionResult DormitoryRoomsTable(int dummy)
+        public ActionResult DormitoryRoomsTable(long id)
         {
             try
             {
@@ -392,7 +482,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
                 //  List<DormitoriesDataTable> List = _DormitoryService.GetAllDormitoriesForTable();
-                var List = new List<DormitoryRoomsTable>();
+                var List = _roomService.GetRoomsByDormitoryIdListTable(id);
 
 
                 // getting all Discount data  
@@ -427,7 +517,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
         [HttpPost("[action]")]
-        public ActionResult DormitoryBlocksTable(int dummy)
+        public ActionResult DormitoryBlocksTable(long id)
         {
             try
             {
@@ -443,7 +533,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
                 //  List<DormitoriesDataTable> List = _DormitoryService.GetAllDormitoriesForTable();
-                var List = new List<DormitoryBlocksTable>();
+                var List = _dormitoryBlockService.GetDormitoryBlockByDormitoryIdListTable(id);
 
 
                 // getting all Discount data  
@@ -941,53 +1031,8 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
 
-    public class CloseLocationsTable
-    {
 
-        public string LocationName { get; set; }
-        public string Distance { get; set; }
-        public string TimeItTakes { get; set; }
 
-    }
-
-    public class DormitoryPicturesTable
-    {
-        public string Picture { get; set; }
-        public string DisplayOrder { get; set; }
-        public string Alt { get; set; }
-        public string Title { get; set; }
-
-    }
-
-    public class DormitoryFeaturesTable
-    {
-
-        public string Feature { get; set; }
-        public string FeatureCategory { get; set; }
-        public string AllowFiltering { get; set; }
-    }
-
-    public class DormitoryRoomsTable
-    {
-
-        public string RoomId { get; set; }
-        public string RoomName { get; set; }
-        public string DormitoryBlock { get; set; }
-        public string SKU { get; set; }
-        public string Price { get; set; }
-        public string Quota { get; set; }
-        public string Published { get; set; }
-
-    }
-
-    public class DormitoryBlocksTable
-    {
-        public string Name { get; set; }
-        public string Published { get; set; }
-        public string DisplayOrder { get; set; }
-        public string DormitoryBlockId { get; set; }
-
-    }
 
     //public class AccessControlListTable {
     //    public string PermissionName { get; set; }
@@ -996,5 +1041,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
     //    public string DormAdmin { get; set; }
     //    public string Administrator { get; set; }
     //}
+    
+
 
 }

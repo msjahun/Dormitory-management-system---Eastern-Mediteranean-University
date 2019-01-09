@@ -182,6 +182,48 @@ $(window).scroll(function () {
 
 
 
+
+                $("#CalculateDistanceBtn").click(function () {
+                    //replace div with loader then send ajax request
+                   
+                    if ($("#EmuBuildingDisCal").val() <= 0 || $("#TravelModelDisCal").val() <= 0) {
+                        if ($("#EmuBuildingDisCal").val() <= 0)
+                            $("#EmuBuildingDisCal").attr("class", "form-control is-invalid");
+                        else
+                            $("#EmuBuildingDisCal").attr("class", "form-control is-valid");
+
+                        if ($("#TravelModelDisCal").val() <= 0)
+                            $("#TravelModelDisCal").attr("class", "form-control is-invalid");
+                        else
+                            $("#TravelModelDisCal").attr("class", "form-control is-valid");
+                    } else {
+
+                        $("#EmuBuildingDisCal").attr("class", "form-control is-valid");
+                        $("#TravelModelDisCal").attr("class", "form-control is-valid");
+                        
+                        var loader = "<div class=\"text-center mt-5\"> <div class=\"lds-ring\"><div></div><div></div><div></div><div></div></div> </div>";
+                        $("#distanceCalculatorResult").html(loader);
+                    $.ajax({
+                        type: "POST",
+                        url: location.origin + "/Dormitory/CalculateDistanceToEMULocation/",
+                        data: {
+                            DormitoryId: dormitory_id,
+                            MapSectionId: $("#EmuBuildingDisCal").val(),
+                            TravelModeId: $("#TravelModelDisCal").val()
+                        },
+                        success: function (result) {
+                            //     alert(result);
+                            $("#distanceCalculatorResult").html(result);
+
+
+
+                        }
+                    });
+
+                    }//ifelse end
+
+
+                });
             }
         });
 
@@ -276,7 +318,59 @@ $(window).scroll(function () {
                 //     alert(result);
                 $("#_ReviewBottomSection").html(result);
 
+                $("#sf1").hover(
+                    function () {
+                        $(".sf").removeClass("voted");
+                        $(this).addClass("voted");
+                    }
+                );
 
+                $("#sf2").hover(
+                    function () {
+                        $(".sf").removeClass("voted");
+                        $("#sf1").addClass("voted");
+                        $(this).addClass("voted");
+                    }
+                );
+
+                $("#sf3").hover(
+                    function () {
+                        $(".sf").removeClass("voted");
+                        $(this).addClass("voted");
+                        $("#sf1").addClass("voted");
+                        $("#sf2").addClass("voted");
+                    }
+                );
+
+                $("#sf4").hover(
+                    function () {
+                        $(".sf").removeClass("voted");
+                        $(this).addClass("voted");
+                        $("#sf1").addClass("voted");
+                        $("#sf2").addClass("voted");
+                        $("#sf3").addClass("voted");
+                    }
+                );
+
+                $("#sf5").hover(
+                    function () {
+                        $(".sf").removeClass("voted");
+                        $(this).addClass("voted");
+                        $("#sf1").addClass("voted");
+                        $("#sf2").addClass("voted");
+                        $("#sf3").addClass("voted");
+                        $("#sf4").addClass("voted");
+                    }
+                );
+
+
+
+                $("#sf1").click(
+                    function () {
+                        $(".sf").removeClass("voted");
+                      
+                    }
+                );
 
             }
         });

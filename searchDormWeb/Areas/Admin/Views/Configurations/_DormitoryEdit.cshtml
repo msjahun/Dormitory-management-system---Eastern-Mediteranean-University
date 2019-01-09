@@ -1,10 +1,32 @@
 ﻿@using  Dau.Services.Domain.DormitoryServices
 @model DormitoryCrud
 @{var item = Model;
-    ViewData["Title"] = Localizer["Edit room with id- {0}", item.Id];
+    ViewData["Title"] = Localizer["Edit dormitory with id- {0}", item.Id];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 
+    bool DormitoryInfo = true;
+    bool Seo = false;
+    bool PicturesSection= false;
 
+    if (ViewData["section"] != null)
+    {
+        var section = ViewData["section"].ToString();
+
+
+        if (section == "picture")
+        {
+
+            DormitoryInfo = false;
+            Seo = false;
+            PicturesSection = true;
+
+        }else if(section == "seo")
+        {
+            DormitoryInfo = false;
+            Seo = true;
+            PicturesSection = false;
+        }
+    }
 }
 
 
@@ -18,7 +40,7 @@
         <div class="row">
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
-                    <button type='button' onClick='resolveButton("Preview")' class="btn btn-primary "> <i class="fa fa-eye"></i> @Localizer["Preview"]</button>
+                    <a target="_blank" href="/Dormitories/@item.seoTab.SearchEngineFriendlyPageName" class="btn btn-primary "> <i class="fa fa-eye"></i> @Localizer["Preview"]</a>
                     <button type='button' onClick='resolveButton("SaveClose")' class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
                     <button type='button' onClick='resolveButton("SaveContinue")' class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save and Continue Edit"]</button>
                     <button type='button' onClick='resolveButton("CopyDormitory")' class="btn btn-success "> <i class="fa fa-clone"></i> @Localizer["Copy Dormitory"]</button>
@@ -31,509 +53,520 @@
     <!-- Main content -->
     <!-- Main content -->
     <section class="content container-fluid">
-
+        <div id="alertACL"></div>
+        @if (item.SavedSuccessful)
+        {
+            <div class="alert alert-success alert-dismissible"> <button type="button" class="close text-white" data-dismiss="alert" aria-hidden="true">×</button> <i class="icon fa fa-check"></i> @Localizer["Dormitory was saved successfully"]</div>
+        }
         <!--------------------------
-        | Your Page Content Here |
-        -------------------------->
+    | Your Page Content Here |
+    -------------------------->
 
         <div class="col-md-12">
             <!-- Horizontal Form -->
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#tab_3" data-toggle="tab" aria-expanded="true">@Localizer["Dormitory info"]</a></li>
-                    <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">@Localizer["SEO"]</a></li>
-                    <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">@Localizer["Pictures"]</a></li>
+                    <li class=" tabListener @(DormitoryInfo?"active":"")" value="1"><a href="#tab_3" data-toggle="tab" aria-expanded="true">@Localizer["Dormitory info"]</a></li>
+                    <li class=" tabListener @(Seo?"active":"")" value="2"><a href="#tab_1" data-toggle="tab" aria-expanded="false">@Localizer["SEO"]</a></li>
+                    <li class="@(PicturesSection?"active":"")"><a href="#tab_2" data-toggle="tab" aria-expanded="false">@Localizer["Pictures"]</a></li>
                     <li class=""><a href="#tab_5" data-toggle="tab" aria-expanded="false">@Localizer["Dormitory features"]</a></li>
                     <li class=""><a href="#tab_6" data-toggle="tab" aria-expanded="false">@Localizer["Dormitory rooms"]</a></li>
                     <li class=""><a href="#tab_7" data-toggle="tab" aria-expanded="false">@Localizer["Dormitory Blocks"]</a></li>
                 </ul>
-                <form method="post" id="editForm" asp-controller="Configurations" asp-action="DormitoryEdit"  enctype="multipart/form-data">
+                <div>
                     <div class="tab-content">
 
                         <!-- /.tab-pane -->
-                        <div class="tab-pane active" id="tab_3">
-                            <div class="row">
+                        <div class="tab-pane @(DormitoryInfo?"active":"")" id="tab_3">
 
-                                <div class="col-md-6" id="first_column">
+                            <form method="post" id="editForm" asp-controller="Configurations" asp-action="DormitoryEdit" enctype="multipart/form-data">
+                                <div class="row">
 
-                                    <div class="box box-solid">
-                                        <div class="box-header">@Localizer["General information"]</div>
-                                        <!-- /.box-header -->
-                                        <!-- form start -->
+                                    <div class="col-md-6" id="first_column">
 
-                                        <div class="box-body">
-                                            <div style="color:red;" asp-validation-summary="All"></div>
-                                            <div class="form-horizontal">
-                                                <input type="hidden" asp-for="Id" />
-                                                <div class="form-group">
-                                                    <dau-label asp-for="Id"></dau-label>
-                                                    <div class="col-sm-9">
-                                                        <p>@item.Id</p>
+                                        <div class="box box-solid">
+                                            <div class="box-header">@Localizer["General information"]</div>
+                                            <!-- /.box-header -->
+                                            <!-- form start -->
+
+                                            <div class="box-body">
+                                                <div style="color:red;" asp-validation-summary="All"></div>
+                                                <div class="form-horizontal">
+                                                    <input type="hidden" asp-for="Id" />
+                                                    <input type="hidden" asp-for="seoTab.MetaDescription" />
+                                                    <input type="hidden" asp-for="seoTab.MetaKeywords" />
+                                                    <input type="hidden" asp-for="seoTab.MetaTitle" />
+                                                    <input type="hidden" asp-for="seoTab.SearchEngineFriendlyPageName" />
+                                                    <div class="form-group">
+                                                        <dau-label asp-for="Id"></dau-label>
+                                                        <div class="col-sm-9">
+                                                            <p>@item.Id</p>
+                                                        </div>
+
                                                     </div>
 
-                                                </div>
+                                                    <div class="form-group">
 
-                                                <div class="form-group">
-
-                                                    <dau-label asp-for="DormitoryType"></dau-label>
-                                                    <div class="col-sm-8">
-                                                        <select asp-for="DormitoryType" asp-items="_dropdown.DormitoryTypes()" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                                                            <option></option>
-                                                        </select>
-                                                    </div>
-                                                    <span asp-validation-for="DormitoryType"></span>
-                                                </div>
-
-
-
-
-                                                <dau-tabs id="LocalizedContentTab">
-
-
-                                                    <dau-tab id="tab2" active="true" name="English" flag="@Url.Content("~/Content/")dist/img/us.png">
-
-
-                                                        <div class="form-group">
-                                                            <dau-label asp-for="localizedContent[0].DormitoryName"></dau-label>
-                                                            <dau-input asp-for="localizedContent[0].DormitoryName" type="text"></dau-input>
-                                                            <span asp-validation-for="localizedContent[0].DormitoryName"></span>
+                                                        <dau-label asp-for="DormitoryType"></dau-label>
+                                                        <div class="col-sm-8">
+                                                            <select asp-for="DormitoryType" asp-items="_dropdown.DormitoryTypes()" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                                <option></option>
+                                                            </select>
                                                         </div>
-
-
-
-
-
-
-                                                        <div class="form-group">
-                                                            <dau-label asp-for="localizedContent[0].ShortDescription"> </dau-label>
-                                                            <dau-textarea asp-for="localizedContent[0].ShortDescription" rows="3"></dau-textarea>
-                                                            <span asp-validation-for="localizedContent[0].ShortDescription"></span>
-                                                        </div>
-
-
-                                                        <div class="form-group">
-                                                            <dau-label asp-for="localizedContent[0].FullDescription"> </dau-label>
-                                                            <dau-editor asp-for="localizedContent[0].FullDescription"></dau-editor>
-                                                            <span asp-validation-for="localizedContent[0].FullDescription"></span>
-                                                        </div>
-
-
-
-
-
-
-                                                    </dau-tab>
-                                                    <dau-tab id="tab3" name="Turkish" flag="@Url.Content("~/Content/")dist/img/tr.png">
-                                                        <div class="form-group">
-                                                            <dau-label asp-for="localizedContent[1].DormitoryName"></dau-label>
-                                                            <dau-input asp-for="localizedContent[1].DormitoryName" type="text"></dau-input>
-                                                            <span asp-validation-for="localizedContent[1].DormitoryName"></span>
-                                                        </div>
-
-
-
-
-
-                                                        <div class="form-group">
-                                                            <dau-label asp-for="localizedContent[1].ShortDescription"> </dau-label>
-                                                            <dau-textarea asp-for="localizedContent[1].ShortDescription"  rows="3"></dau-textarea>
-                                                            <span asp-validation-for="localizedContent[1].ShortDescription"></span>
-                                                        </div>
-
-
-
-                                                        <div class="form-group">
-                                                            <dau-label asp-for="localizedContent[1].FullDescription"> </dau-label>
-                                                            <dau-editor asp-for="localizedContent[1].FullDescription"></dau-editor>
-                                                            <span asp-validation-for="localizedContent[1].FullDescription"></span>
-                                                        </div>
-
-
-                                                    </dau-tab>
-                                                </dau-tabs>
-
-                                                <!-- /.nav-tabs -->
-
-
-
-                                                <div class="form-group">
-                                                    <dau-label asp-for="DormitoryLogo"></dau-label>
-                                                    <div class="col-sm-8">
-                                                        <input type="hidden" asp-for="DormitoryLogo" />
-                                                      
-                                                        <img id="ImagePlaceholder" src="@item.DormitoryLogo" height="100"  /><br /><br />
-                                                        <span class="btn btn-success btn-file">
-                                                            @Localizer["Upload file"]  <input id="ImageInput" type="file" name="files" accept="image/*" />
-                                                        </span><span id="RemoveLogo" class="btn btn-outline-danger">@Localizer["Remove Logo"]</span>
+                                                        <span asp-validation-for="DormitoryType"></span>
                                                     </div>
 
 
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <dau-label asp-for="SKU"></dau-label>
-                                                    <dau-input asp-for="SKU" type="text"></dau-input>
-                                                    <span asp-validation-for="SKU"></span>
-                                                </div>
-
-                                                <div class="form-group">
-
-                                                    <dau-label asp-for="Published"></dau-label>
-                                                    <div class="col-sm-8">
-                                                        <input asp-for="Published" type="checkbox">
-                                                    </div>
-                                                    <span asp-validation-for="Published"></span>
-
-                                                </div>
 
 
+                                                    <dau-tabs id="LocalizedContentTab">
 
 
+                                                        <dau-tab id="tab2" active="true" name="English" flag="@Url.Content("~/Content/")dist/img/us.png">
 
 
-
-
-                                                <div class="form-group">
-
-                                                    <dau-label asp-for="MarkAsNew"></dau-label>
-                                                    <div class="col-sm-8">
-                                                        <input asp-for="MarkAsNew" type="checkbox">
-                                                    </div>
-                                                    <span asp-validation-for="MarkAsNew"></span>
-                                                </div>
-
-
-
-
-
-
-
-                                                <div class="form-group">
-
-                                                    <dau-label asp-for="AdminComment"> </dau-label>
-                                                    <dau-textarea asp-for="AdminComment"></dau-textarea>
-                                                    <span asp-validation-for="AdminComment"></span>
-                                                </div>
-
-
-                                                <div class="box box-solid">
-                                                    <div class="box-header">@Localizer["Good to know information"]</div>
-                                                    <!-- /.box-header -->
-                                                    <!-- form start -->
-
-                                                    <div class="box-body">
-
-                                                        <div class="form-group">
-                                                            <dau-label asp-for="OpeningTimeWeekdays"></dau-label>
-                                                            <dau-input asp-for="OpeningTimeWeekdays" type="text"></dau-input>
-                                                            <span asp-validation-for="OpeningTimeWeekdays"></span>
-                                                        </div>
-
-
-                                                        <div class="form-group">
-                                                            <dau-label asp-for="ClosingTimeWeekdays"></dau-label>
-                                                            <dau-input asp-for="ClosingTimeWeekdays" type="text"></dau-input>
-                                                            <span asp-validation-for="ClosingTimeWeekdays"></span>
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <dau-label asp-for="OpeningTimeWeekends"></dau-label>
-                                                            <dau-input asp-for="OpeningTimeWeekends" type="text"></dau-input>
-                                                            <span asp-validation-for="OpeningTimeWeekends"></span>
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <dau-label asp-for="ClosingTimeWeekends"></dau-label>
-                                                            <dau-input asp-for="ClosingTimeWeekends" type="text"></dau-input>
-                                                            <span asp-validation-for="ClosingTimeWeekends"></span>
-                                                        </div>
-
-
-                                                        <div class="form-group">
-
-                                                            <dau-label asp-for="OpenedOnSundays"></dau-label>
-                                                            <div class="col-sm-8">
-                                                                <input asp-for="OpenedOnSundays" type="checkbox">
+                                                            <div class="form-group">
+                                                                <dau-label asp-for="localizedContent[0].DormitoryName"></dau-label>
+                                                                <dau-input asp-for="localizedContent[0].DormitoryName" type="text"></dau-input>
+                                                                <span asp-validation-for="localizedContent[0].DormitoryName"></span>
                                                             </div>
-                                                            <span asp-validation-for="OpenedOnSundays"></span>
+
+
+
+
+
+
+                                                            <div class="form-group">
+                                                                <dau-label asp-for="localizedContent[0].ShortDescription"> </dau-label>
+                                                                <dau-textarea asp-for="localizedContent[0].ShortDescription" rows="3"></dau-textarea>
+                                                                <span asp-validation-for="localizedContent[0].ShortDescription"></span>
+                                                            </div>
+
+
+                                                            <div class="form-group">
+                                                                <dau-label asp-for="localizedContent[0].FullDescription"> </dau-label>
+                                                                <dau-editor asp-for="localizedContent[0].FullDescription"></dau-editor>
+                                                                <span asp-validation-for="localizedContent[0].FullDescription"></span>
+                                                            </div>
+
+
+
+
+
+
+                                                        </dau-tab>
+                                                        <dau-tab id="tab3" name="Turkish" flag="@Url.Content("~/Content/")dist/img/tr.png">
+                                                            <div class="form-group">
+                                                                <dau-label asp-for="localizedContent[1].DormitoryName"></dau-label>
+                                                                <dau-input asp-for="localizedContent[1].DormitoryName" type="text"></dau-input>
+                                                                <span asp-validation-for="localizedContent[1].DormitoryName"></span>
+                                                            </div>
+
+
+
+
+
+                                                            <div class="form-group">
+                                                                <dau-label asp-for="localizedContent[1].ShortDescription"> </dau-label>
+                                                                <dau-textarea asp-for="localizedContent[1].ShortDescription" rows="3"></dau-textarea>
+                                                                <span asp-validation-for="localizedContent[1].ShortDescription"></span>
+                                                            </div>
+
+
+
+                                                            <div class="form-group">
+                                                                <dau-label asp-for="localizedContent[1].FullDescription"> </dau-label>
+                                                                <dau-editor asp-for="localizedContent[1].FullDescription"></dau-editor>
+                                                                <span asp-validation-for="localizedContent[1].FullDescription"></span>
+                                                            </div>
+
+
+                                                        </dau-tab>
+                                                    </dau-tabs>
+
+                                                    <!-- /.nav-tabs -->
+
+
+
+                                                    <div class="form-group">
+                                                        <dau-label asp-for="DormitoryLogo"></dau-label>
+                                                        <div class="col-sm-8">
+                                                            <input type="hidden" asp-for="DormitoryLogo" />
+
+                                                            <img id="ImagePlaceholder" src="@item.DormitoryLogo" height="100" /><br /><br />
+                                                            <span class="btn btn-success btn-file">
+                                                                @Localizer["Upload file"]  <input id="ImageInput" type="file" name="files" accept="image/*" />
+                                                            </span><span id="RemoveLogo" class="btn btn-outline-danger">@Localizer["Remove Logo"]</span>
                                                         </div>
 
 
+                                                    </div>
 
+                                                    <div class="form-group">
+                                                        <dau-label asp-for="SKU"></dau-label>
+                                                        <dau-input asp-for="SKU" type="text"></dau-input>
+                                                        <span asp-validation-for="SKU"></span>
+                                                    </div>
+
+                                                    <div class="form-group">
+
+                                                        <dau-label asp-for="Published"></dau-label>
+                                                        <div class="col-sm-8">
+                                                            <input asp-for="Published" type="checkbox">
+                                                        </div>
+                                                        <span asp-validation-for="Published"></span>
 
                                                     </div>
-                                                </div>
 
+
+
+
+
+
+
+
+                                                    <div class="form-group">
+
+                                                        <dau-label asp-for="MarkAsNew"></dau-label>
+                                                        <div class="col-sm-8">
+                                                            <input asp-for="MarkAsNew" type="checkbox">
+                                                        </div>
+                                                        <span asp-validation-for="MarkAsNew"></span>
+                                                    </div>
+
+
+
+
+
+
+
+                                                    <div class="form-group">
+
+                                                        <dau-label asp-for="AdminComment"> </dau-label>
+                                                        <dau-textarea asp-for="AdminComment"></dau-textarea>
+                                                        <span asp-validation-for="AdminComment"></span>
+                                                    </div>
+
+
+                                                    <div class="box box-solid">
+                                                        <div class="box-header">@Localizer["Good to know information"]</div>
+                                                        <!-- /.box-header -->
+                                                        <!-- form start -->
+
+                                                        <div class="box-body">
+
+                                                            <div class="form-group">
+                                                                <dau-label asp-for="OpeningTimeWeekdays"></dau-label>
+                                                                <dau-input asp-for="OpeningTimeWeekdays" type="text"></dau-input>
+                                                                <span asp-validation-for="OpeningTimeWeekdays"></span>
+                                                            </div>
+
+
+                                                            <div class="form-group">
+                                                                <dau-label asp-for="ClosingTimeWeekdays"></dau-label>
+                                                                <dau-input asp-for="ClosingTimeWeekdays" type="text"></dau-input>
+                                                                <span asp-validation-for="ClosingTimeWeekdays"></span>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <dau-label asp-for="OpeningTimeWeekends"></dau-label>
+                                                                <dau-input asp-for="OpeningTimeWeekends" type="text"></dau-input>
+                                                                <span asp-validation-for="OpeningTimeWeekends"></span>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <dau-label asp-for="ClosingTimeWeekends"></dau-label>
+                                                                <dau-input asp-for="ClosingTimeWeekends" type="text"></dau-input>
+                                                                <span asp-validation-for="ClosingTimeWeekends"></span>
+                                                            </div>
+
+
+                                                            <div class="form-group">
+
+                                                                <dau-label asp-for="OpenedOnSundays"></dau-label>
+                                                                <div class="col-sm-8">
+                                                                    <input asp-for="OpenedOnSundays" type="checkbox">
+                                                                </div>
+                                                                <span asp-validation-for="OpenedOnSundays"></span>
+                                                            </div>
+
+
+
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
                                             </div>
                                         </div>
+
+
+
                                     </div>
 
 
+
+                                    <div class="col-md-6" id="second_column">
+
+
+                                        <div class="box box-solid">
+                                            <div class="box-header">@Localizer["Booking settings"]</div>
+                                            <!-- /.box-header -->
+                                            <!-- form start -->
+
+                                            <div class="box-body">
+                                                <div class="form-horizontal">
+
+
+
+
+
+                                                    <div class="form-group">
+
+                                                        <dau-label asp-for="BookingLimit"></dau-label>
+                                                        <div class="col-sm-8">
+                                                            <select asp-for="BookingLimit" asp-items="_dropdown.BookingLimit()" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                                <option></option>
+                                                            </select>
+                                                        </div>
+                                                        <span asp-validation-for="BookingLimit"></span>
+                                                    </div>
+
+                                                    <div class="form-group">
+
+                                                        <dau-label asp-for="CancelWaitDays"></dau-label>
+                                                        <dau-input asp-for="CancelWaitDays" type="number"></dau-input>
+                                                        <span asp-validation-for="CancelWaitDays"></span>
+
+                                                    </div>
+
+
+                                                    <div class="form-group">
+
+                                                        <dau-label asp-for="AllowReviewsWithBookingOnly"></dau-label>
+                                                        <div class="col-sm-8">
+                                                            <input asp-for="AllowReviewsWithBookingOnly" type="checkbox">
+                                                        </div>
+                                                        <span asp-validation-for="AllowReviewsWithBookingOnly"></span>
+                                                    </div>
+
+
+
+
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="box box-solid">
+                                            <div class="box-header">@Localizer["Address and map information"]</div>
+                                            <!-- /.box-header -->
+                                            <!-- form start -->
+
+                                            <div class="box-body">
+                                                <div class="form-horizontal">
+
+
+                                                    <div class="form-group">
+
+                                                        <dau-label asp-for="DormitoryAddress"></dau-label>
+                                                        <dau-input asp-for="DormitoryAddress" type="text"></dau-input>
+                                                        <span asp-validation-for="DormitoryAddress"></span>
+
+                                                    </div>
+
+
+                                                    <div class="form-group">
+
+                                                        <dau-label asp-for="BuildingsOnMap"></dau-label>
+                                                        <div class="col-sm-8">
+                                                            <select asp-for="BuildingsOnMap" asp-items="_dropdown.DormitoryBuildingsOnMap()" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                                <option></option>
+                                                            </select>
+                                                        </div>
+                                                        <span asp-validation-for="BuildingsOnMap"></span>
+                                                    </div>
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="box box-solid">
+                                            <div class="box-header">@Localizer["Area information"]</div>
+                                            <!-- /.box-header -->
+                                            <!-- form start -->
+
+                                            <div class="box-body">
+                                                <div class="form-horizontal">
+
+
+                                                    <table id="CloseLocationsTable" class="table table-bordered table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>@Localizer["Location name"]</th>
+                                                                <th>@Localizer["Distance"]</th>
+                                                                <th>@Localizer["Time it takes"]</th>
+                                                                <th>@Localizer["Remove"]</th>
+
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody></tbody>
+
+                                                    </table>
+
+                                                    <br /><br />
+
+                                                    <div class="form-group">
+
+                                                        <dau-label asp-for="CloseLocation"> </dau-label>
+                                                        <div class="col-sm-8">
+                                                            <select asp-for="CloseLocation" asp-items="_dropdown.BuildingsOnMap()" id="CloseLocationSelect" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                                <option></option>
+                                                            </select>
+                                                        </div>
+                                                        <span asp-validation-for="CloseLocation"></span>
+
+                                                    </div>
+
+
+                                                    <div class="form-group">
+                                                        <label for="inputPassword3" class="col-sm-3 control-label"></label>
+
+                                                        <div class="col-sm-8">
+
+                                                            <button type="button" onClick='resolveButton("AddCloseLocations")' class="btn btn-primary">@Localizer["Add Location"]</button>
+                                                            <button type="button" onClick='resolveButton("GenerateClosestLocations")' class="btn btn-default">@Localizer["Generate 5 closest Locations"]</button>
+                                                        </div>
+
+                                                    </div>
+
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="box box-solid">
+                                            <div class="box-header">@Localizer["Additional information"]</div>
+                                            <!-- /.box-header -->
+                                            <!-- form start -->
+
+                                            <div class="box-body">
+                                                <div class="form-horizontal">
+
+
+                                                    <div class="form-group">
+
+                                                        <dau-label asp-for="LocationOnCampus"></dau-label>
+                                                        <div class="col-sm-8">
+                                                            <select asp-for="LocationOnCampus" asp-items="_dropdown.LocationOnCampus()" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                                <option></option>
+                                                            </select>
+                                                        </div>
+                                                        <span asp-validation-for="LocationOnCampus"></span>
+                                                    </div>
+
+
+                                                    <div class="form-group">
+
+                                                        <dau-label asp-for="NumberOfStudents"></dau-label>
+                                                        <dau-input asp-for="NumberOfStudents" type="number"></dau-input>
+                                                        <span asp-validation-for="NumberOfStudents"></span>
+
+
+                                                    </div>
+
+
+
+                                                    <div class="form-group">
+
+                                                        <dau-label asp-for="NumberOfStaffs"></dau-label>
+                                                        <dau-input asp-for="NumberOfStaffs" type="number"></dau-input>
+                                                        <span asp-validation-for="NumberOfStaffs"></span>
+
+
+                                                    </div>
+
+                                                    <div class="form-group">
+
+                                                        <dau-label asp-for="NumberOfAwards"></dau-label>
+                                                        <dau-input asp-for="NumberOfAwards" type="number"></dau-input>
+                                                        <span asp-validation-for="NumberOfAwards"></span>
+
+
+                                                    </div>
+
+                                                    <div class="form-group">
+
+                                                        <dau-label asp-for="NumberOfNewFacilities"></dau-label>
+                                                        <dau-input asp-for="NumberOfNewFacilities" type="number"></dau-input>
+                                                        <span asp-validation-for="NumberOfNewFacilities"></span>
+
+
+                                                    </div>
+
+
+
+
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="box box-solid">
+                                            <div class="box-header">@Localizer["Change history"]</div>
+                                            <!-- /.box-header -->
+                                            <!-- form start -->
+
+                                            <div class="box-body">
+                                                <div class="form-horizontal">
+
+                                                    <div class="form-group">
+                                                        <dau-label asp-for="CreatedOn"></dau-label>
+
+                                                        <div class="col-sm-8">
+                                                            <input type="hidden" asp-for="CreatedOn" />
+                                                            <p>@item.CreatedOn</p>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <dau-label asp-for="UpdatedOn"></dau-label>
+
+                                                        <div class="col-sm-8">
+                                                            <input type="hidden" asp-for="UpdatedOn" />
+                                                            <p>@item.UpdatedOn</p>
+                                                        </div>
+
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
 
                                 </div>
 
-
-
-                                <div class="col-md-6" id="second_column">
-
-
-                                    <div class="box box-solid">
-                                        <div class="box-header">@Localizer["Booking settings"]</div>
-                                        <!-- /.box-header -->
-                                        <!-- form start -->
-
-                                        <div class="box-body">
-                                            <div class="form-horizontal">
-
-
-
-
-
-                                                <div class="form-group">
-
-                                                    <dau-label asp-for="BookingLimit"></dau-label>
-                                                    <div class="col-sm-8">
-                                                        <select asp-for="BookingLimit" asp-items="_dropdown.BookingLimit()" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                                                            <option></option>
-                                                        </select>
-                                                    </div>
-                                                    <span asp-validation-for="BookingLimit"></span>
-                                                </div>
-
-                                                <div class="form-group">
-
-                                                    <dau-label asp-for="CancelWaitDays"></dau-label>
-                                                    <dau-input asp-for="CancelWaitDays" type="number"></dau-input>
-                                                    <span asp-validation-for="CancelWaitDays"></span>
-
-                                                </div>
-
-
-                                                <div class="form-group">
-
-                                                    <dau-label asp-for="AllowReviewsWithBookingOnly"></dau-label>
-                                                    <div class="col-sm-8">
-                                                        <input asp-for="AllowReviewsWithBookingOnly" type="checkbox">
-                                                    </div>
-                                                    <span asp-validation-for="AllowReviewsWithBookingOnly"></span>
-                                                </div>
-
-
-
-
-
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="box box-solid">
-                                        <div class="box-header">@Localizer["Address and map information"]</div>
-                                        <!-- /.box-header -->
-                                        <!-- form start -->
-
-                                        <div class="box-body">
-                                            <div class="form-horizontal">
-
-
-                                                <div class="form-group">
-
-                                                    <dau-label asp-for="DormitoryAddress"></dau-label>
-                                                    <dau-input asp-for="DormitoryAddress" type="text"></dau-input>
-                                                    <span asp-validation-for="DormitoryAddress"></span>
-
-                                                </div>
-
-
-                                                <div class="form-group">
-
-                                                    <dau-label asp-for="BuildingsOnMap"></dau-label>
-                                                    <div class="col-sm-8">
-                                                        <select asp-for="BuildingsOnMap" asp-items="_dropdown.DormitoryBuildingsOnMap()" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                                                            <option></option>
-                                                        </select>
-                                                    </div>
-                                                    <span asp-validation-for="BuildingsOnMap"></span>
-                                                </div>
-
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-
-                                    <div class="box box-solid">
-                                        <div class="box-header">@Localizer["Area information"]</div>
-                                        <!-- /.box-header -->
-                                        <!-- form start -->
-
-                                        <div class="box-body">
-                                            <div class="form-horizontal">
-
-
-                                                <table id="CloseLocationsTable" class="table table-bordered table-striped">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>@Localizer["Location name"]</th>
-                                                            <th>@Localizer["Distance"]</th>
-                                                            <th>@Localizer["Time it takes"]</th>
-
-
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody></tbody>
-
-                                                </table>
-
-                                                <br /><br />
-
-                                                <div class="form-group">
-
-                                                    <dau-label asp-for="CloseLocation"> </dau-label>
-                                                    <div class="col-sm-8">
-                                                        <select asp-for="CloseLocation" asp-items="_dropdown.BuildingsOnMap()" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                                                            <option></option>
-                                                        </select>
-                                                    </div>
-                                                    <span asp-validation-for="CloseLocation"></span>
-
-                                                </div>
-
-
-                                                <div class="form-group">
-                                                    <label for="inputPassword3" class="col-sm-3 control-label"></label>
-
-                                                    <div class="col-sm-8">
-
-                                                        <button type="button" onClick='resolveButton("AddCloseLocations")' class="btn btn-primary">@Localizer["Add Location"]</button>
-                                                        <button type="button" onClick='resolveButton("GenerateClosestLocations")' class="btn btn-default">@Localizer["Generate 5 closest Locations"]</button>
-                                                    </div>
-
-                                                </div>
-
-
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-
-                                    <div class="box box-solid">
-                                        <div class="box-header">@Localizer["Additional information"]</div>
-                                        <!-- /.box-header -->
-                                        <!-- form start -->
-
-                                        <div class="box-body">
-                                            <div class="form-horizontal">
-
-
-                                                <div class="form-group">
-
-                                                    <dau-label asp-for="LocationOnCampus"></dau-label>
-                                                    <div class="col-sm-8">
-                                                        <select asp-for="LocationOnCampus" asp-items="_dropdown.LocationOnCampus()"  class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                                                            <option></option>
-                                                        </select>
-                                                    </div>
-                                                    <span asp-validation-for="LocationOnCampus"></span>
-                                                </div>
-
-
-                                                <div class="form-group">
-
-                                                    <dau-label asp-for="NumberOfStudents"></dau-label>
-                                                    <dau-input asp-for="NumberOfStudents" type="number"></dau-input>
-                                                    <span asp-validation-for="NumberOfStudents"></span>
-
-
-                                                </div>
-
-
-
-                                                <div class="form-group">
-
-                                                    <dau-label asp-for="NumberOfStaffs"></dau-label>
-                                                    <dau-input asp-for="NumberOfStaffs" type="number"></dau-input>
-                                                    <span asp-validation-for="NumberOfStaffs"></span>
-
-
-                                                </div>
-
-                                                <div class="form-group">
-
-                                                    <dau-label asp-for="NumberOfAwards"></dau-label>
-                                                    <dau-input asp-for="NumberOfAwards" type="number"></dau-input>
-                                                    <span asp-validation-for="NumberOfAwards"></span>
-
-
-                                                </div>
-
-                                                <div class="form-group">
-
-                                                    <dau-label asp-for="NumberOfNewFacilities"></dau-label>
-                                                    <dau-input asp-for="NumberOfNewFacilities" type="number"></dau-input>
-                                                    <span asp-validation-for="NumberOfNewFacilities"></span>
-
-
-                                                </div>
-
-
-
-
-
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="box box-solid">
-                                        <div class="box-header">@Localizer["Change history"]</div>
-                                        <!-- /.box-header -->
-                                        <!-- form start -->
-
-                                        <div class="box-body">
-                                            <div class="form-horizontal">
-
-                                                <div class="form-group">
-                                                    <dau-label asp-for="CreatedOn"></dau-label>
-
-                                                    <div class="col-sm-8">
-                                                        <input type="hidden" asp-for="CreatedOn" />
-                                                        <p>@item.CreatedOn</p>
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <dau-label asp-for="UpdatedOn"></dau-label>
-
-                                                    <div class="col-sm-8">
-                                                        <input type="hidden" asp-for="UpdatedOn" />
-                                                        <p>@item.UpdatedOn</p>
-                                                    </div>
-
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-
-                                </div>
-
-                            </div>
-
-
+                            </form>
                         </div>
                         <!-- /.tab-pane -->
 
@@ -542,64 +575,66 @@
 
 
 
-                        <div class="tab-pane" id="tab_1">
+                        <div class="tab-pane @(Seo?"active":"")" id="tab_1">
                             <div class="box box-solid ">
                                 <div class="box-header"></div>
                                 <!-- /.box-header -->
                                 <!-- form start -->
+                                <form id="seoForm" method="post" asp-controller="Configurations" asp-action="DormitorySeoEdit">
+                                    <div class="box-body">
 
-                                <div class="box-body">
-                                    <div style="color:red;" asp-validation-summary="All"></div>
-                                    <div class="form-horizontal">
-                                        <div class="col-md-10">
+                                        <div class="form-horizontal">
+                                            <div class="col-md-10">
+                                                <input type="hidden" asp-for="Id" />
+                                                <input type="hidden" asp-for="localizedContent[0].DormitoryName" />
+                                                <div class="form-group">
 
-                                            <div class="form-group">
+                                                    <dau-label asp-for="seoTab.MetaTitle"></dau-label>
+                                                    <dau-input asp-for="seoTab.MetaTitle" type="text"></dau-input>
+                                                    <span asp-validation-for="seoTab.MetaTitle"></span>
 
-                                                <dau-label asp-for="seoTab.MetaTitle"></dau-label>
-                                                <dau-input asp-for="seoTab.MetaTitle" type="text"></dau-input>
-                                                <span asp-validation-for="seoTab.MetaTitle"></span>
+                                                </div>
 
+                                                <div class="form-group">
+
+                                                    <dau-label asp-for="seoTab.MetaKeywords"></dau-label>
+                                                    <dau-input asp-for="seoTab.MetaKeywords" type="text"></dau-input>
+                                                    <span asp-validation-for="seoTab.MetaKeywords"></span>
+
+                                                </div>
+
+                                                <div class="form-group">
+
+                                                    <dau-label asp-for="seoTab.MetaDescription"></dau-label>
+                                                    <dau-textarea asp-for="seoTab.MetaDescription"></dau-textarea>
+                                                    <span asp-validation-for="seoTab.MetaDescription"></span>
+
+                                                </div>
+
+
+
+                                                <div class="form-group">
+
+                                                    <dau-label asp-for="seoTab.SearchEngineFriendlyPageName"></dau-label>
+                                                    <dau-input asp-for="seoTab.SearchEngineFriendlyPageName" type="text"></dau-input>
+                                                    <span asp-validation-for="seoTab.SearchEngineFriendlyPageName"></span>
+
+                                                </div>
                                             </div>
-
-                                            <div class="form-group">
-
-                                                <dau-label asp-for="seoTab.MetaKeywords"></dau-label>
-                                                <dau-input asp-for="seoTab.MetaKeywords" type="text"></dau-input>
-                                                <span asp-validation-for="seoTab.MetaKeywords"></span>
-
-                                            </div>
-
-                                            <div class="form-group">
-
-                                                <dau-label asp-for="seoTab.MetaDescription"></dau-label>
-                                                <dau-textarea asp-for="seoTab.MetaDescription"></dau-textarea>
-                                                <span asp-validation-for="seoTab.MetaDescription"></span>
-
-                                            </div>
+                                            <!-- /.nav-tabs -->
 
 
-
-                                            <div class="form-group">
-
-                                                <dau-label asp-for="seoTab.SearchEngineFriendlyPageName"></dau-label>
-                                                <dau-input asp-for="seoTab.SearchEngineFriendlyPageName" type="text"></dau-input>
-                                                <span asp-validation-for="seoTab.SearchEngineFriendlyPageName"></span>
-
-                                            </div>
                                         </div>
-                                        <!-- /.nav-tabs -->
-
-
                                     </div>
-                                </div>
-                                <!-- /.box-body -->
+                                    <!-- /.box-body -->
+                                </form>
                             </div>
                         </div>
                         <!-- /.tab-pane -->
 
 
 
-                        <div class="tab-pane" id="tab_2">
+                        <div class="tab-pane @(PicturesSection?"active":"")" id="tab_2">
                             <div class="box box-solid">
                                 <div class="box-header"> </div>
 
@@ -611,7 +646,7 @@
                                                 <th>@Localizer["Picture"]</th>
                                                 <th>@Localizer["Display order"]</th>
                                                 <th>@Localizer["Alt"]</th>
-                                                <th>@Localizer["Title"]</th>
+                                                <th>@Localizer["Upload date"]</th>
 
 
                                             </tr>
@@ -627,7 +662,7 @@
                                 <div class="box-header">@Localizer["Add a new picture"] </div>
 
                                 <div class="box-body">
-                                    <div class="form-horizontal">
+                                    <form id="picturesForm" method="post" class="form-horizontal" enctype="multipart/form-data">
 
                                         <div class="form-group">
                                             <label for="inputPassword3" class="col-sm-3 control-label">@Localizer["Picture"] <i class="fa fa-question-circle" aria-hidden="true"></i></label>
@@ -669,14 +704,14 @@
 
 
                                         <div class="form-group">
-                                            <label  class="col-sm-3 control-label"></i></label>
+                                            <label class="col-sm-3 control-label"></i></label>
 
                                             <div class="col-sm-8">
                                                 <button type="button" onClick='resolveButton("AddDormitoryImage")' class="btn btn-primary">@Localizer["Add dormitory picture"]</button>
                                             </div>
 
                                         </div>
-                                    </div>
+                                    </form>
 
 
                                 </div>
@@ -746,7 +781,7 @@
 
 
                                         <div class="form-group">
-                                            <label  class="col-sm-3 control-label"></label>
+                                            <label class="col-sm-3 control-label"></label>
 
                                             <div class="col-sm-8">
 
@@ -824,7 +859,7 @@
                         </div>
                     </div>
                     <!-- /.tab-content -->
-                </form>
+                </div>
             </div>
 
 
@@ -887,150 +922,364 @@
     <script src="@Url.Content("~/Content/")dist/js/demo.js"></script>
     <!-- page script -->
     <script>
-       
-function resolveButton(button) {
-            switch (button) {
-                case "Preview": {
-                    alert("Preview");
-                }; break;
+        //tables variables initialized at the top, for refresh purposes
+        var RoomsTable;
+        var FeaturesTable;
+        var PicturesTable;
+        var CloseLocationsTable;
+        var DormitoryBlocksTable;
+       @if (Seo) {
+           @("var CurrentTab=2;")
+
+       } else {
+           @("var CurrentTab=1;")
+
+       }
 
 
-                case "SaveClose": {
-                    alert("SaveClose");
-                }; break;
+        function RemovePicture(pictureId) {
+            //   alert(pictureId); 
+
+            var r = confirm("@Localizer["Are you sure you want to remove Dormitory Image?"]");
+            if (r == true) {
+
+                $.ajax({
+                    type: "POST",
+                    url: "RemoveDormitoryImage?id="+pictureId,
+                    data: {
+                        "Id": pictureId
+                    },
+
+                    success: function (result) {
+                        if (result == true) {
+                            document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-success alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> @Localizer["Image removed successfully."]</div>";
+                            PicturesTable.ajax.reload();
+                        }
+
+                        else
+                            document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-danger alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> @Localizer["An error was encountered, unable to remove Image from dormitory."]</div>";
 
 
-                case "SaveContinue": {
-                    console.log("SaveContinue");
-                    $('#editForm').attr('action', "/admin/Configurations/DormitoryEdit").submit();
-                }; break;
+                    }
+                });
 
 
-                case "CopyDormitory": {
-                    alert("CopyDormitory");
-                }; break;
 
-                case "AddDormitoryImage": {
-                    alert("Add Dormitory Image");
-                }; break;
-
-                case "AddCloseLocations": {
-                    alert("Add Close Location");
-                }; break;
-
-                case "GenerateClosestLocations": {
-                    alert("Generate close locations");
-                }; break;
-
-
-                case "AddDormitoryFeature": {
-                    console.log("AddDormitoryFeature");
-                    alert("Add Close Location");
-                //    $('#RoomFeaturesForm').attr('action', "/admin/Catalog/AddRoomFeature/?id=@item.Id").submit();
-                 //   ajaxAddFeature();
-                }; break;
-
-
-                case "DeleteDormitory": {
-                    console.log("Delete Dormitory");
-                    var r = confirm("@Localizer["Are you sure you want to delete dormitory?"]");
-                    if (r == true) {
-                     //   $('#editForm').attr('action', "/admin/Catalog/DeleteRoom").submit();
-                    } 
-                   
-                }; break;
             }
-            //   $("#formId").submit();
         }
+
+        
+                    function ajaxAddFeature() {
+         
+            
+            if ($("#FeaturesSelect").val()==null || @item.Id<=0) {
+                document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-danger alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-exclamation-triangle\"></i> @Localizer["You must select the feature you want to add before adding feature"]</div>";
+                
+            } else {
+            $.ajax({
+                type: "POST",
+                url: "AddDormitoryFeature",
+                data: {
+                    "Feature": $("#FeaturesSelect").val(),
+                    "DormitoryId": @item.Id,
+
+                },
+                success: function (result) {
+                    if (result == true) {
+                        document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-success alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> @Localizer["Feature mapped to dormitory successfully."]</div>";
+                        FeaturesTable.ajax.reload();
+}
+
+                    else 
+                                document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-danger alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> @Localizer["An error was encountered, unable to map feature to dormitory."]</div>";
+
+                    
+                }
+            });
+           
+            }
+           
+        }
+
+
+            function AddCloseLocation() {
+         
+            
+                if ($("#CloseLocationSelect").val()==null || @item.Id<=0) {
+                document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-danger alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-exclamation-triangle\"></i> @Localizer["You must select the location you want to add before adding adding it as a close location"]</div>";
+                
+            } else {
+            $.ajax({
+                type: "POST",
+                url: "AddCloseLocation",
+                data: {
+                    "LocationId": $("#CloseLocationSelect").val(),
+                    "DormitoryId": @item.Id,
+
+                },
+                success: function (result) {
+                    if (result == true) {
+                        document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-success alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> @Localizer["Close location mapped to dormitory successfully."]</div>";
+                        CloseLocationsTable.ajax.reload();
+}
+
+                    else 
+                                document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-danger alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> @Localizer["An error was encountered, unable to add close location to dormitory."]</div>";
+
+                    
+                }
+            });
+           
+            }
+           
+        }
+
+
+
+                 function RemoveFeature(featureId) {
+           
+                    var r = confirm("@Localizer["Are you sure you want to remove feature from Dormitory?"]");
+                    if (r == true) {
+
+                        $.ajax({
+                type: "POST",
+                url: "RemoveDormitoryFeature",
+                data: {
+                    "Feature": featureId,
+                    "DormitoryId": @item.Id,
+
+                },
+                success: function (result) {
+                    if (result == true) {
+                        document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-success alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> @Localizer["Feature removed successfully."]</div>";
+                        FeaturesTable.ajax.reload();
+}
+
+                    else 
+                                document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-danger alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> @Localizer["An error was encountered, unable to remove feature to dormitory."]</div>";
+                
+                    
+                }
+            });
+           
+
+
+                    }
+
+        }
+
+
+
+
+
+        function RemoveLocation(locationId) {
+           
+                    var r = confirm("@Localizer["Are you sure you want to remove close location from Dormitory?"]");
+                    if (r == true) {
+
+                        $.ajax({
+                type: "POST",
+                            url: "RemoveCloseLocation",
+                data: {
+                    "LocationId": locationId,
+                    "DormitoryId": @item.Id,
+
+                },
+                success: function (result) {
+                    if (result == true) {
+                        document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-success alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> @Localizer["Close location removed successfully."]</div>";
+                        CloseLocationsTable.ajax.reload();
+}
+
+                    else 
+                                document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-danger alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> @Localizer["An error was encountered, unable to remove close location from this dormitory."]</div>";
+                
+                    
+                }
+            });
+           
+
+
+                    }
+
+        }
+        
+               
+                   //function RemoveFeature(featureId) {
+                   //    alert("remove feature with id " + featureId);
+                      
+                   //}
+
+                   //function resolveUploadFields(dormitoryLogo) {
+                   //    if (dormitoryLogo) {
+                   //        document.getElementById("DormitoryImageInput").value = "";
+                   //    } else {
+                   //        document.getElementById("ImageInput").value = "";
+                   //    }
+                   //   alert("logo upload field" + document.getElementById("ImageInput").value);
+                   // alert("Dormitory image upload field" + document.getElementById("DormitoryImageInput").value);
+                   //}
+
+
+                   function resolveButton(button) {
+                       switch (button) {
+                           case "Preview": {
+                                   alert("Preview");
+                               }; break;
+
+
+                           case "SaveClose": {
+                                   alert("SaveClose");
+                                   document.getElementById("DormitoryImageInput").value = "";
+                               }; break;
+
+
+                           case "SaveContinue": {
+                                   console.log("SaveContinue");
+                                   if (CurrentTab == 2) {
+                        $('#seoForm').attr('action', "/admin/Configurations/DormitorySeoEdit").submit();
+                                   }
+                                   else
+                        $('#editForm').attr('action', "/admin/Configurations/DormitoryEdit").submit();
+                                   document.getElementById("DormitoryImageInput").value = "";
+                               }; break;
+
+
+                           case "CopyDormitory": {
+                                   alert("CopyDormitory");
+                               }; break;
+
+                           case "AddDormitoryImage": {
+                               
+                               $('#picturesForm').attr('action', "/admin/Configurations/UploadDormitoryImage/?id=@item.Id").submit();
+                               }; break;
+
+                           case "AddCloseLocations": {
+                               AddCloseLocation();
+                               }; break;
+
+                           case "GenerateClosestLocations": {
+                                   alert("Generate close locations");
+                               }; break;
+
+
+                           case "AddDormitoryFeature": {
+                               ajaxAddFeature();
+                               }; break;
+
+
+                           case "DeleteDormitory": {
+                                   console.log("Delete Dormitory");
+                                   var r = confirm("@Localizer["Are you sure you want to delete dormitory?"]");
+                                   if (r == true) {
+                                       //   $('#editForm').attr('action', "/admin/Catalog/DeleteRoom").submit();
+                                   }
+
+                               }; break;
+                       }
+                       //   $("#formId").submit();
+                   }
+
+
 
         $(function () {
 
-            CKEDITOR.replace('localizedContent[0].FullDescriptionId')
+                       CKEDITOR.replace('localizedContent[0].FullDescriptionId')
 
             CKEDITOR.replace('localizedContent[1].FullDescriptionId')
 
+
+
+            $(".tabListener").click(function () {
+                           // alert(this.value);
+                           CurrentTab = this.value;
+                       });
+
+
+
             $("#RemoveLogo").click(function () {
                 $('#ImagePlaceholder').attr('src', '/Content/dist/img/default-image_100.png');
-                document.getElementById("ImageInput").value = "";
+                           document.getElementById("ImageInput").value = "";
 
-            });
+                       });
 
-           
-        
 
-            function readURL(input) {
 
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
 
-                    reader.onload = function (e) {
-                        if (input.files[0].size > 3145728) {
+                       function readURL(input) {
+
+                           if (input.files && input.files[0]) {
+                               var reader = new FileReader();
+
+                               reader.onload = function (e) {
+                                   if (input.files[0].size > 3145728) {
                             $('#ImagePlaceholder').attr('src', '/Content/dist/img/default-image_100.png');
 
-                        }
+                                   }
 
-                            else
+                                   else
                         $('#ImagePlaceholder').attr('src', e.target.result);
 
-                    }
+                               }
 
-                    reader.readAsDataURL(input.files[0]);
-                }
-            }
+                               reader.readAsDataURL(input.files[0]);
+                           }
+                       }
 
             $("#ImageInput").change(function () {
-                readURL(this);
-                if (this.files[0].size > 3145728) {
-                    alert("@Localizer["file size too big, please upload something less than 3 Mb"]");
-                    document.getElementById("ImageInput").value = "";
-                }
+                           readURL(this); //resolveUploadFields(true);
+                           if (this.files[0].size > 3145728) {
+                               alert("@Localizer["file size too big, please upload something less than 3 Mb"]");
+                               document.getElementById("ImageInput").value = "";
+                           }
 
 
 
 
-            });
+                       });
 
-            function readDormitoryImageURL(input) {
+                       function readDormitoryImageURL(input) {
 
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
+                           if (input.files && input.files[0]) {
+                               var reader = new FileReader();
 
-                    reader.onload = function (e) {
-                        if (input.files[0].size > 3145728) {
+                               reader.onload = function (e) {
+                                   if (input.files[0].size > 3145728) {
                             $('#DormitoryImagePlaceholder').attr('src', '/Content/dist/img/default-image_100.png');
 
-                        }
+                                   }
 
-                            else
+                                   else
                         $('#DormitoryImagePlaceholder').attr('src', e.target.result);
 
-                    }
+                               }
 
-                    reader.readAsDataURL(input.files[0]);
-                }
-            }
+                               reader.readAsDataURL(input.files[0]);
+                           }
+                       }
 
             $("#DormitoryImageInput").change(function () {
-                readDormitoryImageURL(this);
-                if (this.files[0].size > 3145728) {
-                    alert("@Localizer["file size too big, please upload something less than 3 Mb"]");
-                    document.getElementById("DormitoryImageInput").value = "";
-                }
+                           readDormitoryImageURL(this); //resolveUploadFields(false);
+                           if (this.files[0].size > 3145728) {
+                               alert("@Localizer["file size too big, please upload something less than 3 Mb"]");
+                               document.getElementById("DormitoryImageInput").value = "";
+                           }
 
 
 
 
-            });
+                       });
 
 
-              
 
-            function ajaxFeatures(featureId) {
+
+
+                       function ajaxFeatures(featureId) {
                 $.ajax({
-                    type: "POST",
+                               type: "POST",
                     url: "/Admin/Catalog/GetFeaturesDropdown/?id=" + featureId,
                     data: {
-                        SectionId: "_featureCategory"
+                                   SectionId: "_featureCategory"
 
                     },
                     success: function (result) {
@@ -1038,25 +1287,25 @@ function resolveButton(button) {
                         // result.value, result.Text
                         //clear what's in the select .html
                         $("#FeaturesSelect").html("");
-                        for (i = 0; i < result.length; i++) {
+                                   for (i = 0; i < result.length; i++) {
                             //console.log(result[i].text);
                             //console.log(result[i].value);
                             $("#FeaturesSelect").append("<option value=\"" + result[i].value + "\"> " + result[i].text + "</option>");
-                        }
+                                   }
 
 
 
 
-                    }
-                });
-            }
+                               }
+                           });
+                   }
             $('.featureCategory').on('change', function () {
-                console.log(this.value);
-                ajaxFeatures(this.value);
-            });
+                       console.log(this.value);
+                       ajaxFeatures(this.value);
+                   });
 
             $('.date-control').datepicker({
-                autoclose: true,
+                       autoclose: true,
                 orientation: "left bottom",
             })
 
@@ -1065,88 +1314,366 @@ function resolveButton(button) {
 
             ///Intialize datepicker
             $('#datepicker').datepicker({
-                autoclose: true
+                       autoclose: true
             })
 
             $('#OpeningTimeWeekdays').datetimepicker({
-                format: 'HH:mm'
+                       format: 'HH:mm'
             });
 
             $('#ClosingTimeWeekdays').datetimepicker({
-                format: 'HH:mm'
+                       format: 'HH:mm'
             });
 
             $('#OpeningTimeWeekends').datetimepicker({
-                format: 'HH:mm'
+                       format: 'HH:mm'
             });
 
             $('#ClosingTimeWeekends').datetimepicker({
-                format: 'HH:mm'
+                       format: 'HH:mm'
             });
 
 
-            $('#CloseLocationsTable').DataTable({
-                'paging': true,
+
+
+
+                   CloseLocationsTable = $('#CloseLocationsTable').on('processing.dt', function (e, settings, processing) {
+                       if (processing) {
+                           Pace.start();
+                       } else {
+                           Pace.stop();
+                       }
+                   }).DataTable({
+                       'paging': true,
+                   "language": {
+                           "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
+                },
                 'lengthChange': true,
-                'searching': true,
-                 "language": {
-                    "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
-                },
-                'ordering': true,
-                'info': true,
-                'autoWidth': true
-            })
 
-            $('#PicturesTable').DataTable({
-                'paging': true,
+                'searching': false,
+                'ordering': false,
+                'info': true,
+                'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+                           "url": "/Admin/Configurations/CloseLocationsTable/?id=@item.Id",
+                    "type": "POST",
+                    "data": function (d) {
+                               d.myKey = "myValue";
+                               d.DiscountName = "myValue";
+                               d.CouponCode = "myValue";
+                               d.DiscountType = "myValue";
+                           },
+                    "datatype": "json"
+                },
+                "columns": [
+
+                    { "data": "locationName" },
+
+
+                    { "data": "distance" },
+
+                    { "data": "timeItTakes" },
+
+
+                    {
+                        "render": function (data, type, full, meta) {
+           return '<button class="btn btn-danger" type=\"button\" onClick=\'RemoveLocation('+full.id+')\'><i class="fa fa-times"></i> @Localizer["Remove"]</button>';
+       }
+                    }
+
+
+                ]
+
+
+
+
+
+        })
+
+
+
+            PicturesTable = $('#PicturesTable').on('processing.dt', function (e, settings, processing) {
+           if (processing) {
+               Pace.start();
+           } else {
+               Pace.stop();
+           }
+       }).DataTable({
+           'paging': true,
+                   "language": {
+               "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
+                },
                 'lengthChange': true,
-                'searching': true,
-                 "language": {
-                    "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
-                },
-                'ordering': true,
+
+                'searching': false,
+                'ordering': false,
                 'info': true,
-                'autoWidth': true
-            })
+                'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+               "url": "/Admin/Configurations/DormitoryPicturesTable/?id=@item.Id",
+                    "type": "POST",
+                    "data": function (d) {
+                   d.myKey = "myValue";
+                   d.DiscountName = "myValue";
+                   d.CouponCode = "myValue";
+                   d.DiscountType = "myValue";
+               },
+                    "datatype": "json"
+                },
+                "columns": [
+
+
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<img src="'+ full.picture+'" style="height:80px;">';
+                        }
+                    },
+
+                    { "data": "displayOrder" },
+                    { "data": "alt" },
+                    { "data": "uploadDate" },
+
+                    {
+                        "render": function (data, type, full, meta) {
+           return '<button class="btn btn-danger" type=\"button\" onClick=\'RemovePicture('+full.id+')\'><i class="fa fa-times"></i> @Localizer["Remove"]</button>';
+       }
+                    }
+
+
+                ]
 
 
 
-            $('#FeaturesTable').DataTable({
-                'paging': false,
-                'lengthChange': false,
+
+
+        })
+
+
+
+
+
+
+            FeaturesTable = $('#FeaturesTable').on('processing.dt', function (e, settings, processing) {
+           if (processing) {
+               Pace.start();
+           } else {
+               Pace.stop();
+           }
+       }).DataTable({
+           'paging': true,
+                   "language": {
+               "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
+                },
+                'lengthChange': true,
+
                 'searching': false,
                 'ordering': false,
-                 "language": {
-                    "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
+                'info': true,
+                'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+               "url": "/Admin/Configurations/DormitoryFeaturesTable/?id=@item.Id",
+                    "type": "POST",
+                    "data": function (d) {
+                   d.myKey = "myValue";
+                   d.DiscountName = "myValue";
+                   d.CouponCode = "myValue";
+                   d.DiscountType = "myValue";
+               },
+                    "datatype": "json"
                 },
-                'info': false,
-                'autoWidth': true
-            })
+                "columns": [
 
-            $('#RoomsTable').DataTable({
-                'paging': false,
-                'lengthChange': false,
+                    { "data": "feature" },
+                    //{
+                    //    "render": function (data, type, full, meta) {
+                    //        return '<img src="'+ full.picture+'" style="width:100px; height:80px;">';
+                    //    }
+                    //},
+
+                    { "data": "featureCategory" },
+                    {
+                        "render": function (data, type, full, meta) {
+           if (full.allowFiltering == true)
+               return '<i class="fa fa-check" aria-hidden="true"></i>';
+           else
+               return '<i class="fa fa-times" aria-hidden="true"></i>';
+
+       }
+                    },
+
+                    {
+                        "render": function (data, type, full, meta) {
+           return '<button class="btn btn-danger" type=\"button\" onClick=\'RemoveFeature('+full.id+')\'><i class="fa fa-times"></i> @Localizer["Remove"]</button>';
+       }
+                    }
+
+
+                ]
+
+
+
+
+
+        })
+
+
+
+
+
+
+            $.getJSON("@Url.Content("~/frontend_Content/")assets/js/DataTable_aLenthMenu/aLenthMenu_20_200.json", function (aLength) {
+           RoomsTable=    $('#RoomsTable').on('processing.dt', function (e, settings, processing) {
+               if (processing) {
+                   Pace.start();
+               } else {
+                   Pace.stop();
+               }
+           }).DataTable({
+               'paging': true,
+                   "language": {
+                   "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
+                },
+                'lengthChange': true,
+                "aLengthMenu": aLength,
                 'searching': false,
                 'ordering': false,
-                 "language": {
-                    "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
+                'info': true,
+                'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+                   "url": "/Admin/Configurations/DormitoryRoomsTable/?id=@item.Id",
+                    "type": "POST",
+                    "data": function (d) {
+                       d.myKey = "myValue";
+                       d.DiscountName = "myValue";
+                       d.CouponCode = "myValue";
+                       d.DiscountType = "myValue";
+                   },
+                    "datatype": "json"
                 },
-                'info': false,
-                'autoWidth': true
+                "columns": [
+
+                    { "data": "roomId" },
+                    //{
+                    //    "render": function (data, type, full, meta) {
+                    //        return '<img src="'+ full.picture+'" style="width:100px; height:80px;">';
+                    //    }
+                    //},
+
+                    { "data": "roomName" },
+                    { "data": "dormitoryBlock" },
+                    { "data": "sku" },
+                    { "data": "price" },
+                    { "data": "quota" },
+
+                    {
+                        "render": function (data, type, full, meta) {
+           if (full.published == true)
+               return '<i class="fa fa-check" aria-hidden="true"></i>';
+           else
+               return '<i class="fa fa-times" aria-hidden="true"></i>';
+
+       }
+                    },
+                    {
+                        "render": function (data, type, full, meta) {
+           return '<a class="btn btn-primary" href="/Admin/Catalog/RoomEdit?id=' + full.roomId+'"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>';
+       }
+                    }
+
+
+                ]
+
+
             })
 
 
-            $('#DormitoryBlocksTable').DataTable({
-                'paging': false,
-                'lengthChange': false,
+        })
+
+
+
+
+
+             $.getJSON("@Url.Content("~/frontend_Content/")assets/js/DataTable_aLenthMenu/aLenthMenu_20_200.json", function (aLength) {
+
+           DormitoryBlocksTable=     $('#DormitoryBlocksTable').on('processing.dt', function (e, settings, processing) {
+               if (processing) {
+                   Pace.start();
+               } else {
+                   Pace.stop();
+               }
+           }).DataTable({
+               'paging': true,
+                'lengthChange': true,
+                   "language": {
+                   "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
+                },
+                "aLengthMenu": aLength,
                 'searching': false,
                 'ordering': false,
-                 "language": {
-                    "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
+                'info': true,
+                'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+                   "url": "/Admin/Configurations/DormitoryBlocksTable/?id=@item.Id",
+                    "type": "POST",
+                    "data": function (d) {
+                       d.myKey = "myValue";
+                       d.DiscountName = "myValue";
+                       d.CouponCode = "myValue";
+                       d.DiscountType = "myValue";
+                   },
+                    "datatype": "json"
                 },
-                'info': false,
-                'autoWidth': true
+                "columns": [
+
+
+
+                    { "data": "name" },
+                    {
+                        "render": function (data, type, full, meta) {
+           if (full.published == true)
+               return '<i class="fa fa-check" aria-hidden="true"></i>';
+           else
+               return '<i class="fa fa-times" aria-hidden="true"></i>';
+
+       }
+                    },
+                    { "data": "displayOrder" },
+
+                    {
+                        "render": function (data, type, full, meta) {
+           return '<a class="btn btn-primary" href="/Admin/Catalog/DormitoryBlockEdit?id=' + full.dormitoryBlockId +'"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>';
+       }
+                    }
+
+
+                ]
+
+
             })
+            })
+
+
+
         })
     </script>
 }

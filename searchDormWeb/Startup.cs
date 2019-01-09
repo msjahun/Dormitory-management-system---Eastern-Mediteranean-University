@@ -47,6 +47,8 @@ using Dau.Services.Domain.ReviewsServices;
 using Dau.Services.Domain.DropdownServices;
 using Dau.Services.Domain.ImageServices;
 using Dau.Services.Domain.MapServices;
+using Dau.Services.Domain.LocationServices;
+using Dau.Services.Domain.MobileApiServices;
 
 namespace searchDormWeb
 {
@@ -141,9 +143,12 @@ namespace searchDormWeb
             
             services.AddScoped <IImageService, ImageService > ();
             services.AddScoped < IMapService, MapService  > ();
+            services.AddScoped <IMobileApiService,MobileApiService > ();
 
 
             services.AddScoped<ILanguageService, LanguageService>();
+            services.AddScoped< ILocationService, LocationService> ();
+
 
             var connectionString = Configuration.GetValue<string>("DbSettings:SqlConnectionString");
             services.AddDbContext<Fees_and_facilitiesContext>(options => options.UseSqlServer(connectionString));

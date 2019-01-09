@@ -5,6 +5,8 @@
 @model List<RoomSectionViewModel>
 @{
     var modelList = Model;
+    var count = 0;
+
 }
 <div class="delimiter-top"></div>
 <div class="pt-2 mt-  " id="Availability">
@@ -16,94 +18,104 @@
     {
         <h5 class="text-center">@Localizer["No rooms found in this dormitory"]</h5>
     }
-    else {
-    <div class="overflow" style="overflow-x:auto;">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th class="bg-info text-white" scope="col">@Localizer["Room Type"]</th>
-                    <th class="bg-info text-white" scope="col">@Localizer["Sleeps"]</th>
-                    <th class="bg-info text-white" scope="col">@Localizer["Prices"]</th>
-                    <th class="bg-info text-white" scope="col">@Localizer["Your choices"]</th>
-
-
-                </tr>
-            </thead>
-            <tbody>
-
-                @foreach (var item in modelList)
-                {
+    else
+    {
+        <div class="overflow" style="overflow-x:auto;">
+            <table class="table table-bordered">
+                <thead>
                     <tr>
+                        <th class="bg-info text-white" scope="col">@Localizer["Room Type"]</th>
+                        <th class="bg-info text-white" scope="col">@Localizer["Sleeps"]</th>
+                        <th class="bg-info text-white" scope="col">@Localizer["Prices"]</th>
+                        <th class="bg-info text-white" scope="col">@Localizer["Your choices"]</th>
 
-                        <td>
-                            <a data-fancybox data-type="ajax" data-src="@Url.Content("~/Dormitory/GetSpecificRoomView")/@item.RoomId" href="javascript:;"><i class="fas fa-play text-warning"></i> <span class="text-primary h5 d-block"> @item.RoomName </span></a>
-                            <span class="badge badge-secondary">@item.DormitoryBlock</span>
-                            <span class="static-rating static-rating-sm">
-                                <i class="star fas fa-star voted"></i>
-                            </span>
-
-                            <span class="badge badge-secondary ">@item.GenderAllocation</span>
-                            <p>
-                                @item.NoOfStudents @item.BedType
-
-                                <dau-bedicon reapeat-no="@item.NoOfStudents"></dau-bedicon>
-                            </p>
-                            @if (item.RoomsQuota > 0 && item.RoomsQuota <= 5)
-                            {
-                                <span class="text-danger"> @Localizer["{0} rooms left", item.RoomsQuota]</span>}
-                        </td>
-                        <td>
-
-                            <dau-peopleicon reapeat-no="@item.NoOfStudents"></dau-peopleicon>
-
-
-                        </td>
-                        <td>
-                            @if (true)
-                            {
-                                ////might come in handy when I implement the semester prices feature*
-                                <h4 class="text-bold" style="color:#269038">TL @item.Price</h4>
-                                @if (item.PriceOld != null)
-                                {
-                                    <strike><h4 class="text-bold" style="color:grey; ">TL @item.PriceOld</h4></strike>
-                                }
-                            }
-                            else
-                            {
-                                <a href="#" class=" btn btn-sm btn-primary">@Localizer["Show prices"]</a>
-                            }
-
-                        </td>
-                        <td>
-                            @if (item.HasDeposit == true)
-                            {
-
-                                <span><i class="fas fa-check"></i>@Localizer["Includes deposit"] <br /></span>
-
-
-                            }
-                            else
-                            {
-
-                                <span> @Localizer["No deposit"]<br /></span>
-                            }
-                            @if (item.RoomsQuota <= 0)
-                            {
-                                <span class="text-danger d-block"> @Localizer["Rooms sold out"]</span>}
-                            else
-                            { <a href="@Html.Raw(Url.Action("AddToCart", "Booking"))/@item.RoomId"  class="btn btn-primary btn-block btn-sm">@Localizer["I'll reserve"]</a>
-                        }
-
-                        </td>
 
                     </tr>
+                </thead>
+                <tbody>
 
-                }
+                    @foreach (var item in modelList)
+                    {
+                        <tr>
+
+                            <td>
+                                <a data-fancybox data-type="ajax" data-src="@Url.Content("~/Dormitory/GetSpecificRoomView")/@item.RoomId" href="javascript:;"><i class="fas fa-play text-warning"></i> <span class="text-primary h5 d-block"> @item.RoomName </span></a>
+                                <span class="badge badge-secondary">@item.DormitoryBlock</span>
+                                <span class="static-rating static-rating-sm">
+                                    <i class="star fas fa-star voted"></i>
+                                </span>
+
+                                <span class="badge badge-secondary ">@item.GenderAllocation</span>
+                                <p>
+                                    @item.NoOfStudents @item.BedType
+
+                                    <dau-bedicon reapeat-no="@item.NoOfStudents"></dau-bedicon>
+                                </p>
+                                @if (item.RoomsQuota > 0 && item.RoomsQuota <= 5)
+                                {
+                                    <span class="text-danger"> @Localizer["{0} rooms left", item.RoomsQuota]</span>}
+                                @if (item.DisplayDeal)
+                                {
+                                    <span class="h5 d-block" style="color:#269038" id="DealEnds-@count"></span>
+                                    <h5 class="text-bold d-block" style="color:#269038">@Localizer["{0}% off", item.PercentageOff]</h5>
+                                }
+                                @{count++; }
+                            </td>
+                            <td>
+
+                                <dau-peopleicon reapeat-no="@item.NoOfStudents"></dau-peopleicon>
 
 
-            </tbody>
-        </table>
-    </div>
+                            </td>
+                            <td>
+                                @if (true)
+                                {
+                                    ////might come in handy when I implement the semester prices feature*
+                                    <h4 class="text-bold" style="color:#269038">TL @item.Price</h4>
+                                    @if (item.PriceOld != null)
+                                    {
+                                        <strike><h4 class="text-bold" style="color:grey; ">TL @item.PriceOld</h4></strike>
+                                    }
+                                }
+                                else
+                                {
+                                    <a href="#" class=" btn btn-sm btn-primary">@Localizer["Show prices"]</a>
+                                }
+
+                            </td>
+                            <td>
+                                @if (item.HasDeposit == true)
+                                {
+
+                                    <span><i class="fas fa-check"></i>@Localizer["Includes deposit"] <br /></span>
+
+
+                                }
+                                else
+                                {
+
+                                    <span> @Localizer["No deposit"]<br /></span>
+                                }
+                                @if (item.RoomsQuota <= 0)
+                                {
+                                    <span class="text-danger d-block"> @Localizer["Rooms sold out"]</span>}
+                                else
+                                { <a href="@Html.Raw(Url.Action("AddToCart", "Booking"))/@item.RoomId" class="btn btn-primary btn-block btn-sm">@Localizer["I'll reserve"]</a>
+                            }
+
+                            </td>
+
+                        </tr>
+
+
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+
+
     }
 
     <div id="onScrollAlert_2" class="mt-5">
@@ -111,3 +123,30 @@
     </div>
 
 </div>
+@{ count = 0;}
+@foreach (var item in modelList)
+{ 
+    @if (item.DisplayDeal)
+    {
+        <script>
+
+    $('#DealEnds-@count').countdown('@item.DealEndTime.ToString("yyyy/MM/dd HH:mm:ss", CultureInfo.InvariantCulture)')
+        .on('update.countdown', function(event) {
+         var format = '%H:%M:%S';
+         if (event.offset.totalDays > 0) {
+         format = '%-d day%!d ' + format;
+     }
+            if (event.offset.weeks > 0) {
+         format = '%-w week%!w ' + format;
+     }
+            $(this).html('@Localizer["Deal ends in"] ' + event.strftime(format));
+        })
+        .on('finish.countdown', function (event) {
+            $(this).html('@Localizer["This offer has expired!"]')
+                .parent().addClass('disabled');
+
+ });
+        </script>
+        }
+    count++;
+}
