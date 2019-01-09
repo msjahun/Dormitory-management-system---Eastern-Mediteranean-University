@@ -46,29 +46,7 @@ namespace Dau.Services.Domain.ImageServices
         }
 
 
-        //private async Task CropImage(string imagePath)
-        //{
-        //    var storageFolder = "Files/Images/RoomImages/";
-        //    var newFileName = "foo.jpg";
-        //    using (var httpClient = new HttpClient())
-        //    {
 
-        //        using (FileStream fs = System.IO.File.Open(imagePath, FileMode.Open))
-        //        {
-        //            using (var image = Image.Load(fs))
-        //            {
-        //                var path = Path.Combine(_environment.WebRootPath, storageFolder) + $@"\{newFileName}";
-
-
-
-        //                image.Clone(
-        //                    ctx => ctx.Crop(560, 300)).Save(path);
-        //            }
-
-        //            fs.Flush();
-        //        }
-        //    }
-        //}
 
 
 
@@ -94,7 +72,7 @@ namespace Dau.Services.Domain.ImageServices
         public bool uploadDormitoryImage(long DormitoryId)
         {
             var imagePath = UploadImage("Files/Images/DormitoryImages/");
-            if (imagePath == null) return false;
+            if (imagePath == null || imagePath.Length <= 0) return false;
             //map the image to room and catalogImage in the database
             //insert it in CatalogImage, get id then
             //insert foreignkeys in RoomCatalog image
@@ -250,16 +228,48 @@ namespace Dau.Services.Domain.ImageServices
             var convertedStrings = new List<string>();
             foreach (var imageUrl in imageUrls)
             {
+                if (imageUrl.ToLower().IndexOf('.') != -1) {//checks if the image contains . as in if it has .jpg not njust a string or /
+                
                 string[] split = imageUrl.Split(new char[] { '.' }, 2);
                 split[1] = split[1].TrimStart();
 
                 string FullImageUrl = imageUrl;
                 string SubImageUrl = split[0] + imagePostfix + "." + split[1];
                 convertedStrings.Add(SubImageUrl);
+                }
             }
 
             return convertedStrings;
         }
+        
+        public string PrepareImageForMobileApi (string imageUrl)
+        {
+            var CurrentSystemUrl = (_httpContextAccessor.HttpContext.Request.IsHttps) ? "https://" : "http://" + _httpContextAccessor.HttpContext.Request.Host.Value.ToString();
+            if (imageUrl == null|| imageUrl.Length <= 0)
+                return CurrentSystemUrl + "/Content/dist/img/default-image_100.png"; 
+            return CurrentSystemUrl + imageUrl;
+        }
+
+        public List<string> PrepareImageForMobileApi(List<string> imageUrls)
+        {
+            var CurrentSystemUrl = (_httpContextAccessor.HttpContext.Request.IsHttps) ? "https://" : "http://" + _httpContextAccessor.HttpContext.Request.Host.Value.ToString();
+            var convertedStrings = new List<string>();
+            if (imageUrls == null) return null;
+            foreach (var imageUrl in imageUrls)
+            {
+                string modifiedImageUrl;
+                if (imageUrl == null )
+                {
+                    modifiedImageUrl = CurrentSystemUrl + "/Content/dist/img/default-image_100.png";
+                }
+                else {  modifiedImageUrl = CurrentSystemUrl + imageUrl; }
+              
+                convertedStrings.Add(modifiedImageUrl);
+            }
+
+            return convertedStrings;
+            }
+
     }
 
 

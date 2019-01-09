@@ -129,6 +129,23 @@ namespace Dau.Services.Domain.DropdownServices
             return dormitoryBlock.ToList();
         }
 
+        public List<SelectListItem> GetDormitoryBlockByDormitoryIdDropdown(long DormitoryId)
+        {
+            var CurrentLanguageId = _languageService.GetCurrentLanguageId();
+            var dormitoryBlock = from dormBlock in _dormitoryBlockRepo.List().ToList()
+                                 join dormBlockTrans in _dormitoryBlockTransRepo.List().ToList() on dormBlock.Id equals dormBlockTrans.DormitoryBlockNonTransId
+                                 where dormBlockTrans.LanguageId == CurrentLanguageId && dormBlock.DormitoryId==DormitoryId
+                                 orderby dormBlock.DisplayOrder
+                                 select new SelectListItem
+                                 {
+                                     Value = dormBlock.Id.ToString(),
+                                     Text = dormBlockTrans.Name
+                                 };
+
+
+            return dormitoryBlock.ToList();
+        }
+
 
         public List<SelectListItem> Dormitories()
         {
@@ -336,14 +353,38 @@ namespace Dau.Services.Domain.DropdownServices
                 new SelectListItem
             {
                 Value ="3",
-                Text = "Other"
+                Text = _localizer["Other"]
             },
              };
             return model;
         }
 
 
-         public List<SelectListItem> UserRoles()
+        public List<SelectListItem> TravelModes()
+        {
+
+            var model = new List<SelectListItem> {
+            new SelectListItem
+            {
+                Value ="1",
+                Text = _localizer["Walking"]
+            },
+              new SelectListItem
+            {
+                Value ="2",
+                Text = _localizer["Driving"]
+            },
+                new SelectListItem
+            {
+                Value ="3",
+                Text = _localizer["bicycle"]
+            },
+             };
+            return model;
+        }
+
+
+        public List<SelectListItem> UserRoles()
         {
             return model;
         }

@@ -2,6 +2,7 @@
 using Dau.Core.Domain.Catalog;
 using Dau.Core.Domain.EmuMap;
 using Dau.Core.Domain.Feature;
+using Dau.Core.Domain.LocationInformations;
 using Dau.Core.Domain.SearchEngineOptimization;
 using Dau.Core.Domain.Users;
 using Dau.Data.Repository;
@@ -1204,7 +1205,7 @@ namespace Dau.Services.Seeding
                 DormitoryStreetAddress = "Wolfgang Amadeus Mozart Street",
                 SKU = "434lkjsdf",
                 //public string DormitoryType { get; set; }//should be tableLized
-                DormitoryLogoUrl = "https://www.kibrisuniversiteleri.org/wp-content/uploads/2016/07/dogu-akdeniz-universitesi-akademik-takvim-2016.png",
+                DormitoryLogoUrl = "/Files/Images/DormitoryImages/dogu-akdeniz-universitesi-akademik-takvim-2016.png",
                 Published = true,
                  WeekendsOpeningTime = DateTime.Now,
                         WeekendsClosingTime = DateTime.Now.AddHours(3),
@@ -1226,25 +1227,31 @@ namespace Dau.Services.Seeding
                 {
                    new Locationinformation
             {
-                NameOfLocation="Electrical Engineering dept.",
-                Distance="7 mi",
-                Duration="6 mins",
-                MapSection="b21"
+               
+                DistanceText="7 mi",
+                DurationText="6 mins",
+                       DistanceValue =355,
+                       DurationValue=226,
+               MapSectionId=24
             },
              new Locationinformation
             {
-                NameOfLocation="Eco supermarket",
-                Distance="7 mi",
-                Duration="3 mins"
-                , MapSection="b32"
+
+               DistanceText="7 mi",
+                DurationText="3 mins",
+                       DistanceValue =355,
+                       DurationValue=226,
+                MapSectionId=13
             },
 
               new Locationinformation
             {
-                NameOfLocation="Koop bank atm machine",
-                Distance="12 mi",
-                Duration="13 mins"
-                , MapSection="b87"
+
+               DistanceText="2 mi",
+                DurationText="1 mins",
+                       DistanceValue =355,
+                       DurationValue=226,
+                 MapSectionId=34
             }
 
                 },
@@ -1432,7 +1439,7 @@ namespace Dau.Services.Seeding
                 DormitoryStreetAddress = "Wolfgang Amadeus Mozart Street",
                  SKU = "rerjsdf",
                 //public string DormitoryType { get; set; }//should be tableLized
-                DormitoryLogoUrl = "https://is5-ssl.mzstatic.com/image/thumb/Purple118/v4/18/c4/73/18c473bc-cd1c-4e6e-4ba0-4a9afcae1fc4/source/512x512bb.jpg",
+                DormitoryLogoUrl = "/Files/Images/DormitoryImages/512x512bb.jpg",
                 Published = true,
                    WeekendsOpeningTime = DateTime.Now,
                         WeekendsClosingTime = DateTime.Now.AddHours(3),
@@ -1452,26 +1459,26 @@ namespace Dau.Services.Seeding
                 CloseLocations = new List<Locationinformation>
                 {
                    new Locationinformation
-            {
-                NameOfLocation="Computer Engineering dept.",
-                Distance="4 mi",
-                Duration="2 mins",
-                MapSection="b21"
+            { DistanceText="3 mi",
+                DurationText="2 mins",
+                       DistanceValue =355,
+                       DurationValue=226,
+                MapSectionId=34
             },
              new Locationinformation
             {
-                NameOfLocation="Health center",
-                Distance="7 mi",
-                Duration="3 mins"
-                , MapSection="b32"
+                DistanceText="7 mi",
+                DurationText="6 mins",
+                       DistanceValue =355,
+                       DurationValue=226, MapSectionId=3
             },
 
               new Locationinformation
             {
-                NameOfLocation="Koop bank atm machine",
-                Distance="12 mi",
-                Duration="13 mins"
-                , MapSection="b87"
+                DistanceText="12 mi",
+                DurationText="13 mins",
+                       DistanceValue =355,
+                       DurationValue=226,MapSectionId=4
             }
 
                 },

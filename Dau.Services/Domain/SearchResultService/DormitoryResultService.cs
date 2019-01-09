@@ -1,10 +1,12 @@
 ﻿using Dau.Core.Domain.Bookings;
 using Dau.Core.Domain.Catalog;
 using Dau.Core.Domain.Feature;
+using Dau.Core.Domain.LocationInformations;
 using Dau.Core.Domain.SearchEngineOptimization;
 using Dau.Data.Repository;
 using Dau.Services.Domain.DropdownServices;
 using Dau.Services.Domain.ImageServices;
+using Dau.Services.Domain.LocationServices;
 using Dau.Services.Domain.MapServices;
 using Dau.Services.Languages;
 using System;
@@ -23,6 +25,7 @@ namespace Dau.Services.Domain.SearchResultService
         private readonly IRepository<SemesterPeriod> _SemesterPeriodRepo;
         private readonly IRepository<SemesterPeriodTranslation> _semesterPeriodTransRepo;
         private IRepository<DormitoryType> _dormitoryTypeRepo;
+        private readonly ILocationService _locationService;
         private readonly IDropdownService _dropdownService;
         private readonly IMapService _mapService;
         private readonly IRepository<Seo> _seoRepo;
@@ -55,10 +58,12 @@ namespace Dau.Services.Domain.SearchResultService
                     IRepository<Locationinformation> locationRepository,
                       IImageService imageService,
                         IMapService mapService,
-                        IDropdownService dropdownService
+                        IDropdownService dropdownService,
+                        ILocationService locationService
 
           )
         {
+            _locationService = locationService;
             _dropdownService = dropdownService;
             _mapService = mapService;
             _seoRepo = seoRepository;
@@ -128,11 +133,8 @@ namespace Dau.Services.Domain.SearchResultService
                              MapSection = _mapService.GetMapSectionById(dorm.MapSectionId),
 
 
-                                ClosestLandMark =(_locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault() != null && _locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault().Duration!=null && _locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault().NameOfLocation!=null)?
-                                                      String.Format("({0} to {1})", _locationRepo.List().ToList().Where(d=> d.DormitoryId == dorm.Id).FirstOrDefault().Duration, _locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault().NameOfLocation):null, // I can put locations here
-
-                                      ClosestLandMarkMapSection = (_locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault()!= null && _locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault().MapSection!=null)?
-                                  "https://www.emu.edu.tr/campusmap?design=empty#" + _locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault().MapSection:null,
+                               ClosestLandMark =_locationService.GetClosestLandmark(dorm.Id),
+                                      ClosestLandMarkMapSection =_locationService.GetClosestLandmarkMapSection(dorm.Id)
                         //  IsbookedInlast24hours = false //has to do with booking
                                                               
                               

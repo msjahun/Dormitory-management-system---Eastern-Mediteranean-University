@@ -89,6 +89,12 @@ namespace Dau.Services.Domain.DormitoryServices
         public long AddDormitory(DormitoryCrud vm)
         {
 
+            //sorts seo issue
+            if (vm.seoTab.SearchEngineFriendlyPageName == null || vm.seoTab.SearchEngineFriendlyPageName.Length <= 0)
+                vm.seoTab.SearchEngineFriendlyPageName = vm.localizedContent[0].DormitoryName;
+
+
+
             DateTime weekdaysOpeningTime;
             DateTime.TryParseExact(vm.OpeningTimeWeekdays, "HH:mm", CultureInfo.InvariantCulture,
                      DateTimeStyles.None, out weekdaysOpeningTime);
@@ -135,6 +141,10 @@ namespace Dau.Services.Domain.DormitoryServices
            WeekdaysClosingTime = ClosingTimeWeekdays,
            WeekendsClosingTime = ClosingTimeWeekends,
                 CancelWaitDays= vm.CancelWaitDays,
+                CreatedOn = DateTime.Now,
+                UpdatedOn = DateTime.Now,
+                OpenedOnSundays = vm.OpenedOnSundays,
+
 
 
             Seo = new Seo
@@ -279,17 +289,10 @@ namespace Dau.Services.Domain.DormitoryServices
                 dormitoryToUpdate.MapSectionId =vm.BuildingsOnMap;
 
                 dormitoryToUpdate.CancelWaitDays = vm.CancelWaitDays;
+                dormitoryToUpdate.UpdatedOn = DateTime.Now;
+                dormitoryToUpdate.OpenedOnSundays = vm.OpenedOnSundays;
 
-                var SeoToUpdate=  _SeoRepo.GetById(dormitoryToUpdate.SeoId);
-
-            //seo seperately
-
-                    SeoToUpdate.MetaKeywords = vm.seoTab.MetaKeywords;
-                    SeoToUpdate.MetaDescription = vm.seoTab.MetaDescription;
-                    SeoToUpdate.MetaTitle = vm.seoTab.MetaTitle;
-                    SeoToUpdate.SearchEngineFriendlyPageName = RemoveSpecialCharacters(vm.seoTab.SearchEngineFriendlyPageName);
-
-                    var dormTransEnglish = _dormitoryTransRepo.List().Where(c => c.LanguageId == 1 && c.DormitoryNonTransId == dormitoryToUpdate.Id).FirstOrDefault();
+                var dormTransEnglish = _dormitoryTransRepo.List().Where(c => c.LanguageId == 1 && c.DormitoryNonTransId == dormitoryToUpdate.Id).FirstOrDefault();
                     var dormTransTurkish = _dormitoryTransRepo.List().Where(c => c.LanguageId == 2 && c.DormitoryNonTransId == dormitoryToUpdate.Id).FirstOrDefault();
             
                     dormTransEnglish.DormitoryName = vm.localizedContent[0].DormitoryName;
@@ -339,7 +342,7 @@ namespace Dau.Services.Domain.DormitoryServices
             _dormitoryRepo.Update(dormitoryToUpdate);
             _dormitoryTransRepo.Update(dormTransEnglish);
             _dormitoryTransRepo.Update(dormTransTurkish);
-            _SeoRepo.Update(SeoToUpdate);
+            
 
             return true;
             }
@@ -348,9 +351,71 @@ namespace Dau.Services.Domain.DormitoryServices
                 return false;
             }
         }
-        public static string RemoveSpecialCharacters(string str)
+
+        public bool UpdateDormSeo(DormitoryCrud vm)
         {
-            return Regex.Replace(str, "[^a-zA-Z0-9_.]+", "", RegexOptions.Compiled);
+            try {
+            var dormitoryToUpdate = _dormitoryRepo.GetById(vm.Id);
+                if (vm.seoTab.SearchEngineFriendlyPageName == null || vm.seoTab.SearchEngineFriendlyPageName.Length <= 0)
+                    vm.seoTab.SearchEngineFriendlyPageName = vm.localizedContent[0].DormitoryName;
+
+                dormitoryToUpdate.UpdatedOn = DateTime.Now;
+               
+                var SeoToUpdate = _SeoRepo.GetById(dormitoryToUpdate.SeoId);
+                _dormitoryRepo.Update(dormitoryToUpdate);
+                //seo seperately
+
+                SeoToUpdate.MetaKeywords = vm.seoTab.MetaKeywords;
+            SeoToUpdate.MetaDescription = vm.seoTab.MetaDescription;
+            SeoToUpdate.MetaTitle = vm.seoTab.MetaTitle;
+            SeoToUpdate.SearchEngineFriendlyPageName = RemoveSpecialCharacters(vm.seoTab.SearchEngineFriendlyPageName);
+            _SeoRepo.Update(SeoToUpdate);
+
+            return true;
+            }
+            catch { return false; }
+        }
+
+        public string RemoveSpecialCharacters(string str)
+        {//removes special characters and checks duplicates
+            string acceptString = Regex.Replace(str, "[^a-zA-Z0-9_.]+", "-", RegexOptions.Compiled);
+            var seolist = from seo in _SeoRepo.List().ToList()
+                          where seo.SearchEngineFriendlyPageName == acceptString
+                          select seo;
+            if (seolist.ToList().Count >1)
+                return acceptString + "-" + (seolist.ToList().Count+1);
+            else
+                return acceptString;
+        }
+
+        public List<DormitoryPicturesTable> GetDormitoryImagesTables(long id)
+        {
+            var DormImages = from dormImage in _dormImageRepo.List().ToList()
+                             join Image in _imageRepo.List().ToList() on dormImage.CatalogImageId equals Image.Id
+                             where dormImage.DormitoryId== id
+                             orderby Image.CreatedDate descending
+                             select new DormitoryPicturesTable
+                             {
+                                 Id = Image.Id,
+                                 Picture = Image.ImageUrl,
+                                 DisplayOrder = 4,
+                                 Alt = "image",
+                                 UploadDate = Image.CreatedDate.ToString(),
+                             };
+            var model = DormImages.ToList();
+            return model;
+        }
+
+
+        public string GetDormitoryNameById(long id)
+        {
+            var CurrentLanguageId = _languageService.GetCurrentLanguageId();
+            
+            var dormTrans= _dormitoryTransRepo.List().Where(c => c.DormitoryNonTransId== id && c.LanguageId == CurrentLanguageId).FirstOrDefault();
+            if (dormTrans == null) return null;
+
+            return dormTrans.DormitoryName;
+
         }
     }
 
@@ -368,7 +433,7 @@ namespace Dau.Services.Domain.DormitoryServices
 
     public class DormitoryCrud
     {
-
+        public bool SavedSuccessful { get; set; }
 
         [Display(Name = "Dormitory Type",
                 Description = "Dormitory type can be School own dormitory and private dormitory.")]
@@ -428,7 +493,7 @@ namespace Dau.Services.Domain.DormitoryServices
 
         public PicturesTab picturesTab { get; set; }
 
-        public FacilitiesTab facilitiesTab { get; set; }
+        public FacilitiesTabDormitory facilitiesTab { get; set; }
 
 
         //Booking settings
@@ -548,6 +613,15 @@ namespace Dau.Services.Domain.DormitoryServices
 
     }
 
+
+    public class DormitoryPicturesTable
+    {
+        public string Picture { get; set; }
+        public int DisplayOrder { get; set; }
+        public string Alt { get; set; }
+        public string UploadDate { get; set; }
+        public long Id { get; set; }
+    }
     public class PicturesTab
     {
         [Display(Name = "Alt",
@@ -579,7 +653,7 @@ namespace Dau.Services.Domain.DormitoryServices
 
     }
 
-    public class FacilitiesTab
+    public class FacilitiesTabDormitory
     {
 
         public long DormitoryId { get; set; }

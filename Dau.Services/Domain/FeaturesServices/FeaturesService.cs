@@ -1,6 +1,7 @@
 ﻿using Dau.Core.Domain.Catalog;
 using Dau.Core.Domain.Feature;
 using Dau.Data.Repository;
+using Dau.Services.Domain.DormitoryServices;
 using Dau.Services.Domain.RoomServices;
 using Dau.Services.Languages;
 using System;
@@ -18,6 +19,7 @@ namespace Dau.Services.Domain.FeaturesServices
         private readonly IRepository<FeaturesCategory> _featuresCategoryRepo;
         private readonly IRepository<FeaturesCategoryTranslation> _featuresCategoryTransRepo;
         private readonly IRepository<RoomFeatures> _roomFeaturesRepository;
+        private readonly IRepository<DormitoryFeatures> _dormFeaturesRepository;
 
         public FeaturesService(
             IRepository<Features> featuresRepository,
@@ -25,6 +27,7 @@ namespace Dau.Services.Domain.FeaturesServices
               IRepository<FeaturesCategory> featuresCategoryRepository,
             IRepository<FeaturesCategoryTranslation> featuresCategoryTransRepository,
             IRepository<RoomFeatures> roomFeaturesRepository,
+             IRepository<DormitoryFeatures> dormFeaturesRepository,
             ILanguageService languageService
             )
         {
@@ -34,6 +37,7 @@ namespace Dau.Services.Domain.FeaturesServices
             _featuresCategoryRepo = featuresCategoryRepository;
             _featuresCategoryTransRepo = featuresCategoryTransRepository;
             _roomFeaturesRepository = roomFeaturesRepository;
+            _dormFeaturesRepository = dormFeaturesRepository;
         }
 
         public List<PopularFiltersTable> GetFeaturesHitCount()
@@ -120,6 +124,56 @@ namespace Dau.Services.Domain.FeaturesServices
 
         }
 
+
+        public List<DormitoryFeaturesTable> GetDormitoryFeatures(long DormitoryId)
+        {
+            var CurrentLanguageId = _languageService.GetCurrentLanguageId();
+            var features = from feature in _featuresRepo.List().ToList()
+                           join featureTrans in _featuresTransRepo.List().ToList() on feature.Id equals featureTrans.FeaturesNonTransId
+                           where featureTrans.LanguageId == CurrentLanguageId
+                           select new
+                           {
+                               feature.Id,
+                               feature.FeaturesCategoryId,
+                               featureTrans.FeatureName
+                           };
+
+
+            var featuresCategory = from featureCat in _featuresCategoryRepo.List().ToList()
+                                   join featureCatTrans in _featuresCategoryTransRepo.List().ToList() on featureCat.Id equals featureCatTrans.FeaturesCategoryNonTransId
+                                   where featureCatTrans.LanguageId == CurrentLanguageId
+                                   select new
+                                   { featureCat.Id, featureCatTrans.CategoryName };
+
+
+            var fullFeatures = from feature in features.ToList()
+                               join featureCat in featuresCategory.ToList() on feature.FeaturesCategoryId equals featureCat.Id
+                               select new
+                               {
+                                   feature.Id,
+                                   feature.FeatureName,
+                                   featureCat.CategoryName,
+
+                               };
+
+            var DormFeatures = from dormFeature in _dormFeaturesRepository.List().ToList()
+                               join feature in fullFeatures.ToList() on dormFeature.FeaturesId equals feature.Id
+                               where dormFeature.DormitoryId== DormitoryId
+                               select new DormitoryFeaturesTable
+                               {
+                                   FeatureCategory = feature.CategoryName,
+                                   Feature = feature.FeatureName,
+                                   AllowFiltering = true,
+                                   Id=feature.Id
+                               };
+
+
+            var model = DormFeatures.ToList();
+
+            return model;
+
+        }
+
         public bool AddRoomFeature(FacilitiesTab vm)
         {
             try
@@ -141,6 +195,44 @@ namespace Dau.Services.Domain.FeaturesServices
 
         }
 
+         public bool AddDormitoryFeature(FacilitiesTabDormitory vm)
+        {
+            try
+            {
+                var model = new DormitoryFeatures
+                {
+                    DormitoryId = vm.DormitoryId,
+                    FeaturesId = vm.Feature
+                    
+                };
+                _dormFeaturesRepository.Insert(model);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+
+        }
+
+        public bool RemoveDormitoryFeature(FacilitiesTabDormitory vm)
+        {
+            try
+            {
+                var model = _dormFeaturesRepository.List().Where(c => c.DormitoryId== vm.DormitoryId && c.FeaturesId == vm.Feature).FirstOrDefault();
+
+
+                _dormFeaturesRepository.Delete(model);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+
+        }
         public bool RemoveRoomFeature(FacilitiesTab vm)
         {
             try
@@ -178,6 +270,16 @@ namespace Dau.Services.Domain.FeaturesServices
         public bool ShowOnRoomPage { get; set; }
         public int DisplayOrder { get; set; }
 
+    }
+
+
+
+    public class DormitoryFeaturesTable
+    {
+        public long Id { get; set; }
+        public string Feature { get; set; }
+        public string FeatureCategory { get; set; }
+        public bool AllowFiltering { get; set; }
     }
 
 }

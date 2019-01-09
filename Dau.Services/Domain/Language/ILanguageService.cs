@@ -3,5 +3,6 @@
     public interface ILanguageService
     {
         long GetCurrentLanguageId();
+        string GetCurrentCode();
     }
 }

@@ -8,5 +8,8 @@ namespace Dau.Services.Domain.DormitoryServices
         long AddDormitory(DormitoryCrud vm);
         DormitoryCrud GetDormitoryById(long DormitoryId);
         bool UpdateDormitoryById(DormitoryCrud vm);
+        bool UpdateDormSeo(DormitoryCrud vm);
+        List<DormitoryPicturesTable> GetDormitoryImagesTables(long id);
+        string GetDormitoryNameById(long id);
     }
 }

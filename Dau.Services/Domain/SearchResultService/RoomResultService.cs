@@ -1,10 +1,12 @@
 ﻿using Dau.Core.Domain.Bookings;
 using Dau.Core.Domain.Catalog;
 using Dau.Core.Domain.Feature;
+using Dau.Core.Domain.LocationInformations;
 using Dau.Core.Domain.SearchEngineOptimization;
 using Dau.Data.Repository;
 using Dau.Services.Domain.DropdownServices;
 using Dau.Services.Domain.ImageServices;
+using Dau.Services.Domain.LocationServices;
 using Dau.Services.Domain.MapServices;
 using Dau.Services.Languages;
 using System;
@@ -24,7 +26,7 @@ namespace Dau.Services.Domain.SearchResultService
         private readonly IRepository<SemesterPeriod> _SemesterPeriodRepo;
         private readonly IRepository<SemesterPeriodTranslation> _semesterPeriodTransRepo;
         private IRepository<DormitoryType> _dormitoryTypeRepo;
-
+        private readonly ILocationService _locationService;
         private readonly IRepository<Seo> _seoRepo;
         private readonly IMapService _mapService;
         private readonly ILanguageService _languageService;
@@ -66,11 +68,13 @@ namespace Dau.Services.Domain.SearchResultService
             IImageService imageService,
             IMapService mapService,
             IDropdownService dropdownService,
+            ILocationService locationService,
 
             IRepository<FeaturesTranslation> featuresTranslation
 
             )
         {
+            _locationService = locationService;
             _seoRepo = seoRepository;
             _mapService = mapService;
             _languageService = languageService;
@@ -131,14 +135,6 @@ namespace Dau.Services.Domain.SearchResultService
                            select new { feature.Id, featureTrans.FeatureName, feature.IconUrl };
 
 
-            //var roomFeatures = (from roomFeature in _roomFeaturesRepo.List().ToList()
-            //                    join feature in features.ToList() on roomFeature.FeaturesId equals feature.Id
-            //                    where roomFeature.RoomId == 1
-            //                    select new FeaturesViewModel
-            //                    {
-            //                        FeatureName = feature.FeatureName,
-            //                        IconUrl = feature.IconUrl
-            //                    }).ToList();
             var roomsDormitoryBlock = from room in rooms.ToList()
                                       join dormBlock in dormitoryBlock.ToList() on room.DormitoryBlockId equals dormBlock.Id
                                       select new
@@ -214,11 +210,10 @@ namespace Dau.Services.Domain.SearchResultService
                                        ReservationPosibleWithoutCreditCard = false, //
                                        DormitoryStreetAddress = dorm.DormitoryStreetAddress,
                                       MapSection = _mapService.GetMapSectionById(dorm.MapSectionId),
-                                       ClosestLandMark =(_locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault() != null && _locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault().Duration!=null&& _locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault().NameOfLocation!=null)?
-                                       String.Format("({0} to {1})", _locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault().Duration, _locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault().NameOfLocation):"", // I can put locations here
-                                       ClosestLandMarkMapSection =(_locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault()!= null && _locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault().MapSection!=null) ?
-                                       "https://www.emu.edu.tr/campusmap?design=empty#" + _locationRepo.List().ToList().Where(d => d.DormitoryId == dorm.Id).FirstOrDefault().MapSection:"",
-                                                                            //  IsbookedInlast24hours = false //has to do with booking
+
+                                       ClosestLandMark = _locationService.GetClosestLandmark(dorm.Id),
+                                       ClosestLandMarkMapSection = _locationService.GetClosestLandmarkMapSection(dorm.Id)
+                                       //  IsbookedInlast24hours = false //has to do with booking
 
 
 
@@ -251,7 +246,7 @@ namespace Dau.Services.Domain.SearchResultService
                                     DormitoryStreetAddress = dorm.DormitoryStreetAddress,
                                     NumberOfRoomsLeft = room.NoRoomQuota,
                                     MapSection =  dorm.MapSection,
-                                    ClosestLandMark = dorm.ClosestLandMark,
+                                  ClosestLandMark = dorm.ClosestLandMark,
                                     Price = room.Price.ToString("N2"),
                                     OldPrice = (room.PriceOld>0)?room.PriceOld.ToString("N2"):null,
                                     PaymentPerSemesterNotYear = room.PaymentPerSemesterNotYear,

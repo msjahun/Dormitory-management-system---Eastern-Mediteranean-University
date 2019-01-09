@@ -10,5 +10,7 @@ namespace Dau.Services.Domain.ImageServices
         bool uploadDormitoryImage(long DormitoryId);
         bool uploadDormitoryLogoImage(long DormitoryId);
         bool UploadRoomImage(long RoomId);
+        string PrepareImageForMobileApi(string imageUrl);
+        List<string> PrepareImageForMobileApi(List<string> imageUrls);
     }
 }

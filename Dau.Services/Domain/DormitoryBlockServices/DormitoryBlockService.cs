@@ -57,6 +57,33 @@ namespace Dau.Services.Domain.DormitoryBlockServices
         }
 
 
+        public List<DormitoryBlocksTableList> GetDormitoryBlockByDormitoryIdListTable(long DormitoryId)
+        {
+
+
+            var CurrentLanguageId = _languageService.GetCurrentLanguageId();
+            var dormitoryBlock = from dormBlock in _dormitoryBlockRepo.List().ToList()
+                                 join dormBlockTrans in _dormitoryBlockTransRepo.List().ToList() on dormBlock.Id equals dormBlockTrans.DormitoryBlockNonTransId
+                                 where dormBlockTrans.LanguageId == CurrentLanguageId && dormBlock.DormitoryId == DormitoryId
+                                 orderby dormBlock.DisplayOrder ascending
+                                 select new DormitoryBlocksTableList
+                                 {
+                                     Name = dormBlockTrans.Name,
+                                     DisplayOrder = dormBlock.DisplayOrder,
+                                     DormitoryBlockId = dormBlock.Id,
+                                     Published = dormBlock.Published
+
+                                 };
+
+
+
+            var model = dormitoryBlock.ToList();
+
+            return model;
+
+        }
+
+
 
     }
 
@@ -67,5 +94,15 @@ namespace Dau.Services.Domain.DormitoryBlockServices
         public string DisplayOrder { get; set; }
         public string DormitoryName { get; set; }
         //public string Edit { get; set; }
+    }
+
+
+    public class DormitoryBlocksTableList
+    {
+        public string Name { get; set; }
+        public bool Published { get; set; }
+        public int DisplayOrder { get; set; }
+        public long DormitoryBlockId { get; set; }
+
     }
 }

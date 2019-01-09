@@ -30,6 +30,8 @@ namespace Dau.Services.Domain.DropdownServices
         List<SelectListItem> LocationOnCampus();
         List<SelectListItem> DormitoryBuildingsOnMap();
         string ResolveDropdown(int id, List<SelectListItem> dropdownList);
+             List<SelectListItem> GetDormitoryBlockByDormitoryIdDropdown(long DormitoryId);
+        List<SelectListItem> TravelModes();
 
 
     }

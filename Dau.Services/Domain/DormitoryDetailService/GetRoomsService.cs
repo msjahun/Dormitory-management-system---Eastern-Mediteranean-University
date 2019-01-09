@@ -60,7 +60,11 @@ namespace Dau.Services.Domain.DormitoryDetailService
                                   RoomsQuota = room.NoRoomQuota,
                                   HasDeposit = room.HasDeposit,
                                   ShowPrice = room.ShowPrice,
-                              };
+                            PercentageOff = room.PercentageOff, //from database
+                            DealEndTime = room.DealEndTime, //change this to come from db
+
+                            DisplayDeal = (room.DealEndTime > DateTime.Now.AddDays(-2)),
+                        };
 
 
 
@@ -85,6 +89,9 @@ namespace Dau.Services.Domain.DormitoryDetailService
         public int RoomsQuota { get; set; }
         public bool HasDeposit { get; set; }
         public bool ShowPrice { get; set; }
+        public DateTime DealEndTime { get; set; }
+        public bool DisplayDeal { get; set; }
+        public int PercentageOff { get; set; }
 
     }
 }

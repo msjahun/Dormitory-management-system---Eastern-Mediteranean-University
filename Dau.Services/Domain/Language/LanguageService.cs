@@ -33,5 +33,16 @@ namespace Dau.Services.Languages
 
             return Language.Id;
         }
+
+
+        public string GetCurrentCode()
+        {
+            var rqf = _context.HttpContext.Features.Get<IRequestCultureFeature>();
+            var culture = rqf.RequestCulture.Culture;
+
+            var Language = _languageRepository.List().Where(l => l.CultureName == culture.ToString()).FirstOrDefault();
+            if (Language == null) return null;
+            return Language.CultureName;
+        }
     }
 }

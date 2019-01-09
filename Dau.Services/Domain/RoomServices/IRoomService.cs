@@ -11,5 +11,7 @@ namespace Dau.Services.Domain.RoomServices
          bool   updateRoom(RoomViewCrud vm);
         bool Delete(RoomViewCrud vm);
         List<PicturesTable> GetRoomImagesTables(long id);
+        List<DormitoryRoomsTable> GetRoomsByDormitoryIdListTable(long DormitoryId);
+        string GetRoomWithLowestDealByDormitoryId(long DormitoryId, long languageId);
     }
 }

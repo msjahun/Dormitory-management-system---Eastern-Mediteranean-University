@@ -1,15 +1,18 @@
-﻿using Dau.Services.Domain.RoomServices;
-using System.Collections.Generic;
-using static Dau.Services.Domain.FeaturesServices.FeaturesService;
+﻿using System.Collections.Generic;
+using Dau.Services.Domain.DormitoryServices;
+using Dau.Services.Domain.RoomServices;
 
 namespace Dau.Services.Domain.FeaturesServices
 {
     public interface IFeaturesService
     {
-        List<PopularFiltersTable> GetFeaturesHitCount();
-        bool UpdateFeaturesHitCount(List<int> FeaturesIds);
-        List<RoomFeaturesTable> GetRoomFeatures(long RoomId);
+        bool AddDormitoryFeature(FacilitiesTabDormitory vm);
         bool AddRoomFeature(FacilitiesTab vm);
+        List<DormitoryFeaturesTable> GetDormitoryFeatures(long DormitoryId);
+        List<PopularFiltersTable> GetFeaturesHitCount();
+        List<RoomFeaturesTable> GetRoomFeatures(long RoomId);
+        bool RemoveDormitoryFeature(FacilitiesTabDormitory vm);
         bool RemoveRoomFeature(FacilitiesTab vm);
+        bool UpdateFeaturesHitCount(List<int> FeaturesIds);
     }
 }

@@ -12,6 +12,7 @@ namespace Dau.Services.Domain.RoomServices
 {
     public class RoomService : IRoomService
     {
+        private readonly IRepository<DormitoryBlock> _dormitoryBlockRepo;
         private readonly ILanguageService _languageService;
         private readonly IRepository<RoomTranslation> _roomTransRepo;
         private readonly IRepository<Room> _roomRepo;
@@ -19,6 +20,7 @@ namespace Dau.Services.Domain.RoomServices
         private readonly IRepository<DormitoryTranslation> _dormitoryTransRepo;
         private readonly IRepository<RoomCatalogImage> _roomImageRepo;
         private readonly IRepository<CatalogImage> _imageRepo;
+        private readonly IRepository<DormitoryBlockTranslation> _dormitoryBlockTransRepo;
 
         public RoomService(
             ILanguageService languageService,
@@ -27,9 +29,12 @@ namespace Dau.Services.Domain.RoomServices
             IRepository<Dormitory> dormitoryRepository,
             IRepository<DormitoryTranslation> dormitoryTransRepository,
             IRepository<RoomCatalogImage> roomImageRepository,
-            IRepository<CatalogImage> imageRepository
+            IRepository<CatalogImage> imageRepository,
+            IRepository<DormitoryBlock> dormitoryBlockRepository,
+            IRepository<DormitoryBlockTranslation> dormitoryBlockTransRepo
             )
         {
+            _dormitoryBlockRepo = dormitoryBlockRepository;
             _languageService = languageService;
             _roomTransRepo = roomTransRepository;
             _roomRepo = roomRepository;
@@ -37,6 +42,7 @@ namespace Dau.Services.Domain.RoomServices
             _dormitoryTransRepo = dormitoryTransRepository;
             _roomImageRepo = roomImageRepository;
             _imageRepo = imageRepository;
+            _dormitoryBlockTransRepo = dormitoryBlockTransRepo;
 
 
         }
@@ -85,6 +91,40 @@ namespace Dau.Services.Domain.RoomServices
                                 };
 
             var model = RoomDormitory.ToList();
+            return model;
+        }
+
+
+        public List<DormitoryRoomsTable> GetRoomsByDormitoryIdListTable(long DormitoryId)
+        {
+
+            var CurrentLanguageId = _languageService.GetCurrentLanguageId();
+
+            var dormitoryBlock = from dormBlock in _dormitoryBlockRepo.List().ToList()
+                                 join dormBlockTrans in _dormitoryBlockTransRepo.List().ToList() on dormBlock.Id equals dormBlockTrans.DormitoryBlockNonTransId
+                                 where dormBlockTrans.LanguageId == CurrentLanguageId
+                                 select new { dormBlock.Id, dormBlockTrans.Name };
+
+            var rooms = from room in _roomRepo.List().ToList()
+                        join roomTrans in _roomTransRepo.List().ToList() on room.Id equals roomTrans.RoomNonTransId
+                        where roomTrans.LanguageId == CurrentLanguageId && room.DormitoryId ==DormitoryId
+                        select new { room.Id, roomTrans.RoomName, room.NoRoomQuota, room.Price, room.Published,room.DormitoryBlockId, room.SKU, room.DormitoryId };
+
+            var roomDormitoryBlock = from room in rooms.ToList()
+                                     join dormBlock in dormitoryBlock.ToList() on room.DormitoryBlockId equals dormBlock.Id
+                                     select new DormitoryRoomsTable
+                                     {
+                                         RoomId = room.Id,
+                                         RoomName = room.RoomName,
+                                         DormitoryBlock = dormBlock.Name,
+                                         Price = room.Price.ToString("N2"),
+                                         Published = room.Published,
+                                         Quota = room.NoRoomQuota,
+                                         SKU = room.SKU,
+
+                                     };
+
+            var model = roomDormitoryBlock.ToList();
             return model;
         }
 
@@ -312,7 +352,19 @@ namespace Dau.Services.Domain.RoomServices
             return model;
         }
 
+        public string GetRoomWithLowestDealByDormitoryId(long DormitoryId, long languageId)
+        {  //this is for api
+            var CurrentLanguageId = languageId;
+            var rooms = from room in _roomRepo.List().ToList()
+                        join roomTrans in _roomTransRepo.List().ToList() on room.Id equals roomTrans.RoomNonTransId
+                        where roomTrans.LanguageId == CurrentLanguageId &&  room.DormitoryId==DormitoryId
+                        orderby room.Price ascending
+                        select new { room.Id, roomTrans.RoomName, room.NoRoomQuota, room.Price, room.Published, room.SKU, room.DormitoryId };
 
+            if (rooms.ToList().Count <= 0) return null;
+            return rooms.ToList().FirstOrDefault().Price.ToString("N2");
+
+        }
     }
 
     public class RoomsListTable
@@ -340,6 +392,8 @@ namespace Dau.Services.Domain.RoomServices
         public bool SavedSuccessful { get; set; }
         public string DealEndTime { get; set; }
         public bool DisplayDeal { get; set; }
+        [Range(5, 100)]
+        [Display(Name = "Percentage off")]
         public int PercentageOff { get; set; }
 
         public bool DisplayNoRoomsLeft { get; set; }//
@@ -525,6 +579,20 @@ namespace Dau.Services.Domain.RoomServices
         
     
 
+
+    }
+
+
+    public class DormitoryRoomsTable
+    {
+
+        public long RoomId { get; set; }
+        public string RoomName { get; set; }
+        public string DormitoryBlock { get; set; }
+        public string SKU { get; set; }
+        public string Price { get; set; }
+        public int Quota { get; set; }
+        public bool Published { get; set; }
 
     }
 

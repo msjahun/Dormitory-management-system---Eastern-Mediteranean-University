@@ -37,7 +37,8 @@ namespace Dau.Services.Domain.DormitoryDetailService
                     OpeningTime = int.Parse(dorm.WeekendsOpeningTime.ToString("HH")),
 
                     ClosingTime = int.Parse(dorm.WeekendsClosingTime.ToString("HH"))
-                }
+                },
+                openOnSundays= dorm.OpenedOnSundays
               
             
             };
@@ -51,6 +52,7 @@ namespace Dau.Services.Domain.DormitoryDetailService
     {
         public OpeningClosingTime WeekdaysOpeningTime { get; set; }
         public OpeningClosingTime WeekendsOpeningTime { get; set; }
+        public bool openOnSundays { get; set; }
     }
 
     
