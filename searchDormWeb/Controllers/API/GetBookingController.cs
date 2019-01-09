@@ -7,6 +7,8 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using Dau.Services.Utilities;
 using Dau.Core.Domain;
+using Dau.Services.Domain.MobileApiServices;
+using searchDormWeb.Models;
 
 namespace searchDormWeb.Controllers.API
 {
@@ -16,47 +18,60 @@ namespace searchDormWeb.Controllers.API
     public class GetBookingController : Controller
     {
         private readonly IApiLogService _apiLogService;
+        private readonly IMobileApiService _mobileApiService;
 
-        public GetBookingController(IApiLogService apiLogService)
+        public GetBookingController(IApiLogService apiLogService, IMobileApiService mobileApiService)
         {
             _apiLogService = apiLogService;
+            _mobileApiService = mobileApiService;
         }
 
         // GET: api/GetBooking/34
         [HttpGet("{id}")]
-        public JsonResult Get(int id)
+        public JsonResult Get(long id)
         {
-
-
-            var Response = new
-            {
-                Response = "Success",
-                Body = new
-                {   BookingId = 233443,
-                    DateOfBooking = DateTime.Now.ToString("d"),
-                    TimeOfBooking = DateTime.Now.ToString("T"),
-                    CheckInDate = DateTime.Now.AddDays(50).ToString("d"),
-                    CheckInSemester = "Spring"
-
-
-
-                }
-
-            };
-
-
-            _apiLogService.LogApiRequest(new ApiDebugLog
+            
+            var Response = _mobileApiService.GetBookingService(id);
+            if (Response != null)
             {
 
-                ApiName = "  // GET: api/GetBooking",
-                Reponse = JsonConvert.SerializeObject(Response),
-                CreateDateTime = DateTime.Now,
-                ParameterRecieved = JsonConvert.SerializeObject(_apiLogService.GetRequestBody())
-            });
-            return Json(Response);
-       
+                _apiLogService.LogApiRequest(new ApiDebugLog
+                {
+
+                    ApiName = "  // GET: api/GetBooking",
+                    Reponse = JsonConvert.SerializeObject(Response),
+                    CreateDateTime = DateTime.Now,
+                    ParameterRecieved = JsonConvert.SerializeObject(_apiLogService.GetRequestBody())
+                });
+                return Json(Response);
+            }
+            else
+            {
+                ResponseResult response = new ResponseResult
+                {
+                    Response = false,
+                    StatusCode = "0x3234"
+                };
+
+
+                _apiLogService.LogApiRequest(new ApiDebugLog
+                {
+
+                    ApiName = "  // GET: api/GetBooking",
+                    Reponse = JsonConvert.SerializeObject(response),
+                    CreateDateTime = DateTime.Now,
+                    ParameterRecieved = JsonConvert.SerializeObject(_apiLogService.GetRequestBody())
+                });
+
+                return Json(response);
+            }
+
+
         }
 
-      
+
+
+
+
     }
 }

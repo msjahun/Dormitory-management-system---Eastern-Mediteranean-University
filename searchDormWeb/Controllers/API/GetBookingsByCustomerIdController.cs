@@ -7,6 +7,8 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using Dau.Services.Utilities;
 using Dau.Core.Domain;
+using Dau.Services.Domain.MobileApiServices;
+using searchDormWeb.Models;
 
 namespace searchDormWeb.Controllers.API
 {
@@ -16,90 +18,62 @@ namespace searchDormWeb.Controllers.API
     public class GetBookingsByCustomerIdController : Controller
     {
         private readonly IApiLogService _apiLogService;
+        private readonly IMobileApiService _mobileApiService;
 
-        public GetBookingsByCustomerIdController(IApiLogService apiLogService)
+        public GetBookingsByCustomerIdController(IApiLogService apiLogService, IMobileApiService mobileApiService)
         {
             _apiLogService = apiLogService;
+            _mobileApiService = mobileApiService;
         }
 
 
-        // GET: api/GetBookingsByCustomerId/5
+        // GET: api/GetBookingsByCustomerId/3lkjsfdsdfoisdf-sdf-sdfa-sdfdfg-dsfgsdfg-we-rwe
         [HttpGet("{id}")]
-        public JsonResult Get(int id)
+        public JsonResult Get(string id)
         {
+            
 
+            var Response = _mobileApiService.GetBookingsByCustomerIdService(id);
 
-            var Response = new
+            if (Response != null)
             {
-                Response = "Success",
-                Body = new
+
+
+                _apiLogService.LogApiRequest(new ApiDebugLog
                 {
-                    Bookings = new List<BookingByIdAPIVM>
-                    {
-                        new BookingByIdAPIVM
-                        {
-                            DormitoryDescription = "Alfam dormitories has four blocks seperate.....",
-                        DormitoryId = 23,
-                        BookingNumber = 344,
-                        Dormitoryname = "Alfam Dormitories",
-                        PictureUrl = "https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg",
-                        RatingNumber = 4.5,
-                        RatingText = "Very Good",
-                        BookingDate = DateTime.Now.ToString("d"),
-                        CheckInDate = DateTime.Now.AddDays(43).ToString("d"),
-                        BookingStatus = "Competed",
-                        RoomId = 2342
 
-                        },
-
-                        new BookingByIdAPIVM
-                        {
-
-                    DormitoryDescription = "Alfam dormitories has four blocks seperate.....",
-                    DormitoryId  = 26,
-                    BookingNumber = 34,
-                    Dormitoryname = "Alfam Dormitories",
-                    PictureUrl = "https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg",
-                    RatingNumber = 4.5,
-                    RatingText= "Very Good",
-                    BookingDate  =  DateTime.Now.ToString("d"),
-                    CheckInDate  = DateTime.Now.AddDays(543).ToString("d"),
-                    BookingStatus = "Competed",
-                       RoomId = 2242
-                        }
-                    }
-
-
-
-                }
-            };
-
-            _apiLogService.LogApiRequest(new ApiDebugLog
+                    ApiName = "api/GetBookingsByCustomerId/",
+                    Reponse = JsonConvert.SerializeObject(Response),
+                    CreateDateTime = DateTime.Now,
+                    ParameterRecieved = JsonConvert.SerializeObject(_apiLogService.GetRequestBody())
+                });
+                return Json(Response);
+            }
+            else
             {
+                ResponseResult response = new ResponseResult
+                {
+                    Response = false,
+                    StatusCode = "0x3234"
+                };
 
-                ApiName = "api/GetBookingsByCustomerId/",
-                Reponse = JsonConvert.SerializeObject(Response),
-                CreateDateTime = DateTime.Now,
-                ParameterRecieved = JsonConvert.SerializeObject(_apiLogService.GetRequestBody())
-            });
-            return Json(Response);
 
+                _apiLogService.LogApiRequest(new ApiDebugLog
+                {
+
+                    ApiName = "api/GetBookingsByCustomerId/",
+                    Reponse = JsonConvert.SerializeObject(response),
+                    CreateDateTime = DateTime.Now,
+                    ParameterRecieved = JsonConvert.SerializeObject(_apiLogService.GetRequestBody())
+                });
+
+                return Json(response);
+            }
 
         }
 
-        public class BookingByIdAPIVM
-        {
-            public long RoomId { get; set; }
-            public string DormitoryDescription { get; set; }
-            public long DormitoryId { get; set; }
-            public string Dormitoryname { get; set; }
-            public string PictureUrl { get; set; }
-            public double RatingNumber { get; set; }
-            public string RatingText { get; set; }
-            public string BookingDate { get; set; }
-            public string CheckInDate { get; set; }
-            public string BookingStatus { get; set; }
-            public long BookingNumber { get; set; }
-        }
+
+
+
     }
 }

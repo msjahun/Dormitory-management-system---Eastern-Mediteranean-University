@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Dau.Services.Utilities;
 using Dau.Core.Domain;
 using Newtonsoft.Json;
+using Dau.Services.Domain.MobileApiServices;
 
 namespace searchDormWeb.Controllers.API
 {
@@ -13,53 +14,20 @@ namespace searchDormWeb.Controllers.API
     public class GetDormitoriesController : Controller
     {
         private readonly IApiLogService _apiLogService;
+        private readonly IMobileApiService _mobileApiService;
 
-        public GetDormitoriesController(IApiLogService apiLogService)
+        public GetDormitoriesController(IApiLogService apiLogService, IMobileApiService mobileApiService)
         {
             _apiLogService = apiLogService;
+            _mobileApiService = mobileApiService;
         }
 
         // GET: api/GetDormitories
         [HttpGet]
         public JsonResult Get()
         {
-          
-          
-
-
-
-            var Response = new
-            {
-                Response = "Success",
-                Body = new 
-                {
-                    Dormitories = new List<GetDormitoriesVM>
-                    {
-                        new GetDormitoriesVM
-                        {
-                            PictureUrl="https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg",
-                            DormitoryName="Alfam Dormitories",
-                            DormitoryDescription="Alfam dormitories has four blocks seperate.....",
-                            RatingNumber=4.5,
-                            RatingText="Very Good",
-                            DormitoryId=5
-                        },
-                        new GetDormitoriesVM
-                        {
-                            PictureUrl="https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg",
-                            DormitoryName="Alfam Dormitories",
-                            DormitoryDescription="Alfam dormitories has four blocks seperate.....",
-                            RatingNumber=4.5,
-                            RatingText="Very Good",
-                            DormitoryId=7
-                        }
-                    }
-
-
-
-                }
-
-            };
+            
+            var Response = _mobileApiService.GetDormitoriesService();
 
             _apiLogService.LogApiRequest(new ApiDebugLog
             {
@@ -74,14 +42,5 @@ namespace searchDormWeb.Controllers.API
         }
 
 
-        public class GetDormitoriesVM
-        {
-          public string PictureUrl { get; set; }
-          public string DormitoryName {get; set;}
-          public string DormitoryDescription {get; set;}
-          public double RatingNumber {get; set;}
-          public string RatingText {get; set;}
-          public long DormitoryId {get; set;}
-        }
     }
 }

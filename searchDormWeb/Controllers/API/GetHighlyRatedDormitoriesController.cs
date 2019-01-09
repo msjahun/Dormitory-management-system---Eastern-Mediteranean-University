@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using Dau.Services.Utilities;
 using Dau.Core.Domain;
+using Dau.Services.Domain.MobileApiServices;
 
 namespace searchDormWeb.Controllers.API
 {
@@ -16,64 +17,20 @@ namespace searchDormWeb.Controllers.API
     public class GetHighlyRatedDormitoriesController : Controller
     {
         private readonly IApiLogService _apiLogService;
+        private readonly IMobileApiService _mobileApiService;
 
-        public GetHighlyRatedDormitoriesController(IApiLogService apiLogService)
+        public GetHighlyRatedDormitoriesController(IApiLogService apiLogService, IMobileApiService mobileApiService)
         {
             _apiLogService = apiLogService;
+            _mobileApiService = mobileApiService;
         }
 
         // GET: api/GetHighlyRatedDormitories
         [HttpGet]
         public JsonResult Get()
-        { 
+        {
 
-            var Response = new
-            {
-                Response = "Success",
-                Body = new
-                {
-
-                    Dormitories = new List<DormitoriesGetHighlyRatedDormitoriesVM>
-                    {
-                        new DormitoriesGetHighlyRatedDormitoriesVM
-                        {  PictureUrl="https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg",
-           DormitoryName="1Alfam Dormitories",
-                    DealsText="1Deals start at $1990",
-                    DormitoryId=5
-
-                        },
-                        new DormitoriesGetHighlyRatedDormitoriesVM
-                        {
-             PictureUrl="https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg",
-            DormitoryName="2Alfam Dormitories",
-            DealsText="2Deals start at $1990",
-           DormitoryId=22
-                        },
-                        new DormitoriesGetHighlyRatedDormitoriesVM
-                        {
-             PictureUrl="https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg",
-            DormitoryName="2Alfam Dormitories",
-            DealsText="2Deals start at $1990",
-           DormitoryId=22
-                        },
-                        new DormitoriesGetHighlyRatedDormitoriesVM
-                        {
-             PictureUrl="https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg",
-            DormitoryName="2Alfam Dormitories",
-            DealsText="2Deals start at $1990",
-           DormitoryId=22
-                        },
-                        new DormitoriesGetHighlyRatedDormitoriesVM
-                        {
-             PictureUrl="https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg",
-            DormitoryName="2Alfam Dormitories",
-            DealsText="2Deals start at $1990",
-           DormitoryId=22
-                        }
-                    }
-                }
-
-            };
+            var Response = _mobileApiService.GetHighlyRatedDormitoriesService();
 
 
             _apiLogService.LogApiRequest(new ApiDebugLog
@@ -90,13 +47,7 @@ namespace searchDormWeb.Controllers.API
 
         
 
-        public class DormitoriesGetHighlyRatedDormitoriesVM
-        {
-            public string PictureUrl  {get; set;}
-           public string  DormitoryName {get; set;}
-            public string DealsText {get; set;}
-            public long   DormitoryId  {get; set;}
-            
-        }
+        
+      
     }
 }

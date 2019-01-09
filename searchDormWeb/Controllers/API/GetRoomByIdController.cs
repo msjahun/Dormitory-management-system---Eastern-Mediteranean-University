@@ -7,6 +7,8 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using Dau.Services.Utilities;
 using Dau.Core.Domain;
+using Dau.Services.Domain.MobileApiServices;
+using searchDormWeb.Models;
 
 namespace searchDormWeb.Controllers.API
 {
@@ -16,77 +18,58 @@ namespace searchDormWeb.Controllers.API
     public class GetRoomByIdController : Controller
     {
         private readonly IApiLogService _apiLogService;
+        private readonly IMobileApiService _mobileApiService;
 
-        public GetRoomByIdController(IApiLogService apiLogService)
+        public GetRoomByIdController(IApiLogService apiLogService, IMobileApiService mobileApiService)
         {
             _apiLogService = apiLogService;
+            _mobileApiService = mobileApiService;
         }
 
         // GET: api/GetRoomById/5
         [HttpGet("{id}")]
-        public JsonResult Get(int id)
-        { 
+        public JsonResult Get(long id)
+        {
+            
 
-            var Response = new
+            var Response = _mobileApiService.GetRoomByIdService(id);
+            if (Response != null)
             {
-                Response = "Success",
-                Body = new
+
+
+                _apiLogService.LogApiRequest(new ApiDebugLog
                 {
 
-                    pictureUrl = new List<string>
-                    {   "https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg",
-                        "https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg",
-                        "https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg"
-                           },
-
-                    roomId = "13",
-                    roomQuota = "23",
-                    roomPrice = "$2,340",
-                    facilitiesList = new List<FacilitiesGetRoomByIdAPIVM>
-                    {
-                        new FacilitiesGetRoomByIdAPIVM
-                        {
-                             pictureUrl="https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg",
-                             facilityname="Wifi",
-                             facilityId=12
-                        },
-
-                        new FacilitiesGetRoomByIdAPIVM
-                        {
-                             pictureUrl="https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg",
-                             facilityname="Wifi",
-                             facilityId=16
-                        },
-
-                        new FacilitiesGetRoomByIdAPIVM
-                        {
-
-                                                         pictureUrl="https://dormitories.emu.edu.tr/PublishingImages/Dormitories/alfam/6.jpg",
-                             facilityname="Wifi",
-                             facilityId=14
-                        }
-                    }
-                }
-
-            };
-
-            _apiLogService.LogApiRequest(new ApiDebugLog
+                    ApiName = " // GET: api/GetRoomById/",
+                    Reponse = JsonConvert.SerializeObject(Response),
+                    CreateDateTime = DateTime.Now,
+                    ParameterRecieved = JsonConvert.SerializeObject(_apiLogService.GetRequestBody())
+                });
+                return Json(Response);
+            }
+            else
             {
+                ResponseResult response = new ResponseResult
+                {
+                    Response = false,
+                    StatusCode = "0x3234"
+                };
 
-                ApiName = " // GET: api/GetRoomById/",
-                Reponse = JsonConvert.SerializeObject(Response),
-                CreateDateTime = DateTime.Now,
-                ParameterRecieved = JsonConvert.SerializeObject(_apiLogService.GetRequestBody())
-            });
-            return Json(Response);
 
-        }
-        
-        public class FacilitiesGetRoomByIdAPIVM
-        {
-           public string pictureUrl { get; set; }
-           public string facilityname {get; set;}
-           public long  facilityId {get; set;}
+                _apiLogService.LogApiRequest(new ApiDebugLog
+                {
+
+                    ApiName = " // GET: api/GetRoomById/",
+                    Reponse = JsonConvert.SerializeObject(response),
+                    CreateDateTime = DateTime.Now,
+                    ParameterRecieved = JsonConvert.SerializeObject(_apiLogService.GetRequestBody())
+                });
+
+                return Json(response);
+            }
+
+
+
         }
     }
 }

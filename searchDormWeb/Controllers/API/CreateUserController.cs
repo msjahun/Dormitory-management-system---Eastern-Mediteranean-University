@@ -1,45 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
+using searchDormWeb.Models;
 using Dau.Services.Utilities;
 using Dau.Core.Domain;
+using System;
 using Dau.Services.Domain.MobileApiServices;
-using searchDormWeb.Models;
 
 namespace searchDormWeb.Controllers.API
 {
-    [Produces("application/json")]
-    [Route("api/[controller]")]
-    [ApiController]
-    public class GetRoomByDormitoryIdController : Controller
-    {
-        private readonly IApiLogService _apiLogService;
-        private readonly IMobileApiService _mobileApiService;
+    // public class CreateUserController : Controller
 
-        public GetRoomByDormitoryIdController(IApiLogService apiLogService, IMobileApiService mobileApiService)
+    //public class AuthenticationController : Controller
+
+    [Produces("application/json")]
+
+    [ApiController]
+    public class CreateUserController : Controller
+    {
+        private readonly IMobileApiService _mobileApiService;
+        private readonly IApiLogService _apiLogService;
+
+        public CreateUserController(IApiLogService apiLogService, IMobileApiService mobileApiService)
         {
-            _apiLogService = apiLogService;
             _mobileApiService = mobileApiService;
+            _apiLogService = apiLogService;
         }
 
-        // GET: api/GetRoomByDormitoryId/5
-        [HttpGet("{id}")]
-        public JsonResult Get(long id)
+
+        [Route("api/[controller]")]
+        // POST: api/CreateUser
+        [HttpPost]
+        public async Task<JsonResult> PostAsync()
         {
 
 
-            var Response = _mobileApiService.GetRoomByDormitoryIdService(id);
+
+            var Response = await _mobileApiService.CreateUserAsync();
             if (Response != null)
-            {
+            {//gets username and password and returns userIdGUID
 
                 _apiLogService.LogApiRequest(new ApiDebugLog
                 {
 
-                    ApiName = "// GET: api/GetRoomByDormitoryId/",
+                    ApiName = " // POST: api/CreateUser",
                     Reponse = JsonConvert.SerializeObject(Response),
                     CreateDateTime = DateTime.Now,
                     ParameterRecieved = JsonConvert.SerializeObject(_apiLogService.GetRequestBody())
@@ -58,18 +65,18 @@ namespace searchDormWeb.Controllers.API
                 _apiLogService.LogApiRequest(new ApiDebugLog
                 {
 
-                    ApiName = "// GET: api/GetRoomByDormitoryId/",
+                    ApiName = " // POST: api/CreateUser",
                     Reponse = JsonConvert.SerializeObject(response),
                     CreateDateTime = DateTime.Now,
                     ParameterRecieved = JsonConvert.SerializeObject(_apiLogService.GetRequestBody())
                 });
+
                 return Json(response);
             }
-
-
-
-
-
         }
+
+
+
     }
+
 }

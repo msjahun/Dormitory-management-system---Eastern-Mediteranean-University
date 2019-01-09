@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using Dau.Services.Utilities;
 using Dau.Core.Domain;
+using Dau.Services.Domain.MobileApiServices;
 
 namespace searchDormWeb.Controllers.API
 {
@@ -16,49 +17,21 @@ namespace searchDormWeb.Controllers.API
     public class FacilitiesFilterController : Controller
     {
         private readonly IApiLogService _apiLogService;
+        private readonly IMobileApiService _mobileApiService;
 
-        public FacilitiesFilterController(IApiLogService apiLogService)
+        public FacilitiesFilterController(IApiLogService apiLogService, IMobileApiService mobileApiService)
         {
             _apiLogService = apiLogService;
+            _mobileApiService = mobileApiService;
         }
 
         // GET: api/FacilitiesFilter
         [HttpGet]
         public JsonResult Get()
         {
-   
-            
-            var Response = new 
-            {
-                Response = "Success",
-                Body = new
-                {
 
-                    Facilities = new List<FacilityAPIVm>
-                    {
-                      new FacilityAPIVm
-                      {
-                          facilityId = 1,
-                          facilityName = "Refrigerator"
-                      },
 
-                      new FacilityAPIVm
-                      {
-                          facilityId = 2,
-                          facilityName = "Wifi"
-                      },
-
-                        new FacilityAPIVm
-                      {
-                          facilityId = 3,
-                          facilityName = "TV"
-                      }
-
-                       }
-
-                   }
-                
-            };
+            var Response = _mobileApiService.FacilitiesFilterService();
 
             _apiLogService.LogApiRequest(new ApiDebugLog
             {
@@ -75,9 +48,7 @@ namespace searchDormWeb.Controllers.API
        
     }
 
-public class FacilityAPIVm
-{
-    public long facilityId { get; set; }
-    public string facilityName { get; set; }
-}
+
+
+
 }
