@@ -4,14 +4,16 @@ using Dau.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dau.Data.Migrations
 {
     [DbContext(typeof(Fees_and_facilitiesContext))]
-    partial class Fees_and_facilitiesContextModelSnapshot : ModelSnapshot
+    [Migration("20190107191446_lsdkn")]
+    partial class lsdkn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1577,15 +1579,11 @@ namespace Dau.Data.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DistanceText");
-
-                    b.Property<int>("DistanceValue");
+                    b.Property<string>("Distance");
 
                     b.Property<long>("DormitoryId");
 
-                    b.Property<string>("DurationText");
-
-                    b.Property<int>("DurationValue");
+                    b.Property<string>("Duration");
 
                     b.Property<long>("MapSectionId");
 
