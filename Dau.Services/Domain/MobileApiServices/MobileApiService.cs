@@ -571,7 +571,7 @@ namespace Dau.Services.Domain.MobileApiServices
                             roomPrice = room.Price,
                             facilitiesList = (from roomFeature in _roomFeaturesRepo.List().ToList()
                                                          join feature in features.ToList() on roomFeature.FeaturesId equals feature.Id
-                                                         where roomFeature.RoomId == room.Id && feature.IconUrl != null
+                                                         where roomFeature.RoomId == room.Id 
                                                          select new FacilitiesListGetRoomById
                                                          {
                                                              pictureUrl = (feature.IconUrl != null) ? _imageService.PrepareImageForMobileApi("/frontend_Content/assets/img/icons" + feature.IconUrl) : null,
