@@ -17,6 +17,7 @@ namespace Dau.Services.Domain.MobileApiServices
         RootObjectGetRoomById GetRoomByIdService(long id);
         Task<RootObjectAuthentication> AuthenticationAsync();
         Task<RootObjectAuthentication> CreateUserAsync();
+        RootObjectGetDormitories GetDormitoriesByTypeIdService(long DormitoryTypeId);
         //need to work on the following apis
         void CancelBookingService();
         void CreateBookingService();

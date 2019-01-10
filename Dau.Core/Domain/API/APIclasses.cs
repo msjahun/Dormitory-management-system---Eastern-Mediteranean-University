@@ -119,6 +119,7 @@ namespace Dau.Core.Domain.API
         public double ratingNumber { get; set; }
         public string ratingText { get; set; }
         public long dormitoryId { get; set; }
+        public long dormitoryTypeId { get; set; }
     }
 
     public class BodyGetDormitories

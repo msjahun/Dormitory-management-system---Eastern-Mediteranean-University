@@ -25,6 +25,7 @@ using Newtonsoft.Json.Linq;
 using Dau.Services.Utilities;
 using Newtonsoft.Json;
 using Dau.Core.Domain;
+using Dau.Core;
 
 namespace Dau.Services.Domain.MobileApiServices
 {
@@ -784,7 +785,8 @@ namespace Dau.Services.Domain.MobileApiServices
                                 dormitoryDescription =dormTrans.ShortDescription,
                                 ratingNumber = dorm.RatingNo,
                                 ratingText = dormTrans.RatingText,
-                                dormitoryId = dorm.Id
+                                dormitoryId = dorm.Id,
+                                dormitoryTypeId=  dorm.DormitoryTypeId
                             };
 
             var Response = new RootObjectGetDormitories
@@ -794,6 +796,57 @@ namespace Dau.Services.Domain.MobileApiServices
                 {
                     dormitories = dormitory.ToList()
                     
+                }
+
+            };
+
+            return Response;
+        }
+
+        public RootObjectGetDormitories GetDormitoriesByTypeIdService(long DormitoryTypeId)
+        {
+            var CurrentLanguageId = 1;// english
+            IEnumerable<DormitoryGetDormitories> dormitory;
+             dormitory = from dorm in _dormitoryRepo.List().ToList()
+                            join dormTrans in _dormitoryTransRepo.List().ToList() on dorm.Id equals dormTrans.DormitoryNonTransId
+                            where dormTrans.LanguageId == CurrentLanguageId
+                            select new DormitoryGetDormitories
+                            {
+
+                                pictureUrl = _imageService.PrepareImageForMobileApi(dorm.DormitoryLogoUrl),
+                                dormitoryName = dormTrans.DormitoryName,
+                                dormitoryDescription = dormTrans.ShortDescription,
+                                ratingNumber = dorm.RatingNo,
+                                ratingText = dormTrans.RatingText,
+                                dormitoryId = dorm.Id,
+                                dormitoryTypeId = dorm.DormitoryTypeId
+                            };
+            //done
+            if (DormitoryTypeId > 0) {
+             
+                 dormitory = from dorm in _dormitoryRepo.List().ToList()
+                                join dormTrans in _dormitoryTransRepo.List().ToList() on dorm.Id equals dormTrans.DormitoryNonTransId
+                                where dormTrans.LanguageId == CurrentLanguageId && dorm.DormitoryTypeId == DormitoryTypeId
+                                select new DormitoryGetDormitories
+                                {
+
+                                    pictureUrl = _imageService.PrepareImageForMobileApi(dorm.DormitoryLogoUrl),
+                                    dormitoryName = dormTrans.DormitoryName,
+                                    dormitoryDescription = dormTrans.ShortDescription,
+                                    ratingNumber = dorm.RatingNo,
+                                    ratingText = dormTrans.RatingText,
+                                    dormitoryId = dorm.Id,
+                                    dormitoryTypeId = dorm.DormitoryTypeId
+                                };
+            }
+            
+            var Response = new RootObjectGetDormitories
+            {
+                response = "Success",
+                body = new BodyGetDormitories
+                {
+                    dormitories = dormitory.ToList()
+
                 }
 
             };
