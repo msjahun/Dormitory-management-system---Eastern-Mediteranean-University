@@ -43,14 +43,6 @@ namespace searchDormWeb.Controllers.API
             if (Response != null)
             {//gets username and password and returns userIdGUID
 
-                _apiLogService.LogApiRequest(new ApiDebugLog
-                {
-
-                    ApiName = " // POST: api/CreateUser",
-                    Reponse = JsonConvert.SerializeObject(Response),
-                    CreateDateTime = DateTime.Now,
-                    ParameterRecieved = JsonConvert.SerializeObject(_apiLogService.GetRequestBody())
-                });
                 return Json(Response);
             }
             else

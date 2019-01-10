@@ -22,6 +22,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.Internal;
 using System.IO;
 using Newtonsoft.Json.Linq;
+using Dau.Services.Utilities;
+using Newtonsoft.Json;
+using Dau.Core.Domain;
 
 namespace Dau.Services.Domain.MobileApiServices
 {
@@ -41,6 +44,7 @@ namespace Dau.Services.Domain.MobileApiServices
         private readonly IRepository<RoomFeatures> _roomFeaturesRepo;
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
+        private readonly IApiLogService _apiLogService;
         private readonly IRepository<Booking> _bookingRepository;
         private readonly IRepository<BookingStatus> _bookingStatusRepo;
         private readonly IRepository<Room> _roomRepository;
@@ -108,7 +112,8 @@ namespace Dau.Services.Domain.MobileApiServices
             IRepository<PaymentStatus> paymentStatusRepository,
             IRepository<PaymentStatusTranslation> paymentStatusTransRepository,
             SignInManager<User> signInManager,
-            UserManager<User> userManager
+            UserManager<User> userManager,
+            IApiLogService apiLogService
 
             )
         {
@@ -127,7 +132,7 @@ namespace Dau.Services.Domain.MobileApiServices
             _signInManager = signInManager;
             _userManager = userManager;
 
-
+            _apiLogService = apiLogService;
 
             _bookingRepository = bookingRepository;
       
@@ -274,6 +279,14 @@ namespace Dau.Services.Domain.MobileApiServices
 
             };
 
+            _apiLogService.LogApiRequest(new ApiDebugLog
+            {
+                ApiName = " // POST: api/CreateUser",
+                Reponse = JsonConvert.SerializeObject(Response),
+                CreateDateTime = DateTime.Now,
+                ParameterRecieved = JsonConvert.SerializeObject(bodyStr)
+            });
+
             return Response;
 
         }
@@ -332,6 +345,13 @@ namespace Dau.Services.Domain.MobileApiServices
 
             };
 
+
+            _apiLogService.LogApiRequest(new ApiDebugLog
+            {ApiName = " // POST: api/Authentication",
+                Reponse = JsonConvert.SerializeObject(Response),
+                CreateDateTime = DateTime.Now,
+                ParameterRecieved = JsonConvert.SerializeObject(bodyStr)
+            });
             return Response;
 
         }
