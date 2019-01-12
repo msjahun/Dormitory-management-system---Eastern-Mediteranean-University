@@ -233,7 +233,7 @@
                                     <div class="py-3 px-3">
                                         <h5 class="heading h6 mb-0">Notifications</h5>
                                     </div>
-                                    <div class="list-group">
+                                    <div class="list-group" id="notificationSection">
                                         <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
                                             <div class="list-group-content">
                                                 <div class="list-group-heading">Alfam dormitory <small>10:05 PM</small></div>
@@ -254,7 +254,7 @@
                                         </a>
                                     </div>
                                     <div class="py-3 text-center">
-                                        <a href="#" class="link link-sm link--style-3">Clear all notifications</a>
+                                        <span id="notificationSection" class="link link-sm link--style-3">Clear all notifications</span>
                                     </div>
                                 </div>
                             </div>
@@ -335,7 +335,7 @@
                                     @Localizer["Checkout"] <span class="badge badgeCart badge-pill badge-danger text-sm">1</span>
                                 </a>
 
-                                <a asp-controller="Booking" asp-action="Cart" class="btn btn-white btn-sm btn-circle btn-translate--hover d-none d-lg-block"><i class="fas fa-shopping-cart"></i> @Localizer["Checkout"] <span class="badge badge-pill badge-danger text-sm">1</span></a>
+                                <a asp-controller="Booking" asp-action="Cart" class="btn btn-white btn-sm btn-circle btn-translate--hover d-none d-lg-block"><i class="fas fa-shopping-cart"></i> @Localizer["Checkout"] <div id="notificationNumber"><span class="badge badge-pill badge-danger text-sm">1</span></div></a>
                             </li>
                         }
                         else

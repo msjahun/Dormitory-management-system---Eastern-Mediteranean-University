@@ -16,6 +16,7 @@
 
     @RenderSection("styles", false)
     <!-- Theme CSS -->
+    <link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" href="@Url.Content("~/frontend_Content/assets")/css/theme.css">
     <link type="text/css" href="@Url.Content("~/frontend_Content/assets")/vendor/@@fancyapps/fancybox/dist/jquery.fancybox.min.css" rel="stylesheet">
 
@@ -76,7 +77,7 @@
 
         @RenderBody()
 
-
+        <div id="sound"></div>
 
     </main>
 
@@ -97,27 +98,137 @@
     <script src="@Url.Content("~/frontend_Content/assets")/vendor/sticky-kit/dist/sticky-kit.min.js"></script>
     <script src="@Url.Content("~/frontend_Content/assets")/vendor/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
     <script src="@Url.Content("~/frontend_Content/assets")/vendor/nouislider/distribute/nouislider.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
     <script>
-    
-
-        $("#searchBar").on('change keyup paste', function () {
-            console.log($('#searchBar').val());
-
-              $.ajax({
-            type: "POST",
-            url: "@Html.Raw(Url.Action("GetSearchSuggestion", "Home"))",
-            data: {
-                searchTerm: $('#searchBar').val()
-            },
-            success: function (result, textStatus, xhr) {
-                //     alert(result);
-                $("#searchBarResults").html(result);
-              
-            }
-
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyBHRPkMF_I14RgvoYM9Gl15JJsMz7tbYUQ",
+            authDomain: "emu-dormitory-reservation-app.firebaseapp.com",
+            databaseURL: "https://emu-dormitory-reservation-app.firebaseio.com",
+            projectId: "emu-dormitory-reservation-app",
+            storageBucket: "emu-dormitory-reservation-app.appspot.com",
+            messagingSenderId: "980254597176"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script>
+        const messaging = firebase.messaging();
+        // Add the public key generated from the console here.
+        messaging.usePublicVapidKey("BDi27T-u4hzRPaEhSIHuIU1PIJSCApza1Exuez_yf6Z3H33zcKQEwq4dKz_HflMVGUwPsmJpVfF9OVjKbdMI9T4");
+        messaging.requestPermission().then(function () {
+            console.log('Notification permission granted.');
+            // TODO(developer): Retrieve an Instance ID token for use with FCM.
+            // ...
+        }).catch(function (err) {
+            console.log('Unable to get permission to notify.', err);
             });
 
+
+
+
+
+
+        // Get Instance ID token. Initially this makes a network call, once retrieved
+        // subsequent calls to getToken will return from cache.
+        messaging.getToken().then(function (currentToken) {
+            if (currentToken) {
+                sendTokenToServer(currentToken);
+                updateUIForPushEnabled(currentToken);
+            } else {
+                // Show permission request.
+                console.log('No Instance ID token available. Request permission to generate one.');
+                // Show permission UI.
+                updateUIForPushPermissionRequired();
+                setTokenSentToServer(false);
+            }
+        }).catch(function (err) {
+            console.log('An error occurred while retrieving token. ', err);
+            showToken('Error retrieving Instance ID token. ', err);
+            setTokenSentToServer(false);
+            });
+
+
+
+        // Callback fired if Instance ID token is updated.
+        messaging.onTokenRefresh(function () {
+            messaging.getToken().then(function (refreshedToken) {
+                console.log('Token refreshed.');
+                // Indicate that the new Instance ID token has not yet been sent to the
+                // app server.
+                setTokenSentToServer(false);
+                // Send Instance ID token to app server.
+                sendTokenToServer(refreshedToken);
+                // ...
+            }).catch(function (err) {
+                console.log('Unable to retrieve refreshed token ', err);
+                showToken('Unable to retrieve refreshed token ', err);
+            });
         });
+
+
+        function sendTokenToServer(refreshtoken) {
+            console.log('sendTokenToServer: '+refreshtoken);
+
+        }
+        function showToken(refreshtoken,err) {
+            console.log('showToken: '+refreshtoken);
+
+        } function setTokenSentToServer(refreshtoken) {
+            console.log('setTokenSentToServer: '+refreshtoken);
+
+        }
+
+        function updateUIForPushEnabled() {
+            console.log('I was just called');
+        }
+
+        // Handle incoming messages. Called when:
+        // - a message is received while the app has focus
+        // - the user clicks on an app notification created by a service worker
+        //   `messaging.setBackgroundMessageHandler` handler.
+        messaging.onMessage(function (payload) {
+            console.log('Message received. ', payload);
+        //    alert(JSON.stringify(payload));
+            $("#notificationSection").prepend("<a href=\"#\" class=\"list-group-item list-group-item-action d-flex align-items-center\"><div class=\"list-group-content\"><div class=\"list-group-heading\">"+payload.data.body+" <small>11:30 PM</small></div><p class=\"text-sm\">"+payload.data.alertMsg+"</p> </div></a>");
+            playSound('/bookingAlert');
+            $("#notificationNumber").html("<span class=\"badge badge-pill badge-danger text-sm\">2</span>");
+            
+            // ...
+        });
+        
+
+        function playSound(filename) {
+            var mp3Source = '<source src="' + filename + '.mp3" type="audio/mpeg">';
+            var oggSource = '<source src="' + filename + '.ogg" type="audio/ogg">';
+            var embedSource = '<embed hidden="true" autostart="true" loop="false" src="' + filename + '.mp3">';
+            document.getElementById("sound").innerHTML = '<audio autoplay="autoplay">' + mp3Source + oggSource + embedSource + '</audio>';
+        }
+       
+        $("#clearNotification").click(function () {
+            alert("Handler for .click() called.");
+            updateNotification();
+        });
+
+
+    $("#searchBar").on('change keyup paste', function () {
+    console.log($('#searchBar').val());
+
+    $.ajax({
+    type: "POST",
+    url: "@Html.Raw(Url.Action("GetSearchSuggestion", "Home"))",
+    data: {
+    searchTerm: $('#searchBar').val()
+    },
+    success: function (result, textStatus, xhr) {
+    //     alert(result);
+    $("#searchBarResults").html(result);
+
+    }
+
+    });
+
+    });
     </script>
 
 

@@ -12,6 +12,7 @@
 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
+    <div id="alertACL"></div>
     <section class="content-header">
         <h1>
             @ViewData["Title"]
@@ -631,15 +632,17 @@
 
     {
     <!-- daterangepicker -->
-    <script src="@Url.Content("~/Content/")bower_components/moment/min/moment.min.js"></script>
-    <script src="@Url.Content("~/Content/")bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
-    <!-- datepicker -->
-    <script src="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <script src="@Url.Content("~/Content/")bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap 3.3.7 -->
     <!-- jQuery UI 1.11.4 -->
     <script src="@Url.Content("~/Content/")bower_components/jquery-ui/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+
+    <script src="@Url.Content("~/Content/")bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- datepicker -->
+    <script src="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+
     <script>
         $.widget.bridge('uibutton', $.ui.button);
     </script>
@@ -663,6 +666,7 @@
     <script src="@Url.Content("~/Content/")bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
     <script src="@Url.Content("~/Content/")bower_components/fastclick/lib/fastclick.js"></script>
+    <script src="@Url.Content("~/Content/")bower_components/moment/min/moment.min.js"></script>
 
     <script src="@Url.Content("~/Content/")dist/js/adminlte.min.js"></script>
 

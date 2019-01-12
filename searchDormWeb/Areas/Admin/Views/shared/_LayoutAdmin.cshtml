@@ -75,28 +75,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="wrapper">
         <!-- Main Header -->
         @{await Html.RenderPartialAsync("../Admin/Admin_Shared/_header.cshtml", null);}
-    @*@RenderPage("~/Views/Admin/Admin_Shared/_header.cshtml", null)*@
-    <!-- Left side column. contains the logo and sidebar -->
+        @*@RenderPage("~/Views/Admin/Admin_Shared/_header.cshtml", null)*@
+        <!-- Left side column. contains the logo and sidebar -->
 
 
-    @{await Html.RenderPartialAsync("../Admin/Admin_Shared/_side_menu.cshtml", null);}
-    @*@RenderPage("~/Views/Admin/Admin_Shared/_side_menu.cshtml", null)*@
+        @{await Html.RenderPartialAsync("../Admin/Admin_Shared/_side_menu.cshtml", null);}
+        @*@RenderPage("~/Views/Admin/Admin_Shared/_side_menu.cshtml", null)*@
 
 
-    <!-- Content Wrapper. Contains page content -->
-    @RenderBody()
-    <!-- /.content-wrapper -->
-    <!-- Main Footer -->
-    @{await Html.RenderPartialAsync("../Admin/Admin_Shared/_footer.cshtml", null);}
-    @*@RenderPage("~/Views/Admin/Admin_Shared/_footer.cshtml", null)*@
-    <!-- /.Main Footer -->
-    <!-- Control Sidebar -->
-    @{await Html.RenderPartialAsync("../Admin/Admin_Shared/_control_sidebar.cshtml", null);}
+        <!-- Content Wrapper. Contains page content -->
+        @RenderBody()
+        <!-- /.content-wrapper -->
+        <!-- Main Footer -->
+        @{await Html.RenderPartialAsync("../Admin/Admin_Shared/_footer.cshtml", null);}
+        @*@RenderPage("~/Views/Admin/Admin_Shared/_footer.cshtml", null)*@
+        <!-- /.Main Footer -->
+        <!-- Control Sidebar -->
+        @{await Html.RenderPartialAsync("../Admin/Admin_Shared/_control_sidebar.cshtml", null);}
 
 
 
-    @*@RenderPage("~/Views/Admin/Admin_Shared/_control_sidebar.cshtml", null)*@
-    <!-- /.control-sidebar -->
+        @*@RenderPage("~/Views/Admin/Admin_Shared/_control_sidebar.cshtml", null)*@ <div id="sound"></div>
+        <!-- /.control-sidebar -->
     </div>
 
 
@@ -123,5 +123,114 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Heartbeat Online Users tracking -->
     @{await Html.RenderPartialAsync("../../../../Views/Shared/Components/OnlineUsersTrackingCode.cshtml", null);}
 
-</body>
-</html>
+    <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyBHRPkMF_I14RgvoYM9Gl15JJsMz7tbYUQ",
+            authDomain: "emu-dormitory-reservation-app.firebaseapp.com",
+            databaseURL: "https://emu-dormitory-reservation-app.firebaseio.com",
+            projectId: "emu-dormitory-reservation-app",
+            storageBucket: "emu-dormitory-reservation-app.appspot.com",
+            messagingSenderId: "980254597176"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script>
+       
+
+        const messaging = firebase.messaging();
+        // Add the public key generated from the console here.
+        messaging.usePublicVapidKey("BDi27T-u4hzRPaEhSIHuIU1PIJSCApza1Exuez_yf6Z3H33zcKQEwq4dKz_HflMVGUwPsmJpVfF9OVjKbdMI9T4");
+        messaging.requestPermission().then(function () {
+            console.log('Notification permission granted.');
+            // TODO(developer): Retrieve an Instance ID token for use with FCM.
+            // ...
+        }).catch(function (err) {
+            console.log('Unable to get permission to notify.', err);
+        });
+
+
+
+
+
+
+        // Get Instance ID token. Initially this makes a network call, once retrieved
+        // subsequent calls to getToken will return from cache.
+        messaging.getToken().then(function (currentToken) {
+            if (currentToken) {
+                sendTokenToServer(currentToken);
+                updateUIForPushEnabled(currentToken);
+            } else {
+                // Show permission request.
+                console.log('No Instance ID token available. Request permission to generate one.');
+                // Show permission UI.
+                updateUIForPushPermissionRequired();
+                setTokenSentToServer(false);
+            }
+        }).catch(function (err) {
+            console.log('An error occurred while retrieving token. ', err);
+            showToken('Error retrieving Instance ID token. ', err);
+            setTokenSentToServer(false);
+        });
+
+
+
+        // Callback fired if Instance ID token is updated.
+        messaging.onTokenRefresh(function () {
+            messaging.getToken().then(function (refreshedToken) {
+                console.log('Token refreshed.');
+                // Indicate that the new Instance ID token has not yet been sent to the
+                // app server.
+                setTokenSentToServer(false);
+                // Send Instance ID token to app server.
+                sendTokenToServer(refreshedToken);
+                // ...
+            }).catch(function (err) {
+                console.log('Unable to retrieve refreshed token ', err);
+                showToken('Unable to retrieve refreshed token ', err);
+            });
+        });
+
+
+        function sendTokenToServer(refreshtoken) {
+            console.log('sendTokenToServer: ' + refreshtoken);
+
+        }
+        function showToken(refreshtoken, err) {
+            console.log('showToken: ' + refreshtoken);
+
+        } function setTokenSentToServer(refreshtoken) {
+            console.log('setTokenSentToServer: ' + refreshtoken);
+
+        }
+
+        function updateUIForPushEnabled() {
+            console.log('I was just called');
+        }
+
+        // Handle incoming messages. Called when:
+        // - a message is received while the app has focus
+        // - the user clicks on an app notification created by a service worker
+        //   `messaging.setBackgroundMessageHandler` handler.
+        messaging.onMessage(function (payload) {
+            console.log('Message received. ', payload);
+            //alert("Admin panel" + JSON.stringify(payload));
+            document.getElementById("alertACL").innerHTML = "<div style=\"padding: 20px 30px; background: rgb(243, 156, 18); z - index: 999999; font - size: 16px; font - weight: 600; \"><a class=\"float - right\" href=\"#\" data-toggle=\"tooltip\" data-placement=\"left\" title=\"Never show me this again!\" style=\"color: rgb(255, 255, 255); font - size: 20px; \">×</a><a href=\"https://themequarry.com\" style=\"color: rgba(255, 255, 255, 0.9); display: inline-block; margin-right: 10px; text-decoration: none;\">"+payload.data.alertMsg+"</a><a class=\"btn btn-default btn-sm\" href=\"https://themequarry.com\" style=\"margin-top: -5px; border: 0px; box-shadow: none; color: rgb(243, 156, 18); font-weight: 600; background: rgb(255, 255, 255);\">View now</a></div>";
+            playSound('/bookingAlert');
+
+
+         //   $(".content").prepend = "<div class=\"alert alert-success alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> @Localizer["Access control list updated successfully."]</div>";
+             
+            // ...
+    });
+        function playSound(filename) {
+            var mp3Source = '<source src="' + filename + '.mp3" type="audio/mpeg">';
+            var oggSource = '<source src="' + filename + '.ogg" type="audio/ogg">';
+            var embedSource = '<embed hidden="true" autostart="true" loop="false" src="' + filename + '.mp3">';
+            document.getElementById("sound").innerHTML = '<audio autoplay="autoplay">' + mp3Source + oggSource + embedSource + '</audio>';
+        }
+    </script>
+
+</body >
+</html >
