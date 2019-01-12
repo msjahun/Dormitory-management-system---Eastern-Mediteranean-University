@@ -26,11 +26,13 @@ using Dau.Services.Utilities;
 using Newtonsoft.Json;
 using Dau.Core.Domain;
 using Dau.Core;
+using Dau.Services.Domain.DormitoryServices;
 
 namespace Dau.Services.Domain.MobileApiServices
 {
    public class MobileApiService : IMobileApiService
     {
+        private readonly IDormitoryService _dormitoryService;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IRepository<Features> _featuresRepo;
         private readonly IRepository<FeaturesTranslation> _featuresTransRepo;
@@ -114,10 +116,12 @@ namespace Dau.Services.Domain.MobileApiServices
             IRepository<PaymentStatusTranslation> paymentStatusTransRepository,
             SignInManager<User> signInManager,
             UserManager<User> userManager,
-            IApiLogService apiLogService
+            IApiLogService apiLogService,
+            IDormitoryService dormitoryService
 
             )
         {
+            _dormitoryService = dormitoryService;
             _httpContextAccessor = httpContextAccessor;
             _featuresRepo = featuresRepository;
             _featuresTransRepo = featuresTransRepository;
@@ -400,7 +404,7 @@ namespace Dau.Services.Domain.MobileApiServices
             var Booking = _bookingRepository.GetById(BookingId);
 
             if (Booking == null) return null;
-
+            var cancelWaitDays = _dormitoryRepo.GetById(_roomRepository.GetById(Booking.RoomId).DormitoryId).CancelWaitDays;
             //done
             var Response = new RootObjectGetBooking
             {
@@ -410,6 +414,7 @@ namespace Dau.Services.Domain.MobileApiServices
                     bookingId = Booking.Id,
                     dateOfBooking = Booking.CreatedOn.ToString("d"),
                     timeOfBooking = Booking.CreatedOn.ToString("T"),
+                    expiryDate = Booking.CreatedOn.AddDays(cancelWaitDays).ToString("d"),
                     checkInDate = "Beginning of semester",
                     checkInSemester = "Spring semester"//will set this later
 
@@ -566,7 +571,8 @@ namespace Dau.Services.Domain.MobileApiServices
                         select new BodyGetRoomById
                         {
                             pictureUrl = _imageService.PrepareImageForMobileApi(Images.Select(x => x.ImageUrl).ToList()),
-                          
+                          roomName= roomTrans.RoomName,
+                          dormitoryName = _dormitoryService.GetDormitoryNameById(room.DormitoryId),
                             roomId = room.Id,
                             roomQuota = room.NoRoomQuota,
                             roomPrice = room.Price,
