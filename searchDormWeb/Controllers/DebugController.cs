@@ -22,11 +22,13 @@ using Dau.Services.Domain.ExploreEmuService;
 using System.Security.Claims;
 using Dau.Core.Domain;
 using Dau.Services.Utilities;
+using Dau.Services.Email;
 
 namespace searchDormWeb.Controllers
 {
     public class DebugController : Controller
     {
+        private readonly IEmailService _emailService;
         private readonly IGetReviewService _getReviewService;
         private readonly IApiLogService _apiLogService;
         private readonly IGetRoomsService _getRoomsService;
@@ -99,12 +101,13 @@ namespace searchDormWeb.Controllers
             IRepository<Features> featuresRepo,
         
             IRepository<FeaturesTranslation> featuresTranslation,
-            IGetReviewService getReviewService
+            IGetReviewService getReviewService,
+            IEmailService emailService
 
 
             )
         {
-
+            _emailService = emailService;
             _getReviewService = getReviewService;
             _apiLogService = apiLogService;
                 _getRoomsService = getRoomsService;
@@ -253,6 +256,13 @@ namespace searchDormWeb.Controllers
         public IActionResult seedDormitories()
         {
             _seedingService.SeedDormitoryData();
+            var success = true;
+          return Json(success);
+        }
+
+            public IActionResult testEmail()
+        {
+           _seedingService.SeedSampleEmail();
             var success = true;
           return Json(success);
         }

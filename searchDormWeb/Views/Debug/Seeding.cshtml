@@ -17,6 +17,15 @@
             <tbody>
                 <tr class="bg-white">
                     <th scope="row">
+                        Seed email to message queue
+                    </th>
+                    <td>Tests seeds an email to the message queue, sends the message to msjahun@live.com</td>
+                    <td><button type="button" id="testEmail" class="btn btn-outline-primary">Seed test email</button>   </td>
+                </tr>
+                <tr class="table-divider"></tr>
+
+                <tr class="bg-white">
+                    <th scope="row">
                         Check json
                     </th>
                     <td>Inspect element -> network -- I use this to test api json results</td>
@@ -210,6 +219,29 @@
                         alert("User roles seeded successfully");
                     } else {
                         alert("Failed to seed data");
+                    }
+                }
+
+            });
+
+        });
+        
+        $("#testEmail").click(function () {
+
+            // alert("button clicked");
+            $.ajax({
+                type: "POST",
+                url: "testEmail",
+                data: {
+                    SectionId: "comments_section"
+                },
+                success: function (result, textStatus, xhr) {
+                    //     alert(result);
+                    $("#comments_section").html(result);
+                    if (JSON.stringify(result) === 'true') {
+                        alert("test email sent successfully");
+                    } else {
+                        alert("Error in sending test email");
                     }
                 }
 

@@ -4,6 +4,7 @@ using Dau.Core.Domain.EmuMap;
 using Dau.Core.Domain.Feature;
 using Dau.Core.Domain.LocationInformations;
 using Dau.Core.Domain.SearchEngineOptimization;
+using Dau.Core.Domain.System;
 using Dau.Core.Domain.Users;
 using Dau.Data.Repository;
 using Dau.Services.Domain.SearchResultService;
@@ -31,6 +32,7 @@ namespace Dau.Services.Seeding
         private readonly IRepository<Booking> _bookingRepository;
         private readonly IRepository<PaymentStatus> _paymentStatusRepository;
         private readonly IRepository<BookingStatus> _bookingStatusRepository;
+        private readonly IRepository<MessageQueue> _messageQueueRepo;
         private readonly IRepository<Room> _roomRepo;
         private readonly IRepository<DormitoryType> _dormitoryTypeRepo;
         private readonly IRepository<DormitoryBlock> _dormitoryBlockRepo;
@@ -52,10 +54,11 @@ namespace Dau.Services.Seeding
             IRepository<SemesterPeriod> semesterPeriodRepository,
             UserManager<User> userManager,
             IRepository<MapSection> mapSectionRepo,
-            IRepository<MapSectionCategory> mapSectionCategoryRepo
+            IRepository<MapSectionCategory> mapSectionCategoryRepo,
+            IRepository<MessageQueue> messageQueueRepo
             )
         {
-
+            _messageQueueRepo = messageQueueRepo;
             _roomRepo= roomRepo;
             _dormitoryTypeRepo= dormitoryTypeRepo;
             _dormitoryBlockRepo= dormitoryBlockRepo;
@@ -79,6 +82,30 @@ namespace Dau.Services.Seeding
         //seed dormitoryType and dormitory blocks 
         //seed rooms seperately
         //seed dormitories seperately
+
+            public void SeedSampleEmail()
+        {
+            var numberOfExistingEmails = _messageQueueRepo.List().ToList().Count;
+            var message =
+                new MessageQueue
+                {
+                    ToAddress = "msjahun@live.com",
+                    ToName = "Musa Jahun",
+                    IsSent = false,
+                    MaximumSentAttempts = 5,
+                    MessagePriority = 2,
+
+                    Subject = "Hello world message queue: message no" + numberOfExistingEmails,
+                    Body = "Hello world body seeded at" + DateTime.Now,
+                    CreatedOn = DateTime.Now,
+                    SendImmediately = false,
+                    SendAttempts = 0
+                };
+
+             
+
+            _messageQueueRepo.Insert(message);
+        }
 
         public void SeedFeatures()
         {

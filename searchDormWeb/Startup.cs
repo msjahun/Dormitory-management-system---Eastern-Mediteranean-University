@@ -49,6 +49,14 @@ using Dau.Services.Domain.ImageServices;
 using Dau.Services.Domain.MapServices;
 using Dau.Services.Domain.LocationServices;
 using Dau.Services.Domain.MobileApiServices;
+using Dau.Services.Email;
+using Microsoft.Extensions.Hosting;
+using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
+
+using System;
+using Dau.Services.TaskSchedular.Scheduling;
+using Dau.Services.TaskSchedular;
+//this might give issues in production
 
 namespace searchDormWeb
 {
@@ -144,19 +152,28 @@ namespace searchDormWeb
             services.AddScoped <IImageService, ImageService > ();
             services.AddScoped < IMapService, MapService  > ();
             services.AddScoped <IMobileApiService,MobileApiService > ();
+            services.AddTransient<  IEmailService,EmailService > ();
 
 
             services.AddScoped<ILanguageService, LanguageService>();
             services.AddScoped< ILocationService, LocationService> ();
 
-
             var connectionString = Configuration.GetValue<string>("DbSettings:SqlConnectionString");
             services.AddDbContext<Fees_and_facilitiesContext>(options => options.UseSqlServer(connectionString));
 
-           
+            services.AddMemoryCache();
+
+            // Add scheduled tasks & scheduler
+            services.AddSingleton<IScheduledTask, QuoteOfTheDayTask>();
+            services.AddSingleton<IScheduledTask, SomeOtherTask>();
+            services.AddScheduler((sender, args) =>
+            {
+                Console.Write(args.Exception.Message);
+                args.SetObserved();
+            });
 
 
-           services.AddMvc();
+            services.AddMvc();
           
             services.Configure<CookiePolicyOptions>(options =>
             {
