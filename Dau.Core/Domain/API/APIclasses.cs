@@ -18,6 +18,8 @@ namespace Dau.Core.Domain.API
         public long roomId { get; set; }
         public int roomQuota { get; set; }
         public double roomPrice { get; set; }
+        public string roomName { get; set; }
+        public string dormitoryName { get; set; }
         public List<FacilitiesListGetRoomById> facilitiesList { get; set; }
     }
 
@@ -165,6 +167,7 @@ namespace Dau.Core.Domain.API
         public string timeOfBooking { get; set; }
         public string checkInDate { get; set; }
         public string checkInSemester { get; set; }
+        public string expiryDate { get; set; }
     }
 
     public class RootObjectGetBooking
