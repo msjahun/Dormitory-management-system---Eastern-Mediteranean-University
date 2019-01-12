@@ -22,7 +22,7 @@ namespace Dau.Data.Mapping.System
               .IsUnicode(false);
             builder.Property(e => e.ToAddress).HasColumnName("ToAddress").HasMaxLength(256)
               .IsUnicode(false);
-            builder.Property(e => e.LoadNotSentEmailsOnly).HasColumnName("LoadNotSentEmailsOnly");
+            
             builder.Property(e => e.MaximumSentAttempts).HasColumnName("MaximumSentAttempts");
             builder.Property(e => e.MessagePriority).HasColumnName("MessagePriority");
          
