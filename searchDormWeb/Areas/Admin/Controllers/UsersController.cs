@@ -5,9 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dau.Core.Domain.Users;
 using Dau.Data;
+using Dau.Data.Repository;
 using Dau.Services.Domain.DormitoryServices;
 using Dau.Services.Domain.Users;
-
+using Dau.Services.Export;
 using Dau.Services.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -29,15 +30,20 @@ namespace searchDormWeb.Areas.Admin.Controllers
         private readonly IUserRolesService _userRolesService;
         private readonly RoleManager<UserRole> _roleManager;
         private readonly IOnlineUsersService _onlineUsersService;
+        private readonly Fees_and_facilitiesContext _dbContext;
+        private readonly IExportService _exportService;
         private IDormitoryService _dormitoryService;
         private IHttpContextAccessor _accessor;
 
 
 
-        public UsersController(IDormitoryService dormitoryService, IOnlineUsersService onlineUsersService,  RoleManager<UserRole> roleManager,
+        public UsersController(IDormitoryService dormitoryService, IOnlineUsersService onlineUsersService, RoleManager<UserRole> roleManager,
             UserManager<User> userManager,
             IUserRolesService userRolesService,
-            IHttpContextAccessor accessor
+            IHttpContextAccessor accessor,
+            Fees_and_facilitiesContext dbContext,
+             IExportService exportService
+
             )
         {
           _dormitoryService = dormitoryService;
@@ -46,8 +52,11 @@ namespace searchDormWeb.Areas.Admin.Controllers
             _userRolesService = userRolesService;
             _roleManager = roleManager;
             _onlineUsersService = onlineUsersService;
-        
-          
+            _dbContext = dbContext;
+            _exportService = exportService;
+
+
+
         }
 
 
@@ -132,7 +141,19 @@ namespace searchDormWeb.Areas.Admin.Controllers
             }
         }
 
+        [HttpGet("[action]")]
+        public ActionResult ExportExcel(int Id)
+        {
+            //if id==1, today
+            //id==2 //, last 7 days
+            //id= 3 this month
+            //var model = _exportService.getBookingExcel(id);
+            string pathToFile = _exportService.ExportUsersToExcel(Id);
 
+
+            return RedirectToAction("", "Download", new { area = "", filename = pathToFile });
+
+        }
 
         [HttpGet("[action]")]
 
@@ -159,9 +180,10 @@ namespace searchDormWeb.Areas.Admin.Controllers
                 var user = new User { UserName = vm.Email, Email = vm.Email,
                     FirstName = vm.FirstName, LastName = vm.LastName, Active = vm.Active, AdminComment = vm.AdminComment,
                     NewsletterSubscription = vm.NewsletterSubscription, Country = vm.Country, City = vm.City,
-                    DateOfBirth = vm.DateOfBirth, Gender = vm.Gender, DormitoryId = vm.ManagerOfDormitory,
+                    DateOfBirth = vm.DateOfBirth, Gender = vm.Gender, 
                     CreatedOnUtc = DateTime.UtcNow, LastIpAddress = _accessor.HttpContext.Connection.RemoteIpAddress.ToString(),
                     PhoneNumber = vm.PhoneNumber
+
                 };
                 var result = await _userManager.CreateAsync(user, vm.Password);
 
@@ -175,6 +197,20 @@ namespace searchDormWeb.Areas.Admin.Controllers
                             var result_AddRole = await _userManager.AddToRoleAsync(user, item);
                         }
 
+                    if (vm.ManagerOfDormitory!=null) {
+                  var UserId=  _userManager.Users.Where(c => c.Email == user.Email).FirstOrDefault().Id;
+                   
+                    foreach(var dorm in vm.ManagerOfDormitory)
+                    {
+                        var userdormitory = new UsersDormitory
+                        {
+                            UserId = UserId,
+                            DormitoryId = dorm
+                        };
+                        _dbContext.UsersDormitory.Add(userdormitory);
+                        _dbContext.SaveChanges();
+                    }
+ }
                     return RedirectToAction("List", "Users");
                 }
                 else
@@ -222,7 +258,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
             UserEditViewModel model = new UserEditViewModel {
                 Id = editUser.Id,
                 Email = editUser.Email,
-                ManagerOfDormitory = editUser.DormitoryId,
+                ManagerOfDormitory = GetUserDormitoryById(editUser.Id),
                 Gender = editUser.Gender,
                 FirstName = editUser.FirstName,
                 LastName = editUser.LastName,
@@ -250,7 +286,11 @@ namespace searchDormWeb.Areas.Admin.Controllers
             return View("_User_Edit", model);
         }
 
-
+        private List<long> GetUserDormitoryById(string UserId)
+        {
+            var list = _dbContext.UsersDormitory.Where(c => c.UserId == UserId).Select(c => c.DormitoryId).ToList();
+            return list;
+        }
 
         [HttpPost("[action]")]
         public async Task<ActionResult> Edit(UserEditViewModel vm)
@@ -282,7 +322,8 @@ namespace searchDormWeb.Areas.Admin.Controllers
                     editUser.City = vm.City;
                     editUser.DateOfBirth = vm.DateOfBirth;
                     editUser.Gender = vm.Gender;
-                    editUser.DormitoryId = vm.ManagerOfDormitory;
+                    //editUser.DormitoryId = vm.ManagerOfDormitory;
+                    
                     editUser.PhoneNumber = vm.PhoneNumber;
 
                 }
@@ -299,6 +340,31 @@ namespace searchDormWeb.Areas.Admin.Controllers
                     await _userManager.AddToRoleAsync(editUser, role);
                 }
 
+                var userDormitorylist = _dbContext.UsersDormitory.Where(c => c.UserId == vm.Id).ToList();
+
+
+                if (vm.ManagerOfDormitory != null)
+                {
+                    foreach (var userDormitory in userDormitorylist)
+                    {
+                        _dbContext.UsersDormitory.Remove(userDormitory);
+                        _dbContext.SaveChanges();
+                    }
+
+
+                    foreach (var dormId in vm.ManagerOfDormitory)
+                    {
+                        var newUserDormitory = new UsersDormitory
+                        {
+
+                            UserId = vm.Id,
+                            DormitoryId = dormId
+                        };
+
+                        _dbContext.UsersDormitory.Add(newUserDormitory);
+                        _dbContext.SaveChanges();
+                    }
+                }
                
                 //foreach (var item in vm.CustomerRole)
                 //{

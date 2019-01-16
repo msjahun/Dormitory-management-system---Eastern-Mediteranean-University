@@ -1,6 +1,8 @@
 ﻿using Dau.Core.Domain.Catalog;
 using Dau.Data.Repository;
+using Dau.Services.Event;
 using Dau.Services.Languages;
+using Dau.Services.Security;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,6 +14,8 @@ namespace Dau.Services.Domain.RoomServices
 {
     public class RoomService : IRoomService
     {
+        private readonly IEventService _eventService;
+        private readonly IUserRolesService _userRolesService;
         private readonly IRepository<DormitoryBlock> _dormitoryBlockRepo;
         private readonly ILanguageService _languageService;
         private readonly IRepository<RoomTranslation> _roomTransRepo;
@@ -31,9 +35,13 @@ namespace Dau.Services.Domain.RoomServices
             IRepository<RoomCatalogImage> roomImageRepository,
             IRepository<CatalogImage> imageRepository,
             IRepository<DormitoryBlock> dormitoryBlockRepository,
-            IRepository<DormitoryBlockTranslation> dormitoryBlockTransRepo
+            IRepository<DormitoryBlockTranslation> dormitoryBlockTransRepo,
+             IUserRolesService userRolesService,
+             IEventService eventservice
             )
         {
+            _eventService = eventservice;
+            _userRolesService = userRolesService;
             _dormitoryBlockRepo = dormitoryBlockRepository;
             _languageService = languageService;
             _roomTransRepo = roomTransRepository;
@@ -53,7 +61,7 @@ namespace Dau.Services.Domain.RoomServices
                                     where room.NoRoomQuota < 5
                                     select room;
 
-            return roomswithLowQuota.ToList().Count;
+            return roomswithLowQuota.Where(c => _userRolesService.RoleAccessResolver().Contains(c.DormitoryId)).ToList().Count;
 
         }
 
@@ -67,7 +75,7 @@ namespace Dau.Services.Domain.RoomServices
 
             var dormitory = from dorm in _dormitoryRepo.List().ToList()
                             join dormTrans in _dormitoryTransRepo.List().ToList() on dorm.Id equals dormTrans.DormitoryNonTransId
-                            where dormTrans.LanguageId == CurrentLanguageId
+                            where dormTrans.LanguageId == CurrentLanguageId 
                             select new { dorm.Id, dormTrans.DormitoryName };
 
             var RoomImages = from roomImage in _roomImageRepo.List().ToList()
@@ -90,14 +98,14 @@ namespace Dau.Services.Domain.RoomServices
                                     Published = room.Published
                                 };
 
-            var model = RoomDormitory.ToList();
+            var model = RoomDormitory.Where(c=> _userRolesService.RoleAccessResolver().Contains( c.dormitoryId)).ToList();
             return model;
         }
 
 
         public List<DormitoryRoomsTable> GetRoomsByDormitoryIdListTable(long DormitoryId)
         {
-
+            if (!_userRolesService.IsAuthorized(DormitoryId)) return null;
             var CurrentLanguageId = _languageService.GetCurrentLanguageId();
 
             var dormitoryBlock = from dormBlock in _dormitoryBlockRepo.List().ToList()
@@ -192,7 +200,8 @@ namespace Dau.Services.Domain.RoomServices
         }
           public bool updateRoom(RoomViewCrud vm)
         {//vm.NoOfStudents
-            //vm.HasDeposit
+         //vm.HasDeposit
+            if (!_userRolesService.IsAuthorized(vm.Dormitory)) return false;
             try {
            
             string input = vm.DealEndTime;
@@ -202,6 +211,7 @@ namespace Dau.Services.Domain.RoomServices
             var Room= _roomRepo.GetById(vm.Id);
             if (Room == null) return false;
 
+                var eventRoomQuotaHolder = Room.NoRoomQuota;
             Room.UpdatedOn = DateTime.Now;
                 Room.DormitoryBlockId = vm.DormitoryBlock;
                 Room.DormitoryId = vm.Dormitory;
@@ -245,6 +255,11 @@ namespace Dau.Services.Domain.RoomServices
             _roomTransRepo.Update(englishTrans);
             _roomTransRepo.Update(turkishTrans);
 
+                if(eventRoomQuotaHolder<=0 && vm.RoomQuota > 0)
+                {
+                    //quota has been increased
+                    _eventService.Trigger_Student_BackInStock_Event();
+                }
 
             return true;
             }
@@ -260,6 +275,8 @@ namespace Dau.Services.Domain.RoomServices
             var room = _roomRepo.GetById(id);
             if (room == null)
                 return null;
+            if (!_userRolesService.IsAuthorized(room.DormitoryId)) return null;
+
             var roomT = from roomTrans in _roomTransRepo.List().ToList()
                         where roomTrans.RoomNonTransId == room.Id
                         select roomTrans;
@@ -323,6 +340,7 @@ namespace Dau.Services.Domain.RoomServices
 
         public bool Delete(RoomViewCrud vm)
         {
+            if (!_userRolesService.IsAuthorized(vm.Dormitory)) return false;
             try
             {
                 var Room = _roomRepo.GetById(vm.Id);

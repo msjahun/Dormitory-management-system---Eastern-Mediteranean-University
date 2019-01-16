@@ -20,20 +20,16 @@
                     <a asp-action="DormitoryBlockAdd" asp-controller="Catalog" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-plus-square"></i> @Localizer["Add new"]</a>
 
                     <div class="btn-group">
-                        <button type="button" class="btn btn-success btn-flat">@Localizer["Export"]</button>
+                        <button type="button" class="btn btn-success btn-flat dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-download"></i> @Localizer["Export"]</button>
                         <button type="button" class="btn btn-success btn-flat dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <span class="caret"></span>
                             <span class="sr-only">@Localizer["Toggle Dropdown"]</span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
+                            <li><a href="ExportDormitoryBlocksExcel/?Id=1">@Localizer["Export all"]</a></li>
                         </ul>
                     </div>
-                    <button type="submit" class="btn btn-primary "> <i class="fa fa-upload"></i> @Localizer["Import"]</button>
+
                 </div>
             </div>
         </div>

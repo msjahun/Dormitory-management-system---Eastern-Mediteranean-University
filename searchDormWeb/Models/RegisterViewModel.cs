@@ -10,6 +10,15 @@ namespace searchDormWeb.Models
     {
         [Required, EmailAddress, MaxLength(256), Display(Name = "Email Address", Description ="Email address")]
         public string Email { get; set;}
+        
+        [Required, MaxLength(256), Display(Name = "First Name")]
+        public string Firstname { get; set;}
+        
+        [Required,  MaxLength(256), Display(Name = "Last name")]
+        public string LastName { get; set;}
+
+        [Required,  MaxLength(10), Display(Name = "Student number")]
+        public string studentNumber { get; set;}
 
         [Required, MinLength(6), MaxLength(50), DataType(DataType.Password), Display(Name ="Password")]
         public string Password { get; set; }

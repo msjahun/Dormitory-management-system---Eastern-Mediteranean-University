@@ -192,7 +192,8 @@
         //    alert(JSON.stringify(payload));
             $("#notificationSection").prepend("<a href=\"#\" class=\"list-group-item list-group-item-action d-flex align-items-center\"><div class=\"list-group-content\"><div class=\"list-group-heading\">"+payload.data.body+" <small>11:30 PM</small></div><p class=\"text-sm\">"+payload.data.alertMsg+"</p> </div></a>");
             playSound('/bookingAlert');
-            $("#notificationNumber").html("<span class=\"badge badge-pill badge-danger text-sm\">2</span>");
+            var notificationBar = " <a href=\"#\" class=\"nav-link\" ><i class=\"fas fa-bell\"><span class=\"badge badge-danger ml-2\">new</span></i> </a>";
+            $("#notificationDiv").html(notificationBar);
             
             // ...
         });
@@ -222,7 +223,8 @@
     },
     success: function (result, textStatus, xhr) {
     //     alert(result);
-    $("#searchBarResults").html(result);
+        $("#searchBarResults").html(result);
+       
 
     }
 

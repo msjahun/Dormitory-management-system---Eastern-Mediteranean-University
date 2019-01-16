@@ -18,6 +18,16 @@
 
                     <button type="submit" class="btn btn-primary "> <i class="fa fa-check-square"></i> @Localizer["Approve selected"]</button>
                     <button type="submit" class="btn btn-info "> <i class="fa fa-minus-square"></i> @Localizer["Dis-approve selected"]</button>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-success btn-flat dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-download"></i> @Localizer["Export"]</button>
+                        <button type="button" class="btn btn-success btn-flat dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">@Localizer["Toggle Dropdown"]</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="ExportExcel/?Id=1">@Localizer["Export all"]</a></li>
+                        </ul>
+                    </div>
                     <button type="submit" class="btn btn-danger "> <i class="fa fa-trash"></i> @Localizer["Delete selected"]</button>
                 </div>
             </div>

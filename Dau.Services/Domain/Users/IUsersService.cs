@@ -7,5 +7,6 @@
         string GetLastName(string id);
         string GetUserPhotoUrl(string id);
        int GetTotalNumberOfUser();
+       Charts GetnewCustomersChart(long id);
     }
 }

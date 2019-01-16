@@ -59,13 +59,13 @@
 
 
             <div class="col-lg-5 col-md-5">
-                <span class="badge badge-secondary">@item.GenderAllocation</span><a href="@Url.Content("~/Dormitories/"+item.DormitorySeoFriendlyUrl)#_RoomSection" class="h3">@item.RoomName</a> <a data-fancybox data-type="ajax" data-src="@Url.Content("~/Dormitory/GetSpecificRoomView")/@item.RoomId" href="javascript:;"> <i class="fas fa-search-plus  text-warning"></i></a>
-                <h4 class="dormitory-name d-inline"><a href="@Url.Content("~/Dormitories/"+item.DormitorySeoFriendlyUrl)">@item.DormitoryName</a></h4> <span class="badge badge-secondary">@item.DormitoryRoomBlock</span>
 
-                <dau-rating rating="@item.RatingNo"></dau-rating>
+                <h4 class="dormitory-name d-inline"><a href="@Url.Content("~/Dormitories/"+item.DormitorySeoFriendlyUrl)" target="_blank">@item.DormitoryName</a></h4> 
+                <a href="@Url.Content("~/Dormitories/"+item.DormitorySeoFriendlyUrl)#_RoomSection" target="_blank" class="h3">@item.RoomName</a> <a data-fancybox data-type="ajax" data-src="@Url.Content("~/Dormitory/GetSpecificRoomView")/@item.RoomId" href="javascript:;"> <i class="fas fa-search-plus  text-warning"></i></a>
+                <dau-rating rating="@item.RatingNo"></dau-rating><span><i class="fa fa-thumbs-up" style="color:orange;"></i></span>
+                                                                 <span class="badge badge-secondary">@item.DormitoryRoomBlock</span><span class="badge badge-secondary">@item.GenderAllocation</span>
 
-
-                <span><i class="fa fa-thumbs-up" style="color:orange;"></i></span>
+                
 
 
                 <div class="location-info">
@@ -96,7 +96,7 @@
                             {
                                 <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets/img/icons")@feature.IconUrl" style="width: 20px;">
                             }
-                            @feature.FeatureName
+                            @*@feature.FeatureName*@
                         </span>
                     }
 
@@ -117,7 +117,7 @@
                     }
                     else if (item.NumberOfRoomsLeft > 0 && item.NumberOfRoomsLeft <= 5)
                     {
-                        <p class="text-danger" >@Localizer["Don't miss out {0} rooms left", item.NumberOfRoomsLeft]</p>
+                        <p class="text-danger">@Localizer["Don't miss out {0} rooms left", item.NumberOfRoomsLeft]</p>
                     }
 
                 }

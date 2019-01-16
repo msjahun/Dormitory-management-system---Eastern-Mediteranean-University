@@ -12,6 +12,7 @@ using Dau.Services.Domain.FeaturesServices;
 using Dau.Services.Domain.ImageServices;
 using Dau.Services.Domain.LocationServices;
 using Dau.Services.Domain.RoomServices;
+using Dau.Services.Export;
 using Dau.Services.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -38,6 +39,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
         private readonly IRoomService _roomService;
         private readonly IDormitoryBlockService _dormitoryBlockService;
         private readonly ILocationService _locationService;
+        private readonly IExportService _exportService;
 
         public ConfigurationsController(IDormitoryService dormitoryService,
              IImageService imageService,
@@ -45,7 +47,8 @@ namespace searchDormWeb.Areas.Admin.Controllers
              IFeaturesService featuresService,
              IRoomService roomService,
              IDormitoryBlockService dormitoryBlockService,
-             ILocationService locationService)
+             ILocationService locationService,
+              IExportService exportService)
         {
             _roleManager = roleManager;
             _userRolesService = userRolesService;
@@ -56,6 +59,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
             _roomService = roomService;
             _dormitoryBlockService = dormitoryBlockService;
             _locationService = locationService;
+            _exportService = exportService;
         }
 
 
@@ -566,6 +570,21 @@ namespace searchDormWeb.Areas.Admin.Controllers
             }
         }
 
+
+
+        [HttpGet("[action]")]
+        public ActionResult ExportExcel(int Id)
+        {
+            //if id==1, today
+            //id==2 //, last 7 days
+            //id= 3 this month
+            //var model = _exportService.getBookingExcel(id);
+            string pathToFile = _exportService.ExportDormitoryToExcel(Id);
+
+
+            return RedirectToAction("", "Download", new { area = "", filename = pathToFile });
+
+        }
 
         #endregion
 

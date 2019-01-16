@@ -115,10 +115,22 @@ namespace Dau.Services.Domain.SearchResultService
                                  where dormBlockTrans.LanguageId == CurrentLanguageId
                                  select new { dormBlock.Published, dormBlockTrans.Name, dormBlock.Id };
 
+            var roomList = new List<Room>();
 
 
-            var rooms = from room in _roomRepository.List().ToList()
-                        join roomTrans in _roomTransRepository.List().ToList() on room.Id equals roomTrans.RoomNonTransId
+            if (filters.ShowAvailable)
+                roomList= _roomRepository.List().Where(c => c.NoRoomQuota > 0).ToList();
+            else
+                roomList= _roomRepository.List().ToList();
+
+
+            if (filters.ShowDiscountsOnly)
+                roomList = roomList.Where(c => c.DisplayDeal == true && c.DealEndTime>DateTime.Now).ToList();
+            
+
+
+                var rooms = from room in roomList
+                            join roomTrans in _roomTransRepository.List().ToList() on room.Id equals roomTrans.RoomNonTransId
                         where roomTrans.LanguageId == CurrentLanguageId
                         select new { room.Id, room.DormitoryId, room.DormitoryBlockId, roomTrans.RoomName,
                             room.Price, room.PriceOld, room.ShowPrice, room.NoRoomQuota, room.RoomSize,
@@ -129,16 +141,21 @@ namespace Dau.Services.Domain.SearchResultService
                             room.DisplayDeal
                         };
 
-            var features = from feature in _featuresRepo.List().ToList()
+            var FeaturesToBeFiltered = _featuresRepo.List().ToList();
+       
+
+            var features = from feature in FeaturesToBeFiltered.ToList()
                            join featureTrans in _featuresTranslation.List().ToList() on feature.Id equals featureTrans.FeaturesNonTransId
                            where featureTrans.LanguageId == CurrentLanguageId
                            select new { feature.Id, featureTrans.FeatureName, feature.IconUrl };
 
+            
 
-            var roomsDormitoryBlock = from room in rooms.ToList()
+            var roomsDormitoryBlock =( from room in rooms.ToList()
                                       join dormBlock in dormitoryBlock.ToList() on room.DormitoryBlockId equals dormBlock.Id
                                       select new
                                       {
+                                         
                                           DormitoryBlockPublished = dormBlock.Published,
                                           DormitoryBlockName = dormBlock.Name,
                                           room.Id,
@@ -156,20 +173,29 @@ namespace Dau.Services.Domain.SearchResultService
                                           room.DealEndTime,
                                           room.DisplayNoRoomsLeft,
                                           room.DisplayDeal
-                                      };
-
-  
+                                      }).ToList();
 
 
 
-
-           var Images = from imageList in _imagesRepo.List().Distinct().ToList()
+            var Images = from imageList in _imagesRepo.List().Distinct().ToList()
                          join roomImage in _roomImageRepo.List().ToList() on imageList.Id equals roomImage.CatalogImageId
                         select new { imageList.ImageUrl, roomImage.RoomId};
 
 
             var LocationsOnCampus = _dropdownService.LocationOnCampus();
-            var dormitories = from dorm in _dormitoryRepository.List().ToList()
+            //dormitories filter applied here
+            var dormIdsList = new List<long>();
+            var dormfilteredList = new List<Dormitory>();
+
+            if (filters.DormitoryNameIds!=null){
+                dormIdsList = filters.DormitoryNameIds;
+
+                dormfilteredList = _dormitoryRepository.List().Where(c => dormIdsList.Contains(c.Id)).ToList();
+            }else{
+                dormfilteredList = _dormitoryRepository.List().ToList();
+            }
+  
+            var dormitories = from dorm in dormfilteredList
                               join dormTrans in _dormitoryTranslationRepository.List().ToList() on dorm.Id equals dormTrans.DormitoryNonTransId
                               where dormTrans.LanguageId == CurrentLanguageId && dorm.Published == true
                               select new
@@ -193,8 +219,15 @@ namespace Dau.Services.Domain.SearchResultService
                                 where dormTypeTrans.LanguageId == CurrentLanguageId
                                 select new { dormType.Id, dormTypeTrans.Title };
 
-            var dormitoryAndtype = from dorm in dormitories.ToList()
+            bool same = (filters.PrivateDormitories == filters.SchoolDormitories); //false true =false and false false= false, true true= true
+            var dormTypeIdsList = new List<long>();
+            if (filters.PrivateDormitories) dormTypeIdsList.Add(1);
+            if (filters.SchoolDormitories) dormTypeIdsList.Add(2); //adding the ids
+
+            //dormitoriestype filter applied here
+            var dormitoryAndtype = from dorm in dormitories.Where(c => dormTypeIdsList.Contains(c.DormitoryTypeId)).ToList()
                                    join dormType in dormitoryType.ToList() on dorm.DormitoryTypeId equals dormType.Id
+                                   
                                    select new 
                                    { dorm.Id,
                                       
@@ -203,6 +236,8 @@ namespace Dau.Services.Domain.SearchResultService
                                        DormitoryIconUrl = dorm.DormitoryLogoUrl,
                                        DormitorySeoFriendlyUrl = _seoRepo.List().ToList().Where(c => c.Id == dorm.DormitorySeoId).FirstOrDefault().SearchEngineFriendlyPageName, //use seo table
                                        RatingNo = dorm.RatingNo.ToString("N1"),
+                                       SortingRatingNo=dorm.RatingNo,
+
                                        RatingText = "Fantastic", //create a service that resolves this
                                        ReviewNo = _reviewRepo.List().Where(c => c.DormitoryId == dorm.Id).ToList().Count,
                                        Location = dorm.Location,
@@ -218,23 +253,37 @@ namespace Dau.Services.Domain.SearchResultService
 
 
                                    };
+       
+
 
             var dormtypeListToList = dormitoryAndtype.ToList();
             var roomDormitory = from room in roomsDormitoryBlock.ToList()
                                 join dorm in dormitoryAndtype.ToList() on room.DormitoryId equals dorm.Id
-                                select  new RoomResultViewModel
+
+                                where room.Price >= filters.PriceMin && room.Price <= filters.PriceMax //room price and area filter applied here
+                                      && room.RoomSize <= filters.RoomArea
+
+                                select new RoomResultViewModel
                                 {
                                     Features = (from roomFeature in _roomFeaturesRepo.List().ToList()
                                                 join feature in features.ToList() on roomFeature.FeaturesId equals feature.Id
-                                                where roomFeature.RoomId == room.Id && feature.IconUrl!=null
+                                                where roomFeature.RoomId == room.Id && feature.IconUrl != null
                                                 select new FeaturesViewModel
                                                 {
                                                     FeatureName = feature.FeatureName,
                                                     IconUrl = feature.IconUrl
                                                 }).Take(5).ToList(),
-            ImageUrls = _imageService.ImageSplitterList(Images.Where(d => d.RoomId == room.Id).Select(x => x.ImageUrl).ToList(), "_p6"),
+                                   FilteredFeatures=(from roomFeature in _roomFeaturesRepo.List().ToList()
+                                                      join feature in features.ToList() on roomFeature.FeaturesId equals feature.Id
+                                                      where roomFeature.RoomId == room.Id 
+                                                      select new FeaturesViewModel
+                                                      {FeatureId=feature.Id,
+                                                          FeatureName = feature.FeatureName,
+                                                          IconUrl = feature.IconUrl
+                                                      }).ToList(),
+                                    ImageUrls = _imageService.ImageSplitterList(Images.Where(d => d.RoomId == room.Id).Select(x => x.ImageUrl).ToList(), "_p6"),
                                     RoomId =room.Id,
-                                    GenderAllocation = (room.GenderAllocation.Length>12) ?room.GenderAllocation.Substring(0, 12)+"...": room.GenderAllocation,
+                                    GenderAllocation = room.GenderAllocation,
                                     DormitoryName = dorm.DormitoryName,
                                     DormitoryRoomBlock = room.DormitoryBlockName,
                                     RatingNo = dorm.RatingNo,
@@ -242,6 +291,8 @@ namespace Dau.Services.Domain.SearchResultService
                                     RatingText = "Fantastic",
                                     RoomName = room.RoomName,
                                     ReviewNo = dorm.ReviewNo,
+                                    SortingPrice=room.Price,
+                                    SortingRatingNO=dorm.SortingRatingNo,
                                     ShortDescription =dorm.ShortDescription,
                                     DormitoryStreetAddress = dorm.DormitoryStreetAddress,
                                     NumberOfRoomsLeft = room.NoRoomQuota,
@@ -259,17 +310,52 @@ namespace Dau.Services.Domain.SearchResultService
                                 };
 
 
-            List<RoomResultViewModel> modelList = roomDormitory.ToList();
-                
-                
-        
-            return modelList;
+            List<RoomResultViewModel> modelList;
+
+            if (filters.sortId == 2)
+            {//price
+                modelList = roomDormitory.OrderBy(c => c.SortingPrice).ToList();
+            }
+            else if(filters.sortId == 3)
+            {//rating
+                modelList = roomDormitory.OrderBy(c => c.SortingRatingNO).ToList();
+            }
+            else
+            {
+                modelList = roomDormitory.OrderBy(c => c.DormitoryName).ToList();
+
+                //a-z or anything else
+            }
+
+
+            var dummyModelList = new List<RoomResultViewModel>();
+
+
+            if (filters.FeaturesIds != null)
+            {
+
+
+                foreach (var item in modelList)
+                {
+                    var filT = item.FilteredFeatures.Where(c => filters.FeaturesIds.Contains(c.FeatureId)).ToList();
+
+                    if (filT != null && filT.Count > 0 && filters.FeaturesIds.Count == filT.Count)
+                    {
+                        dummyModelList.Add(item);
+                    }
+
+                }
+
+            }
+            else dummyModelList = modelList;
+            return dummyModelList;
         }
     }
 
 
     public class RoomResultViewModel
-    {
+    {public double SortingRatingNO { get; set; }
+public double SortingPrice { get; set; }
         public long RoomId { get; set; }
         public List<string> ImageUrls { get; set; }
         public string GenderAllocation { get; set; }
@@ -285,6 +371,8 @@ namespace Dau.Services.Domain.SearchResultService
         public int PercentageOff { get; set; }
         public bool DisplayNoRoomsLeft { get; set; }
         public List<FeaturesViewModel> Features { get; set; }
+        public List<FeaturesViewModel> FilteredFeatures { get; set; }
+
         
 
         public string DormitoryRoomBlock { get; set; }
@@ -311,6 +399,7 @@ namespace Dau.Services.Domain.SearchResultService
     }
     public class FeaturesViewModel
     {
+        public long FeatureId { get; set; }
         public string IconUrl { get; set; }
         public string FeatureName { get; set; }
     }
@@ -318,14 +407,17 @@ namespace Dau.Services.Domain.SearchResultService
     public class GetRoomResultViewModel
     {
         public string SectionId { get; set; }
-        public List<int> FeaturesIds { get; set; }
+        public List<long> FeaturesIds { get; set; }
         public int DormitoryTypeIds { get; set; }
-        public List<int> DormitoryNameIds { get; set; }
+        public List<long> DormitoryNameIds { get; set; }
         public double PriceMin { get; set; }
         public double PriceMax { get; set; }
         public double RoomArea { get; set; }
         public bool ShowAvailable { get; set; }
         public bool ShowDiscountsOnly { get; set; }
+        public bool PrivateDormitories { get; set; }
+        public bool SchoolDormitories { get; set; }
+        public int sortId { get; set; }
     }
 
 }

@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using Dau.Core.Domain.Logging;
 using Dau.Services.Logging;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using searchDormWeb.Areas.Admin.Models.System;
 
 namespace searchDormWeb.Areas.Admin.Controllers
 {
@@ -16,10 +18,12 @@ namespace searchDormWeb.Areas.Admin.Controllers
     public class SystemController : Controller
     {
         private readonly ILoggingService _loggingService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public SystemController(ILoggingService loggingService)
+        public SystemController(ILoggingService loggingService, IHttpContextAccessor httpContextAccessor)
         {
             _loggingService = loggingService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         // GET: System
@@ -28,7 +32,20 @@ namespace searchDormWeb.Areas.Admin.Controllers
         [HttpGet("[action]")]
         public IActionResult Information()
         {
-            return View("_Information");
+            var model = new SystemInformationVm
+            {
+                Version = "v.1.0.0",
+                OperatingSystem= System.Runtime.InteropServices.RuntimeInformation.OSDescription,
+                AspDotNetInfo = "v2.2",
+                IsFullTrustLevel= " True ",
+                ServerTimeZone= "W.Europe standard time",
+                ServerLocalTime= DateTime.UtcNow.ToString(),
+                CoordinateUniversalTime =DateTime.Now.ToString(),
+                CurrentUserTime=DateTime.Now.ToString(),
+                HttpHost = (_httpContextAccessor.HttpContext.Request.IsHttps) ? "https://" : "http://" + _httpContextAccessor.HttpContext.Request.Host.Value.ToString()
+
+        };
+            return View("_Information", model);
         }
 
         #endregion
@@ -440,5 +457,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
         public string Language { get; set; }
         public string EditPage { get; set; }
     }
+
+   
 
 }

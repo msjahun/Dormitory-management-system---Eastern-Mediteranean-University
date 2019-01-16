@@ -17,21 +17,23 @@ $.ajax({
 });
 
 
-$.ajax({
-    type: "POST",
-    url: location.origin + "/Dormitory/GetCommentsSection/" + dormitory_id,
-    data: {
-        SectionId: "comments_section"
-    },
-    success: function (result) {
-        //     alert(result);
-        $("#comments_section").html(result);
+function getCommentSection() {
+    $.ajax({
+        type: "POST",
+        url: location.origin + "/Dormitory/GetCommentsSection/" + dormitory_id,
+        data: {
+            SectionId: "comments_section"
+        },
+        success: function (result) {
+            //     alert(result);
+            $("#comments_section").html(result);
 
 
 
-    }
-});
-
+        }
+    });
+}
+getCommentSection();
 
 //alert(sessionStorage.getItem('label'));
         $.ajax({
@@ -296,7 +298,130 @@ $(window).scroll(function () {
     }
 });
 
+function getReviewBottomSection() {
 
+    $.ajax({
+        type: "POST",
+        url: location.origin + "/Dormitory/GetReviewBottomSection/" + dormitory_id,
+        data: {
+            SectionId: "_ReviewBottomSection"
+        },
+        success: function (result) {
+            //     alert(result);
+            $("#_ReviewBottomSection").html(result);
+
+            $("#sf1").hover(
+                function () {
+                    $(".sf").removeClass("voted");
+                    $(this).addClass("voted");
+                    reviewRatingNo = 2;
+                }
+            );
+
+            $("#sf2").hover(
+                function () {
+                    $(".sf").removeClass("voted");
+                    $("#sf1").addClass("voted");
+                    $(this).addClass("voted");
+                    reviewRatingNo = 4;
+                }
+            );
+
+            $("#sf3").hover(
+                function () {
+                    $(".sf").removeClass("voted");
+                    $(this).addClass("voted");
+                    $("#sf1").addClass("voted");
+                    $("#sf2").addClass("voted");
+                    reviewRatingNo = 6;
+                }
+            );
+
+            $("#sf4").hover(
+                function () {
+                    $(".sf").removeClass("voted");
+                    $(this).addClass("voted");
+                    $("#sf1").addClass("voted");
+                    $("#sf2").addClass("voted");
+                    $("#sf3").addClass("voted");
+                    reviewRatingNo = 8;
+                }
+            );
+
+            $("#sf5").hover(
+                function () {
+                    $(".sf").removeClass("voted");
+                    $(this).addClass("voted");
+                    $("#sf1").addClass("voted");
+                    $("#sf2").addClass("voted");
+                    $("#sf3").addClass("voted");
+                    $("#sf4").addClass("voted");
+                    reviewRatingNo = 10;
+                }
+            );
+
+
+
+            $("#sf1").click(
+                function () {
+                    $(".sf").removeClass("voted");
+                    reviewRatingNo = 0;
+
+                }
+            );
+
+
+            $("#SubmitReview").click(function () {
+                //replace div with loader then send ajax request
+
+                if ($("#GetReviewText").val() <= 0 || reviewRatingNo <= 0) {
+                    if ($("#GetReviewText").val() <= 0)
+                        $("#GetReviewText").attr("class", "form-control is-invalid");
+                    else
+                        $("#GetReviewText").attr("class", "form-control is-valid");
+
+                    if (reviewRatingNo <= 0)
+                        alert("Please select star rating");
+
+                } else {
+
+                    $("#GetReviewText").attr("class", "form-control is-valid");
+
+                    var loader = "<div class=\"text-center mt-5\"> <div class=\"lds-ring\"><div></div><div></div><div></div><div></div></div> </div>";
+                    $("#ReviewLoaderArea").html(loader);
+                    $.ajax({
+                        type: "POST",
+                        url: location.origin + "/Dormitory/AddReview/",
+                        data: {
+                            DormitoryId: dormitory_id,
+                            RatingNo: reviewRatingNo,
+                            RatingText: $("#GetReviewText").val()
+                        },
+                        success: function (result) {
+                            //     alert(result);
+                            if (result == true) {
+                                $("#ReviewLoaderArea").html("Added review successfully");
+                                getCommentSection();
+                                getReviewBottomSection();
+                            } else {
+                                $("#ReviewLoaderArea").html("Failed to add review");
+
+                            }
+
+
+                        }
+                    });
+
+                }
+            });
+
+
+        }
+    });
+
+}
+
+var reviewRatingNo = 0;
 var lock_ReviewBottomSection = true;
 $(window).scroll(function () {
     var hT = $('#_ReviewBottomSection').offset().top,
@@ -307,76 +432,8 @@ $(window).scroll(function () {
     if (wS > (hT + hH - wH) && lock_ReviewBottomSection) {
         //alert('I have scrolled to Highly Rated Dormitories');
         lock_ReviewBottomSection = false;
-
-        $.ajax({
-            type: "POST",
-            url: location.origin + "/Dormitory/GetReviewBottomSection/" + dormitory_id,
-            data: {
-                SectionId: "_ReviewBottomSection"
-            },
-            success: function (result) {
-                //     alert(result);
-                $("#_ReviewBottomSection").html(result);
-
-                $("#sf1").hover(
-                    function () {
-                        $(".sf").removeClass("voted");
-                        $(this).addClass("voted");
-                    }
-                );
-
-                $("#sf2").hover(
-                    function () {
-                        $(".sf").removeClass("voted");
-                        $("#sf1").addClass("voted");
-                        $(this).addClass("voted");
-                    }
-                );
-
-                $("#sf3").hover(
-                    function () {
-                        $(".sf").removeClass("voted");
-                        $(this).addClass("voted");
-                        $("#sf1").addClass("voted");
-                        $("#sf2").addClass("voted");
-                    }
-                );
-
-                $("#sf4").hover(
-                    function () {
-                        $(".sf").removeClass("voted");
-                        $(this).addClass("voted");
-                        $("#sf1").addClass("voted");
-                        $("#sf2").addClass("voted");
-                        $("#sf3").addClass("voted");
-                    }
-                );
-
-                $("#sf5").hover(
-                    function () {
-                        $(".sf").removeClass("voted");
-                        $(this).addClass("voted");
-                        $("#sf1").addClass("voted");
-                        $("#sf2").addClass("voted");
-                        $("#sf3").addClass("voted");
-                        $("#sf4").addClass("voted");
-                    }
-                );
-
-
-
-                $("#sf1").click(
-                    function () {
-                        $(".sf").removeClass("voted");
-                      
-                    }
-                );
-
-            }
-        });
-
-
-    }
+        getReviewBottomSection();
+        }
 });
 
 

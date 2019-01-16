@@ -73,7 +73,7 @@ namespace searchDormWeb.Controllers
             var DeleteItemFromCart = _bookingService.DeleteItemFromCart();
 
             
-            return PartialView("_bookingConfirmationPage", AddBookingSuccess && DeleteItemFromCart);
+            return PartialView(AddBookingSuccess && DeleteItemFromCart);
         }
 
         public IActionResult CheckoutPayment()

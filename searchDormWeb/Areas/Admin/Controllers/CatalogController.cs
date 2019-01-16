@@ -18,6 +18,7 @@ using System.Net.Http.Headers;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Dau.Services.Domain.ImageServices;
+using Dau.Services.Export;
 
 namespace searchDormWeb.Areas.Admin.Controllers
 {
@@ -35,6 +36,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
         private readonly IDropdownService _dropdownService;
         private readonly IHostingEnvironment _environment;
         private readonly IImageService _imageService;
+        private readonly IExportService _exportService;
 
         public CatalogController(
            IFeaturesService featuresService,
@@ -44,7 +46,8 @@ namespace searchDormWeb.Areas.Admin.Controllers
             IStringLocalizer Localizer,
             IDropdownService dropdownService,
             IHostingEnvironment IHostingEnvironment,
-            IImageService imageService)
+            IImageService imageService,
+             IExportService exportService)
         {
             _featuresService = featuresService;
             _roomService = roomService;
@@ -54,7 +57,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
             _dropdownService = dropdownService;
             _environment = IHostingEnvironment;
             _imageService = imageService;
-
+            _exportService = exportService;
         }
         
 
@@ -350,6 +353,35 @@ namespace searchDormWeb.Areas.Admin.Controllers
             return RedirectToAction("RoomEdit", "Catalog", new {  id, @section="picture"});
         }
 
+
+
+        [HttpGet("[action]")]
+        public ActionResult ExportRoomsExcel(int Id)
+        {
+            //if id==1, today
+            //id==2 //, last 7 days
+            //id= 3 this month
+            //var model = _exportService.getBookingExcel(id);
+            string pathToFile = _exportService.ExportRoomsToExcel(Id);
+
+
+            return RedirectToAction("", "Download", new { area = "", filename = pathToFile });
+
+        }
+        
+        [HttpGet("[action]")]
+        public ActionResult ExportDormitoryBlocksExcel(int Id)
+        {
+            //if id==1, today
+            //id==2 //, last 7 days
+            //id= 3 this month
+            //var model = _exportService.getBookingExcel(id);
+            string pathToFile = _exportService.ExportDormitoryBlocksToExcel(Id);
+
+
+            return RedirectToAction("", "Download", new { area = "", filename = pathToFile });
+
+        }
 
         #endregion
 

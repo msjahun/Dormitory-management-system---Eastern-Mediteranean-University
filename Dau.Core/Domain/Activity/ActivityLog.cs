@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dau.Core.Domain.Users;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -13,24 +14,24 @@ namespace Dau.Core.Domain.Activity
         //public DateTime CreatedTo { get; set; }
         //there is no need for these, it will just be used for filtering
 
-       
+       public string UserId { get; set; }
+        public User User { get; set; }
         public string IpAddress { get; set; }
 
-
   
-        public long ActivityLogTypeId { get; set; }
+        //public long ActivityLogTypeId { get; set; }
         //ActivityLogType table
+        public string ActivityLogType { get; set; }
 
-
-        public string UserGuid { get; set; }
+        
         //link to userTable, to keep track of the user that made changes, or just a username that lets us know who changed what
         // just add a field for use id
 
         
 
-        public string ActivityPerformed { get; set; }
+        public string ActivityPerformed { get; set; } //MessageAction
 
-        public string ActivityCategory { get; set; }
+        //public string ActivityCategory { get; set; }
 
         public DateTime CreatedDateTime { get; set; }
         //we'll probably need to add things link

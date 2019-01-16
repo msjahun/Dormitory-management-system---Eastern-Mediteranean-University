@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewData["Title"] = "ConfirmEmail";
+    Layout = "~/Views/Shared/_LayoutUserNew.cshtml";
+}
+
+
+<section class="slice slice-xl  d-flex align-items-center">
+    <div class="container ">
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <div class="text-center">
+
+                    @if (true)
+                    {
+                        <div class="icon icon-xl icon-shape icon-green rounded-circle">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        /**/
+                        <h6 class="h4 my-4">@Localizer["Email Verified successfully"]</h6>
+                        
+                        <a asp-controller="" asp-action="" class="btn btn-info shadow--hover mt-5">@Localizer["Go back to home page"]</a>
+                    }
+                    else
+                    {
+                        <div class="icon icon-xl icon-shape icon-red rounded-circle">
+                            <i class="fas fa-times"></i>
+                        </div>
+                        <h6 class="h4 my-4">@Localizer["Email confirmation failed"]</h6>
+                        <p class="px-5">
+                            @Localizer["We applogise for the inconvenience, you are unable to to confirm your email, please try again"]
+                        </p>
+                        <a asp-controller="Search" asp-action="Results" class="btn btn-info shadow--hover mt-5">@Localizer["Go to dormitories"]</a>
+
+
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+

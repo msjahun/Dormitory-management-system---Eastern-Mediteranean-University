@@ -1,4 +1,5 @@
 ﻿using Dau.Core.Domain.System;
+using Dau.Core.Event;
 using Dau.Data;
 using Dau.Data.Repository;
 using Microsoft.EntityFrameworkCore;
@@ -31,8 +32,7 @@ namespace Dau.Services.Email
             var EnableSSl = true;
             var SmtpServer = "smtp-mail.outlook.com";
 
-            var ToEmail = "msjahun@live.com";
-            var FromEmail = "msjahun@live.com";
+          
             
 
             SmtpClient client = new SmtpClient(SmtpServer);
@@ -63,35 +63,72 @@ namespace Dau.Services.Email
             {
                 var updateinfo = _dbContext.MessageQueue.Where(c=>c.Id==message.Id).FirstOrDefault();
                 updateinfo.SendAttempts = updateinfo.SendAttempts + 1;
-                updateinfo.FromAddress = FromEmail;
-                updateinfo.ToName = ToEmail;
-                updateinfo.ReplyTo = FromEmail;
-                updateinfo.ReplyToName = FromEmail;// consider updating these
+                updateinfo.FromAddress = ClientEmail;
+                updateinfo.ToName = message.ToName;
+                updateinfo.ReplyTo = ClientEmail;
+                updateinfo.ReplyToName = ClientEmail;// consider updating these
                 try { 
                 MailMessage mailMessage = new MailMessage();
-                mailMessage.From = new MailAddress(FromEmail);
-                mailMessage.To.Add(ToEmail);
+                mailMessage.From = new MailAddress(ClientEmail);
+                mailMessage.To.Add(message.ToAddress);
                     mailMessage.Body = message.Body;
                 mailMessage.Subject = message.Subject;
 
                 client.Send(mailMessage);
                     updateinfo.IsSent = true;
-                    updateinfo.ToAddress = (ToEmail);
+                    updateinfo.ToAddress = (message.ToAddress);
                     updateinfo.SentOn = DateTime.Now;
-                    updateinfo.FromAddress = (FromEmail);
-                    
-                }
+                    updateinfo.FromAddress = (ClientEmail);
+                        _dbContext.SaveChanges();
+
+                        LogEvent(new EventLogger
+                        {
+                            EventName = "sent Email",
+                            EventDescription = "Sent email to " + updateinfo.ToAddress,
+                            EventParameters = "Subject :" + message.Subject + " Body:" + message.Body
+                        });
+
+                    }
                 catch
                 {
                     updateinfo.IsSent = false;
-                    updateinfo.ToAddress = (ToEmail);
-                    updateinfo.FromAddress = (FromEmail);
-                }
+                    updateinfo.ToAddress = (message.ToAddress);
+                    updateinfo.FromAddress = (ClientEmail);
+                     
+
+
                 _dbContext.SaveChanges();
-             
-            }
+
+                        LogEvent(new EventLogger
+                        {
+                            EventName = "Failed to send Email",
+                            EventDescription = "Sent email to " + updateinfo.ToAddress,
+                            EventParameters = "Subject :" + message.Subject + " Body:" + message.Body
+                        });
+
+                    }
+
+                }
             }
 
         }
+
+
+        private void LogEvent(EventLogger logger)
+        {
+            if (logger != null)
+            {
+                logger.CreatedOn = DateTime.Now;
+                using (IServiceScope scope = _provider.CreateScope())
+                {
+                    var _dbContext = scope.ServiceProvider.GetRequiredService<Fees_and_facilitiesContext>();
+                    _dbContext.EventLogger.Add(logger);
+                    _dbContext.SaveChanges();
+                }
+                   
+                
+            }
+        }
+
     }
 }

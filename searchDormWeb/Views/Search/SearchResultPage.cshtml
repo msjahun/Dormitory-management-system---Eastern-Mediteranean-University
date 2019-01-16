@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = Localizer["SearchResultPage"];
     Layout = "~/Views/Shared/_LayoutUserNew.cshtml";
+    bool showrooms =(bool) ViewData["ShowRooms"];
 }
 
 
@@ -84,11 +85,15 @@
     <script src="@Url.Content("~/viewsjs/Public")/SearchResultPage.js"></script>
 
     <script>
-
+        
+           
+         
 
         $('.swiper_dormitory_image_fill').imagefill();
-        function sortingFunc() {
-            //  alert(event.srcElement.id);
+        function sortingFunc(Id) {
+                //alert(event.srcElement.id
+                //+" "+Id);
+                sortId = Id;
 
             $('.sortingBtns').removeClass('btn-warning');
             $('.sortingBtns').removeClass('btn-outline-warning');

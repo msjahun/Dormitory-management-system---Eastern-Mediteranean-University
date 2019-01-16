@@ -29,27 +29,7 @@ namespace Dau.Data.Mapping.Activity
                 .IsUnicode(false);
 
             //int
-            builder.Property(e => e.ActivityLogTypeId).HasColumnName("ActivityLogTypeId");
-
-            builder.Property(e => e.UserGuid)
-            .IsRequired()
-            .HasColumnName("UserGuid")
-            .HasMaxLength(256)
-            .IsUnicode(false);
-
-
-            builder.Property(e => e.ActivityPerformed)
-            .IsRequired()
-            .HasColumnName("ActivityPerformed")
-            .HasMaxLength(256)
-            .IsUnicode(false);
-
-            builder.Property(e => e.ActivityCategory)
-         
-            .HasColumnName("ActivityCategory")
-            .HasMaxLength(100)
-            .IsUnicode(false);
-
+          
 
             builder.Property(e => e.CreatedDateTime)
                  .HasColumnName("CreatedDateTime")

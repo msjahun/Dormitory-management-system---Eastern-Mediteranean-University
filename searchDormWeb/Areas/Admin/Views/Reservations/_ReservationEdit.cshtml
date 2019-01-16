@@ -1,8 +1,9 @@
-﻿@using searchDormWeb.Areas.Admin.Models.Reservation
+﻿@using Dau.Services.Domain.BookingService
 @model ReservationEdit
 @{
     ViewData["Title"] = Localizer["Edit Booking"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+    var item = Model;
 }
 
 
@@ -37,9 +38,9 @@
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#tab_3" data-toggle="tab" aria-expanded="true">@Localizer["Info"]</a></li>
-                    <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">@Localizer["Billing Info"]</a></li>
+                    <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">@Localizer["Student Info"]</a></li>
                     <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">@Localizer["Room"]</a></li>
-                    <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">@Localizer["Order notes"]</a></li>
+                    <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">@Localizer["Booking notes"]</a></li>
                 </ul>
                 <div class="tab-content">
                     <!-- /.tab-pane -->
@@ -54,9 +55,22 @@
                                     <div class="form-group">
                                         <dau-label asp-for="BookingStatus"></dau-label>
                                         <div class="col-sm-8">
-                                            <bold>Pending</bold>
-                                            <button class="btn btn-danger btn-flat"> @Localizer["Cancel booking"]</button>
-                                            <button class="btn btn-primary btn-flat"> @Localizer["Change status"]</button>
+                                            <bold>@item.BookingStatus </bold><br /><br />
+                                            <button type="button" onclick="ChangeBookingStatus(3)" class="btn btn-danger btn-flat"> @Localizer["Cancel booking"]</button>
+                                            <div class="btn-group">
+                                               <button type="button" class="btn btn-primary btn-flat dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    @Localizer["Change status"]   <span class="caret"></span>
+                                                    <span class="sr-only">@Localizer["Toggle Dropdown"]</span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a onclick="ChangeBookingStatus(1)">@Localizer["Complete"]</a></li>
+                                                    @*<li><a onclick="ChangeBookingStatus(4)">@Localizer["Processing"]</a></li>*@
+                                                    <li><a onclick="ChangeBookingStatus(2)">@Localizer["Pending"]</a></li>
+                                                    <li><a onclick="ChangeBookingStatus(3)">@Localizer["Cancel booking"]</a></li>
+                                                </ul>
+                                            </div>
+
+
                                         </div>
 
                                     </div>
@@ -64,7 +78,7 @@
                                     <div class="form-group">
                                         <dau-label asp-for="BookingOrderNumber"></dau-label>
                                         <div class="col-sm-8">
-                                            <p>123343443</p>
+                                            <p>@item.BookingOrderNumber</p>
                                         </div>
 
                                     </div>
@@ -74,7 +88,7 @@
                                     <div class="form-group">
                                         <dau-label asp-for="Dormitory"></dau-label>
                                         <div class="col-sm-8">
-                                            <p>Alfam dormitories</p>
+                                            <p>@item.Dormitory</p>
                                         </div>
 
                                     </div>
@@ -91,9 +105,9 @@
                                 <div class="box-body">
 
                                     <div class="form-group">
-                                        <dau-label asp-for="Customer"></dau-label>
+                                        <dau-label asp-for="Student"></dau-label>
                                         <div class="col-sm-8">
-                                            <a>thandisilen@gmail.com</a>
+                                            <a href="mailto:@item.StudentEmail">@item.StudentEmail</a>
                                         </div>
 
                                     </div>
@@ -101,9 +115,9 @@
 
 
                                     <div class="form-group">
-                                        <dau-label asp-for="CustomerIpAddress"></dau-label>
+                                        <dau-label asp-for="StudentIpAddress"></dau-label>
                                         <div class="col-sm-8">
-                                            <p>194.27.73.30</p>
+                                            <p>@item.StudentIpAddress</p>
                                         </div>
 
                                     </div>
@@ -111,7 +125,7 @@
                                     <div class="form-group">
                                         <dau-label asp-for="BookingOrderSubtotal"></dau-label>
                                         <div class="col-sm-8">
-                                            <p>$18.00</p>
+                                            <p>@item.BookingOrderSubtotal</p>
                                         </div>
 
                                     </div>
@@ -120,15 +134,15 @@
                                     <div class="form-group">
                                         <dau-label asp-for="BookingFee"></dau-label>
                                         <div class="col-sm-8">
-                                            <p>$0.00</p>
+                                            <p>@item.BookingFee</p>
                                         </div>
 
                                     </div>
 
                                     <div class="form-group">
-                                        <dau-label asp-for="OrderTotal"></dau-label>
+                                        <dau-label asp-for="BookingTotal"></dau-label>
                                         <div class="col-sm-8">
-                                            <p>$18.00</p>
+                                            <p>@item.BookingTotal</p>
                                         </div>
 
                                     </div>
@@ -136,20 +150,14 @@
                                     <div class="form-group">
                                        <dau-label asp-for="Profit"></dau-label>
                                         <div class="col-sm-8">
-                                            <p>$4.30</p><button class="btn btn-primary">@Localizer["Edit order totals"]</button>
+                                            <p>@item.Profit</p><button class="btn btn-primary">@Localizer["Edit order totals"]</button>
                                         </div>
 
                                     </div>
 
 
 
-                                    <div class="form-group">
-                                        <dau-label asp-for="PaymentMethod"></dau-label>
-                                        <div class="col-sm-8">
-                                            <p>@Localizer["Upload payment method (UPM)"]</p>
-                                        </div>
-
-                                    </div>
+                               
 
                                 </div>
                                 <!-- /.box-body -->
@@ -164,20 +172,43 @@
                                 <!-- form start -->
 
                                 <div class="box-body">
+                                    <div class="form-group">
+                                        <dau-label asp-for="PaymentMethod"></dau-label>
+                                        <div class="col-sm-8">
+                                            @if(!string.IsNullOrEmpty(item.ReceiptUrl) && !string.IsNullOrWhiteSpace(item.ReceiptUrl)) { 
+                                            <img id="ImagePlaceholder" src="@item.ReceiptUrl" height="300">
 
+                                            <p><a href="@item.ReceiptUrl" target="_blank">@Localizer["Download receipt"]</a></p>
+
+                                            <button class="btn btn-danger btn-flat"> @Localizer["Request for receipt reupload"]</button>
+                                            }
+                                            else { <p>@Localizer["Receipt has not been uploaded"]</p>}
+                                        </div>
+
+                                    </div>
                                     <div class="form-group">
                                         <dau-label asp-for="PaymentStatus"></dau-label>
                                         <div class="col-sm-8">
-                                            <p>Pending </p><button class="btn btn-primary">@Localizer["Mark as paid"]</button>
+                                            <p>@item.PaymentStatus </p><button type="button" onclick="ChangePaymentStatus(1)" class="btn btn-success">@Localizer["Mark as paid"]</button>
+                                            <button type="button" class="btn btn-primary btn-flat dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                @Localizer["Change status"]   <span class="caret"></span>
+                                                <span class="sr-only">@Localizer["Toggle Dropdown"]</span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a onclick="ChangePaymentStatus(1)">@Localizer["Paid"]</a></li>
+                                                <li><a onclick="ChangePaymentStatus(2)">@Localizer["Pending"]</a></li>
+                                                @*<li><a onclick="ChangePaymentStatus(4)">@Localizer["In complete"]</a></li>*@
+                                                <li><a onclick="ChangePaymentStatus(3)">@Localizer["Not paid"]</a></li>
+                                            </ul>
                                         </div>
 
                                     </div>
 
 
                                     <div class="form-group">
-                                       <dau-label asp-for="CreatedOn"></dau-label>
+                                        <dau-label asp-for="CreatedOn"></dau-label>
                                         <div class="col-sm-8">
-                                            <p>8/22/2018 2:33:16 AM</p>
+                                            <p>@item.CreatedOn</p>
                                         </div>
 
                                     </div>
@@ -211,59 +242,58 @@
                                 <div class="box-body">
 
                                     <div class="form-group">
-                                      <dau-label asp-for="BillingAddress" ></dau-label>
+                                      <dau-label asp-for="StudentInformation" ></dau-label>
                                         <div class="col-sm-4">
                                             <table id="example2" class="table table-bordered table-striped">
 
                                                 <tbody>
                                                     <tr>
                                                         <td>@Localizer["Full name"]</td>
-                                                        <td>Musa Jahun</td>
+                                                        <td>@item.StudentName</td>
                                                     </tr>
 
                                                     <tr>
                                                         <td>@Localizer["Email"] </td>
-                                                        <td>msjahun@live.com</td>
+                                                        <td><a href="mailto:@item.StudentEmail">@item.StudentEmail</a></td>
                                                     </tr>
 
                                                     <tr>
                                                         <td>@Localizer["Phone"] </td>
-                                                        <td>+905338264432</td>
+                                                        <td>@item.StudentPhoneNumber</td>
                                                     </tr>
                                                     <tr>
                                                         <td>@Localizer["Address 1"] </td>
-                                                        <td>Eastern Mediterranean University</td>
+                                                        <td>@item.StudentAddress1</td>
                                                     </tr>
 
                                                     <tr>
                                                         <td>@Localizer["Address 2"] </td>
-                                                        <td>North Cyprus</td>
+                                                        <td>@item.StudentAddress2</td>
                                                     </tr>
 
                                                     <tr>
                                                         <td>@Localizer["City"] </td>
-                                                        <td>Famagusta</td>
+                                                        <td>@item.City</td>
                                                     </tr>
 
                                                     <tr>
                                                         <td>@Localizer["State/ province"] </td>
-                                                        <td></td>
+                                                        <td>@item.StateProvince</td>
                                                     </tr>
 
                                                     <tr>
                                                         <td>@Localizer["Zip / postal code"] </td>
-                                                        <td>99450</td>
+                                                        <td>@item.ZipCode</td>
                                                     </tr>
 
                                                     <tr>
                                                         <td>@Localizer["Country"] </td>
-                                                        <td>Turkey</td>
+                                                        <td>@item.Country</td>
                                                     </tr>
                                                 </tbody>
 
                                             </table>
-                                            <button type="submit" form="addForm" class="btn btn-primary">  @Localizer["Edit"]</button>
-
+                                         
                                         </div>
 
                                     </div>
@@ -300,7 +330,7 @@
                                     <tbody></tbody>
 
                                 </table>
-                                <button type="submit" form="addForm" class="btn btn-primary"> <i class="fa fa-plus-square"></i> @Localizer["Add room"]</button>
+                                @*<button type="submit" form="addForm" class="btn btn-primary"> <i class="fa fa-plus-square"></i> @Localizer["Add room"]</button>*@
 
                             </div>
                         </div>
@@ -333,21 +363,21 @@
                                         <tbody>
                                             <tr>
                                                 <td>8/22/2018 2:33:20 AM</td>
-                                                <td>"Order placed" email(to customer) has been queued. Queued email identifier: 466</td>
+                                                <td>"Placed Booking" email(to customer) has been queued. Queued email identifier: 466</td>
                                                 <td>No file attached</td>
                                                 <td><i style="color:red;" class="fa fa-times"></i></td>
                                                 <td><button class="btn btn-default"><i class="fa fa-times"></i> Delete</button></td>
                                             </tr>
                                             <tr>
                                                 <td>8/22/2018 2:33:20 AM</td>
-                                                <td>"Order placed" email(to customer) has been queued. Queued email identifier: 466</td>
+                                                <td>"Placed Booking" email(to customer) has been queued. Queued email identifier: 466</td>
                                                 <td>No file attached</td>
                                                 <td><i style="color:red;" class="fa fa-times"></i></td>
                                                 <td><button class="btn btn-default"><i class="fa fa-times"></i> Delete</button></td>
                                             </tr>
                                             <tr>
                                                 <td>8/22/2018 2:33:20 AM</td>
-                                                <td>"Order placed" email(to customer) has been queued. Queued email identifier: 466</td>
+                                                <td>"Placed Booking" email(to customer) has been queued. Queued email identifier: 466</td>
                                                 <td>No file attached</td>
                                                 <td><i style="color:red;" class="fa fa-times"></i></td>
                                                 <td><button class="btn btn-default"><i class="fa fa-times"></i> Delete</button></td>
@@ -393,12 +423,12 @@
 
                                     <div class="form-group">
                               
-                                        <dau-label asp-for="orderNotesTab.DisplayToCustomer"></dau-label>
+                                        <dau-label asp-for="orderNotesTab.DisplayToStudent"></dau-label>
                                         <div class="col-sm-8">
-                                            <input asp-for="orderNotesTab.DisplayToCustomer" type="checkbox">
+                                            <input asp-for="orderNotesTab.DisplayToStudent" type="checkbox">
                                             <p>Check this option to display to customer</p>
                                         </div>
-                                        <span asp-validation-for="orderNotesTab.DisplayToCustomer"></span>
+                                        <span asp-validation-for="orderNotesTab.DisplayToStudent"></span>
 
                                     </div>  
                                     
@@ -474,6 +504,74 @@
     <!-- AdminLTE for demo purposes -->
     <script src="@Url.Content("~/Content/")dist/js/demo.js"></script>
     <script>
+
+        function ChangeBookingStatus(bookingStatusId) {
+           // alert("change bookingId " +@item.BookingOrderNumber+ " with to bookingStatus " + bookingStatusId);
+
+            var bookingId= @item.BookingOrderNumber;
+                       var CancelBookingId = 3;
+            var CompleteBookingId = 1;
+            if (bookingStatusId == CancelBookingId) {
+              var r = confirm("@Localizer["Are you sure you want to cancel booking?"]");
+                    if (r == false) {
+                        return;
+         }}
+                            $.ajax({
+                type: "POST",
+                                url: "/Admin/Reservations/ChangeBookingStatus",
+                data: {
+                     "BookingId": bookingId,
+                    "newBookingStatusId": bookingStatusId,
+
+
+                },
+                success: function (result) {
+                    if (result == true) {
+                        //relad page
+                        location.reload();
+}
+
+                    else 
+                                document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-danger alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> @Localizer["An error was encountered, unable to change booking status."]</div>";
+                
+                    
+                }
+            });
+        }
+
+           function ChangePaymentStatus(paymentStatusId) {
+         //      alert("change bookingId " +@item.BookingOrderNumber+ " with to paymentStatus" + paymentStatusId);
+
+                       var bookingId= @item.BookingOrderNumber;
+                       var NotPaidPaymentStatus = 3;
+            var CompleteBookingId = 1;
+               if (paymentStatusId == NotPaidPaymentStatus) {
+              var r = confirm("@Localizer["Are you sure You want to mark booking as not paid?"]");
+                    if (r == false) {
+                        return;
+         }}
+                            $.ajax({
+                type: "POST",
+                                url: "/Admin/Reservations/ChangePaymentStatus",
+                data: {
+                     "BookingId": bookingId,
+                    "newpaymentStatusId": paymentStatusId,
+
+
+                },
+                success: function (result) {
+                    if (result == true) {
+                        //relad page
+                        location.reload();
+}
+
+                    else 
+                                document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-danger alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> @Localizer["An error was encountered, unable to change payment status."]</div>";
+                
+                    
+                }
+            });
+        }
         $(function () {
 
 

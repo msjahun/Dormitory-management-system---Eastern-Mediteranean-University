@@ -3,6 +3,7 @@ using Dau.Core.Domain.EmuMap;
 using Dau.Core.Domain.Feature;
 using Dau.Data.Repository;
 using Dau.Services.Languages;
+using Dau.Services.Security;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Localization;
 using System;
@@ -14,6 +15,7 @@ namespace Dau.Services.Domain.DropdownServices
 {
     public class DropdownService : IDropdownService
     {
+        private readonly IUserRolesService _userRolesService;
         private readonly IStringLocalizer _localizer;
         private readonly IRepository<DormitoryBlock> _dormitoryBlockRepo;
         private readonly IRepository<DormitoryBlockTranslation> _dormitoryBlockTransRepo;
@@ -47,8 +49,10 @@ namespace Dau.Services.Domain.DropdownServices
             IRepository<MapSectionTranslation> mapSectionTranslationRepo,
             IRepository<MapSectionCategory> mapSectionCategoryRepo,
             IRepository<MapSectionCategoryTranslation> mapSectionCategoryTranslationRepo,
-            IStringLocalizer Localizer)
+            IStringLocalizer Localizer,
+             IUserRolesService userRolesService)
         {
+            _userRolesService = userRolesService;
             _localizer = Localizer;
             _dormitoryBlockRepo = dormitoryBlockRepo;
             _dormitoryBlockTransRepo = dormitoryBlockTransRepo;
@@ -132,7 +136,7 @@ namespace Dau.Services.Domain.DropdownServices
         public List<SelectListItem> GetDormitoryBlockByDormitoryIdDropdown(long DormitoryId)
         {
             var CurrentLanguageId = _languageService.GetCurrentLanguageId();
-            var dormitoryBlock = from dormBlock in _dormitoryBlockRepo.List().ToList()
+            var dormitoryBlock = from dormBlock in _dormitoryBlockRepo.List().Where(c => _userRolesService.RoleAccessResolver().Contains(c.DormitoryId)).ToList()
                                  join dormBlockTrans in _dormitoryBlockTransRepo.List().ToList() on dormBlock.Id equals dormBlockTrans.DormitoryBlockNonTransId
                                  where dormBlockTrans.LanguageId == CurrentLanguageId && dormBlock.DormitoryId==DormitoryId
                                  orderby dormBlock.DisplayOrder
@@ -150,7 +154,7 @@ namespace Dau.Services.Domain.DropdownServices
         public List<SelectListItem> Dormitories()
         {
             var CurrentLanguageId = _languageService.GetCurrentLanguageId();
-            var dormitory = from dorm in _dormitoryRepo.List().ToList()
+            var dormitory = from dorm in _dormitoryRepo.List().Where(c => _userRolesService.RoleAccessResolver().Contains(c.Id)).ToList()
                             join dormTrans in _dormitoryTransRepo.List().ToList() on dorm.Id equals dormTrans.DormitoryNonTransId
                             where dormTrans.LanguageId == CurrentLanguageId
                             select new SelectListItem

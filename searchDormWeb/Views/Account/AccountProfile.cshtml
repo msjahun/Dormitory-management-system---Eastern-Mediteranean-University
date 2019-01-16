@@ -4,6 +4,14 @@
     Layout = "~/Views/Shared/_LayoutMyAccount.cshtml";
 }
 
+@using Microsoft.AspNetCore.Identity
+@using Dau.Core.Domain.Users;
+@using Dau.Services.Users;
+@using Dau.Services.Domain.BookingService;
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@inject IUsersService _userService
+@inject IBookingService _bookingService
 <div class="col-lg-9">
     <!-- Change avatar -->
     <!-- Change avatar -->
@@ -13,11 +21,20 @@
             <div class="row row-grid align-items-center">
                 <div class="col-lg-8">
                     <div class="media align-items-center">
-                        <a href="#" class="avatar avatar-lg rounded-circle mr-3">
-                            <img alt="Image placeholder" src="https://avatars2.githubusercontent.com/u/19820517?s=460&v=4">
-                        </a>
+
+                        @if (_userService.GetUserPhotoUrl(SignInManager.UserManager.GetUserId(User)) == null)
+                        {
+                           
+                        <a href="#" class="avatar avatar-lg rounded-circle mr-3"> <i class="fas fa-user-circle fa-2x"></i> </a>
+                        }
+                        else
+                        { <a href="#" class="avatar avatar-lg rounded-circle mr-3">
+                                <img alt="Image placeholder" src="@_userService.GetUserPhotoUrl(SignInManager.UserManager.GetUserId(User))">
+                            </a>
+                        }
+                        
                         <div class="media-body">
-                            <h5 class="text-white mb-0">Musa Jahun</h5>
+                            <h5 class="text-white mb-0">@_userService.GetFirstLastNames(SignInManager.UserManager.GetUserId(User))</h5>
                             <div>
                                 <form>
                                     <input type="file" name="file-1[]" id="file-1" class="custom-input-file custom-input-file-link" data-multiple-caption="{count} files selected" multiple />
@@ -124,20 +141,15 @@
                     <div class="form-group">
                         <label class="form-control-label">@Localizer["Country"]</label>
                         <select class="form-control" data-toggle="select" title="Country" data-live-search="true" data-live-search-placeholder="@Localizer["Country"]">
-                            <option>Romania</option>
-                            <option>United Stated</option>
-                            <option>France</option>
-                            <option>Greece</option>
-                            <option>Italy</option>
-                            <option>Norway</option>
+                       
                         </select>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Description -->
-      
-    
+
+
         <div class="pt-5 mt-5 delimiter-top">
             <button type="button" class="btn btn-sm btn-primary">@Localizer["Save changes"]</button>
             <button type="button" class="btn btn-link">@Localizer["Cancel"]</button>

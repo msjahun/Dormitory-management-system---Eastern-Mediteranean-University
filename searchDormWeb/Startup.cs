@@ -56,6 +56,8 @@ using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 using System;
 using Dau.Services.TaskSchedular.Scheduling;
 using Dau.Services.TaskSchedular;
+using Dau.Services.Export;
+using Dau.Services.Event;
 //this might give issues in production
 
 namespace searchDormWeb
@@ -157,6 +159,9 @@ namespace searchDormWeb
 
             services.AddScoped<ILanguageService, LanguageService>();
             services.AddScoped< ILocationService, LocationService> ();
+            services.AddScoped <  IExportService,ExportService > ();
+            services.AddScoped <  IMessageQueueService,MessageQueueService > ();
+            services.AddScoped <  IEventService,EventService > ();
 
             var connectionString = Configuration.GetValue<string>("DbSettings:SqlConnectionString");
             services.AddDbContext<Fees_and_facilitiesContext>(options => options.UseSqlServer(connectionString));

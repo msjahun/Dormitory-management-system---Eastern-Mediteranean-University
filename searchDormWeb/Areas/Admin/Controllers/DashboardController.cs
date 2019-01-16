@@ -450,34 +450,20 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
         [HttpPost("[action]")]
-        public ActionResult GetBookingsChart()
+        public ActionResult GetBookingsChart(long Id)
         {
-            Random rnd = new Random();
-            int randomNumber = rnd.Next(100);
-            var data = new Charts
-            {
-                Labels = new List<string> { "3 Saturday", "4 Sunday", "5 Monday", "6 Tuesday", "7 Wednesday", "8 Thursday", "9 Friday", "10 Saturday" },
-                Data = new List<int> { rnd.Next(100), rnd.Next(100), rnd.Next(100), rnd.Next(100), rnd.Next(100), rnd.Next(100), rnd.Next(100), rnd.Next(100) }
-
-
-       
-        };
+            //long Id = 1;//1 day, 2 month, 3 year
+            var data =  _bookingService.GetBookingsChartById(Id);
             return Json(data);
         }
 
 
 
         [HttpPost("[action]")]
-        public ActionResult GetnewCustomersChart()
+        public ActionResult GetnewCustomersChart(long Id)
         {
-            Random rnd = new Random();
-            int randomNumber = rnd.Next(57);
-            var data = new Charts
-            {
-                Labels = new List<string> { "3 Saturday", "4 Sunday", "5 Monday", "6 Tuesday", "7 Wednesday", "8 Thursday", "9 Friday", "10 Saturday" },
-                Data = new List<int> { rnd.Next(57), rnd.Next(57), rnd.Next(57), rnd.Next(57), rnd.Next(57), rnd.Next(57), rnd.Next(57), rnd.Next(57) }
-
-            };
+            //long Id = 1;//1 day, 2 month, 3 year
+            var data = _usersService.GetnewCustomersChart(Id);
             return Json(data);
         }
 
@@ -487,11 +473,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
 
-    public class Charts
-    {
-        public List<string> Labels { get; set; }
-        public List<int> Data { get; set; }
-    }
+   
 
     public class BookingTotalsTable
     {

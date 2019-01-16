@@ -181,9 +181,73 @@
                     });
 
 
+                    $("#UploadReceiptBtn").click(function () {
+                        alert("I have been summoned");
+                    });
+
+                                    function readURL(input) {
+
+                           if (input.files && input.files[0]) {
+                               var reader = new FileReader();
+
+                               reader.onload = function (e) {
+                                   if (input.files[0].size > 3145728) {
+                            $('#ImagePlaceholder').attr('src', '/Content/dist/img/default-image_100.png');
+
+                                   }
+
+                                   else
+                        $('#ImagePlaceholder').attr('src', e.target.result);
+
+                               }
+
+                               reader.readAsDataURL(input.files[0]);
+                           }
+                       }
+
+                    $("#file-2").change(function () {
+                           readURL(this); //resolveUploadFields(true);
+                           if (this.files[0].size > 3145728) {
+                               alert("@Localizer["file size too big, please upload something less than 3 Mb"]");
+                               document.getElementById("ImageInput").value = "";
+                           }
+
+
+
+
+                       });
+
                     $("#CompleteBooking").click(function () {
 
-                        loadConfirmationPage();
+                        if ($('#radio-payment-upload-now').is(':checked') || $('#radio-payment-upload-later').is(':checked')) {
+                            $("#warningMessage").html("");
+
+                            if ($('#radio-payment-upload-now').is(':checked')) {
+                                if ($("#file-2").get(0).files.length === 0) {
+                                    $("#warningMessage").html("Please upload a file");
+                                    return;
+                                }
+
+                                $('#bookingForm').attr('action', "/Booking/BookingConfirmation").submit();
+
+
+                            } else {
+                                $('#bookingForm').attr('action', "/Booking/BookingConfirmation").submit();
+                                //alert("ready to submit 2");
+                            }
+
+                          
+                          
+                            //if paynow check to see the user has really uploaded an image,
+                            //if not ask him to upload an image
+
+                            //if user checked upload later and 
+                        } else {
+                            var warning1 = "Please select one of the payment options before you proceed";
+                            $("#warningMessage").html(warning1);
+                        }
+                       
+                      //make sure file is uploaded and payment method is selected
                     });
 
                 }

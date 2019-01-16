@@ -35,8 +35,14 @@ namespace searchDormWeb.Controllers
             _searchService=searchService;
         }
 
-        public IActionResult Results()
+        public IActionResult Results(string From)
         {
+            ViewData["ShowRooms"]=false;
+            if(From!=null )
+            {
+                if(From.Equals("Dormitory"))
+                    ViewData["ShowRooms"] = true;
+            }
             return View("SearchResultPage");
         }
         

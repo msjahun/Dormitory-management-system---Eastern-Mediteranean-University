@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.Reservation
 @model ReservationsVm
 @{
-    ViewBag.Title = Localizer["Reservations List"];
+    ViewBag.Title = Localizer["Booking List"];
     Layout = "../shared/_LayoutAdmin.cshtml";
 }
 
@@ -9,6 +9,7 @@
 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
+   
     <section class="content-header">
         <h1>
             @ViewBag.Title
@@ -20,34 +21,36 @@
 
 
                     <div class="btn-group">
-                        <button type="button" class="btn btn-success btn-flat"><i class="fa fa-download"></i> @Localizer["Export"]</button>
+                        <button type="button" class="btn btn-success btn-flat dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-download"></i> @Localizer["Export"]</button>
                         <button type="button" class="btn btn-success btn-flat dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <span class="caret"></span>
                             <span class="sr-only">@Localizer["Toggle Dropdown"]</span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
+                            <li><a href="ExportExcel/?Id=1">@Localizer["Export all"]</a></li>
+                            <li><a href="ExportExcel/?Id=2">@Localizer["Export selected"]</a></li>
+                            <li><a href="ExportExcel/?Id=3">@Localizer["Export today"]</a></li>
                             <li class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
+                            <li><a href="ExportExcel/?Id=4">@Localizer["Export last {0} days", 7]</a></li>
+                            <li><a href="ExportExcel/?Id=5">@Localizer["Export last {0} days", 30]</a></li>
                         </ul>
                     </div>
 
 
 
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary btn-flat"><i class="fa fa-download"></i> @Localizer["Print PDF invoice"]</button>
+                        <button type="button" class="btn btn-primary btn-flat dropdown-toggle"><i class="fa fa-download"></i> @Localizer["Print PDF invoice"]</button>
                         <button type="button" class="btn btn-primary btn-flat dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <span class="caret"></span>
                             <span class="sr-only">@Localizer["Toggle Dropdown"]</span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
+                            <li><a href="#">@Localizer["Print all"]</a></li>
+                            <li><a href="#">@Localizer["Print selected"]</a></li>
+                            <li><a href="#">@Localizer["Print tooday"]</a></li>
                             <li class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
+                            <li><a href="#">@Localizer["Print last {0} days", 7]</a></li>
+                            <li><a href="#">@Localizer["Print last {0} days", 30]</a></li>
                         </ul>
                     </div>
 
@@ -59,10 +62,10 @@
     <!-- Main content -->
     <!-- Main content -->
     <section class="content container-fluid">
-
+        <div id="alertACL"></div>
         <!--------------------------
-        | Your Page Content Here |
-        -------------------------->
+    | Your Page Content Here |
+    -------------------------->
 
         <div class="col-md-12">
             <!-- Horizontal Form -->
@@ -73,18 +76,23 @@
                 <form class="form-horizontal">
                     <div class="box-body">
                         <div class="row">
-                            <div class=" col-md-6">
-                                <div class="form-group">
-                                    <dau-label asp-for="StartDate"></dau-label>
-                                    <dau-date asp-for="StartDate"></dau-date>
-                                    <span asp-validation-for="StartDate"></span>
+                            <div class=" col-md-12">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <dau-label asp-for="StartDate"></dau-label>
+                                        <dau-date asp-for="StartDate"></dau-date>
+                                        <span asp-validation-for="StartDate"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <dau-label asp-for="EndDate"></dau-label>
+                                        <dau-date asp-for="EndDate"></dau-date>
+                                        <span asp-validation-for="EndDate"></span>
+                                    </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <dau-label asp-for="EndDate"></dau-label>
-                                    <dau-date asp-for="EndDate"></dau-date>
-                                    <span asp-validation-for="EndDate"></span>
-                                </div>
+
+
 
                                 <div class="form-group">
                                     <dau-label asp-for="Room"></dau-label>
@@ -94,48 +102,17 @@
 
                                 <div class="form-group">
                                     <dau-label asp-for="BookingStatus"></dau-label>
-                                    <dau-select multiple-select="true" asp-for="BookingStatus"></dau-select>
+                                    <dau-select multiple-select="true" asp-for="BookingStatus" asp-items="_dropdown.BookingStatus()"></dau-select>
                                     <span asp-validation-for="BookingStatus"></span>
                                 </div>
 
                                 <div class="form-group">
                                     <dau-label asp-for="PaymentStatus"></dau-label>
-                                    <dau-select multiple-select="true" asp-for="PaymentStatus"></dau-select>
+                                    <dau-select multiple-select="true" asp-items="_dropdown.PaymentStatus()" asp-for="PaymentStatus"></dau-select>
                                     <span asp-validation-for="PaymentStatus"></span>
                                 </div>
 
-                            </div>
 
-                            <div class=" col-md-6">
-                                <div class="form-group">
-                                    <dau-label asp-for="BillingEmailAddress"></dau-label>
-                                    <dau-input type="email" asp-for="BillingEmailAddress"></dau-input>
-                                    <span asp-validation-for="BillingEmailAddress"></span>
-                                </div>
-
-                                <div class="form-group">
-                                    <dau-label asp-for="BillingLastName"></dau-label>
-                                    <dau-input type="text" asp-for="BillingLastName"></dau-input>
-                                    <span asp-validation-for="BillingLastName"></span>
-                                </div>
-
-                                <div class="form-group">
-                                    <dau-label asp-for="BillingCountry"></dau-label>
-                                    <dau-select asp-for="BillingCountry"></dau-select>
-                                    <span asp-validation-for="BillingCountry"></span>
-                                </div>
-
-                                <div class="form-group">
-                                    <dau-label asp-for="PaymentMethod"></dau-label>
-                                    <dau-select asp-for="PaymentMethod"></dau-select>
-                                    <span asp-validation-for="PaymentMethod"></span>
-                                </div>
-
-                                <div class="form-group">
-                                    <dau-label asp-for="BookingNotes"></dau-label>
-                                    <dau-input type="text" asp-for="BookingNotes"></dau-input>
-                                    <span asp-validation-for="BookingNotes"></span>
-                                </div>
 
                                 <div class="form-group">
                                     <dau-label asp-for="GoDirectlyToBookingNumber"></dau-label>
@@ -176,62 +153,14 @@
                                     <th>@Localizer["User"]</th>
                                     <th>@Localizer["Created on"]</th>
                                     <th>@Localizer["Booking total"]</th>
-                                    <th>@Localizer["View"]</th>
+                                    <th>@Localizer["Will be cancelled if not confirmed"]</th>
+                                    <th>@Localizer["Change booking status"]</th>
+                                    <th></th>
+                                    <th></th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td><input type="checkbox" /></td>
-                                    <td>#234</td>
-                                    <td>Waiting for payment confirmation</td>
-                                    <td>Pending</td>
-                                    <td>msjahun@live.com</td>
-                                    <td>12/11/2018 12:11:19AM</td>
-                                    <td>$3,400.00</td>
-                                    <td> <a asp-action="ReservationEdit" asp-controller="Reservations" asp-area="Admin" class="btn btn-primary btn-flat"><i class="fa fa-eye"></i> View</a></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" /></td>
-                                    <td>#234</td>
-                                    <td>Waiting for payment confirmation</td>
-                                    <td>Pending</td>
-                                    <td>msjahun@live.com</td>
-                                    <td>12/11/2018 12:11:19AM</td>
-                                    <td>$3,400.00</td>
-                                    <td> <button type="button" class="btn btn-primary btn-flat"><i class="fa fa-eye"></i> View</button></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" /></td>
-                                    <td>#234</td>
-                                    <td>Waiting for payment confirmation</td>
-                                    <td>Pending</td>
-                                    <td>msjahun@live.com</td>
-                                    <td>12/11/2018 12:11:19AM</td>
-                                    <td>$3,400.00</td>
-                                    <td> <button type="button" class="btn btn-primary btn-flat"><i class="fa fa-eye"></i> View</button></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" /></td>
-                                    <td>#234</td>
-                                    <td>Waiting for payment confirmation</td>
-                                    <td>Pending</td>
-                                    <td>msjahun@live.com</td>
-                                    <td>12/11/2018 12:11:19AM</td>
-                                    <td>$3,400.00</td>
-                                    <td> <button type="button" class="btn btn-primary btn-flat"><i class="fa fa-eye"></i> View</button></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" /></td>
-                                    <td>#234</td>
-                                    <td>Waiting for payment confirmation</td>
-                                    <td>Pending</td>
-                                    <td>msjahun@live.com</td>
-                                    <td>12/11/2018 12:11:19AM</td>
-                                    <td>$3,400.00</td>
-                                    <td> <button type="button" class="btn btn-primary btn-flat"><i class="fa fa-eye"></i> View</button></td>
-                                </tr>
 
-                            </tbody>
+
 
                         </table>
 
@@ -303,7 +232,41 @@
     <script src="@Url.Content("~/Content/")dist/js/demo.js"></script>
     <!-- page script -->
     <script>
+        var bookingTable;
+        function ChangeBookingStatus(bookingId, newBookingStatusId) {
+            var CancelBookingId = 3;
+            var CompleteBookingId = 1;
+            if (newBookingStatusId == CancelBookingId) {
+              var r = confirm("@Localizer["Are you sure you want to cancel booking?"]");
+                    if (r == false) {
+                        return;
+         }}
+                            $.ajax({
+                type: "POST",
+                url: "ChangeBookingStatus",
+                data: {
+                     "BookingId": bookingId,
+                    "newBookingStatusId": newBookingStatusId,
+
+
+                },
+                success: function (result) {
+                    if (result == true) {
+                        document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-success alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> @Localizer["Booking status changed successsfully."]</div>";
+                        bookingTable.ajax.reload();
+}
+
+                    else 
+                                document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-danger alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> @Localizer["An error was encountered, unable to change booking status."]</div>";
+                
+                    
+                }
+            });
+
+        }
         $(function () {
+
+         
 
             //Initialize Select2 Elements
             $('.select2').select2()
@@ -313,7 +276,7 @@
                 orientation: "left bottom",
             })
          $.getJSON("@Url.Content("~/frontend_Content/")assets/js/DataTable_aLenthMenu/aLenthMenu_20_200.json", function (aLength) {
-            $('#ReservationListTable').on('processing.dt', function (e, settings, processing) {
+             bookingTable=     $('#ReservationListTable').on('processing.dt', function (e, settings, processing) {
                 if (processing) {
                     Pace.start();
                 } else {
@@ -350,12 +313,69 @@
                     {"render": function (data, type, full, meta) {
                             return '<input type="checkbox">'; } },
                     {"data": "bookingNo" },
-                    {"data": "bookingStatus" },
-                    {"data": "paymentStatus" },
+                    {
+                        "render": function (data, type, full, meta) {
+                            if (full.bookingStatusId == 1)
+                                return '<span class=" label label-success  label-lg green " style="padding: .5em .6em .8em; font-size: 100%;">' + full.bookingStatus + '</span>';
+                            else if (full.bookingStatusId == 2)
+                                return '<span class=" label label-info  label-lg green " style="padding: .5em .6em .8em; font-size: 100%;">' + full.bookingStatus + '</span>';
+                            else if (full.bookingStatusId == 3)
+                                return '<span class=" label label-danger  label-lg green " style="padding: .5em .6em .8em; font-size: 100%;">' + full.bookingStatus + '</span>';
+                            else
+                                return '<span class=" label label-primary  label-lg green " style="padding: .5em .6em .8em; font-size: 100%;">' + full.bookingStatus + '</span>';
+
+                        }
+                        },
+                              {
+                                  "render": function (data, type, full, meta) {
+                                      if (full.bookingStatusId == 3) return "";
+                                      if (full.paymentStatusId == 1)
+                                          return '<span class=" label label-success  label-lg green " style="padding: .5em .6em .8em; font-size: 100%;">' + full.paymentStatus + '</span>';
+                                      else if (full.paymentStatusId == 2)
+                                          return '<span class=" label label-info  label-lg green " style="padding: .5em .6em .8em; font-size: 100%;">' + full.paymentStatus + '</span>';
+                                      else if (full.paymentStatusId == 3)
+                                          return '<span class=" label label-danger  label-lg green " style="padding: .5em .6em .8em; font-size: 100%;">' + full.paymentStatus + '</span>';
+                                      else
+                                          return '<span class=" label label-primary  label-lg green " style="padding: .5em .6em .8em; font-size: 100%;">' + full.paymentStatus + '</span>';
+
+
+                                  } },
                     {"data": "user" },
                     {"data": "createdOn" },
-                    {"data": "bookingTotal" },
-                    {"render": function (data, type, full, meta) {
+                    { "data": "bookingTotal" },
+                    
+                    {
+                        "render": function (data, type, full, meta) {
+                            if (full.paymentStatusId == 1 || full.bookingStatusId == 3 || full.bookingStatusId == 1 || full.paymentStatusId == 3) {
+                                return ""; }
+
+
+                                if (full.cancellationDays > 0)
+                                    return full.cancellationDate;
+                                else
+                                    return "Expired";
+                            
+                        }
+                
+                    },
+                    {
+                        "render": function (data, type, full, meta) {
+                            if (full.bookingStatusId == 3 || full.bookingStatusId == 1 ) {
+                                return ""; }
+
+                            return '<button type="button" class="btn btn-success" onClick="ChangeBookingStatus(' + full.bookingNo + ',1)" "><i class="fa fa-check"></i> @Localizer["Mark as complete"]</button>'; }
+
+                    }, {
+                        "render": function (data, type, full, meta) {
+                            if (full.bookingStatusId == 3 || full.bookingStatusId == 1 ) {
+                                return "";
+                            }
+
+                            return '<button type="button" class="btn btn-danger" onClick="ChangeBookingStatus(' + full.bookingNo + ',3)" "><i class="fa fa-times"></i> @Localizer["Cancel booking"]</button>'; }
+
+
+                    }, {
+                        "render": function (data, type, full, meta) {
                         return '<a class="btn btn-primary" href="/Admin/Reservations/ReservationEdit/?bookingNo=' + full.bookingNo + '"><i class="fa fa-eye"></i> @Localizer["View"]</a>'; }
                     }
 

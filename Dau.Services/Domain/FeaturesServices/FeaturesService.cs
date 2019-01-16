@@ -58,7 +58,7 @@ namespace Dau.Services.Domain.FeaturesServices
         }
 
 
-        public bool UpdateFeaturesHitCount(List<int> FeaturesIds)
+        public bool UpdateFeaturesHitCount(List<long> FeaturesIds)
         {
             if (FeaturesIds != null)
                 foreach (var featureId in FeaturesIds)

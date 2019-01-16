@@ -51,8 +51,7 @@ $.ajax({
     success: function (result) {
         //     alert(result);
         $("#_SortingButtonsSection").html(result);
-
-
+       
 
     }
 });
@@ -212,10 +211,13 @@ $(".targetFilterInputStatic").change(function () {
     SearchRooms();
 });
 
+
+
 //Global vars
 var PriceMin = 0;
 var PriceMax = 10000000;
 var RoomArea = 1000000;
+var sortId = 1;// 
 function SearchRooms() {
     insertLoaderInSearchArea();
   
@@ -228,6 +230,8 @@ function SearchRooms() {
     var isCheckedShowDiscountsOnly = $('#ShowDiscounts').is(':checked');
     var DormitoriesMultiSelect = $('#_DormitoriesFilter').val();
     var DormitoryType = $('#_DormitoryTypesFilter').val();
+    var PrivateDormitory = $('#privateDormitories').is(':checked');
+    var SchoolDormitory = $('#schoolDormitories').is(':checked');
     //console.log($('.targetFilterInput').val());
     $.ajax({
         type: "POST",
@@ -241,7 +245,10 @@ function SearchRooms() {
             PriceMax: PriceMax,
             RoomArea: RoomArea,
             ShowAvailable: isCheckedShowAvailable,
-            ShowDiscountsOnly: isCheckedShowDiscountsOnly
+            ShowDiscountsOnly: isCheckedShowDiscountsOnly,
+            PrivateDormitories: PrivateDormitory,
+            SchoolDormitories: SchoolDormitory,
+            sortId:sortId
 
         },
         success: function (result) {

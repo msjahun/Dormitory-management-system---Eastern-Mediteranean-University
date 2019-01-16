@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Dau.Services.Domain.DormitoryDetailService;
 using Dau.Services.Domain.OnScrollAlertService;
 using Dau.Services.Domain.LocationServices;
+using Dau.Services.Domain.ReviewsServices;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,6 +14,7 @@ namespace searchDormWeb.Controllers
 {
     public class DormitoryController : Controller
     {
+        private readonly IReviewService _reviewService;
         private readonly IGetAreaInfoService _areaInfoService;
         private readonly ILocationService _locationService;
         private readonly IGetCommentsService _getCommentsService;
@@ -40,12 +42,14 @@ namespace searchDormWeb.Controllers
             IGetSpecificRoomService getSpecificRoomService,
             IGetTopNavService getTopNavService,
             IResolveDormitoryService resolveDormitoryService,
-            ILocationService locationService
+            ILocationService locationService,
+            IReviewService reviewService
 
 
 
             )
         {
+            _reviewService = reviewService;
             _areaInfoService = AreaInfoService;
             _locationService = locationService;
          _getCommentsService  = getCommentsService;
@@ -192,6 +196,20 @@ namespace searchDormWeb.Controllers
          //   return PartialView();
         }
 
+        public IActionResult AddReview(ReviewInputVm vm)
+        {
+            var Inputmodel = vm;
+            // var model = _locationService.GetCalculatedDistanceToEmulocationAsync(vm).Result;
+
+            var model = _reviewService.AddReviewService(vm);
+
+            // model = null;
+            //  var model = _getTopNavService.GetTopNav(DormitoryId);
+
+            return Json(model);
+         //   return PartialView();
+        }
+
 
 
         public IActionResult GetOnScrollAlert(long id)
@@ -206,17 +224,5 @@ namespace searchDormWeb.Controllers
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
 }

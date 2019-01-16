@@ -56,6 +56,7 @@ using Dau.Data.Mapping.EmuMap;
 using Dau.Core.Domain.EmuMap;
 using Dau.Data.Mapping.LocationInformations;
 using Dau.Core.Domain.LocationInformations;
+using Dau.Core.Event;
 
 namespace Dau.Data
 {
@@ -149,6 +150,8 @@ namespace Dau.Data
         public virtual DbSet<MapSectionCategoryTranslation> MapSectionCategoryTranslation { get; set; }
 
         public virtual DbSet<Locationinformation> Locationinformation{ get; set; }
+        public virtual DbSet<UsersDormitory> UsersDormitory{ get; set; }
+        public virtual DbSet<EventLogger> EventLogger { get; set; }
 
 
 
@@ -254,6 +257,7 @@ namespace Dau.Data
             modelBuilder.ApplyConfiguration(new MapSectionCategoryMap());
             modelBuilder.ApplyConfiguration(new MapSectionCategoryTranslationMap());
             modelBuilder.ApplyConfiguration(new LocationInformationMap());
+            modelBuilder.ApplyConfiguration(new UsersDormitoryMap());
 
 
 

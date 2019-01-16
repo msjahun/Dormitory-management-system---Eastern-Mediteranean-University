@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Dau.Services.Domain.BookingService
 {
@@ -14,5 +15,11 @@ namespace Dau.Services.Domain.BookingService
         List<ReservationListTable> GetBookingTableList();
         List<LatestBookingsTable> GetLatestBookingsDashboardList();
         bool AddBooking();
+        int BusinessDaysUntil(DateTime firstDay, DateTime lastDay, params DateTime[] Holidays);
+        ReservationEdit GetBookingById(long BookingId);
+        bool ChangeBookingStatus(long bookingId, long newBookingStatusId);
+        bool ChangePaymentStatus(long bookingId, long newpaymentStatusId);
+        Charts GetBookingsChartById(long id);
+        List<BookingAccountVM> GetUserBookings(string userId);
     }
 }

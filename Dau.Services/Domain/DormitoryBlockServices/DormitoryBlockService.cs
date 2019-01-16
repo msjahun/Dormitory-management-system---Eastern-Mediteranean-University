@@ -1,6 +1,7 @@
 ﻿using Dau.Core.Domain.Catalog;
 using Dau.Data.Repository;
 using Dau.Services.Languages;
+using Dau.Services.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace Dau.Services.Domain.DormitoryBlockServices
 {
     public class DormitoryBlockService : IDormitoryBlockService
     {
+        private readonly IUserRolesService _userRolesService;
         private readonly IRepository<DormitoryBlock> _dormitoryBlockRepo;
         private readonly IRepository<DormitoryBlockTranslation> _dormitoryBlockTransRepo;
         private readonly ILanguageService _languageService;
@@ -21,9 +23,11 @@ namespace Dau.Services.Domain.DormitoryBlockServices
             IRepository<DormitoryBlockTranslation> dormitoryBlockTransRepository,
              ILanguageService languageService,
              IRepository<Dormitory> dormitoryRepository,
-             IRepository<DormitoryTranslation> dormitoryTransRepository)
+             IRepository<DormitoryTranslation> dormitoryTransRepository,
+             IUserRolesService userRolesService)
         {
-            _dormitoryBlockRepo= dormitoryBlockRepository;
+            _userRolesService = userRolesService;
+            _dormitoryBlockRepo = dormitoryBlockRepository;
                _dormitoryBlockTransRepo=dormitoryBlockTransRepository;
             _languageService = languageService;
             _dormitoryRepo= dormitoryRepository;
@@ -36,7 +40,7 @@ namespace Dau.Services.Domain.DormitoryBlockServices
 
 
             var CurrentLanguageId = _languageService.GetCurrentLanguageId();
-            var dormitoryBlock = from dormBlock in _dormitoryBlockRepo.List().ToList()
+            var dormitoryBlock = from dormBlock in _dormitoryBlockRepo.List().Where(c => _userRolesService.RoleAccessResolver().Contains(c.DormitoryId)).ToList()
                                  join dormBlockTrans in _dormitoryBlockTransRepo.List().ToList() on dormBlock.Id equals dormBlockTrans.DormitoryBlockNonTransId
                                  where dormBlockTrans.LanguageId == CurrentLanguageId
                                  orderby dormBlock.DisplayOrder ascending
@@ -62,7 +66,7 @@ namespace Dau.Services.Domain.DormitoryBlockServices
 
 
             var CurrentLanguageId = _languageService.GetCurrentLanguageId();
-            var dormitoryBlock = from dormBlock in _dormitoryBlockRepo.List().ToList()
+            var dormitoryBlock = from dormBlock in _dormitoryBlockRepo.List().Where(c => _userRolesService.RoleAccessResolver().Contains(c.DormitoryId)).ToList()
                                  join dormBlockTrans in _dormitoryBlockTransRepo.List().ToList() on dormBlock.Id equals dormBlockTrans.DormitoryBlockNonTransId
                                  where dormBlockTrans.LanguageId == CurrentLanguageId && dormBlock.DormitoryId == DormitoryId
                                  orderby dormBlock.DisplayOrder ascending

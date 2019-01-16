@@ -10,35 +10,35 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
-              
+
                 <div class="pt-md pt-lg-xl pb-lg-md text-center">
 
                     <div class="container ">
 
                         <div class=" text-center">
                             <h2 class="heading display-4 mb-2">
-                                <span class=" typed text-white" id="type-example" 
-                     data-type-this=" @Localizer["Search and filter different dormitories"],
+                                <span class=" typed text-white" id="type-example"
+                                      data-type-this=" @Localizer["Search and filter different dormitories"],
                                       @Localizer["Search and filter"] ,
                                       @Localizer["Search and filter"] ,
                                       @Localizer["Search and filter"] ,
-                                      @Localizer["Search and filter"] , 
+                                      @Localizer["Search and filter"] ,
                                       @Localizer["Search and filter based on multiple facilities"],
                                       @Localizer["Search and filter"] ,
                                       @Localizer["Search and filter"] ,
                                       @Localizer["Search and filter"]   ,
-                                      @Localizer["Search and filter"] , 
+                                      @Localizer["Search and filter"] ,
                                       @Localizer["Search and filter based on locations on map"],
                                       @Localizer["Search and filter"]   ,
-                                      @Localizer["Search and filter"]   , 
+                                      @Localizer["Search and filter"]   ,
                                       @Localizer["Search and filter"]  ,
-                                      @Localizer["Search and filter"] ,     
-                                      @Localizer["Search and filter based on prices"], 
-                                      @Localizer["Search and filter"] ,  
                                       @Localizer["Search and filter"] ,
-                                      @Localizer["Search and filter"],  
+                                      @Localizer["Search and filter based on prices"],
                                       @Localizer["Search and filter"] ,
-                                      @Localizer["Search and filter"],   
+                                      @Localizer["Search and filter"] ,
+                                      @Localizer["Search and filter"],
+                                      @Localizer["Search and filter"] ,
+                                      @Localizer["Search and filter"],
                                       @Localizer["Easily book your dormitory room"],   ,,   ,"></span>
                             </h2>
 
@@ -52,27 +52,37 @@
                                 </div>
                             </div>
 
-                            <div class="">
+                            <div class="redirectoToSearch">
                                 <div class="row justify-content-start">
 
 
                                     <div class="col-md-6">
-                                        <h6 class="text-white">@Localizer["Dormitory Type"]</h6>
 
-                                        <select class="form-control" data-toggle="select"  title="@Localizer["Select Dormitory type"]" data-live-search="true" data-live-search-placeholder="Search ..." multiple>
-                                            <option value="1">EMU Dormitories</option>
-                                            <option value="2">Privately-Owned Campus Dormitories</option>
-                                        </select>
-                                 
+
+                                        <div class="row text-center">
+                                            <i class="fa fa-check fa-2x text-success ml-2 mr-2"></i>
+                                            <label class="text-white h3" for="schoolDormitories">@Localizer["Private dormitories"] @*<span class=" float-right">@option.OptionCount</span>*@</label>
+
+                                        </div>
+                                        <div class="row text-center">
+                                            <i class="fa fa-check fa-2x text-success ml-2 mr-2"></i>
+                                            <label class="text-white h3" for="schoolDormitories">@Localizer["School dormitories"] @*<span class=" float-right">@option.OptionCount</span>*@</label>
+
+                                        </div>     <div class="row text-center">
+                                            <i class="fa fa-check fa-2x text-success ml-2 mr-2"></i>
+                                            <label class="text-white h3" for="schoolDormitories">@Localizer["Book without credit card"] @*<span class=" float-right">@option.OptionCount</span>*@</label>
+
+                                        </div>
+
                                     </div>
 
                                     <div class="col-md-6">
                                         <h6 class="text-white">@Localizer["Dormitory name"]</h6>
 
-                       
-                                        <select class="form-control" data-toggle="select" title="@Localizer["Select Dormitory name"]"  data-live-search="true" data-live-search-placeholder="Search ..." multiple>
+
+                                        <select class="form-control" data-toggle="select" title="@Localizer["Select Dormitory name"]" data-live-search="true" data-live-search-placeholder="Search ..." multiple>
                                             <optgroup label="School Dormitories">
-                                           
+
                                                 <option>EMU 1</option>
                                                 <option>EMU Sabanci</option>
                                                 <option>EMU 2</option>
@@ -92,20 +102,20 @@
                                                 <option>Kamacioglu</option>
                                             </optgroup>
                                         </select>
-                                   
+
 
                                     </div>
 
                                     @*<div class="col-md-4">
-                                        <h6 class="text-white">@Localizer["Semester duration"]</h6>
+                                            <h6 class="text-white">@Localizer["Semester duration"]</h6>
 
-                                        <select class="form-control form-control-lg" data-toggle="select" title="@Localizer["Select semester"]" data-live-search="true" data-live-search-placeholder="Search ..." >
-                                            <option></option>
-                                            <option>1 semester - Fall 2019</option>
-                                            <option>2 semester - Fall/spring 2019</option>
-                                        </select>
+                                            <select class="form-control form-control-lg" data-toggle="select" title="@Localizer["Select semester"]" data-live-search="true" data-live-search-placeholder="Search ..." >
+                                                <option></option>
+                                                <option>1 semester - Fall 2019</option>
+                                                <option>2 semester - Fall/spring 2019</option>
+                                            </select>
 
-                                    </div>*@
+                                        </div>*@
 
 
 
@@ -252,9 +262,13 @@
     <script src="@Url.Content("~/frontend_Content/assets")/vendor/autosize/dist/autosize.min.js"></script>
     <script src="@Url.Content("~/frontend_Content/assets")/vendor/typed.js/lib/typed.min.js"></script>
     <script src="@Url.Content("~/viewsjs/Public")/Home.js"></script>
+<script>
+    $(".redirectoToSearch").click(function () {
+        window.location.href = "/Search/Results?from=Home";
+    });
+        </script>
 
 
-        
 }
 
 @section styles{

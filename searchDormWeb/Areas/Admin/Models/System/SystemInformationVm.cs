@@ -37,25 +37,25 @@ namespace searchDormWeb.Areas.Admin.Models.System
         Description = "Server time zone."),
         DataType(DataType.Date),
         MaxLength(256)]
-        public DateTime ServerTimeZone { get; set; }
+        public string ServerTimeZone { get; set; }
 
         [Display(Name = "Server local time",
         Description = "Server local time."),
         DataType(DataType.Date),
         MaxLength(256)]
-        public DateTime ServerLocalTime { get; set; }
+        public string ServerLocalTime { get; set; }
 
         [Display(Name = "Coordinate Universal time",
         Description = "Coordinate universal time ."),
         DataType(DataType.Date),
         MaxLength(256)]
-        public DateTime CoordinateUniversalTime { get; set; }
+        public string CoordinateUniversalTime { get; set; }
 
         [Display(Name = "Current user time",
         Description = "Current user time (based on the specified datetime and time zone settings)."),
         DataType(DataType.Date),
         MaxLength(256)]
-        public DateTime CurrentUserTime { get; set; }
+        public string  CurrentUserTime { get; set; }
 
         [Display(Name = "Http Host",
         Description = "HTTP_HOST is used when you run a multidormtory solution to determine the current dormitory."),

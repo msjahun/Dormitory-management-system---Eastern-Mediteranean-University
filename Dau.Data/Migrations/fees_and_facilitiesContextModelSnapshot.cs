@@ -88,19 +88,9 @@ namespace Dau.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ActivityCategory")
-                        .HasColumnName("ActivityCategory")
-                        .HasMaxLength(100)
-                        .IsUnicode(false);
+                    b.Property<string>("ActivityLogType");
 
-                    b.Property<long>("ActivityLogTypeId")
-                        .HasColumnName("ActivityLogTypeId");
-
-                    b.Property<string>("ActivityPerformed")
-                        .IsRequired()
-                        .HasColumnName("ActivityPerformed")
-                        .HasMaxLength(256)
-                        .IsUnicode(false);
+                    b.Property<string>("ActivityPerformed");
 
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnName("CreatedDateTime")
@@ -112,13 +102,11 @@ namespace Dau.Data.Migrations
                         .HasMaxLength(100)
                         .IsUnicode(false);
 
-                    b.Property<string>("UserGuid")
-                        .IsRequired()
-                        .HasColumnName("UserGuid")
-                        .HasMaxLength(256)
-                        .IsUnicode(false);
+                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("ActivityLog");
                 });
@@ -201,9 +189,15 @@ namespace Dau.Data.Migrations
 
                     b.Property<double>("BookingTotal");
 
+                    b.Property<string>("City");
+
+                    b.Property<string>("Country");
+
                     b.Property<DateTime>("CreatedOn");
 
                     b.Property<string>("CustomerIpAddress");
+
+                    b.Property<int>("DaysToExpire");
 
                     b.Property<bool>("IsCancelled");
 
@@ -211,9 +205,19 @@ namespace Dau.Data.Migrations
 
                     b.Property<long>("PaymentStatusId");
 
+                    b.Property<string>("ReceiptUrl");
+
                     b.Property<long>("RoomId");
 
+                    b.Property<string>("StateProvince");
+
+                    b.Property<string>("StudentAddress1");
+
+                    b.Property<string>("StudentAddress2");
+
                     b.Property<string>("UserId");
+
+                    b.Property<string>("ZipCode");
 
                     b.HasKey("Id");
 
@@ -2236,6 +2240,42 @@ namespace Dau.Data.Migrations
                     b.ToTable("AspNetRoles");
                 });
 
+            modelBuilder.Entity("Dau.Core.Domain.Users.UsersDormitory", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<long>("DormitoryId");
+
+                    b.Property<long?>("DormitoryId1");
+
+                    b.Property<string>("DormitoryUserId");
+
+                    b.HasKey("UserId", "DormitoryId");
+
+                    b.HasIndex("DormitoryUserId", "DormitoryId1");
+
+                    b.ToTable("UsersDormitory");
+                });
+
+            modelBuilder.Entity("Dau.Core.Event.EventLogger", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<string>("EventDescription");
+
+                    b.Property<string>("EventName");
+
+                    b.Property<string>("EventParameters");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EventLogger");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -2320,6 +2360,13 @@ namespace Dau.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Dau.Core.Domain.Activity.ActivityLog", b =>
+                {
+                    b.HasOne("Dau.Core.Domain.Users.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Dau.Core.Domain.Bookings.Booking", b =>
@@ -2749,6 +2796,18 @@ namespace Dau.Data.Migrations
                     b.HasOne("Dau.Core.Domain.Promotions.Discount", "Discount")
                         .WithMany("DiscountUsages")
                         .HasForeignKey("DiscountId");
+                });
+
+            modelBuilder.Entity("Dau.Core.Domain.Users.UsersDormitory", b =>
+                {
+                    b.HasOne("Dau.Core.Domain.Users.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Dau.Core.Domain.Users.UsersDormitory", "Dormitory")
+                        .WithMany()
+                        .HasForeignKey("DormitoryUserId", "DormitoryId1");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

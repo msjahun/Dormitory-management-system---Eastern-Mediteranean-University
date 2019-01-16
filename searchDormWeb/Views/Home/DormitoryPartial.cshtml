@@ -32,13 +32,18 @@
 
                             <div class="rating-detail py-2">
                                 <span class="rating-text inline h4">@Dormitory.RatingText</span>
-                                <a class=" rating-no text-white text-bold h3">@Dormitory.RatingNo</a>
+                                <a class=" rating-no text-white text-bold h3">@Dormitory.RatingNo.ToString("N1")</a>
                             </div>
 
 
-                            <span class="block text-primary">@Dormitory.ReviewsNo @Localizer["reviews"]</span>
+                            @if (Dormitory.DealsNo > 0)
+                            {
+                                <span class="block d-block text-primary"> @Localizer["Has {0} rooms with deals", Dormitory.DealsNo]</span>
+                            }
 
                             <Dau-rating rating="@Dormitory.RatingNo"></Dau-rating>
+
+
 
                         </div>
                     </div>

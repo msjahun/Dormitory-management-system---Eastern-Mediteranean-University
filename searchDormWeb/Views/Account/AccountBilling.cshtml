@@ -3,12 +3,14 @@
     ViewData["Title"] = Localizer["AccountBilling"];
     Layout = "~/Views/Shared/_LayoutMyAccount.cshtml";
 }
-
-
+@using Dau.Services.Domain.BookingService
+@model List<BookingAccountVM>
 <!--- start now -->
-
+@{
+    var items = Model;
+}
 <div class="col-lg-9">
-   
+
 
     <!-- Payment history -->
     <div class="">
@@ -23,90 +25,124 @@
         @*content from this div will be localized from the database*@
         <div class="table-responsive">
             <table class="table table-hover table-cards align-items-center">
+                <thead>
+                    <tr>
+                        <th scope="col">@Localizer["Booking No."]</th>
+                        <th scope="col">@Localizer["Booking status"]</th>
+
+
+                        <th scope="col">@Localizer["Date of booking"]</th>
+                        <th scope="col">@Localizer["Dormitory name"]</th>
+                        <th scope="col">@Localizer["Room"]</th>
+                        <th scope="col">@Localizer["Payment status"]</th>
+                        <th scope="col">@Localizer["Price"]</th>
+                        <th scope="col">@Localizer["Options"]</th>
+
+                    </tr>
+                </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">
-                            <span class="badge badge-lg badge-dot">
-                                <i class="bg-success"></i>
-                            </span>
-                        </th>
-                        <td>
-                            <i class="fas fa-calendar-alt mr-2"></i>
-                            <span class="font-weight-bold text-dark">May 20, 2018</span>
-                        </td>
-                        <td>#10015</td>
-                        <td><i class="fas fa-money-bill-alt"></i> Receipt upload Payment method</td>
-                        <td>$49.00 USD</td>
-                        <td>
-                            <div class="dropdown">
-                                <a class="btn btn-sm btn-icon-only" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#"><i class="fas fa-file-pdf text-muted"></i>Download invoice</a>
-                                    <a class="dropdown-item" href="#"><i class="fas fa-file-archive text-muted"></i>See details</a>
-                                    <a class="dropdown-item" href="#"><i class="fas fa-trash-alt text-muted"></i>Delete</a>
 
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="table-divider"></tr>
-                    <tr>
-                        <th scope="row">
-                            <span class="badge badge-lg badge-dot">
-                                <i class="bg-danger"></i>
-                            </span>
-                        </th>
-                        <td>
-                            <i class="fas fa-calendar-alt mr-2"></i>
-                            <span class="font-weight-bold text-dark">Apr 15, 2018</span>
-                        </td>
-                        <td>#10015</td>
-                        <td><i class="fas fa-money-bill-alt"></i> Payment at the dorm office</td>
-                        <td>
-                            <span class="text-danger">$39.00 USD</span>
-                        </td>
-                        <td>
-                            <div class="dropdown">
-                                <a class="btn btn-sm btn-icon-only" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#"><i class="fas fa-file-pdf text-muted"></i>Download invoice</a>
-                                    <a class="dropdown-item" href="#"><i class="fas fa-file-archive text-muted"></i>See details</a>
-                                    <a class="dropdown-item" href="#"><i class="fas fa-trash-alt text-muted"></i>Delete</a>
+                    @foreach (var item in items)
+                    {
+                        <tr>
+                            <td>@item.BookingId</td>
+                            <th scope="row">
+                                <span class="badge badge-lg badge-dot">
+                                    @if (item.BookingStatusId == 1)
+                                    {
+                                        <i class="bg-success"></i>
+                                    }
+                                    else if (item.BookingStatusId == 2)
+                                    {
+                                        <i class="bg-primary"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="bg-danger"></i>
+                                    }
 
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="table-divider"></tr>
-                    <tr>
-                        <th scope="row">
-                            <span class="badge badge-lg badge-dot">
-                                <i class="bg-success"></i>
-                            </span>
-                        </th>
-                        <td>
-                            <i class="fas fa-calendar-alt mr-2"></i>
-                            <span class="font-weight-bold text-dark">May 20, 2018</span>
-                        </td>
-                        <td>#10015</td>
-                        <td><i class="fas fa-money-bill-alt"></i> Receipt upload Payment method</td>
-                        <td>$49.00 USD</td>
-                        <td>
-                            <div class="dropdown">
-                                <a class="btn btn-sm btn-icon-only" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#"><i class="fas fa-file-pdf text-muted"></i>Download invoice</a>
-                                    <a class="dropdown-item" href="#"><i class="fas fa-file-archive text-muted"></i>See details</a>
-                                    <a class="dropdown-item" href="#"><i class="fas fa-trash-alt text-muted"></i>Delete</a>
+                                </span>@item.BookingStatus
+                            </th>
 
+                            <td>
+                                <i class="fas fa-calendar-alt mr-2"></i>
+                                <span class="font-weight-bold text-dark">@item.BookingDate</span>
+                            </td>
+                            <td>@item.DormitoryName</td>
+                            <td>@item.RoomName</td>
+
+                            <th scope="row">
+                                <span class="badge badge-lg badge-dot">
+                                    @if (item.PaymentStatusId == 1)
+                                    {
+                                        <i class="bg-success"></i>
+                                    }
+                                    else if (item.PaymentStatusId == 2)
+                                    {
+                                        <i class="bg-primary"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="bg-danger"></i>
+                                    }
+                                </span>@item.Paymentstatus
+                            </th>
+                            <td>@item.Price</td>
+                            <td>
+                                <div class="dropdown">
+                                    <a class="btn btn-sm btn-icon-only" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+
+
+                                        @if (item.ReceiptImageUrl == null || string.IsNullOrEmpty(item.ReceiptImageUrl))
+                                        {
+                                            <a class="dropdown-item" id="UploadReceipt"><i class="fa fa-file-picture"></i>Upload receipt</a>
+
+                                        }
+                                        else
+                                        { @*<a class="dropdown-item" href="#"><i class=""></i>Re-upload receipt</a>*@
+                                        <a class="dropdown-item" href="@item.ReceiptImageUrl" target="_blank"><i class=""></i>Download receipt</a>
+
+
+                                    }
+
+
+                                        <a class="dropdown-item" id="ViewBookingNotesBtn"><i class=""></i>View Booking notes</a>
+                                        <a class="dropdown-item" id="CancelBookingBtn"><i class="fas fa-times"></i>Cancel booking</a>
+                                        <a class="dropdown-item" id="DeleteBookingBtn"><i class="fas fa-trash-alt text-muted"></i>Delete</a>
+
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="table-divider"></tr>
+                            </td>
+                        </tr>
+                        <tr class="table-divider"></tr>
+
+                    }
                 </tbody>
             </table>
         </div>
     </div>
 
 </div>
+
+@section scripts
+    {
+
+    <script>
+        $("#UploadReceipt").click(function () {
+            alert("Upload receipt");
+        });
+
+        $("#ViewBookingNotesBtn").click(function () {
+            alert("View booking notes ");
+        });
+
+        $("#CancelBookingBtn").click(function () {
+            alert("Cancel booking");
+        });
+
+        $("#DeleteBookingBtn").click(function () {
+            alert("Delete booking");
+    });
+        </script>
+        }

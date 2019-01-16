@@ -26,18 +26,24 @@
 
                 @*<button type="button" class="btn btn-sm btn-primary  px-4"> <span class="btn-inner--text">@Localizer["Search"]</span></button>*@
 
+                <h6>@Localizer["Dormitory type"]</h6>
+                <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input targetFilterInputStatic" id="privateDormitories" checked>
+                    <label class="custom-control-label inline" for="privateDormitories">@Localizer["Private dormitories"] @*<span class=" float-right">@option.OptionCount</span>*@</label>
 
+                </div>
+                <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input targetFilterInputStatic" id="schoolDormitories" checked>
+                    <label class="custom-control-label inline" for="schoolDormitories">@Localizer["School dormitories"] @*<span class=" float-right">@option.OptionCount</span>*@</label>
 
-                <h6>@Localizer["Dormitory Type"]</h6>
-                <select class="form-control targetFilterInput" id="_DormitoryTypesFilter" data-toggle="select" title="@Localizer["Select Dormitory type"]" data-live-search="true" data-live-search-placeholder="Search ..." >
-                   
-                </select>
-                <br />
-                <br />
+                </div>
+
+                @*<h6>@Localizer["Dormitory Type"]</h6>
+        <select class="form-control targetFilterInput" id="_DormitoryTypesFilter" data-toggle="select" title="@Localizer["Select Dormitory type"]" data-live-search="true" data-live-search-placeholder="Search ..."></select>
+        <br />
+        <br />*@
                 <h6>@Localizer["Dormitory name"]</h6>
-                <select class="form-control targetFilterInput" id="_DormitoriesFilter" data-toggle="select" title="@Localizer["Select Dormitory name"]" data-live-search="true" data-live-search-placeholder="Search ..." multiple>
-                   
-                </select>
+                <select class="form-control targetFilterInput" id="_DormitoriesFilter" data-toggle="select" title="@Localizer["Select Dormitory name"]" data-live-search="true" data-live-search-placeholder="Search ..." multiple></select>
 
                 <br />
                 @* <h6>@Localizer["Stay duration"]</h6>
@@ -89,10 +95,11 @@
 
                 <h6>@Localizer["Availability"]</h6>
                 <div class="custom-control custom-checkbox mb-3">
-                    <input type="checkbox" class="custom-control-input targetFilterInputStatic" id="ShowAvailable">
+                    <input type="checkbox" class="custom-control-input targetFilterInputStatic" id="ShowAvailable" checked>
                     <label class="custom-control-label inline" for="ShowAvailable">@Localizer["Show only Available"] @*<span class=" float-right">@option.OptionCount</span>*@</label>
 
                 </div>
+
 
 
                 <h6>@Localizer["Campains"]</h6>

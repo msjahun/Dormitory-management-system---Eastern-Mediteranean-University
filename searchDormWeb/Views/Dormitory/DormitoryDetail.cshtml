@@ -133,13 +133,15 @@
     <script src="@Url.Content("~/frontend_Content/assets")/vendor/jquery.countdown/jquery.countdown.js"></script>
     <script src="@Url.Content("~/frontend_Content/assets")/vendor/masonry-layout/dist/masonry.pkgd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/2.1.0/jquery.imagesloaded.min.js"></script>
-    <script src="http://johnpolacek.github.io/imagefill.js/js/jquery-imagefill.js"></script>
+    <script src="@Url.Content("~/frontend_Content/assets")/vendor/image-fill/jquery-imagefill.js"></script>
 
     <script src="@Url.Content("~/viewsjs/Public")/DormitoryDetail.js"></script>
     <script>
 
 
-
+        $(".model_filter_content").click(function () {
+            window.location.href = "/Search/Results?from=Dormitory";
+        });
 
 
 
@@ -175,7 +177,7 @@
             }
         }
 
-       
+
     </script>
 
 

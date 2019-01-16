@@ -17,12 +17,23 @@
             <tbody>
                 <tr class="bg-white">
                     <th scope="row">
+                        Export excel
+                    </th>
+                    <td>Export a sample excel file</td>
+                    <td><button type="button" id="exportExcel" class="btn btn-outline-primary">Export excel</button>   </td>
+                </tr>
+                <tr class="table-divider"></tr>
+                
+                <tr class="bg-white">
+                    <th scope="row">
                         Seed email to message queue
                     </th>
                     <td>Tests seeds an email to the message queue, sends the message to msjahun@live.com</td>
                     <td><button type="button" id="testEmail" class="btn btn-outline-primary">Seed test email</button>   </td>
                 </tr>
                 <tr class="table-divider"></tr>
+
+
 
                 <tr class="bg-white">
                     <th scope="row">
@@ -194,6 +205,29 @@
                         alert("Facilities seeded successfully");
                     } else {
                         alert("Failed to seed data");
+                    }
+                }
+
+            });
+
+        });
+
+        $("#exportExcel").click(function () {
+
+            // alert("button clicked");
+            $.ajax({
+                type: "POST",
+                url: "exportExcel",
+                data: {
+                    SectionId: "comments_section"
+                },
+                success: function (result, textStatus, xhr) {
+                    //     alert(result);
+                    $("#comments_section").html(result);
+                    if (JSON.stringify(result) === 'true') {
+                        alert("Excel exported successfully");
+                    } else {
+                        alert("Failed to export excel");
                     }
                 }
 

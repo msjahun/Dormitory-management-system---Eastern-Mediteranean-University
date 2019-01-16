@@ -210,9 +210,9 @@
                                 <h3 class="box-title"><i class="fa fa-shopping-cart"></i> @Localizer["Bookings/orders"]</h3>
 
                                 <div class="box-tools pull-right">
-                                    <button type="button" class="btn btn-xs btn-info btn-flat">@Localizer["Day"]</button>
-                                    <button type="button" class="btn btn-xs btn-info btn-flat">@Localizer["Month"]</button>
-                                    <button type="button" class="btn btn-xs btn-info btn-flat">@Localizer["Year"]</button>
+                                    <button type="button" onclick="GetBookingsChart(1)" class="btn btn-xs btn-info btn-flat">@Localizer["Week"]</button>
+                                    <button type="button" onclick="GetBookingsChart(2)" class="btn btn-xs btn-info btn-flat">@Localizer["Month"]</button>
+                                    <button type="button" onclick="GetBookingsChart(3)" class="btn btn-xs btn-info btn-flat">@Localizer["Year"]</button>
                                     <button type="button" class="btn btn-box-tool" data-widget="collapse">
                                         <i class="fa fa-minus"></i>
                                     </button>
@@ -236,9 +236,9 @@
                                 <h3 class="box-title"><i class="fa fa-user"></i> @Localizer["New Users"]</h3>
 
                                 <div class="box-tools pull-right">
-                                    <button type="button" class="btn btn-xs btn-info btn-flat">@Localizer["Day"]</button>
-                                    <button type="button" class="btn btn-xs btn-info btn-flat">@Localizer["Month"]</button>
-                                    <button type="button" class="btn btn-xs btn-info btn-flat">@Localizer["Year"]</button>
+                                    <button type="button" onclick="GetUsersChart(1)" class="btn btn-xs btn-info btn-flat">@Localizer["Week"]</button>
+                                    <button type="button" onclick="GetUsersChart(2)" class="btn btn-xs btn-info btn-flat">@Localizer["Month"]</button>
+                                    <button type="button" onclick="GetUsersChart(3)" class="btn btn-xs btn-info btn-flat">@Localizer["Year"]</button>
                                     <button type="button" class="btn btn-box-tool" data-widget="collapse">
                                         <i class="fa fa-minus"></i>
                                     </button>
@@ -779,7 +779,16 @@
 
                     {
                         "render": function (data, type, full, meta) {
-                            return '<span class=" label label-success  label-lg green ">' + full.orderStatus + '</span>';
+                            if (full.bookingStatusId ==1)
+                            return '<span class=" label label-success  label-lg green " style="padding: .5em .6em .8em; font-size: 100%;">' + full.orderStatus + '</span>';
+                            else if (full.bookingStatusId==2 )
+                            return '<span class=" label label-info  label-lg green " style="padding: .5em .6em .8em; font-size: 100%;">' + full.orderStatus + '</span>';
+                            else if (full.bookingStatusId==3)
+                            return '<span class=" label label-danger  label-lg green " style="padding: .5em .6em .8em; font-size: 100%;">' + full.orderStatus + '</span>';
+                            else
+                            return '<span class=" label label-primary  label-lg green " style="padding: .5em .6em .8em; font-size: 100%;">' + full.orderStatus + '</span>';
+
+
                         }
                     },
                     { "data": "customer" },
@@ -1047,10 +1056,15 @@
             })
              });//get alength json
 
+
+       
+        function GetBookingsChart(Id) {
     $.ajax({
             type: "POST",
-            url: "@Html.Raw(Url.Action("GetBookingsChart", "Dashboard"))",
-
+        url: "Dashboard/GetBookingsChart",
+        data: {
+            "Id":Id
+        },
             success: function (result, textStatus, xhr) {
                 //     alert(result);
 
@@ -1107,11 +1121,17 @@
 
     });
 
+        }
 
+
+
+        function GetUsersChart(Id) {
                  $.ajax({
             type: "POST",
-            url: "@Html.Raw(Url.Action("GetnewCustomersChart", "Dashboard"))",
-
+                     url: "Dashboard/GetnewCustomersChart",
+                     data: {
+                         "Id": Id
+                     },
             success: function (result, textStatus, xhr) {
                 //     alert(result);
 
@@ -1164,7 +1184,12 @@
             });
                      }
 
-                 });
+        });
+        }
+        var IdChart = 1;
+        var IdNewUser = 1;
+        GetBookingsChart(IdChart);
+        GetUsersChart(IdNewUser);
 
     </script>
 

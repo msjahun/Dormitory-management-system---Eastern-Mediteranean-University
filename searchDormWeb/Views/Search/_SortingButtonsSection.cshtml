@@ -11,16 +11,19 @@
     <div class="card-body-search ">
         <div class="row " style="margin:0px; padding:0px;">
 
+
             <div class="col" style="margin:0px; padding:0px;">
-                <button class="btn btn-sm btn-warning btn-block sortingBtns " onClick="sortingFunc()" id="SortByPriceBtn">@Localizer["Price"]</button>
+                <button class="btn btn-sm  btn-block btn-warning sortingBtns  " onClick="sortingFunc(1)" id="SortByAzBtn">@Localizer["A-Z"]</button>
             </div>
+
             <div class="col" style="margin:0px; padding:0px;">
-                <button class="btn btn-sm  btn-block btn-outline-warning sortingBtns" onClick="sortingFunc()" id="SortByAzBtn">@Localizer["A-Z"]</button>
+                <button class="btn btn-sm  btn-block btn-outline-warning sortingBtns " onClick="sortingFunc(2)" id="SortByPriceBtn">@Localizer["Price"]</button>
             </div>
+
             <div class="col" style="margin:0px; padding:0px;">
-                <button class="btn btn-sm btn-block btn-outline-warning btn-block sortingBtns " onClick="sortingFunc()" id="SortByRatingBtn">@Localizer["Rating"]</button>
-            </div> 
-          
+                <button class="btn btn-sm btn-block btn-outline-warning btn-block sortingBtns " onClick="sortingFunc(3)" id="SortByRatingBtn">@Localizer["Rating"]</button>
+            </div>
+
 
             <a href="javascript:;" data-fancybox data-type="iframe" data-src="https://www.emu.edu.tr/campusmap?design=empty#" class="float-right btn-sm  btn btn-warning btn-icon-label">
                 <span class="btn-inner--icon"><i class="far fa-map"></i></span>

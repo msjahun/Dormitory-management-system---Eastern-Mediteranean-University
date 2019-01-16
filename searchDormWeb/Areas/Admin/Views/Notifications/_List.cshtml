@@ -10,7 +10,7 @@
     <section class="content-header">
         <h1>
             @ViewBag.Title
-           
+
         </h1>
     </section>
 
@@ -121,15 +121,191 @@
         <!-- /.row -->
 
     </section>
+
+    <section class="invoice">
+        <!-- title row -->
+        <div class="row">
+            <div class="col-xs-12">
+                <h1 class="page-header text-center">
+                    <img class="pull-left" src="https://dormitories.emu.edu.tr/_layouts/emu/images/logo/emu-logo-horizontalblue-en.png?ver=1">
+ONLINE PAYMENT RECEIPT<small class="pull-right">Date: 2/10/2014</small>
+                </h1>
+               <br />
+               <br />
+            </div>
+            <br />
+            <!-- /.col -->
+        </div>
+
+        <!-- info row -->
+        <div class="row invoice-info"><img class="pull-left" style="margin:10px" src="http://35.204.232.129/Files/Images/DormitoryImages/512x512bb.jpg" width="80">
+            <div class="col-sm-4 invoice-col">
+                From 
+                <address>
+
+
+                    <strong>Alfam Dormitory</strong><br>
+                    795 Folsom Ave, Suite 600<br>
+                    San Francisco, CA 94107<br>
+                    Phone: (804) 123-5432<br>
+                    Email: info@almasaeedstudio.com
+                </address>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-3 invoice-col">
+                To
+                <address>
+                    <strong>Musa Jahun</strong><br>
+                    795 Folsom Ave, Suite 600<br>
+                    San Francisco, CA 94107<br>
+                    Phone: (555) 539-1037<br>
+                    Email: john.doe@example.com
+                </address>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-3 pull-right invoice-col">
+                <b>Receipt No. #007612</b><br>
+                <br>
+                <b>Booking number:</b> 4F3S8J<br>
+                <b>Payment Paid on:</b> 2/22/2014<br>
+                <b>Account:</b> 968-34567
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+        <!-- Table row -->
+        <div class="row">
+            <div class="col-xs-12 table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>No.#</th>
+                            <th>Dormitory name</th>
+                            <th>Room name</th>
+                            <th>Dormitory block</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Alfam dormitory</td>
+                            <td>Single room</td>
+                            <td>Alfam b. block</td>
+                            <td>$64.50</td>
+                        </tr>
+
+
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+        <div class="row">
+            <!-- accepted payments column -->
+            <div class="col-xs-6">
+                <p class="lead">Payment Methods: Uploaded receipt</p>
+
+
+
+
+
+                <div class="col ">
+                    <address>
+                        <strong>Additional information</strong><br>Checking date starts at 23-March-2018<br>
+                        Your room information will be sent to you via email<br>
+                        On arraival, you will need to show your payment receipt to the dormitory office and you'll receive your room key<br>You will also need to sign a contract in the dormitory office
+                    </address>
+
+
+                    <strong>Contact information </strong><br>
+                    <address>
+                        <strong>Mr. Yusuf </strong><br>
+                        Manager Alfam dormitories<br>
+                        795 Folsom Ave, Suite 600<br>
+                        San Francisco, CA 94107<br>
+                        Phone: (804) 123-5432<br>
+                        Email: info@almasaeedstudio.com
+                    </address>
+                </div>
+            </div>
+            <!-- /.col -->
+            <div class="col-xs-6">
+                <p class="lead">Date paid: 2/22/2014</p>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th style="width:50%">Subtotal:</th>
+                                <td>$250.30</td>
+                            </tr>
+                            <tr>
+                                <th>Tax (9.3%)</th>
+                                <td>$10.34</td>
+                            </tr>
+                            <tr>
+                                <th>Booking fee:</th>
+                                <td>$5.80</td>
+                            </tr>
+                            <tr>
+                                <th>Total:</th>
+                                <td>$265.24</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+        <!-- this row will not appear when printing -->
+        <div class="row no-print">
+
+        </div>
+    </section>
     <!-- /.content -->
     <!-- /.content -->
 </div>
 
+@section styles {
+
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/Ionicons/css/ionicons.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/skins/_all-skins.min.css">
+}
+
+
 @section scripts
     {
+
     <script src="@Url.Content("~/Content/")bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap 3.3.7 -->
     <script src="@Url.Content("~/Content/")bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- AdminLTE App -->
     <script src="@Url.Content("~/Content/")dist/js/adminlte.min.js"></script>
+    <script src="@Url.Content("~/Content/")bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="@Url.Content("~/Content/")bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="@Url.Content("~/Content/")bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="@Url.Content("~/Content/")bower_components/fastclick/lib/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <!-- AdminLTE for demo purposes -->
+    <script src="@Url.Content("~/Content/")dist/js/demo.js"></script>
+    <!-- page script -->
+
 }

@@ -12,5 +12,6 @@ namespace Dau.Services.Domain.ImageServices
         bool UploadRoomImage(long RoomId);
         string PrepareImageForMobileApi(string imageUrl);
         List<string> PrepareImageForMobileApi(List<string> imageUrls);
+        bool uploadBookingReceiptImage(long BookingId);
     }
 }

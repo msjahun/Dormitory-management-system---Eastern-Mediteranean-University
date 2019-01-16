@@ -10,5 +10,8 @@ namespace Dau.Services.Security
         List<SelectListItem> GetUserRolesItems();
         List<UserRole> GetUserRoleModels();
         List<UserRole> GetUserRoles(User user);
+        bool IsDormitoryManager();
+        List<long> RoleAccessResolver();
+        bool IsAuthorized(long id);
     }
 }

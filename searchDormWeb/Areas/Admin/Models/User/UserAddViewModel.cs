@@ -23,11 +23,11 @@ namespace searchDormWeb.Areas.Admin.Models.User
 
         [Display(Name = "Customer roles")]
         public IEnumerable<string> CustomerRole { get; set; }
-
+       
         public List<SelectListItem> CustomerRoles { get; set; }
 
         [Display(Name = "Manager of dormitory")]
-        public int ManagerOfDormitory { get; set; }
+        public List<long> ManagerOfDormitory { get; set; }
 
         public List<SelectListItem> Dormitories { get; set; }
 

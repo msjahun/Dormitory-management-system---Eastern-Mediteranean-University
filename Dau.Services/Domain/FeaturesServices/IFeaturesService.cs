@@ -13,6 +13,6 @@ namespace Dau.Services.Domain.FeaturesServices
         List<RoomFeaturesTable> GetRoomFeatures(long RoomId);
         bool RemoveDormitoryFeature(FacilitiesTabDormitory vm);
         bool RemoveRoomFeature(FacilitiesTab vm);
-        bool UpdateFeaturesHitCount(List<int> FeaturesIds);
+        bool UpdateFeaturesHitCount(List<long> FeaturesIds);
     }
 }

@@ -1,7 +1,9 @@
 ﻿using Dau.Core.Domain.Catalog;
 using Dau.Core.Domain.SearchEngineOptimization;
 using Dau.Data.Repository;
+using Dau.Services.Event;
 using Dau.Services.Languages;
+using Dau.Services.Security;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,7 +16,8 @@ namespace Dau.Services.Domain.DormitoryServices
 {
     public class DormitoryService : IDormitoryService
     {
-
+        private readonly IEventService _eventService;
+        private readonly IUserRolesService _userRolesService;
         private readonly ILanguageService _languageService;
         private readonly IRepository<RoomTranslation> _roomTransRepo;
         private readonly IRepository<Room> _roomRepo;
@@ -27,6 +30,7 @@ namespace Dau.Services.Domain.DormitoryServices
         private readonly IRepository<Seo> _SeoRepo;
 
         public DormitoryService(
+
               ILanguageService languageService,
             IRepository<Room> roomRepository,
             IRepository<RoomTranslation> roomTransRepository,
@@ -36,9 +40,13 @@ namespace Dau.Services.Domain.DormitoryServices
             IRepository<CatalogImage> imageRepository,
             IRepository<DormitoryType> dormitoryTypeRepository,
             IRepository<DormitoryTypeTranslation> dormitoryTypeTransRepository,
-            IRepository<Seo> SeoRepository
+            IRepository<Seo> SeoRepository,
+          IUserRolesService userRolesService,
+          IEventService eventService
             )
         {
+            _eventService = eventService;
+            _userRolesService = userRolesService;
 
             _languageService = languageService;
             _roomTransRepo = roomTransRepository;
@@ -68,7 +76,7 @@ namespace Dau.Services.Domain.DormitoryServices
                                 where dormTypeTrans.LanguageId == CurrentLanguageId
                                 select new { dormType.Id, dormTypeTrans.Title };
 
-            var dormitory = from dorm in _dormitoryRepo.List().ToList()
+            var dormitory = from dorm in _dormitoryRepo.List().Where(c => _userRolesService.RoleAccessResolver().Contains(c.Id)).ToList().ToList()
                             join dormTrans in _dormitoryTransRepo.List().ToList() on dorm.Id equals dormTrans.DormitoryNonTransId
                             where dormTrans.LanguageId == CurrentLanguageId
                             select new DormitoriesDataTable {
@@ -189,6 +197,7 @@ namespace Dau.Services.Domain.DormitoryServices
 
         public DormitoryCrud GetDormitoryById(long DormitoryId)
         {
+            if (!_userRolesService.IsAuthorized(DormitoryId)) return null;
             var dorm = _dormitoryRepo.GetById(DormitoryId);
             if (dorm == null)
                 return null;
@@ -265,7 +274,9 @@ namespace Dau.Services.Domain.DormitoryServices
 
         public bool UpdateDormitoryById(DormitoryCrud vm)
         {
-            try { 
+            try {
+                if (!_userRolesService.IsAuthorized(vm.Id)) return false;
+
             int _englishLanguageId = 1;
             int _turkishLanguageId = 2;
             var dormitoryToUpdate = _dormitoryRepo.GetById(vm.Id);
@@ -342,7 +353,8 @@ namespace Dau.Services.Domain.DormitoryServices
             _dormitoryRepo.Update(dormitoryToUpdate);
             _dormitoryTransRepo.Update(dormTransEnglish);
             _dormitoryTransRepo.Update(dormTransTurkish);
-            
+
+                _eventService.Trigger_DormitoryInformationChange_DormitoryManagerNotification_Event();
 
             return true;
             }
@@ -355,7 +367,8 @@ namespace Dau.Services.Domain.DormitoryServices
         public bool UpdateDormSeo(DormitoryCrud vm)
         {
             try {
-            var dormitoryToUpdate = _dormitoryRepo.GetById(vm.Id);
+                if (!_userRolesService.IsAuthorized(vm.Id)) return false;
+                var dormitoryToUpdate = _dormitoryRepo.GetById(vm.Id);
                 if (vm.seoTab.SearchEngineFriendlyPageName == null || vm.seoTab.SearchEngineFriendlyPageName.Length <= 0)
                     vm.seoTab.SearchEngineFriendlyPageName = vm.localizedContent[0].DormitoryName;
 
@@ -390,6 +403,7 @@ namespace Dau.Services.Domain.DormitoryServices
 
         public List<DormitoryPicturesTable> GetDormitoryImagesTables(long id)
         {
+            if (!_userRolesService.IsAuthorized(id)) return null;
             var DormImages = from dormImage in _dormImageRepo.List().ToList()
                              join Image in _imageRepo.List().ToList() on dormImage.CatalogImageId equals Image.Id
                              where dormImage.DormitoryId== id
@@ -595,7 +609,7 @@ namespace Dau.Services.Domain.DormitoryServices
 
        
         [Display(Name = "Short Description",
-        Description = "Short description is the text that is displayed in Search page."), DataType(DataType.Text),MaxLength(120)]
+        Description = "Short description is the text that is displayed in Search page."), DataType(DataType.Text),MaxLength(150)]
         public string ShortDescription { get; set; }
 
 

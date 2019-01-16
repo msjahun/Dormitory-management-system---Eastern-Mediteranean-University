@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = Localizer["Information"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+    var item = Model;
 }
 
 
@@ -43,21 +44,21 @@
                         <div class="form-group">
                             <dau-label asp-for="Version"></dau-label>
                             <div class="col-sm-6">
-                                <label for="inputEmail3" class="col-sm-6">v.1.0.0</label>
+                                <label for="inputEmail3" class="col-sm-6">@item.Version</label>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <dau-label asp-for="OperatingSystem"></dau-label>
                             <div class="col-sm-6">
-                                <label for="inputEmail3" class="col-sm-6 ">Microsoft windows NT.6 </label>
+                                <label for="inputEmail3" class="col-sm-6 ">@item.OperatingSystem</label>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <dau-label asp-for="AspDotNetInfo"></dau-label>
                             <div class="col-sm-6">
-                                <label for="inputEmail3" class="col-sm-6 ">v4.0.30319 </label>
+                                <label for="inputEmail3" class="col-sm-6 ">@item.AspDotNetInfo </label>
                             </div>
                         </div>
 
@@ -65,7 +66,7 @@
                         <div class="form-group">
                             <dau-label asp-for="IsFullTrustLevel"></dau-label>
                             <div class="col-sm-6">
-                                <label for="inputEmail3" class="col-sm-6">True </label>
+                                <label for="inputEmail3" class="col-sm-6">@item.IsFullTrustLevel</label>
                             </div>
                         </div>
 
@@ -74,7 +75,7 @@
                         <div class="form-group">
                             <dau-label asp-for="ServerTimeZone"></dau-label>
                             <div class="col-sm-6">
-                                <label for="inputEmail3" class="col-sm-6">W.Europe standard time</label>
+                                <label for="inputEmail3" class="col-sm-6">@item.ServerTimeZone</label>
                             </div>
                         </div>
 
@@ -83,7 +84,7 @@
                         <div class="form-group">
                             <dau-label asp-for="ServerLocalTime"></dau-label>
                             <div class="col-sm-6">
-                                <label for="inputEmail3" class="col-sm-6">Wednessday, July 3</label>
+                                <label for="inputEmail3" class="col-sm-6">@item.ServerLocalTime</label>
                             </div>
                         </div>
 
@@ -92,7 +93,7 @@
                         <div class="form-group">
                             <dau-label asp-for="CoordinateUniversalTime"></dau-label>
                             <div class="col-sm-6">
-                                <label for="inputEmail3" class="col-sm-6">Tuesday, July 3</label>
+                                <label for="inputEmail3" class="col-sm-6">@item.CoordinateUniversalTime</label>
                             </div>
                         </div>
 
@@ -101,7 +102,7 @@
                         <div class="form-group">
                             <dau-label asp-for="CurrentUserTime"></dau-label>
                             <div class="col-sm-6">
-                                <label for="inputEmail3" class="col-sm-6">Tuesday </label>
+                                <label for="inputEmail3" class="col-sm-6">@item.CurrentUserTime</label>
                             </div>
                         </div>
 
@@ -109,7 +110,7 @@
                         <div class="form-group">
                             <dau-label asp-for="HttpHost"></dau-label>
                             <div class="col-sm-6">
-                                <label for="inputEmail3" class="col-sm-6">dormitories.emu.edu.tr </label>
+                                <label for="inputEmail3" class="col-sm-6">@item.HttpHost</label>
                             </div>
                         </div>
 

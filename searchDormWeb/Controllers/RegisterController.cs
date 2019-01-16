@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using Dau.Core.Domain.Users;
+using Dau.Services.Email;
+using Dau.Services.Event;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,11 +18,19 @@ namespace searchDormWeb.Controllers
     {
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
+        private readonly IMessageQueueService _messageQueueService;
+        private readonly IEventService _eventService;
 
-        public RegisterController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public RegisterController(UserManager<User> userManager,
+          IMessageQueueService messageQueueService,
+            SignInManager<User> signInManager,
+            IEventService eventService)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            _messageQueueService = messageQueueService;
+            _eventService = eventService;
+            
         }
         [Route("Register/")]
         [HttpGet]
@@ -34,13 +45,30 @@ namespace searchDormWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = vm.Email, Email = vm.Email };
+                var user = new User { UserName = vm.Email, Email = vm.Email , FirstName=vm.Firstname, LastName= vm.LastName, CreatedOnUtc=DateTime.Now, StudentNumber=vm.studentNumber};
                 var result = await userManager.CreateAsync(user, vm.Password);
 
                 if (result.Succeeded)
                 {
-                    await signInManager.SignInAsync(user, false);
-                    return RedirectToAction("Index", "Home");
+                    string confirmationToken = userManager.
+                    GenerateEmailConfirmationTokenAsync(user).Result;
+
+                    string confirmationLink = Url.Action("ConfirmEmail",
+                      "Login", new
+                      {
+                          userid = user.Id,
+                          token = confirmationToken
+                      },
+                       protocol: HttpContext.Request.Scheme);
+
+                    //send confirmation link to email  service
+                    _eventService.Trigger_NewStudent_Notification_Event();
+                    _eventService.Trigger_Student_EmailValidationMessage_Event();
+                    _eventService.Trigger_Student_WelcomeMessage_Event();
+                    _messageQueueService.QueueVerificationEmail(confirmationLink, user.FirstName  + " " + user.LastName, user.Email);
+                   
+                   // await signInManager.SignInAsync(user, false);
+                    return RedirectToAction( "Success", "Register");
                 }
                 else
                 {
@@ -55,5 +83,12 @@ namespace searchDormWeb.Controllers
             return View(vm);
         }
 
+    
+    [HttpGet]
+    public IActionResult Success()
+    {
+        return View(true);
     }
+    }
+
 }

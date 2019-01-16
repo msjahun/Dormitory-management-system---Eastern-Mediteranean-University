@@ -16,18 +16,20 @@ namespace searchDormWeb.Controllers
     public class LoginController : Controller
     {
         private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
         private readonly RoleManager<UserRole> _roleManager;
 
         public IStringLocalizer Localizer { get; }
 
         private readonly ILogger<LoginController> _logger;
 
-        public LoginController(SignInManager<User> signInManager, RoleManager<UserRole> roleManager, ILogger<LoginController> logger , IStringLocalizer _Localizer)
+        public LoginController(SignInManager<User> signInManager, RoleManager<UserRole> roleManager, ILogger<LoginController> logger , IStringLocalizer _Localizer, UserManager<User> userManager)
         {
             Localizer = _Localizer;
             _logger = logger;
             _roleManager = roleManager;
             _signInManager = signInManager;
+            _userManager = userManager;
 
          // new UserRoleSeed(_roleManager).Seed();
         }
@@ -46,6 +48,18 @@ namespace searchDormWeb.Controllers
         {
             if (ModelState.IsValid)
             {
+                var user = _userManager.Users.FirstOrDefault(s => s.Email == vm.Email);
+                if (user == null)
+                {
+                    ModelState.AddModelError("", Localizer["User doesn't exist"]);
+                    return View(vm);
+                }
+
+                if (user.EmailConfirmed ==false)
+                {
+                    ModelState.AddModelError("", Localizer["Please verify your email before signing in"]);
+                    return View(vm);
+                }
                 var result = await _signInManager.PasswordSignInAsync(vm.Email, vm.Password, vm.RememberMe, false);
              
                 if (result.Succeeded)
@@ -76,6 +90,25 @@ namespace searchDormWeb.Controllers
             return RedirectToAction("", "Home");
         }
 
+
+
+        public async Task<IActionResult> ConfirmEmail(string userid, string token)
+        {
+           var user = _userManager.FindByIdAsync(userid).Result;
+            IdentityResult result = _userManager.
+                        ConfirmEmailAsync(user, token).Result;
+            if (result.Succeeded)
+            {
+                await _signInManager.SignInAsync(user, false);
+                ViewBag.Message = "Email confirmed successfully!";
+                return View();
+            }
+            else
+            {
+                ViewBag.Message = "Error while confirming your email!";
+                return View();
+            }
+        }
 
         public IActionResult RecoverAccount()
         {

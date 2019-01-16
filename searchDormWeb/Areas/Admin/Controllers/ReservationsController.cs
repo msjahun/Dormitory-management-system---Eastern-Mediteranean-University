@@ -4,10 +4,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Dau.Services.Domain.BookingService;
+using Dau.Services.Export;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
-
+using searchDormWeb.Areas.Admin.Models.Reservation;
 
 namespace searchDormWeb.Areas.Admin.Controllers
 {
@@ -17,10 +17,13 @@ namespace searchDormWeb.Areas.Admin.Controllers
     public class ReservationsController : Controller
     {
         private readonly IBookingService _bookingService;
+        private readonly IExportService _exportService;
 
-        public ReservationsController(IBookingService bookingService)
+        public ReservationsController(IBookingService bookingService,
+            IExportService exportService)
         {
             _bookingService = bookingService;
+            _exportService = exportService;
         }
 
 
@@ -83,13 +86,48 @@ namespace searchDormWeb.Areas.Admin.Controllers
         }
 
         [HttpGet("[action]")]
-        public ActionResult ReservationEdit(long Id)
+        public ActionResult ReservationEdit(long bookingNo)
         {
-            return View("_ReservationEdit");
+            var model=   _bookingService.GetBookingById(bookingNo);
+        
+            if(model == null)
+                return RedirectToAction("List", "Reservations");
+            return View("_ReservationEdit",model );
 
         }
 
 
+        [HttpGet("[action]")]
+        public ActionResult ExportExcel(int Id)
+        {
+            //if id==1, today
+            //id==2 //, last 7 days
+            //id= 3 this month
+            //var model = _exportService.getBookingExcel(id);
+            string pathToFile = _exportService.ExportBookingsToExcel(Id);
+
+
+            return RedirectToAction("", "Download", new { area = "" , filename= pathToFile} );
+
+        }
+
+
+        [HttpPost("[action]")]
+        public ActionResult ChangeBookingStatus(ChangeBookingStatusVm vm)
+        {
+           bool success= _bookingService.ChangeBookingStatus(vm.BookingId, vm.newBookingStatusId);
+            return Json(success);
+        }
+            [HttpPost("[action]")]
+        public ActionResult ChangePaymentStatus(ChangePaymentStatusVm vm)
+        {
+           bool success= _bookingService.ChangePaymentStatus(vm.BookingId, vm.newpaymentStatusId);
+            return Json(success);
+        }
+
+
+
+      
         #endregion
 
         #region CancelRequests
@@ -397,6 +435,17 @@ namespace searchDormWeb.Areas.Admin.Controllers
         #endregion
     }
 
+    public class ChangeBookingStatusVm
+    {
+        public long BookingId { get; set; }
+        public long newBookingStatusId { get; set; }
+    }
+    
+    public class ChangePaymentStatusVm
+    {
+        public long BookingId { get; set; }
+        public long newpaymentStatusId { get; set; }
+    }
 
     public class CancelBookingRequestTable {
         public string Id { get; set; }
@@ -408,7 +457,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
         public string Edit { get; set; }
     }
     public class CurrentBookingWishListTable {
-        public string Customer { get; set; }
+        public string Student { get; set; }
         public string TotalItems { get; set; }
     }
     public class BestSellerRoomsTable {

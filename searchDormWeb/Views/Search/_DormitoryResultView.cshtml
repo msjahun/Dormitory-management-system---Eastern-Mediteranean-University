@@ -53,10 +53,10 @@
 
 
             <div class="col-lg-5 col-md-5">
-                <span class="badge badge-secondary">@item.DormitoryType</span>
-                <h4 class="dormitory-name d-inline"><a href="@Url.Content("~/Dormitories/"+item.DormitorySeoFriendlyUrl)"> @item.DormitoryName </a></h4>
+
+                <h4 class="dormitory-name d-inline"><a href="@Url.Content("~/Dormitories/"+item.DormitorySeoFriendlyUrl)" target="_blank"> @item.DormitoryName </a></h4>
                 <dau-rating rating="@item.RatingNo"></dau-rating>
-                <span><i class="fa fa-thumbs-up" style="color:orange;"></i></span>
+                <span><i class="fa fa-thumbs-up" style="color:orange;"></i></span> <span class="badge badge-secondary">@item.DormitoryType</span>
 
 
                 <div class="location-info">
@@ -69,9 +69,9 @@
                         <a href="javascript:;" data-fancybox data-type="iframe" data-src="@item.MapSection">
                             <i class="far fa-map  text-warning"></i>
                         </a>
-                        <a href="javascript:;" data-fancybox data-type="iframe" data-src="@item.ClosestLandMarkMapSection" style="color:#269038">@item.ClosestLandMark</a> 
-                        
-                      
+                        <a href="javascript:;" data-fancybox data-type="iframe" data-src="@item.ClosestLandMarkMapSection" style="color:#269038">@item.ClosestLandMark</a>
+
+
                     </span>
 
                 </div>
