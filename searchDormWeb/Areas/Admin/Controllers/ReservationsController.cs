@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Dau.Services.Domain.BookingService;
+using Dau.Services.Domain.RoomServices;
 using Dau.Services.Export;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,12 +19,16 @@ namespace searchDormWeb.Areas.Admin.Controllers
     {
         private readonly IBookingService _bookingService;
         private readonly IExportService _exportService;
+        private readonly IRoomService _roomService;
 
         public ReservationsController(IBookingService bookingService,
-            IExportService exportService)
+            IExportService exportService,
+            IRoomService roomService)
         {
             _bookingService = bookingService;
             _exportService = exportService;
+            _roomService = roomService;
+
         }
 
 
@@ -111,6 +116,56 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
         }
 
+
+        [HttpPost("[action]")]
+        public ActionResult BookingRoomByBookingId(long Id)
+        {
+            try
+            {
+                var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                var start = Request.Form["start"].FirstOrDefault(); // Skip number of Rows count
+                var passedParam = Request.Form["myKey"].FirstOrDefault();//passed parameter
+                var length = Request.Form["length"].FirstOrDefault();  // Paging Length 10,20  
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault(); // Sort Column Name  
+                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();// Sort Column Direction (asc, desc)  
+                var searchValue = Request.Form["search[value]"].FirstOrDefault();// Search Value from (Search box) 
+                int pageSize = length != null ? Convert.ToInt32(length) : 0; //Paging Size (10, 20, 50,100)  
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+
+
+
+
+                // List<RoomsListTable> List = _RoomService.GetAllRooms();
+                var List = _roomService.GetRoomsListTableByRoomId(Id);
+                // getting all Discount data  
+                var Data = List;
+
+                ////Sorting  
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                //{
+                //    DiscountData = DiscountData.OrderBy(c => c.sortColumn sortColumnDirection);
+                //}
+                ////Search  
+                //if (!string.IsNullOrEmpty(searchValue))
+                //{
+                //    DiscountData = DiscountData.Where(m => m.Name == searchValue);
+                //}
+
+
+                //total number of rows counts   
+                int recordsTotal = 0;
+                recordsTotal = Data.Count();
+                //Paging   
+                var data = Data.Skip(skip).Take(pageSize).ToList();
+                //Returning Json Data  
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
         [HttpPost("[action]")]
         public ActionResult ChangeBookingStatus(ChangeBookingStatusVm vm)

@@ -525,6 +525,7 @@ namespace Dau.Services.Domain.BookingService
                 StudentAddress1 = booking.StudentAddress1,
                 StudentAddress2 = booking.StudentAddress2,
                 City = booking.City,
+                RoomId = booking.RoomId,
                 StateProvince = booking.StateProvince,
                 ZipCode = booking.ZipCode,
                 Country = booking.Country,
@@ -1048,7 +1049,7 @@ namespace Dau.Services.Domain.BookingService
         Description = "A dormitory name in which this booking order was placed."), DataType(DataType.Text), MaxLength(256)]
         public string Dormitory { get; set; }
 
-
+        public long RoomId { get; set; }
 
         [Display(Name = "Student",
         Description = "The customer who placed this booking order."), DataType(DataType.Text), MaxLength(256)]

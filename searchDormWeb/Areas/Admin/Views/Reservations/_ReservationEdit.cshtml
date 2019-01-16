@@ -40,7 +40,7 @@
                     <li class="active"><a href="#tab_3" data-toggle="tab" aria-expanded="true">@Localizer["Info"]</a></li>
                     <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">@Localizer["Student Info"]</a></li>
                     <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">@Localizer["Room"]</a></li>
-                    <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">@Localizer["Booking notes"]</a></li>
+                    @*<li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">@Localizer["Booking notes"]</a></li>*@
                 </ul>
                 <div class="tab-content">
                     <!-- /.tab-pane -->
@@ -314,20 +314,23 @@
                             <!-- form start -->
 
                             <div class="box-body">
-                                <table id="example22" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>@Localizer["Picture"]</th>
-                                            <th>@Localizer["Room name"]</th>
-                                            <th>@Localizer["Price"]</th>
-                                            <th>@Localizer["Quantity"]</th>
-                                            <th>@Localizer["Discount"]</th>
-                                            <th>@Localizer["Total"]</th>
-                                            <th>@Localizer["Edit"]</th>
 
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
+                                    <table id="RoomsListTable" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th><input type="checkbox" /></th>
+                                                <th>@Localizer["Room #"]</th>
+                                                @*<th>@Localizer["Picture"]</th>*@
+                                                <th>@Localizer["Dormitory name"]</th>
+                                                <th>@Localizer["Room name"]</th>
+                                                <th>@Localizer["SKU"]</th>
+                                                <th>@Localizer["Price"]</th>
+                                                <th>@Localizer["Quota"]</th>
+                                                <th>@Localizer["Published"]</th>
+                                                <th>@Localizer["Edit"]</th>
+                                            </tr>
+                                        </thead>
+
 
                                 </table>
                                 @*<button type="submit" form="addForm" class="btn btn-primary"> <i class="fa fa-plus-square"></i> @Localizer["Add room"]</button>*@
@@ -337,7 +340,7 @@
                     </div>
 
                     <!-- /.tab-pane -->
-                    <div class="tab-pane" id="tab_4">
+                    @*<div class="tab-pane" id="tab_4">
                         <div class="box ">
                             <div class="box-header">
 
@@ -448,7 +451,7 @@
                                 </form>
                             </div>
                         </div>
-                    </div>
+                    </div>*@
 
                 </div>
                 <!-- /.tab-content -->
@@ -588,17 +591,83 @@
                 'autoWidth': true
             })
 
-            $('#example24').DataTable({
+              $.getJSON("@Url.Content("~/frontend_Content/")assets/js/DataTable_aLenthMenu/aLenthMenu_20_200.json", function (aLength) {
+            $('#RoomsListTable').on('processing.dt', function (e, settings, processing) {
+                if (processing) {
+                    Pace.start();
+                } else {
+                    Pace.stop();
+                }
+            }).DataTable({
                 'paging': true,
-                'lengthChange': true,
-                 "language": {
+                   "language": {
                     "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
                 },
+                'lengthChange': true,
+                "aLengthMenu": aLength,
                 'searching': false,
-                'ordering': true,
+                'ordering': false,
                 'info': true,
-                'autoWidth': true
+                'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+                    "url": "/Admin/Reservations/BookingRoomByBookingId/?Id=@item.RoomId",
+                    "type": "POST",
+                    "data": function (d) {
+                        d.myKey = "myValue";
+                        d.DiscountName = "myValue";
+                        d.CouponCode = "myValue";
+                        d.DiscountType = "myValue";
+                    },
+                    "datatype": "json"
+                },
+                "columns": [
+
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<input type="checkbox">';
+                        }
+                    },
+                    { "data": "roomId" },
+                    //{
+                    //    "render": function (data, type, full, meta) {
+                    //        return '<img src="'+ full.picture+'" style="width:100px; height:80px;">';
+                    //    }
+                    //},
+                  
+                    { "data": "dormitoryName" },
+                    { "data": "roomName" },
+                    { "data": "sku" },
+                    { "data": "price" },
+                    { "data": "quota" },
+                 
+                    {
+                        "render": function (data, type, full, meta) {
+                            if (full.published == true)
+                                return '<i class="fa fa-check" aria-hidden="true"></i>';
+                            else
+                                return '<i class="fa fa-times" aria-hidden="true"></i>';
+
+                        }
+                    },
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<a class="btn btn-primary" href="/Admin/Catalog/RoomEdit?id=' + full.roomId+'"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>';
+                        }
+                    }
+
+
+                ]
+
+
             })
+
+
         })
+        })
+        
     </script>
 }

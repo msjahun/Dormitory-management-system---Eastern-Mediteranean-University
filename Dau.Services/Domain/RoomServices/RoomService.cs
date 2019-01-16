@@ -103,6 +103,44 @@ namespace Dau.Services.Domain.RoomServices
         }
 
 
+        public List<RoomsListTable> GetRoomsListTableByRoomId(long Id)
+        {
+            var CurrentLanguageId = _languageService.GetCurrentLanguageId();
+            var rooms = from room in _roomRepo.List().ToList()
+                        join roomTrans in _roomTransRepo.List().ToList() on room.Id equals roomTrans.RoomNonTransId
+                        where roomTrans.LanguageId == CurrentLanguageId && room.Id==Id
+                        select new { room.Id, roomTrans.RoomName, room.NoRoomQuota, room.Price, room.Published, room.SKU, room.DormitoryId };
+
+            var dormitory = from dorm in _dormitoryRepo.List().ToList()
+                            join dormTrans in _dormitoryTransRepo.List().ToList() on dorm.Id equals dormTrans.DormitoryNonTransId
+                            where dormTrans.LanguageId == CurrentLanguageId
+                            select new { dorm.Id, dormTrans.DormitoryName };
+
+            var RoomImages = from roomImage in _roomImageRepo.List().ToList()
+                             join Image in _imageRepo.List().ToList() on roomImage.CatalogImageId equals Image.Id
+                             select new { roomImage.RoomId, Image.ImageUrl, Image.Published };
+
+            var RoomDormitory = from room in rooms.ToList()
+                                join dorm in dormitory.ToList() on room.DormitoryId equals dorm.Id
+                                orderby room.Id descending
+                                select new RoomsListTable
+                                {
+                                    dormitoryName = dorm.DormitoryName,
+                                    dormitoryId = dorm.Id,
+                                    roomId = room.Id,
+                                    // Picture = RoomImages.ToList().Where(c=> c.RoomId == room.Id).FirstOrDefault().ImageUrl,
+                                    RoomName = room.RoomName,
+                                    SKU = room.SKU,
+                                    Price = room.Price,
+                                    Quota = room.NoRoomQuota,
+                                    Published = room.Published
+                                };
+
+            var model = RoomDormitory.Where(c => _userRolesService.RoleAccessResolver().Contains(c.dormitoryId)).ToList();
+            return model;
+        }
+
+
         public List<DormitoryRoomsTable> GetRoomsByDormitoryIdListTable(long DormitoryId)
         {
             if (!_userRolesService.IsAuthorized(DormitoryId)) return null;
