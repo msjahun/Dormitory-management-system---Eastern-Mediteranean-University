@@ -795,7 +795,7 @@
                     { "data": "createdOn" },
                     {
                         "render": function (data, type, full, meta) {
-                            return '<a class="btn btn-primary" href=""><i class="fa fa-eye"></i> @Localizer["View"]</a>';
+                            return '<a class="btn btn-primary" href="/Admin/Reservations/ReservationEdit/?bookingNo=' + full.orderNo+ '"><i class="fa fa-eye"></i> @Localizer["View"]</a>';
                         }
                     }
 

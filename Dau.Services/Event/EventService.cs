@@ -1,4 +1,5 @@
-﻿using Dau.Core.Event;
+﻿using Dau.Core.Domain.System;
+using Dau.Core.Event;
 using Dau.Data.Repository;
 using System;
 using System.Collections.Generic;
@@ -10,14 +11,45 @@ namespace Dau.Services.Event
     public class EventService : IEventService
     {
         private IRepository<EventLogger> _eventLoggerRepo;
+        private readonly IRepository<MessageQueue> _messageQueueRepo;
 
-        public EventService(IRepository<EventLogger> eventLoggerRepo)
+        public EventService(IRepository<EventLogger> eventLoggerRepo,
+            IRepository<MessageQueue> messageQueueRepo
+            )
         {
             _eventLoggerRepo = eventLoggerRepo;
+            _messageQueueRepo = messageQueueRepo;
         }
 
         public void TriggerTestEvent()
         {
+            string UserFullName = "Musa Jahun";
+            string ToAddress = "mjahun@gmail.com";
+            var message =
+           new MessageQueue
+           {
+               ToAddress = ToAddress,
+               ToName = UserFullName,
+               IsSent = false,
+               MaximumSentAttempts = 5,
+               MessagePriority = 2,
+
+               Subject = "Verification token ",
+               Body = "<h3>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <ins>&nbsp;</ins><strong><ins>Room Is now available&nbsp;</ins>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</strong></h3>" +
+                        "<p><strong>Alfam dormitory</strong>&#39;s <strong>Single Room</strong> is now back in stock more quota has been added to the room.</p>" +
+                        "<p>You will now be able to book for the Dormitory.</p>" +
+                        "<p>Thank you</p>" +
+                        "<p><br />" +
+                        "Kind Regards,<br />" +
+                        "<strong>Dormitory Booking Team</strong></p>" +
+                        "<p>Sent to Musa Jahun</p>",
+               CreatedOn = DateTime.Now,
+               SendImmediately = false,
+               SendAttempts = 0
+           };
+
+            _messageQueueRepo.Insert(message);
+
 
             LogEvent(new EventLogger
             {EventName="Added testing event",
@@ -29,9 +61,34 @@ namespace Dau.Services.Event
 
         public void Trigger_Student_BackInStock_Event()
         {
-               
-             
 
+
+            string UserFullName = "Musa Jahun";
+            string ToAddress = "mjahun@gmail.com";
+            var message =
+           new MessageQueue
+           {
+               ToAddress = ToAddress,
+               ToName = UserFullName,
+               IsSent = false,
+               MaximumSentAttempts = 5,
+               MessagePriority = 2,
+
+               Subject = "Verification token ",
+               Body = "<h3>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <ins>&nbsp;</ins><strong><ins>Room Is now available&nbsp;</ins>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</strong></h3>" +
+                        "<p><strong>Alfam dormitory</strong>&#39;s <strong>Single Room</strong> is now back in stock more quota has been added to the room.</p>" +
+                        "<p>You will now be able to book for the Dormitory.</p>" +
+                        "<p>Thank you</p>" +
+                        "<p><br />" +
+                        "Kind Regards,<br />" +
+                        "<strong>Dormitory Booking Team</strong></p>" +
+                        "<p>Sent to Musa Jahun</p>",
+               CreatedOn = DateTime.Now,
+               SendImmediately = false,
+               SendAttempts = 0
+           };
+
+            _messageQueueRepo.Insert(message);
 
 
             LogEvent(new EventLogger
@@ -43,10 +100,37 @@ namespace Dau.Services.Event
         
         public void Trigger_Student_EmailValidationMessage_Event()
         {
-             		
-                
-                
-              
+            string UserFullName = "Musa Jahun";
+            string ToAddress = "mjahun@gmail.com";
+            var message =
+           new MessageQueue
+           {
+               ToAddress = ToAddress,
+               ToName = UserFullName,
+               IsSent = false,
+               MaximumSentAttempts = 5,
+               MessagePriority = 2,
+
+               Subject = "Verification token ",
+               Body =
+               "<h2><img src=\"https://dormitories.emu.edu.tr/_layouts/emu/images/logo/emu-logo-horizontalblue-en.png?ver=1\" />&nbsp; &nbsp; &nbsp; &nbsp; <strong>&nbsp;Email Activation<strong>&nbsp; </strong> </strong></h2>" +
+                 "<p>Thank you for registering an account with EMU Dormitory Booking System</p>" +
+                "<p>Please use this link to verify your email address.</p>" +
+                "<p><a href=\"#\">Verification link</a></p>" +
+                "<p>Thank you</p>" +
+                "<p><br />" +
+                "Kind Regards,<br />" +
+                "<strong>Dormitory Booking Team</strong></p>" +
+                "<p>Sent to Musa Jahun</p>",
+               CreatedOn = DateTime.Now,
+               SendImmediately = false,
+               SendAttempts = 0
+           };
+
+            _messageQueueRepo.Insert(message);
+
+
+
 
 
             LogEvent(new EventLogger
@@ -58,12 +142,42 @@ namespace Dau.Services.Event
         
         public void Trigger_Student_WelcomeMessage_Event()
         {
-                
-                
-                
-                
-                
-                
+
+
+            string UserFullName = "Musa Jahun";
+            string ToAddress = "mjahun@gmail.com";
+            var message =
+           new MessageQueue
+           {
+               ToAddress = ToAddress,
+               ToName = UserFullName,
+               IsSent = false,
+               MaximumSentAttempts = 5,
+               MessagePriority = 2,
+
+               Subject = "Verification token ",
+               Body = "<h2><img src=\"https://dormitories.emu.edu.tr/_layouts/emu/images/logo/emu-logo-horizontalblue-en.png?ver=1\" />&nbsp; &nbsp; &nbsp; &nbsp; <strong>&nbsp; <ins>Welcome To EMU Dormitory Booking System</ins><strong>&nbsp;&nbsp;</strong> </strong></h2>"+
+"<h3>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<strong>&nbsp;Welcome to EMU Dormitory Booking System<strong>&nbsp;&nbsp;</strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</strong></h3>"+
+"<p>Thank you for registering an account with EMU Dormitory Booking System</p>"+
+"<p>Now that your registered these are the things you&#39;ll be able to do on the system</p>"+
+"<ul><li>Book for dormitories</li>"+
+"	<li>Manage previous bookings</li>"+
+"	<li>Get tons of discounts and deals and so much more</li>"+
+"</ul>"+
+"<p>Thank you</p>"+
+"<p><br />"+
+"Kind Regards,<br />"+
+"<strong>Dormitory Booking Team</strong></p>"+
+"<p>Sent to Musa Jahun</p>",
+               CreatedOn = DateTime.Now,
+               SendImmediately = false,
+               SendAttempts = 0
+           };
+
+            _messageQueueRepo.Insert(message);
+
+
+
 
 
 
@@ -77,11 +191,36 @@ namespace Dau.Services.Event
         
         public void Trigger_BookingCancelled_StudentNotification_Event()
         {
-                
-                
-                
-                
-               
+
+            string UserFullName = "Musa Jahun";
+            string ToAddress = "mjahun@gmail.com";
+            var message =
+           new MessageQueue
+           {
+               ToAddress = ToAddress,
+               ToName = UserFullName,
+               IsSent = false,
+               MaximumSentAttempts = 5,
+               MessagePriority = 2,
+
+               Subject = "Verification token ",
+               Body = "<h3>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <ins>&nbsp;</ins><strong><ins>Room Is now available&nbsp;</ins>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</strong></h3>" +
+                        "<p><strong>Alfam dormitory</strong>&#39;s <strong>Single Room</strong> is now back in stock more quota has been added to the room.</p>" +
+                        "<p>You will now be able to book for the Dormitory.</p>" +
+                        "<p>Thank you</p>" +
+                        "<p><br />" +
+                        "Kind Regards,<br />" +
+                        "<strong>Dormitory Booking Team</strong></p>" +
+                        "<p>Sent to Musa Jahun</p>",
+               CreatedOn = DateTime.Now,
+               SendImmediately = false,
+               SendAttempts = 0
+           };
+
+            _messageQueueRepo.Insert(message);
+
+
+
 
 
             LogEvent(new EventLogger
@@ -93,12 +232,37 @@ namespace Dau.Services.Event
         
         public void Trigger_BookingCompleted_StudentNotification_Event()
         {
-                
-                
-                
-              
-                
-                
+
+
+
+            string UserFullName = "Musa Jahun";
+            string ToAddress = "mjahun@gmail.com";
+            var message =
+           new MessageQueue
+           {
+               ToAddress = ToAddress,
+               ToName = UserFullName,
+               IsSent = false,
+               MaximumSentAttempts = 5,
+               MessagePriority = 2,
+
+               Subject = "Verification token ",
+               Body = "<h3>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <ins>&nbsp;</ins><strong><ins>Room Is now available&nbsp;</ins>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</strong></h3>" +
+                        "<p><strong>Alfam dormitory</strong>&#39;s <strong>Single Room</strong> is now back in stock more quota has been added to the room.</p>" +
+                        "<p>You will now be able to book for the Dormitory.</p>" +
+                        "<p>Thank you</p>" +
+                        "<p><br />" +
+                        "Kind Regards,<br />" +
+                        "<strong>Dormitory Booking Team</strong></p>" +
+                        "<p>Sent to Musa Jahun</p>",
+               CreatedOn = DateTime.Now,
+               SendImmediately = false,
+               SendAttempts = 0
+           };
+
+            _messageQueueRepo.Insert(message);
+
+
 
 
 
@@ -111,9 +275,34 @@ namespace Dau.Services.Event
         
         public void Trigger_BookingPaid_StudentNotification_Event()
         {
-                
-                		
-                
+
+
+            string UserFullName = "Musa Jahun";
+            string ToAddress = "mjahun@gmail.com";
+            var message =
+           new MessageQueue
+           {
+               ToAddress = ToAddress,
+               ToName = UserFullName,
+               IsSent = false,
+               MaximumSentAttempts = 5,
+               MessagePriority = 2,
+
+               Subject = "Verification token ",
+               Body = "<h3>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <ins>&nbsp;</ins><strong><ins>Room Is now available&nbsp;</ins>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</strong></h3>" +
+                        "<p><strong>Alfam dormitory</strong>&#39;s <strong>Single Room</strong> is now back in stock more quota has been added to the room.</p>" +
+                        "<p>You will now be able to book for the Dormitory.</p>" +
+                        "<p>Thank you</p>" +
+                        "<p><br />" +
+                        "Kind Regards,<br />" +
+                        "<strong>Dormitory Booking Team</strong></p>" +
+                        "<p>Sent to Musa Jahun</p>",
+               CreatedOn = DateTime.Now,
+               SendImmediately = false,
+               SendAttempts = 0
+           };
+
+            _messageQueueRepo.Insert(message);
 
 
 
@@ -126,9 +315,34 @@ namespace Dau.Services.Event
         
         public void Trigger_BookingPaid_DormitoryNotification_Event()
         {
-                
-                //	
-               
+
+           string UserFullName = "Musa Jahun";
+            string ToAddress = "mjahun@gmail.com";
+            var message =
+           new MessageQueue
+           {
+               ToAddress = ToAddress,
+               ToName = UserFullName,
+               IsSent = false,
+               MaximumSentAttempts = 5,
+               MessagePriority = 2,
+
+               Subject = "Verification token ",
+               Body = "<h3>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <ins>&nbsp;</ins><strong><ins>Room Is now available&nbsp;</ins>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</strong></h3>" +
+                        "<p><strong>Alfam dormitory</strong>&#39;s <strong>Single Room</strong> is now back in stock more quota has been added to the room.</p>" +
+                        "<p>You will now be able to book for the Dormitory.</p>" +
+                        "<p>Thank you</p>" +
+                        "<p><br />" +
+                        "Kind Regards,<br />" +
+                        "<strong>Dormitory Booking Team</strong></p>" +
+                        "<p>Sent to Musa Jahun</p>",
+               CreatedOn = DateTime.Now,
+               SendImmediately = false,
+               SendAttempts = 0
+           };
+
+            _messageQueueRepo.Insert(message);
+
 
 
 
@@ -141,9 +355,34 @@ namespace Dau.Services.Event
         
         public void Trigger_BookingPlaced_StudentNotification_Event()
         {
-               
-                //
-                
+
+            //
+            string UserFullName = "Musa Jahun";
+            string ToAddress = "mjahun@gmail.com";
+            var message =
+           new MessageQueue
+           {
+               ToAddress = ToAddress,
+               ToName = UserFullName,
+               IsSent = false,
+               MaximumSentAttempts = 5,
+               MessagePriority = 2,
+
+               Subject = "Verification token ",
+               Body = "<h3>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <ins>&nbsp;</ins><strong><ins>Room Is now available&nbsp;</ins>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</strong></h3>" +
+                        "<p><strong>Alfam dormitory</strong>&#39;s <strong>Single Room</strong> is now back in stock more quota has been added to the room.</p>" +
+                        "<p>You will now be able to book for the Dormitory.</p>" +
+                        "<p>Thank you</p>" +
+                        "<p><br />" +
+                        "Kind Regards,<br />" +
+                        "<strong>Dormitory Booking Team</strong></p>" +
+                        "<p>Sent to Musa Jahun</p>",
+               CreatedOn = DateTime.Now,
+               SendImmediately = false,
+               SendAttempts = 0
+           };
+
+            _messageQueueRepo.Insert(message);
 
 
 
@@ -156,10 +395,35 @@ namespace Dau.Services.Event
         
         public void Trigger_BookingPlaced_DormitoryManagerNotification_Event()
         {
-                
-                	
-               
-              
+
+
+            string UserFullName = "Musa Jahun";
+            string ToAddress = "mjahun@gmail.com";
+            var message =
+           new MessageQueue
+           {
+               ToAddress = ToAddress,
+               ToName = UserFullName,
+               IsSent = false,
+               MaximumSentAttempts = 5,
+               MessagePriority = 2,
+
+               Subject = "Verification token ",
+               Body = "<h3>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <ins>&nbsp;</ins><strong><ins>Room Is now available&nbsp;</ins>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</strong></h3>" +
+                        "<p><strong>Alfam dormitory</strong>&#39;s <strong>Single Room</strong> is now back in stock more quota has been added to the room.</p>" +
+                        "<p>You will now be able to book for the Dormitory.</p>" +
+                        "<p>Thank you</p>" +
+                        "<p><br />" +
+                        "Kind Regards,<br />" +
+                        "<strong>Dormitory Booking Team</strong></p>" +
+                        "<p>Sent to Musa Jahun</p>",
+               CreatedOn = DateTime.Now,
+               SendImmediately = false,
+               SendAttempts = 0
+           };
+
+            _messageQueueRepo.Insert(message);
+
 
 
 
@@ -173,11 +437,36 @@ namespace Dau.Services.Event
         
         public void Trigger_BookingPlaced_DormitoryNotification_Event()
         {
-               
-                
-                
-                
-                
+
+
+
+            string UserFullName = "Musa Jahun";
+            string ToAddress = "mjahun@gmail.com";
+            var message =
+           new MessageQueue
+           {
+               ToAddress = ToAddress,
+               ToName = UserFullName,
+               IsSent = false,
+               MaximumSentAttempts = 5,
+               MessagePriority = 2,
+
+               Subject = "Verification token ",
+               Body = "<h3>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <ins>&nbsp;</ins><strong><ins>Room Is now available&nbsp;</ins>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</strong></h3>" +
+                        "<p><strong>Alfam dormitory</strong>&#39;s <strong>Single Room</strong> is now back in stock more quota has been added to the room.</p>" +
+                        "<p>You will now be able to book for the Dormitory.</p>" +
+                        "<p>Thank you</p>" +
+                        "<p><br />" +
+                        "Kind Regards,<br />" +
+                        "<strong>Dormitory Booking Team</strong></p>" +
+                        "<p>Sent to Musa Jahun</p>",
+               CreatedOn = DateTime.Now,
+               SendImmediately = false,
+               SendAttempts = 0
+           };
+
+            _messageQueueRepo.Insert(message);
+
 
 
 
@@ -191,10 +480,35 @@ namespace Dau.Services.Event
         
         public void Trigger_Room_RoomReview_Event()
         {
-               
-                
-                
-        
+
+
+            string UserFullName = "Musa Jahun";
+            string ToAddress = "mjahun@gmail.com";
+            var message =
+           new MessageQueue
+           {
+               ToAddress = ToAddress,
+               ToName = UserFullName,
+               IsSent = false,
+               MaximumSentAttempts = 5,
+               MessagePriority = 2,
+
+               Subject = "Verification token ",
+               Body = "<h3>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <ins>&nbsp;</ins><strong><ins>Room Is now available&nbsp;</ins>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</strong></h3>" +
+                        "<p><strong>Alfam dormitory</strong>&#39;s <strong>Single Room</strong> is now back in stock more quota has been added to the room.</p>" +
+                        "<p>You will now be able to book for the Dormitory.</p>" +
+                        "<p>Thank you</p>" +
+                        "<p><br />" +
+                        "Kind Regards,<br />" +
+                        "<strong>Dormitory Booking Team</strong></p>" +
+                        "<p>Sent to Musa Jahun</p>",
+               CreatedOn = DateTime.Now,
+               SendImmediately = false,
+               SendAttempts = 0
+           };
+
+            _messageQueueRepo.Insert(message);
+
 
 
 
@@ -207,10 +521,35 @@ namespace Dau.Services.Event
         
         public void Trigger_RoomQuotaBelow_DormitoryManagerNotification_Event()
         {
-                
-                
-                
 
+
+
+            string UserFullName = "Musa Jahun";
+            string ToAddress = "mjahun@gmail.com";
+            var message =
+           new MessageQueue
+           {
+               ToAddress = ToAddress,
+               ToName = UserFullName,
+               IsSent = false,
+               MaximumSentAttempts = 5,
+               MessagePriority = 2,
+
+               Subject = "Verification token ",
+               Body = "<h3>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <ins>&nbsp;</ins><strong><ins>Room Is now available&nbsp;</ins>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</strong></h3>" +
+                        "<p><strong>Alfam dormitory</strong>&#39;s <strong>Single Room</strong> is now back in stock more quota has been added to the room.</p>" +
+                        "<p>You will now be able to book for the Dormitory.</p>" +
+                        "<p>Thank you</p>" +
+                        "<p><br />" +
+                        "Kind Regards,<br />" +
+                        "<strong>Dormitory Booking Team</strong></p>" +
+                        "<p>Sent to Musa Jahun</p>",
+               CreatedOn = DateTime.Now,
+               SendImmediately = false,
+               SendAttempts = 0
+           };
+
+            _messageQueueRepo.Insert(message);
 
 
 
@@ -222,9 +561,34 @@ namespace Dau.Services.Event
         }
         
         public void Trigger_DormitoryInformationChange_DormitoryManagerNotification_Event()
-        { 
-               
+        {
 
+            string UserFullName = "Musa Jahun";
+            string ToAddress = "mjahun@gmail.com";
+            var message =
+           new MessageQueue
+           {
+               ToAddress = ToAddress,
+               ToName = UserFullName,
+               IsSent = false,
+               MaximumSentAttempts = 5,
+               MessagePriority = 2,
+
+               Subject = "Verification token ",
+               Body = "<h3>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <ins>&nbsp;</ins><strong><ins>Room Is now available&nbsp;</ins>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</strong></h3>" +
+                        "<p><strong>Alfam dormitory</strong>&#39;s <strong>Single Room</strong> is now back in stock more quota has been added to the room.</p>" +
+                        "<p>You will now be able to book for the Dormitory.</p>" +
+                        "<p>Thank you</p>" +
+                        "<p><br />" +
+                        "Kind Regards,<br />" +
+                        "<strong>Dormitory Booking Team</strong></p>" +
+                        "<p>Sent to Musa Jahun</p>",
+               CreatedOn = DateTime.Now,
+               SendImmediately = false,
+               SendAttempts = 0
+           };
+
+            _messageQueueRepo.Insert(message);
 
 
 
@@ -237,8 +601,33 @@ namespace Dau.Services.Event
         
         public void Trigger_NewStudent_Notification_Event()
         {
-                
-                
+
+            string UserFullName = "Musa Jahun";
+            string ToAddress = "mjahun@gmail.com";
+            var message =
+           new MessageQueue
+           {
+               ToAddress = ToAddress,
+               ToName = UserFullName,
+               IsSent = false,
+               MaximumSentAttempts = 5,
+               MessagePriority = 2,
+
+               Subject = "Verification token ",
+               Body = "<h3>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <ins>&nbsp;</ins><strong><ins>Room Is now available&nbsp;</ins>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</strong></h3>" +
+                        "<p><strong>Alfam dormitory</strong>&#39;s <strong>Single Room</strong> is now back in stock more quota has been added to the room.</p>" +
+                        "<p>You will now be able to book for the Dormitory.</p>" +
+                        "<p>Thank you</p>" +
+                        "<p><br />" +
+                        "Kind Regards,<br />" +
+                        "<strong>Dormitory Booking Team</strong></p>" +
+                        "<p>Sent to Musa Jahun</p>",
+               CreatedOn = DateTime.Now,
+               SendImmediately = false,
+               SendAttempts = 0
+           };
+
+            _messageQueueRepo.Insert(message);
 
 
 

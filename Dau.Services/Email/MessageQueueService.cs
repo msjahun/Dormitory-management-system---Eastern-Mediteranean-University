@@ -27,7 +27,7 @@ namespace Dau.Services.Email
                   MessagePriority = 2,
 
                   Subject = "Verification token ", 
-                  Body = "Your account has been created successfully, please very your account using this link <br><br>  " + verificationToken+" <br> <br> Thank you <br> <br> Sent to "+UserFullName,
+                  Body = "Your account has been created successfully, please very your account using this link <br><br>  <a href=\"" + verificationToken+"\">Verification token</a> <br> <br> Thank you <br> <br> Sent to "+UserFullName,
                   CreatedOn = DateTime.Now,
                   SendImmediately = false,
                   SendAttempts = 0

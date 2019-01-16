@@ -72,6 +72,7 @@ namespace Dau.Services.Email
                 mailMessage.From = new MailAddress(ClientEmail);
                 mailMessage.To.Add(message.ToAddress);
                     mailMessage.Body = message.Body;
+                        mailMessage.IsBodyHtml = true;
                 mailMessage.Subject = message.Subject;
 
                 client.Send(mailMessage);

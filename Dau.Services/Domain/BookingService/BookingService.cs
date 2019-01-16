@@ -614,6 +614,7 @@ namespace Dau.Services.Domain.BookingService
                            select new LatestBookingsTable
                            {DormitoryId=_roomRepository.GetById(booking.RoomId).DormitoryId,
                                OrderNo = booking.Id.ToString(),
+                              
                                OrderStatus = bookingStatus.Where(c => c.Id == booking.BookingStatusId).FirstOrDefault().BookingStatus,
                                BookingStatusId = booking.BookingStatusId,
                                Customer = _userManager.Users.Where(c => c.Id == booking.UserId).FirstOrDefault().UserName,
