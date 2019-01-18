@@ -5,11 +5,24 @@
 @using Microsoft.AspNetCore.Identity
 @using Dau.Core.Domain.Users;
 @using Dau.Services.Users;
+@using Dau.Services.Security;
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 @inject IUsersService _userService
+@inject IUserRolesService _userRoleService
 @if (SignInManager.IsSignedIn(User))
 {<secure-content asp-action="Index" asp-controller="Admin" asp-area="">
-        <div class="text-center bg-white text-white d-inline-block "  > <strong><a class="" asp-action="Index" asp-controller="Admin">@Localizer["Administration"]</a></strong> </div>
+        <div class="text-center bg-white text-white d-inline-block "> <strong><a class="" asp-action="Index" asp-controller="Admin">
+    @if (_userRoleService.IsDormitoryManager())
+    {
+        @Localizer["Dormitory Manager"]
+    }
+    else
+    {
+        @Localizer["Administration sfd"]
+    }
+
+
+</a></strong> </div>
     </secure-content>
 }

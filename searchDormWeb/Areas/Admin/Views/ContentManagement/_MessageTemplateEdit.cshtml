@@ -1,8 +1,9 @@
-﻿@using searchDormWeb.Areas.Admin.Models.ContentManagement
-@model MessageTemplateEdit
+﻿@using Dau.Services.MessageTemplates
+@model MessageTemplateService.MessageTemplateEdit
 @{
     ViewData["Title"] = Localizer["Edit Message Template"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+    var item = Model;
 }
 
 
@@ -17,10 +18,8 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save and Continue Edit"]</button>
-                    <button type="submit" form="addForm" class="btn btn-success "> <i class="fa fa-clone"></i> @Localizer["Copy template"]</button>
-                    <button type="submit" form="addForm" class="btn btn-danger "> <i class="fa fa-trash-o"></i> @Localizer["Delete"]</button>
+                    <button type='button' onClick='resolveButton("SaveClose")' class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
+                    <button type='button' onClick='resolveButton("SaveContinue")' class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save and Continue Edit"]</button>
                 </div>
             </div>
         </div>
@@ -29,10 +28,13 @@
     <!-- Main content -->
     <!-- Main content -->
     <section class="content container-fluid">
-
+        @if (item.SavedSuccessful)
+        {
+            <div class="alert alert-success alert-dismissible"> <button type="button" class="close text-white" data-dismiss="alert" aria-hidden="true">×</button> <i class="icon fa fa-check"></i> @Localizer["Message template was saved successfully"]</div>
+        }
         <!--------------------------
-        | Your Page Content Here |
-        -------------------------->
+    | Your Page Content Here |
+    -------------------------->
 
         <div class="col-md-12">
             <!-- Horizontal Form -->
@@ -46,95 +48,52 @@
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <form class="form-horizontal">
+                <form id="editForm" method="post" class="form-horizontal">
                     <div class="box-body">
                         <div class="form-group">
                             <dau-label asp-for="AllowedTokens"></dau-label>
+                            <input type="hidden" asp-for="Id" />
                             <div class="col-sm-8">
-                                <a>Hide</a>
-                            </div>
-
-                            <div class="col-sm-8">
-                                <p>%Store.Name, %Store.URL, %Store.Email,%Store.Name, %Store.URL, %Store.Email,%Store.Name, %Store.URL, %Store.Email,%Store.Name, %Store.URL, %Store.Email,%Store.Name, %Store.URL, %Store.Email</p>
+                                <p>@item.AllowedTokens</p>
                             </div>
 
                         </div>
 
                         <div class="form-group">
-                            <dau-label asp-for="Name" ></dau-label>
+                            <dau-label asp-for="Name"></dau-label>
                             <div class="col-sm-8">
-                                <p>blog.blogComment</p>
+                                <p>@item.Name</p>
                             </div>
 
                         </div>
 
                         <dau-tabs id="ContentLanguageTab">
-                            <dau-tab id="tab1" name="Standard" active="true">
+
+                            <dau-tab id="tab2" name="English" active="true" flag="@Url.Content("~/Content/")dist/img/us.png">
                                 <div class="form-group">
-                                   
-                                    <dau-label asp-for="localizedMessageTemplateContents[0].Subject"></dau-label>
-                                    <dau-input asp-for="localizedMessageTemplateContents[0].Subject" type="text"></dau-input>
-                                    <span asp-validation-for="localizedMessageTemplateContents[0].Subject"></span>
+
+                                    <dau-label asp-for="localizedContent[0].Subject"></dau-label>
+                                    <dau-input asp-for="localizedContent[0].Subject" type="text"></dau-input>
+                                    <span asp-validation-for="localizedContent[0].Subject"></span>
                                 </div>
 
 
                                 <div class="form-group">
-                                   
-                                    <dau-label asp-for="localizedMessageTemplateContents[0].Body"></dau-label>
-                                    <dau-textarea asp-for="localizedMessageTemplateContents[0].Body" ></dau-textarea>
-                                    <span asp-validation-for="localizedMessageTemplateContents[0].Body"></span>
-                                </div>
 
-                                <div class="form-group">
-                                  
-                                    <dau-label asp-for="localizedMessageTemplateContents[0].BCC"></dau-label>
-                                    <dau-input asp-for="localizedMessageTemplateContents[0].BCC" type="text"></dau-input>
-                                    <span asp-validation-for="localizedMessageTemplateContents[0].BCC"></span>
-
-                                </div>
+                                    <dau-label asp-for="localizedContent[0].Body"></dau-label>
 
 
-
-
-                                <div class="form-group">
-                                    
-                                    <dau-label asp-for="localizedMessageTemplateContents[0].EmailAccount"></dau-label>
-                                    <dau-select asp-for="localizedMessageTemplateContents[0].EmailAccount" ></dau-select>
-                                    <span asp-validation-for="localizedMessageTemplateContents[0].EmailAccount"></span>
-
-                                </div>
-
-
-                                <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-3 control-label"></label>
-                                
-                                    <div class="col-sm-8">
-                                        <button class="btn btn-primary">@Localizer["Test template"]</button>
+                                    <div class="col-sm-9">
+                                        <textarea id="editorBodyEN" class="form-control" asp-for="localizedContent[0].Body" rows="10" cols="80"></textarea>
                                     </div>
-
-                                </div>
-                            </dau-tab>
-                            <dau-tab id="tab2" name="English" flag="@Url.Content("~/Content/")dist/img/us.png">
-                                <div class="form-group">
-
-                                    <dau-label asp-for="localizedMessageTemplateContents[1].Subject"></dau-label>
-                                    <dau-input asp-for="localizedMessageTemplateContents[1].Subject" type="text"></dau-input>
-                                    <span asp-validation-for="localizedMessageTemplateContents[1].Subject"></span>
-                                </div>
-
-
-                                <div class="form-group">
-
-                                    <dau-label asp-for="localizedMessageTemplateContents[1].Body"></dau-label>
-                                    <dau-textarea asp-for="localizedMessageTemplateContents[1].Body"></dau-textarea>
-                                    <span asp-validation-for="localizedMessageTemplateContents[1].Body"></span>
+                                    <span asp-validation-for="localizedContent[0].Body"></span>
                                 </div>
 
                                 <div class="form-group">
 
-                                    <dau-label asp-for="localizedMessageTemplateContents[1].BCC"></dau-label>
-                                    <dau-input asp-for="localizedMessageTemplateContents[1].BCC" type="text"></dau-input>
-                                    <span asp-validation-for="localizedMessageTemplateContents[1].BCC"></span>
+                                    <dau-label asp-for="localizedContent[0].BCC"></dau-label>
+                                    <dau-input asp-for="localizedContent[0].BCC" type="text"></dau-input>
+                                    <span asp-validation-for="localizedContent[0].BCC"></span>
 
                                 </div>
 
@@ -143,9 +102,9 @@
 
                                 <div class="form-group">
 
-                                    <dau-label asp-for="localizedMessageTemplateContents[1].EmailAccount"></dau-label>
-                                    <dau-select asp-for="localizedMessageTemplateContents[1].EmailAccount"></dau-select>
-                                    <span asp-validation-for="localizedMessageTemplateContents[1].EmailAccount"></span>
+                                    <dau-label asp-for="localizedContent[0].EmailAccount"></dau-label>
+                                    <dau-select asp-for="localizedContent[0].EmailAccount"></dau-select>
+                                    <span asp-validation-for="localizedContent[0].EmailAccount"></span>
 
                                 </div>
 
@@ -154,7 +113,7 @@
                                     <label for="inputPassword3" class="col-sm-3 control-label"></label>
 
                                     <div class="col-sm-8">
-                                        <button class="btn btn-primary">@Localizer["Test template"]</button>
+                                        <button class="btn btn-info">@Localizer["Test template"]</button>
                                     </div>
 
                                 </div>
@@ -162,24 +121,26 @@
                             <dau-tab id="tab3" name="Turkish" flag="@Url.Content("~/Content/")dist/img/tr.png">
                                 <div class="form-group">
 
-                                    <dau-label asp-for="localizedMessageTemplateContents[2].Subject"></dau-label>
-                                    <dau-input asp-for="localizedMessageTemplateContents[2].Subject" type="text"></dau-input>
-                                    <span asp-validation-for="localizedMessageTemplateContents[2].Subject"></span>
+                                    <dau-label asp-for="localizedContent[1].Subject"></dau-label>
+                                    <dau-input asp-for="localizedContent[1].Subject" type="text"></dau-input>
+                                    <span asp-validation-for="localizedContent[1].Subject"></span>
                                 </div>
 
 
                                 <div class="form-group">
 
-                                    <dau-label asp-for="localizedMessageTemplateContents[2].Body"></dau-label>
-                                    <dau-textarea asp-for="localizedMessageTemplateContents[2].Body"></dau-textarea>
-                                    <span asp-validation-for="localizedMessageTemplateContents[2].Body"></span>
+                                    <dau-label asp-for="localizedContent[1].Body"></dau-label>
+                                    <div class="col-sm-9">
+                                        <textarea id="editorBodyTR" class="form-control" asp-for="localizedContent[1].Body" rows="40" cols="80"></textarea>
+                                    </div>
+                                    <span asp-validation-for="localizedContent[1].Body"></span>
                                 </div>
 
                                 <div class="form-group">
 
-                                    <dau-label asp-for="localizedMessageTemplateContents[2].BCC"></dau-label>
-                                    <dau-input asp-for="localizedMessageTemplateContents[2].BCC" type="text"></dau-input>
-                                    <span asp-validation-for="localizedMessageTemplateContents[2].BCC"></span>
+                                    <dau-label asp-for="localizedContent[1].BCC"></dau-label>
+                                    <dau-input asp-for="localizedContent[1].BCC" type="text"></dau-input>
+                                    <span asp-validation-for="localizedContent[1].BCC"></span>
 
                                 </div>
 
@@ -188,9 +149,9 @@
 
                                 <div class="form-group">
 
-                                    <dau-label asp-for="localizedMessageTemplateContents[2].EmailAccount"></dau-label>
-                                    <dau-select asp-for="localizedMessageTemplateContents[2].EmailAccount"></dau-select>
-                                    <span asp-validation-for="localizedMessageTemplateContents[2].EmailAccount"></span>
+                                    <dau-label asp-for="localizedContent[1].EmailAccount"></dau-label>
+                                    <dau-select asp-for="localizedContent[1].EmailAccount"></dau-select>
+                                    <span asp-validation-for="localizedContent[1].EmailAccount"></span>
 
                                 </div>
 
@@ -199,7 +160,7 @@
                                     <label for="inputPassword3" class="col-sm-3 control-label"></label>
 
                                     <div class="col-sm-8">
-                                        <button class="btn btn-primary">@Localizer["Test template"]</button>
+                                        <button class="btn btn-info">@Localizer["Test template"]</button>
                                     </div>
 
                                 </div>
@@ -209,7 +170,7 @@
 
 
 
-      
+
 
 
 
@@ -224,8 +185,8 @@
                         </div>
 
 
-                        <div class="form-group">
-                          
+                        @*<div class="form-group">
+
                             <dau-label asp-for="SendImmediately"></dau-label>
                             <div class="col-sm-8">
                                 <input asp-for="SendImmediately" type="checkbox">
@@ -235,7 +196,7 @@
 
 
                         <div class="form-group">
-                          
+
                             <dau-label asp-for="AttachedStaticFile"></dau-label>
                             <div class="col-sm-8">
                                 <input asp-for="AttachedStaticFile" type="checkbox">
@@ -245,14 +206,14 @@
                                 <button class="btn btn-success">Upload file</button>
                             </div>
 
-                        </div>
+                        </div>*@
 
-                        <div class="form-group">
+                        @*<div class="form-group">
                             <dau-label asp-for="LimitedToDormitories"></dau-label>
                             <dau-select multiple-select="true" asp-for="LimitedToDormitories" ></dau-select>
                             <span asp-validation-for="LimitedToDormitories"></span>
 
-                        </div>
+                        </div>*@
 
 
                     </div>
@@ -303,8 +264,45 @@
     <!-- FastClick -->
     <script src="@Url.Content("~/Content/")bower_components/fastclick/lib/fastclick.js"></script>
     <!-- AdminLTE App -->
+    <script src="@Url.Content("~/Content/")bower_components/ckeditor/ckeditor.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="@Url.Content("~/Content/")dist/js/demo.js"></script>
     <!-- page script -->
+
+    <script>
+        function resolveButton(button) {
+            switch (button) {
+
+
+                case "SaveClose": {
+                    alert("SaveClose");
+
+                }; break;
+
+
+                case "SaveContinue": {
+                    console.log("SaveContinue");
+
+                    $('#editForm').attr('action', "/admin/ContentManagement/MessageTemplateEdit").submit();
+                    break;
+
+
+                }
+                //   $("#formId").submit();
+            }
+        }
+        $(function () {
+
+            CKEDITOR.replace('editorBodyTR',{
+              
+                height: 500
+            });
+
+            CKEDITOR.replace('editorBodyEN', {
+
+                height: 500
+            });
+        })
+    </script>
 
 }

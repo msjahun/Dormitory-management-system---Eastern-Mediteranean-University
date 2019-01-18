@@ -12,5 +12,6 @@
         void SeedDormitoryType();
         void SeedEMUMapLocations();
         void SeedSampleEmail();
+        void SeedMessageTempletes();
     }
 }

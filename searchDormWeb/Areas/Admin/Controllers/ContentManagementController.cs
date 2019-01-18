@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Dau.Services.MessageTemplates;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +13,12 @@ namespace searchDormWeb.Areas.Admin.Controllers
     [Authorize]
     public class ContentManagementController : Controller
     {
+        private IMessageTemplateService _messageTemplateService;
 
+        public ContentManagementController(IMessageTemplateService messageTemplateService)
+        {
+            _messageTemplateService = messageTemplateService;
+        }
 
         #region Topics
         [HttpGet("[action]")]
@@ -115,7 +121,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
                 // getting all Discount data  
-                var Data = new List<int>();
+                var Data = _messageTemplateService.GetMessageTemplatesList();
 
                 ////Sorting  
                 //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
@@ -145,11 +151,28 @@ namespace searchDormWeb.Areas.Admin.Controllers
         }
 
         [HttpGet("[action]")]
-        public IActionResult MessageTemplateEdit()
+        public IActionResult MessageTemplateEdit(long Id)
         {
-            return View("_MessageTemplateEdit");
+            var model = _messageTemplateService.GetTemplateById(Id);
+
+            if (model == null)
+                return RedirectToAction("MessageTemplates", "ContentManagement");
+            return View("_MessageTemplateEdit", model);
         }
 
+        [HttpPost("[action]")]
+        public ActionResult MessageTemplateEdit(MessageTemplateService.MessageTemplateEdit vm)
+        {
+            if (!ModelState.IsValid)
+                return View("_MessageTemplateEdit", vm);
+
+            var updateSuccess = _messageTemplateService.UpdateMessageTemplate(vm);
+
+
+            var model = _messageTemplateService.GetTemplateById(vm.Id);
+            model.SavedSuccessful = updateSuccess;
+            return View("_MessageTemplateEdit", model);
+        }
 
         #endregion
 
@@ -315,13 +338,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
         public string DisplayOrder { get; set; }
         public string Edit { get; set; }
     }
-    public class MessageTemplatesTable {
-        public string Name { get; set; }
-        public string Subject { get; set; }
-        public string IsActive { get; set; }
-        public string LimitedToDormitory { get; set; }
-        public string Edit { get; set; }
-    }
+   
     public class PollsTable {
         public string Name { get; set; }
         public string Language { get; set; }

@@ -114,7 +114,26 @@
 
 
 
+        function UplodateSemesterPeriod(semPeriodId) {
 
+            var loader = "<div class=\"text-center mt-5\"> <div class=\"lds-ring\"><div></div><div></div><div></div><div></div></div> </div>";
+            $("#Cart_Section").html(loader);
+
+            $.ajax({
+                type: "GET",
+                url: location.origin + "/Booking/UpdateSemesterPeriod/?Id="+semPeriodId,
+               
+                success: function (result) {
+                    //     alert(result);
+                   loadCart()
+                  
+
+            
+
+                }
+            });
+
+        }
 
 
 
@@ -146,6 +165,11 @@
                         loadStudentInfo();
                     });
 
+
+                    $('#SemesterSelect').change(function () {
+                        UplodateSemesterPeriod($(this).val());
+                        
+                    });
 
                 }
             });

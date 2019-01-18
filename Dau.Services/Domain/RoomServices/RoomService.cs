@@ -296,7 +296,7 @@ namespace Dau.Services.Domain.RoomServices
                 if(eventRoomQuotaHolder<=0 && vm.RoomQuota > 0)
                 {
                     //quota has been increased
-                    _eventService.Trigger_Student_BackInStock_Event();
+                    _eventService.Trigger_Student_BackInStock_Event(Room.Id);
                 }
 
             return true;

@@ -79,7 +79,7 @@ namespace Dau.Data
         public virtual DbSet<DormitoryBlock> DormitoryBlock { get; set; }
         public virtual DbSet<DormitoryBlockTranslation> DormitoryBlockTranslation { get; set; }
         public virtual DbSet<Review> Review { get; set; }
-        public virtual DbSet<MessageTemplate> MessageTemplate { get; set; }
+       public virtual DbSet<MessageTemplate> MessageTemplate { get; set; }
         public virtual DbSet<MessageTemplateTranslation> MessageTemplateTranslation { get; set; }
         public virtual DbSet<Poll> Poll { get; set; }
         public virtual DbSet<PollAnswers> PollAnswers { get; set; }
@@ -185,7 +185,7 @@ namespace Dau.Data
             modelBuilder.ApplyConfiguration(new DormitoryBlockMap());
             modelBuilder.ApplyConfiguration(new DormitoryBlockTranslationMap());
             modelBuilder.ApplyConfiguration(new ReviewMap());
-            modelBuilder.ApplyConfiguration(new MessageTemplateMap());
+           modelBuilder.ApplyConfiguration(new MessageTemplateMap());
             modelBuilder.ApplyConfiguration(new MessageTemplateTranslationMap());
             modelBuilder.ApplyConfiguration(new PollMap());
             modelBuilder.ApplyConfiguration(new PollAnswersMap());

@@ -1,6 +1,7 @@
 ﻿using Dau.Core.Domain.Catalog;
 using Dau.Data.Repository;
 using Dau.Services.Domain.DropdownServices;
+using Dau.Services.Domain.ReviewsServices;
 using Dau.Services.Languages;
 using System;
 using System.Collections.Generic;
@@ -15,18 +16,24 @@ namespace Dau.Services.Domain.DormitoryDetailService
         private readonly ILanguageService _languageService;
         private readonly IRepository<Dormitory> _dormitoryRepo;
         private readonly IRepository<DormitoryTranslation> _dormitoryTransRepo;
+        private readonly IReviewService _reviewService;
+        private readonly IRepository<Review> _reviewRepo;
 
         public GetDormitoryDescriptionService(
              ILanguageService languageService,
             IRepository<Dormitory> dormitoryRepo, 
             IRepository<DormitoryTranslation> dormitoryTransRepo,
-            IDropdownService dropdownService
+            IDropdownService dropdownService,
+            IReviewService reviewService,
+            IRepository<Review> reviewRepo
             )
         {
             _dropdownService = dropdownService;
             _languageService = languageService;
             _dormitoryRepo = dormitoryRepo;
             _dormitoryTransRepo = dormitoryTransRepo;
+            _reviewService = reviewService;
+            _reviewRepo = reviewRepo;
         }
 
         public DormitoryDescriptionSectionViewModel GetDormitoryDescription(long DormitoryId)
@@ -38,9 +45,9 @@ namespace Dau.Services.Domain.DormitoryDetailService
                             where dorm.Id == DormitoryId && dormTrans.LanguageId == CurrentLanguageId
                             select new DormitoryDescriptionSectionViewModel
                             {RatingNo = dorm.RatingNo.ToString("N1"),
-                                RatingText = "Excellent",
+                                RatingText = _reviewService.ResolveRatingText(dorm.RatingNo),
                              
-                                ReviewNo = 23,
+                                ReviewNo = _reviewRepo.List().Where(c => c.DormitoryId == dorm.Id).ToList().Count,
                                 Location =  _dropdownService.ResolveDropdown(dorm.LocationOnCampus,_dropdownService.LocationOnCampus()),
                                 NoOfStudents = dorm.NoOfStudents,
                                

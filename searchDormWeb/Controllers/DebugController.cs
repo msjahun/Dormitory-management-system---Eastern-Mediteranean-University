@@ -310,6 +310,13 @@ namespace searchDormWeb.Controllers
             return Json(success);
         }
 
+        public IActionResult SeedMessageTempletes()
+        {
+            _seedingService.SeedMessageTempletes();
+            var success = true;
+            return Json(success);
+        }
+
 
         public IActionResult SeedRoomData()
         {

@@ -33,6 +33,15 @@
                 </tr>
                 <tr class="table-divider"></tr>
 
+                 <tr class="bg-white">
+                    <th scope="row">
+                        Seed message templates
+                    </th>
+                    <td>Seeds are message templates to the database</td>
+                    <td><button type="button" id="SeedMessageTempletes" class="btn btn-outline-primary">Seed message templates</button>   </td>
+                </tr>
+                <tr class="table-divider"></tr>
+
 
 
                 <tr class="bg-white">
@@ -421,6 +430,29 @@
                     $("#comments_section").html(result);
                     if (JSON.stringify(result) === 'true') {
                         alert("Cart Items seeded successfully");
+                    } else {
+                        alert("Failed to seed data");
+                    }
+                }
+
+            });
+
+        });
+
+        $("#SeedMessageTempletes").click(function () {
+
+            // alert("button clicked");
+            $.ajax({
+                type: "POST",
+                url: "SeedMessageTempletes",
+                data: {
+                    SectionId: "comments_section"
+                },
+                success: function (result, textStatus, xhr) {
+                    //     alert(result);
+                    $("#comments_section").html(result);
+                    if (JSON.stringify(result) === 'true') {
+                        alert("MessageTempletes seeded successfully");
                     } else {
                         alert("Failed to seed data");
                     }

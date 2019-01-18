@@ -8,6 +8,7 @@ using Dau.Services.Domain.DropdownServices;
 using Dau.Services.Domain.ImageServices;
 using Dau.Services.Domain.LocationServices;
 using Dau.Services.Domain.MapServices;
+using Dau.Services.Domain.ReviewsServices;
 using Dau.Services.Languages;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,7 @@ namespace Dau.Services.Domain.SearchResultService
         private readonly IRepository<SemesterPeriod> _SemesterPeriodRepo;
         private readonly IRepository<SemesterPeriodTranslation> _semesterPeriodTransRepo;
         private IRepository<DormitoryType> _dormitoryTypeRepo;
+        private readonly IReviewService _reviewService;
         private readonly ILocationService _locationService;
         private readonly IDropdownService _dropdownService;
         private readonly IMapService _mapService;
@@ -59,10 +61,12 @@ namespace Dau.Services.Domain.SearchResultService
                       IImageService imageService,
                         IMapService mapService,
                         IDropdownService dropdownService,
-                        ILocationService locationService
+                        ILocationService locationService,
+                        IReviewService reviewService
 
           )
         {
+            _reviewService = reviewService;
             _locationService = locationService;
             _dropdownService = dropdownService;
             _mapService = mapService;
@@ -124,7 +128,7 @@ namespace Dau.Services.Domain.SearchResultService
                                        DormitoryIconUrl = dorm.DormitoryLogoUrl,
                                        DormitorySeoFriendlyUrl = _seoRepo.List().ToList().Where(c => c.Id == dorm.DormitorySeoId).FirstOrDefault().SearchEngineFriendlyPageName, //use seo table
                                        RatingNo = dorm.RatingNo.ToString("N1"),
-                                       RatingText = "Fantastic", //create a service that resolves this
+                                       RatingText = _reviewService.ResolveRatingText(dorm.RatingNo), //create a service that resolves this
                                        ReviewNo = _reviewRepo.List().Where(c => c.DormitoryId == dorm.Id).ToList().Count,
                                        Location = dorm.Location,
                                        ShortDescription = dorm.DormitoryDescription ,

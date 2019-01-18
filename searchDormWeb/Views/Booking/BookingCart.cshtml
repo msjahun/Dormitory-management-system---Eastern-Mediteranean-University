@@ -57,14 +57,12 @@
                         <td>
 
 
-                            <select class="form-control" data-toggle="select" title="Simple select" data-live-search="true" data-live-search-placeholder="Search ...">
-                      
-                                <option >1 semester - Fall 2019</option>
-                                <option>1 year -Fall 2019 to Spring 2020</option>
-                                <option>2 years - Fall 2019 to next fall 2021</option>
+                            <select class="form-control" data-toggle="select" asp-for="SemesterPeriodId" asp-items="item.SemestersList" id="SemesterSelect" title="Simple select" data-live-search="true" data-live-search-placeholder="Search ...">
+
+                          
 
                             </select>
-
+                           
                         </td>
                         <td>
                             <span class="font-weight-bold text-dark">@item.AmountTotal</span>

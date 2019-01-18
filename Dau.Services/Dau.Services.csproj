@@ -33,7 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ExchangeRate\" />
     <Folder Include="Languages\" />
     <Folder Include="Configuration\" />
     <Folder Include="System\" />

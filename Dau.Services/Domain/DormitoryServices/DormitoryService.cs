@@ -354,7 +354,7 @@ namespace Dau.Services.Domain.DormitoryServices
             _dormitoryTransRepo.Update(dormTransEnglish);
             _dormitoryTransRepo.Update(dormTransTurkish);
 
-                _eventService.Trigger_DormitoryInformationChange_DormitoryManagerNotification_Event();
+                _eventService.Trigger_DormitoryInformationChange_DormitoryManagerNotification_Event(dormitoryToUpdate.Id);
 
             return true;
             }

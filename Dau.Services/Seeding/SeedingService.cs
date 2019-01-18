@@ -1,18 +1,26 @@
 ﻿using Dau.Core.Domain.Bookings;
 using Dau.Core.Domain.Catalog;
+using Dau.Core.Domain.ContentManagement;
 using Dau.Core.Domain.EmuMap;
 using Dau.Core.Domain.Feature;
 using Dau.Core.Domain.LocationInformations;
 using Dau.Core.Domain.SearchEngineOptimization;
 using Dau.Core.Domain.System;
 using Dau.Core.Domain.Users;
+using Dau.Core.Event;
 using Dau.Data.Repository;
 using Dau.Services.Domain.SearchResultService;
+using Dau.Services.Event;
+using Dau.Services.MessageTemplates;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
+
 using System.Text;
+using static Dau.Services.MessageTemplates.MessageTemplateService;
 
 namespace Dau.Services.Seeding
 {
@@ -28,10 +36,14 @@ namespace Dau.Services.Seeding
         private readonly IRepository<Cart> _cartRepository;
         private readonly IRepository<SemesterPeriod> _semesterPeriodRepository;
         private readonly IRepository<MapSection> _mapSectionRepo;
+        private readonly IEventService _eventService;
         private readonly IRepository<MapSectionCategory> _mapSectionCategoryRepo;
         private readonly IRepository<Booking> _bookingRepository;
         private readonly IRepository<PaymentStatus> _paymentStatusRepository;
         private readonly IRepository<BookingStatus> _bookingStatusRepository;
+        private readonly IMessageTemplateService _messageTemplateService;
+        private readonly IRepository<MessageTemplateTranslation> _messageTemplateTransRepo;
+        private readonly IRepository<MessageTemplate> _messageTemplateRepo;
         private readonly IRepository<MessageQueue> _messageQueueRepo;
         private readonly IRepository<Room> _roomRepo;
         private readonly IRepository<DormitoryType> _dormitoryTypeRepo;
@@ -55,27 +67,35 @@ namespace Dau.Services.Seeding
             UserManager<User> userManager,
             IRepository<MapSection> mapSectionRepo,
             IRepository<MapSectionCategory> mapSectionCategoryRepo,
-            IRepository<MessageQueue> messageQueueRepo
+            IRepository<MessageQueue> messageQueueRepo,
+            IRepository<MessageTemplate> messageTemplateRepo,
+            IRepository<MessageTemplateTranslation> messageTemplateTransRepo,
+            IMessageTemplateService messageTemplateService,
+          IEventService eventService
             )
         {
+            _messageTemplateService = messageTemplateService;
+            _messageTemplateTransRepo = messageTemplateTransRepo;
+            _messageTemplateRepo = messageTemplateRepo;
             _messageQueueRepo = messageQueueRepo;
-            _roomRepo= roomRepo;
-            _dormitoryTypeRepo= dormitoryTypeRepo;
-            _dormitoryBlockRepo= dormitoryBlockRepo;
+            _roomRepo = roomRepo;
+            _dormitoryTypeRepo = dormitoryTypeRepo;
+            _dormitoryBlockRepo = dormitoryBlockRepo;
             _bookingRepository = bookingRepository;
-            _paymentStatusRepository= paymentStatusRepository;
-            _bookingStatusRepository= bookingStatusRepository;
+            _paymentStatusRepository = paymentStatusRepository;
+            _bookingStatusRepository = bookingStatusRepository;
             _featuresRepo = featuresRepo;
             _featuresTransRepo = featuresTransRepo;
             _featuresCategoryRepo = featuresCategoryRepo;
             _featuresCategoryTransRepo = featuresCategoryTransRepo;
-            _reviewRepo= reviewRepo;
+            _reviewRepo = reviewRepo;
             _dormitoryRepo = dormitoryRepo;
             _userManager = userManager;
-            _cartRepository= cartRepository;
-            _semesterPeriodRepository= semesterPeriodRepository;
-            _mapSectionRepo= mapSectionRepo;
-            _mapSectionCategoryRepo= mapSectionCategoryRepo;
+            _cartRepository = cartRepository;
+            _semesterPeriodRepository = semesterPeriodRepository;
+            _mapSectionRepo = mapSectionRepo;
+            _eventService = eventService;
+            _mapSectionCategoryRepo = mapSectionCategoryRepo;
 
         }
 
@@ -83,29 +103,903 @@ namespace Dau.Services.Seeding
         //seed rooms seperately
         //seed dormitories seperately
 
-            public void SeedSampleEmail()
+      public void SeedMessageTempletes()
         {
+            var messageTemplatesList = new List<MessageTemplate>
+            {
+
+
+                  new MessageTemplate
+                {
+                        Name="Student.BackInStockRoomEmail",
+                        IsActive=true
+
+                       ,
+                        MessageTemplateTranslations= new List<MessageTemplateTranslation>
+                        {
+                            new MessageTemplateTranslation
+                            {
+                                LanguageId=1, //english
+                                
+               Subject = "Student.BackInStock Room back in stock % Dormitory.Name %",
+               Body = "<h3>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <ins>&nbsp;</ins><strong><ins>Room Is now available&nbsp;</ins>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</strong></h3>" +
+                        "<p><strong>Alfam dormitory</strong>&#39;s <strong>Single Room</strong> is now back in stock more quota has been added to the room.</p>" +
+                        "<p>You will now be able to book for the Dormitory.</p>" +
+                        "<p>Thank you</p>" +
+                        "<p><br />" +
+                        "Kind Regards,<br />" +
+                        "<strong>Dormitory Booking Team</strong></p>" +
+                        "<p>Sent to Musa Jahun</p>"
+                            },
+
+                            new MessageTemplateTranslation
+                            {
+                                LanguageId=2, //turkish
+                                
+               Subject = "Verification token ",
+               Body = "<h3>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <ins>&nbsp;</ins><strong><ins>Room Is now available&nbsp;</ins>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</strong></h3>" +
+                        "<p><strong>Alfam dormitory</strong>&#39;s <strong>Single Room</strong> is now back in stock more quota has been added to the room.</p>" +
+                        "<p>You will now be able to book for the Dormitory.</p>" +
+                        "<p>Thank you</p>" +
+                        "<p><br />" +
+                        "Kind Regards,<br />" +
+                        "<strong>Dormitory Booking Team</strong></p>" +
+                        "<p>Sent to Musa Jahun</p>"
+                            }
+                        }
+                },
+
+
+                    new MessageTemplate
+                {
+                        Name="Student.EmailValidation",
+                        IsActive=true
+
+                       ,
+                        MessageTemplateTranslations= new List<MessageTemplateTranslation>
+                        {
+                            new MessageTemplateTranslation
+                            {
+                                LanguageId=1, //english
+                              Subject = "Email Activation EMU Dormitory reservation system ",
+               Body =
+               "<h2><img src=\"https://dormitories.emu.edu.tr/_layouts/emu/images/logo/emu-logo-horizontalblue-en.png?ver=1\" />&nbsp; &nbsp; &nbsp; &nbsp; <strong>&nbsp;Email Activation<strong>&nbsp; </strong> </strong></h2>" +
+                 "<p>Thank you for registering an account with EMU Dormitory Booking System</p>" +
+                "<p>Please use this link to verify your email address.</p>" +
+                "<p><a href=\"#\">Verification link</a></p>" +
+                "<p>Thank you</p>" +
+                "<p><br />" +
+                "Kind Regards,<br />" +
+                "<strong>Dormitory Booking Team</strong></p>" +
+                "<p>Sent to Musa Jahun</p>"
+                            },
+
+                            new MessageTemplateTranslation
+                            {
+                                LanguageId=2, //turkish
+                               Subject = "Email Activation EMU Dormitory reservation system ",
+               Body =
+               "<h2><img src=\"https://dormitories.emu.edu.tr/_layouts/emu/images/logo/emu-logo-horizontalblue-en.png?ver=1\" />&nbsp; &nbsp; &nbsp; &nbsp; <strong>&nbsp;Email Activation<strong>&nbsp; </strong> </strong></h2>" +
+                 "<p>Thank you for registering an account with EMU Dormitory Booking System</p>" +
+                "<p>Please use this link to verify your email address.</p>" +
+                "<p><a href=\"#\">Verification link</a></p>" +
+                "<p>Thank you</p>" +
+                "<p><br />" +
+                "Kind Regards,<br />" +
+                "<strong>Dormitory Booking Team</strong></p>" +
+                "<p>Sent to Musa Jahun</p>"
+                            }
+                        }
+                },
+
+                      new MessageTemplate
+                {
+                        Name="Student.WelcomeMessage",
+                        IsActive=true
+
+                       ,
+                        MessageTemplateTranslations= new List<MessageTemplateTranslation>
+                        {
+                            new MessageTemplateTranslation
+                            {
+                                LanguageId=1, //english
+                              Subject = "Email Activation EMU Dormitory reservation system ",
+               Body =
+               "<h2><img src=\"https://dormitories.emu.edu.tr/_layouts/emu/images/logo/emu-logo-horizontalblue-en.png?ver=1\" />&nbsp; &nbsp; &nbsp; &nbsp; <strong>&nbsp;Email Activation<strong>&nbsp; </strong> </strong></h2>" +
+                 "<p>Thank you for registering an account with EMU Dormitory Booking System</p>" +
+                "<p>Please use this link to verify your email address.</p>" +
+                "<p><a href=\"#\">Verification link</a></p>" +
+                "<p>Thank you</p>" +
+                "<p><br />" +
+                "Kind Regards,<br />" +
+                "<strong>Dormitory Booking Team</strong></p>" +
+                "<p>Sent to Musa Jahun</p>"
+                            },
+
+                            new MessageTemplateTranslation
+                            {
+                                LanguageId=2, //turkish
+                               Subject = "Email Activation EMU Dormitory reservation system ",
+               Body =
+               "<h2><img src=\"https://dormitories.emu.edu.tr/_layouts/emu/images/logo/emu-logo-horizontalblue-en.png?ver=1\" />&nbsp; &nbsp; &nbsp; &nbsp; <strong>&nbsp;Email Activation<strong>&nbsp; </strong> </strong></h2>" +
+                 "<p>Thank you for registering an account with EMU Dormitory Booking System</p>" +
+                "<p>Please use this link to verify your email address.</p>" +
+                "<p><a href=\"#\">Verification link</a></p>" +
+                "<p>Thank you</p>" +
+                "<p><br />" +
+                "Kind Regards,<br />" +
+                "<strong>Dormitory Booking Team</strong></p>" +
+                "<p>Sent to Musa Jahun</p>"
+                            }
+                        }
+                },
+
+                          new MessageTemplate
+                {
+                        Name="Student.BookingCancellation",
+                        IsActive=true
+
+                       ,
+                        MessageTemplateTranslations= new List<MessageTemplateTranslation>
+                        {
+                            new MessageTemplateTranslation
+                            {
+                                LanguageId=1, //english
+                               Subject = "Verification token ",
+               Body =
+                        "<h2><img src=\"https://dormitories.emu.edu.tr/_layouts/emu/images/logo/emu-logo-horizontalblue-en.png?ver=1\" />&nbsp; &nbsp; &nbsp; &nbsp; <strong>&nbsp; </strong> &nbsp;<strong> &nbsp;Booking has been cancelled&nbsp; &nbsp; &nbsp; </strong></h2>"+
+                        "<h3>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</strong></h3>"+
+                        "<p>Dear Student</p>"+
+                        "<p>This is to inform you that your booking with booking number #34534534 has been cancelled today.</p>"+
+                        "<p>By the Dormitory Administrator.</p>"+
+                        "<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Booking Information</p>"+
+                        "<ul><li>Booking No:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;#34234234234</li>"+
+                        "	<li>Dormitory :&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Alfam dormitory</li>"+
+                        "	<li>Room:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Single Room</li>"+
+                        "	<li>Date of Booking:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 13-January-2019</li>"+
+                        "</ul>"+
+                        "<p>&nbsp;</p>"+
+                        "<p>Thank you</p>"+
+                        "<p>Kind Regards,<br />"+
+                        "<strong>Dormitory Booking Team</strong></p>"+
+                        "<p>Sent to Musa Jahun</p>"
+                            },
+
+                            new MessageTemplateTranslation
+                            {
+                                LanguageId=2, //turkish
+                                Subject = "Verification token ",
+               Body =
+                        "<h2><img src=\"https://dormitories.emu.edu.tr/_layouts/emu/images/logo/emu-logo-horizontalblue-en.png?ver=1\" />&nbsp; &nbsp; &nbsp; &nbsp; <strong>&nbsp; </strong> &nbsp;<strong> &nbsp;Booking has been cancelled&nbsp; &nbsp; &nbsp; </strong></h2>"+
+                        "<h3>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</strong></h3>"+
+                        "<p>Dear Student</p>"+
+                        "<p>This is to inform you that your booking with booking number #34534534 has been cancelled today.</p>"+
+                        "<p>By the Dormitory Administrator.</p>"+
+                        "<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Booking Information</p>"+
+                        "<ul><li>Booking No:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;#34234234234</li>"+
+                        "	<li>Dormitory :&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Alfam dormitory</li>"+
+                        "	<li>Room:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Single Room</li>"+
+                        "	<li>Date of Booking:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 13-January-2019</li>"+
+                        "</ul>"+
+                        "<p>&nbsp;</p>"+
+                        "<p>Thank you</p>"+
+                        "<p>Kind Regards,<br />"+
+                        "<strong>Dormitory Booking Team</strong></p>"+
+                        "<p>Sent to Musa Jahun</p>"
+                            }
+                        }
+                },
+
+                            new MessageTemplate
+                {
+                        Name="Student.BookingCompleted",
+                        IsActive=true
+
+                       ,
+                        MessageTemplateTranslations= new List<MessageTemplateTranslation>
+                        {
+                            new MessageTemplateTranslation
+                            {
+                                LanguageId=1, //english
+                                Subject = "Verification token ",
+               Body =
+                        "<h2><img src=\"https://dormitories.emu.edu.tr/_layouts/emu/images/logo/emu-logo-horizontalblue-en.png?ver=1\" />&nbsp; &nbsp; &nbsp; &nbsp; <strong>&nbsp; </strong> &nbsp;<strong> &nbsp;</strong>&nbsp; &nbsp;<strong>Booking Completed&nbsp; &nbsp;&nbsp; </strong></h2>"+
+                        "<h3>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</strong>&nbsp;<strong> &nbsp;Booking No: #34234234234 Has Been Completed</strong></h3>"+
+                        "<p>Dear Student</p>"+
+                        "<p>This is to inform you that your booking with booking number #34534534 has been Completed today.</p>"+
+                        "<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Booking Information</p>"+
+                        "<ul><li>Booking No:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;#34234234234</li>"+
+                        "	<li>Dormitory :&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Alfam dormitory</li>"+
+                        "	<li>Room:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Single Room</li>"+
+                        "	<li>Date of Booking:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 13-January-2019</li>"+
+                        "</ul>"+
+                        "<p><strong>Additional information</strong><br />"+
+                        "Checking in date starts at 23-March-2018<br />"+
+                        "Your room information will be sent to you via email<br />"+
+                        "On arraival, you will need to show your payment receipt to the dormitory office and you&#39;ll receive your room key<br />"+
+                        "You will also need to sign a contract in the dormitory office</p>"+
+                        "<p>&nbsp;</p>"+
+                        "<p><strong>Dormitory contact information&nbsp;</strong></p>"+
+                        "<p><strong>Mr. Yusuf&nbsp;</strong><br />"+
+                        "Manager Alfam dormitories<br />"+
+                        "Phone: (804) 123-5432<br />"+
+                        "Email: manager@dormitory.com</p>"+
+                        "<p>&nbsp;</p>"+
+                        "<p>Thank you</p>"+
+                        "<p>Kind Regards,<br />"+
+                        "<strong>Dormitory Booking Team</strong></p>"+
+                        "<p>Sent to Musa Jahun</p>"
+                            },
+
+                            new MessageTemplateTranslation
+                            {
+                                LanguageId=2, //turkish
+                                Subject = "Verification token ",
+               Body =
+                        "<h2><img src=\"https://dormitories.emu.edu.tr/_layouts/emu/images/logo/emu-logo-horizontalblue-en.png?ver=1\" />&nbsp; &nbsp; &nbsp; &nbsp; <strong>&nbsp; </strong> &nbsp;<strong> &nbsp;</strong>&nbsp; &nbsp;<strong>Booking Completed&nbsp; &nbsp;&nbsp; </strong></h2>"+
+                        "<h3>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</strong>&nbsp;<strong> &nbsp;Booking No: #34234234234 Has Been Completed</strong></h3>"+
+                        "<p>Dear Student</p>"+
+                        "<p>This is to inform you that your booking with booking number #34534534 has been Completed today.</p>"+
+                        "<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Booking Information</p>"+
+                        "<ul><li>Booking No:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;#34234234234</li>"+
+                        "	<li>Dormitory :&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Alfam dormitory</li>"+
+                        "	<li>Room:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Single Room</li>"+
+                        "	<li>Date of Booking:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 13-January-2019</li>"+
+                        "</ul>"+
+                        "<p><strong>Additional information</strong><br />"+
+                        "Checking in date starts at 23-March-2018<br />"+
+                        "Your room information will be sent to you via email<br />"+
+                        "On arraival, you will need to show your payment receipt to the dormitory office and you&#39;ll receive your room key<br />"+
+                        "You will also need to sign a contract in the dormitory office</p>"+
+                        "<p>&nbsp;</p>"+
+                        "<p><strong>Dormitory contact information&nbsp;</strong></p>"+
+                        "<p><strong>Mr. Yusuf&nbsp;</strong><br />"+
+                        "Manager Alfam dormitories<br />"+
+                        "Phone: (804) 123-5432<br />"+
+                        "Email: manager@dormitory.com</p>"+
+                        "<p>&nbsp;</p>"+
+                        "<p>Thank you</p>"+
+                        "<p>Kind Regards,<br />"+
+                        "<strong>Dormitory Booking Team</strong></p>"+
+                        "<p>Sent to Musa Jahun</p>"
+                            }
+                        }
+                },
+
+                              new MessageTemplate
+                {
+                        Name="Student.BookingPaid",
+                        IsActive=true
+
+                       ,
+                        MessageTemplateTranslations= new List<MessageTemplateTranslation>
+                        {
+                            new MessageTemplateTranslation
+                            {
+                                LanguageId=1, //english
+                               Subject = " Alfam Dormitory Booking #34534534534 paid",
+               Body =
+
+                        "<h2><img src=\"https://dormitories.emu.edu.tr/_layouts/emu/images/logo/emu-logo-horizontalblue-en.png?ver=1\" />&nbsp; &nbsp; &nbsp; &nbsp;<strong>Booking Paid Successfully&nbsp;&nbsp; </strong></h2>"+
+                        "<h3>Dear Student</h3>"+
+                        "<p>This is to inform you that your booking with booking number #34534534 has been marked as paid.&nbsp;</p>"+
+                        "<p>Payment receipt will be sent to your email soon. Thank you for Booking with us</p>"+
+                        "<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Booking Information</strong></h3>"+
+                        "<ul><li>Booking No:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;#34234234234</li>"+
+                        "	<li>Dormitory :&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Alfam dormitory</li>"+
+                        "	<li>Room:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Single Room</li>"+
+                        "	<li>Receipt status:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Uploaded</li>"+
+                        "	<li>Date of Booking:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 13-January-2019</li>"+
+                        "</ul>"+
+                        "<p>&nbsp;</p>"+
+                        "<p>For more details on your booking you can contact dormitory directly</p>"+
+                        "<p><strong>Dormitory contact information&nbsp;</strong></p>"+
+                        "<p><strong>Mr. Yusuf&nbsp;</strong><br />"+
+                        "Manager Alfam dormitories<br />"+
+                        "Phone: (804) 123-5432<br />"+
+                        "Email: manager@dormitory.com</p>"+
+                        "<p>&nbsp;</p>"+
+                        "<p>Thank you</p>"+
+                        "<p>Kind Regards,<br />"+
+                        "<strong>Dormitory Booking Team</strong></p>"+
+                        "<p>Sent to Musa Jahun</p>"
+                            },
+
+                            new MessageTemplateTranslation
+                            {
+                                LanguageId=2, //turkish
+                                Subject = " Alfam Dormitory Booking #34534534534 paid",
+               Body =
+
+                        "<h2><img src=\"https://dormitories.emu.edu.tr/_layouts/emu/images/logo/emu-logo-horizontalblue-en.png?ver=1\" />&nbsp; &nbsp; &nbsp; &nbsp;<strong>Booking Paid Successfully&nbsp;&nbsp; </strong></h2>"+
+                        "<h3>Dear Student</h3>"+
+                        "<p>This is to inform you that your booking with booking number #34534534 has been marked as paid.&nbsp;</p>"+
+                        "<p>Payment receipt will be sent to your email soon. Thank you for Booking with us</p>"+
+                        "<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Booking Information</strong></h3>"+
+                        "<ul><li>Booking No:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;#34234234234</li>"+
+                        "	<li>Dormitory :&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Alfam dormitory</li>"+
+                        "	<li>Room:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Single Room</li>"+
+                        "	<li>Receipt status:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Uploaded</li>"+
+                        "	<li>Date of Booking:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 13-January-2019</li>"+
+                        "</ul>"+
+                        "<p>&nbsp;</p>"+
+                        "<p>For more details on your booking you can contact dormitory directly</p>"+
+                        "<p><strong>Dormitory contact information&nbsp;</strong></p>"+
+                        "<p><strong>Mr. Yusuf&nbsp;</strong><br />"+
+                        "Manager Alfam dormitories<br />"+
+                        "Phone: (804) 123-5432<br />"+
+                        "Email: manager@dormitory.com</p>"+
+                        "<p>&nbsp;</p>"+
+                        "<p>Thank you</p>"+
+                        "<p>Kind Regards,<br />"+
+                        "<strong>Dormitory Booking Team</strong></p>"+
+                        "<p>Sent to Musa Jahun</p>"
+                            }
+                        }
+                },
+
+                                new MessageTemplate
+                {
+                        Name="DormitoryManager.BookingPaid",
+                        IsActive=true
+
+                       ,
+                        MessageTemplateTranslations= new List<MessageTemplateTranslation>
+                        {
+                            new MessageTemplateTranslation
+                            {
+                                LanguageId=1, //english
+                              Subject = "Alfam Dormitory Booking #345345345 paid",
+               Body =
+                        "<h2><img src=\"https://dormitories.emu.edu.tr/_layouts/emu/images/logo/emu-logo-horizontalblue-en.png?ver=1\" />&nbsp; &nbsp; &nbsp; &nbsp;<strong>Booking </strong>&nbsp;<strong>#34234234234</strong><strong> has been marked&nbsp;Paid&nbsp;</strong></h2>"+
+                        "<h3>Dear Dormitory Manager</h3>"+
+                        "<p>This is to inform you that your a booking in Alfam Dormitory&nbsp;with booking number #34534534 has been marked as paid.&nbsp;</p>"+
+                        "<p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Booking Information</strong></p>"+
+                        "<ul><li>Booking No:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;#34234234234</li>"+
+                        "	<li>Dormitory :&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Alfam dormitory</li>"+
+                        "	<li>Room:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Single Room</li>"+
+                        "	<li>Receipt status:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Uploaded</li>"+
+                        "	<li>Date of Booking:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 13-January-2019</li>"+
+                        "	<li>Booking Status:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Complete</li>"+
+                        "	<li>Payment Status:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Paid</li>"+
+                        "</ul>"+
+                        "<p>Thank you</p>"+
+                        "<p>Kind Regards,<br />"+
+                        "<strong>Dormitory Booking Team</strong></p>"+
+                        "<p>Sent to Musa Jahun</p>"
+                            },
+
+                            new MessageTemplateTranslation
+                            {
+                                LanguageId=2, //turkish
+                               Subject = "Alfam Dormitory Booking #345345345 paid",
+               Body =
+                        "<h2><img src=\"https://dormitories.emu.edu.tr/_layouts/emu/images/logo/emu-logo-horizontalblue-en.png?ver=1\" />&nbsp; &nbsp; &nbsp; &nbsp;<strong>Booking </strong>&nbsp;<strong>#34234234234</strong><strong> has been marked&nbsp;Paid&nbsp;</strong></h2>"+
+                        "<h3>Dear Dormitory Manager</h3>"+
+                        "<p>This is to inform you that your a booking in Alfam Dormitory&nbsp;with booking number #34534534 has been marked as paid.&nbsp;</p>"+
+                        "<p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>Booking Information</strong></p>"+
+                        "<ul><li>Booking No:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;#34234234234</li>"+
+                        "	<li>Dormitory :&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Alfam dormitory</li>"+
+                        "	<li>Room:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Single Room</li>"+
+                        "	<li>Receipt status:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Uploaded</li>"+
+                        "	<li>Date of Booking:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 13-January-2019</li>"+
+                        "	<li>Booking Status:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Complete</li>"+
+                        "	<li>Payment Status:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Paid</li>"+
+                        "</ul>"+
+                        "<p>Thank you</p>"+
+                        "<p>Kind Regards,<br />"+
+                        "<strong>Dormitory Booking Team</strong></p>"+
+                        "<p>Sent to Musa Jahun</p>"
+                            }
+                        }
+                },
+
+                                  new MessageTemplate
+                {
+                        Name="DormitoryManager.NewBookingAlert",
+                        IsActive=true
+
+                       ,
+                        MessageTemplateTranslations= new List<MessageTemplateTranslation>
+                        {
+                            new MessageTemplateTranslation
+                            {
+                                LanguageId=1, //english
+                                Subject = "Booking received from Alfam Dormitory.",
+               Body =
+                        "<h2><img src=\"https://dormitories.emu.edu.tr/_layouts/emu/images/logo/emu-logo-horizontalblue-en.png?ver=1\" />&nbsp; &nbsp; &nbsp; &nbsp; <strong>&nbsp; </strong> &nbsp;<strong> &nbsp;</strong>&nbsp; <strong>Booking Placed&nbsp; &nbsp;&nbsp; </strong></h2>"+
+                        "<h3>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</strong></h3>"+
+                        "<p>Dear Student</p>"+
+                        "<p>This is to inform you that your booking with booking number #34534534 has been successfull&nbsp;today.</p>"+
+                        "<p>Please note that is payment is not confirmed before 14 days, booking will have to be cancelled</p>"+
+                        "<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Booking Information</p>"+
+                        "<ul><li>Booking No:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;#34234234234</li>"+
+                        "	<li>Dormitory :&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Alfam dormitory</li>"+
+                        "	<li>Room:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Single Room</li>"+
+                        "	<li>Receipt status:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Uploaded</li>"+
+                        "	<li>Date of Booking:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 13-January-2019</li>"+
+                        "</ul>"+
+                        "<p>&nbsp;</p>"+
+                        "<p>For more details on your booking you can contact dormitory directly</p>"+
+                        "<p><strong>Dormitory contact information&nbsp;</strong></p>"+
+                        "<p><strong>Mr. Yusuf&nbsp;</strong><br />"+
+                        "Manager Alfam dormitories<br />"+
+                        "Phone: (804) 123-5432<br />"+
+                        "Email: manager@dormitory.com</p>"+
+                        "<p>&nbsp;</p>"+
+                        "<p>Thank you</p>"+
+                        "<p>Kind Regards,<br />"+
+                        "<strong>Dormitory Booking Team</strong></p>"+
+                        "<p>Sent to Musa Jahun</p>"
+                            },
+
+                            new MessageTemplateTranslation
+                            {
+                                LanguageId=2, //turkish
+                                Subject = "Booking received from Alfam Dormitory.",
+               Body =
+                        "<h2><img src=\"https://dormitories.emu.edu.tr/_layouts/emu/images/logo/emu-logo-horizontalblue-en.png?ver=1\" />&nbsp; &nbsp; &nbsp; &nbsp; <strong>&nbsp; </strong> &nbsp;<strong> &nbsp;</strong>&nbsp; <strong>Booking Placed&nbsp; &nbsp;&nbsp; </strong></h2>"+
+                        "<h3>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</strong></h3>"+
+                        "<p>Dear Student</p>"+
+                        "<p>This is to inform you that your booking with booking number #34534534 has been successfull&nbsp;today.</p>"+
+                        "<p>Please note that is payment is not confirmed before 14 days, booking will have to be cancelled</p>"+
+                        "<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Booking Information</p>"+
+                        "<ul><li>Booking No:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;#34234234234</li>"+
+                        "	<li>Dormitory :&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Alfam dormitory</li>"+
+                        "	<li>Room:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Single Room</li>"+
+                        "	<li>Receipt status:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Uploaded</li>"+
+                        "	<li>Date of Booking:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 13-January-2019</li>"+
+                        "</ul>"+
+                        "<p>&nbsp;</p>"+
+                        "<p>For more details on your booking you can contact dormitory directly</p>"+
+                        "<p><strong>Dormitory contact information&nbsp;</strong></p>"+
+                        "<p><strong>Mr. Yusuf&nbsp;</strong><br />"+
+                        "Manager Alfam dormitories<br />"+
+                        "Phone: (804) 123-5432<br />"+
+                        "Email: manager@dormitory.com</p>"+
+                        "<p>&nbsp;</p>"+
+                        "<p>Thank you</p>"+
+                        "<p>Kind Regards,<br />"+
+                        "<strong>Dormitory Booking Team</strong></p>"+
+                        "<p>Sent to Musa Jahun</p>"
+                            }
+                        }
+                },
+
+                                    new MessageTemplate
+                {
+                        Name="Student.BookingPlacedSuccessfully",
+                        IsActive=true
+
+                       ,
+                        MessageTemplateTranslations= new List<MessageTemplateTranslation>
+                        {
+                            new MessageTemplateTranslation
+                            {
+                                LanguageId=1, //english
+                                Subject = "Verification token ",
+               Body =
+                        "<h2><img src=\"https://dormitories.emu.edu.tr/_layouts/emu/images/logo/emu-logo-horizontalblue-en.png?ver=1\" />&nbsp; &nbsp; &nbsp; &nbsp;<strong>Booking Placed Successfully&nbsp;&nbsp; </strong></h2>"+
+                        "<h3>Dear Student</h3>"+
+                        "<p>This is to inform you that your booking with booking number #34534534 has been successfull&nbsp;today.</p>"+
+                        "<p>Please note that is payment is not confirmed before 14 days, booking will have to be cancelled</p>"+
+                        "<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Booking Information</strong></h3>"+
+                        "<ul><li>Booking No:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;#34234234234</li>"+
+                        "	<li>Dormitory :&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Alfam dormitory</li>"+
+                        "	<li>Room:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Single Room</li>"+
+                        "	<li>Receipt status:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Uploaded</li>"+
+                        "	<li>Date of Booking:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 13-January-2019</li>"+
+                        "</ul>"+
+                        "<p>&nbsp;</p>"+
+                        "<p>For more details on your booking you can contact dormitory directly</p>"+
+                        "<p><strong>Dormitory contact information&nbsp;</strong></p>"+
+                        "<p><strong>Mr. Yusuf&nbsp;</strong><br />"+
+                        "Manager Alfam dormitories<br />"+
+                        "Phone: (804) 123-5432<br />"+
+                        "Email: manager@dormitory.com</p>"+
+                        "<p>&nbsp;</p>"+
+                        "<p>Thank you</p>"+
+                        "<p>Kind Regards,<br />"+
+                        "<strong>Dormitory Booking Team</strong></p>"+
+                        "<p>Sent to Musa Jahun</p>"
+                            },
+
+                            new MessageTemplateTranslation
+                            {
+                                LanguageId=2, //turkish
+                                Subject = "Verification token ",
+               Body =
+                        "<h2><img src=\"https://dormitories.emu.edu.tr/_layouts/emu/images/logo/emu-logo-horizontalblue-en.png?ver=1\" />&nbsp; &nbsp; &nbsp; &nbsp;<strong>Booking Placed Successfully&nbsp;&nbsp; </strong></h2>"+
+                        "<h3>Dear Student</h3>"+
+                        "<p>This is to inform you that your booking with booking number #34534534 has been successfull&nbsp;today.</p>"+
+                        "<p>Please note that is payment is not confirmed before 14 days, booking will have to be cancelled</p>"+
+                        "<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Booking Information</strong></h3>"+
+                        "<ul><li>Booking No:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;#34234234234</li>"+
+                        "	<li>Dormitory :&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Alfam dormitory</li>"+
+                        "	<li>Room:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Single Room</li>"+
+                        "	<li>Receipt status:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Uploaded</li>"+
+                        "	<li>Date of Booking:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 13-January-2019</li>"+
+                        "</ul>"+
+                        "<p>&nbsp;</p>"+
+                        "<p>For more details on your booking you can contact dormitory directly</p>"+
+                        "<p><strong>Dormitory contact information&nbsp;</strong></p>"+
+                        "<p><strong>Mr. Yusuf&nbsp;</strong><br />"+
+                        "Manager Alfam dormitories<br />"+
+                        "Phone: (804) 123-5432<br />"+
+                        "Email: manager@dormitory.com</p>"+
+                        "<p>&nbsp;</p>"+
+                        "<p>Thank you</p>"+
+                        "<p>Kind Regards,<br />"+
+                        "<strong>Dormitory Booking Team</strong></p>"+
+                        "<p>Sent to Musa Jahun</p>"
+                            }
+                        }
+                },
+
+
+
+                                        new MessageTemplate
+                {
+                        Name="DormitoryManager.NewReviewInDormitory",
+                        IsActive=true
+
+                       ,
+                        MessageTemplateTranslations= new List<MessageTemplateTranslation>
+                        {
+                            new MessageTemplateTranslation
+                            {
+                                LanguageId=1, //english
+                                Subject = "Verification token ",
+               Body =
+
+                    "<h2><img src=\"https://dormitories.emu.edu.tr/_layouts/emu/images/logo/emu-logo-horizontalblue-en.png?ver=1\" />&nbsp; &nbsp; &nbsp; &nbsp;<strong>New Room Review in Alfam Dormitory</strong></h2>"+
+                    "<h3>Dear Manager</h3>"+
+                    "<p>A Room has been booked in your dormitory, You can check for more details on the EMU dormitory reservation syetem</p>"+
+                    "<p>This is the Review information:</p>"+
+                    "<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Booking Information</strong></h3>"+
+                    "<ul><li>Review No:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;#34234234234</li>"+
+                    "	<li>Dormitory :&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Alfam dormitory</li>"+
+                    "	<li>Rating Number:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;8.9</li>"+
+                    "	<li>Date of Review:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 13-January-2019</li>"+
+                    "	<li>Student number:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 223434234234</li>"+
+                    "	<li>Student name :&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Musa Jahun</li>"+
+                    "	<li>Email Address:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;msjahun@live.com&nbsp;</li>"+
+                    "	<li>Review text:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;I love this dormitory, it is a very good dormitory&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</li>"+
+                    "</ul>"+
+                    "<p>&nbsp;</p>"+
+                    "<p>Thank you</p>"+
+                    "<p>Kind Regards,<br />"+
+                    "<strong>Dormitory Booking Team</strong></p>"+
+                    "<p>Sent to Musa Jahun</p>"
+                            },
+
+                            new MessageTemplateTranslation
+                            {
+                                LanguageId=2, //turkish
+                                 Subject = "Verification token ",
+               Body =
+
+                    "<h2><img src=\"https://dormitories.emu.edu.tr/_layouts/emu/images/logo/emu-logo-horizontalblue-en.png?ver=1\" />&nbsp; &nbsp; &nbsp; &nbsp;<strong>New Room Review in Alfam Dormitory</strong></h2>"+
+                    "<h3>Dear Manager</h3>"+
+                    "<p>A Room has been booked in your dormitory, You can check for more details on the EMU dormitory reservation syetem</p>"+
+                    "<p>This is the Review information:</p>"+
+                    "<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Booking Information</strong></h3>"+
+                    "<ul><li>Review No:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;#34234234234</li>"+
+                    "	<li>Dormitory :&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Alfam dormitory</li>"+
+                    "	<li>Rating Number:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;8.9</li>"+
+                    "	<li>Date of Review:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 13-January-2019</li>"+
+                    "	<li>Student number:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 223434234234</li>"+
+                    "	<li>Student name :&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Musa Jahun</li>"+
+                    "	<li>Email Address:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;msjahun@live.com&nbsp;</li>"+
+                    "	<li>Review text:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;I love this dormitory, it is a very good dormitory&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</li>"+
+                    "</ul>"+
+                    "<p>&nbsp;</p>"+
+                    "<p>Thank you</p>"+
+                    "<p>Kind Regards,<br />"+
+                    "<strong>Dormitory Booking Team</strong></p>"+
+                    "<p>Sent to Musa Jahun</p>"
+                            }
+                        }
+                },
+
+                                          new MessageTemplate
+                {
+                        Name="DormitoryManager.LowQuotaRoomAlert",
+                        IsActive=true
+
+                       ,
+                        MessageTemplateTranslations= new List<MessageTemplateTranslation>
+                        {
+                            new MessageTemplateTranslation
+                            {
+                                LanguageId=1, //english
+                               
+               Subject = "Verification token ",
+               Body =
+               "<h2><img src=\"https://dormitories.emu.edu.tr/_layouts/emu/images/logo/emu-logo-horizontalblue-en.png?ver=1\" />&nbsp; &nbsp; &nbsp; &nbsp;<strong>Low &nbsp;Quota report (Single Room)&nbsp;</strong></h2>"+
+                "<h3>Dear Manager</h3>"+
+                "<p>A Room<strong> (Single Room)</strong> in your <strong>Alfam Dormitor</strong> has Low Quota. Please increase quota so students will be able to book room</p>"+
+                "<p>from your dormitory. The current room <strong>quota remaining</strong> is now&nbsp; 2 left<strong>.</strong></p>"+
+                "<h3>&nbsp; &nbsp; &nbsp;Room&nbsp;Information</h3>"+
+                "<ul><li>Room Id:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;#34234234234</li>"+
+                "	<li>Dormitory :&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Alfam dormitory</li>"+
+                "	<li>Room Name:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Single Room</li>"+
+                "	<li>Remaining Quota:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2 Rooms&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</li>"+
+                "</ul>"+
+                "<p>&nbsp;</p>"+
+                "<p>Thank you</p>"+
+                "<p>Kind Regards,<br />"+
+                "<strong>Dormitory Booking Team</strong></p>"+
+                "<p>Sent to Musa Jahun</p>"
+                            },
+
+                            new MessageTemplateTranslation
+                            {
+                                LanguageId=2, //turkish
+                               
+               Subject = "Verification token ",
+               Body =
+               "<h2><img src=\"https://dormitories.emu.edu.tr/_layouts/emu/images/logo/emu-logo-horizontalblue-en.png?ver=1\" />&nbsp; &nbsp; &nbsp; &nbsp;<strong>Low &nbsp;Quota report (Single Room)&nbsp;</strong></h2>"+
+                "<h3>Dear Manager</h3>"+
+                "<p>A Room<strong> (Single Room)</strong> in your <strong>Alfam Dormitor</strong> has Low Quota. Please increase quota so students will be able to book room</p>"+
+                "<p>from your dormitory. The current room <strong>quota remaining</strong> is now&nbsp; 2 left<strong>.</strong></p>"+
+                "<h3>&nbsp; &nbsp; &nbsp;Room&nbsp;Information</h3>"+
+                "<ul><li>Room Id:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;#34234234234</li>"+
+                "	<li>Dormitory :&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Alfam dormitory</li>"+
+                "	<li>Room Name:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Single Room</li>"+
+                "	<li>Remaining Quota:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2 Rooms&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</li>"+
+                "</ul>"+
+                "<p>&nbsp;</p>"+
+                "<p>Thank you</p>"+
+                "<p>Kind Regards,<br />"+
+                "<strong>Dormitory Booking Team</strong></p>"+
+                "<p>Sent to Musa Jahun</p>"
+                            }
+                        }
+                },
+
+                                            new MessageTemplate
+                {
+                        Name="Administrator.DormitoryInformationChangedAlert",
+                        IsActive=true
+
+                       ,
+                        MessageTemplateTranslations= new List<MessageTemplateTranslation>
+                        {
+                            new MessageTemplateTranslation
+                            {
+                                LanguageId=1, //english
+                                Subject = "Dormitory Information has changed (Alfam Dormitory)",
+               Body =
+                     "<h2><img src=\"https://dormitories.emu.edu.tr/_layouts/emu/images/logo/emu-logo-horizontalblue-en.png?ver=1\" />&nbsp; &nbsp; &nbsp; &nbsp;<strong>Dormitory Information has changed (Alfam Dormitory)</strong></h2>"+
+                     "<h3>Dear Administrator</h3>"+
+                     "<p>Alfam Dormitory has updated their dormitory information.&nbsp;Please check activity log in the administrator panel to see what change they have made.&nbsp;</p>"+
+                     "<h3>&nbsp; &nbsp; &nbsp;Dormitory Information</h3>"+
+                     "<ul><li>DormitoryId:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; #34234234234</li>"+
+                     "	<li>Dormitory :&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Alfam dormitory &nbsp;</li>"+
+                     "	<li>Update Date Time:&nbsp; &nbsp; &nbsp; &nbsp; 12-January-2018 22:12 03&nbsp; &nbsp; &nbsp; &nbsp;</li>"+
+                     "</ul>"+
+                     "<p>&nbsp;</p>"+
+                     "<p>Thank you</p>"+
+                     "<p>Kind Regards,<br />"+
+                     "<strong>Dormitory Booking Team</strong></p>"+
+                     "<p>Sent to Musa Jahun</p>"
+                            },
+
+                            new MessageTemplateTranslation
+                            {
+                                LanguageId=2, //turkish
+                                  Subject = "Verification token ",
+               Body =
+                     "<h2><img src=\"https://dormitories.emu.edu.tr/_layouts/emu/images/logo/emu-logo-horizontalblue-en.png?ver=1\" />&nbsp; &nbsp; &nbsp; &nbsp;<strong>Dormitory Information has changed (Alfam Dormitory)</strong></h2>"+
+                     "<h3>Dear Administrator</h3>"+
+                     "<p>Alfam Dormitory has updated their dormitory information.&nbsp;Please check activity log in the administrator panel to see what change they have made.&nbsp;</p>"+
+                     "<h3>&nbsp; &nbsp; &nbsp;Dormitory Information</h3>"+
+                     "<ul><li>DormitoryId:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; #34234234234</li>"+
+                     "	<li>Dormitory :&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Alfam dormitory &nbsp;</li>"+
+                     "	<li>Update Date Time:&nbsp; &nbsp; &nbsp; &nbsp; 12-January-2018 22:12 03&nbsp; &nbsp; &nbsp; &nbsp;</li>"+
+                     "</ul>"+
+                     "<p>&nbsp;</p>"+
+                     "<p>Thank you</p>"+
+                     "<p>Kind Regards,<br />"+
+                     "<strong>Dormitory Booking Team</strong></p>"+
+                     "<p>Sent to Musa Jahun</p>"
+                            }
+                        }
+                },
+                                                 new MessageTemplate
+                {
+                        Name="Administrator.NewRegistration",
+                        IsActive=true
+
+                       ,
+                        MessageTemplateTranslations= new List<MessageTemplateTranslation>
+                        {
+                            new MessageTemplateTranslation
+                            {
+                                LanguageId=1, //english
+                               Subject = "New Student registration EMU Dormitory system",
+               Body =
+
+                    "<h2><img src=\"https://dormitories.emu.edu.tr/_layouts/emu/images/logo/emu-logo-horizontalblue-en.png?ver=1\" />&nbsp; &nbsp; &nbsp; &nbsp;<strong>New User registration</strong></h2>"+
+                    "<h3>Dear Administrator</h3>"+
+                    "<p>A new user have registered to the system.&nbsp;</p>"+
+                    "<h3>&nbsp; &nbsp; &nbsp;New User information</h3>"+
+                    "<ul><li>User Id:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; #34234234234</li>"+
+                    "	<li>Student No:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 147824</li>"+
+                    "	<li>User First name:&nbsp; &nbsp; &nbsp; Musa&nbsp;</li>"+
+                    "	<li>User Last name:&nbsp; &nbsp; &nbsp; Jahun</li>"+
+                    "	<li>User Email:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; msjahun@live.com</li>"+
+                    "	<li>User Address:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Alfam b. block 113</li>"+
+                    "</ul>"+
+                    "<p>&nbsp;</p>"+
+                    "<p>Thank you</p>"+
+                    "<p>Kind Regards,<br />"+
+                    "<strong>Dormitory Booking Team</strong></p>"+
+                    "<p>Sent to Musa Jahun</p>"
+                            },
+
+                            new MessageTemplateTranslation
+                            {
+                                LanguageId=2, //turkish
+                                Subject = "New Student registration EMU Dormitory system",
+               Body =
+
+                    "<h2><img src=\"https://dormitories.emu.edu.tr/_layouts/emu/images/logo/emu-logo-horizontalblue-en.png?ver=1\" />&nbsp; &nbsp; &nbsp; &nbsp;<strong>New User registration</strong></h2>"+
+                    "<h3>Dear Administrator</h3>"+
+                    "<p>A new user have registered to the system.&nbsp;</p>"+
+                    "<h3>&nbsp; &nbsp; &nbsp;New User information</h3>"+
+                    "<ul><li>User Id:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; #34234234234</li>"+
+                    "	<li>Student No:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 147824</li>"+
+                    "	<li>User First name:&nbsp; &nbsp; &nbsp; Musa&nbsp;</li>"+
+                    "	<li>User Last name:&nbsp; &nbsp; &nbsp; Jahun</li>"+
+                    "	<li>User Email:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; msjahun@live.com</li>"+
+                    "	<li>User Address:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Alfam b. block 113</li>"+
+                    "</ul>"+
+                    "<p>&nbsp;</p>"+
+                    "<p>Thank you</p>"+
+                    "<p>Kind Regards,<br />"+
+                    "<strong>Dormitory Booking Team</strong></p>"+
+                    "<p>Sent to Musa Jahun</p>",
+                            }
+                        }
+                },
+
+
+
+            };
+
+            foreach(var messageTemplate in messageTemplatesList)
+            {
+                _messageTemplateRepo.Insert(messageTemplate);
+            }
+
+
+        }
+
+        public void SeedSampleEmail()
+        {
+            var ClientEmail = "msjahun@live.com";
+            var ClientPassword = "abmubasa1994";
+            var ClientPort = 587;
+            var UseDefaultCredentials = false;
+            var EnableSSl = true;
+            var SmtpServer = "smtp-mail.outlook.com";
+
+
+
+
+            SmtpClient client = new SmtpClient(SmtpServer);
+            client.UseDefaultCredentials = UseDefaultCredentials;
+            client.EnableSsl = EnableSSl;
+            client.Port = ClientPort;
+
+            client.Credentials = new NetworkCredential(ClientEmail, ClientPassword);
+
+
             var numberOfExistingEmails = _messageQueueRepo.List().ToList().Count;
+
+            var EmailTokens = new List<Tokens>
+            {
+                new Tokens
+                {
+                TokenName= "%User.Id%",
+                TokenValue="2423423"
+                },
+
+                new Tokens
+                {
+                TokenName= "%User.StudentNumber%",
+                TokenValue="147824"
+                },
+
+                   new Tokens
+                {
+                 TokenName= "%User.Firstname%",
+                TokenValue="Musa"
+                },
+
+
+                      new Tokens
+                {
+                TokenName= "%User.LastName%",
+                TokenValue="Jahun"
+                },
+
+
+                         new Tokens
+                {
+                TokenName= "%User.Email%",
+                TokenValue="jahuntoken@gmail.com"
+                },
+
+
+                            new Tokens
+                {
+                TokenName= "%User.Address%",
+                TokenValue="No.13 karkasaraqtrs Kano"
+                },
+
+
+            };
+
+            
+
+            var messageTemplate = _messageTemplateRepo.GetById(1);
+            var messageTemplateTrans = from msgTTrans in _messageTemplateTransRepo.List().ToList()
+                                       where msgTTrans.MessageTemplateNonTransId == messageTemplate.Id
+                                       select msgTTrans;
+            var englishMsgTemplate = messageTemplateTrans.Where(c => c.LanguageId == 1).FirstOrDefault();
+            var turkishMsgTemplate = messageTemplateTrans.Where(c => c.LanguageId == 2).FirstOrDefault();
+
+
+
+
+
+
             var message =
                 new MessageQueue
                 {
                     ToAddress = "msjahun@live.com",
                     ToName = "Musa Jahun",
-                    IsSent = false,
+                    IsSent = true,
                     MaximumSentAttempts = 5,
                     MessagePriority = 2,
 
-                    Subject = "Hello world message queue: message no" + numberOfExistingEmails,
-                    Body = "Hello world body seeded at" + DateTime.Now,
+                    Subject = englishMsgTemplate.Subject,
+                    //   Body = "Hello world body seeded at" + DateTime.Now,
+                    Body =englishMsgTemplate.Body,
+
                     CreatedOn = DateTime.Now,
                     SendImmediately = false,
                     SendAttempts = 0
+          
                 };
 
-             
+        message.Body = _messageTemplateService.Tokenizer(message.Body, EmailTokens);
+
+            MailMessage mailMessage = new MailMessage();
+            mailMessage.From = new MailAddress(ClientEmail);
+            mailMessage.To.Add(message.ToAddress);
+            mailMessage.Body = message.Body;
+            mailMessage.IsBodyHtml = true;
+            mailMessage.Subject = message.Subject;
+
+            client.Send(mailMessage);
+
+
+
+            _eventService.LogEvent(new EventLogger
+            {
+                EventName = "Sent testing email",
+                EventDescription = "NewStudent.Notification % Dormitory.Name %.New Student registration",
+                EventParameters = "Subject " + message.Subject + " Body" + message.Body
+            });
 
             _messageQueueRepo.Insert(message);
         }
+
+     
 
         public void SeedFeatures()
         {

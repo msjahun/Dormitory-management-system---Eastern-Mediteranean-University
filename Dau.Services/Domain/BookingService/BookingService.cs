@@ -9,6 +9,7 @@ using Dau.Services.Languages;
 using Dau.Services.Security;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -118,7 +119,7 @@ namespace Dau.Services.Domain.BookingService
             var rooms = from room in _roomRepository.List().ToList()
                         join roomTrans in _roomTransRepository.List().ToList() on room.Id equals roomTrans.RoomNonTransId
                         where roomTrans.LanguageId == CurrentLanguageId
-                        select new { room.Id, room.DormitoryId, room.DormitoryBlockId, roomTrans.RoomName, room.Price, room.PriceOld, room.ShowPrice, room.NoRoomQuota, room.RoomSize };
+                        select new { room.Id, room.DormitoryId, room.DormitoryBlockId, roomTrans.RoomName, room.Price, room.PriceOld, room.ShowPrice, room.NoRoomQuota, room.RoomSize, room.PaymentPerSemesterNotYear };
 
             var roomsDormitoryBlock = from room in rooms.ToList()
                                       join dormBlock in dormitoryBlock.ToList() on room.DormitoryBlockId equals dormBlock.Id
@@ -134,6 +135,7 @@ namespace Dau.Services.Domain.BookingService
                                           room.PriceOld,
                                           room.ShowPrice,
                                           room.NoRoomQuota,
+                                          room.PaymentPerSemesterNotYear,
                                           room.RoomSize
                                       };
 
@@ -149,6 +151,7 @@ namespace Dau.Services.Domain.BookingService
                                     room.RoomName,
                                     room.Price,
                                     room.PriceOld,
+                                    room.PaymentPerSemesterNotYear,
                                     room.ShowPrice,
                                     room.NoRoomQuota,
                                     room.RoomSize,
@@ -157,27 +160,37 @@ namespace Dau.Services.Domain.BookingService
                                     dorm.DormitoryLogoUrl
                                 };
 
-            var semesterPeriods = from semPeriod in _SemesterPeriodRepo.List().ToList()
-                                  join semPeriodTrans in _semesterPeriodTransRepo.List().ToList() on semPeriod.Id equals semPeriodTrans.SemesterPeriodNonTransId
-                                  where semPeriodTrans.LanguageId == CurrentLanguageId
-                                  select new { semPeriod.Id, semPeriodTrans.SemesterPeriodName };
-
+            
 
             var Carts = from cart in _cartRepository.List().ToList()
                         where cart.UserId == CurrentUserId
-                        select new { cart.RoomId, cart.UserId, cart.TotalAmount, cart.SemesterPeriodId };
-
+                        select new { cart.RoomId, cart.UserId, cart.TotalAmount, cart.SemesterPeriodId ,cart.Id};
+            var semesterPeriods = from semPeriod in _SemesterPeriodRepo.List().ToList()
+                                  join semPeriodTrans in _semesterPeriodTransRepo.List().ToList() on semPeriod.Id equals semPeriodTrans.SemesterPeriodNonTransId
+                                  where semPeriod.Id !=2
+                                  where semPeriodTrans.LanguageId == CurrentLanguageId
+                                  select new SelectListItem
+                                  {
+                                      Value = semPeriod.Id.ToString(),
+                                      Text = semPeriodTrans.SemesterPeriodName
+                                  };
+           
+         
             var CartRoom = from cart in Carts.ToList()
                            join room in roomDormitory.ToList() on cart.RoomId equals room.Id
                            select new BookingCartViewModel
-                           {
+                           { SemestersList = semesterPeriods.ToList(),
+                               IsPricePerYear = !room.PaymentPerSemesterNotYear,
                                DormitoryName = room.DormitoryName,
                                RoomName = room.RoomName,
                                RoomBlock = room.DormitoryBlockName,
                                RoomSize = room.RoomSize.ToString("N1")+" m2",
                                RoomPricePerSemester = String.Format("{1} {0} ",room.Price.ToString("N2"), "TL"),
-                               AmountTotal = String.Format("{1}{0} ", room.Price.ToString("N2"),"TL"),
-                               DormitoryLogoUrl = room.DormitoryLogoUrl
+                               AmountTotal = String.Format("{1}{0} ",( room.Price).ToString("N2"),"TL"),
+                               DormitoryLogoUrl = room.DormitoryLogoUrl,
+                               SemesterPeriodId=cart.SemesterPeriodId,
+                               CartId= cart.Id,
+                               PriceRaw =room.Price
                            };
 
 
@@ -201,7 +214,50 @@ namespace Dau.Services.Domain.BookingService
             //select the first cart or default and display it to the model
 
 
-            BookingCartViewModel model = CartRoom.FirstOrDefault();
+            var finalCart = CartRoom.FirstOrDefault();
+          
+
+                 double priceMultiplier = 1;
+            var userCart = Carts.ToList().FirstOrDefault();
+            if (finalCart != null) {
+            bool IsPerSemester = !finalCart.IsPricePerYear;
+            if (IsPerSemester)
+            {//Persemester
+                if (userCart.SemesterPeriodId == 3)
+                {
+                    //1 semester,
+                    priceMultiplier = 4;
+
+
+                }
+                else if (userCart.SemesterPeriodId == 4)
+                {
+                    priceMultiplier = 8;
+                }
+            }
+            else
+            {//Per Year
+                if (userCart.SemesterPeriodId == 1)
+                {
+                    priceMultiplier = 0.5; // half a semester
+                }
+                if (userCart.SemesterPeriodId == 3)
+                {
+                    //1 semester,
+                    priceMultiplier = 1;
+
+
+                }
+                else if (userCart.SemesterPeriodId == 4)
+                {
+                    priceMultiplier = 2;
+                }
+
+            }
+            finalCart.AmountTotal = String.Format("{1}{0} ", (finalCart.PriceRaw *priceMultiplier).ToString("N2"), "TL");
+
+            }
+            BookingCartViewModel model = finalCart;
 
 
             //    new BookingCartViewModel
@@ -304,9 +360,55 @@ namespace Dau.Services.Domain.BookingService
                                TaxAmount = String.Format("{1} {0} ", room.TaxAmount.ToString("N2"), "TL"),
                                BookingFee = String.Format("{1} {0} ", room.BookingFee.ToString("N2"), "TL"),
                                StayDuration = semesterPeriods.Where(c=> c.Id == cart.SemesterPeriodId).FirstOrDefault().SemesterPeriodName,
-                               SubtotalAmount = String.Format("{1} {0} ", room.Price.ToString("N2"), "TL")
-                          
+                               SubtotalAmount = String.Format("{1} {0} ", room.Price.ToString("N2"), "TL"),
+                               PriceRaw = room.Price,
+                               TaxAmountRaw = room.TaxAmount,
+                               BookingFeeRaw = room.BookingFee
+
+                              
                            };
+
+
+            var finalCart = CartRoom.FirstOrDefault();
+
+            double priceMultiplier = 1;
+            var userCart = Carts.ToList().FirstOrDefault();
+            bool IsPerSemester = !finalCart.IsPricePerYear;
+            if (IsPerSemester)
+            {//Persemester
+                if (userCart.SemesterPeriodId == 3)
+                {
+                    //1 semester,
+                    priceMultiplier = 4;
+
+
+                }
+                else if (userCart.SemesterPeriodId == 4)
+                {
+                    priceMultiplier = 8;
+                }
+            }
+            else
+            {//Per Year
+                if (userCart.SemesterPeriodId == 1)
+                {
+                    priceMultiplier = 0.5; // half a semester
+                }
+                if (userCart.SemesterPeriodId == 3)
+                {
+                    //1 semester,
+                    priceMultiplier = 1;
+
+
+                }
+                else if (userCart.SemesterPeriodId == 4)
+                {
+                    priceMultiplier = 2;
+                }
+
+            }
+            finalCart.SubtotalAmount = String.Format("{1}{0} ", (finalCart.PriceRaw * priceMultiplier).ToString("N2"), "TL");
+            finalCart.AmountTotal = String.Format("{1}{0} ", ((finalCart.PriceRaw * priceMultiplier)  + finalCart.BookingFeeRaw + finalCart.TaxAmountRaw).ToString("N2"), "TL");
 
 
             //var CartsSemesterPeriods = from cart in Carts.ToList()
@@ -321,7 +423,7 @@ namespace Dau.Services.Domain.BookingService
 
             BookingCheckoutCustomerInfoViewModel model = new BookingCheckoutCustomerInfoViewModel
             {
-                BookingDetails = CartRoom.FirstOrDefault(),
+                BookingDetails = finalCart,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 StudentNumber = user.StudentNumber,
@@ -421,7 +523,10 @@ namespace Dau.Services.Domain.BookingService
                                TaxAmount = String.Format("{1}{0} ", room.TaxAmount.ToString("N2"),"TL"),
                                BookingFee = String.Format("{1}{0} ", room.BookingFee.ToString("N2"),"TL"),
                                StayDuration = semesterPeriods.Where(c => c.Id == cart.SemesterPeriodId).FirstOrDefault().SemesterPeriodName,
-                               SubtotalAmount = String.Format("{1}{0} ", room.Price.ToString("N2"),"TL")
+                               SubtotalAmount = String.Format("{1}{0} ", room.Price.ToString("N2"),"TL"),
+                               PriceRaw = room.Price,
+                               TaxAmountRaw = room.TaxAmount,
+                               BookingFeeRaw = room.BookingFee
 
                            };
 
@@ -436,9 +541,51 @@ namespace Dau.Services.Domain.BookingService
             var user = Users.FirstOrDefault();
 
 
+            var finalCart = CartRoom.FirstOrDefault();
+
+            double priceMultiplier = 1;
+            var userCart = Carts.ToList().FirstOrDefault();
+            bool IsPerSemester = !finalCart.IsPricePerYear;
+            if (IsPerSemester)
+            {//Persemester
+                if (userCart.SemesterPeriodId == 3)
+                {
+                    //1 semester,
+                    priceMultiplier = 4;
+
+
+                }
+                else if (userCart.SemesterPeriodId == 4)
+                {
+                    priceMultiplier = 8;
+                }
+            }
+            else
+            {//Per Year
+                if (userCart.SemesterPeriodId == 1)
+                {
+                    priceMultiplier = 0.5; // half a semester
+                }
+                if (userCart.SemesterPeriodId == 3)
+                {
+                    //1 semester,
+                    priceMultiplier = 1;
+
+
+                }
+                else if (userCart.SemesterPeriodId == 4)
+                {
+                    priceMultiplier = 2;
+                }
+
+            }
+            finalCart.SubtotalAmount = String.Format("{1}{0} ", (finalCart.PriceRaw * priceMultiplier).ToString("N2"), "TL");
+            finalCart.AmountTotal = String.Format("{1}{0} ", ((finalCart.PriceRaw * priceMultiplier) + finalCart.BookingFeeRaw + finalCart.TaxAmountRaw).ToString("N2"), "TL");
+
+
             BookingCheckoutCustomerInfoViewModel model = new BookingCheckoutCustomerInfoViewModel
             {
-                BookingDetails = CartRoom.FirstOrDefault(),
+                BookingDetails = finalCart,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 StudentNumber = user.StudentNumber,
@@ -647,7 +794,7 @@ namespace Dau.Services.Domain.BookingService
             var rooms = from room in _roomRepository.List().ToList()
                         join roomTrans in _roomTransRepository.List().ToList() on room.Id equals roomTrans.RoomNonTransId
                         where roomTrans.LanguageId == CurrentLanguageId
-                        select new { room.Id, room.DormitoryId, room.DormitoryBlockId, roomTrans.RoomName, room.Price, room.PriceOld, room.ShowPrice, room.NoRoomQuota, room.RoomSize, room.TaxAmount, room.BookingFee };
+                        select new { room.Id, room.DormitoryId, room.DormitoryBlockId, roomTrans.RoomName, room.Price, room.PriceOld, room.ShowPrice, room.NoRoomQuota, room.RoomSize, room.TaxAmount, room.BookingFee,room.PaymentPerSemesterNotYear };
 
             var roomsDormitoryBlock = from room in rooms.ToList()
                                       join dormBlock in dormitoryBlock.ToList() on room.DormitoryBlockId equals dormBlock.Id
@@ -665,7 +812,8 @@ namespace Dau.Services.Domain.BookingService
                                           room.NoRoomQuota,
                                           room.RoomSize,
                                           room.TaxAmount,
-                                          room.BookingFee
+                                          room.BookingFee,
+                                          room.PaymentPerSemesterNotYear
                                       };
 
             var roomDormitory = from room in roomsDormitoryBlock.ToList()
@@ -687,7 +835,8 @@ namespace Dau.Services.Domain.BookingService
                                     room.BookingFee,
                                     dorm.DormitorySeoId,
                                     dorm.DormitoryName,
-                                    dorm.DormitoryLogoUrl
+                                    dorm.DormitoryLogoUrl,
+                                    room.PaymentPerSemesterNotYear
                                 };
 
             var semesterPeriods = from semPeriod in _SemesterPeriodRepo.List().ToList()
@@ -700,7 +849,29 @@ namespace Dau.Services.Domain.BookingService
                         where cart.UserId == CurrentUserId
                         select new { cart.RoomId, cart.UserId, cart.TotalAmount, cart.SemesterPeriodId };
 
-            var CartToBooking = (from cart in Carts.ToList()
+
+            var dummyFinalCart = (from cart in Carts.ToList()
+                             join room in roomDormitory.ToList() on cart.RoomId equals room.Id
+                             select new 
+                             {
+                                 BookingStatusId = 2,
+                                 PaymentStatusId = 2,
+                                 UserId = CurrentUserId,
+                                 CustomerIpAddress = _httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString(),
+                                 BookingOrderSubtotal = room.Price,
+                                 BookingFee = room.BookingFee,
+                                 BookingTotal = room.Price + room.BookingFee + room.TaxAmount,
+                                 CreatedOn = DateTime.Now,
+                                 RoomId = room.Id,
+                                 room.Price,
+                                 cart.SemesterPeriodId,
+                                 IsPricePerYear = !room.PaymentPerSemesterNotYear,
+                                 room.TaxAmount
+
+                             }).FirstOrDefault();
+
+
+            var finalCart = (from cart in Carts.ToList()
                            join room in roomDormitory.ToList() on cart.RoomId equals room.Id
                            select new Booking
                            {
@@ -716,21 +887,61 @@ namespace Dau.Services.Domain.BookingService
 
                            }).FirstOrDefault();
 
+
+
+            double priceMultiplier = 1;
+            var userCart = Carts.ToList().FirstOrDefault();
+            bool IsPerSemester = !dummyFinalCart.IsPricePerYear;
+            if (IsPerSemester)
+            {//Persemester
+                if (userCart.SemesterPeriodId == 3)
+                {
+                    //1 semester,
+                    priceMultiplier = 4;
+
+
+                }
+                else if (userCart.SemesterPeriodId == 4)
+                {
+                    priceMultiplier = 8;
+                }
+            }
+            else
+            {//Per Year
+                if (userCart.SemesterPeriodId == 1)
+                {
+                    priceMultiplier = 0.5; // half a semester
+                }
+                if (userCart.SemesterPeriodId == 3)
+                {
+                    //1 semester,
+                    priceMultiplier = 1;
+
+
+                }
+                else if (userCart.SemesterPeriodId == 4)
+                {
+                    priceMultiplier = 2;
+                }
+
+            }
+            finalCart.BookingTotal = (dummyFinalCart.Price * priceMultiplier) + dummyFinalCart.BookingFee + dummyFinalCart.TaxAmount ;
+
             try
             {//reduce room quota and check if room quota
-             var room=   _roomRepository.GetById(CartToBooking.RoomId);
+             var room=   _roomRepository.GetById(finalCart.RoomId);
                 if (room.NoRoomQuota > 0)
                 {
                     room.NoRoomQuota--;
                     _roomRepository.Update(room);
-                   var bookingId= _bookingRepository.Insert(CartToBooking);
+                   var bookingId= _bookingRepository.Insert(finalCart);
                     _imageService.uploadBookingReceiptImage(bookingId);
-                    _eventService.Trigger_BookingPlaced_DormitoryManagerNotification_Event();
-                    _eventService.Trigger_BookingPlaced_DormitoryNotification_Event();
-                    _eventService.Trigger_BookingPlaced_StudentNotification_Event();
+                    //_eventService.Trigger_BookingPlaced_DormitoryManagerNotification_Event(); to notify administrator of booking
+                    _eventService.Trigger_BookingPlaced_DormitoryNotification_Event(bookingId);
+                    _eventService.Trigger_BookingPlaced_StudentNotification_Event(bookingId);
 
                     if (room.NoRoomQuota <= 5)
-                        _eventService.Trigger_RoomQuotaBelow_DormitoryManagerNotification_Event();
+                        _eventService.Trigger_RoomQuotaBelow_DormitoryManagerNotification_Event(room.Id);
 
                     return true;
                 }else
@@ -815,9 +1026,9 @@ namespace Dau.Services.Domain.BookingService
                 _bookingRepository.Update(booking);
 
                 if (newBookingStatusId == 1)
-                    _eventService.Trigger_BookingCompleted_StudentNotification_Event();
+                    _eventService.Trigger_BookingCompleted_StudentNotification_Event(bookingId);
                 else if (newBookingStatusId == 3)
-                    _eventService.Trigger_BookingCancelled_StudentNotification_Event();
+                    _eventService.Trigger_BookingCancelled_StudentNotification_Event(bookingId);
                  
                 return true;
             }
@@ -840,8 +1051,8 @@ namespace Dau.Services.Domain.BookingService
 
                 if (newpaymentStatusId == 1)
                 {
-                    _eventService.Trigger_BookingPaid_DormitoryNotification_Event();
-                    _eventService.Trigger_BookingPaid_StudentNotification_Event();
+                    _eventService.Trigger_BookingPaid_DormitoryNotification_Event(booking.Id);
+                    _eventService.Trigger_BookingPaid_StudentNotification_Event(booking.Id);
                 }
                    
           
@@ -1007,6 +1218,24 @@ namespace Dau.Services.Domain.BookingService
 
             return model;
         }
+
+        public bool UpdateSemesterPeriod(long id)
+        {
+            try { 
+            var CurrentUserId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var cart = _cartRepository.List().ToList().Where(c => c.UserId == CurrentUserId).FirstOrDefault();
+            if (cart == null) return false;
+            cart.SemesterPeriodId =id;
+            _cartRepository.Update(cart);
+
+            return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
     }
 
 
@@ -1166,7 +1395,7 @@ namespace Dau.Services.Domain.BookingService
     }
 
     public class BookingCartViewModel
-    {
+    {public List<SelectListItem> SemestersList { get; set; }
         public string DormitoryName { get; set; }
         public string DormitoryLogoUrl { get; set; }
         public string RoomName { get; set; }
@@ -1175,12 +1404,23 @@ namespace Dau.Services.Domain.BookingService
         public string AmountTotal { get; set; }
         public string StayDuration { get; set; }
         public string RoomPricePerSemester { get; set; }
-
+        public bool IsPricePerYear { get; set; }
+        public long CartId { get; set; }
         public string SubtotalAmount { get; set; }
         public string BookingFee { get; set; }
         public string TaxAmount { get; set; }
+        public long SemesterPeriodId { get; set; }
+        public double PriceRaw { get; set; }
+        public double TaxAmountRaw { get; internal set; }
+        public double BookingFeeRaw { get; internal set; }
     }
 
+    public class SemPeriod
+    {
+        public bool IsSelected { get; set; }
+        public string Value { get; set; }
+        public string Text { get; set; }
+    }
     public class BookingCheckoutCustomerInfoViewModel
     {
         public string FirstName { get; set; }

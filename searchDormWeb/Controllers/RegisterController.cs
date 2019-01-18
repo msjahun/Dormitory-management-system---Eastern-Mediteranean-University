@@ -62,10 +62,10 @@ namespace searchDormWeb.Controllers
                        protocol: HttpContext.Request.Scheme);
 
                     //send confirmation link to email  service
-                    _eventService.Trigger_NewStudent_Notification_Event();
-                    _eventService.Trigger_Student_EmailValidationMessage_Event();
-                    _eventService.Trigger_Student_WelcomeMessage_Event();
-                    _messageQueueService.QueueVerificationEmail(confirmationLink, user.FirstName  + " " + user.LastName, user.Email);
+                    _eventService.Trigger_NewStudent_Notification_Event(user.Id,user.StudentNumber,user.FirstName,user.LastName,user.Email,user.ParmanentAddress);
+                    _eventService.Trigger_Student_EmailValidationMessage_Event(user.Email, user.FirstName, user.LastName, confirmationLink );
+                    _eventService.Trigger_Student_WelcomeMessage_Event(user.Email, user.FirstName, user.LastName);
+                  //  _messageQueueService.QueueVerificationEmail(confirmationLink, user.FirstName  + " " + user.LastName, user.Email);
                    
                    // await signInManager.SignInAsync(user, false);
                     return RedirectToAction( "Success", "Register");

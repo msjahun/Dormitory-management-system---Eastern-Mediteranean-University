@@ -8,6 +8,7 @@ using Dau.Services.Domain.DropdownServices;
 using Dau.Services.Domain.ImageServices;
 using Dau.Services.Domain.LocationServices;
 using Dau.Services.Domain.MapServices;
+using Dau.Services.Domain.ReviewsServices;
 using Dau.Services.Languages;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,7 @@ namespace Dau.Services.Domain.SearchResultService
         private readonly IRepository<SemesterPeriod> _SemesterPeriodRepo;
         private readonly IRepository<SemesterPeriodTranslation> _semesterPeriodTransRepo;
         private IRepository<DormitoryType> _dormitoryTypeRepo;
+        private readonly IReviewService _reviewService;
         private readonly ILocationService _locationService;
         private readonly IRepository<Seo> _seoRepo;
         private readonly IMapService _mapService;
@@ -69,11 +71,12 @@ namespace Dau.Services.Domain.SearchResultService
             IMapService mapService,
             IDropdownService dropdownService,
             ILocationService locationService,
-
+              IReviewService reviewService,
             IRepository<FeaturesTranslation> featuresTranslation
 
             )
         {
+            _reviewService = reviewService;
             _locationService = locationService;
             _seoRepo = seoRepository;
             _mapService = mapService;
@@ -238,7 +241,7 @@ namespace Dau.Services.Domain.SearchResultService
                                        RatingNo = dorm.RatingNo.ToString("N1"),
                                        SortingRatingNo=dorm.RatingNo,
 
-                                       RatingText = "Fantastic", //create a service that resolves this
+                                       RatingText = _reviewService.ResolveRatingText(dorm.RatingNo), //create a service that resolves this
                                        ReviewNo = _reviewRepo.List().Where(c => c.DormitoryId == dorm.Id).ToList().Count,
                                        Location = dorm.Location,
                                        ShortDescription =(dorm.DormitoryDescription.Length>=91) ? dorm.DormitoryDescription.Substring(0, 90) + "...": dorm.DormitoryDescription,
@@ -288,7 +291,7 @@ namespace Dau.Services.Domain.SearchResultService
                                     DormitoryRoomBlock = room.DormitoryBlockName,
                                     RatingNo = dorm.RatingNo,
                                     DormitorySeoFriendlyUrl = dorm.DormitorySeoFriendlyUrl,
-                                    RatingText = "Fantastic",
+                                    RatingText = dorm.RatingText,
                                     RoomName = room.RoomName,
                                     ReviewNo = dorm.ReviewNo,
                                     SortingPrice=room.Price,

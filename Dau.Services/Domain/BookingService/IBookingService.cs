@@ -21,5 +21,6 @@ namespace Dau.Services.Domain.BookingService
         bool ChangePaymentStatus(long bookingId, long newpaymentStatusId);
         Charts GetBookingsChartById(long id);
         List<BookingAccountVM> GetUserBookings(string userId);
+        bool UpdateSemesterPeriod(long id);
     }
 }

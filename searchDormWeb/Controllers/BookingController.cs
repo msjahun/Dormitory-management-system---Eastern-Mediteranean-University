@@ -95,6 +95,14 @@ namespace searchDormWeb.Controllers
             return Json(success);
         }
 
+
+        public IActionResult UpdateSemesterPeriod(long Id)
+        {
+            var success =_bookingService.UpdateSemesterPeriod(Id);
+          
+            return Json(success);
+        }
+
         public IActionResult AddToCart(int Id)
         {
             bool isAuthenticated = User.Identity.IsAuthenticated;

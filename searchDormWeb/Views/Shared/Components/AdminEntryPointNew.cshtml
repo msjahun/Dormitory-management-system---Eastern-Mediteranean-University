@@ -5,15 +5,28 @@
 @using Microsoft.AspNetCore.Identity
 @using Dau.Core.Domain.Users;
 @using Dau.Services.Users;
+@using Dau.Services.Security;
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 @inject IUsersService _userService
+@inject IUserRolesService _userRoleService
 @if (SignInManager.IsSignedIn(User))
 {<secure-content asp-action="Index" asp-controller="Admin" asp-area="">
-    <div class="col">
-        <a asp-action="Index" asp-controller="Admin" class="btn btn-block btn-primary">@Localizer["Administration"]</a>
-    </div>
+        <div class="col">
+            <a asp-action="Index" asp-controller="Admin" class="btn btn-block btn-primary">
+
+                @if (_userRoleService.IsDormitoryManager())
+                {
+                    @Localizer["Dormitory Manager"]
+                }
+                else
+                {
+                    @Localizer["Administration"]
+                }
+
+            </a>
+        </div>
 
 
-</secure-content>
+    </secure-content>
 }

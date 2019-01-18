@@ -6,6 +6,7 @@ using Dau.Services.Languages;
 using Dau.Services.Security;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace Dau.Services.Domain.ReviewsServices
         private readonly IRepository<Dormitory> _dormitoryRepo;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IRepository<DormitoryTranslation> _dormitoryTransRepo;
+        private readonly IStringLocalizer _localizer;
 
         public ReviewService(IRepository<Review> reviewsRepository,
             UserManager<User> userManager,
@@ -32,7 +34,8 @@ namespace Dau.Services.Domain.ReviewsServices
             IRepository<DormitoryTranslation> dormitoryTransRepository,
               ILanguageService languageService,
                IUserRolesService userRolesService,
-               IEventService eventService)
+               IEventService eventService,
+               IStringLocalizer stringLocalizer)
         {
             _eventService = eventService;
             _userRolesService = userRolesService;
@@ -42,6 +45,7 @@ namespace Dau.Services.Domain.ReviewsServices
             _dormitoryRepo = dormitoryRepository;
             _httpContextAccessor = httpContextAccessor;
             _dormitoryTransRepo = dormitoryTransRepository;
+            _localizer = stringLocalizer;
         }
 
         public List<ReviewsTable> GetReviewsListTable()
@@ -86,7 +90,7 @@ namespace Dau.Services.Domain.ReviewsServices
             try
             {
                 var CurrentUserId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                _reviewsRepo.Insert(new Review
+            var reviewId=    _reviewsRepo.Insert(new Review
                 {
 
                     DormitoryId = vm.DormitoryId,
@@ -98,12 +102,56 @@ namespace Dau.Services.Domain.ReviewsServices
 
                 });
 
-                _eventService.Trigger_Room_RoomReview_Event();
+                var dormitoryReviews = (from rev in _reviewsRepo.List().ToList()
+                                       where rev.DormitoryId== vm.DormitoryId
+                                       group rev by rev.Rating into g
+                                       select new
+                                       {
+                                           
+                                           sum = g.Sum(_ => _.Rating),
+                                           Count = g.Count(),
+                                       }).FirstOrDefault();
+
+                var newRating = dormitoryReviews.sum / dormitoryReviews.Count;
+
+                var dormitory=_dormitoryRepo.GetById(vm.DormitoryId);
+                dormitory.RatingNo = newRating;
+                _dormitoryRepo.Update(dormitory);
+
+                _eventService.Trigger_Room_RoomReview_Event(reviewId);
                 return true;
             }
             catch
             {
                 return false;
+            }
+        }
+
+        public string ResolveRatingText(double RatingNumber)
+        {
+            if (RatingNumber >= 9.5)
+            {
+                return _localizer["Wonderful"];
+            }
+            else if (RatingNumber >= 9)
+            {
+                return _localizer["Fantastic"];
+
+            }
+            else if (RatingNumber >= 8.5)
+            {
+                return _localizer["Excellent"];
+
+            }
+            else if (RatingNumber >= 7.5)
+            {
+                return _localizer["Very Good"];
+
+            }
+            else
+            {
+                return _localizer["Good"];
+
             }
         }
     }

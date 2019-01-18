@@ -17,14 +17,7 @@ namespace Dau.Data.Mapping.ContentManagement
 
             //int
             builder.HasKey(e => new { e.MessageTemplateNonTransId, e.LanguageId });
-            builder.Property(e => e.MessageTemplateNonTransId).HasColumnName("MessageTemplateId");
-            builder.Property(e => e.Subject).HasColumnName("Subject").HasMaxLength(256)
-                .IsUnicode(false);
-            builder.Property(e => e.Body).HasColumnName("Body").HasMaxLength(1024)
-                .IsUnicode(false);
-            builder.Property(e => e.BCC).HasColumnName("BCC").HasMaxLength(256)
-                .IsUnicode(false);
-            builder.Property(e => e.EmailAccount).HasColumnName("EmailAccount");
+           
 
 
             //string

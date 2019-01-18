@@ -1,0 +1,110 @@
+﻿
+
+@using Dau.Core.Event
+@model List<EventLogger>
+
+
+@{
+    ViewData["Title"] = "EventsLog";
+    Layout = "~/Views/Shared/_LayoutUserNew.cshtml";
+ 
+}
+
+
+
+<section class="slice" style=" padding-top:20px; ">
+    <div class="container">
+
+        <h2>Events logger - logs events that happen in the background</h2>
+        <button id="RefreshPage" class="btn btn-product-action">Refresh page</button> <button id="DeleteLogEntries" class="btn btn-product-action btn-danger">Clear list</button>
+
+        <table class="table table-responsive">
+            <thead>
+                <tr>
+                    <th scope="col"># Event Id</th>
+                    <th scope="col">Event name</th>
+                    <th scope="col">Event description</th>
+                    <th scope="col">Event Params</th>
+                    <th scope="col">Created Date time</th>
+                </tr>
+            </thead>
+            <tbody>  
+
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <th scope="row">@item.Id</th>
+                        <td>@item.EventName</td>
+                        <td>@item.EventDescription</td>
+                        <td>@item.EventParameters</td>
+                        <td>@item.CreatedOn</td>
+
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+
+    </div>
+</section>
+
+
+@section scripts
+    {
+
+    <script>
+
+
+
+
+        $("#RefreshPage").click(function () {
+
+            // alert("button clicked");
+
+            location.reload();
+        });
+
+
+
+        $("#DeleteLogEntries").click(function () {
+
+            // alert("button clicked");
+            $.ajax({
+                type: "POST",
+                url: "DeleteEventLogEntries",
+                data: {
+                    SectionId: "comments_section"
+                },
+                success: function (result, textStatus, xhr) {
+                    //     alert(result);
+                    $("#comments_section").html(result);
+                    if (JSON.stringify(result) === 'true') {
+                        alert("Event log entries deleted successfully");
+                        location.reload();
+                    } else {
+                        alert("Failed to delete api entries");
+                        location.reload();
+                    }
+                }
+
+            });
+
+
+
+        });
+
+
+
+
+    </script>
+
+
+
+
+}
+
+@section styles{
+
+
+}

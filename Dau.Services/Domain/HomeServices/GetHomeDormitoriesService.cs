@@ -12,6 +12,7 @@ using Dau.Services.Domain.MapServices;
 using Dau.Services.Languages;
 using System.Linq;
 using System;
+using Dau.Services.Domain.ReviewsServices;
 
 namespace Dau.Services.Domain.HomeService
 {
@@ -38,6 +39,7 @@ namespace Dau.Services.Domain.HomeService
         private readonly IRepository<DormitoryCatalogImage> _dormitoryImageRepo;
         private readonly IRepository<Review> _reviewRepo;
         private readonly IRepository<Locationinformation> _locationRepo;
+        private readonly IReviewService _reviewService;
 
         public GetHomeDormitoriesService(IStringLocalizer _Localizer, IRepository<Room> RoomRepository,
             IRepository<RoomTranslation> RoomTransRepository,
@@ -58,7 +60,8 @@ namespace Dau.Services.Domain.HomeService
                       IImageService imageService,
                         IMapService mapService,
                         IDropdownService dropdownService,
-                        ILocationService locationService)
+                        ILocationService locationService,
+                        IReviewService reviewService)
         {
             Localizer = _Localizer;
             _locationService = locationService;
@@ -82,6 +85,7 @@ namespace Dau.Services.Domain.HomeService
             _dormitoryImageRepo = DormitoryImageRepository;
             _reviewRepo = reviewRepository;
             _locationRepo = locationRepository;
+            _reviewService = reviewService;
         }
 
     
@@ -128,19 +132,19 @@ namespace Dau.Services.Domain.HomeService
                                        // DormitoryIconUrl = dorm.DormitoryLogoUrl,
                                        DormitorySeoFriendlyUrl = _seoRepo.List().ToList().Where(c => c.Id == dorm.DormitorySeoId).FirstOrDefault().SearchEngineFriendlyPageName, //use seo table
                                                                                                                                                                                  //  RatingNo = dorm.RatingNo.ToString("N1"),
-                                       RatingText = "Fantastic", //create a service that resolves this
-                                                                 // ReviewNo = _reviewRepo.List().Where(c => c.DormitoryId == dorm.Id).ToList().Count,
-                                                                 // Location = dorm.Location,
-                                                                 // ShortDescription = dorm.DormitoryDescription,
-                                                                 // ReservationPosibleWithoutCreditCard = false, //
-                                                                 // DormitoryStreetAddress = dorm.DormitoryStreetAddress,
-                                                                 // MapSection = _mapService.GetMapSectionById(dorm.MapSectionId),
-                                                                 //
-                                                                 //
-                                                                 // ClosestLandMark = _locationService.GetClosestLandmark(dorm.Id),
-                                                                 // ClosestLandMarkMapSection = _locationService.GetClosestLandmarkMapSection(dorm.Id),
-                                                                 // DormitoryName = "Alfam dormitory",
-                                                                 // DormitorySeoFriendlyUrl = "Alfam-dormitory",
+                                       RatingText = _reviewService.ResolveRatingText(dorm.RatingNo), //create a service that resolves this
+                                                                    // ReviewNo = _reviewRepo.List().Where(c => c.DormitoryId == dorm.Id).ToList().Count,
+                                                                    // Location = dorm.Location,
+                                                                    // ShortDescription = dorm.DormitoryDescription,
+                                                                    // ReservationPosibleWithoutCreditCard = false, //
+                                                                    // DormitoryStreetAddress = dorm.DormitoryStreetAddress,
+                                                                    // MapSection = _mapService.GetMapSectionById(dorm.MapSectionId),
+                                                                    //
+                                                                    //
+                                                                    // ClosestLandMark = _locationService.GetClosestLandmark(dorm.Id),
+                                                                    // ClosestLandMarkMapSection = _locationService.GetClosestLandmarkMapSection(dorm.Id),
+                                                                    // DormitoryName = "Alfam dormitory",
+                                                                    // DormitorySeoFriendlyUrl = "Alfam-dormitory",
                                        DormitoryId = dorm.Id,
                                        ImageUrl = _imageService.ImageSplitter(Images.Where(d => d.DormitoryId == dorm.Id).Select(x => x.ImageUrl).FirstOrDefault(), "_p6"),
                                        // RatingText = Localizer["Excellent"],
@@ -197,7 +201,7 @@ namespace Dau.Services.Domain.HomeService
                                        // DormitoryIconUrl = dorm.DormitoryLogoUrl,
                                        DormitorySeoFriendlyUrl = _seoRepo.List().ToList().Where(c => c.Id == dorm.DormitorySeoId).FirstOrDefault().SearchEngineFriendlyPageName, //use seo table
                                                                                                                                                                                  //  RatingNo = dorm.RatingNo.ToString("N1"),
-                                       RatingText = "Fantastic", //create a service that resolves this
+                                       RatingText = _reviewService.ResolveRatingText(dorm.RatingNo), //create a service that resolves this
                                                                  // ReviewNo = _reviewRepo.List().Where(c => c.DormitoryId == dorm.Id).ToList().Count,
                                                                  // Location = dorm.Location,
                                                                  // ShortDescription = dorm.DormitoryDescription,
@@ -268,7 +272,7 @@ namespace Dau.Services.Domain.HomeService
                                        // DormitoryIconUrl = dorm.DormitoryLogoUrl,
                                        DormitorySeoFriendlyUrl = _seoRepo.List().ToList().Where(c => c.Id == dorm.DormitorySeoId).FirstOrDefault().SearchEngineFriendlyPageName, //use seo table
                                                                                                                                                                                  //  RatingNo = dorm.RatingNo.ToString("N1"),
-                                       RatingText = "Fantastic", //create a service that resolves this
+                                       RatingText = _reviewService.ResolveRatingText(dorm.RatingNo), //create a service that resolves this
                                                                  // ReviewNo = _reviewRepo.List().Where(c => c.DormitoryId == dorm.Id).ToList().Count,
                                                                  // Location = dorm.Location,
                                                                  // ShortDescription = dorm.DormitoryDescription,

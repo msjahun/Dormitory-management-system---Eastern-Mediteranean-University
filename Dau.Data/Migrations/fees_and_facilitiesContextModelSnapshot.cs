@@ -893,30 +893,19 @@ namespace Dau.Data.Migrations
 
             modelBuilder.Entity("Dau.Core.Domain.ContentManagement.MessageTemplateTranslation", b =>
                 {
-                    b.Property<long>("MessageTemplateNonTransId")
-                        .HasColumnName("MessageTemplateId");
+                    b.Property<long>("MessageTemplateNonTransId");
 
                     b.Property<long>("LanguageId");
 
-                    b.Property<string>("BCC")
-                        .HasColumnName("BCC")
-                        .HasMaxLength(256)
-                        .IsUnicode(false);
+                    b.Property<string>("BCC");
 
-                    b.Property<string>("Body")
-                        .HasColumnName("Body")
-                        .HasMaxLength(1024)
-                        .IsUnicode(false);
+                    b.Property<string>("Body");
 
-                    b.Property<int>("EmailAccount")
-                        .HasColumnName("EmailAccount");
+                    b.Property<int>("EmailAccount");
 
                     b.Property<long>("Id");
 
-                    b.Property<string>("Subject")
-                        .HasColumnName("Subject")
-                        .HasMaxLength(256)
-                        .IsUnicode(false);
+                    b.Property<string>("Subject");
 
                     b.HasKey("MessageTemplateNonTransId", "LanguageId");
 

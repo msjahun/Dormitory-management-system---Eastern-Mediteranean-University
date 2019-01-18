@@ -28,10 +28,11 @@ namespace Dau.Services.Domain.DormitoryDetailService
 
             var reviews = from _review in _reviewRepo.List().ToList()
                           where _review.DormitoryId == DormitoryId
-                          select new { _review.UserId, _review.Message, _review.Rating };
+                          select new { _review.UserId, _review.Message, _review.Rating, _review.CreatedOn };
 
                 var ReviewUsers = from user in _userManager.Users.ToList()
                                       join review in reviews.ToList() on user.Id equals review.UserId
+                                      orderby review.Rating descending
                                       select new CommentSectionViewModel
                                       {
                                           UserFullName = user.FirstName + " " + user.LastName,
@@ -41,7 +42,7 @@ namespace Dau.Services.Domain.DormitoryDetailService
                                       };
 
 
-            List<CommentSectionViewModel> modelList = ReviewUsers.ToList();
+            List<CommentSectionViewModel> modelList = ReviewUsers.Take(20).ToList();
             return modelList;
         }
     }

@@ -6,5 +6,7 @@ namespace Dau.Services.Domain.ReviewsServices
     {
         List<ReviewsTable> GetReviewsListTable();
         bool AddReviewService(ReviewInputVm vm);
+        string ResolveRatingText(double RatingNumber);
+
     }
 }

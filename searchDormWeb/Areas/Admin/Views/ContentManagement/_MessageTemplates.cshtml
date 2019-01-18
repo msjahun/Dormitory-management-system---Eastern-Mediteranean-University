@@ -45,60 +45,10 @@
                                     <th>@Localizer["Name"]</th>
                                     <th>@Localizer["Subject"]</th>
                                     <th>@Localizer["Is active"]</th>
-                                    <th>@Localizer["Limited to dormitory"]</th>
+                                    @*<th>@Localizer["Limited to dormitory"]</th>*@
                                     <th>@Localizer["Edit"]</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Welcome email</td>
-                                    <td>Welcome aboard</td>
-
-                                    <td> <i class="fa fa-check"></i></td>
-                                    <td>Alfam, Ursanel</td>
-                                    <td> <a asp-action="MessageTemplateEdit" asp-controller="ContentManagement" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</a></td>
-                                </tr>
-                                <tr>
-                                    <td>Welcome email</td>
-                                    <td>Welcome aboard</td>
-
-                                    <td> <i class="fa fa-check"></i></td>
-                                    <td>Alfam, Ursanel</td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Welcome email</td>
-                                    <td>Welcome aboard</td>
-
-                                    <td> <i class="fa fa-check"></i></td>
-                                    <td>Alfam, Ursanel</td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Welcome email</td>
-                                    <td>Welcome aboard</td>
-
-                                    <td> <i class="fa fa-check"></i></td>
-                                    <td>Alfam, Ursanel</td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Welcome email</td>
-                                    <td>Welcome aboard</td>
-
-                                    <td> <i class="fa fa-check"></i></td>
-                                    <td>Alfam, Ursanel</td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Welcome email</td>
-                                    <td>Welcome aboard</td>
-
-                                    <td> <i class="fa fa-check"></i></td>
-                                    <td>Alfam, Ursanel</td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                                </tr>
-                            </tbody>
 
                         </table>
                     </div>
@@ -163,8 +113,8 @@
                 }
             }).DataTable({
                 'paging': true,
-                'lengthChange': true,
-                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
+                'lengthChange': false,
+                "aLengthMenu": [[50, 30, 20], [50, 30,20]],
                 'searching': false,
                 'ordering': false,
                  "language": {
@@ -193,14 +143,13 @@
                     {"data": "subject" },
                     {"render": function (data, type, full, meta) {
                             if (full.isActive == true)
-                                return '<i class="fa fa-check" aria-hidden="true"></i>';
+                                return '<i class="fa fa-check " style="color:green;" aria-hidden="true"></i>';
                             else
-                                return '<i class="fa fa-times" aria-hidden="true"></i>';}
-                    },
-                    {"data": "limitedToDormitory" },
+                                return '<i class="fa fa-times " aria-hidden="true"></i>';}
+                    }
                ,
                     {"render": function (data, type, full, meta) {
-                     return '<a class="btn btn-primary" href="/Admin/ContentManagement/MessageTemplateEdit/"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>'; }
+                     return '<a class="btn btn-primary" href="/Admin/ContentManagement/MessageTemplateEdit/?Id='+full.id+'"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>'; }
                     }
                     
                     
