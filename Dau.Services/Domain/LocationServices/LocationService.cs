@@ -229,7 +229,7 @@ namespace Dau.Services.Domain.LocationServices
 
             if (originCoordinate == null || destinationCoordinate == null) return null;
             var googlemapApiKey = "AIzaSyBLcII2lrXK6o9fDCWBbwgf9OmbU5GxDJE";
-            var path = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=" + originCoordinate + "&destinations=" + destinationCoordinate + "&mode="+travelMode+ "&language="+ currentCulture + "&key=" + googlemapApiKey;
+            var path = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + originCoordinate + "&destinations=" + destinationCoordinate + "&mode="+travelMode+ "&language="+ currentCulture + "&key=" + googlemapApiKey;
             var result = await GetDistancematrixAsync(path);
 
             if (result == null) return null;

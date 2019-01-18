@@ -421,6 +421,43 @@ namespace Dau.Services.Domain.RoomServices
             return rooms.ToList().FirstOrDefault().Price.ToString("N2");
 
         }
+
+        public List<DormitoryRoomsTable>  GetRoomsByDormitoryBlockIdListTable(long DormitoryBlockId)
+        {
+
+
+            var DormitoryBlock = _dormitoryBlockRepo.GetById(DormitoryBlockId);
+                if (!_userRolesService.IsAuthorized(DormitoryBlock.DormitoryId)) return null;
+                var CurrentLanguageId = _languageService.GetCurrentLanguageId();
+
+                var dormitoryBlock = from dormBlock in _dormitoryBlockRepo.List().ToList()
+                                     join dormBlockTrans in _dormitoryBlockTransRepo.List().ToList() on dormBlock.Id equals dormBlockTrans.DormitoryBlockNonTransId
+                                     where dormBlockTrans.LanguageId == CurrentLanguageId
+                                     select new { dormBlock.Id, dormBlockTrans.Name };
+
+                var rooms = from room in _roomRepo.List().ToList()
+                            join roomTrans in _roomTransRepo.List().ToList() on room.Id equals roomTrans.RoomNonTransId
+                            where roomTrans.LanguageId == CurrentLanguageId && room.DormitoryBlockId==DormitoryBlockId
+                            select new { room.Id, roomTrans.RoomName, room.NoRoomQuota, room.Price, room.Published, room.DormitoryBlockId, room.SKU, room.DormitoryId };
+
+                var roomDormitoryBlock = from room in rooms.ToList()
+                                         join dormBlock in dormitoryBlock.ToList() on room.DormitoryBlockId equals dormBlock.Id
+                                         select new DormitoryRoomsTable
+                                         {
+                                             RoomId = room.Id,
+                                             RoomName = room.RoomName,
+                                             DormitoryBlock = dormBlock.Name,
+                                             Price = room.Price.ToString("N2"),
+                                             Published = room.Published,
+                                             Quota = room.NoRoomQuota,
+                                             SKU = room.SKU,
+
+                                         };
+
+                var model = roomDormitoryBlock.ToList();
+                return model;
+            
+        }
     }
 
     public class RoomsListTable

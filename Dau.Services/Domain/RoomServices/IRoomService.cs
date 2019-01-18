@@ -14,5 +14,6 @@ namespace Dau.Services.Domain.RoomServices
         List<DormitoryRoomsTable> GetRoomsByDormitoryIdListTable(long DormitoryId);
         string GetRoomWithLowestDealByDormitoryId(long DormitoryId, long languageId);
         List<RoomsListTable> GetRoomsListTableByRoomId(long Id);
+        List<DormitoryRoomsTable> GetRoomsByDormitoryBlockIdListTable(long DormitoryBlockId);
     }
 }

@@ -19,6 +19,7 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Dau.Services.Domain.ImageServices;
 using Dau.Services.Export;
+using static Dau.Services.Domain.DormitoryBlockServices.DormitoryBlockService;
 
 namespace searchDormWeb.Areas.Admin.Controllers
 {
@@ -449,11 +450,113 @@ namespace searchDormWeb.Areas.Admin.Controllers
             return View("_DormitoryBlockAdd");
         }
 
-        [HttpGet("[action]")]
-        public ActionResult DormitoryBlockEdit()
+        [HttpPost("[action]")]
+        public ActionResult DormitoryBlockAdd(DormitoryBlockCrud vm)
         {
-            return View("_DormitoryBlockEdit");
+
+            if (!ModelState.IsValid)
+                return View("_DormitoryBlockAdd", vm);
+
+        var model=    _dormitoryBlockService.AddNewDormitoryBlock(vm);
+            return RedirectToAction("DormitoryBlockEdit", "Catalog", new {vm.Id});
         }
+
+        [HttpGet("[action]")]
+        public ActionResult DormitoryBlockEdit(long Id)
+        {
+
+      var model=    _dormitoryBlockService.GetDormitoryBlockById(Id);
+            if(model==null)
+                return RedirectToAction("DormitoryBlocks", "Catalog");
+            return View("_DormitoryBlockEdit", model);
+
+
+        }
+
+
+        [HttpPost("[action]")]
+        public ActionResult DeleteDormitoryBlock(DormitoryBlockCrud vm)
+        {
+
+          
+
+            var model = _dormitoryBlockService.DeleteDormitoryBlockById(vm.Id);
+            return RedirectToAction("DormitoryBlocks", "Catalog"); 
+        }
+
+        [HttpPost("[action]")]
+        public ActionResult DormitoryBlockEdit(DormitoryBlockCrud vm)
+        {
+
+
+            if (!ModelState.IsValid)
+                return View("_DormitoryBlockEdit", vm);
+
+            var model = new DormitoryBlockCrud();
+            vm.SavedSuccessful = _dormitoryBlockService.UpdateDormitoryBlock(vm);
+   
+        
+
+
+
+            return View("_DormitoryBlockEdit", vm);
+           
+
+
+        }
+
+
+        [HttpPost("[action]")]
+        public ActionResult DormitoryBlocksRoomsTable(long id)
+        {
+            try
+            {
+                var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                var start = Request.Form["start"].FirstOrDefault(); // Skip number of Rows count
+                var passedParam = Request.Form["myKey"].FirstOrDefault();//passed parameter
+                var length = Request.Form["length"].FirstOrDefault();  // Paging Length 10,20  
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault(); // Sort Column Name  
+                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();// Sort Column Direction (asc, desc)  
+                var searchValue = Request.Form["search[value]"].FirstOrDefault();// Search Value from (Search box) 
+                int pageSize = length != null ? Convert.ToInt32(length) : 0; //Paging Size (10, 20, 50,100)  
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+
+
+                //  List<DormitoriesDataTable> List = _DormitoryService.GetAllDormitoriesForTable();
+                var List = _roomService.GetRoomsByDormitoryBlockIdListTable(id);
+
+
+                // getting all Discount data  
+                var Data = List;
+
+                ////Sorting  
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                //{
+                //    DiscountData = DiscountData.OrderBy(c => c.sortColumn sortColumnDirection);
+                //}
+                ////Search  
+                //if (!string.IsNullOrEmpty(searchValue))
+                //{
+                //    DiscountData = DiscountData.Where(m => m.Name == searchValue);
+                //}
+
+
+                //total number of rows counts   
+                int recordsTotal = 0;
+                recordsTotal = Data.Count();
+                //Paging   
+                var data = Data.Skip(skip).Take(pageSize).ToList();
+                //Returning Json Data  
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
         #endregion
 
         #region BulkRoomEdit

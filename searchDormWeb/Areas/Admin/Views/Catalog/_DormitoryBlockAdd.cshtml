@@ -1,8 +1,8 @@
-﻿@using searchDormWeb.Areas.Admin.Models.Catalog
-@model DormitoryBlockAdd
+﻿@using static Dau.Services.Domain.DormitoryBlockServices.DormitoryBlockService;
+@model DormitoryBlockCrud
 @{
     ViewData["Title"] = Localizer["Add Dormitory Block"];
-    Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+ Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
 
@@ -37,7 +37,6 @@
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#tab_3" data-toggle="tab" aria-expanded="true">@Localizer["Block Info"]</a></li>
-                    <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">@Localizer["SEO"]</a></li>
                     <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">@Localizer["Rooms"]</a></li>
 
                 </ul>
@@ -57,12 +56,22 @@
                             <!-- form start -->
 
                             <div class="box-body">
-                                <form class="form-horizontal">
+                                <form class="form-horizontal" method="post" id="addForm" asp-controller="Catalog" asp-action="DormitoryBlockAdd">
+
+                                    <div class="form-group">
+                                        <dau-label asp-for="Dormitory"></dau-label>
+                                        <div class="col-sm-8">
+                                            <select asp-for="Dormitory" asp-items="_dropdown.Dormitories()" id="DormitorySelect" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true"></select>
+                                        </div>
+                                        <span asp-validation-for="Dormitory"></span>
+
+                                    </div>
 
                                     <dau-tabs id="ContentLanguageTab">
-                                        <dau-tab id="tab1" name="Standard" active="true">
+
+                                        <dau-tab active="true" id="tab2" name="English" flag="@Url.Content("~/Content/")dist/img/us.png">
                                             <div class="form-group">
-                                                
+
                                                 <dau-label asp-for="localizedContent[0].Name"></dau-label>
                                                 <dau-input asp-for="localizedContent[0].Name" type="text"></dau-input>
                                                 <span asp-validation-for="localizedContent[0].Name"></span>
@@ -70,14 +79,17 @@
                                             </div>
 
                                             <div class="form-group">
-                         
+
                                                 <dau-label asp-for="localizedContent[0].Description"></dau-label>
-                                                <dau-editor asp-for="localizedContent[0].Description" ></dau-editor>
+                                                <dau-textarea asp-for="localizedContent[0].Description"></dau-textarea>
                                                 <span asp-validation-for="localizedContent[0].Description"></span>
 
                                             </div>
+
+
                                         </dau-tab>
-                                        <dau-tab id="tab2" name="English" flag="@Url.Content("~/Content/")dist/img/us.png">
+                                        <dau-tab id="tab3" name="Turkish" flag="@Url.Content("~/Content/")dist/img/tr.png">
+
                                             <div class="form-group">
 
                                                 <dau-label asp-for="localizedContent[1].Name"></dau-label>
@@ -89,25 +101,8 @@
                                             <div class="form-group">
 
                                                 <dau-label asp-for="localizedContent[1].Description"></dau-label>
-                                                <dau-editor asp-for="localizedContent[1].Description"></dau-editor>
+                                                <dau-textarea asp-for="localizedContent[1].Description"></dau-textarea>
                                                 <span asp-validation-for="localizedContent[1].Description"></span>
-
-                                            </div>
-                                        </dau-tab>
-                                        <dau-tab id="tab3" name="Turkish" flag="@Url.Content("~/Content/")dist/img/tr.png">
-                                            <div class="form-group">
-
-                                                <dau-label asp-for="localizedContent[2].Name"></dau-label>
-                                                <dau-input asp-for="localizedContent[2].Name" type="text"></dau-input>
-                                                <span asp-validation-for="localizedContent[2].Name"></span>
-
-                                            </div>
-
-                                            <div class="form-group">
-
-                                                <dau-label asp-for="localizedContent[2].Description"></dau-label>
-                                                <dau-editor asp-for="localizedContent[2].Description"></dau-editor>
-                                                <span asp-validation-for="localizedContent[2].Description"></span>
 
                                             </div>
                                         </dau-tab>
@@ -115,8 +110,8 @@
 
 
 
-                                           
-                                            <!-- /.nav-tabs -->
+
+                                    <!-- /.nav-tabs -->
 
 
 
@@ -124,76 +119,16 @@
 
 
 
-                                            <div class="form-group">
-                                               <dau-label asp-for="Picture" ></dau-label>
-                                                <div class="col-sm-8">
 
-                                                    <img src="~/Content/dist/img/default-image_100.png" /><br />
-                                                    <button class="btn btn-success">@Localizer["Upload a file"]</button>
-                                                </div>
-
-
-                                            </div>
+                                    <div class="form-group">
+                                        <dau-label asp-for="Published"></dau-label>
+                                        <div class="col-sm-8">
+                                            <input asp-for="Published" type="checkbox">
+                                        </div>
+                                        <span asp-validation-for="Published"></span>
+                                    </div>
 
 
-
-
-                                            <div class="form-group">
-                                                <dau-label asp-for="priceRange"></dau-label>
-                                                <dau-input asp-for="priceRange" type="text"></dau-input>
-                                                <span asp-validation-for="priceRange"></span>
-                                            </div>
-
-
-
-                                            <div class="form-group">
-                                               
-                                                <dau-label asp-for="IncludeInTopMenu"></dau-label>
-                                                <div class="col-sm-8">
-                                                    <input asp-for="IncludeInTopMenu" type="checkbox">
-                                                </div>
-                                                <span asp-validation-for="IncludeInTopMenu"></span>
-
-                                            </div>
-
-                                            <div class="form-group">
-                                                <dau-label asp-for="Discount"></dau-label>
-                                                <dau-select asp-for="Discount" multiple-select="true"></dau-select>
-                                                <span asp-validation-for="Discount"></span>
-
-                                            </div>
-
-
-                                            <div class="form-group">
-                                                <dau-label asp-for="LimitedToCustomerRoles"></dau-label>
-                                                <dau-select asp-for="LimitedToCustomerRoles" multiple-select="true"></dau-select>
-                                                <span asp-validation-for="LimitedToCustomerRoles"></span>
-
-                                            </div>
-
-                                            <div class="form-group">
-                                                <dau-label asp-for="LimitToDormitories"></dau-label>
-                                                <dau-select asp-for="LimitToDormitories" multiple-select="true"></dau-select>
-                                                <span asp-validation-for="LimitToDormitories"></span>
-
-                                            </div>
-
-                                            <div class="form-group">
-                                                <dau-label asp-for="Published"></dau-label>
-                                                <div class="col-sm-8">
-                                                    <input asp-for="Published" type="checkbox">
-                                                </div>
-                                                <span asp-validation-for="Published"></span>
-                                            </div>
-
-
-                                            <div class="form-group">
-                                                <dau-label asp-for="DisplayOrder"></dau-label>
-                                                <dau-input asp-for="DisplayOrder" type="number"></dau-input>
-                                                <span asp-validation-for="DisplayOrder"></span>
-
-
-                                            </div>
 
 
 
@@ -219,137 +154,6 @@
 
 
 
-                    <!-- /.tab-pane -->
-                    <div class="tab-pane" id="tab_1">
-                        <div class="box ">
-                            <div class="box-header"></div>
-                            <!-- /.box-header -->
-                            <!-- form start -->
-
-                            <div class="box-body">
-                                <form class="form-horizontal">
-                                    <dau-tabs id="LanguageTab">
-                                        <dau-tab id="tab1" name="Standard" active="true">
-
-                                            <div class="form-group">
-
-                                                <dau-label asp-for="seoTab[0].MetaKeywords"></dau-label>
-                                                <dau-input asp-for="seoTab[0].MetaKeywords" type="text"></dau-input>
-                                                <span asp-validation-for="seoTab[0].MetaKeywords"></span>
-
-                                            </div>
-
-                                            <div class="form-group">
-
-                                                <dau-label asp-for="seoTab[0].MetaDescription"></dau-label>
-                                                <dau-input asp-for="seoTab[0].MetaDescription" type="text"></dau-input>
-                                                <span asp-validation-for="seoTab[0].MetaDescription"></span>
-
-                                            </div>
-
-
-                                            <div class="form-group">
-
-                                                <dau-label asp-for="seoTab[0].MetaTitle"></dau-label>
-                                                <dau-input asp-for="seoTab[0].MetaTitle" type="text"></dau-input>
-                                                <span asp-validation-for="seoTab[0].MetaTitle"></span>
-
-                                            </div>
-
-
-                                            <div class="form-group">
-
-                                                <dau-label asp-for="seoTab[0].SearchEngineFriendlyPageName"></dau-label>
-                                                <dau-input asp-for="seoTab[0].SearchEngineFriendlyPageName" type="text"></dau-input>
-                                                <span asp-validation-for="seoTab[0].SearchEngineFriendlyPageName"></span>
-
-                                            </div>
-
-
-                                        </dau-tab>
-                                        <dau-tab id="tab2" name="English" flag="@Url.Content("~/Content/")dist/img/us.png">
-
-                                            <div class="form-group">
-
-                                                <dau-label asp-for="seoTab[1].MetaKeywords"></dau-label>
-                                                <dau-input asp-for="seoTab[1].MetaKeywords" type="text"></dau-input>
-                                                <span asp-validation-for="seoTab[1].MetaKeywords"></span>
-
-                                            </div>
-
-                                            <div class="form-group">
-
-                                                <dau-label asp-for="seoTab[1].MetaDescription"></dau-label>
-                                                <dau-input asp-for="seoTab[1].MetaDescription" type="text"></dau-input>
-                                                <span asp-validation-for="seoTab[1].MetaDescription"></span>
-
-                                            </div>
-
-
-
-                                            <div class="form-group">
-
-                                                <dau-label asp-for="seoTab[1].MetaTitle"></dau-label>
-                                                <dau-input asp-for="seoTab[1].MetaTitle" type="text"></dau-input>
-                                                <span asp-validation-for="seoTab[1].MetaTitle"></span>
-
-                                            </div>
-
-
-                                            <div class="form-group">
-
-                                                <dau-label asp-for="seoTab[1].SearchEngineFriendlyPageName"></dau-label>
-                                                <dau-input asp-for="seoTab[1].SearchEngineFriendlyPageName" type="text"></dau-input>
-                                                <span asp-validation-for="seoTab[1].SearchEngineFriendlyPageName"></span>
-
-                                            </div>
-
-                                        </dau-tab>
-                                        <dau-tab id="tab3" name="Turkish" flag="@Url.Content("~/Content/")dist/img/tr.png">
-
-                                            <div class="form-group">
-
-                                                <dau-label asp-for="seoTab[2].MetaKeywords"></dau-label>
-                                                <dau-input asp-for="seoTab[2].MetaKeywords" type="text"></dau-input>
-                                                <span asp-validation-for="seoTab[2].MetaKeywords"></span>
-
-                                            </div>
-
-                                            <div class="form-group">
-
-                                                <dau-label asp-for="seoTab[2].MetaDescription"></dau-label>
-                                                <dau-input asp-for="seoTab[2].MetaDescription" type="text"></dau-input>
-                                                <span asp-validation-for="seoTab[2].MetaDescription"></span>
-
-                                            </div>
-
-                                            <div class="form-group">
-
-                                                <dau-label asp-for="seoTab[2].MetaTitle"></dau-label>
-                                                <dau-input asp-for="seoTab[2].MetaTitle" type="text"></dau-input>
-                                                <span asp-validation-for="seoTab[2].MetaTitle"></span>
-
-                                            </div>
-
-
-                                            <div class="form-group">
-
-                                                <dau-label asp-for="seoTab[2].SearchEngineFriendlyPageName"></dau-label>
-                                                <dau-input asp-for="seoTab[2].SearchEngineFriendlyPageName" type="text"></dau-input>
-                                                <span asp-validation-for="seoTab[2].SearchEngineFriendlyPageName"></span>
-
-                                            </div>
-
-                                        </dau-tab>
-                                    </dau-tabs>
-                                    <!-- /.nav-tabs -->
-
-
-                                </form>
-                            </div>
-                            <!-- /.box-body -->
-                        </div>
-                    </div>
                     <!-- /.tab-pane -->
                     <!-- /.tab-pane -->
                     <div class="tab-pane" id="tab_2">
@@ -412,6 +216,8 @@
     <script src="@Url.Content("~/Content/")bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <!-- SlimScroll -->
     <script src="@Url.Content("~/Content/")bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+
+    <script src="@Url.Content("~/Content/")bower_components/select2/dist/js/select2.full.min.js"></script>
     <!-- FastClick -->
     <script src="@Url.Content("~/Content/")bower_components/fastclick/lib/fastclick.js"></script>
     <!-- AdminLTE App -->
@@ -423,17 +229,10 @@
 
             // Replace the <textarea id="editor1"> with a CKEditor
             // instance, using default configuration.
-            CKEDITOR.replace('editor1')
-
-            CKEDITOR.replace('editor2')
-
-            CKEDITOR.replace('editor3')
-
 
 
             //Initialize Select2 Elements
             $('.select2').select2()
-
             ///Intialize datepicker
             $('#datepicker').datepicker({
                 autoclose: true

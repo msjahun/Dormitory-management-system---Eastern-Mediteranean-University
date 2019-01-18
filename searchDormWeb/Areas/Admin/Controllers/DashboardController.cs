@@ -83,16 +83,6 @@ namespace searchDormWeb.Areas.Admin.Controllers
                         AllTime="0,00 tl"
                     },
 
-                     new BookingTotalsTable
-                    {
-                        OrderStatus=_localizer["Processing"],
-                        Today="0,00 tl",
-                        ThisWeek="0,00 tl",
-                        ThisMonth="0,00 tl",
-                        ThisYear="0,00 tl",
-                        AllTime="0,00 tl"
-                    },
-
                       new BookingTotalsTable
                     {
                         OrderStatus=_localizer["Complete"],
@@ -166,7 +156,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
                 var Data = new List<IncompleteBookingsTable> {
 
                 new IncompleteBookingsTable{
-                    Item=_localizer["Total unpain Orders(pending payment status)"],
+                    Item=_localizer["Total unpaid Bookings(pending payment status)"],
                     Total="328,97 tl",
                     Count="4"
 
