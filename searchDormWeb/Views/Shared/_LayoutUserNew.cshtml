@@ -98,8 +98,33 @@
     <script src="@Url.Content("~/frontend_Content/assets")/vendor/sticky-kit/dist/sticky-kit.min.js"></script>
     <script src="@Url.Content("~/frontend_Content/assets")/vendor/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
     <script src="@Url.Content("~/frontend_Content/assets")/vendor/nouislider/distribute/nouislider.min.js"></script>
+    <script>
+    $("#searchBar").on('change keyup paste', function () {
+    console.log($('#searchBar').val());
 
-    <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
+    $.ajax({
+    type: "POST",
+    url: "@Html.Raw(Url.Action("GetSearchSuggestion", "Home"))",
+    data: {
+    searchTerm: $('#searchBar').val()
+    },
+    success: function (result, textStatus, xhr) {
+    //     alert(result);
+        $("#searchBarResults").html(result);
+       
+
+    }
+
+    });
+
+        });
+
+        $("#clearNotification").click(function () {
+            alert("Handler for .click() called.");
+            updateNotification();
+        });
+    </script>
+    @*<script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
     <script>
         // Initialize Firebase
         var config = {
@@ -206,32 +231,10 @@
             document.getElementById("sound").innerHTML = '<audio autoplay="autoplay">' + mp3Source + oggSource + embedSource + '</audio>';
         }
        
-        $("#clearNotification").click(function () {
-            alert("Handler for .click() called.");
-            updateNotification();
-        });
+      
 
 
-    $("#searchBar").on('change keyup paste', function () {
-    console.log($('#searchBar').val());
-
-    $.ajax({
-    type: "POST",
-    url: "@Html.Raw(Url.Action("GetSearchSuggestion", "Home"))",
-    data: {
-    searchTerm: $('#searchBar').val()
-    },
-    success: function (result, textStatus, xhr) {
-    //     alert(result);
-        $("#searchBarResults").html(result);
-       
-
-    }
-
-    });
-
-    });
-    </script>
+    </script>*@
 
 
     <!-- Theme JS -->

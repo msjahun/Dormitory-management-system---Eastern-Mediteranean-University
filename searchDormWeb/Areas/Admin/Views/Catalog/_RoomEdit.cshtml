@@ -880,7 +880,12 @@
                 success: function (result) {
                     $("#DormitoryBlockSelect").html("");
                     for (i = 0; i < result.length; i++) {
-                        $("#DormitoryBlockSelect").append("<option value=\"" + result[i].value + "\"> " + result[i].text + "</option>");
+                        if (result[i].value ==@item.DormitoryBlock) {
+                            $("#DormitoryBlockSelect").append("<option value=\"" + result[i].value + "\" selected> " + result[i].text + "</option>");
+                        } else {
+                            $("#DormitoryBlockSelect").append("<option value=\"" + result[i].value + "\"> " + result[i].text + "</option>");
+                        }
+                       
                     }
 
 

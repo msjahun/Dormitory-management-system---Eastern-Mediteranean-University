@@ -137,7 +137,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Heartbeat Online Users tracking -->
     @{await Html.RenderPartialAsync("../../../../Views/Shared/Components/OnlineUsersTrackingCode.cshtml", null);}
 
-    <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
+    @*<script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
     <script>
         // Initialize Firebase
         var config = {
@@ -244,7 +244,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             var embedSource = '<embed hidden="true" autostart="true" loop="false" src="' + filename + '.mp3">';
             document.getElementById("sound").innerHTML = '<audio autoplay="autoplay">' + mp3Source + oggSource + embedSource + '</audio>';
         }
-    </script>
+    </script>*@
 
 </body >
 </html >
