@@ -17,62 +17,70 @@
 
             @{await Html.RenderPartialAsync("/Views/Shared/Components/MetadataHead.cshtml", null);}
 
+            <link rel="stylesheet" href="@Url.Content("~/frontend_Content")/assets/vendor/animate.css/animate.min.css">
             @RenderSection("styles", false)
         </head>
 
         <body>
-         
+
 
             @{await Html.RenderPartialAsync("/Views/Shared/Components/headerMain.cshtml", null);}
+            <div class="shape-container" data-shape-style="wavify" data-shape-position="bottom">
+                <svg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" class="shape-fill-blue" data-toggle="wavify">
+                    <defs></defs>
+                    <path d="M 0 77.67865917209512 C 190.3 95.57677014859337 190.3 95.57677014859337 380.6 86.62771466034425 C 570.9000000000001 77.67865917209512 570.9000000000001 77.67865917209512 761.2 89.76823103538068 C 951.5 101.85780289866622 951.5 101.85780289866622 1141.8 86.00313557418076 C 1332.1 70.1484682496953 1332.1 70.1484682496953 1522.4 76.6476844438181 C 1712.7000000000003 83.14690063794093 1712.7000000000003 83.14690063794093 1903 88.72186764388222 L 1903 3333.39 L 0 3333.39 Z" class="shape-fill-white" fill="rgba(255,255,255, 0.20)"></path>
+                </svg>
+            </div>
+
+
+            <main>
 
 
 
-        <main>
+                @RenderBody()
 
+                <!-- Call to action -->
 
+                <section class="slice slice-lg bg-primary">
 
-            @RenderBody()
+                    <span class="tongue tongue-top"><i class="fas fa-angle-up"></i></span>
 
-            <!-- Call to action -->
-
-            <section class="slice slice-lg bg-primary">
-
-                <span class="tongue tongue-top"><i class="fas fa-angle-up"></i></span>
-
-                <div class="container">
-                    <div class="row justify-content-center align-items-center">
-                        <div class="col-lg-8 text-center">
-                            <h3 class="font-weight-400 text-white">@Localizer["I am ready to start booking Now"] </h3>
-                            <div class="mt-5">
-                                <a href="" target="_blank" class="btn btn-white btn-circle btn-translate--hover px-4">@Localizer["Book my first Room"]<span class="badge badge-pill badge-danger text-sm">@Localizer["Now"]</span></a>
-                                <a href="" class="btn btn-link text-white">@Localizer["Have an issue?"]</a>
+                    <div class="container">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-lg-8 text-center">
+                                <h3 class="font-weight-400 text-white">@Localizer["I am ready to start booking Now"] </h3>
+                                <div class="mt-5">
+                                    <a href="" target="_blank" class="btn btn-white btn-circle btn-translate--hover px-4">@Localizer["Book my first Room"]<span class="badge badge-pill badge-danger text-sm">@Localizer["Now"]</span></a>
+                                    <a href="" class="btn btn-link text-white">@Localizer["Have an issue?"]</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-        </main>
-
-
-        @{await Html.RenderPartialAsync("/Views/Shared/Components/_footerMainWhite.cshtml", null);}
+            </main>
 
 
-        <!-- Core -->
-        <script src="@Url.Content("~/frontend_Content/assets")/vendor/jquery/dist/jquery.min.js"></script>
-        <script src="@Url.Content("~/frontend_Content/assets")/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="@Url.Content("~/frontend_Content/assets")/vendor/in-view/dist/in-view.min.js"></script>
+            @{await Html.RenderPartialAsync("/Views/Shared/Components/_footerMainWhite.cshtml", null);}
 
+
+            <!-- Core -->
+            <script src="@Url.Content("~/frontend_Content/assets")/vendor/jquery/dist/jquery.min.js"></script>
+            <script src="@Url.Content("~/frontend_Content/assets")/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="@Url.Content("~/frontend_Content/assets")/vendor/in-view/dist/in-view.min.js"></script>
 
 
 
-        <!-- Page plugins -->
-        <script src="@Url.Content("~/frontend_Content/assets")/vendor/sticky-kit/dist/sticky-kit.min.js"></script>
-        <script src="@Url.Content("~/frontend_Content/assets")/vendor/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
-        <script src="@Url.Content("~/frontend_Content")/assets/vendor/typed.js/lib/typed.min.js"></script>
 
-<script>
-    
+            <!-- Page plugins -->
+            <script src="@Url.Content("~/frontend_Content/assets")/vendor/sticky-kit/dist/sticky-kit.min.js"></script>
+            <script src="@Url.Content("~/frontend_Content/assets")/vendor/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+            <script src="@Url.Content("~/frontend_Content")/assets/vendor/typed.js/lib/typed.min.js"></script>
+            <script src="@Url.Content("~/frontend_Content")/assets/vendor/tweenmax/tweenmax.min.js"></script>
+            <script src="@Url.Content("~/frontend_Content")/assets/vendor/wavify/wavify.min.js"></script>
+            <script src="@Url.Content("~/frontend_Content")/assets/vendor/in-view/dist/in-view.min.js"></script>
+            <script>
+
         $("#searchBar").on('change keyup paste', function () {
             console.log($('#searchBar').val());
 
@@ -85,21 +93,21 @@
             success: function (result, textStatus, xhr) {
                 //     alert(result);
                 $("#searchBarResults").html(result);
-              
+
             }
 
             });
 
         });
-</script>
+            </script>
 
-        <!-- Theme JS -->
+            <!-- Theme JS -->
 
-        <script src="@Url.Content("~/frontend_Content/assets")/js/theme.min.js"></script>
-        <!-- Heartbeat Online Users tracking -->
-        @{await Html.RenderPartialAsync("/Views/Shared/Components/OnlineUsersTrackingCode.cshtml", null);}
+            <script src="@Url.Content("~/frontend_Content/assets")/js/theme.min.js"></script>
+            <!-- Heartbeat Online Users tracking -->
+            @{await Html.RenderPartialAsync("/Views/Shared/Components/OnlineUsersTrackingCode.cshtml", null);}
 
-        @RenderSection("scripts", false)
+            @RenderSection("scripts", false)
 
         </body>
 

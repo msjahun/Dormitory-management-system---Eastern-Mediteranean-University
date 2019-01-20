@@ -6,6 +6,8 @@
 @{
     var modelList = Model;
     var count = 0;
+    var countFeatureCategory = 0;
+    var OptionsCount = 0;
 }
 
 @foreach (var item in modelList)
@@ -18,17 +20,43 @@
         }
     </h6>
 
+
+    OptionsCount = 0;
     @foreach (var option in item.FacilityOptions)
     {
         count++;
-        <div class="custom-control custom-checkbox mb-3">
+      @if(OptionsCount <= 4) {
+        <div class="custom-control custom-checkbox ">
             <input type="checkbox" class="custom-control-input targetFilterInput" value="@option.OptionId" id="customCheck-@count">
-            <label class="custom-control-label inline" for="customCheck-@count">@option.OptionName @*<span class=" float-right">@option.OptionCount</span>*@</label>
+            <label class="custom-control-label inline" for="customCheck-@count"><span class=" float-right">@option.OptionCount</span> @option.OptionName </label>
 
         </div>
-    }
 
+      }
+        <div class="collapse" id="collapseFeatures-@countFeatureCategory">
+            @if (OptionsCount > 4)
+            {
+                <div class="custom-control custom-checkbox ">
+                    <input type="checkbox" class="custom-control-input targetFilterInput" value="@option.OptionId" id="customCheck-@count">
+                    <label class="custom-control-label inline" for="customCheck-@count"><span class=" float-right">@option.OptionCount</span> @option.OptionName </label>
+
+                </div>
+            }
+        </div>
+
+        OptionsCount++;
+
+    }
+       
+         
+        
+
+    @if (item.FeaturesInCategoryCount > 4)
+    {@* show only when it is greater than 4*@
+    <a data-toggle="collapse" href="#collapseFeatures-@countFeatureCategory" role="button" aria-expanded="false" aria-controls="collapseFeatures-@countFeatureCategory">@Localizer["Show all {0}", item.FeaturesInCategoryCount] </a><i class="fa fa-angle-down"></i>
+}
 
     <br />
-
+    <br />
+    countFeatureCategory++;
 }

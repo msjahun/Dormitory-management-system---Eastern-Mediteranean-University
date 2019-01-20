@@ -1,7 +1,7 @@
 ﻿@using searchDormWeb.Areas.Admin.Models.System
 @model LogVm
 @{
-    ViewData["Title"] = Localizer["Log"];
+    ViewData["Title"] = Localizer["Background services Events Log"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -94,10 +94,10 @@
                             <thead>
                                 <tr>
                                     <th><input type="checkbox"></th>
-                                    <th>@Localizer["Id"]</th>
+                                   
                                     <th>@Localizer["Event Id"]</th>
-                                    <th>@Localizer["Log level"]</th>
-                                    <th>@Localizer["Short message"]</th>
+                                    <th>@Localizer["Event name"]</th>
+                                    <th>@Localizer["Event Description"]</th>
                                     <th>@Localizer["Created on"]</th>
                                     <th>@Localizer["View"]</th>
                                 </tr>
@@ -221,12 +221,11 @@
                         }
                     },
                     {"data": "id" },
-                    {"data": "eventId" },
-                    {"data": "logLevel" },
-                    {"data": "shortMessage" },
+                    {"data": "eventName" },
+                    {"data": "eventDescription" },
                     {"data": "createdOn" },
                     {"render": function (data, type, full, meta) {
-                        return '<a class="btn btn-primary" href="/Admin/System/LogView"><i class="fa fa-eye"></i> @Localizer["View"]</a>'; }
+                        return '<a class="btn btn-danger" href="/Admin/System/LogView"><i class="fa fa-eye"></i> @Localizer["Delete"]</a>'; }
                     }
 
 

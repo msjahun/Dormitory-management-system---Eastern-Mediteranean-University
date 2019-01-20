@@ -19,12 +19,13 @@ namespace Dau.Data.Mapping.Catalog
 
             builder.Property(e => e.CreatedOn)
                  .HasColumnType("datetime2");
+            builder.Property(e => e.UpdatedOn)
+           .HasColumnType("datetime2");
 
             builder.Property(e => e.WeekendsOpeningTime)
               .HasColumnType("datetime2");
 
-            builder.Property(e => e.UpdatedOn)
-              .HasColumnType("datetime2");
+         
 
             builder.Property(e => e.WeekendsClosingTime)
               .HasColumnType("datetime2");

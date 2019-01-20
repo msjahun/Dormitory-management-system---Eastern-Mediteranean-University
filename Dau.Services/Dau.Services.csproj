@@ -33,8 +33,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Languages\" />
     <Folder Include="Configuration\" />
+    <Folder Include="Languages\" />
     <Folder Include="System\" />
     <Folder Include="Template\" />
     <Folder Include="Notification\" />

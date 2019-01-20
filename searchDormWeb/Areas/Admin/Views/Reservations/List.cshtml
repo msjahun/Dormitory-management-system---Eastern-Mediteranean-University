@@ -149,7 +149,7 @@
                                     <th><input type="checkbox" /></th>
                                     <th>@Localizer["Booking No"]</th>
                                     <th>@Localizer["Booking status"]</th>
-                                    <th>@Localizer["Payment status"]</th>
+                                    @*<th>@Localizer["Payment status"]</th>*@
                                     <th>@Localizer["User"]</th>
                                     <th>@Localizer["Created on"]</th>
                                     <th>@Localizer["Booking total"]</th>
@@ -233,6 +233,8 @@
     <!-- page script -->
     <script>
         var bookingTable;
+
+
         function ChangeBookingStatus(bookingId, newBookingStatusId) {
             var CancelBookingId = 3;
             var CompleteBookingId = 1;
@@ -316,30 +318,30 @@
                     {
                         "render": function (data, type, full, meta) {
                             if (full.bookingStatusId == 1)
-                                return '<span class=" label label-success  label-lg green " style="padding: .5em .6em .8em; font-size: 100%;">' + full.bookingStatus + '</span>';
+                                return '<span class=" label label-success  label-lg green " style="padding: .5em .6em .8em; font-size: 90%;">' + full.bookingStatus + '</span>';
                             else if (full.bookingStatusId == 2)
-                                return '<span class=" label label-info  label-lg green " style="padding: .5em .6em .8em; font-size: 100%;">' + full.bookingStatus + '</span>';
+                                return '<span class=" label label-info  label-lg green " style="padding: .5em .6em .8em; font-size: 90%;">' + full.bookingStatus + '</span>';
                             else if (full.bookingStatusId == 3)
-                                return '<span class=" label label-danger  label-lg green " style="padding: .5em .6em .8em; font-size: 100%;">' + full.bookingStatus + '</span>';
+                                return '<span class=" label label-danger  label-lg green " style="padding: .5em .6em .8em; font-size: 90%;">' + full.bookingStatus + '</span>';
                             else
-                                return '<span class=" label label-primary  label-lg green " style="padding: .5em .6em .8em; font-size: 100%;">' + full.bookingStatus + '</span>';
+                                return '<span class=" label label-primary  label-lg green " style="padding: .5em .6em .8em; font-size: 90%;">' + full.bookingStatus + '</span>';
 
                         }
                         },
-                              {
-                                  "render": function (data, type, full, meta) {
-                                      if (full.bookingStatusId == 3) return "";
-                                      if (full.paymentStatusId == 1)
-                                          return '<span class=" label label-success  label-lg green " style="padding: .5em .6em .8em; font-size: 100%;">' + full.paymentStatus + '</span>';
-                                      else if (full.paymentStatusId == 2)
-                                          return '<span class=" label label-info  label-lg green " style="padding: .5em .6em .8em; font-size: 100%;">' + full.paymentStatus + '</span>';
-                                      else if (full.paymentStatusId == 3)
-                                          return '<span class=" label label-danger  label-lg green " style="padding: .5em .6em .8em; font-size: 100%;">' + full.paymentStatus + '</span>';
-                                      else
-                                          return '<span class=" label label-primary  label-lg green " style="padding: .5em .6em .8em; font-size: 100%;">' + full.paymentStatus + '</span>';
+                              //{
+                              //    "render": function (data, type, full, meta) {
+                              //        if (full.bookingStatusId == 3) return "";
+                              //        if (full.paymentStatusId == 1)
+                              //            return '<span class=" label label-success  label-lg green " style="padding: .5em .6em .8em; font-size: 100%;">' + full.paymentStatus + '</span>';
+                              //        else if (full.paymentStatusId == 2)
+                              //            return '<span class=" label label-info  label-lg green " style="padding: .5em .6em .8em; font-size: 100%;">' + full.paymentStatus + '</span>';
+                              //        else if (full.paymentStatusId == 3)
+                              //            return '<span class=" label label-danger  label-lg green " style="padding: .5em .6em .8em; font-size: 100%;">' + full.paymentStatus + '</span>';
+                              //        else
+                              //            return '<span class=" label label-primary  label-lg green " style="padding: .5em .6em .8em; font-size: 100%;">' + full.paymentStatus + '</span>';
 
 
-                                  } },
+                              //    } },
                     {"data": "user" },
                     {"data": "createdOn" },
                     { "data": "bookingTotal" },

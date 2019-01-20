@@ -690,38 +690,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
 
-                List<LowQuotaReportTable> List = new List<LowQuotaReportTable>();
-                List.Add(new LowQuotaReportTable
-                {
-                    RoomName = "Alfam B block",
-                    RoomRemainingQuota = "2",
-                    RoomLastSetQuota = "40",
-                    Published = true
-                });
-
-                List.Add(new LowQuotaReportTable
-                {
-                    RoomName = "Alfam B block",
-                    RoomRemainingQuota = "2",
-                    RoomLastSetQuota = "40",
-                    Published = true
-                });
-
-                List.Add(new LowQuotaReportTable
-                {
-                    RoomName = "Alfam B block",
-                    RoomRemainingQuota = "2",
-                    RoomLastSetQuota = "40",
-                    Published = true
-                });
-
-                List.Add(new LowQuotaReportTable
-                {
-                    RoomName = "Alfam B block",
-                    RoomRemainingQuota = "2",
-                    RoomLastSetQuota = "40",
-                    Published = true
-                });
+                var List = _roomService.GetRoomsWithLowQuota();
 
                 // getting all Discount data  
                 var Data = List;
@@ -823,7 +792,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
         [HttpGet("[action]")]
         public ActionResult Features()
         {
-            return View("Facilities");
+            return View("Features");
         }
 
         [HttpPost("[action]")]
@@ -842,9 +811,9 @@ namespace searchDormWeb.Areas.Admin.Controllers
                 int skip = start != null ? Convert.ToInt32(start) : 0;
 
 
-              //var newList =  FacilityService.GetFacilities();
-              //  var List = new List<FacilitiesSpecificationAttributesTable>();
-          var List = new List<FacilitiesSpecificationAttributesTable>();
+                //var newList =  FacilityService.GetFacilities();
+                //  var List = new List<FacilitiesSpecificationAttributesTable>();
+                var List = _featuresService.GetFeaturesTableList();
               //  foreach (var item in newList)
               //  {
               //      List.Add(new FacilitiesSpecificationAttributesTable
@@ -887,13 +856,61 @@ namespace searchDormWeb.Areas.Admin.Controllers
         [HttpGet("[action]")]
         public ActionResult FeaturesAdd()
         {
-            return View("_FacilityAdd");
+            return View("_FeatureAdd");
+        }
+
+        [HttpPost("[action]")]
+        public ActionResult FeaturesAdd(FeaturesCrud vm)
+        {
+            if (!ModelState.IsValid)
+                return View("_FeatureAdd", vm);
+
+            long FeatureId = _featuresService.AddNewFeature(vm);
+            bool successUploadFeatureImage = _imageService.UploadFeatureImage(FeatureId);
+
+            return RedirectToAction("FeaturesEdit", "Catalog", new { Id = FeatureId });
+          
         }
 
         [HttpGet("[action]")]
-        public ActionResult FeaturesEdit()
+        public ActionResult FeaturesEdit(long Id)
         {
-            return View("_FacilityEdit");
+            
+            var Model = _featuresService.GetFeatureById(Id);
+            if (Model == null)
+                return RedirectToAction("Features", "Catalog");
+
+            return View("_FeatureEdit", Model);
+        }
+
+
+        [HttpPost("[action]")]
+        public ActionResult RemoveFeatureIcon(long Id)
+        {
+
+            bool success = _featuresService.RemoveFeatureIcon(Id);
+            return Json(success);
+        }
+
+        [HttpPost("[action]")]
+        public ActionResult DeleteFeature(FeaturesCrud vm)
+        {
+
+            bool success = _featuresService.DeleteFeature(vm);
+            return RedirectToAction("Features", "Catalog");
+        }
+
+        [HttpPost("[action]")]
+        public ActionResult FeaturesEdit(FeaturesCrud vm)
+        {
+            if (!ModelState.IsValid)
+                return View("_FeatureEdit", vm);
+
+            bool success = _featuresService.UpdateFeature(vm);
+            bool successUpdatedFeatureImage = _imageService.UploadFeatureImage(vm.Id);
+
+            var model = _featuresService.GetFeatureById(vm.Id);
+            return View("_FeatureEdit", model);
         }
 
         #endregion
@@ -902,7 +919,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
         [HttpGet("[action]")]
         public ActionResult FeaturesCategory()
         {
-            return View("Facilities");
+            return View("FeaturesCategory");
         }
 
         [HttpPost("[action]")]
@@ -923,7 +940,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
                 //var newList =  FacilityService.GetFacilities();
                 //  var List = new List<FacilitiesSpecificationAttributesTable>();
-                var List = new List<FacilitiesSpecificationAttributesTable>();
+                var List = _featuresService.GetFeaturesCategoryTablesList();
                 //  foreach (var item in newList)
                 //  {
                 //      List.Add(new FacilitiesSpecificationAttributesTable
@@ -966,13 +983,13 @@ namespace searchDormWeb.Areas.Admin.Controllers
         [HttpGet("[action]")]
         public ActionResult FeaturesCategoryAdd()
         {
-            return View("_FacilityAdd");
+            return View("_FeatureCategoryAdd");
         }
 
         [HttpGet("[action]")]
         public ActionResult FeaturesCategoryEdit()
         {
-            return View("_FacilityEdit");
+            return View("_FeatureCategoryEdit");
         }
         #endregion
     }
@@ -989,20 +1006,6 @@ namespace searchDormWeb.Areas.Admin.Controllers
         //public string Delete { get; set; }
     }
 
-    public class LowQuotaReportTable {
-        public string RoomName { get; set; }
-        public string RoomRemainingQuota { get; set; }
-        public string RoomLastSetQuota { get; set; }
-        public bool Published { get; set; }
-        //public string Edit { get; set; }
-    }
 
-
-    public class FacilitiesSpecificationAttributesTable
-    {
-        public string Name { get; set; }
-        public string DisplayOrder { get; set; }
-        public string Edit { get; set; }
-    }
 
 }

@@ -7,7 +7,7 @@ namespace Dau.Services.Event
     {
         bool DeleteAllEvents();
         bool DeleteEvent(long Id);
-        List<EventLogger> GetAllEvents();
+        List<EventLogTable> GetAllEvents();
         void LogEvent(EventLogger logger);
         void TriggerTestEvent();
         void Trigger_BookingCancelled_StudentNotification_Event(long BookingId);

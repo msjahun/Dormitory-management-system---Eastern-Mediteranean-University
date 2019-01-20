@@ -25,13 +25,13 @@
     <!-- Main content -->
     <!-- Main content -->
     <section class="content container-fluid">
-
+        <div id="alertACL"></div>
         <!--------------------------
-        | Your Page Content Here |
-        -------------------------->
+    | Your Page Content Here |
+    -------------------------->
 
         <div class="col-md-12">
-          
+
 
             <div class="box box-solid">
 
@@ -42,6 +42,7 @@
                         <table id="EmailAccountsTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
+                                    <th>@Localizer["Id"]</th>
                                     <th>@Localizer["Email address"]</th>
                                     <th>@Localizer["Email display name"]</th>
                                     <th>@Localizer["Is default email account"]</th>
@@ -49,36 +50,7 @@
                                     <th>@Localizer["Edit"]</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>noreply@emu.edu.tr</td>
-                                    <td>No reply email</td>
-                                    <td><i class="fa fa-check"></i></td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-check"></i> Mark as default</button></td>
-                                    <td> <a asp-action="EmailAccountEdit" asp-controller="Configurations" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</a></td>
-                                </tr>
-                                <tr>
-                                    <td>noreply@emu.edu.tr</td>
-                                    <td>No reply email</td>
-                                    <td><i class="fa fa-check"></i></td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-check"></i> Mark as default</button></td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                                </tr>
-                                <tr>
-                                    <td>noreply@emu.edu.tr</td>
-                                    <td>No reply email</td>
-                                    <td><i class="fa fa-check"></i></td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-check"></i> Mark as default</button></td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                                </tr>
-                                <tr>
-                                    <td>noreply@emu.edu.tr</td>
-                                    <td>No reply email</td>
-                                    <td><i class="fa fa-check"></i></td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-check"></i> Mark as default</button></td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                                </tr>
-                            </tbody>
+
 
                         </table>
                     </div>
@@ -133,9 +105,45 @@
     <script src="@Url.Content("~/Content/")dist/js/demo.js"></script>
     <!-- page script -->
     <script>
+
+
+
+        var EmailAccountsTable;
+        
+        function MarkEmailAsDefault(EmailAccountId) {
+           
+           
+              var r = confirm("@Localizer["Are you sure you want to mark email account as default"]");
+                if (r == false) {
+                    return;
+                }
+                            $.ajax({
+                type: "POST",
+                url: "MarkEmailAsDefault",
+                data: {
+                     "EmailAccountId": EmailAccountId,
+                   
+
+
+                },
+                success: function (result) {
+                    if (result == true) {
+                        document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-success alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> @Localizer["Email Account marked as default."]</div>";
+                        EmailAccountsTable.ajax.reload();
+}
+
+                    else 
+                                document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-danger alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> @Localizer["An error was encountered, unable to set email as default."]</div>";
+                
+                    
+                }
+            });
+
+        }
+
         $(function () {
            
-            $('#EmailAccountsTable').on('processing.dt', function (e, settings, processing) {
+            EmailAccountsTable=   $('#EmailAccountsTable').on('processing.dt', function (e, settings, processing) {
                 if (processing) {
                     Pace.start();
                 } else {
@@ -157,7 +165,7 @@
                 "filter": true, // this is for disable filter (search box)
                 "orderMulti": true, // for disable multiple column at once
                 "ajax": {
-                 "url": "@Html.Raw(Url.Action("emailAccounts", "Configurations"))",
+                 "url": "@Html.Raw(Url.Action("EmailAccounts", "Configurations"))",
                     "type": "POST",
                     "data": function (d) {
                         d.myKey = "myValue";
@@ -168,20 +176,21 @@
                     "datatype": "json"
                 },
                 "columns": [
-                
+                    
+                    {"data": "id" },
                     {"data": "emailAddress" },
                     {"data": "emailDisplayName" },
                     {"render": function (data, type, full, meta) {
                             if (full.isDefaultEmailAccount == true)
-                                return '<i class="fa fa-check" aria-hidden="true"></i>';
+                                return '<i class="fa fa-check" style="color:green;" aria-hidden="true"></i>';
                             else
-                                return '<i class="fa fa-times" aria-hidden="true"></i>';}
+                                return '<i class="fa fa-times"  style="color:#ff0000" aria-hidden="true"></i>';}
                     },
                     {"render": function (data, type, full, meta) {
-                        return '<a class="btn btn-primary"><i class="fa fa-pencil"></i> @Localizer["Mark as default"]</a>'; }
+                        return '<button class="btn btn-success" type="button" onclick="MarkEmailAsDefault('+full.id+');"><i class="fa fa-check"></i> @Localizer["Mark as default"]</button>'; }
                     },
                     {"render": function (data, type, full, meta) {
-                        return '<a class="btn btn-primary" href="/Admin/Configurations/EmailAccountEdit"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>'; }
+                        return '<a class="btn btn-primary" href="/Admin/Configurations/EmailAccountEdit?Id='+full.id+'"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>'; }
                     }
                     
                     

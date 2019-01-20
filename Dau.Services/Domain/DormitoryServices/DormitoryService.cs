@@ -420,6 +420,50 @@ namespace Dau.Services.Domain.DormitoryServices
             return model;
         }
 
+        public List<SEOFriendlyPageNamesTable> GetSEOFriendlyPageNamesTable()
+        {
+
+            var CurrentLanguageId = _languageService.GetCurrentLanguageId();
+
+            //var dormImages = from dormImage in _dormImageRepo.List().ToList()
+            //                 join Image in _imageRepo.List().ToList() on dormImage.CatalogImageId equals Image.Id
+            //                 select new { dormImage.DormitoryId, Image.ImageUrl, Image.Published };
+
+            var dormitoryType = from dormType in _dormitoryTypeRepo.List().ToList()
+                                join dormTypeTrans in _dormitoryTypeTransRepo.List().ToList() on dormType.Id equals dormTypeTrans.DormitoryTypeNonTransId
+                                where dormTypeTrans.LanguageId == CurrentLanguageId
+                                select new { dormType.Id, dormTypeTrans.Title };
+
+            var dormitory = from dorm in _dormitoryRepo.List().Where(c => _userRolesService.RoleAccessResolver().Contains(c.Id)).ToList().ToList()
+                            join dormTrans in _dormitoryTransRepo.List().ToList() on dorm.Id equals dormTrans.DormitoryNonTransId
+                            where dormTrans.LanguageId == CurrentLanguageId
+                            select new 
+                            {dorm.SeoId,
+                                DormitoryId = dorm.Id,
+                                Picture = (dorm.DormitoryLogoUrl != null) ? ((dorm.DormitoryLogoUrl.Length > 0) ? dorm.DormitoryLogoUrl : "/Content/dist/img/default-image_100.png") : "/Content/dist/img/default-image_100.png",
+                                DormitoryName = dormTrans.DormitoryName,
+                                SKU = dorm.SKU,
+                                DormitoryType = dormitoryType.ToList().Where(c => c.Id == dorm.DormitoryTypeId).FirstOrDefault().Title,
+                                Published = dorm.Published
+                            };
+
+
+            var SeoList = from seo in _SeoRepo.List().ToList()
+                          join dorm in dormitory.ToList() on seo.Id equals dorm.SeoId
+                          select new SEOFriendlyPageNamesTable
+                          {
+                              Id = seo.Id,
+                              SeoFriendlyName = seo.SearchEngineFriendlyPageName,
+                              DormitoryId = dorm.DormitoryId,
+                              DormitoryName = dorm.DormitoryName,
+                              DormitoryType = dorm.DormitoryType,
+                              IsActive = dorm.Published,
+                          };
+
+            return SeoList.ToList();
+
+        }
+
 
         public string GetDormitoryNameById(long id)
         {
@@ -434,6 +478,18 @@ namespace Dau.Services.Domain.DormitoryServices
     }
 
 
+    public class SEOFriendlyPageNamesTable
+    {
+        public long Id { get; set; }
+        public string SeoFriendlyName { get; set; }
+        public long DormitoryId { get; set; }
+        public string DormitoryName { get; set; }
+        public bool IsActive { get; set; }
+
+        public string EditPage { get; set; }
+        public string DormitoryType { get; internal set; }
+    }
+
     public class DormitoriesDataTable
     {
         public long DormitoryId { get; set; }
@@ -444,6 +500,8 @@ namespace Dau.Services.Domain.DormitoryServices
         public bool Published { get; set; }
         //public string Edit { get; set; }
     }
+
+
 
     public class DormitoryCrud
     {

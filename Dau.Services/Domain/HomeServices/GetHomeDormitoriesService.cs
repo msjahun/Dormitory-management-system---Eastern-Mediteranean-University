@@ -223,7 +223,7 @@ namespace Dau.Services.Domain.HomeService
             HomePageModel model = new HomePageModel();
 
             model.DormitoryPartialModel = Model;
-            model.DormitoryCardsList = dormitoryAndtype.ToList();
+            model.DormitoryCardsList = dormitoryAndtype.Where(c=>c.ReviewsNo>0).ToList();
 
 
             return model;

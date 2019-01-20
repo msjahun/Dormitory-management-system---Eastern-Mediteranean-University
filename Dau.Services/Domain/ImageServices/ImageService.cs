@@ -18,11 +18,13 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using Dau.Core.Domain.Bookings;
+using Dau.Core.Domain.Feature;
 
 namespace Dau.Services.Domain.ImageServices
 {
     public class ImageService : IImageService
     {
+        private readonly IRepository<Features> _featuresRepo;
         private readonly IRepository<Booking> _bookingRepo;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IHostingEnvironment _environment;
@@ -37,8 +39,10 @@ namespace Dau.Services.Domain.ImageServices
             IRepository<CatalogImage> catalogImageRepo,
             IRepository<DormitoryCatalogImage> dormCatalogImageRepo,
             IRepository<Dormitory> dormRepo,
-            IRepository<Booking> bookingRepo)
+            IRepository<Booking> bookingRepo,
+            IRepository<Features> featuresRepo)
         {
+            _featuresRepo = featuresRepo;
             _bookingRepo = bookingRepo;
             _httpContextAccessor = httpContextAccessor;
             _environment = IHostingEnvironment;
@@ -290,6 +294,24 @@ namespace Dau.Services.Domain.ImageServices
 
             return convertedStrings;
             }
+
+        public bool UploadFeatureImage(long FeatureId)
+        {
+
+             var imagePath = UploadImage("Files/Images/FeaturesIcons/");
+                if (imagePath == null || imagePath.Length <= 0) return false;
+            //map the image to room and catalogImage in the database
+            //insert it in CatalogImage, get id then
+            //insert foreignkeys in RoomCatalog image
+            var feature = _featuresRepo.GetById(FeatureId);
+                feature.IconUrl = "/" + imagePath;
+            _featuresRepo.Update(feature);
+
+
+                return true;
+            
+        }
+
 
     }
 

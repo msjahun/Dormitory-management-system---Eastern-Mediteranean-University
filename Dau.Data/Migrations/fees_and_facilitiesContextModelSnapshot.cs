@@ -1324,6 +1324,8 @@ namespace Dau.Data.Migrations
                         .HasMaxLength(256)
                         .IsUnicode(false);
 
+                    b.Property<bool>("IsDefault");
+
                     b.Property<string>("Password")
                         .HasColumnName("Password")
                         .HasMaxLength(256)
@@ -1437,6 +1439,13 @@ namespace Dau.Data.Migrations
                         .HasColumnName("id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("AllowFiltering");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DisplayOrder");
+
                     b.Property<long>("FeaturesCategoryId");
 
                     b.Property<int>("HitCount");
@@ -1445,6 +1454,9 @@ namespace Dau.Data.Migrations
 
                     b.Property<bool>("IsPublished")
                         .HasColumnName("IsPublished");
+
+                    b.Property<DateTime>("UpdatedOn")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -1459,6 +1471,16 @@ namespace Dau.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("AllowFiltering");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DisplayOrder");
+
+                    b.Property<DateTime>("UpdatedOn")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 

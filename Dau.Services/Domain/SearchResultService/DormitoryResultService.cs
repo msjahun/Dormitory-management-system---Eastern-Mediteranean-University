@@ -126,9 +126,12 @@ namespace Dau.Services.Domain.SearchResultService
                                        DormitoryType = dormType.Title, //dormitory type table
                                        DormitoryName = dorm.DormitoryName,
                                        DormitoryIconUrl = dorm.DormitoryLogoUrl,
+                                       RatingNo = (_reviewRepo.List().Where(c => c.DormitoryId == dorm.Id).ToList().Count <= 0) ? "N.A" : dorm.RatingNo.ToString("N1"),
+                                       RatingNoRaw = dorm.RatingNo,
+                                       RatingText = (_reviewRepo.List().Where(c => c.DormitoryId == dorm.Id).ToList().Count <= 0) ? "Unrated" : _reviewService.ResolveRatingText(dorm.RatingNo),
                                        DormitorySeoFriendlyUrl = _seoRepo.List().ToList().Where(c => c.Id == dorm.DormitorySeoId).FirstOrDefault().SearchEngineFriendlyPageName, //use seo table
-                                       RatingNo = dorm.RatingNo.ToString("N1"),
-                                       RatingText = _reviewService.ResolveRatingText(dorm.RatingNo), //create a service that resolves this
+                                    
+                                      
                                        ReviewNo = _reviewRepo.List().Where(c => c.DormitoryId == dorm.Id).ToList().Count,
                                        Location = dorm.Location,
                                        ShortDescription = dorm.DormitoryDescription ,
@@ -184,8 +187,7 @@ namespace Dau.Services.Domain.SearchResultService
         //-Bus stop access
         public string UniqueAttribute { get; set; }
         public Locationinformation location { get; set; }
-
-
+        public double RatingNoRaw { get; internal set; }
     }
 
 

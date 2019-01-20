@@ -869,11 +869,10 @@
             });
         }
 
-
         function ajaxGetDormitoryBlocks(dormitoryId) {
             $.ajax({
                 type: "POST",
-                url: "GetDormitoryBlockByDormitoryIdDropdown/?id=" + dormitoryId,
+                url: "/Admin/Catalog/GetDormitoryBlockByDormitoryIdDropdown/?id=" + dormitoryId,
                 data: {
                     SectionId: "_dormitoryBlockDropdown"
 

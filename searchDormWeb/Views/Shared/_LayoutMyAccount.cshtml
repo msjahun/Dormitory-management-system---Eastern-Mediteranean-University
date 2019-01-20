@@ -34,9 +34,22 @@
 
                         <!-- Account navigation -->
                         <div class="d-flex">
-                            <a href="account-profile-public.html" class="btn btn-icon btn-group-nav shadow btn-secondary">
-                                <span class="btn-inner--icon"><i class="fas fa-user"></i></span>
-                                <span class="btn-inner--text d-none d-md-inline-block">@Localizer["My Account"]</span>
+                            <a  asp-controller="Account" asp-action="Profile" class="btn btn-icon btn-group-nav shadow btn-secondary  @(currentAction == "Profile" ? "active" : "") ">
+                                <span class="btn-inner--icon"> <i class="fas fa-user-circle "></i></span>
+                                <span class="btn-inner--text d-none d-md-inline-block">@Localizer["Profile"]</span>
+                            </a> 
+                            <a  asp-controller="Account" asp-action="Settings" class="btn btn-icon btn-group-nav shadow btn-secondary   @(currentAction == "Settings" ? "active" : "") ">
+                                <span class="btn-inner--icon"><i class="fas fa-cog "></i></span>
+                                <span class="btn-inner--text d-none d-md-inline-block"> @Localizer["Settings"]</span>
+                            </a>
+                             
+                            <a asp-controller="Account" asp-action="Billing"  class="btn btn-icon btn-group-nav shadow btn-secondary @(currentAction == "Billing" ? "active" : "") ">
+                                <span class="btn-inner--icon"><i class="fas fa-credit-card"></i></span>
+                                <span class="btn-inner--text d-none d-md-inline-block">@Localizer["Bookings"]</span>
+                            </a>  
+                            <a asp-controller="Account" asp-action="Notifications" class="btn btn-icon btn-group-nav shadow btn-secondary  @(currentAction == "Notifications" ? "active" : "") ">
+                                <span class="btn-inner--icon"><i class="fas fa-bell "></i></span>
+                                <span class="btn-inner--text d-none d-md-inline-block">@Localizer["Notifications"]</span>
                             </a>
 
                         </div>
@@ -50,59 +63,7 @@
         <section class="slice">
             <div class="container">
                 <div class="row row-grid">
-                    <div class="col-lg-3">
-
-                        <div data-toggle="sticky" data-sticky-offset="100" data-negative-margin=".card-profile-cover">
-
-                            <div class="card">
-                                <div class="card-header py-3">
-                                    <span class="h6">@Localizer["Settings"]</span>
-                                </div>
-                                <div class="list-group list-group-sm list-group-flush">
-                                    <a asp-controller="Account" asp-action="Profile" class="list-group-item list-group-item-action d-flex justify-content-between  @(currentAction == "AccountProfile" ? "active" : "") ">
-                                        <div>
-                                            <i class="fas fa-user-circle mr-2"></i>
-                                            <span>@Localizer["Profile"]</span>
-                                        </div>
-                                        <div>
-                                            <i class="fas fa-angle-right"></i>
-                                        </div>
-                                    </a>
-
-
-                                    <a asp-controller="Account" asp-action="Settings" class="list-group-item list-group-item-action d-flex justify-content-between @(currentAction == "AccountSettings" ? "active" : "")  ">
-                                        <div>
-                                            <i class="fas fa-cog mr-2"></i>
-                                            <span>@Localizer["Settings"]</span>
-                                        </div>
-                                        <div>
-                                            <i class="fas fa-angle-right"></i>
-                                        </div>
-                                    </a>
-                                    <a asp-controller="Account" asp-action="Billing" class="list-group-item list-group-item-action d-flex justify-content-between @(currentAction == "AccountBilling" ? "active" : "") ">
-                                        <div>
-                                            <i class="fas fa-credit-card mr-2"></i>
-                                            <span>@Localizer["Bookings"]</span>
-                                        </div>
-                                        <div>
-                                            <i class="fas fa-angle-right"></i>
-                                        </div>
-                                    </a>
-                                    <a asp-controller="Account" asp-action="Notifications" class="list-group-item list-group-item-action d-flex justify-content-between @(currentAction == "AccountNotifications" ? "active" : "") ">
-                                        <div>
-                                            <i class="fas fa-bell mr-2"></i>
-                                            <span>@Localizer["Notifications"]</span>
-                                        </div>
-                                        <div>
-                                            <i class="fas fa-angle-right"></i>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
+                
 
                     @RenderBody()
                 </div>

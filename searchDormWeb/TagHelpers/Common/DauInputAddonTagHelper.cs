@@ -52,7 +52,8 @@ namespace searchDormWeb.TagHelpers.Common
 
             if (AddonType == "button")
             {
-                output.PostElement.SetHtmlContent($"<span class=\"input-group-btn\"><button type=\"button\" class=\"btn btn-info btn-flat\">{Text}</button></span></div></div>");
+                var ButtonId = For.Name + "Btn";
+                output.PostElement.SetHtmlContent($"<span class=\"input-group-btn\"><button type=\"button\" Id=\"{ButtonId}\" class=\"btn btn-info btn-flat\">{Text}</button></span></div></div>");
 
             }
             else if (AddonType == "icon")

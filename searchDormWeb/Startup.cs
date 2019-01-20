@@ -164,6 +164,7 @@ namespace searchDormWeb
             services.AddScoped <  IMessageQueueService,MessageQueueService > ();
             services.AddScoped <  IEventService,EventService > ();
             services.AddScoped <  IMessageTemplateService,MessageTemplateService > ();
+            services.AddScoped <  IEmailAccountService,EmailAccountService > ();
 
             var connectionString = Configuration.GetValue<string>("DbSettings:SqlConnectionString");
             services.AddDbContext<Fees_and_facilitiesContext>(options => options.UseSqlServer(connectionString));

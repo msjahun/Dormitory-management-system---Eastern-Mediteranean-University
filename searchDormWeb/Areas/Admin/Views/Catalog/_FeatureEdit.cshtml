@@ -1,0 +1,395 @@
+﻿@using Dau.Services.Domain.FeaturesServices
+@model FeaturesCrud
+@{
+    ViewData["Title"] = Localizer["Edit Feature"];
+    Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+    var item = Model;
+}
+
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            @ViewData["Title"]
+            <small><a asp-action="Features" asp-controller="Catalog"><i class="fa fa-arrow-circle-left"></i> @Localizer["back to Features list"]</a></small>
+        </h1>
+        <div class="row">
+            <div class=" col-md-12">
+                <div class="upper_left pull-right">
+
+                    <button type='button' onClick='resolveButton("SaveClose")' class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
+                    <button type='button' onClick='resolveButton("SaveContinue")' class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save and Continue Edit"]</button>
+                    <button type='button' onClick='resolveButton("Delete")' class="btn btn-danger "> <i class="fa fa-trash-o"></i> @Localizer["Delete"]</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main content -->
+    <!-- Main content -->
+    <section class="content container-fluid">
+        <div id="alertACL"></div>
+        <!--------------------------
+    | Your Page Content Here |
+    -------------------------->
+
+        <div class="col-md-12">
+            <!-- Horizontal Form -->
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab_3" data-toggle="tab" aria-expanded="true">@Localizer["Attribute info"]</a></li>
+
+
+                </ul>
+                <div class="tab-content">
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane active" id="tab_3">
+
+
+                        <div class="box box-solid">
+                            <div class="box-header"></div>
+
+                            <div class="box-body">
+
+                                <form class="form-horizontal" method="post" id="editForm" enctype="multipart/form-data">
+                                    <div style="color:red;" asp-validation-summary="All"></div>
+                                    <input type="hidden" asp-for="Id" />
+                                    <div class="form-group">
+
+                                        <dau-label asp-for="FeatureCategory"></dau-label>
+                                        <div class="col-sm-8">
+                                            <select asp-for="FeatureCategory" asp-items="_dropdown.FeatureCategory()" id="FeatureCategoryselect" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                <option></option>
+                                            </select>
+                                        </div>
+                                        <span asp-validation-for="FeatureCategory"></span>
+                                    </div>
+                                    <dau-tabs id="LanguageTab">
+
+                                        <dau-tab id="tab2" active="true" name="English" flag="@Url.Content("~/Content/")dist/img/us.png">
+                                            <div class="form-group">
+                                                <dau-label asp-for="localizedFacilityContent[0].Name"></dau-label>
+                                                <dau-input asp-for="localizedFacilityContent[0].Name" type="text"></dau-input>
+                                                <span asp-validation-for="localizedFacilityContent[0].Name"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <dau-label asp-for="localizedFacilityContent[0].Description"></dau-label>
+                                                <dau-input asp-for="localizedFacilityContent[0].Description" type="text"></dau-input>
+                                                <span asp-validation-for="localizedFacilityContent[0].Description"></span>
+                                            </div>
+
+
+
+                                        </dau-tab>
+                                        <dau-tab id="tab3" name="Turkish" flag="@Url.Content("~/Content/")dist/img/tr.png">
+                                            <div class="form-group">
+                                                <dau-label asp-for="localizedFacilityContent[1].Name"></dau-label>
+                                                <dau-input asp-for="localizedFacilityContent[1].Name" type="text"></dau-input>
+                                                <span asp-validation-for="localizedFacilityContent[1].Name"></span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <dau-label asp-for="localizedFacilityContent[1].Description"></dau-label>
+                                                <dau-input asp-for="localizedFacilityContent[1].Description" type="text"></dau-input>
+                                                <span asp-validation-for="localizedFacilityContent[1].Description"></span>
+                                            </div>
+                                        </dau-tab>
+                                    </dau-tabs>
+
+
+                                    <div class="form-group">
+                                        <dau-label asp-for="FeatureIcon"></dau-label>
+                                        <div class="col-sm-8">
+                                            <input type="hidden" asp-for="FeatureIcon" />
+
+                                            <img id="ImagePlaceholder" src="@item.FeatureIcon" height="100" /><br /><br />
+                                            <span class="btn btn-success btn-file">
+                                                @Localizer["Upload file"]  <input id="ImageInput" type="file" name="files" accept="image/*" />
+                                            </span><span id="RemoveLogo" class="btn btn-outline-danger">@Localizer["Remove Logo"]</span>
+                                        </div>
+
+
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <dau-label asp-for="AllowFiltering"></dau-label>
+                                        <div class="col-sm-8">
+                                            <input asp-for="AllowFiltering" type="checkbox">
+                                        </div>
+                                        <span asp-validation-for="AllowFiltering"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <dau-label asp-for="Published"></dau-label>
+                                        <div class="col-sm-8">
+                                            <input asp-for="Published" type="checkbox">
+                                        </div>
+                                        <span asp-validation-for="Published"></span>
+                                    </div>
+                                    <div class="form-group">
+
+                                        <dau-label asp-for="DisplayOrder"></dau-label>
+                                        <dau-input asp-for="DisplayOrder" type="number"></dau-input>
+                                        <span asp-validation-for="DisplayOrder"></span>
+                                    </div>
+
+                                    <div class="box box-solid">
+                                        <div class="box-header">@Localizer["Change history"]</div>
+                                        <!-- /.box-header -->
+                                        <!-- form start -->
+
+                                        <div class="box-body">
+                                            <div class="form-horizontal">
+
+                                                <div class="form-group">
+                                                    <dau-label asp-for="CreatedOn"></dau-label>
+
+                                                    <div class="col-sm-8">
+                                                        <input type="hidden" asp-for="CreatedOn" />
+                                                        <p>@item.CreatedOn</p>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <dau-label asp-for="UpdatedOn"></dau-label>
+
+                                                    <div class="col-sm-8">
+                                                        <input type="hidden" asp-for="UpdatedOn" />
+                                                        <p>@item.UpdatedOn</p>
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </form>
+
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+                </div>
+                <!-- /.tab-content -->
+            </div>
+
+
+
+        </div>
+    </section>
+    <!-- /.content -->
+    <!-- /.content -->
+</div>
+
+@section styles {
+
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/Ionicons/css/ionicons.min.css">
+    <!-- DataTables -->
+    <!--Select2-->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/select2/dist/css/select2.min.css">
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/skins/_all-skins.min.css">
+}
+
+
+@section scripts
+    {
+
+    <script src="@Url.Content("~/Content/")bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="@Url.Content("~/Content/")bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="@Url.Content("~/Content/")dist/js/adminlte.min.js"></script>
+
+
+    <script src="@Url.Content("~/Content/")bower_components/select2/dist/js/select2.full.min.js"></script>
+    @*<script src="@Url.Content("~/Content/")bower_components/datatables.net/js/jquery.dataTables.min.js"></script>*@
+
+    <script src="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+
+    <script src="@Url.Content("~/Content/")bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="@Url.Content("~/Content/")bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="@Url.Content("~/Content/")bower_components/fastclick/lib/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <!-- AdminLTE for demo purposes -->
+    <script src="@Url.Content("~/Content/")dist/js/demo.js"></script>
+    <!-- page script -->
+    <script>
+
+
+        function resolveButton(button) {
+            switch (button) {
+
+
+                case "SaveClose": {
+                    alert("SaveClose");
+                }; break;
+
+
+                case "SaveContinue": {
+                    console.log("SaveContinue");
+                    $('#editForm').attr('action', "/admin/Catalog/FeaturesEdit").submit();
+                }; break;
+
+
+
+                    case "Delete": {
+                        console.log("Delete feature");
+                        var r = confirm("@Localizer["Are you sure you want to delete feature? "]");
+                        if (r == true) {
+                              $('#editForm').attr('action', "/admin/Catalog/DeleteFeature").submit();
+                        }
+
+                    }; break;
+                       }
+            //   $("#formId").submit();
+        }
+        
+            $("#RemoveLogo").click(function () {
+                $('#ImagePlaceholder').attr('src', '/Content/dist/img/default-image_100.png');
+                document.getElementById("ImageInput").value = "";
+                       var r = confirm("@Localizer["Are you sure you want to delete feature Icon? "]");
+                        if (r == true) {
+                            
+                   
+                    $.ajax({
+                        type: "POST",
+                        url: "/Admin/Catalog/RemoveFeatureIcon/?Id=" + @item.Id,
+                        data: {
+                            SectionId: "_dormitoryBlockDropdown"
+
+                        },
+                        success: function (result) {
+                      
+                                                if (result == true) {
+                        document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-success alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> @Localizer["Feature Icon removed successfully."]</div>";
+                      ;
+}
+
+                    else 
+                                document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-danger alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> @Localizer["An error was encountered, unable to remove feature Icon"]</div>";
+                
+                    
+                }
+
+
+
+                        
+                    });
+                        }
+                       });
+
+
+
+
+                       function readURL(input) {
+
+                           if (input.files && input.files[0]) {
+                               var reader = new FileReader();
+
+                               reader.onload = function (e) {
+                                   if (input.files[0].size > 3145728) {
+                            $('#ImagePlaceholder').attr('src', '/Content/dist/img/default-image_100.png');
+
+                                   }
+
+                                   else
+                        $('#ImagePlaceholder').attr('src', e.target.result);
+
+                               }
+
+                               reader.readAsDataURL(input.files[0]);
+                           }
+                       }
+
+            $("#ImageInput").change(function () {
+                           readURL(this); //resolveUploadFields(true);
+                           if (this.files[0].size > 3145728) {
+                               alert("@Localizer["file size too big, please upload something less than 3 Mb"]");
+                               document.getElementById("ImageInput").value = "";
+                           }
+
+
+
+
+                       });
+
+                       function readDormitoryImageURL(input) {
+
+                           if (input.files && input.files[0]) {
+                               var reader = new FileReader();
+
+                               reader.onload = function (e) {
+                                   if (input.files[0].size > 3145728) {
+                            $('#DormitoryImagePlaceholder').attr('src', '/Content/dist/img/default-image_100.png');
+
+                                   }
+
+                                   else
+                        $('#DormitoryImagePlaceholder').attr('src', e.target.result);
+
+                               }
+
+                               reader.readAsDataURL(input.files[0]);
+                           }
+                       }
+
+            $("#DormitoryImageInput").change(function () {
+                           readDormitoryImageURL(this); //resolveUploadFields(false);
+                           if (this.files[0].size > 3145728) {
+                               alert("@Localizer["file size too big, please upload something less than 3 Mb"]");
+                               document.getElementById("DormitoryImageInput").value = "";
+                           }
+
+
+
+
+                       });
+
+
+
+        $(function () {
+
+
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
+            ///Intialize datepicker
+            $('#datepicker').datepicker({
+                autoclose: true
+            })
+
+
+
+
+            
+        })
+    </script>
+}
+

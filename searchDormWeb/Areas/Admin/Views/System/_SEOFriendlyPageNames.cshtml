@@ -17,7 +17,7 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" class="btn btn-danger "> <i class="fa fa-trash"></i> @Localizer["Delete selected"]</button>
+                    @*<button type="submit" class="btn btn-danger "> <i class="fa fa-trash"></i> @Localizer["Delete selected"]</button>*@
                 </div>
             </div>
         </div>
@@ -73,93 +73,17 @@
                                 <tr>
                                     <th><input type="checkbox"></th>
                                     <th>@Localizer["Id"]</th>
-                                    <th>@Localizer["Name"]</th>
-                                    <th>@Localizer["Entity id"]</th>
-                                    <th>@Localizer["Entity name"]</th>
+                                    <th>@Localizer["Search engine friendly pagename"]</th>
+                                    <th>@Localizer["Dormitory id"]</th>
+                                    <th>@Localizer["Dormitory Name"]</th>
                                     <th>@Localizer["Is active"]</th>
-                                    <th>@Localizer["Language"]</th>
+
+
                                     <th>@Localizer["Edit page"]</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>513</td>
-                                    <td>Alfam-b-block</td>
-                                    <td>128</td>
-                                    <td>Room</td>
-                                    <td><i class="fa fa-check" aria-hidden="true"></i></td>
-                                    <td>Standard</td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit page</button></td>
-
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>513</td>
-                                    <td>Alfam-b-block</td>
-                                    <td>128</td>
-                                    <td>Room</td>
-                                    <td><i class="fa fa-check" aria-hidden="true"></i></td>
-                                    <td>Standard</td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit page</button></td>
-
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>513</td>
-                                    <td>Alfam-b-block</td>
-                                    <td>128</td>
-                                    <td>Room</td>
-                                    <td><i class="fa fa-check" aria-hidden="true"></i></td>
-                                    <td>Standard</td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit page</button></td>
-
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>513</td>
-                                    <td>Alfam-b-block</td>
-                                    <td>128</td>
-                                    <td>Room</td>
-                                    <td><i class="fa fa-check" aria-hidden="true"></i></td>
-                                    <td>Standard</td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit page</button></td>
-
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>513</td>
-                                    <td>Alfam-b-block</td>
-                                    <td>128</td>
-                                    <td>Room</td>
-                                    <td><i class="fa fa-check" aria-hidden="true"></i></td>
-                                    <td>Standard</td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit page</button></td>
-
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>513</td>
-                                    <td>Alfam-b-block</td>
-                                    <td>128</td>
-                                    <td>Room</td>
-                                    <td><i class="fa fa-check" aria-hidden="true"></i></td>
-                                    <td>Standard</td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit page</button></td>
-
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>513</td>
-                                    <td>Alfam-b-block</td>
-                                    <td>128</td>
-                                    <td>Room</td>
-                                    <td><i class="fa fa-check" aria-hidden="true"></i></td>
-                                    <td>Standard</td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit page</button></td>
-
-                                </tr>
-                            </tbody>
+                          
+                         
 
                         </table>
 
@@ -254,18 +178,18 @@
                     {"render": function (data, type, full, meta) {
                             return '<input type="checkbox">'; } },
                     {"data": "id" },
-                    {"data": "name" },
-                    {"data": "entityId" },
-                    {"data": "entityName" },
+                    {"data": "seoFriendlyName" },
+                    {"data": "dormitoryId" },
+                    {"data": "dormitoryName" },
                     {"render": function (data, type, full, meta) {
                             if (full.isActive == true)
-                                return '<i class="fa fa-check" aria-hidden="true"></i>';
+                                return '<i class="fa fa-check" style="color:green" aria-hidden="true"></i>';
                             else
-                                return '<i class="fa fa-times" aria-hidden="true"></i>';}
+                                return '<i class="fa fa-times" style="color:red" aria-hidden="true"></i>';}
                     },
-                    {"data": "language" },
+                 
                     {"render": function (data, type, full, meta) {
-                     return '<a class="btn btn-primary" href="/Admin/System/"><i class="fa fa-pencil"></i> @Localizer["Edit page"]</a>'; }
+                        return '<a class="btn btn-primary" href="/admin/Configurations/DormitoryEdit?id='+full.dormitoryId+'&section=seo"><i class="fa fa-pencil"></i> @Localizer["Edit page"]</a>'; }
                     }
                     
                     

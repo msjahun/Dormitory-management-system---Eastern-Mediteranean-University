@@ -27,6 +27,7 @@ namespace Dau.Core.Domain.EmailAccountInformation
 
         public bool SSL { get; set; }
 
+        public bool IsDefault { get; set; }
 
         public bool UseDefaultCredentials { get; set; }
 

@@ -1,8 +1,9 @@
-﻿@using searchDormWeb.Areas.Admin.Models.Configuration
-@model EmailAccountEdit
+﻿@using Dau.Services.Email
+@model EmailAccountCrud
 @{
     ViewData["Title"] = Localizer["Edit Email Account"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+    var item = Model;
 }
 
 
@@ -18,9 +19,10 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save and Continue Edit"]</button>
-                    <button type="submit" form="addForm" class="btn btn-danger "> <i class="fa fa-trash-o"></i> @Localizer["Delete"]</button>
+                    <button type='button' onClick='resolveButton("SaveClose")' class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
+                    <button type='button' onClick='resolveButton("SaveContinue")' class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save and Continue Edit"]</button>
+
+                    <button type="submit"  onClick='resolveButton("Delete")'  class="btn btn-danger "> <i class="fa fa-trash-o"></i> @Localizer["Delete"]</button>
                 </div>
             </div>
         </div>
@@ -29,18 +31,28 @@
     <!-- Main content -->
     <!-- Main content -->
     <section class="content container-fluid">
-
+        <div id="alertACL"></div>
         <!--------------------------
-        | Your Page Content Here |
-        -------------------------->
+    | Your Page Content Here |
+    -------------------------->
 
         <div class="col-md-12">
             <!-- Horizontal Form -->
-            <div class="box ">
-                <div class="box-header"></div>
-                <!-- /.box-header -->
-                <!-- form start -->
-                <form class="form-horizontal">
+            <form class="form-horizontal" method="post" id="editdForm">
+                <div class="box ">
+                    <div class="box-header"></div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+
+                    <div style="color:red;" asp-validation-summary="All"></div>
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="form-group">
+                        <dau-label asp-for="Id"></dau-label>
+                        <div class="col-sm-9">
+                            <p>@item.Id</p>
+                        </div>
+                    </div>
                     <div class="box-body">
 
 
@@ -78,17 +90,17 @@
 
 
                         <div class="form-group">
-                            <dau-label asp-for="User"></dau-label>
-                            <dau-input asp-for="User" type="email"></dau-input>
-                            <span asp-validation-for="User"></span>
+                            <dau-label asp-for="EmailAccoutUser"></dau-label>
+                            <dau-input asp-for="EmailAccoutUser" type="email"></dau-input>
+                            <span asp-validation-for="EmailAccoutUser"></span>
 
                         </div>
 
 
-                        <div class="form-group">
-                            <dau-label asp-for="Password"></dau-label>
-                            <dau-inputaddon addon-type="button" text="Change password" asp-for="Password" type="text"></dau-inputaddon>
-                            <span asp-validation-for="Password"></span>
+                        <div class="form-group" id="ChangePasswordFormGroup">
+                            <dau-label asp-for="EmailAccoutPassword"></dau-label>
+                            <dau-inputaddon addon-type="button" text="@Localizer["Change password"]" asp-for="EmailAccoutPassword" type="text"></dau-inputaddon>
+                            <span asp-validation-for="EmailAccoutPassword"></span>
 
                         </div>
 
@@ -116,20 +128,20 @@
                     </div>
                     <!-- /.box-body -->
 
-                </form>
-            </div>
-            <div class="box ">
-                <div class="box-header">@Localizer["Send Test Email(save settings first by clicking \"Save\" button)"]</div>
-                <!-- /.box-header -->
-                <!-- form start -->
-                <form class="form-horizontal">
+
+                </div>
+                <div class="box ">
+                    <div class="box-header">@Localizer["Send Test Email(save settings first by clicking \"Save\" button)"]</div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+
                     <div class="box-body">
 
 
-                        <div class="form-group">
-                          
+                        <div class="form-group" id="SendEmailFormGroup">
+
                             <dau-label asp-for="SendEmailTo"></dau-label>
-                            <dau-inputaddon addon-type="button" text="Change password" asp-for="SendEmailTo" type="text"></dau-inputaddon>
+                            <dau-inputaddon addon-type="button" text="@Localizer["Send test email"]" asp-for="SendEmailTo" type="email"></dau-inputaddon>
                             <span asp-validation-for="SendEmailTo"></span>
 
 
@@ -140,9 +152,8 @@
                     </div>
                     <!-- /.box-body -->
 
-                </form>
-            </div>
-
+                </div>
+            </form>
 
 
         </div>
@@ -189,5 +200,77 @@
     <!-- AdminLTE for demo purposes -->
     <script src="@Url.Content("~/Content/")dist/js/demo.js"></script>
     <!-- page script -->
+    <!-- page script -->
+
+    <script>
+
+
+        function resolveButton(button) {
+            switch (button) {
+
+                case "SaveClose": {
+                    alert("SaveClose");
+                }; break;
+
+
+                case "SaveContinue": {
+                    console.log("SaveContinue");
+                    $('#editdForm').attr('action', "/admin/Configurations/EmailAccountEdit").submit();
+                }; break;
+
+                        case "Delete": {
+                    console.log("DeleteEmailAccount");
+                    var r = confirm("@Localizer["Are you sure you want to delete Email account?"]");
+                    if (r == true) {
+                        $('#editdForm').attr('action', "/admin/Configurations/DeleteEmailAccount").submit();
+                    } 
+                   
+                }; break;
+            }
+            //   $("#formId").submit();
+        }
+
+        $("#EmailAccoutPasswordBtn").click(function () {
+        //    alert($("#EmailAccoutPassword").val());
+
+           
+
+            if ($("#EmailAccoutPassword").val() <= 0 ) {
+              
+                $("#ChangePasswordFormGroup").attr("class", "form-group has-error");
+            
+
+            } else {
+
+                $("#ChangePasswordFormGroup").attr("class", "form-group has-success");
+                //ajax change password
+                $('#editdForm').attr('action', "/admin/Configurations/EmailAccountChangePassword").submit();
+               
+                
+
+            }
+
+        });
+
+
+        $("#SendEmailToBtn").click(function () {
+            //  alert($("#SendEmailTo").val());
+
+            var valueToTest = $("#SendEmailTo").val();
+            if ($("#SendEmailTo").val() <= 0) {
+
+                $("#SendEmailFormGroup").attr("class", "form-group has-error");
+
+
+            } else {
+                //check if email is valid
+                $("#SendEmailFormGroup").attr("class", "form-group has-success");
+                //ajax send test email
+                $('#editdForm').attr('action', "/admin/Configurations/TestEmailAccount").submit();
+
+            }
+
+        });
+    </script>
 
 }

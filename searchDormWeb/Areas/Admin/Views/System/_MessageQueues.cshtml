@@ -121,106 +121,14 @@
                                     <th>@Localizer["From"]</th>
                                     <th>@Localizer["To"]</th>
                                     <th>@Localizer["Created on"]</th>
-                                    <th>@Localizer["Planned date of sending"]</th>
+                                    <th>@Localizer["Is Sent"]</th>
                                     <th>@Localizer["Sent on"]</th>
                                     <th>@Localizer["Message priority"]</th>
                                     <th>@Localizer["Edit"]</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>432</td>
-                                    <td>Booking confirmation</td>
-                                    <td>noreply@dormitories.emu.com.tr</td>
-                                    <td>msjahun@live.com</td>
-                                    <td>6/12/15 10:00AM</td>
-                                    <td></td>
-                                    <td>6/12/15 10:00AM</td>
-                                    <td>High</td>
-                                    <td> <a asp-action="MessageQueueEdit" asp-controller="System" asp-area="Admin" class="btn btn-default"> <i class="fa fa-pencil"></i> Edit</a></td>
-                                </tr>
-
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>432</td>
-                                    <td>Booking Cancellation</td>
-                                    <td>noreply@dormitories.emu.com.tr</td>
-                                    <td>msjahun@live.com</td>
-                                    <td>6/12/15 10:00AM</td>
-                                    <td></td>
-                                    <td>6/12/15 10:00AM</td>
-                                    <td>High</td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                                </tr>
-
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>432</td>
-                                    <td>Booking confirmation</td>
-                                    <td>noreply@dormitories.emu.com.tr</td>
-                                    <td>msjahun@live.com</td>
-                                    <td>6/12/15 10:00AM</td>
-                                    <td>6/12/15 10:00AM</td>
-
-                                    <td>6/12/15 10:00AM</td>
-                                    <td>High</td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                                </tr>
-
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>432</td>
-                                    <td>Booking confirmation</td>
-                                    <td>noreply@dormitories.emu.com.tr</td>
-                                    <td>msjahun@live.com</td>
-                                    <td>6/12/15 10:00AM</td>
-                                    <td></td>
-                                    <td>6/12/15 10:00AM</td>
-                                    <td>High</td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                                </tr>
-
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>432</td>
-                                    <td>Booking confirmation</td>
-                                    <td>noreply@dormitories.emu.com.tr</td>
-                                    <td>msjahun@live.com</td>
-                                    <td>6/12/15 10:00AM</td>
-                                    <td></td>
-                                    <td>6/12/15 10:00AM</td>
-                                    <td>High</td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                                </tr>
-
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>432</td>
-                                    <td>Booking confirmation</td>
-                                    <td>noreply@dormitories.emu.com.tr</td>
-                                    <td>msjahun@live.com</td>
-                                    <td>6/12/15 10:00AM</td>
-                                    <td></td>
-                                    <td>6/12/15 10:00AM</td>
-                                    <td>High</td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                                </tr>
-
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>432</td>
-                                    <td>Booking confirmation</td>
-                                    <td>noreply@dormitories.emu.com.tr</td>
-                                    <td>msjahun@live.com</td>
-                                    <td>6/12/15 10:00AM</td>
-                                    <td></td>
-                                    <td>6/12/15 10:00AM</td>
-                                    <td>High</td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-                                </tr>
-
-                            </tbody>
+                            
+                            
 
                         </table>
                     </div>
@@ -330,12 +238,19 @@
                     {"data": "subject" },
                     {"data": "from" },
                     {"data": "to" },
-                    {"data": "createdOn" },
-                    {"data": "plannedDateOfSending" },
-                    {"data": "sendOn" },
+                    { "data": "createdOn" },
+                    {
+                        "render": function (data, type, full, meta) {
+                            if (full.isSent == true)
+                                return '<i class="fa fa-check" style="color:green" aria-hidden="true"></i>';
+                            else
+                                return '<i class="fa fa-times" style="color:red" aria-hidden="true"></i>';
+                        }
+                    },
+                    {"data": "sentOn" },
                     {"data": "messagePriority" },
                     {"render": function (data, type, full, meta) {
-                        return '<a class="btn btn-primary" href="/Admin/System/MessageQueueEdit"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>'; }
+                        return '<a class="btn btn-primary" href="/Admin/System/MessageQueueEdit?Id='+full.id+'"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>'; }
                     }
 
 

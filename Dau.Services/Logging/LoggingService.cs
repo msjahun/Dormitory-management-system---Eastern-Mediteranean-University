@@ -55,6 +55,10 @@ namespace Dau.Services.Logging
             return true;
         }
 
+        public object GetEventLogs()
+        {
+            throw new NotImplementedException();
+        }
     }
 
    

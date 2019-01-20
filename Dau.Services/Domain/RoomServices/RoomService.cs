@@ -58,7 +58,7 @@ namespace Dau.Services.Domain.RoomServices
         public int GetNumberOfRoomsWithLowQuota()
         {
             var roomswithLowQuota = from room in _roomRepo.List().ToList()
-                                    where room.NoRoomQuota < 5
+                                    where room.NoRoomQuota <= 5
                                     select room;
 
             return roomswithLowQuota.Where(c => _userRolesService.RoleAccessResolver().Contains(c.DormitoryId)).ToList().Count;
@@ -458,6 +458,35 @@ namespace Dau.Services.Domain.RoomServices
                 return model;
             
         }
+
+
+        public List<LowQuotaReportTable>  GetRoomsWithLowQuota()
+        {
+
+
+                var CurrentLanguageId = _languageService.GetCurrentLanguageId();
+
+
+
+            var rooms = from room in _roomRepo.List().ToList()
+                        join roomTrans in _roomTransRepo.List().ToList() on room.Id equals roomTrans.RoomNonTransId
+                        where roomTrans.LanguageId == CurrentLanguageId && room.NoRoomQuota <= 5
+                        select new LowQuotaReportTable
+                        {
+                            RoomName = roomTrans.RoomName,
+                            RoomRemainingQuota = room.NoRoomQuota.ToString(),
+                            Id = room.Id,
+                            Dormitory = _dormitoryTransRepo.List().Where(c => c.LanguageId == CurrentLanguageId && c.DormitoryNonTransId == room.DormitoryId).FirstOrDefault().DormitoryName,
+                            Published = room.Published,
+                            DormitoryId = room.DormitoryId
+                        };
+
+
+
+            var model = rooms.Where(c => _userRolesService.RoleAccessResolver().Contains(c.DormitoryId)).ToList();
+                return model;
+            
+        }
     }
 
     public class RoomsListTable
@@ -675,6 +704,16 @@ namespace Dau.Services.Domain.RoomServices
 
     }
 
+    public class LowQuotaReportTable
+    {
+        public long Id { get; set; }
+        public string Dormitory { get; set; }
+        public string RoomName { get; set; }
+        public string RoomRemainingQuota { get; set; }
+        public bool Published { get; set; }
+        public long DormitoryId { get; internal set; }
+        //public string Edit { get; set; }
+    }
 
     public class DormitoryRoomsTable
     {

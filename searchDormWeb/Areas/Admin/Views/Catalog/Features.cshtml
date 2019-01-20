@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = Localizer["Facilities"];
+    ViewData["Title"] = Localizer["Features"];
     Layout = "../shared/_LayoutAdmin.cshtml";
 }
 
@@ -10,13 +10,13 @@
     <section class="content-header">
         <h1>
             @ViewBag.Title
-         
+
         </h1>
         <div class="row">
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <a asp-action="FacilityAdd" asp-controller="Catalog" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-plus-square"></i> @Localizer["Add new"]</a>
+                    <a asp-action="FeaturesAdd" asp-controller="Catalog" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-plus-square"></i> @Localizer["Add new"]</a>
                 </div>
             </div>
         </div>
@@ -31,7 +31,7 @@
         -------------------------->
 
         <div class="col-md-12">
-          
+
 
             <div class="box box-solid">
 
@@ -42,19 +42,26 @@
                         <table id="FacilitiesTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>@Localizer["Name"]</th>
+                                    <th>@Localizer["Id"]</th>
+                                    <th>@Localizer["Filter Image"]</th>
+
+                                    <th>@Localizer["Feature Name"]</th>
+                                    <th>@Localizer["Feature Category"]</th>
+                                    <th>@Localizer["Allow Filtering"]</th>
+                                    <th>@Localizer["Is published"]</th>
+                                    <th>@Localizer["Search Count"]</th>
                                     <th>@Localizer["Display order"]</th>
                                     <th>@Localizer["Edit"]</th>
                                 </tr>
                             </thead>
-                          
+
 
                         </table>
 
-                        </div>
                     </div>
-                    <!-- /.box-body -->
                 </div>
+                <!-- /.box-body -->
+            </div>
             <!-- /.box -->
 
         </div>
@@ -84,7 +91,7 @@
 
 
 @section scripts
-{
+    {
 
     <script src="@Url.Content("~/Content/")bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap 3.3.7 -->
@@ -103,7 +110,7 @@
     <!-- page script -->
     <script>
         $(function () {
-           
+
             $('#FacilitiesTable').on('processing.dt', function (e, settings, processing) {
                 if (processing) {
                     Pace.start();
@@ -126,7 +133,7 @@
                 "filter": true, // this is for disable filter (search box)
                 "orderMulti": true, // for disable multiple column at once
                 "ajax": {
-                    "url": "/Admin/Catalog/Facilities",
+                    "url": "/Admin/Catalog/Features",
                     "type": "POST",
                     "data": function (d) {
                         d.myKey = "myValue";
@@ -138,14 +145,40 @@
                 },
                 "columns": [
 
-                    
-                    { "data": "name" },
-                    { "data": "displayOrder" },
 
-                    
+                    { "data": "id" },
                     {
                         "render": function (data, type, full, meta) {
-                            return '<a class="btn btn-primary" href="/Admin/Catalog/FacilityEdit"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>';
+                            return '<img src="' + full.imageUrl+'" height=70;/>';
+                        }
+                    },
+                    { "data": "featureName" },
+                    { "data": "featureCategory" },
+                   
+                    {
+                        "render": function (data, type, full, meta) {
+                            if (full.allowFiltering == true)
+                                return '<i class="fa fa-check" style="color:green;" aria-hidden="true"></i>';
+                            else
+                                return '<i class="fa fa-times"  style="color:#ff0000" aria-hidden="true"></i>';
+                        }
+                    },
+
+                    {
+                        "render": function (data, type, full, meta) {
+                            if (full.published== true)
+                                return '<i class="fa fa-check" style="color:green;" aria-hidden="true"></i>';
+                            else
+                                return '<i class="fa fa-times"  style="color:#ff0000" aria-hidden="true"></i>';
+                        }
+                    },
+                    { "data": "searchCount" },
+                    { "data": "displayOrder" },
+
+
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<a class="btn btn-primary" href="/Admin/Catalog/FeaturesEdit/?id='+full.id+'"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>';
                         }
                     }
 

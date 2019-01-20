@@ -100,19 +100,21 @@ namespace searchDormWeb.Areas.Admin.Controllers
                                          });
                      }
 
-              
+
                 // getting all Discount data  
-                var Data = model.Select(c => new {
-                    c.User.FirstName,
-                    c.User.LastActivityDateUtc,
-                    c.User.CreatedOnUtc,
-                    c.User.Email,
-                    c.User.LastName,
-                    c.User.PhoneNumber,
-                    c.User.Active,
-                    c.User.Id,
-                    c.userRoles
-                }).ToList();
+                var mData = from userInfo in model.ToList()
+                           select new
+                           {
+                               userInfo.User.FirstName,
+                               LastActivityDateUtc= userInfo.User.LastActivityDateUtc.ToString(),
+                               CreatedOnUtc=userInfo.User.CreatedOnUtc.ToString(),
+                               userInfo.User.Email,
+                               userInfo.User.LastName,
+                               userInfo.User.PhoneNumber,
+                               userInfo.User.Active,
+                               userInfo.User.Id,
+                               userInfo.userRoles};
+                var Data = mData.ToList();
 
                 ////Sorting  
                 //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))

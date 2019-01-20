@@ -10,5 +10,6 @@ namespace Dau.Services.Logging
         bool DeleteLogById(int Id);
         Log GetLogById(int Id);
         IOrderedEnumerable<Log> GetLogs();
+        object GetEventLogs();
     }
 }

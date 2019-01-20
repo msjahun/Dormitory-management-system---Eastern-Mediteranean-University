@@ -41,71 +41,17 @@
                         <table id="LowQuotaReportTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
+
+                                    <th>@Localizer["Id"]</th>
                                     <th>@Localizer["Room name"]</th>
+                                    <th>@Localizer["Dormitory"]</th>
                                     <th>@Localizer["Room remaining quota"]</th>
-                                    <th>@Localizer["Room last set quota"]</th>
+
                                     <th>@Localizer["Published"]</th>
                                     <th>@Localizer["Edit"]</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Alfam B block</td>
-                                    <td>2</td>
-                                    <td>40</td>
-                                    <td><i class="fa fa-check"></i></td>
-                                    <td> <a asp-action="RoomEdit" asp-controller="Catalog" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</a></td>
-
-                                </tr>
-                                <tr>
-                                    <td>Alfam B block</td>
-                                    <td>2</td>
-                                    <td>40</td>
-                                    <td><i class="fa fa-check"></i></td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-
-                                </tr>
-                                <tr>
-                                    <td>Alfam B block</td>
-                                    <td>2</td>
-                                    <td>40</td>
-                                    <td><i class="fa fa-check"></i></td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-
-                                </tr>
-                                <tr>
-                                    <td>Alfam B block</td>
-                                    <td>2</td>
-                                    <td>40</td>
-                                    <td><i class="fa fa-check"></i></td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-
-                                </tr>
-                                <tr>
-                                    <td>Alfam B block</td>
-                                    <td>2</td>
-                                    <td>40</td>
-                                    <td><i class="fa fa-check"></i></td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-
-                                </tr>
-                                <tr>
-                                    <td>Alfam B block</td>
-                                    <td>2</td>
-                                    <td>40</td>
-                                    <td><i class="fa fa-check"></i></td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-
-                                </tr>
-                                <tr>
-                                    <td>Alfam B block</td>
-                                    <td>2</td>
-                                    <td>40</td>
-                                    <td><i class="fa fa-check"></i></td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</button></td>
-
-                                </tr>
-                            </tbody>
+                            
 
                         </table>
 
@@ -197,23 +143,25 @@
                 "columns": [
 
                   
+                    { "data": "id" },
                     { "data": "roomName" },
+                    { "data": "dormitory" },
                     { "data": "roomRemainingQuota" },
-                    { "data": "roomLastSetQuota" },
+              
                     
                     {
                         "render": function (data, type, full, meta) {
                             if (full.published == true)
-                                return '<i class="fa fa-check" aria-hidden="true"></i>';
+                                return '<i class="fa fa-check" style="color:green" aria-hidden="true"></i>';
                             else
-                                return '<i class="fa fa-times" aria-hidden="true"></i>';
+                                return '<i class="fa fa-times" style="color:red;" aria-hidden="true"></i>';
 
                         }
                     },
                    
                     {
                         "render": function (data, type, full, meta) {
-                            return '<a class="btn btn-primary" href="/Admin/Catalog/RoomEdit"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>';
+                            return '<a class="btn btn-primary" href="/Admin/Catalog/RoomEdit/?id='+full.id+'"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>';
                         }
                     }
 

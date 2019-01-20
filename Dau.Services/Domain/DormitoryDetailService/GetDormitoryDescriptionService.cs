@@ -3,6 +3,7 @@ using Dau.Data.Repository;
 using Dau.Services.Domain.DropdownServices;
 using Dau.Services.Domain.ReviewsServices;
 using Dau.Services.Languages;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace Dau.Services.Domain.DormitoryDetailService
         private readonly IRepository<DormitoryTranslation> _dormitoryTransRepo;
         private readonly IReviewService _reviewService;
         private readonly IRepository<Review> _reviewRepo;
+        private readonly IStringLocalizer _Localizer;
 
         public GetDormitoryDescriptionService(
              ILanguageService languageService,
@@ -25,7 +27,8 @@ namespace Dau.Services.Domain.DormitoryDetailService
             IRepository<DormitoryTranslation> dormitoryTransRepo,
             IDropdownService dropdownService,
             IReviewService reviewService,
-            IRepository<Review> reviewRepo
+            IRepository<Review> reviewRepo,
+            IStringLocalizer stringLocalizer
             )
         {
             _dropdownService = dropdownService;
@@ -34,6 +37,7 @@ namespace Dau.Services.Domain.DormitoryDetailService
             _dormitoryTransRepo = dormitoryTransRepo;
             _reviewService = reviewService;
             _reviewRepo = reviewRepo;
+            _Localizer = stringLocalizer;
         }
 
         public DormitoryDescriptionSectionViewModel GetDormitoryDescription(long DormitoryId)
@@ -44,9 +48,12 @@ namespace Dau.Services.Domain.DormitoryDetailService
                             join dormTrans in _dormitoryTransRepo.List().ToList() on dorm.Id equals dormTrans.DormitoryNonTransId
                             where dorm.Id == DormitoryId && dormTrans.LanguageId == CurrentLanguageId
                             select new DormitoryDescriptionSectionViewModel
-                            {RatingNo = dorm.RatingNo.ToString("N1"),
-                                RatingText = _reviewService.ResolveRatingText(dorm.RatingNo),
-                             
+                            {
+                                
+                                RatingNoRaw = dorm.RatingNo,
+                                RatingNo = (_reviewRepo.List().Where(c => c.DormitoryId == dorm.Id).ToList().Count <= 0) ? _Localizer[ "N.A"] : dorm.RatingNo.ToString("N1"),
+                            
+                                RatingText = (_reviewRepo.List().Where(c => c.DormitoryId == dorm.Id).ToList().Count <= 0) ? _Localizer["Unrated"] : _reviewService.ResolveRatingText(dorm.RatingNo),
                                 ReviewNo = _reviewRepo.List().Where(c => c.DormitoryId == dorm.Id).ToList().Count,
                                 Location =  _dropdownService.ResolveDropdown(dorm.LocationOnCampus,_dropdownService.LocationOnCampus()),
                                 NoOfStudents = dorm.NoOfStudents,
@@ -82,7 +89,7 @@ namespace Dau.Services.Domain.DormitoryDetailService
         public string NoOfNewFacilities { get; set; }
         public string NoOfStaff { get; set; }
         public string NoOfAwards { get; set; }
-
+        public double RatingNoRaw { get; internal set; }
     }
 
 }

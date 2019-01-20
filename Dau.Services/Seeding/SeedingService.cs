@@ -1,6 +1,7 @@
 ﻿using Dau.Core.Domain.Bookings;
 using Dau.Core.Domain.Catalog;
 using Dau.Core.Domain.ContentManagement;
+using Dau.Core.Domain.EmailAccountInformation;
 using Dau.Core.Domain.EmuMap;
 using Dau.Core.Domain.Feature;
 using Dau.Core.Domain.LocationInformations;
@@ -41,6 +42,7 @@ namespace Dau.Services.Seeding
         private readonly IRepository<Booking> _bookingRepository;
         private readonly IRepository<PaymentStatus> _paymentStatusRepository;
         private readonly IRepository<BookingStatus> _bookingStatusRepository;
+        private readonly IRepository<EmailAccount> _emailAccountRepo;
         private readonly IMessageTemplateService _messageTemplateService;
         private readonly IRepository<MessageTemplateTranslation> _messageTemplateTransRepo;
         private readonly IRepository<MessageTemplate> _messageTemplateRepo;
@@ -71,9 +73,11 @@ namespace Dau.Services.Seeding
             IRepository<MessageTemplate> messageTemplateRepo,
             IRepository<MessageTemplateTranslation> messageTemplateTransRepo,
             IMessageTemplateService messageTemplateService,
-          IEventService eventService
+          IEventService eventService,
+          IRepository<EmailAccount> emailAccountRepo
             )
         {
+            _emailAccountRepo = emailAccountRepo;
             _messageTemplateService = messageTemplateService;
             _messageTemplateTransRepo = messageTemplateTransRepo;
             _messageTemplateRepo = messageTemplateRepo;
@@ -879,13 +883,21 @@ namespace Dau.Services.Seeding
 
         public void SeedSampleEmail()
         {
-            var ClientEmail = "msjahun@live.com";
-            var ClientPassword = "abmubasa1994";
-            var ClientPort = 587;
-            var UseDefaultCredentials = false;
-            var EnableSSl = true;
-            var SmtpServer = "smtp-mail.outlook.com";
 
+            var DefaultEmail = (from EmailAccount in _emailAccountRepo.List().ToList()
+                                where EmailAccount.IsDefault == true
+                                select EmailAccount).FirstOrDefault();
+      
+
+
+            var ClientEmail = DefaultEmail.EmailAddress;
+            var ClientPassword = DefaultEmail.Password;
+            var ClientPort = DefaultEmail.Port;
+            var UseDefaultCredentials = DefaultEmail.UseDefaultCredentials;
+            var EnableSSl = DefaultEmail.SSL;
+            var SmtpServer = DefaultEmail.Host;
+
+      
 
 
 

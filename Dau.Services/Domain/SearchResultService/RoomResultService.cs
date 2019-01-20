@@ -10,6 +10,7 @@ using Dau.Services.Domain.LocationServices;
 using Dau.Services.Domain.MapServices;
 using Dau.Services.Domain.ReviewsServices;
 using Dau.Services.Languages;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,7 @@ namespace Dau.Services.Domain.SearchResultService
         private readonly IRepository<SemesterPeriod> _SemesterPeriodRepo;
         private readonly IRepository<SemesterPeriodTranslation> _semesterPeriodTransRepo;
         private IRepository<DormitoryType> _dormitoryTypeRepo;
+        private readonly IStringLocalizer _Localizer;
         private readonly IReviewService _reviewService;
         private readonly ILocationService _locationService;
         private readonly IRepository<Seo> _seoRepo;
@@ -72,10 +74,13 @@ namespace Dau.Services.Domain.SearchResultService
             IDropdownService dropdownService,
             ILocationService locationService,
               IReviewService reviewService,
-            IRepository<FeaturesTranslation> featuresTranslation
+            IRepository<FeaturesTranslation> featuresTranslation,
+            IStringLocalizer stringLocalizer
 
             )
         {
+
+            _Localizer = stringLocalizer;
             _reviewService = reviewService;
             _locationService = locationService;
             _seoRepo = seoRepository;
@@ -289,9 +294,11 @@ namespace Dau.Services.Domain.SearchResultService
                                     GenderAllocation = room.GenderAllocation,
                                     DormitoryName = dorm.DormitoryName,
                                     DormitoryRoomBlock = room.DormitoryBlockName,
-                                    RatingNo = dorm.RatingNo,
+                                    RatingNo = (dorm.ReviewNo<=0) ? _Localizer["N.A"]:dorm.RatingNo,
+                                    RatingNoRaw = dorm.RatingNo,
+                                    RatingText = (dorm.ReviewNo <= 0) ? _Localizer["Unrated"] : dorm.RatingText,
                                     DormitorySeoFriendlyUrl = dorm.DormitorySeoFriendlyUrl,
-                                    RatingText = dorm.RatingText,
+                                  
                                     RoomName = room.RoomName,
                                     ReviewNo = dorm.ReviewNo,
                                     SortingPrice=room.Price,
@@ -396,9 +403,7 @@ public double SortingPrice { get; set; }
         public string Price { get; set; }
         public string OldPrice { get; set; }
         public bool PaymentPerSemesterNotYear { get; set; }
-
-
-
+        public string RatingNoRaw { get; internal set; }
     }
     public class FeaturesViewModel
     {

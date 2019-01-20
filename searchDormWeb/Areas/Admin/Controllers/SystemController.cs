@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dau.Core.Domain.Logging;
+using Dau.Services.Domain.DormitoryServices;
+using Dau.Services.Email;
+using Dau.Services.Event;
 using Dau.Services.Logging;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using searchDormWeb.Areas.Admin.Models.System;
+using static Dau.Services.Email.MessageQueueService;
 
 namespace searchDormWeb.Areas.Admin.Controllers
 {
@@ -17,13 +21,23 @@ namespace searchDormWeb.Areas.Admin.Controllers
     [Authorize]
     public class SystemController : Controller
     {
+        private readonly IEventService _eventService;
+        private readonly IDormitoryService _dormitoryService;
         private readonly ILoggingService _loggingService;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IMessageQueueService _messageQueueService;
 
-        public SystemController(ILoggingService loggingService, IHttpContextAccessor httpContextAccessor)
+        public SystemController(ILoggingService loggingService,
+            IHttpContextAccessor httpContextAccessor,
+            IMessageQueueService messageQueueService,
+            IDormitoryService dormitoryService,
+            IEventService eventService)
         {
+            _eventService = eventService;
+            _dormitoryService = dormitoryService;
             _loggingService = loggingService;
             _httpContextAccessor = httpContextAccessor;
+            _messageQueueService = messageQueueService;
         }
 
         // GET: System
@@ -82,23 +96,23 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
 
-                var newList = _loggingService.GetLogs();
-                var List = new List<LogTable>();
-                foreach (var item in newList)
-                {
-                    List.Add(new LogTable
-                    {
-                       ShortMessage = new string(item.Message.Take(120).ToArray()),
-                       LogLevel = item.LogLevel,
-                       CreatedOn = item.CreatedTime,
-                       Id = item.Id,
-                       EventId = item.EventId
+                var newList = _eventService.GetAllEvents(); 
+                //var List = new List<LogTable>();
+                //foreach (var item in newList)
+                //{
+                //    List.Add(new LogTable
+                //    {
+                //       ShortMessage = new string(item.Message.Take(120).ToArray()),
+                //       LogLevel = item.LogLevel,
+                //       CreatedOn = item.CreatedTime,
+                //       Id = item.Id,
+                //       EventId = item.EventId
 
-                    });
+                //    });
 
-                }
+                //}
                 // getting all Discount data  
-                var Data = List;
+                var Data = newList;
                 // getting all Discount data  
              
                 ////Sorting  
@@ -249,7 +263,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
                 // getting all Discount data  
-                var Data = new List<int>();
+                var Data = _messageQueueService.messageQueueListTable();
 
                 ////Sorting  
                 //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
@@ -281,11 +295,45 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
         [HttpGet("[action]")]
-        public IActionResult MessageQueueEdit()
+        public IActionResult MessageQueueEdit(long Id)
         {
-            return View("_MessageQueueEdit");
+           var model= _messageQueueService.GetMessageQueueById(Id);
+            if(model==null)
+                return RedirectToAction("MessageQueues", "System");
+            return View("_MessageQueueEdit", model);
         }
 
+
+        [HttpPost("[action]")]
+        public IActionResult RequeueMessage(MessageQueueEdit vm)
+        {
+            bool success = _messageQueueService.RequeueMessage(vm);
+            var model = _messageQueueService.GetMessageQueueById(vm.Id);
+
+            return View("_MessageQueueEdit", model);
+        }
+
+
+
+        [HttpPost("[action]")]
+        public IActionResult MessageQueueEdit(MessageQueueEdit vm)
+        {
+            bool success = _messageQueueService.UpdateMessageQueue(vm);
+            var model = _messageQueueService.GetMessageQueueById(vm.Id);
+               
+            return View("_MessageQueueEdit", model);
+        }
+
+
+
+        [HttpPost("[action]")]
+        public IActionResult DeleteMessageFromQueue(MessageQueueEdit vm)
+        {
+            bool success = _messageQueueService.DeleteMessageFromQueue(vm);
+     
+                return RedirectToAction("MessageQueues", "System");
+           
+        }
         #endregion
 
 
@@ -377,7 +425,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
                 // getting all Discount data  
-                var Data = new List<int>();
+                var Data = _dormitoryService.GetSEOFriendlyPageNamesTable();
 
                 ////Sorting  
                 //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
@@ -427,17 +475,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
         public string Restore { get; set; }
         public string Delete { get; set; }
     }
-    public class MessageQueueTable {
-        public string Id { get; set; }
-        public string Subject { get; set; }
-        public string From { get; set; }
-        public string To { get; set; }
-        public string CreatedOn { get; set; }
-        public string PlannedDateOfSending { get; set; }
-        public string SentOn { get; set; }
-        public string MessagePriority { get; set; }
-        public string Edit { get; set; }
-    }
+
     public class ScheduleTasksTable {
         public string Name { get; set; }
         public string RunPeriod { get; set; }
@@ -448,16 +486,8 @@ namespace searchDormWeb.Areas.Admin.Controllers
         public string RunNow { get; set; }
         public string Edit { get; set; }
     }
-    public class SEOFriendlyPageNamesTable {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public string EntityId { get; set; }
-        public string EntityName { get; set; }
-        public string IsActive { get; set; }
-        public string Language { get; set; }
-        public string EditPage { get; set; }
-    }
+ 
 
-   
+
 
 }

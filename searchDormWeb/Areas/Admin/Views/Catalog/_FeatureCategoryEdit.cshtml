@@ -1,7 +1,7 @@
-﻿@using searchDormWeb.Areas.Admin.Models.Catalog
-@model FacilityEdit
+﻿@using Dau.Services.Domain.FeaturesServices
+@model FeaturesCategoryCrud
 @{
-    ViewData["Title"] = Localizer["Edit facility"];
+    ViewData["Title"] = Localizer["Edit Feature Category"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
 }
 
@@ -11,7 +11,7 @@
     <section class="content-header">
         <h1>
             @ViewData["Title"]
-            <small><a asp-action="Facilities" asp-controller="Catalog"><i class="fa fa-arrow-circle-left"></i> @Localizer["back to Facilities list"]</a></small>
+            <small><a asp-action="FeaturesCategory" asp-controller="Catalog"><i class="fa fa-arrow-circle-left"></i> @Localizer["back to Feature Category list"]</a></small>
         </h1>
         <div class="row">
             <div class=" col-md-12">
@@ -37,8 +37,8 @@
             <!-- Horizontal Form -->
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#tab_3" data-toggle="tab" aria-expanded="true">@Localizer["Attribute info"]</a></li>
-                    <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">@Localizer["Options"]</a></li>
+                    <li class="active"><a href="#tab_3" data-toggle="tab" aria-expanded="true">@Localizer["Feature Category info"]</a></li>
+                   
 
                 </ul>
                 <div class="tab-content">
@@ -52,31 +52,26 @@
                                 <form class="form-horizontal">
 
                                     <dau-tabs id="LanguageTab">
-                                        <dau-tab id="tab1" name="Standard" active="true">
+                                        
+                                        <dau-tab id="tab2" active="true" name="English" flag="@Url.Content("~/Content/")dist/img/us.png">
 
                                             <div class="form-group">
                                                 <dau-label asp-for="localizedFacilityContent[0].Name"></dau-label>
-                                                <dau-input asp-for="localizedFacilityContent[0].Name" type="text" ></dau-input>
+                                                <dau-input asp-for="localizedFacilityContent[0].Name" type="text"></dau-input>
                                                 <span asp-validation-for="localizedFacilityContent[0].Name"></span>
-                                            </div>
-
-                                        </dau-tab>
-                                        <dau-tab id="tab2" name="English" flag="@Url.Content("~/Content/")dist/img/us.png">
-
-                                            <div class="form-group">
-                                                <dau-label asp-for="localizedFacilityContent[1].Name"></dau-label>
-                                                <dau-input asp-for="localizedFacilityContent[1].Name" type="text" ></dau-input>
-                                                <span asp-validation-for="localizedFacilityContent[1].Name"></span>
                                             </div>
 
 
                                         </dau-tab>
                                         <dau-tab id="tab3" name="Turkish" flag="@Url.Content("~/Content/")dist/img/tr.png">
+
                                             <div class="form-group">
-                                                <dau-label asp-for="localizedFacilityContent[2].Name"></dau-label>
-                                                <dau-input asp-for="localizedFacilityContent[2].Name" type="text" ></dau-input>
-                                                <span asp-validation-for="localizedFacilityContent[2].Name"></span>
+                                                <dau-label asp-for="localizedFacilityContent[1].Name"></dau-label>
+                                                <dau-input asp-for="localizedFacilityContent[1].Name" type="text"></dau-input>
+                                                <span asp-validation-for="localizedFacilityContent[1].Name"></span>
                                             </div>
+
+                                      
 
                                         </dau-tab>
                                     </dau-tabs>

@@ -83,17 +83,13 @@ section
     display: block;
 }
 
-body
-{
+body {
     font-family: 'Nunito', sans-serif;
-    font-size: 1rem;
+    font-size: .8rem;
     font-weight: 400;
     line-height: 1.7;
-
     margin: 0;
-
     text-align: left;
-
     color: #6c7686;
     background-color: #fff;
 }

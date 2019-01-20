@@ -1,4 +1,5 @@
-﻿using Dau.Core.Domain.Feature;
+﻿using Dau.Core.Domain.Catalog;
+using Dau.Core.Domain.Feature;
 using Dau.Data.Repository;
 using Dau.Services.Languages;
 using System;
@@ -10,8 +11,8 @@ namespace Dau.Services.Domain.SearchResultService
 {
   public  class FilterBottomService : IFilterBottomService
     {
-        private readonly IRepository<FeaturesCategory> _featuresCategoryRepo;
-        private readonly IRepository<Features> _featuresRepo;
+       
+        private readonly IRepository<RoomFeatures> _roomFeaturesRepo;
         private readonly ILanguageService _languageService;
         private readonly IRepository<Features> _Featuresrepository;
         private readonly IRepository<FeaturesTranslation> _FeaturesTranslationRepo;
@@ -20,10 +21,12 @@ namespace Dau.Services.Domain.SearchResultService
 
         public FilterBottomService(IRepository<FeaturesCategory> FeatureCategoryrepository,
             IRepository<FeaturesCategoryTranslation> FeaturesCategoryTranslationRepo,
+            IRepository<RoomFeatures> roomFeaturesRepo,
              IRepository<Features> Featuresrepository,
              ILanguageService languageService,
              IRepository<FeaturesTranslation> FeaturesTranslationRepo)
         {
+            _roomFeaturesRepo = roomFeaturesRepo;
             _languageService =languageService;
             _Featuresrepository = Featuresrepository;
             _FeaturesTranslationRepo = FeaturesTranslationRepo;
@@ -44,7 +47,8 @@ namespace Dau.Services.Domain.SearchResultService
 
             var FeaturesJoined = from F in _Featuresrepository.List().ToList()
                                  join FTrans in _FeaturesTranslationRepo.List().ToList() on F.Id equals FTrans.FeaturesNonTransId
-                                 where FTrans.LanguageId == CurrentLanguageId
+                                 where FTrans.LanguageId == CurrentLanguageId && F.IsPublished==true && F.AllowFiltering
+                                 orderby F.DisplayOrder ascending
                                  select new { FTrans.FeatureName, FeatureId = F.Id, FeaturesCategoryId = F.FeaturesCategory.Id };
 
 
@@ -53,8 +57,12 @@ namespace Dau.Services.Domain.SearchResultService
                                 select new { FC.FeatureCategoryName, FC.FeatureCategoryId, F.FeatureName, F.FeatureId };
 
             var modelList = from p in CombinedQuery
-                          group new FacilityOptions { OptionId = p.FeatureId, OptionName = p.FeatureName, OptionCount = 32 } by new { p.FeatureCategoryId, p.FeatureCategoryName } into g
-                          select new FiltersFacilityViewModel { FacilityName = g.Key.FeatureCategoryName, FacilityOptions = g.ToList() };
+                          group new FacilityOptions { OptionId = p.FeatureId, OptionName = p.FeatureName, OptionCount =_roomFeaturesRepo.List().Where(c=> c.FeaturesId==p.FeatureId).Count()} by new {
+                              p.FeatureCategoryId,
+                              p.FeatureCategoryName ,
+                              FeaturesInCategoryCount = _Featuresrepository.List().Where(c=>c.FeaturesCategoryId==p.FeatureCategoryId && c.IsPublished==true && c.AllowFiltering==true).Count()
+                          } into g
+                          select new FiltersFacilityViewModel { FacilityName = g.Key.FeatureCategoryName, FeaturesInCategoryCount=g.Key.FeaturesInCategoryCount, FacilityOptions = g.ToList() };
 
             return modelList;
 
@@ -65,6 +73,7 @@ namespace Dau.Services.Domain.SearchResultService
 
     public class FiltersFacilityViewModel
     {
+        public int FeaturesInCategoryCount { get; set; }
         public string FacilityName { get; set; }
         public string FacilityIconUrl { get; set; }
         public IEnumerable<FacilityOptions> FacilityOptions { get; set; }

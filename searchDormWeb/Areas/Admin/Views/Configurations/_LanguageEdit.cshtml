@@ -1,8 +1,10 @@
-﻿@using searchDormWeb.Areas.Admin.Models.Configuration
+﻿@using static Dau.Services.Languages.LanguageService;
 @model LanguageEdit
 @{
     ViewData["Title"] = Localizer["Edit Language"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+
+    var item = Model;
 }
 
 
@@ -17,11 +19,11 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save and Continue Edit"]</button>
-                    <button type="submit" form="addForm" class="btn btn-success "> <i class="fa fa-download"></i> @Localizer["Export resource"]</button>
-                    <button type="submit" form="addForm" class="btn btn-success "> <i class="fa fa-upload"></i> @Localizer["Import resource"]</button>
-                    <button type="submit" form="addForm" class="btn btn-danger "> <i class="fa fa-trash-o"></i> @Localizer["Delete"]</button>
+                    @*<button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
+                        <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save and Continue Edit"]</button>
+                        <button type="submit" form="addForm" class="btn btn-success "> <i class="fa fa-download"></i> @Localizer["Export resource"]</button>
+                        <button type="submit" form="addForm" class="btn btn-success "> <i class="fa fa-upload"></i> @Localizer["Import resource"]</button>
+                        <button type="submit" form="addForm" class="btn btn-danger "> <i class="fa fa-trash-o"></i> @Localizer["Delete"]</button>*@
                 </div>
             </div>
         </div>
@@ -39,25 +41,19 @@
             <!-- Horizontal Form -->
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#tab_3" data-toggle="tab" aria-expanded="true">@Localizer["Info"]</a></li>
-                    <li class=""><a href="#tab_1" data-toggle="tab" aria-expanded="false">@Localizer["String resource"]</a></li>
+
+                    <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="false">@Localizer["Info & String resource"]</a></li>
 
                 </ul>
                 <div class="tab-content">
                     <!-- /.tab-pane -->
-
-
-
-
-
-
-                    <div class="tab-pane active" id="tab_3">
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane active" id="tab_1">
 
                         <div class="box ">
                             <div class="box-header"></div>
                             <!-- /.box-header -->
                             <!-- form start -->
-
                             <div class="box-body">
                                 <form class="form-horizontal">
 
@@ -66,8 +62,9 @@
                                     <div class="form-group">
 
                                         <dau-label asp-for="Name"></dau-label>
-                                        <dau-input asp-for="Name" type="text"></dau-input>
-                                        <span asp-validation-for="Name"></span>
+                                        <div class="col-sm-9">
+                                            <p>@item.Name</p>
+                                        </div>
 
                                     </div>
 
@@ -75,97 +72,26 @@
                                     <div class="form-group">
 
                                         <dau-label asp-for="LanguageCulture"></dau-label>
-                                        <dau-select asp-for="LanguageCulture"></dau-select>
-                                        <span asp-validation-for="LanguageCulture"></span>
-
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <dau-label asp-for="UniqueSeoCode"></dau-label>
-                                        <dau-input asp-for="UniqueSeoCode" type="text"></dau-input>
-                                        <span asp-validation-for="UniqueSeoCode"></span>
-
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <dau-label asp-for="RightToLeft"></dau-label>
-                                        <div class="col-sm-8">
-                                            <input asp-for="RightToLeft" type="checkbox">
+                                        <div class="col-sm-9">
+                                            <p>@item.LanguageCulture</p>
                                         </div>
-                                        <span asp-validation-for="RightToLeft"></span>
 
                                     </div>
 
 
-                                    <div class="form-group">
-
-                                        <dau-label asp-for="DefaultCurrency"></dau-label>
-                                        <dau-select asp-for="DefaultCurrency"></dau-select>
-                                        <span asp-validation-for="DefaultCurrency"></span>
-
-                                    </div>
-
-                                    <div class="form-group">
-
-                                        <dau-label asp-for="LimitedToDormitories"></dau-label>
-                                        <dau-select multiple-select="true" asp-for="LimitedToDormitories"></dau-select>
-                                        <span asp-validation-for="LimitedToDormitories"></span>
-
-                                    </div>
-
-                                    <div class="form-group">
-                                        <dau-label asp-for="Published"></dau-label>
-                                        <div class="col-sm-8">
-                                            <input asp-for="Published" type="checkbox">
-                                        </div>
-                                        <span asp-validation-for="Published"></span>
-
-                                    </div>
 
 
-                                    <div class="form-group">
 
-                                        <dau-label asp-for="DisplayOrder"></dau-label>
-                                        <dau-input asp-for="DisplayOrder" type="number"></dau-input>
-                                        <span asp-validation-for="DisplayOrder"></span>
 
-                                    </div>
+
+
                                 </form>
                             </div>
-                            <!-- /.box-body -->
-                        </div>
-                        <!-- /.box-->
-                    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    <!-- /.tab-pane -->
-                    <div class="tab-pane" id="tab_1">
-
-                        <div class="box ">
-                            <div class="box-header"></div>
-                            <!-- /.box-header -->
-                            <!-- form start -->
-
                             <div class="box-body">
                                 <form class="form-horizontal">
                                     <div class="box-body">
                                         <div class="form-group">
-                                            
+
                                             <dau-label asp-for="resourceTab.ResourceName"></dau-label>
                                             <dau-input asp-for="resourceTab.ResourceName" type="text"></dau-input>
                                             <span asp-validation-for="resourceTab.ResourceName"></span>
@@ -173,7 +99,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                           
+
                                             <dau-label asp-for="resourceTab.Value"></dau-label>
                                             <dau-input asp-for="resourceTab.Value" type="text"></dau-input>
                                             <span asp-validation-for="resourceTab.Value"></span>
@@ -184,7 +110,7 @@
 
                                         <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-10">
-                                                <button type="submit" class="btn btn-primary btn-lg "> <i class="fa fa-search"></i> @Localizer["Search"]</button>
+                                                <button type="button" class="btn btn-primary btn-lg "> <i class="fa fa-search"></i> @Localizer["Search"]</button>
                                             </div>
                                         </div>
                                     </div>
@@ -196,16 +122,17 @@
                         </div>
                         <div class="box ">
                             <div class="box-header">
-                                <button type="submit" form="addForm" class="btn btn-default"> <i class="fa fa-plus-square"></i> @Localizer["Add resource"]</button>
+                                <button type="button" data-toggle="modal" data-target="#modal-addResources" class="btn btn-default btn-lg"> <i class="fa fa-plus-square"></i> @Localizer["Add resource"]</button>
                             </div>
                             <!-- /.box-header -->
                             <!-- form start -->
 
                             <div class="box-body">
-                                <table id="example2" class="table table-bordered table-striped">
+                                <table id="Resources" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>@Localizer["Resource name"]</th>
+                                            <th>@Localizer["Id"]</th>
+                                            <th>@Localizer["Resource Key"]</th>
                                             <th>@Localizer["Value"]</th>
                                             <th></th>
 
@@ -229,6 +156,28 @@
         </div>
     </section>
     <!-- /.content -->
+
+    <div class="modal fade" id="modal-addResources" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title">Default Modal</h4>
+                </div>
+                <div class="modal-body">
+                    <p>One fine body…</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
     <!-- /.content -->
 </div>
 
@@ -277,18 +226,59 @@
 
 
 
-
-
-            $('#example2').DataTable({
-                'paging': false,
+         
+            $('#Resources').on('processing.dt', function (e, settings, processing) {
+                if (processing) {
+                    Pace.start();
+                } else {
+                    Pace.stop();
+                }
+            }).DataTable({
+                'paging': true,
                 'lengthChange': true,
-                'searching': false,
                  "language": {
                     "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
                 },
-                'ordering': true,
+                "aLengthMenu": [[20, 3, 5], [20, 3, 5]],
+                'searching': false,
+                'ordering': false,
                 'info': true,
-                'autoWidth': true
+                'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+                    "url":"/Admin/Configurations/LanguagesResources/?LanguageId="+@item.Id,
+                     
+                    "type": "POST",
+                    "data": function (d) {
+                        d.myKey = "myValue";
+                        d.DiscountName = "myValue";
+                        d.CouponCode = "myValue";
+                        d.DiscountType = "myValue";
+                    },
+                    "datatype": "json"
+                },
+                "columns": [
+
+                
+                    {"data": "id" },
+                    {"data": "resourceName" },
+                    {"data": "resourceValue" },
+                    
+                    {"render": function (data, type, full, meta) {
+                        return '<button class="btn btn-primary"  data-toggle="modal" data-target="#modal-addResources" ><i class="fa fa-pencil"></i> @Localizer["Edit"]</button>'; }
+                    }
+                    ,
+                    {"render": function (data, type, full, meta) {
+                        return '<a class="btn btn-danger" href="/Admin/Configurations/LanguageEdit/?Id='+full.id+'"><i class="fa fa-times"></i> @Localizer["Delete"]</a>'; }
+                    }
+                    
+                    
+                ]
+
+
             })
         })
     </script>

@@ -60,12 +60,19 @@
 
             <div class="col-lg-5 col-md-5">
 
-                <h4 class="dormitory-name d-inline"><a href="@Url.Content("~/Dormitories/"+item.DormitorySeoFriendlyUrl)" target="_blank">@item.DormitoryName</a></h4> 
+                <h4 class="dormitory-name d-inline"><a href="@Url.Content("~/Dormitories/"+item.DormitorySeoFriendlyUrl)" target="_blank">@item.DormitoryName</a></h4>
                 <a href="@Url.Content("~/Dormitories/"+item.DormitorySeoFriendlyUrl)#_RoomSection" target="_blank" class="h3">@item.RoomName</a> <a data-fancybox data-type="ajax" data-src="@Url.Content("~/Dormitory/GetSpecificRoomView")/@item.RoomId" href="javascript:;"> <i class="fas fa-search-plus  text-warning"></i></a>
-                <dau-rating rating="@item.RatingNo"></dau-rating><span><i class="fa fa-thumbs-up" style="color:orange;"></i></span>
-                                                                 <span class="badge badge-secondary">@item.DormitoryRoomBlock</span><span class="badge badge-secondary">@item.GenderAllocation</span>
+                @if(item.ReviewNo>0){
+                <dau-rating rating="@item.RatingNoRaw"></dau-rating>
+                }else{
+                <dau-rating rating="0"></dau-rating>
+                }
 
-                
+
+                <span><i class="fa fa-thumbs-up" style="color:orange;"></i></span>
+                <span class="badge badge-secondary">@item.DormitoryRoomBlock</span><span class="badge badge-secondary">@item.GenderAllocation</span>
+
+
 
 
                 <div class="location-info">
@@ -94,7 +101,7 @@
                         <span class=" mt-1 facilityCol">
                             @if (feature.IconUrl != null)
                             {
-                                <img alt="Image placeholder" src="@Url.Content("~/frontend_Content/assets/img/icons")@feature.IconUrl" style="width: 20px;">
+                                <img alt="Image placeholder" src="@feature.IconUrl" style="width: 20px;">
                             }
                             @*@feature.FeatureName*@
                         </span>

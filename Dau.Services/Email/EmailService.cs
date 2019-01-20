@@ -25,32 +25,46 @@ namespace Dau.Services.Email
 
         public void SendTestEmail()
         {
-            var ClientEmail = "msjahun@live.com";
-            var ClientPassword = "abmubasa1994";
-            var ClientPort = 587;
-            var UseDefaultCredentials = false;
-            var EnableSSl = true;
-            var SmtpServer = "smtp-mail.outlook.com";
-
-          
-            
-
-            SmtpClient client = new SmtpClient(SmtpServer);
-            client.UseDefaultCredentials = UseDefaultCredentials;
-            client.EnableSsl = EnableSSl;
-            client.Port = ClientPort;
-
-            client.Credentials = new NetworkCredential(ClientEmail, ClientPassword);
-
-
+     
             using (IServiceScope scope = _provider.CreateScope())
             {
                 var _dbContext = scope.ServiceProvider.GetRequiredService<Fees_and_facilitiesContext>();
-               
-         
 
 
-            var messagesToSend = from message in _dbContext.MessageQueue.ToList()
+
+                var DefaultEmail = (from EmailAccount in _dbContext.EmailAccount.ToList()
+                                   where EmailAccount.IsDefault == true
+                                   select EmailAccount).FirstOrDefault();
+                if (DefaultEmail == null) {
+                    LogEvent(new EventLogger
+                    {
+                        EventName = "No Default email in database",
+                        EventDescription = "No default email in database, email will not be sent",
+                        EventParameters = ""
+                    });
+                    return;
+                } ;
+
+
+
+                var ClientEmail = DefaultEmail.EmailAddress;
+                var ClientPassword = DefaultEmail.Password;
+                var ClientPort = DefaultEmail.Port;
+                var UseDefaultCredentials = DefaultEmail.UseDefaultCredentials;
+                var EnableSSl = DefaultEmail.SSL;
+                var SmtpServer = DefaultEmail.Host;
+
+
+
+
+                SmtpClient client = new SmtpClient(SmtpServer);
+                client.UseDefaultCredentials = UseDefaultCredentials;
+                client.EnableSsl = EnableSSl;
+                client.Port = ClientPort;
+
+                client.Credentials = new NetworkCredential(ClientEmail, ClientPassword);
+
+                var messagesToSend = from message in _dbContext.MessageQueue.ToList()
                                  where !message.IsSent && message.SendAttempts < message.MaximumSentAttempts
                                  orderby message.MessagePriority ascending
                                  select message;

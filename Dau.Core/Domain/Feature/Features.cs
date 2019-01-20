@@ -20,6 +20,12 @@ namespace Dau.Core.Domain.Feature
         public string IconUrl { get; set; }
         public int HitCount { get; set; }
 
+       public int DisplayOrder { get; set; } 
+
+       public bool AllowFiltering { get; set; } 
+        public DateTime CreatedOn { get; set; } 
+       public DateTime UpdatedOn { get; set; } 
+
         public FeaturesCategory FeaturesCategory{ get; set; }
         public long FeaturesCategoryId { get; set; }
         public ICollection<DormitoryFeatures> DormitoryFeatures { get; set; }

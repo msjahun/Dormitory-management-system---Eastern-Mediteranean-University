@@ -1,8 +1,12 @@
-﻿@using searchDormWeb.Areas.Admin.Models.System
+﻿@using static Dau.Services.Email.MessageQueueService
+
 @model MessageQueueEdit
 @{
-    ViewData["Title"] = Localizer["Edit Message Queue"];
+    var item = Model;
+    ViewData["Title"] = Localizer["Edit Message Queue Id- {0}", item.Id];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+
+
 }
 
 
@@ -18,10 +22,10 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" form="addForm" class="btn btn-success "> <i class="fa fa-files-o"></i> @Localizer["Requeue"]</button>
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save and Continue Edit"]</button>
-                    <button type="submit" form="addForm" class="btn btn-danger "> <i class="fa fa-trash-o"></i> @Localizer["Delete"]</button>
+                    <button type="submit" form="addForm" onclick="resolveButton('Requeue')" class="btn btn-success "> <i class="fa fa-files-o"></i> @Localizer["Requeue"]</button>
+                    <button type="submit" form="addForm" onclick="resolveButton('SaveClose')" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
+                    <button type="submit" form="addForm" onclick="resolveButton('SaveContinue')" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save and Continue Edit"]</button>
+                    <button type="submit" form="addForm" onclick="resolveButton('Delete')" class="btn btn-danger "> <i class="fa fa-trash-o"></i> @Localizer["Delete"]</button>
                 </div>
             </div>
         </div>
@@ -41,28 +45,51 @@
                 <div class="box-header"></div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <form class="form-horizontal">
+                <form class="form-horizontal"  method="post" id="editForm" >
                     <div class="box-body">
+                        <div style="color:red;" asp-validation-summary="All"></div>
+
+                        <input type="hidden" asp-for="Id" />
+
                         <div class="form-group">
-                           <dau-label asp-for="MessagePriority"></dau-label>
+                            <dau-label asp-for="Id"></dau-label>
+                            <div class="col-sm-9">
+                                <p>@item.Id</p>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <dau-label asp-for="MessagePriority"></dau-label>
                             <div class="col-sm-8">
                                 <p>High</p>
                             </div>
 
                         </div>
 
+
+
                         <div class="form-group">
-                             <dau-label asp-for="From"></dau-label>
-                            <dau-input asp-for="From" type="email"></dau-input>
-                            <span asp-validation-for="From"></span>
+                            <dau-label asp-for="From"></dau-label>
+                            <div class="col-sm-8">
+                                <p>@item.From</p>
+                            </div>
+
+
+
                         </div>
 
                         <div class="form-group">
                             <dau-label asp-for="FromName"></dau-label>
-                            <dau-input asp-for="FromName" type="text"></dau-input>
-                            <span asp-validation-for="FromName"></span>
+                            <div class="col-sm-8">
+                                <p>@item.FromName</p>
+                            </div>
+
+
 
                         </div>
+
+                
 
 
                         <div class="form-group">
@@ -80,7 +107,7 @@
                         </div>
 
 
-                        <div class="form-group">
+                        @*<div class="form-group">
                             <dau-label asp-for="CC"></dau-label>
                             <dau-input asp-for="CC" type="email"></dau-input>
                             <span asp-validation-for="CC"></span>
@@ -94,12 +121,12 @@
                             <dau-input asp-for="BCC" type="email"></dau-input>
                             <span asp-validation-for="BCC"></span>
 
-                        </div>
+                        </div>*@
 
 
 
                         <div class="form-group">
-                            
+
                             <dau-label asp-for="Subject"></dau-label>
                             <dau-input asp-for="Subject" type="text"></dau-input>
                             <span asp-validation-for="Subject"></span>
@@ -108,52 +135,44 @@
 
 
                         <div class="form-group">
-                           
+
                             <dau-label asp-for="Body"></dau-label>
-                            <dau-textarea asp-for="Body" ></dau-textarea>
+                            <dau-editor asp-for="Body"></dau-editor>
                             <span asp-validation-for="Body"></span>
 
                         </div>
 
 
                         <div class="form-group">
-                             <dau-label asp-for="CreatedOn"></dau-label>
+                            <dau-label asp-for="CreatedOn"></dau-label>
                             <div class="col-sm-8">
-                                <p>8/28/2018 9:46:12PM</p>
+                                <p>@item.CreatedOn</p>
                             </div>
 
                         </div>
 
-
-
-
-
-                        <div class="form-group">
-                      
-                            <dau-label asp-for="SendImmediately"></dau-label>
-                            <div class="col-sm-8">
-                                <input asp-for="SendImmediately" type="checkbox">
-                            </div>
-                            <span asp-validation-for="From"></span>
-
-                        </div>
 
 
                         <div class="form-group">
                             <dau-label asp-for="SendAttempts"></dau-label>
-                            <dau-input type="number" asp-for="SendAttempts"></dau-input>
-                            <span asp-validation-for="SendAttempts"></span>
+                            <div class="col-sm-8">
+                                <p>@item.SendAttempts</p>
+                            </div>
 
                         </div>
+
+
+
+
 
 
                         <div class="form-group">
                             <dau-label asp-for="SentOn"></dau-label>
                             <div class="col-sm-8">
-                                <p>Not sent yet</p>
+                                <p>@item.SentOn</p>
                             </div>
 
-                            
+
 
                         </div>
 
@@ -161,7 +180,7 @@
                         <div class="form-group">
                             <dau-label asp-for="EmailAccount"></dau-label>
                             <div class="col-sm-8">
-                                <p>noreply@searchdorm.emu.edu.tr(searchdorm noreply)</p>
+                                <p>@item.EmailAccount</p>
                             </div>
 
                         </div>
@@ -192,6 +211,11 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/Ionicons/css/ionicons.min.css">
     <!-- DataTables -->
+    <!--Select2-->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/select2/dist/css/select2.min.css">
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/AdminLTE.min.css">
@@ -214,18 +238,66 @@
     <!-- SlimScroll -->
     <script src="@Url.Content("~/Content/")bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
+
+    <script src="@Url.Content("~/Content/")bower_components/select2/dist/js/select2.full.min.js"></script>
+
+    <script src="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js" type="text/javascript"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
+
     <script src="@Url.Content("~/Content/")bower_components/fastclick/lib/fastclick.js"></script>
     <!-- AdminLTE App -->
     <script src="@Url.Content("~/Content/")bower_components/ckeditor/ckeditor.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="@Url.Content("~/Content/")dist/js/demo.js"></script>
     <!-- page script -->
-    <script>
-        $(function () {
-            // Replace the <textarea id="editor1"> with a CKEditor
+
+        <script>
+
+             function resolveButton(button) {
+                       switch (button) {
+                       
+                           case "Requeue": {
+                          
+                               $('#editForm').attr('action', "/admin/System/RequeueMessage").submit();
+                           }; break;
+
+
+                           case "SaveClose": {
+                                   alert("SaveClose");
+                                 
+                               }; break;
+
+
+                           case "SaveContinue": {
+                               
+                     
+                               $('#editForm').attr('action', "/admin/System/MessageQueueEdit").submit();
+                            
+                               
+                               }; break;
+
+
+                          
+
+
+                           case "Delete": {
+                                   console.log("Delete Message queue");
+                                   var r = confirm("@Localizer["Are you sure you want to delete message?"]");
+                                   if (r == true) {
+                                       $('#editForm').attr('action', "/admin/System/DeleteMessageFromQueue").submit();
+                                   }
+
+                               }; break;
+             }
+         }
+
+    $(function () {
+    // Replace the <textarea id="editor1"> with a CKEditor
             // instance, using default configuration.
-            CKEDITOR.replace('editor1')
-         
+        CKEDITOR.replace('BodyId')
         })
     </script>
 }

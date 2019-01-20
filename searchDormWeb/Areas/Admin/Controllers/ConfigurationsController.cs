@@ -12,12 +12,15 @@ using Dau.Services.Domain.FeaturesServices;
 using Dau.Services.Domain.ImageServices;
 using Dau.Services.Domain.LocationServices;
 using Dau.Services.Domain.RoomServices;
+using Dau.Services.Email;
 using Dau.Services.Export;
+using Dau.Services.Languages;
 using Dau.Services.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
 using searchDormWeb.Areas.Admin.Models.Configuration;
 
@@ -30,6 +33,9 @@ namespace searchDormWeb.Areas.Admin.Controllers
     [Route("admin/[controller]")]
     public class ConfigurationsController : Controller
     {
+        public IStringLocalizer Localizer { get; }
+
+        private readonly IEmailAccountService _emailAccountService;
         private readonly RoleManager<UserRole> _roleManager;
         private readonly IUserRolesService _userRolesService;
         private readonly IMvcControllerDiscovery _mvcControllerDiscovery;
@@ -40,6 +46,8 @@ namespace searchDormWeb.Areas.Admin.Controllers
         private readonly IDormitoryBlockService _dormitoryBlockService;
         private readonly ILocationService _locationService;
         private readonly IExportService _exportService;
+        private readonly ILanguageService _languageService;
+        private readonly IMessageQueueService _messageQueueService;
 
         public ConfigurationsController(IDormitoryService dormitoryService,
              IImageService imageService,
@@ -48,8 +56,15 @@ namespace searchDormWeb.Areas.Admin.Controllers
              IRoomService roomService,
              IDormitoryBlockService dormitoryBlockService,
              ILocationService locationService,
-              IExportService exportService)
+              IExportService exportService,
+              IStringLocalizer stringLocalizer,
+              ILanguageService languageService,
+              IEmailAccountService emailAccountService,
+              IMessageQueueService messageQueueService)
         {
+
+            Localizer = stringLocalizer;
+            _emailAccountService = emailAccountService;
             _roleManager = roleManager;
             _userRolesService = userRolesService;
             _mvcControllerDiscovery = mvcControllerDiscovery;
@@ -60,6 +75,8 @@ namespace searchDormWeb.Areas.Admin.Controllers
             _dormitoryBlockService = dormitoryBlockService;
             _locationService = locationService;
             _exportService = exportService;
+            _languageService = languageService;
+            _messageQueueService = messageQueueService;
         }
 
 
@@ -97,7 +114,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
                 // getting all Discount data  
-                var Data = new List<int>();
+                var Data = _emailAccountService.GetEmailAccountsTableList();
 
                 ////Sorting  
                 //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
@@ -133,11 +150,126 @@ namespace searchDormWeb.Areas.Admin.Controllers
             return View("_EmailAccountAdd");
         }
 
+
+
+        [HttpPost("[action]")]
+
+        public ActionResult EmailAccountAdd(EmailAccountCrud vm)
+        {
+
+            if (!ModelState.IsValid)
+                return View("_EmailAccountAdd", vm);
+
+            if (string.IsNullOrEmpty(vm.EmailAccoutPassword) || string.IsNullOrWhiteSpace(vm.EmailAccoutPassword))
+            {
+                ModelState.AddModelError("", Localizer["Password is required"]);
+                return View("_EmailAccountAdd", vm);
+            }
+
+            var emailId = _emailAccountService.AddNewEmail(vm);
+            return RedirectToAction("EmailAccountEdit", "Configurations", new { @id = emailId});
+
+          
+        
+        }
+
+
+        [HttpPost("[action]")]
+
+        public ActionResult EmailAccountChangePassword(EmailAccountCrud vm)
+        {
+
+            if (!ModelState.IsValid)
+                return View("_EmailAccountEdit", vm);
+
+            if (string.IsNullOrEmpty(vm.EmailAccoutPassword) || string.IsNullOrWhiteSpace(vm.EmailAccoutPassword))
+            {
+                ModelState.AddModelError("", Localizer["Password is required"]);
+                return View("_EmailAccountEdit", vm);
+            }
+         var success=   _emailAccountService.UpdateEmailAccountPassword(vm);
+
+            var model = _emailAccountService.GetEmailAccountById(vm.Id);
+            return View("_EmailAccountEdit", vm);
+
+
+        }
+
         [HttpGet("[action]")]
 
-        public ActionResult EmailAccountEdit()
+        public ActionResult EmailAccountEdit( long Id)
         {
-            return View("_EmailAccountEdit");
+
+            var model = _emailAccountService.GetEmailAccountById(Id);
+            if (model == null)
+              return  RedirectToAction("EmailAccounts", "Configurations");
+
+            return View("_EmailAccountEdit", model);
+        }
+
+
+
+
+
+        [HttpPost("[action]")]
+
+        public ActionResult EmailAccountEdit(EmailAccountCrud vm)
+        {
+
+            if (!ModelState.IsValid)
+                return View("_EmailAccountEdit", vm);
+
+            var success = _emailAccountService.UpdateEmailAccount(vm);
+            var model = _emailAccountService.GetEmailAccountById(vm.Id);
+            if (model == null)
+                return RedirectToAction("EmailAccounts", "Configurations");
+
+            return View("_EmailAccountEdit", model);
+
+
+
+        }
+
+
+        [HttpPost("[action]")]
+
+        public ActionResult DeleteEmailAccount(EmailAccountCrud vm)
+        {
+
+            var model = _emailAccountService.DeleteEmailAccount(vm);
+          return  RedirectToAction("EmailAccounts", "Configurations");
+
+
+        }
+        [HttpPost("[action]")]
+
+        public ActionResult MarkEmailAsDefault(long EmailAccountId)
+        {
+
+            var success = _emailAccountService.SetEmailAccountToDefault(EmailAccountId);
+            return Json(success);
+
+
+        }
+
+        [HttpPost("[action]")]
+
+        public ActionResult TestEmailAccount(EmailAccountCrud vm)
+        {
+            if (!ModelState.IsValid)
+                return View("_EmailAccountEdit", vm);
+
+            if (string.IsNullOrEmpty(vm.SendEmailTo) || string.IsNullOrWhiteSpace(vm.SendEmailTo))
+            {
+                ModelState.AddModelError("", Localizer["Send test email is required"]);
+                return View("_EmailAccountEdit", vm);
+            }
+
+            ModelState.AddModelError("", _messageQueueService.SendTestEmail(vm));
+            var model = _emailAccountService.GetEmailAccountById(vm.Id);
+            return View("_EmailAccountEdit", vm);
+
+
         }
 
         #endregion
@@ -692,7 +824,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
                 // getting all Discount data  
-                var Data = new List<int>();
+                var Data = _languageService.GetAllLanguagesTable();
 
                 ////Sorting  
                 //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
@@ -731,10 +863,68 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
         [HttpGet("[action]")]
-        public ActionResult LanguageEdit()
+        public ActionResult LanguageEdit(long Id)
+
+
         {
-            return View("_LanguageEdit");
+            var Model = _languageService.GetLanguageById(Id);
+            if (Model == null) RedirectToAction("Languages", "Configurations");
+            return View("_LanguageEdit", Model);
         }
+
+
+        [HttpPost("[action]")]
+        public ActionResult LanguagesResources(long LanguageId)
+        {
+            try
+            {
+                var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                var start = Request.Form["start"].FirstOrDefault(); // Skip number of Rows count
+                var passedParam = Request.Form["myKey"].FirstOrDefault();//passed parameter
+                var length = Request.Form["length"].FirstOrDefault();  // Paging Length 10,20  
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault(); // Sort Column Name  
+                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();// Sort Column Direction (asc, desc)  
+                var searchValue = Request.Form["search[value]"].FirstOrDefault();// Search Value from (Search box) 
+                int pageSize = length != null ? Convert.ToInt32(length) : 0; //Paging Size (10, 20, 50,100)  
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+
+
+
+
+
+
+                // getting all Discount data  
+                var Data = _languageService.GetResoucesByLanguageId(LanguageId);
+
+                ////Sorting  
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                //{
+                //    DiscountData = DiscountData.OrderBy(c => c.sortColumn sortColumnDirection);
+                //}
+                ////Search  
+                //if (!string.IsNullOrEmpty(searchValue))
+                //{
+                //    DiscountData = DiscountData.Where(m => m.Name == searchValue);
+                //}
+
+
+                //total number of rows counts   
+                int recordsTotal = 0;
+                recordsTotal = Data.Count();
+                //Paging   
+                var data = Data.Skip(skip).Take(pageSize).ToList();
+                //Returning Json Data  
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+
         #endregion
 
         #region AccessControl
@@ -1007,14 +1197,6 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
     }
 
-
-    public class EmailAccontsTable {
-        public string EmailAddress { get; set; }
-        public string EmailDisplayName { get; set; }
-        public string IsDefaultEmailAccount { get; set; }
-        public string MarkAsDefault { get; set; }
-        public string Edit { get; set; }
-    }
  
     public class CountriesListTable {
         public string Name { get; set; }
@@ -1027,14 +1209,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
         public string Published { get; set; }
         public string Edit { get; set; }
     }
-    public class LanguagesTable {
-        public string Name { get; set; }
-        public string FlagImage { get; set; }
-        public string LanguageCulture { get; set; }
-        public string DisplayOrder { get; set; }
-        public string Published { get; set; }
-        public string Edit { get; set; }
-    }
+
     public class CurrenciesTable {
         public string Name { get; set; }
         public string CurrencyCode { get; set; }

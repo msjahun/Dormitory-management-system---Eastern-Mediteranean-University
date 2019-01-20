@@ -370,8 +370,15 @@ namespace Dau.Services.MessageTemplates
 
             foreach (var token in tokens)
             {
-                if (token.TokenName == null || token.TokenValue == null) continue;
-                template= Regex.Replace(template, token.TokenName, token.TokenValue);
+                if (token.TokenName == null || token.TokenValue == null)
+                {//if no value is provided should replace it with space
+                    template = Regex.Replace(template, token.TokenName, " ");
+                }
+                else
+                {
+                    template = Regex.Replace(template, token.TokenName, token.TokenValue);
+                }
+                
                // template.Replace(token.TokenName, token.TokenValue);
             }
             return template;

@@ -1016,17 +1016,33 @@ namespace Dau.Services.Event
 
         }
 
-        public List<EventLogger> GetAllEvents()
+        public List<EventLogTable> GetAllEvents()
         {
             var events = from e in _eventLoggerRepo.List().ToList()
                          orderby e.CreatedOn descending
-                         select e;
+                         select new EventLogTable
+                         {
+                             EventName = e.EventName,
+                             EventDescription = e.EventDescription,
+                             EventParameters = e.EventParameters,
+                             CreatedOn = e.CreatedOn.ToString(),
+                             Id= e.Id
+                         };
+
                 return events.ToList();
         }
 
 
         
 
+    }
+    public class EventLogTable
+    {
+        public long Id { get; set; }
+        public string EventName { get; set; }
+        public string EventDescription { get; set; }
+        public string EventParameters { get; set; }
+        public string CreatedOn { get; set; }
     }
 
 }

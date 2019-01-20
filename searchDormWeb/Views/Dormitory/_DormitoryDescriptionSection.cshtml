@@ -11,14 +11,8 @@
     <div class="col-md-8">
 
         <p class="h7">
-            @Html.Raw(item.DormitoryDescription))
+            @Html.Raw(item.DormitoryDescription)
         </p>
-
-
-
-
-
-
 
     </div>
     <div class="col-md-4">
@@ -43,7 +37,14 @@
 
                 <span class="block text-primary">@Localizer["{0} reviews", item.ReviewNo]</span>
 
-                <dau-rating rating="@item.ReviewNo"></dau-rating>
+                @if (item.ReviewNo > 0)
+                {
+                    <dau-rating rating="@item.RatingNoRaw"></dau-rating>
+                }
+                else
+                {
+                    <dau-rating rating="0"></dau-rating>
+                }
 
 
 
@@ -53,7 +54,7 @@
                 <p><i class="fa fa-map-marker text-primary"></i>@Localizer["Location: {0}", item.Location] </p>
                 <p><i class="fa fa-bed text-primary"></i> @Localizer["Home to over {0} students", item.NoOfStudents]</p>
 
-             
+
 
                 <a href="#Availability" class="btn btn-primary btn-block btn-sm ">@Localizer["Reserve"]</a>
 
@@ -101,6 +102,5 @@
     }
 </div>
 
-<div id="onScrollAlert_1" class="my-3">
+@*<div id="onScrollAlert_1" class="my-3">*@
 
-</div>

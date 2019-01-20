@@ -1,5 +1,5 @@
-﻿@using searchDormWeb.Areas.Admin.Models.Configuration
-@model EmailAccountAdd
+﻿@using Dau.Services.Email
+@model EmailAccountCrud
 @{
     ViewData["Title"] = Localizer["Add Email Account"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
@@ -17,8 +17,8 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save and Continue Edit"]</button>
+                    <button type='button' onClick='resolveButton("SaveClose")' class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
+                    <button type='button' onClick='resolveButton("SaveContinue")' class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save and Continue Edit"]</button>
                 </div>
             </div>
         </div>
@@ -38,19 +38,20 @@
                 <div class="box-header"></div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <form class="form-horizontal">
+                <form class="form-horizontal" method="post" id="addForm">
+                    <div style="color:red;" asp-validation-summary="All"></div>
                     <div class="box-body">
 
 
                         <div class="form-group">
-                           
+
                             <dau-label asp-for="EmailAddress"></dau-label>
-                            <dau-input asp-for="EmailAddress" type="email" ></dau-input>
+                            <dau-input asp-for="EmailAddress" type="email"></dau-input>
                             <span asp-validation-for="EmailAddress"></span>
                         </div>
 
                         <div class="form-group">
-                            
+
                             <dau-label asp-for="EmailDisplayName"></dau-label>
                             <dau-input asp-for="EmailDisplayName" type="text"></dau-input>
                             <span asp-validation-for="EmailDisplayName"></span>
@@ -58,7 +59,7 @@
 
 
                         <div class="form-group">
-                            
+
                             <dau-label asp-for="Host"></dau-label>
                             <dau-input asp-for="Host" type="text"></dau-input>
                             <span asp-validation-for="Host"></span>
@@ -67,7 +68,7 @@
 
 
                         <div class="form-group">
-                            
+
                             <dau-label asp-for="Port"></dau-label>
                             <dau-input asp-for="Port" type="number"></dau-input>
                             <span asp-validation-for="Port"></span>
@@ -76,17 +77,17 @@
 
 
                         <div class="form-group">
-                            <dau-label asp-for="User"></dau-label>
-                            <dau-input asp-for="User" type="email"></dau-input>
-                            <span asp-validation-for="User"></span>
+                            <dau-label asp-for="EmailAccoutUser"></dau-label>
+                            <dau-input asp-for="EmailAccoutUser" type="email"></dau-input>
+                            <span asp-validation-for="EmailAccoutUser"></span>
 
                         </div>
 
 
                         <div class="form-group">
-                           <dau-label asp-for="Password"></dau-label>
-                            <dau-input asp-for="Password" type="text"></dau-input>
-                            <span asp-validation-for="Password"></span>
+                            <dau-label asp-for="EmailAccoutPassword"></dau-label>
+                            <dau-input asp-for="EmailAccoutPassword" type="password"></dau-input>
+                            <span asp-validation-for="EmailAccoutPassword"></span>
 
                         </div>
 
@@ -101,7 +102,7 @@
 
 
                         <div class="form-group">
-                           
+
                             <dau-label asp-for="UseDefaultCredentials"></dau-label>
                             <div class="col-sm-8">
                                 <input asp-for="UseDefaultCredentials" type="checkbox">
@@ -163,5 +164,27 @@
     <!-- AdminLTE for demo purposes -->
     <script src="@Url.Content("~/Content/")dist/js/demo.js"></script>
     <!-- page script -->
+
+        <script>
+
+
+                    function resolveButton(button) {
+            switch (button) {
+               
+                case "SaveClose": {
+                    alert("SaveClose");
+                }; break;
+
+
+                case "SaveContinue": {
+                    console.log("SaveContinue");
+                    $('#addForm').attr('action', "/admin/Configurations/EmailAccountAdd").submit();
+                }; break;
+
+           
+            }
+            //   $("#formId").submit();
+        }
+        </script>
 
 }

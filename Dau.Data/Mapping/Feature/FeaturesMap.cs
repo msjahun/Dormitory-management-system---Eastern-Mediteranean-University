@@ -19,8 +19,13 @@ namespace Dau.Data.Mapping.Feature
             builder.Property(e => e.Id).HasColumnName("id");
 
             builder.Property(e => e.IsPublished).HasColumnName("IsPublished");
-            
-        
+
+            builder.Property(e => e.CreatedOn)
+            .HasColumnType("datetime2");
+            builder.Property(e => e.UpdatedOn)
+           .HasColumnType("datetime2");
+
+
 
 
         }
