@@ -214,13 +214,52 @@ namespace Dau.Services.Domain.SearchResultService
                                   dorm.DormitoryLogoUrl,
                                   dorm.DormitoryTypeId,
                                   dorm.RatingNo,
+                                  RatingNoFloor = Math.Floor(dorm.RatingNo),
                                   dorm.ReviewNo,
+                                  UsersReviewNo = _reviewRepo.List().Where(c=>c.DormitoryId==dorm.Id).Count(),
                                   Location = _dropdownService.ResolveDropdown(dorm.LocationOnCampus, LocationsOnCampus),
                                   dormTrans.DormitoryDescription,
                                   dorm.DormitoryStreetAddress,
                                  dorm.MapSectionId,
                                 
                               };
+
+
+            if(!filters.RatingUnrated)
+                dormitories = dormitories.Where(c => c.UsersReviewNo>0).ToList();
+
+            //starrating filtering && review!=0;
+            var RatingsList = new List<double>();
+
+            RatingsList.Add(0);
+            if (filters.RatingStar1) { 
+                RatingsList.Add(1);
+                RatingsList.Add(2);
+            }
+
+            if (filters.RatingStar2) { 
+                RatingsList.Add(3);
+                RatingsList.Add(4);
+            }
+
+            if (filters.RatingStar3) { 
+                RatingsList.Add(5);
+                RatingsList.Add(6);
+            }
+
+            if (filters.RatingStar4) {
+                RatingsList.Add(7);
+                RatingsList.Add(8);
+            }
+
+            if (filters.RatingStar5) {
+                RatingsList.Add(9);
+                RatingsList.Add(10);
+            }
+
+            dormitories = dormitories.Where(c => RatingsList.Contains(c.RatingNoFloor)).ToList();
+         
+         
 
             var dormitoryType = from dormType in _dormitoryTypeRepo.List().ToList()
                                 join dormTypeTrans in _dormitoryTypeTranslationRepo.List().ToList() on dormType.Id equals dormTypeTrans.DormitoryTypeNonTransId
@@ -229,8 +268,8 @@ namespace Dau.Services.Domain.SearchResultService
 
             bool same = (filters.PrivateDormitories == filters.SchoolDormitories); //false true =false and false false= false, true true= true
             var dormTypeIdsList = new List<long>();
-            if (filters.PrivateDormitories) dormTypeIdsList.Add(1);
-            if (filters.SchoolDormitories) dormTypeIdsList.Add(2); //adding the ids
+            if (filters.PrivateDormitories) dormTypeIdsList.Add(2);
+            if (filters.SchoolDormitories) dormTypeIdsList.Add(1); //adding the ids
 
             //dormitoriestype filter applied here
             var dormitoryAndtype = from dorm in dormitories.Where(c => dormTypeIdsList.Contains(c.DormitoryTypeId)).ToList()
@@ -426,6 +465,14 @@ public double SortingPrice { get; set; }
         public bool PrivateDormitories { get; set; }
         public bool SchoolDormitories { get; set; }
         public int sortId { get; set; }
+
+
+           public bool RatingStar1 {get;set;}
+           public bool RatingStar2 {get;set;}
+           public bool RatingStar3 {get;set;}
+           public bool RatingStar4 {get;set;}
+           public bool RatingStar5 { get; set; }
+           public bool RatingUnrated { get; set; }
     }
 
 }

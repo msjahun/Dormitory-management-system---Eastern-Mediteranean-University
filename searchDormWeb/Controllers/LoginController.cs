@@ -39,7 +39,7 @@ namespace searchDormWeb.Controllers
         [HttpGet]
         public ActionResult Index(string ReturnUrl)
         {
-            ViewData["ReturnUrl"] = ReturnUrl;
+            ViewData["ReturnUrl"] = Request.Headers["Referer"].ToString();
                 return View("Index");
         }
         [Route("Login/")]

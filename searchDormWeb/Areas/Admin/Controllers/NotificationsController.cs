@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Dau.Services.Domain.AnnouncementsServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,8 +14,15 @@ namespace searchDormWeb.Areas.Admin.Controllers
     [Authorize]
     public class NotificationsController : Controller
     {
+        private readonly IAnnouncementService _announcementService;
+
+        public NotificationsController(IAnnouncementService announcementService)
+        {
+            _announcementService = announcementService;
+        }
+
         // GET: Notifications
-     
+
         [HttpGet("[action]")]
         public IActionResult List()
         {
@@ -49,7 +57,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
                 // getting all Discount data  
-                var Data = new List<int>();
+                var Data = _announcementService.GetAnnoucementsTableList();
 
                 ////Sorting  
                 //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
@@ -81,29 +89,67 @@ namespace searchDormWeb.Areas.Admin.Controllers
         [HttpGet("[action]")]
         public IActionResult AnnouncementAdd()
         {
+
             return View("_AnnouncementAdd");
         }
 
 
-        [HttpGet("[action]")]
-        public IActionResult AnnouncementEdit()
+
+        [HttpPost("[action]")]
+        public IActionResult AnnouncementAdd(AnnouncementCrud vm)
+
+
         {
-            return View("_AnnouncementEdit");
+
+            if (!ModelState.IsValid)
+            {
+                return View("_AnnouncementAdd", vm);
+            }
+            var announcementId = _announcementService.AddNewAnnouncement(vm);
+
+            return RedirectToAction("AnnouncementEdit", "Notifications", new { Id = announcementId });
         }
+
+
+        [HttpGet("[action]")]
+        public IActionResult AnnouncementEdit(long Id)
+        {
+            var model = _announcementService.GetAnnouncementById(Id);
+            if (model == null) return RedirectToAction("Announcements", "Notifications");
+
+            return View("_AnnouncementEdit", model);
+        }
+
+
+        [HttpPost("[action]")]
+        public IActionResult AnnouncementEdit(AnnouncementCrud vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("_AnnouncementEdit", vm);
+            }
+
+            var success = _announcementService.updateAnnoucement(vm);
+            var model = _announcementService.GetAnnouncementById(vm.Id);
+
+            return View("_AnnouncementEdit", model);
+        }
+
+
+        [HttpPost("[action]")]
+        public IActionResult DeleteAnnouncement(AnnouncementCrud vm)
+        {
+            
+            var success = _announcementService.DeleteAnnouncement(vm);
+
+            return RedirectToAction("Announcements", "Notifications"); 
+        }
+
 
         #endregion
 
     }
 
-    public class ManageAnnoucementsTable {
-        public string Id { get; set; }
-        public string Title { get; set; }
-        public string Priority { get; set; }
-        public string Message { get; set; }
-        public string StartDate { get; set; }
-        public string IsActive { get; set; }
-        public string CreatedOn { get; set; }
-        public string Edit { get; set; }
-    }
+
 
 }

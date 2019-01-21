@@ -33,7 +33,7 @@
             <!-- Small boxes (Stat box) -->
 
             <div class="col">
-                   <!-- The time line -->
+                <!-- The time line -->
                 <ul class="timeline">
                     <!-- timeline time label -->
                     <li class="time-label">
@@ -42,51 +42,11 @@
                         </span>
                     </li>
 
-                    <!-- END timeline item -->
-                    <!-- timeline item -->
-                    <!-- END timeline item -->
-                    <!-- timeline item -->
-                    <li>
-                        <i class="fa fa-comments bg-aqua"></i>
+                </ul>
+                <ul class="timeline" id="announcementsSection">
 
-                        <div class="timeline-item">
-                            <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
 
-                            <h3 class="timeline-header"><a href="#">Administrator </a> School resumption date/time</h3>
-
-                            <div class="timeline-body">
-                                Take me to your leader!
-                                Switzerland is small and neutral!
-                                We are more like Germany, ambitious and misunderstood!
-                            </div>
-                            <div class="timeline-footer">
-                                <a class="btn btn-warning btn-flat btn-xs">Read more</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <i class="fa fa-comments  bg-aqua"></i>
-
-                        <div class="timeline-item">
-                            <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
-
-                            <h3 class="timeline-header"><a href="#">Administrator </a> System will be formated in 2 days</h3>
-
-                            <div class="timeline-body">
-                                Take me to your leader!
-                                Switzerland is small and neutral!
-                                We are more like Germany, ambitious and misunderstood!
-                            </div>
-                            <div class="timeline-footer">
-                            
-                            </div>
-                        </div>
-                    </li>
-                    <!-- END timeline item -->
-                    <!-- timeline time label -->
-                    <!-- END timeline item -->
-                    <!-- timeline item -->
-                    <!-- END timeline item -->
+               
                     <li>
                         <i class="fa fa-clock-o bg-gray"></i>
                         <div class="timeline-item">
@@ -95,7 +55,7 @@
                             </div>
 
                         </div>
-                            
+
 
 
                     </li>
@@ -103,29 +63,29 @@
                 <br />
                 <br />
                 @*<div class="box box-info">
-                    <div class="box-header with-border">
-                        <h3 class="box-title"><i class="fa fa-newspaper-o"></i> @Localizer["Dormitories News & Important Announcements"]</h3>
+            <div class="box-header with-border">
+                <h3 class="box-title"><i class="fa fa-newspaper-o"></i> @Localizer["Dormitories News & Important Announcements"]</h3>
 
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                                <i class="fa fa-minus"></i>
-                            </button>
-                        </div>
-                        <!-- /.box-tools -->
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body" style="">
-
-
-                        <div class="row" id="announcementId">
-                           
-                            <!-- /.col -->
-                        </div>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+                <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body" style="">
 
 
-                    </div>
-                    <!-- /.box-body -->
-                </div>*@
+                <div class="row" id="announcementId">
+
+                    <!-- /.col -->
+                </div>
+
+
+            </div>
+            <!-- /.box-body -->
+        </div>*@
                 <!-- /.box -->
             </div>
 
@@ -702,24 +662,39 @@
 
         replaceAnnouncements(3);
         function replaceAnnouncements(number) {
-            var newNumber = 12 / number;
-            var stringHtmlTemplate = "<div class=\"col-lg-" + newNumber+" col-xs-12 col-sm-6\">" +
-                "<div class=\"box box-info box-solid\">" +
-                "<div class=\"box-header with-border\">" +
-                "<h3 class=\"box-title\">Orientation days</h3>" +
+                  $.ajax({
+            type: "POST",
+            url: "@Html.Raw(Url.Action("GetAnnouncements", "Dashboard"))",
+
+                      success: function (result, textStatus, xhr) {
 
 
-                "</div>" +
+                          for (var i = 0; i < result.length; i++) {
+                //     alert(result);
+            var annoncementTitle = result[i].title;
+                              var annoucementBody = result[i].message;
+                              var announcementTime = result[i].createdOn;
+            var stringHtmlTemplate =
+            
+            "   <li> <i class=\"fa fa-bullhorn bg-aqua\"></i>                                                           "+
+            "       <div class=\"timeline-item\">                                                                       "+
+            "           <span class=\"time\"><i class=\"fa fa-clock-o\"></i> "+announcementTime+"</span>                           "+
+                "           <h3 class=\"timeline-header\"><a >@Localizer["Administrator"] </a> " + annoncementTitle+"</h3>   "+
+            "           <div class=\"timeline-body\">                                                                   "+
+          annoucementBody+
+            "               </div>                                                                                    "+
+      
+            "       </div>                                                                                            "+
+                "   </li>                                                                                                 ";
 
-                "<div class=\"box-body\" style=\"\">" +
-                " February 02-24 2019  Orientation Days For New Students" +
-                "</div>" +
 
-                "</div" +
+           
+            $("#announcementsSection").prepend(stringHtmlTemplate);
+                          }
+            }
 
-                "</div>";
-            for (var i = 0; i < number; i++)
-            $("#announcementId").append(stringHtmlTemplate);
+            });
+           
         }
 
          $.ajax({

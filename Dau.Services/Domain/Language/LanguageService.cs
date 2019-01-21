@@ -77,7 +77,7 @@ namespace Dau.Services.Languages
                             where resource.LanguageId == Id
                             select new ResourcesVm
                             {
-                                Id = resource.Id,
+                                ResourceId = resource.Id,
                                 ResourceName = resource.Key,
                                 ResourceValue = resource.Value
                             };
@@ -105,6 +105,86 @@ namespace Dau.Services.Languages
 
            
         }
+
+        public ResourcesVm GetResourceById(long id)
+        {
+            try
+            {
+                var resource = _resourcesRepo.GetById(id);
+                if (resource == null) return null;
+
+                var ResourceResult = new ResourcesVm
+                {
+                    ResourceId = resource.Id,
+                    ResourceName = resource.Key,
+                    ResourceValue = resource.Value,
+                    Success = true
+                };
+
+                return ResourceResult;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public bool UpdateResource(ResourcesVm vm)
+        {
+            try { 
+            var resource = _resourcesRepo.GetById(vm.ResourceId);
+            if (resource == null) return false;
+
+            resource.Key = vm.ResourceName;
+            resource.Value = vm.ResourceValue;
+
+            _resourcesRepo.Update(resource);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+
+        public bool AddNewResource(ResourcesVm vm)
+        {
+            try { 
+            var resource = new Resource
+            {
+                Key = vm.ResourceName,
+                Value = vm.ResourceValue,
+                LanguageId = vm.LanguageId,
+                Comment = ""
+
+
+            };
+
+            _resourcesRepo.Insert(resource);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteResource(long id)
+        {
+            try
+            {
+                var resource = _resourcesRepo.GetById(id);
+                if (resource == null) return false;
+                _resourcesRepo.Delete(resource);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public class LanguagesTable
         {
             public long Id { get; set; }
@@ -135,6 +215,29 @@ namespace Dau.Services.Languages
             public string FlagImageFileName { get; set; }
             public long Id { get; internal set; }
             public string Country { get; internal set; }
+
+
+            [Display(Name = "Resource name",
+                       Description = "Name of the language resource"), DataType(DataType.Text), MaxLength(256)]
+
+            public string AddResourceName { get; set; }
+
+            [Display(Name = "Resource name",
+                        Description = "Name of the language resource"), DataType(DataType.Text), MaxLength(256)]
+
+            public string EditResourceName { get; set; }
+
+
+            [Display(Name = "Resource value",
+           Description = "Value of the resource"), DataType(DataType.Text), MaxLength(256)]
+
+            public string AddValue { get; set; }
+
+            [Display(Name = "Resource value",
+         Description = "Value of the resource"), DataType(DataType.Text), MaxLength(256)]
+
+            public string EditValue { get; set; }
+
             public ResourceTab resourceTab { get; set; }
         }
 

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Dau.Services.Domain.AnnouncementsServices;
 using Dau.Services.Domain.BookingService;
 using Dau.Services.Domain.FeaturesServices;
 using Dau.Services.Domain.RoomServices;
@@ -19,6 +20,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
    [Authorize]
     public class DashboardController : Controller
     {
+        private readonly IAnnouncementService _annoucementsService;
         private readonly IUsersService _usersService;
         private readonly IBookingService _bookingService;
         private readonly IRoomService _roomService;
@@ -30,8 +32,10 @@ namespace searchDormWeb.Areas.Admin.Controllers
             IBookingService bookingService,
             IRoomService roomService,
             IStringLocalizer Localizer,
-             IFeaturesService featuresService)
+             IFeaturesService featuresService,
+             IAnnouncementService annoucementsService)
         {
+            _annoucementsService = annoucementsService;
             _usersService = usersService;
             _bookingService=bookingService;
             _roomService = roomService;
@@ -415,6 +419,13 @@ namespace searchDormWeb.Areas.Admin.Controllers
             return Json(numberOfBookings);
         }
 
+
+        [HttpPost("[action]")]
+        public ActionResult GetAnnouncements()
+        {
+            var model = _annoucementsService.GetAnnoucementsTableList().Where(c=> c.IsActive==true).Take(3);
+            return Json(model);
+        }
 
         [HttpPost("[action]")]
         public ActionResult NoOfUsers()

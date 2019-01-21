@@ -110,7 +110,7 @@
 
                                         <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-10">
-                                                <button type="button" class="btn btn-primary btn-lg "> <i class="fa fa-search"></i> @Localizer["Search"]</button>
+                                                <button type="button" id="SearchBtn" class="btn btn-primary btn-lg "> <i class="fa fa-search"></i> @Localizer["Search"]</button>
                                             </div>
                                         </div>
                                     </div>
@@ -164,14 +164,66 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
-                    <h4 class="modal-title">Default Modal</h4>
+                    <h4 class="modal-title">@Localizer["Add language resource"]</h4>
                 </div>
                 <div class="modal-body">
-                    <p>One fine body…</p>
+                    <div class="form-group">
+
+                        <dau-label asp-for="AddResourceName"></dau-label>
+                        <dau-input asp-for="AddResourceName" type="text"></dau-input>
+                        <span asp-validation-for="AddResourceName"></span>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <dau-label asp-for="AddValue"></dau-label>
+                        <dau-input asp-for="AddValue" type="text"></dau-input>
+                        <span asp-validation-for="AddValue"></span>
+
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">@Localizer["Cancel"]</button>
+                    <button type="button" id="AddResouceBtn" class="btn btn-primary">@Localizer["Add Resource"]</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="modal-editResources" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title">@Localizer["Edit language resource"]</h4>
+                </div>
+                <div class="modal-body">
+
+                    <input type="hidden" id="ResourceId" />
+                    <div class="form-group">
+
+                        <dau-label asp-for="EditResourceName"></dau-label>
+                        <dau-input asp-for="EditResourceName" type="text"></dau-input>
+                        <span asp-validation-for="EditResourceName"></span>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <dau-label asp-for="EditValue"></dau-label>
+                        <dau-input asp-for="EditValue" type="text"></dau-input>
+                        <span asp-validation-for="EditValue"></span>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">@Localizer["Cancel"]</button>
+                    <button type="button" id="EditResouceBtn" class="btn btn-primary">@Localizer["Save changes"]</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -222,12 +274,161 @@
     <script src="@Url.Content("~/Content/")dist/js/demo.js"></script>
     <!-- page script -->
     <script>
+
+        function GetModelResouce(resourceId) {
+
+            $("#EditResourceName").val();
+            $("#EditValue").val();
+
+            ResouceId = resourceId;
+
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Configurations/GetResource/?Id=" + resourceId,
+
+                success: function (result) {
+                    if (result.success == true) {
+
+                        $('#modal-editResources').modal('show');
+                        $("#EditResourceName").val(result.resourceName);
+                        $("#EditValue").val(result.resourceValue);
+                        $("#ResourceId").val(result.resourceId);
+                    } else {
+                        alert("Failed to get resource");
+                    }
+                }
+            });
+
+            //cal ajax and show model when data has been replaced
+
+        }
+
+
+
+        function AddResource() {
+
+          //  alert($("#AddResourceName").val());
+           // alert($("#AddValue").val());
+           // alert(@item.Id);
+            
+
+
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Configurations/AddNewResource",
+                data: {
+                    "ResourceName": $("#AddResourceName").val(),
+                    "ResourceValue": $("#AddValue").val(),
+                    "LanguageId":@item.Id
+                },
+                success: function (result) {
+                    if (result.success == true) {
+                        alert("resource added successfully");
+                        $("#AddResourceName").val("");
+                        $("#AddValue").val("");
+                        $('#modal-addResources').modal('hide');
+
+                    } else {
+                        alert("Failed to add resource");
+                        $('#modal-addResources').modal('hide');
+                    }
+                    location.reload();
+                }
+            });
+
+            //cal ajax and show model when data has been replaced
+
+        }
+
+
+        var ResouceId=0;
+        function updateResource() {
+
+         // alert(  $("#EditResourceName").val());
+         
+
+
+
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Configurations/SaveResource",
+                data: {
+                    "ResourceId":ResouceId,
+                      "ResourceName": $("#EditResourceName").val(),
+                      "ResourceValue": $("#EditValue").val(),
+                    "LanguageId":@item.Id
+                },
+                success: function (result) {
+                    if (result.success == true) {
+
+                    alert("resource added successfully")
+                        $("#EditResourceName").val("");
+                        $("#EditValue").val("");
+                        ResouceId = 0;
+                     
+                    } else {
+                        alert("Failed to get resource");
+                       
+                    }
+                    location.reload();
+                }
+            });
+
+            //cal ajax and show model when data has been replaced
+
+        }
+
+
+
+        function DeleteResource(resourceId) {
+
+           // $("#EditResourceName").val();
+           // $("#EditValue").val();
+
+
+
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Configurations/DeleteResource/?Id=" + resourceId,
+         
+                success: function (result) {
+                    if (result.success == true) {
+
+                    alert("resource deleted successfully")
+                      
+                    } else {
+                        alert("Failed to get resource");
+                    }
+                    location.reload();
+                }
+            });
+
+            //cal ajax and show model when data has been replaced
+
+        }
+
+        var resourceTable;
+
         $(function () {
 
 
+            $("#SearchBtn").click(function () {
+                resourceTable.ajax.reload();
+            });
+
+            $("#AddResouceBtn").click(function () {
+                AddResource();
+            });
+
+
+        $("#EditResouceBtn").click(function () {
+            updateResource();
+
+            });
 
          
-            $('#Resources').on('processing.dt', function (e, settings, processing) {
+         
+            resourceTable=    $('#Resources').on('processing.dt', function (e, settings, processing) {
                 if (processing) {
                     Pace.start();
                 } else {
@@ -253,6 +454,8 @@
                      
                     "type": "POST",
                     "data": function (d) {
+                        d.ResourceName = $("#resourceTab_ResourceName").val();
+                        d.ResourceValue = $("#resourceTab_Value").val();
                         d.myKey = "myValue";
                         d.DiscountName = "myValue";
                         d.CouponCode = "myValue";
@@ -263,16 +466,16 @@
                 "columns": [
 
                 
-                    {"data": "id" },
+                    { "data": "resourceId" },
                     {"data": "resourceName" },
                     {"data": "resourceValue" },
                     
                     {"render": function (data, type, full, meta) {
-                        return '<button class="btn btn-primary"  data-toggle="modal" data-target="#modal-addResources" ><i class="fa fa-pencil"></i> @Localizer["Edit"]</button>'; }
+                        return '<button class="btn btn-primary"  onclick="GetModelResouce(' + full.resourceId+')"><i class="fa fa-pencil"></i> @Localizer["Edit"]</button>'; }
                     }
                     ,
                     {"render": function (data, type, full, meta) {
-                        return '<a class="btn btn-danger" href="/Admin/Configurations/LanguageEdit/?Id='+full.id+'"><i class="fa fa-times"></i> @Localizer["Delete"]</a>'; }
+                        return '<a class="btn btn-danger" onclick="DeleteResource(' + full.resourceId+')"><i class="fa fa-times"></i> @Localizer["Delete"]</a>'; }
                     }
                     
                     

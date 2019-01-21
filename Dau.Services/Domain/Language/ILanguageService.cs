@@ -10,5 +10,9 @@ namespace Dau.Services.Languages
         List<LanguagesTable> GetAllLanguagesTable();
         List<ResourcesVm> GetResoucesByLanguageId(long Id);
         LanguageEdit GetLanguageById(long Id);
+        ResourcesVm GetResourceById(long id);
+        bool UpdateResource(ResourcesVm vm);
+        bool AddNewResource(ResourcesVm vm);
+        bool DeleteResource(long id);
     }
 }

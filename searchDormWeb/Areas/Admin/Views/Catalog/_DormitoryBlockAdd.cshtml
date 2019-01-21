@@ -57,7 +57,7 @@
 
                             <div class="box-body">
                                 <form class="form-horizontal" method="post" id="addForm" asp-controller="Catalog" asp-action="DormitoryBlockAdd">
-
+                                    <div style="color:red;" asp-validation-summary="All"></div>
                                     <div class="form-group">
                                         <dau-label asp-for="Dormitory"></dau-label>
                                         <div class="col-sm-8">

@@ -1,9 +1,10 @@
-﻿@using searchDormWeb.Areas.Admin.Models.Notifications
-@model AnnouncementEdit
+﻿@using Dau.Services.Domain.AnnouncementsServices
+@model AnnouncementCrud
 
 @{
     ViewData["Title"] = Localizer["Edit Announcement"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+    var item = Model;
 }
 
 
@@ -19,9 +20,9 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save and Continue Edit"]</button>
-                    <button type="submit" form="addForm" class="btn btn-danger "> <i class="fa fa-trash-o"></i> @Localizer["Delete"]</button>
+                    <button type='button' onClick='resolveButton("SaveClose")' class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
+                    <button type='button' onClick='resolveButton("SaveContinue")' class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save and Continue Edit"]</button>
+                    <button type='button' onClick='resolveButton("Delete")' class="btn btn-danger "> <i class="fa fa-trash-o"></i> @Localizer["Delete"]</button>
                 </div>
             </div>
         </div>
@@ -41,7 +42,8 @@
                 <div class="box-header"></div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <form class="form-horizontal">
+                <form class="form-horizontal " method="post" id="editForm" asp-action="AnnouncementEdit" asp-controller="Notifications">
+                    <div style="color:red;" asp-validation-summary="All"></div>
                     <div class="box-body">
                         <div class="form-group">
 
@@ -72,13 +74,11 @@
                             <span asp-validation-for="EndDate"></span>
                         </div>
 
-
                         <div class="form-group">
                             <dau-label asp-for="Priority"></dau-label>
-                            <dau-select asp-for="Priority"></dau-select>
+                            <dau-input asp-for="Priority" type="number"></dau-input>
                             <span asp-validation-for="Priority"></span>
                         </div>
-
 
 
                         <div class="form-group">
@@ -89,6 +89,18 @@
                             <span asp-validation-for="Published"></span>
 
                         </div>
+
+
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="form-group">
+                            <dau-label asp-for="CreatedOn"></dau-label>
+                            <div class="col-sm-9">
+                                <p>@item.CreatedOn</p>
+                            </div>
+
+                        </div>
+
 
                     </div>
                     <!-- /.box-body -->
@@ -108,12 +120,18 @@
 @section styles {
 
 
+
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap/dist/css/bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/Ionicons/css/ionicons.min.css">
     <!-- DataTables -->
+    <!--Select2-->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/select2/dist/css/select2.min.css">
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/AdminLTE.min.css">
@@ -137,10 +155,53 @@
     <script src="@Url.Content("~/Content/")bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
     <script src="@Url.Content("~/Content/")bower_components/fastclick/lib/fastclick.js"></script>
+    <script src="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <!-- AdminLTE App -->
+    <script src="@Url.Content("~/Content/")bower_components/select2/dist/js/select2.full.min.js"></script>
+    <script src="@Url.Content("~/Content/")bower_components/ckeditor/ckeditor.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="@Url.Content("~/Content/")dist/js/demo.js"></script>
-    <!-- page script -->
+
+    <script>
+
+
+            function resolveButton(button) {
+                switch (button) {
+
+
+                    case "SaveClose": {
+                        alert("SaveClose");
+                    }; break;
+
+
+                    case "SaveContinue": {
+                        console.log("SaveContinue");
+                        $('#editForm').attr('action', "/admin/Notifications/AnnouncementEdit").submit();
+                    }; break;
+
+
+
+
+                    case "Delete": {
+                        console.log("DeleteRoom");
+                        var r = confirm("@Localizer["Are you sure you want to announcement"]");
+                        if (r == true) {
+                            $('#editForm').attr('action', "/admin/Notifications/DeleteAnnouncement").submit();
+                        }
+
+                    }; break;
+                }
+            }
+
+            $(function () {
+                ///Intialize datepicker
+                $('.date-control').datepicker({
+                    autoclose: true
+                })
+            });
+
+
+    </script>
 
 }
 

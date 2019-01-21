@@ -59,6 +59,7 @@ using Dau.Services.TaskSchedular;
 using Dau.Services.Export;
 using Dau.Services.Event;
 using Dau.Services.MessageTemplates;
+using Dau.Services.Domain.AnnouncementsServices;
 //this might give issues in production
 
 namespace searchDormWeb
@@ -165,6 +166,7 @@ namespace searchDormWeb
             services.AddScoped <  IEventService,EventService > ();
             services.AddScoped <  IMessageTemplateService,MessageTemplateService > ();
             services.AddScoped <  IEmailAccountService,EmailAccountService > ();
+            services.AddScoped < IAnnouncementService, AnnouncementService > ();
 
             var connectionString = Configuration.GetValue<string>("DbSettings:SqlConnectionString");
             services.AddDbContext<Fees_and_facilitiesContext>(options => options.UseSqlServer(connectionString));

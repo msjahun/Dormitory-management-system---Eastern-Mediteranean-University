@@ -871,6 +871,53 @@ namespace searchDormWeb.Areas.Admin.Controllers
             if (Model == null) RedirectToAction("Languages", "Configurations");
             return View("_LanguageEdit", Model);
         }
+        
+        [HttpPost("[action]")]
+        public ActionResult GetResource(long Id)
+        {
+            var model = _languageService.GetResourceById(Id);
+            if(model==null) return Json(new { success = false });
+           
+            return Json(new { success = true, model.ResourceName, model.ResourceValue });
+        }
+
+
+
+        [HttpPost("[action]")]
+        public ActionResult SaveResource(ResourcesVm vm)
+        {
+           
+            bool success = _languageService.UpdateResource(vm);
+
+
+            return Json(new { success = success });
+
+            
+        }
+
+
+        [HttpPost("[action]")]
+        public ActionResult AddNewResource(ResourcesVm vm, long LanguageId)
+        {
+            vm.LanguageId = LanguageId;
+
+            bool success = _languageService.AddNewResource(vm);
+
+            return Json(new { success = success });
+
+
+        }
+
+
+        [HttpPost("[action]")]
+        public ActionResult DeleteResource(long Id)
+        {
+            bool success = _languageService.DeleteResource(Id);
+
+            return Json(new { success = success });
+
+
+        }
 
 
         [HttpPost("[action]")]
@@ -880,7 +927,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
             {
                 var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
                 var start = Request.Form["start"].FirstOrDefault(); // Skip number of Rows count
-                var passedParam = Request.Form["myKey"].FirstOrDefault();//passed parameter
+                
                 var length = Request.Form["length"].FirstOrDefault();  // Paging Length 10,20  
                 var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault(); // Sort Column Name  
                 var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();// Sort Column Direction (asc, desc)  
@@ -890,11 +937,18 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
 
-
+                var passedParamResourceName = Request.Form["ResourceName"].FirstOrDefault();//passed parameter
+                var passedParamResourceValue = Request.Form["ResourceValue"].FirstOrDefault();//passed parameter
 
 
                 // getting all Discount data  
                 var Data = _languageService.GetResoucesByLanguageId(LanguageId);
+                if (!string.IsNullOrWhiteSpace(passedParamResourceValue))
+                    Data = Data.Where(c => c.ResourceValue.Contains(passedParamResourceValue)).ToList();
+                    
+               if(!string.IsNullOrWhiteSpace(passedParamResourceName))
+                 Data = Data.Where(c => c.ResourceName.Contains(passedParamResourceName)).ToList();
+
 
                 ////Sorting  
                 //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))

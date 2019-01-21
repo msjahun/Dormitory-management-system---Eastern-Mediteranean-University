@@ -1,5 +1,5 @@
-﻿@using searchDormWeb.Areas.Admin.Models.Notifications
-@model AnnouncementAdd
+﻿@using Dau.Services.Domain.AnnouncementsServices
+@model AnnouncementCrud
 @{
     ViewData["Title"] = Localizer["Add Announcements"];
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
@@ -40,41 +40,42 @@
                 <div class="box-header"></div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <form class="form-horizontal">
+                <form class="form-horizontal" method="post" id="addForm" asp-action="AnnouncementAdd" asp-controller="Notifications">
+                    <div style="color:red;" asp-validation-summary="All"></div>
                     <div class="box-body">
                         <div class="form-group">
-                            
+
                             <dau-label asp-for="Title"></dau-label>
                             <dau-input asp-for="Title" type="text"></dau-input>
                             <span asp-validation-for="Title"></span>
                         </div>
 
                         <div class="form-group">
-                            
+
                             <dau-label asp-for="Message"></dau-label>
                             <dau-textarea asp-for="Message"></dau-textarea>
                             <span asp-validation-for="Message"></span>
                         </div>
 
                         <div class="form-group">
-                            
+
                             <dau-label asp-for="StartDate"></dau-label>
-                            <dau-date asp-for="StartDate" ></dau-date>
+                            <dau-date asp-for="StartDate"></dau-date>
                             <span asp-validation-for="StartDate"></span>
                         </div>
 
 
                         <div class="form-group">
-                          
+
                             <dau-label asp-for="EndDate"></dau-label>
-                            <dau-date asp-for="EndDate" ></dau-date>
+                            <dau-date asp-for="EndDate"></dau-date>
                             <span asp-validation-for="EndDate"></span>
                         </div>
 
 
                         <div class="form-group">
                             <dau-label asp-for="Priority"></dau-label>
-                            <dau-select asp-for="Priority" ></dau-select>
+                            <dau-input asp-for="Priority" type="number"></dau-input>
                             <span asp-validation-for="Priority"></span>
                         </div>
 
@@ -114,6 +115,8 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/Ionicons/css/ionicons.min.css">
     <!-- DataTables -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+
     <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/AdminLTE.min.css">
@@ -136,11 +139,24 @@
     <!-- SlimScroll -->
     <script src="@Url.Content("~/Content/")bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
+    <script src="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <script src="@Url.Content("~/Content/")bower_components/fastclick/lib/fastclick.js"></script>
     <!-- AdminLTE App -->
     <!-- AdminLTE for demo purposes -->
     <script src="@Url.Content("~/Content/")dist/js/demo.js"></script>
     <!-- page script -->
+
+        <script>
+            ///Intialize datepicker
+            $(function () {
+                ///Intialize datepicker
+                $('.date-control').datepicker({
+                    autoclose: true
+                })
+            });
+
+
+        </script>
 
 }
 

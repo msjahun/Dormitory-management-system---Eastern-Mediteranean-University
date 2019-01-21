@@ -28,7 +28,7 @@ namespace searchDormWeb.Controllers
             bool isAuthenticated = User.Identity.IsAuthenticated;
             if (!isAuthenticated)
             {
-                return RedirectToAction("", "Login");
+                return RedirectToAction("", "Login", new { ReturnUrl = "/Account/Profile" });
                 //redirect to login page
             }
             return View("AccountProfile");
@@ -44,7 +44,7 @@ namespace searchDormWeb.Controllers
             if (!isAuthenticated)
             {
                 //redirect to login page
-                return RedirectToAction("", "Login");
+                return RedirectToAction("", "Login",new { ReturnUrl = "/Account/Settings" });
             }
             return View("AccountSettings");
         }
@@ -55,7 +55,7 @@ namespace searchDormWeb.Controllers
             if (!isAuthenticated)
             {
                 //redirect to login page
-                return RedirectToAction("", "Login");
+                return RedirectToAction("", "Login", new { ReturnUrl = "/Account/Billing" });
             }
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
          
@@ -73,7 +73,7 @@ namespace searchDormWeb.Controllers
             bool isAuthenticated = User.Identity.IsAuthenticated;
             if (!isAuthenticated)
             {
-                return RedirectToAction("", "Login");
+                return RedirectToAction("", "Login", new { ReturnUrl = "/Account/Notifications" });
                 //redirect to login page
             }
             return View("AccountNotifications");
