@@ -185,8 +185,8 @@ namespace Dau.Services.Domain.BookingService
                                RoomName = room.RoomName,
                                RoomBlock = room.DormitoryBlockName,
                                RoomSize = room.RoomSize.ToString("N1")+" m2",
-                               RoomPricePerSemester = String.Format("{1} {0} ",room.Price.ToString("N2"), "TL"),
-                               AmountTotal = String.Format("{1}{0} ",( room.Price).ToString("N2"),"TL"),
+                               RoomPricePerSemester = String.Format("{1} {0} ",room.Price.ToString("N2"), "$"),
+                               AmountTotal = String.Format("{1}{0} ",( room.Price).ToString("N2"),"$"),
                                DormitoryLogoUrl = room.DormitoryLogoUrl,
                                SemesterPeriodId=cart.SemesterPeriodId,
                                CartId= cart.Id,
@@ -254,7 +254,7 @@ namespace Dau.Services.Domain.BookingService
                 }
 
             }
-            finalCart.AmountTotal = String.Format("{1}{0} ", (finalCart.PriceRaw *priceMultiplier).ToString("N2"), "TL");
+            finalCart.AmountTotal = String.Format("{1}{0} ", (finalCart.PriceRaw *priceMultiplier).ToString("N2"), "$");
 
             }
             BookingCartViewModel model = finalCart;
@@ -354,13 +354,13 @@ namespace Dau.Services.Domain.BookingService
                                RoomName = room.RoomName,
                                RoomBlock = room.DormitoryBlockName,
                                RoomSize = room.RoomSize.ToString("N1") + " m2",
-                               RoomPricePerSemester = String.Format("{1} {0} ", room.Price.ToString("N2"),"TL"),
-                               AmountTotal = String.Format("{1} {0} ", ( room.Price+room.BookingFee+room.TaxAmount).ToString("N2"), "TL"),
+                               RoomPricePerSemester = String.Format("{1} {0} ", room.Price.ToString("N2"),"$"),
+                               AmountTotal = String.Format("{1} {0} ", ( room.Price+room.BookingFee+room.TaxAmount).ToString("N2"), "$"),
                                DormitoryLogoUrl = room.DormitoryLogoUrl,
-                               TaxAmount = String.Format("{1} {0} ", room.TaxAmount.ToString("N2"), "TL"),
-                               BookingFee = String.Format("{1} {0} ", room.BookingFee.ToString("N2"), "TL"),
+                               TaxAmount = String.Format("{1} {0} ", room.TaxAmount.ToString("N2"), "$"),
+                               BookingFee = String.Format("{1} {0} ", room.BookingFee.ToString("N2"), "$"),
                                StayDuration = semesterPeriods.Where(c=> c.Id == cart.SemesterPeriodId).FirstOrDefault().SemesterPeriodName,
-                               SubtotalAmount = String.Format("{1} {0} ", room.Price.ToString("N2"), "TL"),
+                               SubtotalAmount = String.Format("{1} {0} ", room.Price.ToString("N2"), "$"),
                                PriceRaw = room.Price,
                                TaxAmountRaw = room.TaxAmount,
                                BookingFeeRaw = room.BookingFee
@@ -407,8 +407,8 @@ namespace Dau.Services.Domain.BookingService
                 }
 
             }
-            finalCart.SubtotalAmount = String.Format("{1}{0} ", (finalCart.PriceRaw * priceMultiplier).ToString("N2"), "TL");
-            finalCart.AmountTotal = String.Format("{1}{0} ", ((finalCart.PriceRaw * priceMultiplier)  + finalCart.BookingFeeRaw + finalCart.TaxAmountRaw).ToString("N2"), "TL");
+            finalCart.SubtotalAmount = String.Format("{1}{0} ", (finalCart.PriceRaw * priceMultiplier).ToString("N2"), "$");
+            finalCart.AmountTotal = String.Format("{1}{0} ", ((finalCart.PriceRaw * priceMultiplier)  + finalCart.BookingFeeRaw + finalCart.TaxAmountRaw).ToString("N2"), "$");
 
 
             //var CartsSemesterPeriods = from cart in Carts.ToList()
@@ -517,13 +517,13 @@ namespace Dau.Services.Domain.BookingService
                                RoomName = room.RoomName,
                                RoomBlock = room.DormitoryBlockName,
                                RoomSize = room.RoomSize.ToString("N1") + " m2",
-                               RoomPricePerSemester = String.Format("{1}{0} ", room.Price.ToString("N2"),"TL"),
-                               AmountTotal = String.Format("{1}{0} ", (room.Price + room.BookingFee + room.TaxAmount).ToString("N2"),"TL"),
+                               RoomPricePerSemester = String.Format("{1}{0} ", room.Price.ToString("N2"),"$"),
+                               AmountTotal = String.Format("{1}{0} ", (room.Price + room.BookingFee + room.TaxAmount).ToString("N2"),"$"),
                                DormitoryLogoUrl = room.DormitoryLogoUrl,
-                               TaxAmount = String.Format("{1}{0} ", room.TaxAmount.ToString("N2"),"TL"),
-                               BookingFee = String.Format("{1}{0} ", room.BookingFee.ToString("N2"),"TL"),
+                               TaxAmount = String.Format("{1}{0} ", room.TaxAmount.ToString("N2"),"$"),
+                               BookingFee = String.Format("{1}{0} ", room.BookingFee.ToString("N2"),"$"),
                                StayDuration = semesterPeriods.Where(c => c.Id == cart.SemesterPeriodId).FirstOrDefault().SemesterPeriodName,
-                               SubtotalAmount = String.Format("{1}{0} ", room.Price.ToString("N2"),"TL"),
+                               SubtotalAmount = String.Format("{1}{0} ", room.Price.ToString("N2"),"$"),
                                PriceRaw = room.Price,
                                TaxAmountRaw = room.TaxAmount,
                                BookingFeeRaw = room.BookingFee
@@ -579,8 +579,8 @@ namespace Dau.Services.Domain.BookingService
                 }
 
             }
-            finalCart.SubtotalAmount = String.Format("{1}{0} ", (finalCart.PriceRaw * priceMultiplier).ToString("N2"), "TL");
-            finalCart.AmountTotal = String.Format("{1}{0} ", ((finalCart.PriceRaw * priceMultiplier) + finalCart.BookingFeeRaw + finalCart.TaxAmountRaw).ToString("N2"), "TL");
+            finalCart.SubtotalAmount = String.Format("{1}{0} ", (finalCart.PriceRaw * priceMultiplier).ToString("N2"), "$");
+            finalCart.AmountTotal = String.Format("{1}{0} ", ((finalCart.PriceRaw * priceMultiplier) + finalCart.BookingFeeRaw + finalCart.TaxAmountRaw).ToString("N2"), "$");
 
 
             BookingCheckoutCustomerInfoViewModel model = new BookingCheckoutCustomerInfoViewModel

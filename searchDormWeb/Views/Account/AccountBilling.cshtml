@@ -87,7 +87,7 @@
                                     }
                                 </span>@item.Paymentstatus
                             </th>
-                            <td>@item.Price</td>
+                            <td>$ @item.Price</td>
                             <td>
                                 <div class="dropdown">
                                     <a class="btn btn-sm btn-icon-only" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
@@ -109,7 +109,7 @@
 
                                         <a class="dropdown-item" id="ViewBookingNotesBtn"><i class=""></i>View Booking notes</a>
                                         <a class="dropdown-item" id="CancelBookingBtn"><i class="fas fa-times"></i>Cancel booking</a>
-                                        <a class="dropdown-item" id="DeleteBookingBtn"><i class="fas fa-trash-alt text-muted"></i>Delete</a>
+                                        @*<a class="dropdown-item" id="DeleteBookingBtn"><i class="fas fa-trash-alt text-muted"></i>Delete</a>*@
 
                                     </div>
                                 </div>
@@ -130,15 +130,15 @@
 
     <script>
         $("#UploadReceipt").click(function () {
-            alert("Upload receipt");
+            alert("Dear customer, Dormitory manager has not requested for a receipt upload, your request has been sent to the manager and we'll get back to you shortly");
         });
 
         $("#ViewBookingNotesBtn").click(function () {
-            alert("View booking notes ");
+            alert("No booking notes found for this booking, you will be alerted by email as soon as dormitory manager adds a booking note");
         });
 
         $("#CancelBookingBtn").click(function () {
-            alert("Cancel booking");
+            alert("You can not Cancel booking your booking at the moment, Administrator has not allowed it");
         });
 
         $("#DeleteBookingBtn").click(function () {

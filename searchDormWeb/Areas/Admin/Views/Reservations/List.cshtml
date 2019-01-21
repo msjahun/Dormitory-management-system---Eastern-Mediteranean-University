@@ -38,7 +38,7 @@
 
 
 
-                    <div class="btn-group">
+                    @*<div class="btn-group">
                         <button type="button" class="btn btn-primary btn-flat dropdown-toggle"><i class="fa fa-download"></i> @Localizer["Print PDF invoice"]</button>
                         <button type="button" class="btn btn-primary btn-flat dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <span class="caret"></span>
@@ -52,7 +52,7 @@
                             <li><a href="#">@Localizer["Print last {0} days", 7]</a></li>
                             <li><a href="#">@Localizer["Print last {0} days", 30]</a></li>
                         </ul>
-                    </div>
+                    </div>*@
 
                 </div>
             </div>
@@ -344,8 +344,15 @@
                               //    } },
                     {"data": "user" },
                     {"data": "createdOn" },
-                    { "data": "bookingTotal" },
                     
+                    {
+                        "render": function (data, type, full, meta) {
+                          
+                                return "$"+full.bookingTotal;
+
+                        }
+
+                    },
                     {
                         "render": function (data, type, full, meta) {
                             if (full.paymentStatusId == 1 || full.bookingStatusId == 3 || full.bookingStatusId == 1 || full.paymentStatusId == 3) {

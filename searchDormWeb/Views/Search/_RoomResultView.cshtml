@@ -157,10 +157,10 @@
                 @if (item.ShowPrice)
                 {
 
-                    <h4 class="text-bold d-block" style="color:#269038">@String.Format("{0} {1}", "TL", item.Price)</h4>
+                    <h4 class="text-bold d-block" style="color:#269038">@String.Format("{0} {1}", "$", item.Price)</h4>
                     @if (item.OldPrice != null)
                     {
-                        <strike><h4 class="text-bold" style="color:grey; ">@String.Format("{0} {1}", "TL", item.OldPrice)</h4></strike>
+                        <strike><h4 class="text-bold" style="color:grey; ">@String.Format("{0} {1}", "$", item.OldPrice)</h4></strike>
                     }
 
 

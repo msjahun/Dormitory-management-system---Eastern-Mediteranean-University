@@ -80,31 +80,31 @@ namespace searchDormWeb.Areas.Admin.Controllers
                     new BookingTotalsTable
                     {
                         OrderStatus=_localizer["Pending"],
-                        Today="0,00 tl",
-                        ThisWeek="0,00 tl",
-                        ThisMonth="0,00 tl",
-                        ThisYear="0,00 tl",
-                        AllTime="0,00 tl"
+                        Today="$ 0,00 ",
+                        ThisWeek="$ 0,00 ",
+                        ThisMonth="$ 0,00 ",
+                        ThisYear="$ 0,00 ",
+                        AllTime="$ 0,00 "
                     },
 
                       new BookingTotalsTable
                     {
                         OrderStatus=_localizer["Complete"],
-                        Today="0,00 tl",
-                        ThisWeek="0,00 tl",
-                        ThisMonth="0,00 tl",
-                        ThisYear="0,00 tl",
-                        AllTime="0,00 tl"
+                        Today="$ 0,00 ",
+                        ThisWeek="$ 0,00 ",
+                        ThisMonth="$ 0,00 ",
+                        ThisYear="$ 0,00 ",
+                        AllTime="$ 0,00 "
                     },
 
                        new BookingTotalsTable
                     {
                         OrderStatus=_localizer["Cancelled"],
-                        Today="0,00 tl",
-                        ThisWeek="0,00 tl",
-                        ThisMonth="0,00 tl",
-                        ThisYear="0,00 tl",
-                        AllTime="0,00 tl"
+                        Today="$ 0,00 ",
+                        ThisWeek="$ 0,00 ",
+                        ThisMonth="$ 0,00 ",
+                        ThisYear="$ 0,00 ",
+                        AllTime="$ 0,00 "
                     }
 
                 };
@@ -161,19 +161,19 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
                 new IncompleteBookingsTable{
                     Item=_localizer["Total unpaid Bookings(pending payment status)"],
-                    Total="328,97 tl",
+                    Total="$ 328,97",
                     Count="4"
 
                 },
                     new IncompleteBookingsTable{
                     Item=_localizer["Total awaiting comfirmation"],
-                    Total="34,4 tl",
+                    Total="$ 34,4",
                     Count="7"
 
                 },
                         new IncompleteBookingsTable{
-                    Item=_localizer["Total incomplete orders (pending order status)"],
-                    Total="328,97 tl",
+                    Item=_localizer["Total incomplete booking (pending order status)"],
+                    Total="$ 328,97",
                     Count="3"
 
                 }
