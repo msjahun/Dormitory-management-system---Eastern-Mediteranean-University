@@ -34,7 +34,7 @@ namespace Dau.Data.Mapping.Catalog
 
             builder.Property(e => e.Message)
                 .HasColumnName("Message").IsRequired()
-                .HasMaxLength(100)
+                .HasMaxLength(300)
                 .IsUnicode(false);
 
 
