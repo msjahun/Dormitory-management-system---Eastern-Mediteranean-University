@@ -373,15 +373,20 @@ function getReviewBottomSection() {
 
             $("#SubmitReview").click(function () {
                 //replace div with loader then send ajax request
-
-                if ($("#GetReviewText").val() <= 0 || reviewRatingNo <= 0) {
+             
+                if ($("#GetReviewText").val() <= 0 || reviewRatingNo <= 0 || $("#GetReviewText").val().length > 300) {
                     if ($("#GetReviewText").val() <= 0)
                         $("#GetReviewText").attr("class", "form-control is-invalid");
-                    else
+                    else {
                         $("#GetReviewText").attr("class", "form-control is-valid");
 
+                    }
+
                     if (reviewRatingNo <= 0)
-                        alert("Please select star rating");
+                        $("#ReviewLoaderArea").html("Please select star rating");
+
+                    if ($("#GetReviewText").val().length  > 300)
+                        $("#ReviewLoaderArea").html("Max review length allowed is 300 characters, your text is about " + $("#GetReviewText").val().length+" characters long");
 
                 } else {
 

@@ -144,6 +144,13 @@ $.ajax({
         $("#_FilterbottomFacilities").html(result);
         $(".targetFilterInput").change(function () {
             SearchRooms();
+
+            function toggleChevron(e) {
+                $(e.target).closest('.collapseFeatures').find('i.fa')
+                    .toggleClass('fa-angle-up fa-angle-down');
+            }
+            $('.collapseFeatures').on('hidden.bs.collapse', toggleChevron);
+            $('.collapseFeatures').on('shown.bs.collapse', toggleChevron);
         });
 
 

@@ -24,21 +24,24 @@
             <div class="col" style="margin:0px; padding:0px;">
                 <a href="#comments_section" class="btn btn-sm btn-block btn-outline-warning btn-block ">@Localizer["Student reviews"]</a>
             </div>
-
+            <a href="javascript:;" data-fancybox data-type="iframe" data-src="@item.MapSection" class="float-right btn-sm  btn btn-warning btn-icon-label">
+                <span class="btn-inner--icon"><i class="far fa-map"></i></span>
+                <span class="btn-inner--text">@Localizer["Show on Map"]</span>
+            </a>
 
         </div>
 
     </div>
 </div>
-@if(item.DormitoryLogoUrl!=null || item.DormitoryLogoUrl != "" ||item.DormitoryLogoUrl.Length>0) {
-<div class="card border-0 float-right m-1">
-    
-    <img  class="" height="90" src="@item.DormitoryLogoUrl">
-</div>
-}
+@*@if(item.DormitoryLogoUrl!=null || item.DormitoryLogoUrl != "" ||item.DormitoryLogoUrl.Length>0) {
+    <div class="card border-0 float-right m-1">
+
+        <img  class="" height="90" src="@item.DormitoryLogoUrl">
+    </div>
+    }*@
 
 <h3>@item.DormitoryName</h3>
-<a href="javascript:;" data-fancybox data-type="iframe" data-src="@item.MapSection" ><i class="far fa-map  text-warning " style="color:#269038;"></i> @item.DormitoryStreetAddress </a>
-<span class="address-show-map" style="color:#269038; text-decoration:underline;"> 
-    <a href="javascript:;" data-fancybox data-type="iframe" data-src="@item.MapSection" style=" color:#269038">@Localizer["Show map"]</a></span>
-<h6>@item.DormitoryType</h6>
+@*<a href="javascript:;" data-fancybox data-type="iframe" data-src="@item.MapSection" ><i class="far fa-map  text-warning " style="color:#269038;"></i> @item.DormitoryStreetAddress </a>
+    <span class="address-show-map" style="color:#269038; text-decoration:underline;">
+        <a href="javascript:;" data-fancybox data-type="iframe" data-src="@item.MapSection" style=" color:#269038">@Localizer["Show map"]</a></span>
+    <h6>@item.DormitoryType</h6>*@

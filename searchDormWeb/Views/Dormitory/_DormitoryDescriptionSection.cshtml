@@ -51,12 +51,34 @@
 
                 <h1 class="h5 ">@Localizer["Students Love.."]</h1>
 
-                <p><i class="fa fa-map-marker text-primary"></i>@Localizer["Location: {0}", item.Location] </p>
-                <p><i class="fa fa-bed text-primary"></i> @Localizer["Home to over {0} students", item.NoOfStudents]</p>
+                <p>
+                    @Localizer["Location: {0}", item.Location]
+                    <a href="javascript:;" data-fancybox data-type="iframe" data-src="@item.MapSection">@item.DormitoryStreetAddress </a>
+                    <br />
+                    <a href="javascript:;" data-fancybox data-type="iframe" data-src="@item.MapSection" class="btn-sm  btn btn-info btn-icon-label">
+                        @*<span class="btn-inner--icon"><i class="fa fa-map-marker"></i></span>*@
+                        <span class="btn-inner--text"><i class="fa fa-map-marker"></i> @Localizer["Show on map"]</span>
+                    </a>
+                </p>
 
 
+                @*<a href="#Availability" class="btn btn-info mt-3 mb-2 btn-sm "> <i class="fas fa-map-marker"></i> @Localizer["Show on map"]</a>*@
 
-                <a href="#Availability" class="btn btn-primary btn-block btn-sm ">@Localizer["Reserve"]</a>
+                <p class="d-inline-block"><i class="fa fa-bed text-primary"></i> @Localizer["Home to over {0} students", item.NoOfStudents]</p>
+
+
+                <h6>@item.DormitoryType</h6>
+
+                @if (item.DormitoryLogoUrl != null || item.DormitoryLogoUrl != "" || item.DormitoryLogoUrl.Length > 0)
+                {
+                    <div>
+
+                        <img class="" height="90" src="@item.DormitoryLogoUrl">
+                    </div>
+                }
+
+
+                <a href="#Availability" class="btn btn-primary mt-3 mb-2 btn-block btn-sm ">@Localizer["Reserve"]</a>
 
             </div>
         </div>
@@ -66,41 +88,41 @@
 </div>
 
 
+@*
+    <!-- Badges -->
+    <div class="d-lg-flex">
 
-<!-- Badges -->
-<div class="d-lg-flex">
+        @if (item.NoOfNewFacilities != null)
+        {
+            <a class="media d-flex align-items-center mr-lg-5 mb-3 mb-lg-0">
+                <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/svg/in-progress.svg" style="width: 36px;">
+                <div class="media-body pl-2">
+                    <span class="h6">@Localizer["{0} New facilities", item.NoOfNewFacilities]</span>
+                </div>
+            </a>
+        }
 
-    @if (item.NoOfNewFacilities != null)
-    {
-        <a class="media d-flex align-items-center mr-lg-5 mb-3 mb-lg-0">
-            <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/svg/in-progress.svg" style="width: 36px;">
-            <div class="media-body pl-2">
-                <span class="h6">@Localizer["{0} New facilities", item.NoOfNewFacilities]</span>
-            </div>
-        </a>
-    }
+        @if (item.NoOfStaff != null)
+        {
+            <a class="media d-flex align-items-center mr-lg-5 mb-3 mb-lg-0">
+                <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/svg/natural-user-interface-1.svg" style="width: 36px;">
+                <div class="media-body pl-2">
+                    <span class="h6">@Localizer["Over {0} staff", item.NoOfStaff]</span>
+                </div>
+            </a>
+        }
 
-    @if (item.NoOfStaff != null)
-    {
-        <a class="media d-flex align-items-center mr-lg-5 mb-3 mb-lg-0">
-            <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/svg/natural-user-interface-1.svg" style="width: 36px;">
-            <div class="media-body pl-2">
-                <span class="h6">@Localizer["Over {0} staff", item.NoOfStaff]</span>
-            </div>
-        </a>
-    }
+        @if (item.NoOfAwards != null)
+        {
+            <a class="media d-flex align-items-center mb-3 mb-lg-0">
+                <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/svg/collect.svg" style="width: 36px;">
+                <div class="media-body pl-2">
+                    <span class="h6">@Localizer["{0} Awards", item.NoOfAwards]</span>
+                </div>
+            </a>
 
-    @if (item.NoOfAwards != null)
-    {
-        <a class="media d-flex align-items-center mb-3 mb-lg-0">
-            <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/svg/collect.svg" style="width: 36px;">
-            <div class="media-body pl-2">
-                <span class="h6">@Localizer["{0} Awards", item.NoOfAwards]</span>
-            </div>
-        </a>
+        }
+    </div>
 
-    }
-</div>
-
-@*<div id="onScrollAlert_1" class="my-3">*@
+    <div id="onScrollAlert_1" class="my-3">*@
 

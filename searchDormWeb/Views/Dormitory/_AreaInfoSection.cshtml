@@ -10,15 +10,15 @@
 <div class="pt-1 mt-2 delimiter-top" id="AreaInfo">
     <!-- Resume timeline -->
     <h4>
-        @Localizer["Area info"]
-        <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/icons8-track-order-64.png">
+        @Localizer["Location"]
+        @*<img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/icons8-track-order-64.png">*@
 
-        <span class="text-primary "> -@item.LocationRemark- @Localizer["show map"]</span>
+        @*<span class="text-primary "> -@item.LocationRemark- @Localizer["show map"]</span>*@
     </h4>
 
 
 
-    <h6 class="title-decorative">@Localizer["Somes popular places close to {0}", "Alfam"]</h6>
+    <h6 class="title-decorative">@Localizer["Somes popular places close to {0}", item.DormitoryName]</h6>
     <p>
         <a href="javascript:;" data-fancybox data-type="iframe" data-src="@item.MapSection" style=" color:#269038">@item.DormitoryStreetAddress - @Localizer["Show on map"]</a>
 
@@ -30,7 +30,7 @@
             <dt class="col-4">
                 <a href="javascript:;" data-fancybox data-type="iframe" data-src="@location.MapSection" style=" color:#269038">
                     <span class="text-primary">
-                        <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/icons8-region-64.png" style="width: 20px;">@location.LocationName
+                        <i class="fa fa-map-marker " style="color:#ec7899"></i> @location.LocationName
                     </span>
                 </a>
             </dt>
@@ -70,7 +70,7 @@
             <dt class="col-12 text-center">
                 <a  style=" color:#269038">
                     <span class="text-primary">
-                        <img alt="Image placeholder" src="~/frontend_Content/assets/img/icons/dusk/png/icons8-region-64.png" style="width: 20px;">@Localizer["Select Emu location to calculate the distance and duration from this dormitory"]
+                        <i class="fa fa-map-marker  " style="color:#ec7899"></i> @Localizer["Select Emu location to calculate the distance and duration from this dormitory"]
                     </span>
                 </a>
             </dt> </dl>

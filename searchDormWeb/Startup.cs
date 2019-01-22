@@ -60,6 +60,7 @@ using Dau.Services.Export;
 using Dau.Services.Event;
 using Dau.Services.MessageTemplates;
 using Dau.Services.Domain.AnnouncementsServices;
+using Dau.Services.TimeServices;
 //this might give issues in production
 
 namespace searchDormWeb
@@ -102,7 +103,7 @@ namespace searchDormWeb
             //  services.AddTransient<OnlineUsersMiddleware>();
             services.AddTransient<AffiliateMiddleware>();
             services.AddTransient<CultureMiddleware>();
-
+            services.AddScoped<ITimeService, TimeService>();
             services.AddScoped<IOnlineUsersService, OnlineUsersService>();
             services.AddScoped<IDropdownService, DropdownService>();
             services.AddScoped<ILoggingService, LoggingService>();
@@ -167,6 +168,7 @@ namespace searchDormWeb
             services.AddScoped <  IMessageTemplateService,MessageTemplateService > ();
             services.AddScoped <  IEmailAccountService,EmailAccountService > ();
             services.AddScoped < IAnnouncementService, AnnouncementService > ();
+          
 
             var connectionString = Configuration.GetValue<string>("DbSettings:SqlConnectionString");
             services.AddDbContext<Fees_and_facilitiesContext>(options => options.UseSqlServer(connectionString));

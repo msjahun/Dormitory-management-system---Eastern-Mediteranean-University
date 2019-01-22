@@ -8,52 +8,56 @@
     var item = Model;
 }
 <div class="mb-5">
-    <h4>@Localizer["View latest dormitory review"]</h4>
 
-    @if (item.LatestReview != null)
-    {
-        <span>@Localizer["Latest review by a student"]</span>
-        <div class="card border-0">
-            <div class="media media-comment ">
-                <img alt="Image placeholder" class="rounded-circle shadow mr-4" src="@item.LatestReview.UserImageUrl" style="width: 64px;">
-                <div class="media-body">
-                    <div class="media-text-bubble left-top">
-                        <h6 class="mt-0">
-                            @item.LatestReview.UserFullName
-                        </h6>
-                        <div class=" border-0">
-                            <div class=" rating-details float-right py-2">
+    <h3>@Localizer["Reviews"]</h3>
+    @*@if (item.LatestReview != null)
+        {
+            <span>@Localizer["Latest review by a student"]</span>
 
-                                <a class=" rating-no text-white text-bold h3">@item.LatestReview.UserRatingNo.ToString("N1")</a>
+
+            <div class="card border-0">
+                <div class="media media-comment ">
+                    <img alt="Image placeholder" class="rounded-circle shadow mr-4" src="@item.LatestReview.UserImageUrl" style="width: 64px;">
+                    <div class="media-body">
+                        <div class="media-text-bubble left-top">
+                            <h6 class="mt-0">
+                                @item.LatestReview.UserFullName
+                            </h6>
+                            <div class=" border-0">
+                                <div class=" rating-details float-right py-2">
+
+                                    <a class=" rating-no text-white text-bold h3">@item.LatestReview.UserRatingNo.ToString("N1")</a>
+                                </div>
+                                <dau-rating rating="@item.LatestReview.UserRatingNo"></dau-rating>
+
+
                             </div>
-                            <dau-rating rating="@item.LatestReview.UserRatingNo"></dau-rating>
 
+                            <p class="text-sm lh-160">@item.LatestReview.UserComment </p>
 
                         </div>
-
-                        <p class="text-sm lh-160">@item.LatestReview.UserComment </p>
-
                     </div>
                 </div>
+
             </div>
 
-        </div>
-    }
-    else
-    {
-        <div class="card border-0">
-            <div class="media media-comment ">
 
-                <div class="media-body">
-                    <span class="text-center">@Localizer["No latest review found"]</span>
+        }
+        else
+        {
+            <div class="card border-0">
+                <div class="media media-comment ">
+
+                    <div class="media-body">
+                        <span class="text-center">@Localizer["No latest review found"]</span>
+                    </div>
                 </div>
+
             </div>
 
-        </div>
 
 
-
-    }
+        }*@
 
     <h6>@Localizer["Write your own review"]</h6>
 
@@ -88,7 +92,7 @@
 
                 </label>
                 <textarea class="form-control" placeholder="@Localizer["Write your review"]" rows="2" id="GetReviewText"></textarea>
-                <button class="btn btn-primary btn-sm m-1 float-right" id="SubmitReview" >@Localizer["Submit"]</button>
+                <button class="btn btn-primary btn-sm m-1 float-right" id="SubmitReview">@Localizer["Submit"]</button>
             </div>
 
             <div id="ReviewLoaderArea"></div>
@@ -100,9 +104,9 @@
     {
         <div class="delimiter-top">
 
-         
-                <i class="fas fa-user-circle fa-2x"></i>
-        
+
+            <i class="fas fa-user-circle fa-2x"></i>
+
 
 
             <span class="d-inline">Sign in to Write a review</span>

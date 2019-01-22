@@ -51,9 +51,9 @@
          
         
 
-    @if (item.FeaturesInCategoryCount > 4)
+    @if (item.FeaturesInCategoryCount > 5)
     {@* show only when it is greater than 4*@
-    <a data-toggle="collapse" href="#collapseFeatures-@countFeatureCategory" role="button" aria-expanded="false" aria-controls="collapseFeatures-@countFeatureCategory">@Localizer["Show all {0}", item.FeaturesInCategoryCount] </a><i class="fa fa-angle-down"></i>
+    <a data-toggle="collapse" href="#collapseFeatures-@countFeatureCategory" class="collapseFeatures" role="button" aria-expanded="false" aria-controls="collapseFeatures-@countFeatureCategory">@Localizer["Show all {0}", item.FeaturesInCategoryCount] <i class="fa fa-angle-down"></i></a>
 }
 
     <br />

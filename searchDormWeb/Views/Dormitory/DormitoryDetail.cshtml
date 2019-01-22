@@ -10,23 +10,17 @@
 <section class="slice" style=" padding-top:20px; ">
     <div class="container">
         <div class="row row-grid">
-            <div class="col-lg-3">
+            @*<div class="col-lg-3">
 
                 @{await Html.RenderPartialAsync("/Views/Dormitory/_FilterSection.cshtml", null);}
 
 
-                <div id="CommentSectionLgScreens">
-                    <div class="py-4" id="comments_section">
-                        <Dau-loader></Dau-loader>
-                    </div>
-                </div>
 
 
+            </div>*@
 
-            </div>
 
-
-            <div class="col-lg-9">
+            <div class="col-lg-12">
 
                 @** this is were it starts*@
                 <div id="_TopnavDormitorySection">
@@ -45,6 +39,9 @@
 
                     </div>
 
+                    <div id="_FacilitiesSection">
+                        <Dau-loader></Dau-loader>
+                    </div>
 
                     <div id="_RoomSection">
                         <Dau-loader></Dau-loader>
@@ -54,9 +51,7 @@
                         <Dau-loader></Dau-loader>
                     </div>
 
-                    <div id="_FacilitiesSection">
-                        <Dau-loader></Dau-loader>
-                    </div>
+
 
                 </div>
 
@@ -73,15 +68,22 @@
                     <!-- Resume timeline -->
 
 
+
+
                     <div id="_ReviewBottomSection">
                         <Dau-loader></Dau-loader>
+                    </div>
+
+
+                    <div id="CommentSectionLgScreens">
+                        <div class="py-4" id="comments_section">
+                            <Dau-loader></Dau-loader>
+                        </div>
                     </div>
 
                     <div id="CommentSectionSmScreens">
                     </div>
                 </div>
-
-
 
 
             </div>
@@ -97,17 +99,17 @@
     </div>
 
 
-    <div class="fabb d-lg-none " id="">
+    @*<div class="fabb d-lg-none " id="">
         <button type="button" id="FabBtn" class="btn btn-primary btn-icon-only ">
             <span class="btn-inner--icon"><i class="fas fa-filter"></i></span>
         </button>
-    </div>
+    </div>*@
 </section>
 
 <!-- Call to action -->
 <!-- Call to action -->
 
-<section class="slice slice-lg bg-primary">
+@*<section class="slice slice-lg bg-primary">
 
     <span class="tongue tongue-top"><i class="fas fa-angle-up"></i></span>
 
@@ -122,7 +124,7 @@
             </div>
         </div>
     </div>
-</section>
+</section>*@
 
 @section scripts
     {

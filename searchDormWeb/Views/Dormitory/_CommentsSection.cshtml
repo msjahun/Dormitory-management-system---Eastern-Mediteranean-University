@@ -7,34 +7,64 @@
 @{
     var modelList = Model;
 }
-
+<h4>@Localizer["View latest dormitory reviews"]</h4>
 @foreach (var item in modelList)
 {
-    <div class="card bg-secondary px-4 border-0 ">
 
-        <div class="d-flex align-items-center">
-            <a href="#" class="avatar rounded-circle shadow">
-                <img alt="Image placeholder" src="@item.UserImageUrl">
-            </a>
-            <div class="avatar-content">
-                <h6 class="mb-0">@item.UserFullName</h6>
-
-                <dau-rating rating="@item.UserRatingNo"></dau-rating>
-
-            </div>
-        </div>
-
-
-        <div class="media media-comment">
-
+    <div class="card border-0">
+        <div class="media media-comment ">
+            <img alt="Image placeholder" class="rounded-circle shadow mr-4" src="@item.UserImageUrl" style="width: 64px;">
             <div class="media-body">
                 <div class="media-text-bubble left-top">
-                    <p class="text-sm ">@item.UserComment</p>
+                    <h6 class="mt-0">
+                        @item.UserFullName
+                    </h6>
+                    <div class=" border-0">
+                        <div class=" rating-details float-right py-2">
+
+                            <a class=" rating-no text-white text-bold h3">@item.UserRatingNo.ToString("N1")</a>
+
+                        </div>
+                        <dau-rating rating="@item.UserRatingNo"></dau-rating>
+
+
+                    </div>
+
+                    <p class="text-sm lh-160">@item.UserComment </p>
+                    <p class="text-sm lh-160">@item.ReviewDate</p>
 
                 </div>
             </div>
         </div>
 
-
     </div>
+    <br />
+
+    @*<div class="card bg-secondary px-4 border-0 ">
+
+            <div class="d-flex align-items-center">
+                <a href="#" class="avatar rounded-circle shadow">
+                    <img alt="Image placeholder" src="@item.UserImageUrl">
+                </a>
+                <div class="avatar-content">
+                    <h6 class="mb-0">@item.UserFullName</h6>
+
+                    <dau-rating rating="@item.UserRatingNo"></dau-rating>
+
+                </div>
+            </div>
+
+
+            <div class="media media-comment">
+
+                <div class="media-body">
+                    <div class="media-text-bubble left-top">
+                        <p class="text-sm ">@item.UserComment</p>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>*@
 }
