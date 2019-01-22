@@ -1,5 +1,6 @@
 ﻿using Dau.Core.Domain.Notifications;
 using Dau.Data.Repository;
+using Dau.Services.TimeServices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,10 +13,13 @@ namespace Dau.Services.Domain.AnnouncementsServices
    public class AnnouncementService : IAnnouncementService
     {
         private IRepository<Announcement> _annoucementRepo;
+        private readonly ITimeService _timeService;
 
-        public AnnouncementService(IRepository<Announcement> annoucementRepo)
+        public AnnouncementService(IRepository<Announcement> annoucementRepo,
+            ITimeService timeService)
         {
             _annoucementRepo = annoucementRepo;
+            _timeService=timeService;
         }
 
         public AnnouncementCrud GetAnnouncementById(long Id)
@@ -121,7 +125,7 @@ namespace Dau.Services.Domain.AnnouncementsServices
                                    Message = ann.Message,
                                    StartDate = ann.StartDate.ToString(),
                                    IsActive = ann.Published,
-                                   CreatedOn = ann.CreatedOn.ToString()
+                                   CreatedOn = _timeService.TimeAgo(ann.CreatedOn)
 
 
 

@@ -1,6 +1,7 @@
 ﻿using Dau.Core.Domain.Catalog;
 using Dau.Data.Repository;
 using Dau.Services.Domain.DropdownServices;
+using Dau.Services.Domain.MapServices;
 using Dau.Services.Domain.ReviewsServices;
 using Dau.Services.Languages;
 using Microsoft.Extensions.Localization;
@@ -20,6 +21,7 @@ namespace Dau.Services.Domain.DormitoryDetailService
         private readonly IReviewService _reviewService;
         private readonly IRepository<Review> _reviewRepo;
         private readonly IStringLocalizer _Localizer;
+        private readonly IMapService _mapService;
 
         public GetDormitoryDescriptionService(
              ILanguageService languageService,
@@ -28,7 +30,8 @@ namespace Dau.Services.Domain.DormitoryDetailService
             IDropdownService dropdownService,
             IReviewService reviewService,
             IRepository<Review> reviewRepo,
-            IStringLocalizer stringLocalizer
+            IStringLocalizer stringLocalizer,
+            IMapService mapService
             )
         {
             _dropdownService = dropdownService;
@@ -38,6 +41,7 @@ namespace Dau.Services.Domain.DormitoryDetailService
             _reviewService = reviewService;
             _reviewRepo = reviewRepo;
             _Localizer = stringLocalizer;
+            _mapService = mapService;
         }
 
         public DormitoryDescriptionSectionViewModel GetDormitoryDescription(long DormitoryId)
@@ -63,7 +67,11 @@ namespace Dau.Services.Domain.DormitoryDetailService
                                 NoOfNewFacilities = dorm.NoOfNewFacilities.ToString(),
                                 NoOfStaff = dorm.NoOfStaff.ToString(),
 
-                                DormitoryDescription=dormTrans.DormitoryDescription
+                                DormitoryDescription=dormTrans.DormitoryDescription,
+                                DormitoryStreetAddress = dorm.DormitoryStreetAddress,
+                                DormitoryType = _Localizer["Dormitory belongs to the category of {0} ",(dorm.DormitoryTypeId==2)? _Localizer["private school dormitories/ accomodations (BOT)"]: _Localizer["School EMU dormitories"]],
+                                DormitoryLogoUrl = dorm.DormitoryLogoUrl,
+                                MapSection = _mapService.GetMapSectionById(dorm.MapSectionId),
 
 
                             };
@@ -77,6 +85,11 @@ namespace Dau.Services.Domain.DormitoryDetailService
 
     public class DormitoryDescriptionSectionViewModel
     {
+        public string MapSection { get; set; }
+        public string DormitoryStreetAddress { get; set; }
+        public string DormitoryType { get; set; }
+        public string DormitoryLogoUrl { get; set; }
+
         public string DormitoryDescription { get; set; }
         public string RatingText { get; set; }
         public int NoOfStudents { get; set; }

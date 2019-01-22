@@ -1,6 +1,7 @@
 ﻿using Dau.Core.Domain.Catalog;
 using Dau.Core.Domain.Users;
 using Dau.Data.Repository;
+using Dau.Services.TimeServices;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -13,13 +14,16 @@ namespace Dau.Services.Domain.DormitoryDetailService
     {
         private readonly IRepository<Review> _reviewRepo;
         private readonly UserManager<User> _userManager;
+        private readonly ITimeService _timeService;
 
         public GetCommentsService(
              IRepository<Review> ReviewRepository,
-            UserManager<User> userManager)
+            UserManager<User> userManager,
+            ITimeService timeService)
         {
             _reviewRepo = ReviewRepository;
             _userManager = userManager;
+            _timeService = timeService;
         }
 
         public List<CommentSectionViewModel> GetComments(long DormitoryId)
@@ -32,13 +36,14 @@ namespace Dau.Services.Domain.DormitoryDetailService
 
                 var ReviewUsers = from user in _userManager.Users.ToList()
                                       join review in reviews.ToList() on user.Id equals review.UserId
-                                      orderby review.Rating descending
+                                      orderby review.CreatedOn descending
                                       select new CommentSectionViewModel
                                       {
                                           UserFullName = user.FirstName + " " + user.LastName,
                                           UserRatingNo = review.Rating,
                                           UserImageUrl = user.UserImageUrl,
-                                          UserComment = review.Message
+                                          UserComment = review.Message,
+                                          ReviewDate = _timeService.TimeAgo( review.CreatedOn)
                                       };
 
 
@@ -50,6 +55,7 @@ namespace Dau.Services.Domain.DormitoryDetailService
 
     public class CommentSectionViewModel
     {
+        public string ReviewDate { get; set; }
         public string UserFullName { get; set; }
         public string UserImageUrl { get; set; }
         public string UserComment { get; set; }

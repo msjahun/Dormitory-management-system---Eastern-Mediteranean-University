@@ -121,7 +121,7 @@ namespace Dau.Services.Domain.ReviewsServices
                 _eventService.Trigger_Room_RoomReview_Event(reviewId);
                 return true;
             }
-            catch
+            catch(Exception e)
             {
                 return false;
             }

@@ -406,6 +406,14 @@ namespace Dau.Services.Domain.DropdownServices
         }
 
 
+        public List<SelectListItem> FontAwesomeIcons()
+        {
+
+  
+            return model;
+        }
+
+
         public List<SelectListItem> BookingStatus()
         {
             return model;

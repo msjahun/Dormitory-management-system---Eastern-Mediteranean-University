@@ -214,7 +214,7 @@ namespace Dau.Services.Domain.SearchResultService
                                   dorm.DormitoryLogoUrl,
                                   dorm.DormitoryTypeId,
                                   dorm.RatingNo,
-                                  RatingNoFloor = Math.Floor(dorm.RatingNo),
+                                  RatingNoFloor =(_reviewRepo.List().Where(c => c.DormitoryId == dorm.Id).Count()==0)?0: Math.Floor(dorm.RatingNo),
                                   dorm.ReviewNo,
                                   UsersReviewNo = _reviewRepo.List().Where(c=>c.DormitoryId==dorm.Id).Count(),
                                   Location = _dropdownService.ResolveDropdown(dorm.LocationOnCampus, LocationsOnCampus),
@@ -225,14 +225,14 @@ namespace Dau.Services.Domain.SearchResultService
                               };
 
 
-            if(!filters.RatingUnrated)
-                dormitories = dormitories.Where(c => c.UsersReviewNo>0).ToList();
+     
 
             //starrating filtering && review!=0;
             var RatingsList = new List<double>();
 
-            RatingsList.Add(0);
-            if (filters.RatingStar1) { 
+           
+            if (filters.RatingStar1) {
+            
                 RatingsList.Add(1);
                 RatingsList.Add(2);
             }
@@ -257,9 +257,16 @@ namespace Dau.Services.Domain.SearchResultService
                 RatingsList.Add(10);
             }
 
+
+           
+            if (filters.RatingUnrated)
+            {
+                RatingsList.Add(0);
+            }
+
             dormitories = dormitories.Where(c => RatingsList.Contains(c.RatingNoFloor)).ToList();
-         
-         
+            
+     
 
             var dormitoryType = from dormType in _dormitoryTypeRepo.List().ToList()
                                 join dormTypeTrans in _dormitoryTypeTranslationRepo.List().ToList() on dormType.Id equals dormTypeTrans.DormitoryTypeNonTransId
