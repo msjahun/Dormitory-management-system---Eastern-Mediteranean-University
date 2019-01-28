@@ -1,4 +1,5 @@
 ﻿using Dau.Core.Domain.Catalog;
+using Dau.Core.Domain.CurrencyInformation;
 using Dau.Core.Domain.EmuMap;
 using Dau.Core.Domain.Feature;
 using Dau.Data.Repository;
@@ -15,6 +16,7 @@ namespace Dau.Services.Domain.DropdownServices
 {
     public class DropdownService : IDropdownService
     {
+        private readonly IRepository<Currency> _currencyRepo;
         private readonly IUserRolesService _userRolesService;
         private readonly IStringLocalizer _localizer;
         private readonly IRepository<DormitoryBlock> _dormitoryBlockRepo;
@@ -50,8 +52,10 @@ namespace Dau.Services.Domain.DropdownServices
             IRepository<MapSectionCategory> mapSectionCategoryRepo,
             IRepository<MapSectionCategoryTranslation> mapSectionCategoryTranslationRepo,
             IStringLocalizer Localizer,
-             IUserRolesService userRolesService)
+             IUserRolesService userRolesService,
+             IRepository<Currency> currencyRepo)
         {
+            _currencyRepo = currencyRepo;
             _userRolesService = userRolesService;
             _localizer = Localizer;
             _dormitoryBlockRepo = dormitoryBlockRepo;
@@ -180,6 +184,20 @@ namespace Dau.Services.Domain.DropdownServices
                            };
 
             return featuresCategory.ToList();
+        }
+
+                public List<SelectListItem> Currencies()
+        {
+
+            var Currencies = from Curr in _currencyRepo.List().ToList()
+                             where Curr.Published == true
+                           select new SelectListItem
+                           {
+                               Value = Curr.Id.ToString(),
+                               Text = Curr.CurrencyCode
+                           };
+
+            return Currencies.ToList();
         }
 
         

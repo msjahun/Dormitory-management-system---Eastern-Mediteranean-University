@@ -32,6 +32,8 @@ namespace Dau.Services.Domain.DropdownServices
         string ResolveDropdown(int id, List<SelectListItem> dropdownList);
              List<SelectListItem> GetDormitoryBlockByDormitoryIdDropdown(long DormitoryId);
         List<SelectListItem> TravelModes();
+        List<SelectListItem> Currencies();
+
 
 
     }

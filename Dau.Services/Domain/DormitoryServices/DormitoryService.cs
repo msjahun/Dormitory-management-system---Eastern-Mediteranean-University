@@ -141,6 +141,7 @@ namespace Dau.Services.Domain.DormitoryServices
                 SKU= vm.SKU,
                 RatingNo = 9.0,
                 ReviewNo = 0,
+               CurrencyId= vm.Currency,
               BookingLimit = vm.BookingLimit,
               LocationOnCampus = vm.LocationOnCampus,
                 MapSectionId=vm.BuildingsOnMap,
@@ -231,6 +232,7 @@ namespace Dau.Services.Domain.DormitoryServices
                 MarkAsNew = dorm.MarkAsNew,
                 CancelWaitDays = dorm.CancelWaitDays,
                 AdminComment = dorm.AdminComment,
+               Currency= dorm.CurrencyId,
                 CreatedOn = dorm.CreatedOn.ToString(),
                 UpdatedOn = dorm.UpdatedOn.ToString(),
                 AllowReviewsWithBookingOnly = dorm.AllowReviewsWithBookingOnly,
@@ -293,6 +295,7 @@ namespace Dau.Services.Domain.DormitoryServices
                 dormitoryToUpdate.ReviewNo = 0;
                 dormitoryToUpdate.BookingLimit = vm.BookingLimit;
                 dormitoryToUpdate.LocationOnCampus = vm.LocationOnCampus;
+                dormitoryToUpdate.CurrencyId= vm.Currency;
                
                 dormitoryToUpdate.BookingLimit =vm.BookingLimit;//1year, 1 semester
                                                                 // resolve this tables and relationships
@@ -505,6 +508,9 @@ namespace Dau.Services.Domain.DormitoryServices
 
     public class DormitoryCrud
     {
+
+
+
         public bool SavedSuccessful { get; set; }
 
         [Display(Name = "Dormitory Type",
@@ -516,6 +522,11 @@ namespace Dau.Services.Domain.DormitoryServices
         [Display(Name = "Dormitory Logo",
       Description = "The Logo of the dormitory "), DataType(DataType.Text), MaxLength(256)]
         public string DormitoryLogo { get; set; }
+
+
+        [Display(Name = "Currency",
+      Description = "The Currency of dormitory ")]
+        public long Currency { get; set; }
         
 
         [Display(Name = "Dormitory Address",
@@ -667,7 +678,7 @@ namespace Dau.Services.Domain.DormitoryServices
 
        
         [Display(Name = "Short Description",
-        Description = "Short description is the text that is displayed in Search page."), DataType(DataType.Text),MaxLength(150)]
+        Description = "Short description is the text that is displayed in Search page."), DataType(DataType.Text),MaxLength(256)]
         public string ShortDescription { get; set; }
 
 
@@ -696,6 +707,7 @@ namespace Dau.Services.Domain.DormitoryServices
     }
     public class PicturesTab
     {
+        public long PictureId { get; set; }
         [Display(Name = "Alt",
        Description = ""), DataType(DataType.Text), MaxLength(256)]
         public string Alt { get; set; }
@@ -707,8 +719,16 @@ namespace Dau.Services.Domain.DormitoryServices
 
 
         [Display(Name = "DisplayOrder",
-       Description = ""), DataType(DataType.Text), MaxLength(256)]
-        public string DisplayOrder { get; set; }
+       Description = "The order in which the image is displayed")]
+        public int DisplayOrder { get; set; }
+
+        [Display(Name = "DisplayOrder",
+      Description = "The order in which the image is displayed")]
+        public int SliderImageDisplayOrder { get; set; }
+
+        [Display(Name = "Is Visible",
+      Description = "Shows image in background homepage slider")]
+        public bool IsVisible { get; set; }
 
 
     }

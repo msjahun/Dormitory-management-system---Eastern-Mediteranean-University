@@ -6,27 +6,16 @@ namespace Dau.Core.Domain.CurrencyInformation
 {
    public class Currency : BaseEntity
     {
-        public Currency()
-        {
-            CurrencyTranslations = new HashSet<CurrencyTranslation>();
-        }
-
-
-
        
+
+        public string Name { get; set; }
 
         public string CurrencyCode { get; set; }
 
-        public int Rate { get; set; }
+        public double Rate { get; set; }
 
-        public int DisplayLocale { get; set; }
 
         public string CustomFormatting { get; set; }
-
-     //   public IEnumerable<int> LimitToDormitories { get; set; }
-     //ICollection issue which will be resolved later which is not = never
-
-        public int RoundingType { get; set; }
 
         public bool Published { get; set; }
 
@@ -40,7 +29,7 @@ namespace Dau.Core.Domain.CurrencyInformation
 
  //CurrencyTranslation table
         //  public LocalizedCurrencyContent[] localizedCurrencyContent { get; set; }
-        public ICollection<CurrencyTranslation> CurrencyTranslations{ get; set; }
+
         
 
 

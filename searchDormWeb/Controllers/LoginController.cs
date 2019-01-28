@@ -60,6 +60,11 @@ namespace searchDormWeb.Controllers
                     ModelState.AddModelError("", Localizer["Please verify your email before signing in"]);
                     return View(vm);
                 }
+                if (user.Active== false)
+                {
+                    ModelState.AddModelError("", Localizer["Administrator has de-activated your account, please contact administrator"]);
+                    return View(vm);
+                }
                 var result = await _signInManager.PasswordSignInAsync(vm.Email, vm.Password, vm.RememberMe, false);
              
                 if (result.Succeeded)

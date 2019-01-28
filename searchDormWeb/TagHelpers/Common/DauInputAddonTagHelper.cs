@@ -63,7 +63,7 @@ namespace searchDormWeb.TagHelpers.Common
             }
             else
 
-                output.PostElement.SetHtmlContent($"<span class=\"input-group-addon\">{Text}</span></div></div>");
+                output.PostElement.SetHtmlContent($"<span class=\"input-group-addon {For.Name}-addon\" id=\"{For.Name}-addon-Id\">{Text}</span></div></div>");
 
 
 

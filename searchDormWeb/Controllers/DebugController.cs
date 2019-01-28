@@ -292,6 +292,14 @@ namespace searchDormWeb.Controllers
           return Json(success);
         }
 
+
+        public IActionResult SeedBackgroundSliderImages()
+        {
+           _seedingService.SeedBackgroundSliderImages();
+            var success = true;
+          return Json(success);
+        }
+
         public IActionResult exportExcel()
         {
            string filename= _exportService.ExportToExcel();

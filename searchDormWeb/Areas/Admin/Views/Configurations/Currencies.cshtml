@@ -74,51 +74,11 @@
                                     <th>@Localizer["Rate"]</th>
                                     <th>@Localizer["Is primary exchange rate currency"]</th>
                                     <th>@Localizer["Mark as primary exchange rate currency"]</th>
-                                    <th>@Localizer["Is primary dormitory currency"]</th>
-                                    <th>@Localizer["Mark as primary dormitory currency"]</th>
                                     <th>@Localizer["Published"]</th>
                                     <th>@Localizer["Display order"]</th>
                                     <th>@Localizer["Edit"]</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>US. Doller</td>
-                                    <td>USD </td>
-                                    <td>3.23</td>
-                                    <td><i class="fa fa-times"> </i></td>
-                                    <td> <button type="submit" class="btn btn-primary ">Mark as primary</button></td>
-                                    <td> <i class="fa fa-times"> </i></td>
-                                    <td> <button type="submit" class="btn btn-primary ">Mark as primary</button></td>
-                                    <td> <i class="fa fa-times"> </i></td>
-                                    <td> 4</td>
-                                    <td> <a asp-action="CurrencyEdit" asp-controller="Configurations" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-pencil"></i> Edit</a></td>
-                                </tr>
-                                <tr>
-                                    <td>US. Doller</td>
-                                    <td>USD </td>
-                                    <td>3.23</td>
-                                    <td><i class="fa fa-times"> </i></td>
-                                    <td> <button type="submit" class="btn btn-primary ">Mark as primary</button></td>
-                                    <td> <i class="fa fa-times"> </i></td>
-                                    <td> <button type="submit" class="btn btn-primary ">Mark as primary</button></td>
-                                    <td> <i class="fa fa-times"> </i></td>
-                                    <td> 4</td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i>Edit</button></td>
-                                </tr>
-                                <tr>
-                                    <td>US. Doller</td>
-                                    <td>USD </td>
-                                    <td>3.23</td>
-                                    <td><i class="fa fa-times"> </i></td>
-                                    <td> <button type="submit" class="btn btn-primary ">Mark as primary</button></td>
-                                    <td> <i class="fa fa-times"> </i></td>
-                                    <td> <button type="submit" class="btn btn-primary ">Mark as primary</button></td>
-                                    <td> <i class="fa fa-times"> </i></td>
-                                    <td> 4</td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-pencil"></i>Edit</button></td>
-                                </tr>
-                            </tbody>
 
                         </table>
 
@@ -184,7 +144,7 @@
             $('.select2').select2()
 
 
-         
+
             $('#CurrenciesTable').on('processing.dt', function (e, settings, processing) {
                 if (processing) {
                     Pace.start();
@@ -219,7 +179,7 @@
                 },
                 "columns": [
 
-                   
+
                     {"data": "name" },
                     {"data": "currencyCode" },
                     {"data": "rate" },
@@ -230,26 +190,23 @@
                                 return '<i class="fa fa-times" aria-hidden="true"></i>';}
                     }, {
                         "render": function (data, type, full, meta) {
-                            return '<a class="btn btn-primary" "><i class="fa fa-check">@Localizer["Mark as primary exchange rate currency"]</i> @Localizer["Edit"]</a>';
+                            return '<a class="btn btn-success "><i class="fa fa-check"></i> @Localizer["Mark as primary exchange rate currency"]</a>';
                         }
                     },
-                    {"render": function (data, type, full, meta) {
-                            if (full.isPrimaryDormitoryCurrency == true)
+                    {
+                        "render": function (data, type, full, meta) {
+                            if (full.published== true)
                                 return '<i class="fa fa-check" aria-hidden="true"></i>';
                             else
-                                return '<i class="fa fa-times" aria-hidden="true"></i>';}
-                    }, {
-                        "render": function (data, type, full, meta) {
-                            return '<a class="btn btn-primary" "><i class="fa fa-check">@Localizer["Mark as primary dormitory currency"]</i> @Localizer["Edit"]</a>';
+                                return '<i class="fa fa-times" aria-hidden="true"></i>';
                         }
                     },
-                    {"data": "createdOnUtc" },
-                    {"data": "lastActivityDateUtc" },
+                    {"data": "displayOrder" },
                     {"render": function (data, type, full, meta) {
-                        return '<a class="btn btn-primary" href="/Admin/Configurations/CurrencyEdit"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>'; }
+                        return '<a class="btn btn-primary" href="/Admin/Configurations/CurrencyEdit/?Id='+full.id+'"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>'; }
                     }
-                    
-                    
+
+
                 ]
 
 

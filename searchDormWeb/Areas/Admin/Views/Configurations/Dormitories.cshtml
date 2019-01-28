@@ -65,8 +65,13 @@
 
 
                         <div class="form-group">
+
                             <dau-label asp-for="DormitoryType"></dau-label>
-                            <dau-select asp-for="DormitoryType"></dau-select>
+                            <div class="col-sm-8">
+                                <select asp-for="DormitoryType" asp-items="_dropdown.DormitoryTypes()" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                    <option></option>
+                                </select>
+                            </div>
                             <span asp-validation-for="DormitoryType"></span>
                         </div>
 

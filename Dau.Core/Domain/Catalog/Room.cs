@@ -27,12 +27,17 @@ namespace Dau.Core.Domain.Catalog
 
         public long DormitoryId { get; set; }
         public Dormitory Dormitory { get; set; }
-        public double Price { get; set; }
-        public double PriceOld { get; set; }
+        public double PriceCash { get; set; }
+        public double PriceOldCash { get; set; }
+
+        public double PriceInstallment { get; set; }
+        public double PriceOldInstallment { get; set; }
+
+
         public int NoRoomQuota { get; set; }
         public double RoomSize { get; set; }
-        public double TaxAmount { get; set;}
-        public double BookingFee { get; set; }
+      
+        public double MinBookingFee { get; set; }
         public bool PaymentPerSemesterNotYear { get; set; }
 
         public string SKU { get; set; }
@@ -42,8 +47,7 @@ namespace Dau.Core.Domain.Catalog
         public int PercentageOff { get; set; }
         public bool DisplayNoRoomsLeft { get; set; }
         public bool MarkAsNew { get; set; }
-
-       public double RoomCost { get; set; }
+        
        public string AdminComment{ get; set; }
     public DateTime CreatedOn { get; set; }
 public DateTime UpdatedOn { get; set; }

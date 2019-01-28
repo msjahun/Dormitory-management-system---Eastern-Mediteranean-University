@@ -71,7 +71,7 @@ namespace Dau.Services.Domain.RoomServices
             var rooms = from room in _roomRepo.List().ToList()
                         join roomTrans in _roomTransRepo.List().ToList() on room.Id equals roomTrans.RoomNonTransId
                         where roomTrans.LanguageId == CurrentLanguageId
-                        select new { room.Id, roomTrans.RoomName, room.NoRoomQuota, room.Price, room.Published, room.SKU, room.DormitoryId };
+                        select new { room.Id, roomTrans.RoomName, room.NoRoomQuota, room.PriceCash, room.PriceInstallment, room.Published, room.SKU, room.DormitoryId };
 
             var dormitory = from dorm in _dormitoryRepo.List().ToList()
                             join dormTrans in _dormitoryTransRepo.List().ToList() on dorm.Id equals dormTrans.DormitoryNonTransId
@@ -93,7 +93,7 @@ namespace Dau.Services.Domain.RoomServices
                                     // Picture = RoomImages.ToList().Where(c=> c.RoomId == room.Id).FirstOrDefault().ImageUrl,
                                     RoomName = room.RoomName,
                                     SKU = room.SKU,
-                                    Price = room.Price,
+                                    Price = room.PriceCash,
                                     Quota = room.NoRoomQuota,
                                     Published = room.Published
                                 };
@@ -109,7 +109,7 @@ namespace Dau.Services.Domain.RoomServices
             var rooms = from room in _roomRepo.List().ToList()
                         join roomTrans in _roomTransRepo.List().ToList() on room.Id equals roomTrans.RoomNonTransId
                         where roomTrans.LanguageId == CurrentLanguageId && room.Id==Id
-                        select new { room.Id, roomTrans.RoomName, room.NoRoomQuota, room.Price, room.Published, room.SKU, room.DormitoryId };
+                        select new { room.Id, roomTrans.RoomName, room.NoRoomQuota, room.PriceCash,room.PriceInstallment, room.Published, room.SKU, room.DormitoryId };
 
             var dormitory = from dorm in _dormitoryRepo.List().ToList()
                             join dormTrans in _dormitoryTransRepo.List().ToList() on dorm.Id equals dormTrans.DormitoryNonTransId
@@ -131,7 +131,7 @@ namespace Dau.Services.Domain.RoomServices
                                     // Picture = RoomImages.ToList().Where(c=> c.RoomId == room.Id).FirstOrDefault().ImageUrl,
                                     RoomName = room.RoomName,
                                     SKU = room.SKU,
-                                    Price = room.Price,
+                                    Price = room.PriceCash,
                                     Quota = room.NoRoomQuota,
                                     Published = room.Published
                                 };
@@ -154,7 +154,7 @@ namespace Dau.Services.Domain.RoomServices
             var rooms = from room in _roomRepo.List().ToList()
                         join roomTrans in _roomTransRepo.List().ToList() on room.Id equals roomTrans.RoomNonTransId
                         where roomTrans.LanguageId == CurrentLanguageId && room.DormitoryId ==DormitoryId
-                        select new { room.Id, roomTrans.RoomName, room.NoRoomQuota, room.Price, room.Published,room.DormitoryBlockId, room.SKU, room.DormitoryId };
+                        select new { room.Id, roomTrans.RoomName, room.NoRoomQuota, room.PriceCash, room.PriceInstallment, room.Published,room.DormitoryBlockId, room.SKU, room.DormitoryId };
 
             var roomDormitoryBlock = from room in rooms.ToList()
                                      join dormBlock in dormitoryBlock.ToList() on room.DormitoryBlockId equals dormBlock.Id
@@ -163,7 +163,7 @@ namespace Dau.Services.Domain.RoomServices
                                          RoomId = room.Id,
                                          RoomName = room.RoomName,
                                          DormitoryBlock = dormBlock.Name,
-                                         Price = room.Price.ToString("N2"),
+                                         Price = room.PriceCash.ToString("N2"),
                                          Published = room.Published,
                                          Quota = room.NoRoomQuota,
                                          SKU = room.SKU,
@@ -190,27 +190,32 @@ namespace Dau.Services.Domain.RoomServices
 
                 DormitoryBlockId = vm.DormitoryBlock,
                 DormitoryId = vm.Dormitory,
-                Price = vm.Price,
-                PriceOld = vm.OldPrice,
+
+                PriceCash = vm.PriceCash,
+                PriceOldCash = vm.OldPriceCash,
+
+                PriceInstallment = vm.PriceInstallment,
+                PriceOldInstallment = vm.OldPriceInstallment,
+
                 NoRoomQuota = vm.RoomQuota,
                 SKU = vm.SKU,
                 AdminComment = vm.AdminComment,
                 DisplayDeal = vm.DisplayDeal,
                 PercentageOff = vm.PercentageOff,
                 DealEndTime = DealEndTime, //?
-                RoomCost = vm.RoomCost,
+
                 DisplayNoRoomsLeft = vm.DisplayNoRoomsLeft,
                 Published = vm.Published,
                 DisplayOrder = vm.DisplayOrder,
                 MarkAsNew = vm.MarkAsNew,
                 NoOfStudents = vm.NoOfStudents,
                 HasDeposit = vm.HasDeposit,
-                ShowPrice = vm.ShowPrice,
+                ShowPrice = true,//vm.ShowPrice,
 
                 RoomSize = vm.RoomSize,
-                TaxAmount = vm.TaxAmount,
-                BookingFee = vm.BookingFee,
-                PaymentPerSemesterNotYear = vm.PaymentPerSemesterNotYear,
+
+                MinBookingFee = vm.MinBookingFee,
+                PaymentPerSemesterNotYear = (vm.PriceOptionsRadios == 1) ? true : false,
                 RoomTranslation = new List<RoomTranslation>
                {
                         new RoomTranslation
@@ -253,26 +258,29 @@ namespace Dau.Services.Domain.RoomServices
             Room.UpdatedOn = DateTime.Now;
                 Room.DormitoryBlockId = vm.DormitoryBlock;
                 Room.DormitoryId = vm.Dormitory;
-                Room.Price = vm.Price;
-                Room.PriceOld = vm.OldPrice;
+
+                Room.PriceCash = vm.PriceCash;
+                Room.PriceOldCash = vm.OldPriceCash;
+
+                Room.PriceInstallment = vm.PriceInstallment;
+                Room.PriceOldInstallment = vm.OldPriceInstallment;
+
                 Room.NoRoomQuota = vm.RoomQuota;
                 Room.SKU = vm.SKU;
                 Room.AdminComment = vm.AdminComment;
                 Room.DisplayDeal = vm.DisplayDeal;
                 Room.PercentageOff = vm.PercentageOff;
                 Room.DealEndTime = DealEndTime; //?
-                Room.RoomCost = vm.RoomCost;
                 Room.DisplayNoRoomsLeft = vm.DisplayNoRoomsLeft;
                 Room.Published = vm.Published;
                 Room.DisplayOrder = vm.DisplayOrder;
                 Room.MarkAsNew = vm.MarkAsNew;
                 Room.NoOfStudents = vm.NoOfStudents;
                 Room.HasDeposit = vm.HasDeposit;
-                Room.ShowPrice = vm.ShowPrice;
+                Room.ShowPrice = true;// vm.ShowPrice;
                 Room.RoomSize = vm.RoomSize;
-                Room.TaxAmount = vm.TaxAmount;
-                Room.BookingFee = vm.BookingFee;
-                Room.PaymentPerSemesterNotYear = vm.PaymentPerSemesterNotYear;
+                Room.MinBookingFee = vm.MinBookingFee;
+                Room.PaymentPerSemesterNotYear = (vm.PriceOptionsRadios == 1) ? true : false;
 
          
             var englishId = 1;
@@ -328,9 +336,12 @@ namespace Dau.Services.Domain.RoomServices
                 Published = room.Published,
                 MarkAsNew = room.MarkAsNew,
               
-                Price = room.Price,
-                OldPrice = room.PriceOld,
-                RoomCost = room.RoomCost,
+                PriceCash = room.PriceCash,
+                OldPriceCash = room.PriceOldCash,
+
+                PriceInstallment = room.PriceInstallment,
+                OldPriceInstallment = room.PriceOldInstallment,
+              
                 AdminComment = room.AdminComment,
                 CreatedOn =room.CreatedOn.ToString(),
                 UpdatedOn = room.UpdatedOn.ToString(),
@@ -352,9 +363,9 @@ namespace Dau.Services.Domain.RoomServices
                 ShowPrice=room.ShowPrice,
 
                 RoomSize=room.RoomSize,
-                TaxAmount=room.TaxAmount,
-                BookingFee=room.BookingFee,
-               PaymentPerSemesterNotYear=room.PaymentPerSemesterNotYear,
+              
+                MinBookingFee=room.MinBookingFee,
+                PriceOptionsRadios = (room.PaymentPerSemesterNotYear==true) ? 1 : 2,
                 localizedContent = new List<LocalizedContent>
                   {
                       
@@ -414,11 +425,11 @@ namespace Dau.Services.Domain.RoomServices
             var rooms = from room in _roomRepo.List().ToList()
                         join roomTrans in _roomTransRepo.List().ToList() on room.Id equals roomTrans.RoomNonTransId
                         where roomTrans.LanguageId == CurrentLanguageId &&  room.DormitoryId==DormitoryId
-                        orderby room.Price ascending
-                        select new { room.Id, roomTrans.RoomName, room.NoRoomQuota, room.Price, room.Published, room.SKU, room.DormitoryId };
+                        orderby room.PriceCash ascending
+                        select new { room.Id, roomTrans.RoomName, room.NoRoomQuota, room.PriceCash,room.PriceInstallment, room.Published, room.SKU, room.DormitoryId };
 
             if (rooms.ToList().Count <= 0) return null;
-            return rooms.ToList().FirstOrDefault().Price.ToString("N2");
+            return rooms.ToList().FirstOrDefault().PriceCash.ToString("N2");
 
         }
 
@@ -438,7 +449,7 @@ namespace Dau.Services.Domain.RoomServices
                 var rooms = from room in _roomRepo.List().ToList()
                             join roomTrans in _roomTransRepo.List().ToList() on room.Id equals roomTrans.RoomNonTransId
                             where roomTrans.LanguageId == CurrentLanguageId && room.DormitoryBlockId==DormitoryBlockId
-                            select new { room.Id, roomTrans.RoomName, room.NoRoomQuota, room.Price, room.Published, room.DormitoryBlockId, room.SKU, room.DormitoryId };
+                            select new { room.Id, roomTrans.RoomName, room.NoRoomQuota, room.PriceCash,room.PriceInstallment, room.Published, room.DormitoryBlockId, room.SKU, room.DormitoryId };
 
                 var roomDormitoryBlock = from room in rooms.ToList()
                                          join dormBlock in dormitoryBlock.ToList() on room.DormitoryBlockId equals dormBlock.Id
@@ -447,7 +458,7 @@ namespace Dau.Services.Domain.RoomServices
                                              RoomId = room.Id,
                                              RoomName = room.RoomName,
                                              DormitoryBlock = dormBlock.Name,
-                                             Price = room.Price.ToString("N2"),
+                                             Price = room.PriceCash.ToString("N2"),
                                              Published = room.Published,
                                              Quota = room.NoRoomQuota,
                                              SKU = room.SKU,
@@ -487,6 +498,7 @@ namespace Dau.Services.Domain.RoomServices
                 return model;
             
         }
+
     }
 
     public class RoomsListTable
@@ -503,33 +515,73 @@ namespace Dau.Services.Domain.RoomServices
         //public string Edit { get; set; }
     }
 
-
-
-
     public class RoomViewCrud
     {
+        [Display(Name = "",
+   Description = "Is pricing per semester or per year")]
+
+        public int PriceOptionsRadios { get; set; }
 
         public List<LocalizedContent> localizedContent { get; set; }
 
         public bool SavedSuccessful { get; set; }
+
+        [Display(Name = "Deal End Time",
+               Description = "The time the deal will end")]
+
         public string DealEndTime { get; set; }
+
+        [Display(Name = "Display deal",
+       Description = "Will display deal with this option is checked")]
+
         public bool DisplayDeal { get; set; }
+
         [Range(5, 100)]
-        [Display(Name = "Percentage off")]
+        [Display(Name = "Percentage off", 
+         Description = "Percentage amount off")]
+
         public int PercentageOff { get; set; }
+
+        [Display(Name = "Display No Rooms left",
+               Description = "Check to display No of rooms left from the search page")]
 
         public bool DisplayNoRoomsLeft { get; set; }//
 
+        [Display(Name = "Display order",
+               Description = "Where relevant the rooms will be displayed according to a display order")]
+
         public int DisplayOrder { get; set; }//
+
+        [Display(Name = "Room students Capacity",
+               Description = "How many students stay in the room, e.g 4 or 2 students")]
+
         public int NoOfStudents { get; set; }//
+
+
+        [Display(Name = "Has Deposit",
+               Description = "Room has deposit")]
+
         public bool HasDeposit { get; set; }//
 
-        public bool ShowPrice { get; set; }
-        public double RoomSize { get; set; }
-        public double TaxAmount { get; set; }
-        public double BookingFee { get; set; }
-        public bool PaymentPerSemesterNotYear { get; set; }
+        [Display(Name = "Show price",
+               Description = "Display price to students")]
 
+        public bool ShowPrice { get; set; }
+
+        [Display(Name = "Room size",
+               Description = "Size of room in m2")]
+
+        public double RoomSize { get; set; }
+
+
+        
+
+        [Display(Name = "Min Booking fee",
+               Description = "Minimum amount a student has to pay during booking")]
+
+        public double MinBookingFee { get; set; }
+
+    
 
         [Display(Name = "SKU",
         Description = "Room stock keeping unit(SKU). Your internal unique identifier that can be used to track this room."), DataType(DataType.Text), MaxLength(256)]
@@ -553,25 +605,27 @@ namespace Dau.Services.Domain.RoomServices
 
 
 
-        [Display(Name = "Price",
+        [Display(Name = "Price Cash",
         Description = "The price of the room.You can manage currency by selecting Configuration > Currencies.")]
-        public double Price { get; set; }
+        public double PriceCash { get; set; }
 
-        [Display(Name = "Old Price",
+        [Display(Name = "Old Price Cash",
         Description = "The old price of the room.If you set an old price, this will display alongside the current price on the room page to show the difference in price.")]
-        public double OldPrice { get; set; }
+        public double OldPriceCash { get; set; }
 
 
 
-        [Display(Name = "Room Cost",
-        Description = "Room cost is a prime room cost.This field is only for internal use, not visible for customers.")]
-        public double RoomCost { get; set; }
+        [Display(Name = "Price Installment",
+        Description = "The price of the room.You can manage currency by selecting Configuration > Currencies.")]
+        public double PriceInstallment { get; set; }
 
-     
+        [Display(Name = "Old Price Installment",
+        Description = "The old price of the room.If you set an old price, this will display alongside the current price on the room page to show the difference in price.")]
+        public double OldPriceInstallment { get; set; }
 
-        [Display(Name = "Discounts",
-        Description = "Select discounts to apply to this room.You can manage discounts by selecting Discounts from the Promotions menu.")]
-        public int Discounts { get; set; }
+
+
+
 
         [Display(Name = "Room Quota",
                Description = "Select inventory method.There are two methods: Don’t track inventory and Track inventory. ")]

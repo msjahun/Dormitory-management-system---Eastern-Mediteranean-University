@@ -19,11 +19,14 @@ using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using Dau.Core.Domain.Bookings;
 using Dau.Core.Domain.Feature;
+using Dau.Services.Domain.DormitoryServices;
+using Dau.Core.Domain.SliderImages;
 
 namespace Dau.Services.Domain.ImageServices
 {
     public class ImageService : IImageService
     {
+        private readonly IRepository<SliderImage> _sliderImageRepo;
         private readonly IRepository<Features> _featuresRepo;
         private readonly IRepository<Booking> _bookingRepo;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -40,8 +43,10 @@ namespace Dau.Services.Domain.ImageServices
             IRepository<DormitoryCatalogImage> dormCatalogImageRepo,
             IRepository<Dormitory> dormRepo,
             IRepository<Booking> bookingRepo,
-            IRepository<Features> featuresRepo)
+            IRepository<Features> featuresRepo,
+            IRepository<SliderImage> sliderImageRepo)
         {
+            _sliderImageRepo = sliderImageRepo;
             _featuresRepo = featuresRepo;
             _bookingRepo = bookingRepo;
             _httpContextAccessor = httpContextAccessor;
@@ -57,7 +62,26 @@ namespace Dau.Services.Domain.ImageServices
 
 
 
+        private ImageDimension GetImageDimension(string ImageFileName)
+        {
 
+            using (var image = Image.Load(Path.Combine(_environment.WebRootPath, ImageFileName) ))
+            {
+              
+                int imageHeight = Convert.ToInt32(image.Height);
+                int imageWidth = Convert.ToInt32(image.Width);
+
+
+                var ImageDimension = new ImageDimension
+                {
+                    Height = imageHeight,
+                    Width = image.Width
+                };
+                return ImageDimension;
+
+            }
+
+        }
 
         public bool uploadDormitoryLogoImage(long DormitoryId)
         {
@@ -312,8 +336,38 @@ namespace Dau.Services.Domain.ImageServices
             
         }
 
+        public bool UploadSliderImage(DormitoryCrud vm)
+        {
 
+            try {
+            var pictureUrl = UploadImage("Files/Images/BackgroundImages/");
+                var ImageDimensions = GetImageDimension(pictureUrl);
+                var model = new SliderImage
+            {
+                DisplayOrder = 0,
+                IsVisible = true,
+                UploadDate = DateTime.Now,
+                PictureHeight = ImageDimensions.Height,
+                PictureWidth = ImageDimensions.Width,
+                PictureUrl = pictureUrl
+            };
+
+            _sliderImageRepo.Insert(model);
+            return true;
+
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 
 
+    public class ImageDimension
+    {
+        public int Height { get; set; }
+        public int Width { get; set; }
+
+    }
 }

@@ -6,6 +6,7 @@ using Dau.Services.Domain.DormitoryDetailService;
 using Dau.Services.Domain.DormitoryServices;
 using Dau.Services.Domain.MapServices;
 using Dau.Services.Languages;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace Dau.Services.Domain.LocationServices
 {
     public class LocationService : ILocationService
     {
+        private readonly IStringLocalizer _localizer;
         private readonly ILanguageService _languageService;
         private readonly IMapService _mapService;
         private readonly IRepository<Locationinformation> _locationRepo;
@@ -34,8 +36,10 @@ namespace Dau.Services.Domain.LocationServices
                 IRepository<MapSectionTranslation> mapSectionTransRepo,
                 IRepository<Dormitory> dormitoryRepo,
                 IRepository<DormitoryTranslation> dormitoryTransRepo,
-                IDormitoryService dormitoryService)
+                IDormitoryService dormitoryService,
+                IStringLocalizer stringLocalizer)
         {
+            _localizer = stringLocalizer;
             _languageService = languageService;
             _mapService = mapService;
             _locationRepo = locationRepo;
@@ -116,7 +120,7 @@ namespace Dau.Services.Domain.LocationServices
                                       }).FirstOrDefault();
 
             if (MapSLocation == null) return null;
-            return String.Format("({0} to {1})", MapSLocation.TimeItTakes, MapSLocation.LocationName);
+            return _localizer["({0} to {1})", MapSLocation.TimeItTakes, MapSLocation.LocationName];
         }
 
         public string GetClosestLandmarkMapSection(long DormitoryId)

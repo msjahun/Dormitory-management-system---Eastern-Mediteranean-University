@@ -154,13 +154,13 @@
                 {
                     <h5 class="text-bold d-block" style="color:#269038">@Localizer["{0}% off", item.PercentageOff]</h5>}
 
-                @if (item.ShowPrice)
+                @if (item.ShowPrice||true)
                 {
 
-                    <h4 class="text-bold d-block" style="color:#269038">@String.Format("{0} {1}", "$", item.Price)</h4>
+                    <h4 class="text-bold d-block" style="color:#269038">@item.Price</h4>
                     @if (item.OldPrice != null)
                     {
-                        <strike><h4 class="text-bold" style="color:grey; ">@String.Format("{0} {1}", "$", item.OldPrice)</h4></strike>
+                        <strike><h4 class="text-bold" style="color:grey; ">@item.OldPrice</h4></strike>
                     }
 
 

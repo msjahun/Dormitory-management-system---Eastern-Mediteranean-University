@@ -145,14 +145,17 @@ $.ajax({
         $(".targetFilterInput").change(function () {
             SearchRooms();
 
-            function toggleChevron(e) {
-                $(e.target).closest('.collapseFeatures').find('i.fa')
-                    .toggleClass('fa-angle-up fa-angle-down');
-            }
-            $('.collapseFeatures').on('hidden.bs.collapse', toggleChevron);
-            $('.collapseFeatures').on('shown.bs.collapse', toggleChevron);
+           
+           
         });
 
+        function alertIdOfClicked() {
+            alert("I was clicked");
+        }
+        $('.collapseFeatures').click(function () {
+          //use this method to toggle fa-ffangle
+            $(this).find('[class*="angle"]').toggleClass('fa-angle-left fa-angle-down');
+        });
 
     }
 });
@@ -245,7 +248,10 @@ function SearchRooms() {
     var RatingStar3 = $('#RatingStar3').is(':checked');
     var RatingStar4 = $('#RatingStar4').is(':checked');
     var RatingStar5 = $('#RatingStar5').is(':checked');
-  var RatingUnrated = $('#RatingUnrated').is(':checked');
+    var RatingUnrated = $('#RatingUnrated').is(':checked');
+
+    var CurrencyTl = $('#CurrencyTl').is(':checked');
+    var CurrencyUsd = $('#CurrencyUsd').is(':checked');
     //console.log($('.targetFilterInput').val());
     $.ajax({
         type: "POST",
@@ -269,7 +275,10 @@ function SearchRooms() {
             RatingStar3:RatingStar3,
             RatingStar4:RatingStar4,
             RatingStar5:RatingStar5,
-            RatingUnrated:RatingUnrated
+            RatingUnrated: RatingUnrated,
+
+            CurrencyTl: CurrencyTl,
+            CurrencyUsd: CurrencyUsd
 
         },
         success: function (result) {

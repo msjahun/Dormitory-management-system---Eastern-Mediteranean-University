@@ -57,6 +57,8 @@ using Dau.Core.Domain.EmuMap;
 using Dau.Data.Mapping.LocationInformations;
 using Dau.Core.Domain.LocationInformations;
 using Dau.Core.Event;
+using Dau.Data.Mapping.SliderImages;
+using Dau.Core.Domain.SliderImages;
 
 namespace Dau.Data
 {
@@ -91,7 +93,7 @@ namespace Dau.Data
         public virtual DbSet<CountryTranslation> CountryTranslation { get; set; }
         public virtual DbSet<StateAndProvince> StateAndProvince { get; set; }
         public virtual DbSet<Currency> Currency { get; set; }
-        public virtual DbSet<CurrencyTranslation> CurrencyTranslation { get; set; }
+      //  public virtual DbSet<CurrencyTranslation> CurrencyTranslation { get; set; }
         public virtual DbSet<EmailAccount> EmailAccount { get; set; }
         public virtual DbSet<PushNotification> PushNotification { get; set; }
         public virtual DbSet<Announcement> Announcement { get; set; }
@@ -153,6 +155,8 @@ namespace Dau.Data
         public virtual DbSet<UsersDormitory> UsersDormitory{ get; set; }
         public virtual DbSet<EventLogger> EventLogger { get; set; }
 
+        public virtual DbSet<SliderImage> SliderImages { get; set; }
+
 
 
 
@@ -197,7 +201,7 @@ namespace Dau.Data
             modelBuilder.ApplyConfiguration(new CountryTranslationMap());
             modelBuilder.ApplyConfiguration(new StateAndProvinceMap());
             modelBuilder.ApplyConfiguration(new CurrencyMap());
-            modelBuilder.ApplyConfiguration(new CurrencyTranslationMap());
+         //   modelBuilder.ApplyConfiguration(new CurrencyTranslationMap());
             modelBuilder.ApplyConfiguration(new EmailAccountMap());
             modelBuilder.ApplyConfiguration(new PushNotificationMap());
             modelBuilder.ApplyConfiguration(new AnnouncementsMap());
@@ -258,6 +262,8 @@ namespace Dau.Data
             modelBuilder.ApplyConfiguration(new MapSectionCategoryTranslationMap());
             modelBuilder.ApplyConfiguration(new LocationInformationMap());
             modelBuilder.ApplyConfiguration(new UsersDormitoryMap());
+            modelBuilder.ApplyConfiguration(new SliderImagesMap());
+            modelBuilder.ApplyConfiguration(new CartMap());
 
 
 

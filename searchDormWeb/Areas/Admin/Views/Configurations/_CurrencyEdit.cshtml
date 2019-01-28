@@ -1,9 +1,10 @@
-﻿@using searchDormWeb.Areas.Admin.Models.Configuration
-@model CurrencyEdit
+﻿@using  Dau.Services.Domain.CurrencyServices
+@model CurrencyCrud
 @{
-            ViewData["Title"] = Localizer["Edit Currency"];
-            Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
-        }
+    ViewData["Title"] = Localizer["Edit Currency"];
+    Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+    var item = Model;
+}
 
 
 <div class="content-wrapper">
@@ -17,8 +18,8 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
-                    <button type="submit" form="addForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save and Continue Edit"]</button>
+                    <button type="submit" form="editForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save"]</button>
+                    <button type="submit" form="editForm" class="btn btn-primary "> <i class="fa fa-floppy-o"></i> @Localizer["Save and Continue Edit"]</button>
                     <button type="submit" form="addForm" class="btn btn-danger "> <i class="fa fa-trash-o"></i> @Localizer["Delete"]</button>
                 </div>
             </div>
@@ -36,43 +37,29 @@
         <div class="col-md-12">
             <!-- Horizontal Form -->
 
-            <div class="box ">
+            <div class="box box-primary">
                 <div class="box-header"></div>
                 <!-- /.box-header -->
                 <!-- form start -->
 
                 <div class="box-body">
+                    <form class="form-horizontal" method="post" id="editForm" asp-controller="Configurations" asp-action="CurrencyEdit">
+                        <input type="hidden" asp-for="Id" />
 
-                    <form class="form-horizontal">
-                        <dau-tabs id="LanguageTab">
-                            <dau-tab id="tab1" name="Standard" active="true">
+                        <div class="form-group">
+                            <dau-label asp-for="Id"></dau-label>
+                            <div class="col-sm-9">
+                                <p>@item.Id</p>
+                            </div>
 
-                                <div class="form-group">
-                                    <dau-label asp-for="localizedCurrencyContent[0].Name"></dau-label>
-                                    <dau-input asp-for="localizedCurrencyContent[0].Name" type="text"></dau-input>
-                                    <span asp-validation-for="localizedCurrencyContent[0].Name"></span>
-                                </div>
-
-                            </dau-tab>
-                            <dau-tab id="tab2" name="English" flag="@Url.Content("~/Content/")dist/img/us.png">
-
-                                <div class="form-group">
-                                    <dau-label asp-for=" localizedCurrencyContent[1].Name"></dau-label>
-                                    <dau-input asp-for="localizedCurrencyContent[1].Name" type="text"></dau-input>
-                                    <span asp-validation-for="localizedCurrencyContent[1].Name"></span>
-                                </div>
+                        </div>
 
 
-                            </dau-tab>
-                            <dau-tab id="tab3" name="Turkish" flag="@Url.Content("~/Content/")dist/img/tr.png">
-                                <div class="form-group">
-                                    <dau-label asp-for="localizedCurrencyContent[2].Name"></dau-label>
-                                    <dau-input asp-for="localizedCurrencyContent[2].Name" type="text"></dau-input>
-                                    <span asp-validation-for="localizedCurrencyContent[2].Name"></span>
-                                </div>
-
-                            </dau-tab>
-                        </dau-tabs>
+                        <div class="form-group">
+                            <dau-label asp-for="Name"></dau-label>
+                            <dau-input asp-for="Name" type="text"></dau-input>
+                            <span asp-validation-for="Name"></span>
+                        </div>
 
 
                         <!-- /.nav-tabs -->
@@ -97,13 +84,7 @@
                         </div>
 
 
-                        <div class="form-group">
 
-                            <dau-label asp-for="DisplayLocale"></dau-label>
-                            <dau-select asp-for="DisplayLocale"></dau-select>
-                            <span asp-validation-for="DisplayLocale"></span>
-
-                        </div>
 
 
                         <div class="form-group">
@@ -114,25 +95,21 @@
                         </div>
 
 
-                        <div class="form-group">
 
-                            <dau-label asp-for="LimitToDormitories"></dau-label>
-                            <dau-select multiple-select="true" asp-for="LimitToDormitories"></dau-select>
-                            <span asp-validation-for="LimitToDormitories"></span>
 
-                        </div>
+
+
+
 
 
 
                         <div class="form-group">
 
-                            <dau-label asp-for="RoundingType"></dau-label>
-                            <dau-select asp-for="RoundingType" ></dau-select>
-                            <span asp-validation-for="RoundingType"></span>
+                            <dau-label asp-for="DisplayOrder"></dau-label>
+                            <dau-input asp-for="DisplayOrder" type="number"></dau-input>
+                            <span asp-validation-for="DisplayOrder"></span>
 
                         </div>
-
-
 
                         <div class="form-group">
 
@@ -146,18 +123,9 @@
 
 
                         <div class="form-group">
-
-                            <dau-label asp-for="DisplayOrder"></dau-label>
-                            <dau-input asp-for="DisplayOrder" type="text"></dau-input>
-                            <span asp-validation-for="DisplayOrder"></span>
-
-                        </div>
-
-
-                        <div class="form-group">
                             <dau-label asp-for="CreatedOn"></dau-label>
                             <div class="col-sm-8">
-                                <p>3/15/2016 4:23:01 AM</p>
+                                <p>@item.CreatedOn</p>
                             </div>
 
                         </div>
@@ -165,13 +133,13 @@
                         <div class="form-group">
                             <dau-label asp-for="UpdatedOn"></dau-label>
                             <div class="col-sm-8">
-                                <p>3/15/2016 4:23:01 AM</p>
+                                <p>@item.UpdatedOn</p>
                             </div>
 
                         </div>
 
-
                     </form>
+
                 </div>
             </div>
 
@@ -204,7 +172,7 @@
 }
 
 
-    @section scripts
+@section scripts
     {
 
     <script src="@Url.Content("~/Content/")bower_components/jquery/dist/jquery.min.js"></script>

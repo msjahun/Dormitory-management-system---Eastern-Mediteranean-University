@@ -45,15 +45,7 @@
 
             </div>
 
-            <!-- Subtotal -->
-            <div class="row mt-3 pt-3 border-top">
-                <div class="col-8 text-right">
-                    <small class="text-dark font-weight-bold">@Localizer["Subtotal"]:</small>
-                </div>
-                <div class="col-4 text-right">
-                    <span class="text-sm font-weight-bold">@item.SubtotalAmount</span>
-                </div>
-            </div>
+        
             <!-- Booking fee -->
             <div class="row mt-3 pt-3 border-top">
                 <div class="col-8 text-right">
@@ -61,7 +53,7 @@
 
                         <div class="media-body">
                             <div class="text-limit lh-100">
-                                <small class="text-dark font-weight-bold mb-0">@Localizer["Booking fee"]:</small>
+                                <small class="text-dark text-uppercase font-weight-bold mb-0">@Localizer["Min Amount For Booking "]:</small>
                             </div>
 
                         </div>
@@ -71,27 +63,11 @@
                     <span class="text-sm font-weight-bold">@item.BookingFee</span>
                 </div>
             </div>
-            <!-- Tax-->
-            <div class="row mt-3 pt-3 border-top">
-                <div class="col-8 text-right">
-                    <div class="media align-items-center">
-
-                        <div class="media-body">
-                            <div class="text-limit lh-100">
-                                <small class="text-dark font-weight-bold mb-0">@Localizer["Tax"]:</small>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4 text-right">
-                    <span class="text-sm font-weight-bold">@item.TaxAmount</span>
-                </div>
-            </div>
+      
             <!-- Subtotal -->
             <div class="row mt-3 pt-3 border-top">
                 <div class="col-8 text-right">
-                    <small class="text-uppercase text-dark font-weight-bold">@Localizer["Total"]:</small>
+                    <small class="text-uppercase text-dark font-weight-bold">@Localizer["Total amout to pay"]:</small>
                 </div>
                 <div class="col-4 text-right">
                     <span class="text-sm text-dark font-weight-bold">@item.AmountTotal</span>

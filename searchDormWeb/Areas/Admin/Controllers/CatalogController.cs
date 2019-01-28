@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Hosting;
 using Dau.Services.Domain.ImageServices;
 using Dau.Services.Export;
 using static Dau.Services.Domain.DormitoryBlockServices.DormitoryBlockService;
+using Dau.Services.Domain.CurrencyServices;
 
 namespace searchDormWeb.Areas.Admin.Controllers
 {
@@ -28,7 +29,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
     [Route("admin/[controller]")]
     public class CatalogController : Controller
     {
-       
+        private readonly ICurrencyService _currencyService;
         private readonly IFeaturesService _featuresService;
         private readonly IRoomService _roomService;
         private readonly IDormitoryBlockService _dormitoryBlockService;
@@ -48,8 +49,10 @@ namespace searchDormWeb.Areas.Admin.Controllers
             IDropdownService dropdownService,
             IHostingEnvironment IHostingEnvironment,
             IImageService imageService,
-             IExportService exportService)
+             IExportService exportService,
+             ICurrencyService currencyService)
         {
+            _currencyService = currencyService;
             _featuresService = featuresService;
             _roomService = roomService;
             _dormitoryBlockService = dormitoryBlockService;
@@ -219,6 +222,11 @@ namespace searchDormWeb.Areas.Admin.Controllers
         public ActionResult GetDormitoryBlockByDormitoryIdDropdown(long id)
         {
             return Json(_dropdownService.GetDormitoryBlockByDormitoryIdDropdown(id));
+        }
+        [HttpPost("[action]")]
+        public ActionResult GetDormitoryCurrencyCode(long id)
+        {
+            return Json(_currencyService.GetDormitoryCurrencyCode(id));
         }
 
 

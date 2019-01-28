@@ -203,6 +203,19 @@
 
                                                     </div>
 
+
+                                                    <div class="form-group">
+
+                                                        <dau-label asp-for="Currency"></dau-label>
+                                                        <div class="col-sm-8">
+                                                            <select asp-for="Currency" asp-items="_dropdown.Currencies()" id="FeatureCategoryselect" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                             
+                                                            </select>
+                                                        </div>
+                                                        <span asp-validation-for="Currency"></span>
+                                                    </div>
+
+
                                                     <div class="form-group">
                                                         <dau-label asp-for="SKU"></dau-label>
                                                         <dau-input asp-for="SKU" type="text"></dau-input>
@@ -832,13 +845,17 @@
 
                         <div class="tab-pane" id="tab_7">
                             <div class="box box-solid">
-                                <div class="box-header"> </div>
+                                <div class="box-header">
+                                    <a asp-action="DormitoryBlockAdd" asp-controller="Catalog" asp-area="Admin" class="btn btn-default btn-block"> <i class="fa fa-plus-square"></i> @Localizer["Add new"]</a>
+
+                                </div>
 
                                 <div class="box-body">
                                     <p>
                                         @Localizer["Here you'll find a list of all the dormitory blocks in the current dormitory"]
-                                    </p>
 
+                                    </p>
+                                    
                                     <table id="DormitoryBlocksTable" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>

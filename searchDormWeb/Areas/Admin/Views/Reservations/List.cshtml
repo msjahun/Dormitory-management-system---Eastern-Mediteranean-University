@@ -255,7 +255,7 @@
                 success: function (result) {
                     if (result == true) {
                         document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-success alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> @Localizer["Booking status changed successsfully."]</div>";
-                        bookingTable.ajax.reload();
+                        bookingTable.ajax.reload(null, false);
 }
 
                     else 
@@ -348,7 +348,7 @@
                     {
                         "render": function (data, type, full, meta) {
                           
-                                return "$"+full.bookingTotal;
+                                return full.bookingTotal;
 
                         }
 

@@ -56,10 +56,11 @@ namespace Dau.Services.Domain.ExploreEmuService
 
             var Images = from imageList in _imagesRepository.List().ToList()
                          join dormImage in _dormitoryImageRepository.List().ToList() on imageList.Id equals dormImage.CatalogImageId
-                         select new { imageList.Id, imageList.ImageUrl, dormImage.DormitoryId };
+                         select new { imageList.Id, imageList.ImageUrl, dormImage.DormitoryId, imageList.AllowInExploreEMU };
 
             var dormImages = from dorm in DormSeo.ToList()
                              join image in Images.ToList() on dorm.Id equals image.DormitoryId
+                             where image.AllowInExploreEMU ==true
                              select new ExploreImages
                              {
                                  DormitoryName = dorm.DormitoryName,

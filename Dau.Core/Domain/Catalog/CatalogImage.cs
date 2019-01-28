@@ -16,6 +16,8 @@ namespace Dau.Core.Domain.Catalog
         public DateTime CreatedDate { get; set; }
         public bool Published { get; set; }
         public int DisplayOrder { get; set; }
+        public bool AllowInExploreEMU { get; set; }
+        public bool IsHomeSliderImage { get; set; }
 
         public ICollection<DormitoryCatalogImage> DormitoryCatalogImage { get; set; }
         public ICollection<RoomCatalogImage> RoomCatalogImage { get; set; }

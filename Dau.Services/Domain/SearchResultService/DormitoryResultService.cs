@@ -10,6 +10,7 @@ using Dau.Services.Domain.LocationServices;
 using Dau.Services.Domain.MapServices;
 using Dau.Services.Domain.ReviewsServices;
 using Dau.Services.Languages;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,7 @@ namespace Dau.Services.Domain.SearchResultService
         private readonly IRepository<SemesterPeriod> _SemesterPeriodRepo;
         private readonly IRepository<SemesterPeriodTranslation> _semesterPeriodTransRepo;
         private IRepository<DormitoryType> _dormitoryTypeRepo;
+        private readonly IStringLocalizer _localizer;
         private readonly IReviewService _reviewService;
         private readonly ILocationService _locationService;
         private readonly IDropdownService _dropdownService;
@@ -62,10 +64,12 @@ namespace Dau.Services.Domain.SearchResultService
                         IMapService mapService,
                         IDropdownService dropdownService,
                         ILocationService locationService,
-                        IReviewService reviewService
+                        IReviewService reviewService,
+                        IStringLocalizer stringLocalizer
 
           )
         {
+            _localizer = stringLocalizer;
             _reviewService = reviewService;
             _locationService = locationService;
             _dropdownService = dropdownService;
@@ -126,9 +130,9 @@ namespace Dau.Services.Domain.SearchResultService
                                        DormitoryType = dormType.Title, //dormitory type table
                                        DormitoryName = dorm.DormitoryName,
                                        DormitoryIconUrl = dorm.DormitoryLogoUrl,
-                                       RatingNo = (_reviewRepo.List().Where(c => c.DormitoryId == dorm.Id).ToList().Count <= 0) ? "N.A" : dorm.RatingNo.ToString("N1"),
+                                       RatingNo = (_reviewRepo.List().Where(c => c.DormitoryId == dorm.Id).ToList().Count <= 0) ? _localizer["N.A"] : dorm.RatingNo.ToString("N1"),
                                        RatingNoRaw = dorm.RatingNo,
-                                       RatingText = (_reviewRepo.List().Where(c => c.DormitoryId == dorm.Id).ToList().Count <= 0) ? "Unrated" : _reviewService.ResolveRatingText(dorm.RatingNo),
+                                       RatingText = (_reviewRepo.List().Where(c => c.DormitoryId == dorm.Id).ToList().Count <= 0) ? _localizer["Unrated"] : _reviewService.ResolveRatingText(dorm.RatingNo),
                                        DormitorySeoFriendlyUrl = _seoRepo.List().ToList().Where(c => c.Id == dorm.DormitorySeoId).FirstOrDefault().SearchEngineFriendlyPageName, //use seo table
                                     
                                       

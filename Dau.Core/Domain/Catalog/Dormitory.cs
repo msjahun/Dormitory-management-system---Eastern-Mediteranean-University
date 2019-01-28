@@ -1,4 +1,5 @@
-﻿using Dau.Core.Domain.EmuMap;
+﻿using Dau.Core.Domain.CurrencyInformation;
+using Dau.Core.Domain.EmuMap;
 using Dau.Core.Domain.Feature;
 using Dau.Core.Domain.LocationInformations;
 using Dau.Core.Domain.SearchEngineOptimization;
@@ -23,6 +24,7 @@ namespace Dau.Core.Domain.Catalog
         public double RatingNo { get; set; }
         public int ReviewNo { get; set; }
 
+    public long CurrencyId { get; set; }
 
     
         public string SKU { get; set; }

@@ -470,7 +470,7 @@ namespace Dau.Services.Domain.MobileApiServices
                             bedType = roomTrans.BedType,
                             roomSize = room.RoomSize,
                             roomQuotaRemaining = room.NoRoomQuota,
-                            roomPrice = room.Price,
+                            roomPrice = room.PriceCash,
                             roomId = room.Id,
                             dormitoryId = room.DormitoryId,
 
@@ -575,7 +575,7 @@ namespace Dau.Services.Domain.MobileApiServices
                           dormitoryName = _dormitoryService.GetDormitoryNameById(room.DormitoryId),
                             roomId = room.Id,
                             roomQuota = room.NoRoomQuota,
-                            roomPrice = room.Price,
+                            roomPrice = room.PriceCash,
                             facilitiesList = (from roomFeature in _roomFeaturesRepo.List().ToList()
                                                          join feature in features.ToList() on roomFeature.FeaturesId equals feature.Id
                                                          where roomFeature.RoomId == room.Id 
@@ -641,7 +641,7 @@ namespace Dau.Services.Domain.MobileApiServices
             bedType=roomTrans.BedType,
             roomSize=room.RoomSize,
             roomQuotaRemaining=room.NoRoomQuota,
-            roomPrice=room.Price,
+            roomPrice=room.PriceCash,
             roomId=room.Id,
            dormitoryId=DormitoryId
                         };

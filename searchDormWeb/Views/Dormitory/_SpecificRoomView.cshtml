@@ -84,34 +84,65 @@
                             @if (item.NoRoomQuota > 0)
                             {
                                 <span class="text-danger"> @Localizer["{0} rooms left", item.NoRoomQuota]</span>}
-                            </div>
+
+                   
+                        </div>
 
                         <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h4 class="text-bold ">@Localizer["Price cash"]</h4>
+                                    <h4 class="text-bold" style="color:#269038"> @item.PriceCash</h4>
 
-                            <h4 class="text-bold" style="color:#269038">$ @item.Price</h4>
-                            @if (item.OldPrice != null)
+                                    @if (item.OldPriceCash != null)
+                                    {
+                                        <strike><h4 class="text-bold" style="color:grey; ">@item.OldPriceCash</h4></strike>}
+                                </div>
+
+                                <div class="col-md-6">
+                                    <h4 class="text-bold ">@Localizer["Price Installment"]</h4>
+                                    <h4 class="text-bold" style="color:#269038"> @item.PriceInstallment</h4>
+
+                                </div>
+
+
+
+                            </div>
+
+                            @if (item.PaymentPerSemesterNotYear)
                             {
-                                <strike><h4 class="text-bold" style="color:grey; ">$ @item.OldPrice</h4></strike>} 
+                                <h5 class="text-bold d-block" style="color:#269038">@Localizer["Per semester"]</h5>
+                            }
+                            else
+                            {
+                                <h5 class="text-bold d-block" style="color:#269038">@Localizer["Per year"]</h5>
+                            }
+                            <div>
+                                <br />
+                                <h5 class="text-bold ">@Localizer["Min Amount for booking"]: <span class="text-bold" style="color:#269038"> @item.MinBookingAmount</span> </h5>
 
-                                @if (item.HasDeposit)
-                                {
-                                    <span><i class="fas fa-check"></i>@Localizer["Includes deposit"] <br></span>
-                                }
-                                else
-                                {
-                                    <span><i class="fas fa-check"></i>@Localizer["No deposit Included"]<br></span>
-                                }
 
-
-                                @if (item.NoRoomQuota <= 0)
-                                {
-                                    <span class="text-danger d-block"> @Localizer["Rooms sold out"]</span>}
-                                else
-                                { <a href="@Html.Raw(Url.Action("AddToCart", "Booking"))/@item.RoomId" class="btn btn-primary btn-block btn-sm">@Localizer["I'll reserve"]</a>
+                            </div>
+                            @if (item.HasDeposit)
+                            {
+                                <span><i class="fas fa-check"></i>@Localizer["Includes deposit"] <br></span>
+                            }
+                            else
+                            {
+                                <span><i class="fas fa-check"></i>@Localizer["No deposit Included"]<br></span>
                             }
 
 
-                            </div>
+
+                            @if (item.NoRoomQuota <= 0)
+                            {
+                                <span class="text-danger d-block"> @Localizer["Rooms sold out"]</span>}
+                            else
+                            { <a href="@Html.Raw(Url.Action("AddToCart", "Booking"))/@item.RoomId" class="btn btn-primary btn-block btn-sm">@Localizer["I'll reserve"]</a>
+                        }
+
+
+                        </div>
                     </div>
                 </div>
 

@@ -36,7 +36,7 @@ namespace Dau.Core.Domain.Localization
             MessageTemplateTranslations = new HashSet<MessageTemplateTranslation>();
             TopicTranslations = new HashSet<TopicTranslation>();
             CountryTranslations = new HashSet<CountryTranslation>();
-            CurrencyTranslations = new HashSet<CurrencyTranslation>();
+      //      CurrencyTranslations = new HashSet<CurrencyTranslation>();
 
 
 
@@ -82,7 +82,7 @@ namespace Dau.Core.Domain.Localization
         public ICollection<MessageTemplateTranslation> MessageTemplateTranslations { get; set; }
         public ICollection<TopicTranslation> TopicTranslations { get; set; }
         public ICollection<CountryTranslation> CountryTranslations { get; set; }
-        public ICollection<CurrencyTranslation> CurrencyTranslations { get; set; }
+    //    public ICollection<CurrencyTranslation> CurrencyTranslations { get; set; }
 
         public ICollection<FeaturesTranslation> FeaturesTranslations { get; set; }
         public ICollection<FeaturesCategoryTranslation> FeaturesCategoryTranslations { get; set; }

@@ -9,53 +9,40 @@
     var item = Model;
 }
 
-<header class="header-account-page-sm bg-gradient-primary d-flex align-items-end">
-    <div class="container">
-        <div class="row">
-            <div class=" col-lg-12">
-                <div class="row align-items-center mb-4">
-                    <div class="col-md-5 mt-4 mb-md-0">
-                        <span class="h2 mb-0 text-white d-block">@Localizer["Booking Cart"] </span>
-                        <span class="text-light">@Localizer["Checkout and complete your booking"]</span>
-                    </div>
-                </div>
-                <!-- Checkout navigation -->
-
-            </div>
-        </div>
-    </div>
-</header>
 
 
 
 <section class="slice slice-xl  d-flex align-items-center">
     <div class="container ">
+
         <div class="row justify-content-center">
+         
             <div class="col-lg-7">
+          
                 <div class="text-center">
 
                     @if (item)
                     {
-                    <div class="icon icon-xl icon-shape icon-green rounded-circle">
-                        <i class="fas fa-check"></i>
-                    </div>
+                        <div class="icon icon-xl icon-shape icon-green rounded-circle">
+                            <i class="fas fa-check"></i>
+                        </div>
                         /**/
-                    <h6 class="h4 my-4">@Localizer["Completed booking successfully"]</h6>
-                    <p class="px-5">
-                        @Localizer["Thanks you for booking a room from our dormitory, your booking will be processed soon"]
-                    </p>
-                    <a asp-controller="Account" asp-action="Billing" class="btn btn-info shadow--hover mt-5">@Localizer["View bookings"]</a>
+                        <h6 class="h4 my-4">@Localizer["Completed booking successfully"]</h6>
+                        <p class="px-5">
+                            @Localizer["Thanks you for booking a room from our dormitory, your booking will be processed soon"]
+                        </p>
+                        <a asp-controller="Account" asp-action="Billing" class="btn btn-info shadow--hover mt-5">@Localizer["View bookings"]</a>
                     }
                     else
                     {
-                    <div class="icon icon-xl icon-shape icon-red rounded-circle">
-                        <i class="fas fa-times"></i>
-                    </div>
-                    <h6 class="h4 my-4">@Localizer["Booking failed to complete successfully"]</h6>
-                    <p class="px-5">
-                        @Localizer["We applogise for the inconvenience, our engineers have been notified of this problem, please try again"]
-                    </p>
-                    <a asp-controller="Search" asp-action="Results" class="btn btn-info shadow--hover mt-5">@Localizer["Go to dormitories"]</a>
+                        <div class="icon icon-xl icon-shape icon-red rounded-circle">
+                            <i class="fas fa-times"></i>
+                        </div>
+                        <h6 class="h4 my-4">@Localizer["Booking failed to complete successfully"]</h6>
+                        <p class="px-5">
+                            @Localizer["We applogise for the inconvenience, our engineers have been notified of this problem, please try again"]
+                        </p>
+                        <a asp-controller="Search" asp-action="Results" class="btn btn-info shadow--hover mt-5">@Localizer["Go to dormitories"]</a>
 
 
                     }
@@ -67,22 +54,3 @@
 </section>
 
 
-
-<!-- Call to action -->
-
-<section class="slice slice-lg bg-primary">
-
-    <span class="tongue tongue-top"><i class="fas fa-angle-up"></i></span>
-
-    <div class="container">
-        <div class="row justify-content-center align-items-center">
-            <div class="col-lg-8 text-center">
-                <h3 class="font-weight-400 text-white">@Localizer["I am ready to start booking Now"] </h3>
-                <div class="mt-5">
-                    <a href="" target="_blank" class="btn btn-white btn-circle btn-translate--hover px-4">@Localizer["Book my first Room"]<span class="badge badge-pill badge-danger text-sm">@Localizer["Now"]</span></a>
-                    <a href="" class="btn btn-link text-white">@Localizer["Have an issue?"]</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>

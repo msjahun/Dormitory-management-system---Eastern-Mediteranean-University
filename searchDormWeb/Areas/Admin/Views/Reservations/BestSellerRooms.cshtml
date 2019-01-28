@@ -18,8 +18,7 @@
             <div class=" col-md-12">
                 <div class="upper_left pull-right">
 
-                    <button type="submit" class="btn btn-danger "> <i class="fa fa-trash"></i> @Localizer["Delete"]</button>
-                </div>
+                 </div>
             </div>
         </div>
     </section>
@@ -41,18 +40,8 @@
                 <form class="form-horizontal">
                     <div class="box-body">
                         <div class="row">
-                            <div class=" col-md-6">
-                                <div class="form-group">
-                                    <dau-label asp-for="StartDate"></dau-label>
-                                    <dau-date asp-for="StartDate"></dau-date>
-                                    <span asp-validation-for="StartDate"></span>
-                                </div>
-
-                                <div class="form-group">
-                                    <dau-label asp-for="EndDate"></dau-label>
-                                    <dau-date asp-for="EndDate"></dau-date>
-                                    <span asp-validation-for="EndDate"></span>
-                                </div>
+                            <div class=" col">
+                             
 
 
                                 <div class="form-group">
@@ -68,22 +57,9 @@
                                     <span asp-validation-for="PaymentStatus"></span>
                                 </div>
 
-                            </div>
+                             
 
-                            <div class=" col-md-6">
-
-                                <div class="form-group">
-                                    <dau-label asp-for="DormitoryBlock"></dau-label>
-                                    <dau-select asp-for="DormitoryBlock"></dau-select>
-                                    <span asp-validation-for="DormitoryBlock"></span>
-                                </div>
-
-
-                                <div class="form-group">
-                                    <dau-label asp-for="BillingCountry"></dau-label>
-                                    <dau-select asp-for="BillingCountry"></dau-select>
-                                    <span asp-validation-for="BillingCountry"></span>
-                                </div>
+                            
 
                                 <div class="form-group">
                                     <dau-label asp-for="Dormitory"></dau-label>
@@ -120,57 +96,14 @@
                         <table id="BestSellerRoomsTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>@Localizer["Name"]</th>
+                                    <th>@Localizer["Dormitory name"]</th>
+                                    <th>@Localizer["Room name"]</th>
+                                    <th>@Localizer["Dormitory block"]</th>
                                     <th>@Localizer["Total quantity"]</th>
                                     <th>@Localizer["Total amount"]</th>
                                     <th>@Localizer["View"]</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Alfam B block 114</td>
-                                    <td>68</td>
-                                    <td>$128,800</td>
-                                    <td> <a asp-action="RoomEdit" asp-controller="Catalog" asp-area="Admin" class="btn btn-primary btn-flat"><i class="fa fa-eye"></i> View</a></td>
-                                </tr>
-                                <tr>
-                                    <td>Alfam B block 114</td>
-                                    <td>68</td>
-                                    <td>$128,800</td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Alfam B block 114</td>
-                                    <td>68</td>
-                                    <td>$128,800</td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Alfam B block 114</td>
-                                    <td>68</td>
-                                    <td>$128,800</td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Alfam B block 114</td>
-                                    <td>68</td>
-                                    <td>$128,800</td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Alfam B block 114</td>
-                                    <td>68</td>
-                                    <td>$128,800</td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Alfam B block 114</td>
-                                    <td>68</td>
-                                    <td>$128,800</td>
-                                    <td> <button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                </tr>
-                            </tbody>
-
                         </table>
 
 
@@ -287,7 +220,9 @@
                 "columns": [
 
 
-                    {"data": "name" },
+                    {"data": "dormitoryName" },
+                    {"data": "roomName" },
+                    {"data": "dormitoryBlock" },
                     {"data": "totalQuantity" },
                     {"data": "totalAmount" },
 

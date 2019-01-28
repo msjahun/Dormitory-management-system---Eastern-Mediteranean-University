@@ -1,9 +1,11 @@
 ﻿using Dau.Core.Domain.Bookings;
 using Dau.Core.Domain.Catalog;
+using Dau.Core.Domain.CurrencyInformation;
 using Dau.Core.Domain.Feature;
 using Dau.Core.Domain.LocationInformations;
 using Dau.Core.Domain.SearchEngineOptimization;
 using Dau.Data.Repository;
+using Dau.Services.Domain.CurrencyServices;
 using Dau.Services.Domain.DropdownServices;
 using Dau.Services.Domain.ImageServices;
 using Dau.Services.Domain.LocationServices;
@@ -28,6 +30,7 @@ namespace Dau.Services.Domain.SearchResultService
         private readonly IRepository<SemesterPeriod> _SemesterPeriodRepo;
         private readonly IRepository<SemesterPeriodTranslation> _semesterPeriodTransRepo;
         private IRepository<DormitoryType> _dormitoryTypeRepo;
+        private readonly IRepository<Currency> _currencyRepo;
         private readonly IStringLocalizer _Localizer;
         private readonly IReviewService _reviewService;
         private readonly ILocationService _locationService;
@@ -49,6 +52,7 @@ namespace Dau.Services.Domain.SearchResultService
         private readonly IRepository<Features> _featuresRepo;
         private readonly IRepository<FeaturesTranslation> _featuresTranslation;
         private readonly IDropdownService _dropdownService;
+        private readonly ICurrencyService _currencyService;
 
         public RoomResultService(
             IRepository<Room> RoomRepository,
@@ -75,11 +79,14 @@ namespace Dau.Services.Domain.SearchResultService
             ILocationService locationService,
               IReviewService reviewService,
             IRepository<FeaturesTranslation> featuresTranslation,
-            IStringLocalizer stringLocalizer
+            IStringLocalizer stringLocalizer,
+              ICurrencyService currencyService,
+              IRepository<Currency> currencyRepo
 
             )
         {
 
+            _currencyRepo = currencyRepo;
             _Localizer = stringLocalizer;
             _reviewService = reviewService;
             _locationService = locationService;
@@ -105,6 +112,7 @@ namespace Dau.Services.Domain.SearchResultService
             _featuresRepo = featuresRepo;
             _featuresTranslation = featuresTranslation;
             _dropdownService = dropdownService;
+            _currencyService = currencyService;
         }
 
         public List<RoomResultViewModel> GetRoomResult(GetRoomResultViewModel filters)
@@ -139,9 +147,13 @@ namespace Dau.Services.Domain.SearchResultService
 
                 var rooms = from room in roomList
                             join roomTrans in _roomTransRepository.List().ToList() on room.Id equals roomTrans.RoomNonTransId
-                        where roomTrans.LanguageId == CurrentLanguageId
+                        where roomTrans.LanguageId == CurrentLanguageId && room.Published==true
                         select new { room.Id, room.DormitoryId, room.DormitoryBlockId, roomTrans.RoomName,
-                            room.Price, room.PriceOld, room.ShowPrice, room.NoRoomQuota, room.RoomSize,
+                            room.PriceCash,
+                            room.PriceOldCash,
+                            room.PriceInstallment,
+                            room.PriceOldInstallment,
+                            room.ShowPrice, room.NoRoomQuota, room.RoomSize,
                             roomTrans.GenderAllocation, room.PaymentPerSemesterNotYear,
                             room.PercentageOff,
                             room.DealEndTime,
@@ -170,8 +182,10 @@ namespace Dau.Services.Domain.SearchResultService
                                           room.DormitoryId,
                                           room.DormitoryBlockId,
                                           room.RoomName,
-                                          room.Price,
-                                          room.PriceOld,
+                                          room.PriceCash,
+                                          room.PriceOldCash,
+                                          room.PriceInstallment,
+                                          room.PriceOldInstallment,
                                           room.ShowPrice,
                                           room.NoRoomQuota,
                                           room.RoomSize,
@@ -221,11 +235,35 @@ namespace Dau.Services.Domain.SearchResultService
                                   dormTrans.DormitoryDescription,
                                   dorm.DormitoryStreetAddress,
                                  dorm.MapSectionId,
+                                 dorm.CurrencyId
                                 
                               };
 
+            var CurrencyTRY = _currencyRepo.List().Where(c => c.CurrencyCode == "TRY").FirstOrDefault();
+            var CurrencyUSD = _currencyRepo.List().Where(c => c.CurrencyCode == "USD").FirstOrDefault();
 
-     
+            long CurrencyTLId = 0;
+            if (CurrencyTRY != null)
+                CurrencyTLId = CurrencyTRY.Id;
+
+
+                    long CurrencyUSDId = 0;
+            if (CurrencyUSD != null)
+                CurrencyUSDId= CurrencyUSD.Id;
+
+            var CurrencyList = new List<double>();
+            if (filters.CurrencyTl)
+            {
+                CurrencyList.Add(CurrencyTLId);
+            }
+
+            if (filters.CurrencyUsd)
+            {
+                CurrencyList.Add(CurrencyUSDId);
+            }
+
+
+            dormitories = dormitories.Where(c => CurrencyList.Contains(c.CurrencyId)).ToList();
 
             //starrating filtering && review!=0;
             var RatingsList = new List<double>();
@@ -314,7 +352,7 @@ namespace Dau.Services.Domain.SearchResultService
             var roomDormitory = from room in roomsDormitoryBlock.ToList()
                                 join dorm in dormitoryAndtype.ToList() on room.DormitoryId equals dorm.Id
 
-                                where room.Price >= filters.PriceMin && room.Price <= filters.PriceMax //room price and area filter applied here
+                                where room.PriceCash >= filters.PriceMin && room.PriceCash <= filters.PriceMax //room price and area filter applied here
                                       && room.RoomSize <= filters.RoomArea
 
                                 select new RoomResultViewModel
@@ -347,15 +385,18 @@ namespace Dau.Services.Domain.SearchResultService
                                   
                                     RoomName = room.RoomName,
                                     ReviewNo = dorm.ReviewNo,
-                                    SortingPrice=room.Price,
+                                    SortingPrice=room.PriceCash,
                                     SortingRatingNO=dorm.SortingRatingNo,
                                     ShortDescription =dorm.ShortDescription,
                                     DormitoryStreetAddress = dorm.DormitoryStreetAddress,
                                     NumberOfRoomsLeft = room.NoRoomQuota,
                                     MapSection =  dorm.MapSection,
                                   ClosestLandMark = dorm.ClosestLandMark,
-                                    Price = room.Price.ToString("N2"),
-                                    OldPrice = (room.PriceOld>0)?room.PriceOld.ToString("N2"):null,
+                                    Price =  _currencyService.CurrencyFormatterByRoomId(room.Id, room.PriceCash),
+                                    OldPrice = (room.PriceOldCash>0 && room.PriceOldCash> room.PriceCash)
+                                    ? _currencyService.CurrencyFormatterByRoomId(room.Id, room.PriceOldCash):null,
+
+
                                     PaymentPerSemesterNotYear = room.PaymentPerSemesterNotYear,
                                     ShowPrice= room.ShowPrice,
                                     //should come from promotions table
@@ -480,6 +521,9 @@ public double SortingPrice { get; set; }
            public bool RatingStar4 {get;set;}
            public bool RatingStar5 { get; set; }
            public bool RatingUnrated { get; set; }
+
+        public bool CurrencyTl { get; set; }
+        public bool CurrencyUsd { get; set; }
     }
 
 }

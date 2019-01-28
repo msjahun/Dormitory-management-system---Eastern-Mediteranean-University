@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Dau.Services.Domain.DormitoryServices;
+using System.Collections.Generic;
 
 namespace Dau.Services.Domain.ImageServices
 {
@@ -14,5 +15,6 @@ namespace Dau.Services.Domain.ImageServices
         List<string> PrepareImageForMobileApi(List<string> imageUrls);
         bool uploadBookingReceiptImage(long BookingId);
         bool UploadFeatureImage(long id);
+        bool UploadSliderImage(DormitoryCrud vm);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Dau.Core.Domain.Catalog;
 using Dau.Core.Domain.Feature;
 using Dau.Data.Repository;
+using Dau.Services.Domain.CurrencyServices;
 using Dau.Services.Languages;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace Dau.Services.Domain.DormitoryDetailService
 {
    public class GetSpecificRoomService : IGetSpecificRoomService
     {
+        private readonly IRepository<DormitoryBlockTranslation> _dormitoryBlockTransRepo;
         private readonly IRepository<CatalogImage> _imagesRepo;
         private readonly IRepository<Room> _roomRepository;
         private readonly IRepository<RoomTranslation> _roomTranslationRepository;
@@ -19,6 +21,7 @@ namespace Dau.Services.Domain.DormitoryDetailService
         private readonly IRepository<RoomFeatures> _roomFeaturesRepo;
         private readonly IRepository<Features> _featuresRepo;
         private readonly IRepository<FeaturesTranslation> _featuresTranslation;
+        private readonly ICurrencyService _currencyService;
 
         public GetSpecificRoomService(
             IRepository<CatalogImage> imagesRepository,
@@ -29,8 +32,15 @@ namespace Dau.Services.Domain.DormitoryDetailService
                    IRepository<RoomFeatures> RoomFeaturesRepo,
             IRepository<Features> featuresRepo,
          
-            IRepository<FeaturesTranslation> featuresTranslation)
+            IRepository<FeaturesTranslation> featuresTranslation,
+            IRepository<DormitoryBlockTranslation> dormitoryBlockTransRepo,
+              ICurrencyService currencyService
+
+
+            )
         {
+
+            _dormitoryBlockTransRepo = dormitoryBlockTransRepo;
             _imagesRepo = imagesRepository;
             _roomRepository = RoomRepository;
             _roomTranslationRepository=RoomTranslationRepository;
@@ -40,6 +50,7 @@ namespace Dau.Services.Domain.DormitoryDetailService
             _roomFeaturesRepo = RoomFeaturesRepo;
             _featuresRepo = featuresRepo;
             _featuresTranslation = featuresTranslation;
+            _currencyService = currencyService;
         }
 
         public SpecificRoomViewModel GetSpecificRoom(long RoomId)
@@ -100,12 +111,15 @@ namespace Dau.Services.Domain.DormitoryDetailService
                             RoomId = room.Id,
                             Facilities = roomFeatures.ToList(),
                             RoomName = roomTrans.RoomName,
-                            DormitoryBlock = "A block",
+                            DormitoryBlock = _dormitoryBlockTransRepo.List().Where(_ => _.LanguageId == CurrentLanguageId && _.DormitoryBlockNonTransId == room.DormitoryBlockId).FirstOrDefault().Name,
                             GenderAllocation = roomTrans.GenderAllocation,
                             NoOfStudents = room.NoOfStudents,
                             BedType = roomTrans.BedType,
-                            Price = room.Price.ToString("N2"),
-                            OldPrice = (room.PriceOld > 0) ? room.PriceOld.ToString("N2") : null,
+                            PriceCash = _currencyService.CurrencyFormatterByRoomId(room.Id,room.PriceCash),
+                            MinBookingAmount = _currencyService.CurrencyFormatterByRoomId(room.Id,  room.MinBookingFee),
+                            PaymentPerSemesterNotYear = room.PaymentPerSemesterNotYear,
+                            PriceInstallment = _currencyService.CurrencyFormatterByRoomId(room.Id, room.PriceInstallment),
+                            OldPriceCash = (room.PriceOldCash > 0 && room.PriceOldCash > room.PriceCash) ? _currencyService.CurrencyFormatterByRoomId(room.Id, room.PriceOldCash) : null,
                             NoRoomQuota = room.NoRoomQuota,
                             HasDeposit = room.HasDeposit,
                             ShowPrice = room.ShowPrice,
@@ -128,8 +142,12 @@ namespace Dau.Services.Domain.DormitoryDetailService
         public string DormitoryName { get; set; }
         public string BedType { get; set; }
         public int NoOfStudents { get; set; }
-        public string Price { get; set; }
-        public string OldPrice { get; set; }
+        public string PriceCash { get; set; }
+        public string PriceInstallment { get; set; }
+
+        public bool PaymentPerSemesterNotYear { get; set; }
+        public string OldPriceCash { get; set; }
+        public string MinBookingAmount { get; set; }
         public bool HasDeposit { get; set; }
         public int NoRoomQuota { get; set; }
         public bool ShowPrice { get; set; }

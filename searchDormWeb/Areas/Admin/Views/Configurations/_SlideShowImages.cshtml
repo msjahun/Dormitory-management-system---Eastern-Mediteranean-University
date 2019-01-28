@@ -1,0 +1,694 @@
+﻿@using  Dau.Services.Domain.DormitoryServices
+@model DormitoryCrud
+@{
+    ViewData["Title"] = "Manage Slide Show Images";
+    Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+  
+    bool PicturesSection = true;
+
+    if (ViewData["section"] != null)
+    {
+        var section = ViewData["section"].ToString();
+
+
+        if (section == "picture")
+        {
+
+            PicturesSection = true;
+
+        }
+    }
+
+}
+
+
+
+
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            @ViewData["Title"]
+            <small><a asp-action="" asp-controller="Dashboard"><i class="fa fa-arrow-circle-left"></i> @Localizer["back to Dashboard"]</a></small>
+        </h1>
+        <div class="row">
+            <div class=" col-md-12">
+                <div class="upper_left pull-right">
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main content -->
+    <!-- Main content -->
+    <section class="content container-fluid">
+        <div id="alertACL"></div>
+        @if ((Model != null) ? Model.SavedSuccessful : false)
+        {
+            <div class="alert alert-success alert-dismissible"> <button type="button" class="close text-white" data-dismiss="alert" aria-hidden="true">×</button> <i class="icon fa fa-check"></i> @Localizer["Picture added successfully"]</div>
+        }
+        else if((Model != null) ? !Model.SavedSuccessful : false)
+        {
+            <div class="alert alert-danger alert-dismissible"> <button type="button" class="close text-white" data-dismiss="alert" aria-hidden="true">×</button> <i class="icon fa fa-times"></i> @Localizer["Error encountered unable to upload image successfully"]</div>
+
+        }
+        <!--------------------------
+    | Your Page Content Here |
+    -------------------------->
+
+        <div class="col-md-12">
+            <!-- Horizontal Form -->
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+
+                    <li class="@(PicturesSection?"active":"")"><a href="#tab_2" data-toggle="tab" aria-expanded="false">@Localizer["Home SlideShow Images"]</a></li>
+                    <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">@Localizer["Explore EMU Images"]</a></li>
+                    @*<li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">@Localizer["ImageSettings"]</a></li>*@
+
+                </ul>
+                <div>
+                    <div class="tab-content">
+
+
+
+
+
+                        <div class="tab-pane @(PicturesSection?"active":"")" id="tab_2">
+                            <div class="box box-solid">
+                                <div class="box-header"> </div>
+
+                                <div class="box-body">
+
+                                    <table id="SlideShowPicturesTable" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>@Localizer["Picture"]</th>
+                                                <th>@Localizer["Picture Height"]</th>
+                                                <th>@Localizer["Picture Width"]</th>
+                                                <th>@Localizer["Display Order"]</th>
+                                                <th>@Localizer["Visible"]</th>
+                                                <th>@Localizer["Upload date"]</th>
+                                                <th></th>
+                                                <th></th>
+
+
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+
+                                    </table>
+
+                                </div>
+                            </div>
+
+                            <div class="box box-solid">
+                                <div class="box-header">@Localizer["Add a new picture"] </div>
+
+                                <div class="box-body">
+                                    <form id="picturesForm" method="post" class="form-horizontal" enctype="multipart/form-data">
+
+                                        <div class="form-group">
+                                            <label for="inputPassword3" class="col-sm-3 control-label">@Localizer["Picture"] <i class="fa fa-question-circle" aria-hidden="true"></i></label>
+
+                                            <div class="col-sm-8">
+                                                <img id="ImagePlaceholder" src="~/Content/dist/img/default-image_100.png" height="100" /><br /><br />
+
+                                                <span class="btn btn-success btn-file">
+                                                    @Localizer["Upload file"]  <input id="ImageInput" type="file" name="files" accept="image/*" />
+                                                </span>
+                                            </div>
+
+                                        </div>
+
+
+
+
+
+                                        @*<div class="form-group">
+
+                                            <dau-label asp-for="picturesTab.DisplayOrder"> </dau-label>
+                                            <dau-input asp-for="picturesTab.DisplayOrder" type="number" value="0"></dau-input>
+                                            <span asp-validation-for="picturesTab.DisplayOrder"></span>
+
+                                        </div>*@
+
+
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label"></i></label>
+
+                                            <div class="col-sm-8">
+                                                <button type="button" onClick='AddSliderImage()' class="btn btn-primary">@Localizer["Add SlideShow picture"]</button>
+                                            </div>
+
+                                        </div>
+                                    </form>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane " id="tab_3">
+                            <div class="box box-solid">
+                                <div class="box-header"></div>
+                                <!-- /.box-header -->
+                                <!-- form start -->
+                                <form class="form-horizontal">
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <dau-label asp-for="localizedContent[0].DormitoryName"></dau-label>
+                                            <dau-input asp-for="localizedContent[0].DormitoryName" type="text"></dau-input>
+                                            <span asp-validation-for="localizedContent[0].DormitoryName"></span>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <dau-label asp-for="DormitoryType"></dau-label>
+                                            <div class="col-sm-8">
+                                                <select asp-for="DormitoryType" asp-items="_dropdown.DormitoryTypes()" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                    <option value="0"></option>
+                                                </select>
+                                            </div>
+                                            <span asp-validation-for="DormitoryType"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <button type="button" id="SearchBtn" onclick="SearchEmuExplorePics();" class="btn btn-primary btn-lg "> <i class="fa fa-search"></i> @Localizer["Search"]</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- /.box-body -->
+
+                                </form>
+                            </div>
+
+
+                            <div class="box box-solid">
+                                <div class="box-header"> </div>
+
+                                <div class="box-body">
+
+                                    <table id="ExploreEmuPicturesTable" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>@Localizer["Picture"]</th>
+                                                <th>@Localizer["Dormitory"]</th>
+                                                <th>@Localizer["Upload date"]</th>
+                                                <th>@Localizer["Allow on Explore EMU page"]</th>
+                                                <th></th>
+                                                <th></th>
+
+
+
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+
+                                    </table>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        @*<div class="tab-pane " id="tab_4">
+
+
+                            <div class="box box-solid">
+                                <div class="box-header"> </div>
+
+                                <div class="box-body">
+
+                                    <table id="PicturesTable" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>@Localizer["Picture"]</th>
+                                                <th>@Localizer["Display order"]</th>
+                                                <th>@Localizer["Alt"]</th>
+                                                <th>@Localizer["Upload date"]</th>
+
+
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+
+                                    </table>
+
+                                </div>
+                            </div>
+
+
+
+                        </div>*@
+
+
+
+
+                    </div>
+                    <!-- /.tab-content -->
+                </div>
+            </div>
+
+
+
+        </div>
+    </section>
+    <!-- /.content -->
+    <div class="modal fade" id="modal-editBackgroundInformation" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title">@Localizer["Edit Image information"]</h4>
+                </div>
+                <div class="modal-body">
+
+                    <input type="hidden" asp-for="picturesTab.PictureId" />
+                    <div class="form-group">
+
+                        <dau-label asp-for="picturesTab.SliderImageDisplayOrder"></dau-label>
+                        <dau-input asp-for="picturesTab.SliderImageDisplayOrder" type="number"></dau-input>
+                        <span asp-validation-for="picturesTab.SliderImageDisplayOrder"></span>
+
+                    </div>
+                    <br />
+
+                    <div class="form-group">
+
+                        <dau-label asp-for="picturesTab.IsVisible"></dau-label>
+                        <div class="col-sm-8">
+                            <input asp-for="picturesTab.IsVisible" type="checkbox">
+                        </div>
+                        <span asp-validation-for="picturesTab.IsVisible"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">@Localizer["Cancel"]</button>
+                    <button type="button" id="EditImageInfoBtn" class="btn btn-primary">@Localizer["Save changes"]</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <!-- /.content -->
+</div>
+
+@section styles {
+
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/Ionicons/css/ionicons.min.css">
+    <!-- DataTables -->
+    <!--Select2-->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/select2/dist/css/select2.min.css">
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/")bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/")dist/css/skins/_all-skins.min.css">
+}
+
+
+@section scripts
+    {
+
+    <script src="@Url.Content("~/Content/")bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="@Url.Content("~/Content/")bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="@Url.Content("~/Content/")dist/js/adminlte.min.js"></script>
+    <script src="@Url.Content("~/Content/")bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="@Url.Content("~/Content/")bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="@Url.Content("~/Content/")bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+
+    <script src="@Url.Content("~/Content/")bower_components/select2/dist/js/select2.full.min.js"></script>
+
+    <script src="@Url.Content("~/Content/")bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js" type="text/javascript"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
+
+    <script src="@Url.Content("~/Content/")bower_components/fastclick/lib/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <script src="@Url.Content("~/Content/")bower_components/ckeditor/ckeditor.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="@Url.Content("~/Content/")dist/js/demo.js"></script>
+
+    <script>
+
+        //Initialize Select2 Elements
+        $('.select2').select2();
+
+        function AddSliderImage() {
+             $('#picturesForm').attr('action', "/admin/Configurations/SliderImage/").submit();
+                               
+        }
+        
+                       function readURL(input) {
+
+                           if (input.files && input.files[0]) {
+                               var reader = new FileReader();
+
+                               reader.onload = function (e) {
+                                   if (input.files[0].size > 3145728) {
+                            $('#ImagePlaceholder').attr('src', '/Content/dist/img/default-image_100.png');
+
+                                   }
+
+                                   else
+                        $('#ImagePlaceholder').attr('src', e.target.result);
+
+                               }
+
+                               reader.readAsDataURL(input.files[0]);
+                           }
+                       }
+
+            $("#ImageInput").change(function () {
+                           readURL(this); //resolveUploadFields(true);
+                           if (this.files[0].size > 3145728) {
+                               alert("@Localizer["file size too big, please upload something less than 3 Mb"]");
+                               document.getElementById("ImageInput").value = "";
+                           }
+
+
+
+
+                       });
+
+
+
+
+
+        function SearchEmuExplorePics() {
+          //  alert("Search button has been pressed");
+            ExploreEmuPicturesTable.ajax.reload();
+        }
+        function AllowEmuExplorePic(ImageId) {
+           // alert("Allow image with id " + ImageId);
+            //ajax
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Configurations/AllowImageExploreEmu/?ImageId=" + ImageId,
+                success: function (result) {
+                     if (result == true) {
+                        document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-success alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> @Localizer["Image has been marked as allowed to show on Explore EMU page."]</div>";
+                         ExploreEmuPicturesTable.ajax.reload(null, false);
+                       }
+
+                    else 
+                                document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-danger alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> @Localizer["An error was encountered, unable to mark image as allowed on Explore Emu  page."]</div>";
+                }
+
+                
+            });
+        }
+
+        function DisallowEmuExplorePic(ImageId) {
+           $.ajax({
+                type: "POST",
+               url: "/Admin/Configurations/DisallowImageExploreEmu/?ImageId=" + ImageId,
+                success: function (result) {
+                     if (result == true) {
+                        document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-success alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> @Localizer["Image has been marked as Disallow to show on Explore EMU page."]</div>";
+                         ExploreEmuPicturesTable.ajax.reload(null, false);
+                       }
+
+                    else 
+                                document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-danger alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> @Localizer["An error was encountered, unable to mark image as disallowed on Explore Emu  page."]</div>";
+                }
+
+                
+            });
+
+       
+        }
+
+        function SlideShowEdit(ImageId) {
+         //   alert("Slide show edit called " + ImageId);
+          //  $('#myModal').modal('toggle');
+            //user ajax to get the picture information
+           
+                $.ajax({
+                type: "POST",
+                    url: "/Admin/Configurations/GetImageInformation/?ImageId=" + ImageId,
+                    success: function (result) {
+
+
+                        var obj = result;
+                       // alert(result.id + " " + result.displayOrder + " " + result.isVisible);
+                    
+
+                    $('#modal-editBackgroundInformation').modal('show');
+                      $("#picturesTab_PictureId").val(obj.id);
+                        $("#picturesTab_SliderImageDisplayOrder").val(obj.displayOrder);
+                       
+                        $('#picturesTab_IsVisible').prop('checked', obj.isVisible);
+                  
+                }
+
+                
+            });
+
+          //var pictureId = $("#picturesTab_PictureId").val();
+          //var displayOrder = $("#picturesTab_DisplayOrder").val();
+          //var IsPictureVisible = $('#picturesTab.IsVisible_id').is(":checked");
+           
+
+            //
+          //  $('#myModal').modal('hide');
+            //ajax
+        }
+
+        $("#EditImageInfoBtn").click(function () {
+            $('#modal-editBackgroundInformation').modal('hide');
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Configurations/SetImageInformation",
+                data: {
+                    Id: $("#picturesTab_PictureId").val(),
+                    DisplayOrder: $("#picturesTab_SliderImageDisplayOrder").val(),
+                    IsVisible: $('#picturesTab_IsVisible').is(":checked")
+                },
+                success: function (result) {
+                           if (result == true) {
+                        document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-success alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> @Localizer["Image information updated successfully."]</div>";
+                               SlideShowPicturesTable.ajax.reload(null, false);
+                       }
+
+                    else 
+                                document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-danger alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> @Localizer["An error was encountered, unable to update image information"]</div>";
+               
+                }
+
+
+            });
+        });
+
+        function DeleteSlideShow(ImageId) {
+            //    alert("Delete Slide show with Id" + ImageId);
+
+
+            var r = confirm("@Localizer["Are you sure you want to Delete slider image?"]");
+            if (r == true) {
+
+                $.ajax({
+                    type: "POST",
+                    url: "/admin/Configurations/DeleteHomeSliderImage/?imageId=" + ImageId,
+                    success: function (result) {
+                        if (result == true) {
+                            document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-success alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> @Localizer["Image removed successfully."]</div>";
+                            SlideShowPicturesTable.ajax.reload(null, false);
+                        }
+
+                        else
+                            document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-danger alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> @Localizer["An error was encountered, unable to delete home background image."]</div>";
+
+
+                    }
+                });
+            }
+        }
+
+
+            var SlideShowPicturesTable;
+        var ExploreEmuPicturesTable;
+            $(function () {
+
+
+                SlideShowPicturesTable = $('#SlideShowPicturesTable').on('processing.dt', function (e, settings, processing) {
+           if (processing) {
+               Pace.start();
+           } else {
+               Pace.stop();
+           }
+       }).DataTable({
+           'paging': true,
+                   "language": {
+               "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
+                },
+                'lengthChange': true,
+
+                'searching': false,
+                'ordering': false,
+                'info': true,
+                'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+               "url": "/Admin/Configurations/SlideShowImages",
+                    "type": "POST",
+                    "data": function (d) {
+                   d.myKey = "myValue";
+                   d.DiscountName = "myValue";
+                   d.CouponCode = "myValue";
+                   d.DiscountType = "myValue";
+               },
+                    "datatype": "json"
+                },
+                "columns": [
+
+
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<img src="'+ full.pictureUrl+'" style="height:80px;">';
+                        }
+                    },
+
+                    { "data": "pictureHeight" },
+                    { "data": "pictureWidth" },
+                    { "data": "displayOrder" },
+                    {
+                        "render": function (data, type, full, meta) {
+                            if (full.isVisible == true)
+                                return '<i class="fa fa-check" aria-hidden="true"></i>';
+                            else
+                                return '<i class="fa fa-times" aria-hidden="true"></i>';
+                        }
+                    },
+                    { "data": "uploadDate" },
+
+                    {
+                        "render": function (data, type, full, meta) {
+           return '<button class="btn btn-default" type=\"button\" onClick=\'SlideShowEdit('+full.pictureId+')\'><i class="fa fa-pencil"></i> @Localizer["Edit"]</button>';
+       }
+                    },  {
+                        "render": function (data, type, full, meta) {
+           return '<button class="btn btn-default" type=\"button\" onClick=\'DeleteSlideShow('+full.pictureId+')\'><i class="fa fa-times"></i> @Localizer["Delete"]</button>';
+       }
+                    }
+
+
+                ]
+
+
+
+
+
+        })
+
+                
+                ExploreEmuPicturesTable = $('#ExploreEmuPicturesTable').on('processing.dt', function (e, settings, processing) {
+           if (processing) {
+               Pace.start();
+           } else {
+               Pace.stop();
+           }
+       }).DataTable({
+           'paging': true,
+                   "language": {
+               "url": "@Url.Content("~/frontend_Content/")assets/js/@Localizer["DataTable_i18n/English.json"]"
+                },
+                'lengthChange': true,
+
+                'searching': false,
+                'ordering': false,
+                'info': true,
+                'autoWidth': false,
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": true, // for disable multiple column at once
+                "ajax": {
+                    "url": "/Admin/Configurations/ExploreEmuImagesTable",
+                    "type": "POST",
+                    "data": function (d) {
+                   d.myKey = "myValue";
+                        d.dormitoryType = $("#DormitoryType").find(":selected").val();
+                   d.dormitoryName = $("#localizedContent_0__DormitoryName").val();
+                       
+                       
+                   d.DiscountName = "myValue";
+                   d.CouponCode = "myValue";
+                   d.DiscountType = "myValue";
+               },
+                    "datatype": "json"
+                },
+                "columns": [
+
+
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<img src="'+ full.pictureUrl+'" style="height:80px;">';
+                        }
+                    },
+
+                    { "data": "dormitory" },
+                    { "data": "uploadDate" },
+                    {
+                        "render": function (data, type, full, meta) {
+                            if (full.allowOnExploreEmuPage == true)
+                                return '<i class="fa fa-check" aria-hidden="true"></i>';
+                            else
+                                return '<i class="fa fa-times" aria-hidden="true"></i>';
+                        }
+                    },
+                   
+
+                    {
+                        "render": function (data, type, full, meta) {
+           return '<button class="btn btn-default" type=\"button\" onClick=\'AllowEmuExplorePic('+full.pictureId+')\'><i class="fa fa-check"></i> @Localizer["Allow"]</button>';
+       }
+                    },  {
+                        "render": function (data, type, full, meta) {
+                            return '<button class="btn btn-default" type=\"button\" onClick=\'DisallowEmuExplorePic('+full.pictureId+')\'><i class="fa fa-times"></i> @Localizer["Disallow"]</button>';
+       }
+                    }
+
+
+                ]
+
+
+
+
+
+        })
+
+
+
+
+            })
+
+    </script>
+        }

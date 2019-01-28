@@ -217,6 +217,7 @@
                 "serverSide": true, // for process server side
                 "filter": true, // this is for disable filter (search box)
                 "orderMulti": true, // for disable multiple column at once
+         
                 "ajax": {
                     "url": "/Admin/Catalog/RoomReviews",
                     "type": "POST",
@@ -237,7 +238,11 @@
                     },
                     { "data": "dormitory" },
                     { "data": "user" },
-                    { "data": "reviewText" },
+
+                    {
+                        "width": "30%",
+                        "data": "reviewText"
+                    },
                     { "data": "rating" },
                     {
                         "render": function (data, type, full, meta) {

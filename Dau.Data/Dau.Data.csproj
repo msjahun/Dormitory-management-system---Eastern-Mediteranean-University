@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <Compile Remove="EfRepository.cs" />
+    <Compile Remove="Mapping\CurrencyInformation\CurrencyTranslationMap.cs" />
     <Compile Remove="Migrations\20190107190432_sortedLocationInformation.cs" />
     <Compile Remove="Migrations\20190107190936_sortedOUtlocations.cs" />
     <Compile Remove="Migrations\20190107191228_sdfsf.cs" />

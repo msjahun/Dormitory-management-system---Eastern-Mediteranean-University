@@ -57,8 +57,19 @@
 
 
                 <br />
+                <br />
 
-                <h6>@Localizer["Price ({0})", "$ USD"]</h6>
+                <h6>@Localizer["Price and Currency"]</h6>
+                <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input targetFilterInputStatic" id="CurrencyTl" checked>
+                    <label class="custom-control-label inline" for="CurrencyTl">@Localizer["TL ₺"] @*<span class=" float-right">@option.OptionCount</span>*@</label>
+
+                </div>
+                <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input targetFilterInputStatic" id="CurrencyUsd" checked>
+                    <label class="custom-control-label inline" for="CurrencyUsd">@Localizer["USD $"] @*<span class=" float-right">@option.OptionCount</span>*@</label>
+
+                </div>
 
                 <div class="range-slider-wrapper ">
                     <!-- Range slider container -->
@@ -74,6 +85,7 @@
                     </div>
                 </div>
 
+                <br />
                 <br />
 
 
@@ -115,11 +127,11 @@
                     <label class="custom-control-label inline" for="RatingStar1">
 
                         <span class="static-rating static-rating-lg">
-                        <i class="star fas sf fa-star voted"></i>
-                        <i class="star fas sf fa-star "></i> 
-                        <i class="star fas sf fa-star "></i>
-                        <i class="star fas sf fa-star "></i> 
-                        <i class="star fas sf fa-star "></i>
+                            <i class="star fas sf fa-star voted"></i>
+                            <i class="star fas sf fa-star "></i>
+                            <i class="star fas sf fa-star "></i>
+                            <i class="star fas sf fa-star "></i>
+                            <i class="star fas sf fa-star "></i>
                         </span>
 
                     </label>
@@ -189,7 +201,7 @@
 
                 </div>
 
-             
+
                 <br />
                 <div id="_FilterbottomFacilities">
                     <Dau-loader></Dau-loader>

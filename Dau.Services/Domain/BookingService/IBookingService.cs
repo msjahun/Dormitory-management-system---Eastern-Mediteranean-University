@@ -22,5 +22,14 @@ namespace Dau.Services.Domain.BookingService
         Charts GetBookingsChartById(long id);
         List<BookingAccountVM> GetUserBookings(string userId);
         bool UpdateSemesterPeriod(long id);
-    }
+        List<CurrentBookingWishListTable> GetBookingCartsListTable();
+
+
+        List<BestSellerRoomsTable> GetBestSellerRoomsTable();
+        List<RoomsNeverBookedTable> GetRoomsNeverBookedTable();
+        List<BestSellerRoomsTable> GetBestSellerRoomsByQuantityDashboardTable();
+        List<BestSellerRoomsTable> GetBestSellerRoomsByPriceDashboardTable();
+
+
+}
 }

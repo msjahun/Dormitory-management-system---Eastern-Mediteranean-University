@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = Localizer["Current booking Wishlist"];
+    ViewBag.Title = Localizer["Current booking Carts"];
     Layout = "../shared/_LayoutAdmin.cshtml";
 }
 
@@ -42,46 +42,15 @@
                         <table id="CurrentWishList" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>@Localizer["Customer"]</th>
-                                    <th>@Localizer["Total items"]</th>
+                                    <th>@Localizer["User"]</th>
+                                    <th>@Localizer["Rooms in Cart"]</th>
+                                    <th>@Localizer["Total amount"]</th>
+                                    <th>@Localizer["Date Created"]</th>
+
 
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>msjahun@live.com</td>
-                                    <td>3</td>
-                                </tr>
-                                <tr>
-                                    <td>msjahun@live.com</td>
-                                    <td>3</td>
-                                </tr>
-                                <tr>
-                                    <td>msjahun@live.com</td>
-                                    <td>3</td>
-                                </tr>
-                                <tr>
-                                    <td>msjahun@live.com</td>
-                                    <td>3</td>
-                                </tr>
-                                <tr>
-                                    <td>msjahun@live.com</td>
-                                    <td>3</td>
-                                </tr>
-                                <tr>
-                                    <td>msjahun@live.com</td>
-                                    <td>3</td>
-                                </tr>
-                                <tr>
-                                    <td>msjahun@live.com</td>
-                                    <td>3</td>
-                                </tr>
-                                <tr>
-                                    <td>msjahun@live.com</td>
-                                    <td>3</td>
-                                </tr>
-                            </tbody>
-
+  
                         </table>
                     </div>
                 </div>
@@ -170,26 +139,28 @@
                 },
                 "columns": [
 
-                    {"render": function (data, type, full, meta) {
-                            return '<input type="checkbox">'; } },
-                    {"data": "email" },
-                    {"render": function (data, type, full, meta) {
-                            return full.firstName+' '+full.lastName; }
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<a  href="/Admin/Users/Edit/?UserId=' + full.userId + '">' + full.user + '</a>'
+                        }
                     },
-                    {"data": "userRoles" },
-                    {"data": "phoneNumber" },
+                   
                     {"render": function (data, type, full, meta) {
-                            if (full.active == true)
-                                return '<i class="fa fa-check" aria-hidden="true"></i>';
-                            else
-                                return '<i class="fa fa-times" aria-hidden="true"></i>';}
-                    },
-                    {"data": "createdOnUtc" },
-                    {"data": "lastActivityDateUtc" },
-                    {"render": function (data, type, full, meta) {
-                     return '<a class="btn btn-primary" href="/Admin/Users/Edit/?UserId=' + full.id + '"><i class="fa fa-pencil"></i> @Localizer["Edit"]</a>'; }
+                        return '<a  href="/Admin/Users/Edit/?UserId=' + full.dormitoryId+ '">@Localizer["Dormitory: "]'+full.dormitoryName+'</a><br>'
+                            + '<a  href="/Admin/Users/Edit/?UserId=' + full.roomId + '">@Localizer["Room: "]' + full.roomName +' '+full.dormitoryBlock+'</a><br>'
+                           
+                             + '<span >@Localizer["Cart subtotal"]: ' + full.cartSubTotal + '</span><br>'
+                             + '<span >@Localizer["Cart Total Amount"] : ' + full.cartTotalAmount +'</span><br>'
+                            + '<span>@Localizer["Semester duration"] : ' + full.semester +'</span><br>'
+                          
+                            ;
                     }
-                    
+                    }
+                    ,
+                   
+                    { "data": "cartTotalAmount" },
+                    { "data": "dateCreated" }
+
                     
                 ]
 

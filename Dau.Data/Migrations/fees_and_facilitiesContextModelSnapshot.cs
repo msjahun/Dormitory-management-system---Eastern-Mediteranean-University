@@ -350,6 +350,9 @@ namespace Dau.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<long>("RoomId");
 
                     b.Property<long>("SemesterPeriodId");
@@ -452,6 +455,8 @@ namespace Dau.Data.Migrations
                         .HasColumnName("Id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("AllowInExploreEMU");
+
                     b.Property<string>("Alt");
 
                     b.Property<DateTime>("CreatedDate");
@@ -464,6 +469,8 @@ namespace Dau.Data.Migrations
                         .HasColumnName("ImageUrl")
                         .HasMaxLength(256)
                         .IsUnicode(false);
+
+                    b.Property<bool>("IsHomeSliderImage");
 
                     b.Property<bool>("Published")
                         .HasColumnName("Published");
@@ -490,6 +497,8 @@ namespace Dau.Data.Migrations
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<long>("CurrencyId");
 
                     b.Property<string>("DormitoryLogoUrl");
 
@@ -740,8 +749,6 @@ namespace Dau.Data.Migrations
 
                     b.Property<string>("AdminComment");
 
-                    b.Property<double>("BookingFee");
-
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
@@ -762,6 +769,8 @@ namespace Dau.Data.Migrations
 
                     b.Property<bool>("MarkAsNew");
 
+                    b.Property<double>("MinBookingFee");
+
                     b.Property<int>("NoOfStudents");
 
                     b.Property<int>("NoRoomQuota");
@@ -770,13 +779,15 @@ namespace Dau.Data.Migrations
 
                     b.Property<int>("PercentageOff");
 
-                    b.Property<double>("Price");
+                    b.Property<double>("PriceCash");
 
-                    b.Property<double>("PriceOld");
+                    b.Property<double>("PriceInstallment");
+
+                    b.Property<double>("PriceOldCash");
+
+                    b.Property<double>("PriceOldInstallment");
 
                     b.Property<bool>("Published");
-
-                    b.Property<double>("RoomCost");
 
                     b.Property<double>("RoomSize");
 
@@ -785,8 +796,6 @@ namespace Dau.Data.Migrations
                     b.Property<long?>("SeoId");
 
                     b.Property<bool>("ShowPrice");
-
-                    b.Property<double>("TaxAmount");
 
                     b.Property<DateTime>("UpdatedOn")
                         .HasColumnType("datetime2");
@@ -1248,25 +1257,18 @@ namespace Dau.Data.Migrations
                         .HasMaxLength(100)
                         .IsUnicode(false);
 
-                    b.Property<string>("CustomFormatting")
-                        .HasColumnName("CustomFormatting")
-                        .HasMaxLength(100)
-                        .IsUnicode(false);
-
-                    b.Property<int>("DisplayLocale")
-                        .HasColumnName("DisplayLocale");
+                    b.Property<string>("CustomFormatting");
 
                     b.Property<int>("DisplayOrder")
                         .HasColumnName("DisplayOrder");
 
+                    b.Property<string>("Name");
+
                     b.Property<bool>("Published")
                         .HasColumnName("Published");
 
-                    b.Property<int>("Rate")
+                    b.Property<double>("Rate")
                         .HasColumnName("Rate");
-
-                    b.Property<int>("RoundingType")
-                        .HasColumnName("RoundingType");
 
                     b.Property<DateTime>("UpdatedOn")
                         .HasColumnName("UpdatedOn")
@@ -1275,31 +1277,6 @@ namespace Dau.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Currency");
-                });
-
-            modelBuilder.Entity("Dau.Core.Domain.CurrencyInformation.CurrencyTranslation", b =>
-                {
-                    b.Property<int>("CurrencyNonTransId")
-                        .HasColumnName("CurrencyNonTransId");
-
-                    b.Property<long>("LanguageId");
-
-                    b.Property<long>("CurrencyNonTransId1");
-
-                    b.Property<long>("Id");
-
-                    b.Property<string>("Name")
-                        .HasColumnName("Name")
-                        .HasMaxLength(100)
-                        .IsUnicode(false);
-
-                    b.HasKey("CurrencyNonTransId", "LanguageId");
-
-                    b.HasIndex("CurrencyNonTransId1");
-
-                    b.HasIndex("LanguageId");
-
-                    b.ToTable("CurrencyTranslation");
                 });
 
             modelBuilder.Entity("Dau.Core.Domain.EmailAccountInformation.EmailAccount", b =>
@@ -1997,6 +1974,30 @@ namespace Dau.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Seo");
+                });
+
+            modelBuilder.Entity("Dau.Core.Domain.SliderImages.SliderImage", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("DisplayOrder");
+
+                    b.Property<bool>("IsVisible");
+
+                    b.Property<int>("PictureHeight");
+
+                    b.Property<string>("PictureUrl");
+
+                    b.Property<int>("PictureWidth");
+
+                    b.Property<DateTime>("UploadDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SliderImages");
                 });
 
             modelBuilder.Entity("Dau.Core.Domain.System.MessageQueue", b =>
@@ -2698,19 +2699,6 @@ namespace Dau.Data.Migrations
                     b.HasOne("Dau.Core.Domain.CountryInformation.Country", "Country")
                         .WithMany("StateAndProvinces")
                         .HasForeignKey("CountryId");
-                });
-
-            modelBuilder.Entity("Dau.Core.Domain.CurrencyInformation.CurrencyTranslation", b =>
-                {
-                    b.HasOne("Dau.Core.Domain.CurrencyInformation.Currency", "CurrencyNonTrans")
-                        .WithMany("CurrencyTranslations")
-                        .HasForeignKey("CurrencyNonTransId1")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Dau.Core.Domain.Localization.Language", "Language")
-                        .WithMany("CurrencyTranslations")
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Dau.Core.Domain.EmuMap.MapSection", b =>

@@ -37,7 +37,7 @@ namespace Dau.Services.Domain.DormitoryDetailService
                             select new TopNavDormitorySectionViewModel {
                                 DormitoryName = dormTrans.DormitoryName,
                                 DormitoryStreetAddress = dorm.DormitoryStreetAddress,
-                                DormitoryType = "Dormitory belongs to the category of private school dormitories/ accomodations (BOT),",
+                               // DormitoryType = "Dormitory belongs to the category of private school dormitories/ accomodations (BOT),",
                                 DormitoryLogoUrl = dorm.DormitoryLogoUrl,
                                MapSection = _mapService.GetMapSectionById(dorm.MapSectionId),
 

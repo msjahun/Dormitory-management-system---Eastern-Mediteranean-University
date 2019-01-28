@@ -331,7 +331,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
                 // getting all Discount data  
-                var Data = new List<int>();
+                var Data = _bookingService.GetBestSellerRoomsByQuantityDashboardTable();
 
                 ////Sorting  
                 //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
@@ -382,7 +382,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
                 // getting all Discount data  
-                var Data = new List<int>();
+                var Data = _bookingService.GetBestSellerRoomsByPriceDashboardTable();
 
                 ////Sorting  
                 //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))

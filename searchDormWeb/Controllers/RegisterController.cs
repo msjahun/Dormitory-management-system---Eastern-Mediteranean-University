@@ -45,7 +45,11 @@ namespace searchDormWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = vm.Email, Email = vm.Email , FirstName=vm.Firstname, LastName= vm.LastName, CreatedOnUtc=DateTime.Now, StudentNumber=vm.studentNumber};
+                var user = new User { UserName = vm.Email, Email = vm.Email ,
+                    FirstName =vm.Firstname, LastName= vm.LastName,
+                    CreatedOnUtc =DateTime.Now,
+                    StudentNumber =vm.studentNumber,
+                Active=true, LastActivityDateUtc= DateTime.Now};
                 var result = await userManager.CreateAsync(user, vm.Password);
 
                 if (result.Succeeded)

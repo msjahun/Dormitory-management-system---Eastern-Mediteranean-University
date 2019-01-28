@@ -8,7 +8,7 @@ namespace Dau.Services.Domain.RoomServices
         List<RoomsListTable> GetRoomsListTable();
         long AddRoom(RoomViewCrud vm);
         RoomViewCrud GetRoomById(long id);
-         bool   updateRoom(RoomViewCrud vm);
+        bool updateRoom(RoomViewCrud vm);
         bool Delete(RoomViewCrud vm);
         List<PicturesTable> GetRoomImagesTables(long id);
         List<DormitoryRoomsTable> GetRoomsByDormitoryIdListTable(long DormitoryId);

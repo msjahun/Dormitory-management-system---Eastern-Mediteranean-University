@@ -4,8 +4,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Dau.Core.Configuration.AccessControlList;
+using Dau.Core.Domain.SliderImages;
 using Dau.Core.Domain.Users;
 using Dau.Services.AccessControlList;
+using Dau.Services.Domain.CurrencyServices;
 using Dau.Services.Domain.DormitoryBlockServices;
 using Dau.Services.Domain.DormitoryServices;
 using Dau.Services.Domain.FeaturesServices;
@@ -33,6 +35,9 @@ namespace searchDormWeb.Areas.Admin.Controllers
     [Route("admin/[controller]")]
     public class ConfigurationsController : Controller
     {
+        private readonly ICurrencyService _currencyService;
+        private readonly ISliderImageService _sliderImageService;
+
         public IStringLocalizer Localizer { get; }
 
         private readonly IEmailAccountService _emailAccountService;
@@ -60,9 +65,13 @@ namespace searchDormWeb.Areas.Admin.Controllers
               IStringLocalizer stringLocalizer,
               ILanguageService languageService,
               IEmailAccountService emailAccountService,
-              IMessageQueueService messageQueueService)
+              IMessageQueueService messageQueueService,
+              ISliderImageService sliderImageService,
+              ICurrencyService currencyService)
         {
 
+            _currencyService = currencyService;
+            _sliderImageService = sliderImageService;
             Localizer = stringLocalizer;
             _emailAccountService = emailAccountService;
             _roleManager = roleManager;
@@ -1203,7 +1212,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
                 // getting all Discount data  
-                var Data = new List<int>();
+                var Data = _currencyService.GetCurrenciesTablesList();
 
                 ////Sorting  
                 //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
@@ -1238,20 +1247,225 @@ namespace searchDormWeb.Areas.Admin.Controllers
         {
             return View("_CurrencyAdd");
         }
+           [HttpPost("[action]")]
+        public ActionResult CurrencyAdd(CurrencyCrud vm)
+        {
+            if (!ModelState.IsValid)
+                return View("_CurrencyAdd", vm);
+
+            var newCurrencyId=   _currencyService.AddCurrency(vm);
+            return RedirectToAction("CurrencyEdit", "Configurations", new { Id = newCurrencyId });
+
+          
+        }
 
 
         [HttpGet("[action]")]
-        public ActionResult CurrencyEdit()
+        public ActionResult CurrencyEdit(long Id)
         {
-            return View("_CurrencyEdit");
+            var model = _currencyService.GetCurrencyById(Id);
+            if (model == null) return RedirectToAction("Currencies", "Configurations");
+
+            return View("_CurrencyEdit", model);
+        }
+
+        [HttpPost("[action]")]
+        public ActionResult CurrencyEdit(CurrencyCrud vm)
+        {
+            if (!ModelState.IsValid)
+                return View("_CurrencyEdit", vm);
+            
+            var success = _currencyService.UpdateCurrency(vm);
+
+                var model = _currencyService.GetCurrencyById(vm.Id);
+            return View("_CurrencyEdit", model);
+
         }
 
         #endregion
 
 
-    }
+        #region SlideShowImages
+        [HttpGet("[action]")]
+        public ActionResult SlideShowImages()
+        {
+            return View("_SlideShowImages");
+        }
 
- 
+
+         [HttpPost("[action]")]
+        public ActionResult SliderImage(DormitoryCrud vm)
+        {
+            var model = vm;
+            //get slider image
+            //send parameters to imageService and allow image Service to do it's work
+           bool success = _imageService.UploadSliderImage(vm);
+             vm.SavedSuccessful = success; 
+            return View("_SlideShowImages",vm);
+        }
+
+
+        [HttpPost("[action]")]
+        public ActionResult SlideShowImages(int dummy)
+        {
+            try
+            {
+                var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                var start = Request.Form["start"].FirstOrDefault(); // Skip number of Rows count
+                var passedParam = Request.Form["myKey"].FirstOrDefault();//passed parameter
+                var length = Request.Form["length"].FirstOrDefault();  // Paging Length 10,20  
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault(); // Sort Column Name  
+                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();// Sort Column Direction (asc, desc)  
+                var searchValue = Request.Form["search[value]"].FirstOrDefault();// Search Value from (Search box) 
+                int pageSize = length != null ? Convert.ToInt32(length) : 0; //Paging Size (10, 20, 50,100)  
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+
+
+
+
+                var List = _sliderImageService.GetHomeSlideShowImagesTable();
+
+                // getting all Discount data  
+                var Data = List;
+
+                ////Sorting  
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                //{
+                //    DiscountData = DiscountData.OrderBy(c => c.sortColumn sortColumnDirection);
+                //}
+                ////Search  
+                //if (!string.IsNullOrEmpty(searchValue))
+                //{
+                //    DiscountData = DiscountData.Where(m => m.Name == searchValue);
+                //}
+
+
+                //total number of rows counts   
+                int recordsTotal = 0;
+                recordsTotal = Data.Count();
+                //Paging   
+                var data = Data.Skip(skip).Take(pageSize).ToList();
+                //Returning Json Data  
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+
+        [HttpPost("[action]")]
+        public ActionResult ExploreEmuImagesTable(int dummy)
+        {
+            try
+            {
+                var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
+                var start = Request.Form["start"].FirstOrDefault(); // Skip number of Rows count
+               
+                var length = Request.Form["length"].FirstOrDefault();  // Paging Length 10,20  
+                var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault(); // Sort Column Name  
+                var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();// Sort Column Direction (asc, desc)  
+                var searchValue = Request.Form["search[value]"].FirstOrDefault();// Search Value from (Search box) 
+                int pageSize = length != null ? Convert.ToInt32(length) : 0; //Paging Size (10, 20, 50,100)  
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+
+
+                long dormitoryType =long.Parse(Request.Form["dormitoryType"].FirstOrDefault());//passed parameter
+                var dormitoryName = Request.Form["dormitoryName"].FirstOrDefault();//passed parameter
+
+                var List = _sliderImageService.GetExploreEmuImagesTable();
+
+                // getting all Discount data  
+                var Data = List;
+
+
+               
+                if (!string.IsNullOrWhiteSpace(dormitoryName))
+                    Data = Data.Where(c => c.Dormitory.Contains(dormitoryName)).ToList();
+
+                if (dormitoryType>0)
+                    Data = Data.Where(c => c.DormitoryTypeId == dormitoryType).ToList();
+
+
+                ////Sorting  
+                //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+                //{
+                //    DiscountData = DiscountData.OrderBy(c => c.sortColumn sortColumnDirection);
+                //}
+                ////Search  
+                //if (!string.IsNullOrEmpty(searchValue))
+                //{
+                //    DiscountData = DiscountData.Where(m => m.Name == searchValue);
+                //}
+
+
+                //total number of rows counts   
+                int recordsTotal = 0;
+                recordsTotal = Data.Count();
+                //Paging   
+                var data = Data.Skip(skip).Take(pageSize).ToList();
+                //Returning Json Data  
+                return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+        [HttpPost("[action]")]
+        public ActionResult AllowImageExploreEmu(long ImageId)
+        {
+            var success = _sliderImageService.AllowImageExploreEmu(ImageId);
+
+            return Json(success);
+        }
+
+        [HttpPost("[action]")]
+        public ActionResult DisallowImageExploreEmu(long ImageId)
+        {
+            var success = _sliderImageService.DisallowImageExploreEmu(ImageId);
+
+            return Json(success);
+        }
+
+        [HttpPost("[action]")]
+        public ActionResult GetImageInformation(long ImageId)
+        {
+            SliderImage model = _sliderImageService.GetImageInformationById(ImageId);
+
+            return Json(model);
+        }
+
+        [HttpPost("[action]")]
+        public ActionResult SetImageInformation(SliderImage vm)
+        {
+            bool success= _sliderImageService.SetImageInformation(vm);
+
+            return Json(success);
+        }
+        
+        [HttpPost("[action]")]
+        public ActionResult DeleteHomeSliderImage(long imageId)
+        {
+            bool success = _sliderImageService.DeleteHomeSliderImage(imageId);
+
+            return Json(success);
+        }
+
+
+
+        #endregion
+
+
+    }
+    
+
     public class CountriesListTable {
         public string Name { get; set; }
         public string AllowBilling { get; set; }
@@ -1261,19 +1475,6 @@ namespace searchDormWeb.Areas.Admin.Controllers
         public string NumberOfStates { get; set; }
         public string DisplayOrder { get; set; }
         public string Published { get; set; }
-        public string Edit { get; set; }
-    }
-
-    public class CurrenciesTable {
-        public string Name { get; set; }
-        public string CurrencyCode { get; set; }
-        public string Rate { get; set; }
-        public string IsPrimaryExchangeRateCurrecy { get; set; }
-        public string MarkAsPrimaryExchangeRateCurrency { get; set; }
-        public string IsPrimaryDormtoryCurrency { get; set; }
-        public string MarkAsPrimaryDormitoryCurrency { get; set; }
-        public string Published { get; set; }
-        public string DisplayOrder { get; set; }
         public string Edit { get; set; }
     }
 
@@ -1290,6 +1491,5 @@ namespace searchDormWeb.Areas.Admin.Controllers
     //    public string Administrator { get; set; }
     //}
     
-
 
 }

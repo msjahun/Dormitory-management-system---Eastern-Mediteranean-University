@@ -23,13 +23,6 @@ namespace Dau.Data.Mapping.CurrencyInformation
 
             builder.Property(e => e.Rate).HasColumnName("Rate");
 
-            builder.Property(e => e.DisplayLocale).HasColumnName("DisplayLocale");
-
-            builder.Property(e => e.CustomFormatting).HasColumnName("CustomFormatting").HasMaxLength(100)
-                .IsUnicode(false);
-
-            builder.Property(e => e.RoundingType).HasColumnName("RoundingType");
-
             builder.Property(e => e.Published).HasColumnName("Published");
 
 

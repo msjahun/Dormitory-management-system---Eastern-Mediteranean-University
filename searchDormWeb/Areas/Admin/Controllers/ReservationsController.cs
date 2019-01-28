@@ -278,10 +278,12 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
 
-
+                var List = _bookingService.GetBookingCartsListTable();
+                    
+                
 
                 // getting all Discount data  
-                var Data = new List<int>();
+                var Data = List;
 
                 ////Sorting  
                 //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
@@ -336,10 +338,11 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
 
-
+               var List = _bookingService.GetBestSellerRoomsTable();
+       
 
                 // getting all Discount data  
-                var Data = new List<int>();
+                var Data = List;
 
                 ////Sorting  
                 //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
@@ -395,10 +398,12 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
 
-
+                var List = _bookingService.GetRoomsNeverBookedTable();
+                    
+    
 
                 // getting all Discount data  
-                var Data = new List<int>();
+                var Data = List;
 
                 ////Sorting  
                 //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
@@ -511,25 +516,15 @@ namespace searchDormWeb.Areas.Admin.Controllers
         public string Date { get; set; }
         public string Edit { get; set; }
     }
-    public class CurrentBookingWishListTable {
-        public string Student { get; set; }
-        public string TotalItems { get; set; }
-    }
-    public class BestSellerRoomsTable {
-        public string Name { get; set; }
-        public string TotalQuantity { get; set; }
-        public string TotalAmount { get; set; }
-        //public string View { get; set; }
-    }
-    public class CountryReportTable {
+
+
+
+
+    public class CountryReportTable
+    {
         public string Country { get; set; }
         public string NumberOfOrders { get; set; }
         public string OrderTotal { get; set; }
     }
-    public class RoomsNeverBookedTable {
-        public string Name { get; set; }
-        //public string View { get; set; }
-    }
-
 
 }

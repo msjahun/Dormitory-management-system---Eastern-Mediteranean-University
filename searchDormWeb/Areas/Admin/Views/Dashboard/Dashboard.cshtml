@@ -62,30 +62,7 @@
                 </ul>
                 <br />
                 <br />
-                @*<div class="box box-info">
-            <div class="box-header with-border">
-                <h3 class="box-title"><i class="fa fa-newspaper-o"></i> @Localizer["Dormitories News & Important Announcements"]</h3>
-
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                        <i class="fa fa-minus"></i>
-                    </button>
-                </div>
-                <!-- /.box-tools -->
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body" style="">
-
-
-                <div class="row" id="announcementId">
-
-                    <!-- /.col -->
-                </div>
-
-
-            </div>
-            <!-- /.box-body -->
-        </div>*@
+         
                 <!-- /.box -->
             </div>
 
@@ -389,30 +366,7 @@
 
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>TV-in room</td>
-                                                <td>45</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>Kitchen shared</td>
-                                                <td>21</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>TV-in room</td>
-                                                <td>45</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>TV-in room</td>
-                                                <td>45</td>
-                                            </tr>
-
-
-
-                                        </tbody>
+                              
 
                                     </table>
                                 </div>
@@ -453,39 +407,7 @@
                                                 <th>@Localizer["View"]</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Ramen suits</td>
-                                                <td>23</td>
-                                                <td>82,000 USD</td>
-
-                                                <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Prime living suits</td>
-                                                <td>23</td>
-                                                <td>82,000 USD</td>
-
-                                                <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>EMU 1</td>
-                                                <td>23</td>
-                                                <td>82,000 USD</td>
-
-                                                <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Alfam studio suits</td>
-                                                <td>23</td>
-                                                <td>82,000 USD</td>
-
-                                                <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                            </tr>
-
-
-
-                                        </tbody>
+                          
 
                                     </table>
                                 </div>
@@ -522,39 +444,7 @@
                                                 <th>@Localizer["View"]</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-
-                                            <tr>
-                                                <td>EMU 1</td>
-                                                <td>233</td>
-                                                <td>82,000 USD</td>
-
-                                                <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Alfam studio suits</td>
-                                                <td>21</td>
-                                                <td>12,000 USD</td>
-
-                                                <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Ramen suits</td>
-                                                <td>13</td>
-                                                <td>2,000 USD</td>
-
-                                                <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Prime living suits</td>
-                                                <td>3</td>
-                                                <td>1,000 USD</td>
-
-                                                <td><button class="btn btn-xs btn-default"><i class="fa fa-eye"></i> View</button></td>
-                                            </tr>
-
-
-                                        </tbody>
+                            
 
 
                                     </table>
@@ -1007,8 +897,12 @@
                 },
                 "columns": [
 
-
-                    { "data": "name" },
+                
+                   {
+                        "render": function (data, type, full, meta) {
+                            return '<p >'+full.roomName+' '+full.dormitoryName+'</p>';
+                        }
+                    },
                     { "data": "totalQuantity" },
                     { "data": "totalAmount" },
                     {
@@ -1059,7 +953,11 @@
                 },
                 "columns": [
 
-                    { "data": "name" },
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<p >' + full.roomName + ' ' + full.dormitoryName + '</p>';
+                        }
+                    },
                     { "data": "totalQuantity" },
                     { "data": "totalAmount" },
                     {

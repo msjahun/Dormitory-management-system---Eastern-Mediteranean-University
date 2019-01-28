@@ -157,54 +157,49 @@
 
                                                         <div class="form-group">
 
-                                                            <dau-label asp-for="Price"></dau-label>
-                                                            <dau-inputaddon type="number" asp-for="Price" cols="4" text="USD" min="0"></dau-inputaddon>
-                                                            <span asp-validation-for="Price"></span>
+                                                            <dau-label asp-for="PriceCash"></dau-label>
+                                                            <dau-inputaddon type="number" asp-for="PriceCash" cols="4" text="USD" min="0"></dau-inputaddon>
+                                                            <span asp-validation-for="PriceCash"></span>
 
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <dau-label asp-for="OldPrice"></dau-label>
-                                                            <dau-inputaddon type="number" asp-for="OldPrice" cols="4" text="USD" min="0"></dau-inputaddon>
+                                                            <dau-label asp-for="OldPriceCash"></dau-label>
+                                                            <dau-inputaddon type="number" asp-for="OldPriceCash" cols="4" text="USD" min="0"></dau-inputaddon>
 
-                                                            <span asp-validation-for="OldPrice"></span>
-
-                                                        </div>
-
-                                                        <div class="form-group">
-
-                                                            <dau-label asp-for="ShowPrice"></dau-label>
-                                                            <div class="col-sm-8">
-                                                                <input asp-for="ShowPrice" type="checkbox">
-                                                            </div>
-                                                            <span asp-validation-for="ShowPrice"></span>
+                                                            <span asp-validation-for="OldPriceCash"></span>
 
                                                         </div>
 
 
-                                                        <div class="form-group">
-                                                            <dau-label asp-for="RoomCost"></dau-label>
-                                                            <dau-inputaddon type="number" asp-for="RoomCost" cols="4" text="USD"></dau-inputaddon>
-                                                            <span asp-validation-for="RoomCost"></span>
-                                                        </div>
+
 
                                                         <div class="form-group">
-                                                            <dau-label asp-for="TaxAmount"></dau-label>
-                                                            <dau-inputaddon type="number" asp-for="TaxAmount" cols="4" text="USD" min="0"></dau-inputaddon>
 
-                                                            <span asp-validation-for="TaxAmount"></span>
+                                                            <dau-label asp-for="PriceInstallment"></dau-label>
+                                                            <dau-inputaddon type="number" asp-for="PriceInstallment" cols="4" text="USD" min="0"></dau-inputaddon>
+                                                            <span asp-validation-for="PriceInstallment"></span>
 
                                                         </div>
 
-                                                        <div class="form-group">
-                                                            <dau-label asp-for="BookingFee"></dau-label>
-                                                            <dau-inputaddon type="number" asp-for="BookingFee" cols="4" text="USD" min="0"></dau-inputaddon>
+                                                        @*<div class="form-group">
+                                                            <dau-label asp-for="OldPriceInstallment"></dau-label>
+                                                            <dau-inputaddon type="number" asp-for="OldPriceInstallment" cols="4" text="USD" min="0"></dau-inputaddon>
 
-                                                            <span asp-validation-for="BookingFee"></span>
+                                                            <span asp-validation-for="OldPriceInstallment"></span>
+
+                                                        </div>*@
+
+
+                                                        <div class="form-group">
+                                                            <dau-label asp-for="MinBookingFee"></dau-label>
+                                                            <dau-inputaddon type="number" asp-for="MinBookingFee" cols="4" text="USD" min="0"></dau-inputaddon>
+
+                                                            <span asp-validation-for="MinBookingFee"></span>
 
                                                         </div>
 
-                                                        <div class="form-group">
+                                                        @*<div class="form-group">
 
                                                             <dau-label asp-for="PaymentPerSemesterNotYear"></dau-label>
                                                             <div class="col-sm-8">
@@ -212,7 +207,30 @@
                                                             </div>
                                                             <span asp-validation-for="PaymentPerSemesterNotYear"></span>
 
+                                                        </div>*@
+
+
+                                                        <div class="form-group">
+
+                                                            <dau-label asp-for="PriceOptionsRadios"></dau-label>
+                                                            <div class="col-sm-8">
+                                                                <div class="radio">
+                                                                    <label class="control-label">
+                                                                        <input type="radio" asp-for="PriceOptionsRadios" id="PriceRadioPerSemester" value="1" checked="">
+                                                                        @Localizer["Prices Per Semester"]
+                                                                    </label>
+                                                                </div>
+                                                                <div class="radio">
+                                                                    <label class="control-label">
+                                                                        <input type="radio" asp-for="PriceOptionsRadios" id="PriceRadioPerSemester" value="2">
+                                                                        @Localizer["Prices Per Year"]
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <span asp-validation-for="PriceOptionsRadios"></span>
+
                                                         </div>
+
 
                                                         <div class="form-group">
 
@@ -869,6 +887,34 @@
             });
         }
 
+
+
+        function ajaxGetRoomCurrency(dormitoryId) {
+            $.ajax({
+                type: "POST",
+                url: "GetDormitoryCurrencyCode/?id=" + dormitoryId,
+                data: {
+                    SectionId: "_dormitoryBlockDropdown"
+
+                },
+                success: function (result) {
+                    //  alert(result.success+' '+result.currencyCode);
+                    if (result.success == true) {
+                        $("#PriceCash-addon-Id").html(result.currencyCode);
+                        $("#OldPriceCash-addon-Id").html(result.currencyCode);
+                        $("#PriceInstallment-addon-Id").html(result.currencyCode);
+                        $("#MinBookingFee-addon-Id").html(result.currencyCode);
+
+
+                    }
+
+
+                }
+            });
+        }
+
+
+
         function ajaxGetDormitoryBlocks(dormitoryId) {
             $.ajax({
                 type: "POST",
@@ -903,10 +949,15 @@
                 console.log(this.value);
                 ajaxFeatures(this.value);
             });
+
+
+
+            ajaxGetRoomCurrency(document.getElementById('DormitorySelect').value);
             ajaxGetDormitoryBlocks(document.getElementById('DormitorySelect').value);
             $('#DormitorySelect').on('change', function () {
                 console.log(this.value);
                 ajaxGetDormitoryBlocks(this.value);
+                ajaxGetRoomCurrency(this.value);
             });
 
             

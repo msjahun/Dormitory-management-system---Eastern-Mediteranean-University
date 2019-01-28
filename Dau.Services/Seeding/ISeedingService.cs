@@ -13,5 +13,6 @@
         void SeedEMUMapLocations();
         void SeedSampleEmail();
         void SeedMessageTempletes();
+        void SeedBackgroundSliderImages();
     }
 }

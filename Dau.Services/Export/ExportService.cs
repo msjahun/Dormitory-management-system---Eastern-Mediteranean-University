@@ -226,10 +226,10 @@ namespace Dau.Services.Export
                 row.CreateCell(17).SetCellValue(dorm.DormitoryStreetAddress);
                 row.CreateCell(18).SetCellValue(dorm.DormitoryLogoUrl);
                 row.CreateCell(19).SetCellValue(dorm.Published);
-                row.CreateCell(20).SetCellValue(dorm.WeekendsOpeningTime.ToString("TT"));
-                row.CreateCell(21).SetCellValue(dorm.WeekendsClosingTime.ToString("TT"));
-                row.CreateCell(22).SetCellValue(dorm.WeekdaysOpeningTime.ToString("TT"));
-                row.CreateCell(23).SetCellValue(dorm.WeekdaysClosingTime.ToString("TT"));
+                row.CreateCell(20).SetCellValue(dorm.WeekendsOpeningTime.ToString("HH:mm"));
+                row.CreateCell(21).SetCellValue(dorm.WeekendsClosingTime.ToString("HH:mm"));
+                row.CreateCell(22).SetCellValue(dorm.WeekdaysOpeningTime.ToString("HH:mm"));
+                row.CreateCell(23).SetCellValue(dorm.WeekdaysClosingTime.ToString("HH:mm"));
                 row.CreateCell(24).SetCellValue(dorm.SeoId);
                 row.CreateCell(25).SetCellValue(dorm. BookingLimit);
                 row.CreateCell(26).SetCellValue(dorm.LocationOnCampus);
@@ -574,12 +574,13 @@ namespace Dau.Services.Export
           "DormitoryBlockId",
           "DormitoryBlockName English",//dormitoryblocknameEn
           "DormitoryBlockName Turkish",//dormitoryblocknameTR
-          "Price",
-          "PriceOld",
+          "Price Cash",
+          "PriceOld Cash",
+          "Price Installment",
+          "PriceOld Installment",
           "NoRoomQuota",
           "RoomSize",
-          "TaxAmount",
-          "BookingFee",
+          "Minimum BookingFee",
           "PaymentPerSemesterNotYear",
           "SKU",
           "DealEndTime",
@@ -587,7 +588,6 @@ namespace Dau.Services.Export
           "PercentageOff",
           "DisplayNoRoomsLeft",
           "MarkAsNew",
-          "RoomCost",
           "AdminComment",
           "CreatedOn",
           "UpdatedOn"
@@ -628,12 +628,13 @@ namespace Dau.Services.Export
                 row.CreateCell(count++).SetCellValue(room.DormitoryBlockId);
                 row.CreateCell(count++).SetCellValue(_dormitoryBlockTransRepo.List().Where(c=> c.DormitoryBlockNonTransId== room.DormitoryBlockId &&  c.LanguageId==1).FirstOrDefault().Name);//dormitoryblocknameEn
                 row.CreateCell(count++).SetCellValue(_dormitoryBlockTransRepo.List().Where(c=> c.DormitoryBlockNonTransId== room.DormitoryBlockId &&  c.LanguageId==2).FirstOrDefault().Name);//dormitoryblocknameTR
-                row.CreateCell(count++).SetCellValue(room.Price);
-                row.CreateCell(count++).SetCellValue(room.PriceOld);
+                row.CreateCell(count++).SetCellValue(room.PriceCash);
+                row.CreateCell(count++).SetCellValue(room.PriceOldCash);
+                row.CreateCell(count++).SetCellValue(room.PriceInstallment);
+                row.CreateCell(count++).SetCellValue(room.PriceOldInstallment);
                 row.CreateCell(count++).SetCellValue(room.NoRoomQuota);
                 row.CreateCell(count++).SetCellValue(room.RoomSize);
-                row.CreateCell(count++).SetCellValue(room.TaxAmount);
-                row.CreateCell(count++).SetCellValue(room.BookingFee);
+                row.CreateCell(count++).SetCellValue(room.MinBookingFee);
                 row.CreateCell(count++).SetCellValue(room.PaymentPerSemesterNotYear);
                 row.CreateCell(count++).SetCellValue(room.SKU);
                 row.CreateCell(count++).SetCellValue(room.DealEndTime.ToString());
@@ -641,7 +642,6 @@ namespace Dau.Services.Export
                 row.CreateCell(count++).SetCellValue(room.PercentageOff);
                 row.CreateCell(count++).SetCellValue(room.DisplayNoRoomsLeft);
                 row.CreateCell(count++).SetCellValue(room.MarkAsNew);
-                row.CreateCell(count++).SetCellValue(room.RoomCost);
                 row.CreateCell(count++).SetCellValue(room.AdminComment);
                 row.CreateCell(count++).SetCellValue(room.CreatedOn.ToString());
                 row.CreateCell(count++).SetCellValue(room.UpdatedOn.ToString());

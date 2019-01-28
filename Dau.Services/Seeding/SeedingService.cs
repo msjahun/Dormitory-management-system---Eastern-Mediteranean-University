@@ -6,6 +6,7 @@ using Dau.Core.Domain.EmuMap;
 using Dau.Core.Domain.Feature;
 using Dau.Core.Domain.LocationInformations;
 using Dau.Core.Domain.SearchEngineOptimization;
+using Dau.Core.Domain.SliderImages;
 using Dau.Core.Domain.System;
 using Dau.Core.Domain.Users;
 using Dau.Core.Event;
@@ -42,6 +43,7 @@ namespace Dau.Services.Seeding
         private readonly IRepository<Booking> _bookingRepository;
         private readonly IRepository<PaymentStatus> _paymentStatusRepository;
         private readonly IRepository<BookingStatus> _bookingStatusRepository;
+        private readonly IRepository<SliderImage> _sliderImageRepo;
         private readonly IRepository<EmailAccount> _emailAccountRepo;
         private readonly IMessageTemplateService _messageTemplateService;
         private readonly IRepository<MessageTemplateTranslation> _messageTemplateTransRepo;
@@ -74,9 +76,11 @@ namespace Dau.Services.Seeding
             IRepository<MessageTemplateTranslation> messageTemplateTransRepo,
             IMessageTemplateService messageTemplateService,
           IEventService eventService,
-          IRepository<EmailAccount> emailAccountRepo
+          IRepository<EmailAccount> emailAccountRepo,
+          IRepository<SliderImage> sliderImageRepo
             )
         {
+            _sliderImageRepo = sliderImageRepo;
             _emailAccountRepo = emailAccountRepo;
             _messageTemplateService = messageTemplateService;
             _messageTemplateTransRepo = messageTemplateTransRepo;
@@ -107,6 +111,62 @@ namespace Dau.Services.Seeding
         //seed rooms seperately
         //seed dormitories seperately
 
+        public void SeedBackgroundSliderImages()
+        {
+            var sliderImages = new List<SliderImage>
+            {
+                new SliderImage{
+                  PictureUrl = "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/novel/_DSC8319.jpg?RenditionID=12",
+                  PictureHeight=234,
+                  PictureWidth=455,
+                  DisplayOrder=4,
+                  IsVisible=true,
+                  UploadDate=DateTime.Now
+                  },
+
+                  new SliderImage{
+                  PictureUrl = "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2016/ugursal/img_1198.jpg?RenditionID=12",
+
+                  PictureHeight=234,
+                  PictureWidth=455,
+                  DisplayOrder=4,
+                  IsVisible=true,
+                  UploadDate=DateTime.Now
+                  },
+
+                    new SliderImage{
+                  PictureUrl =  "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2016/ugursal/img_1232.jpg?RenditionID=12",
+                    PictureHeight=234,
+                  PictureWidth=455,
+                  DisplayOrder=4,
+                  IsVisible=true,
+                  UploadDate=DateTime.Now
+                  },
+
+                      new SliderImage{
+                  PictureUrl =  "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/novel/Double%20suit%2011.jpg?RenditionID=12",
+                    PictureHeight=234,
+                  PictureWidth=455,
+                  DisplayOrder=4,
+                  IsVisible=true,
+                  UploadDate=DateTime.Now
+                  },
+
+                        new SliderImage{
+                  PictureUrl =  "https://dormitories.emu.edu.tr/PhotoGalleries/dormitories/2017/novel/Double%20suit%205.jpg?RenditionID=12",
+            PictureHeight = 234,
+                  PictureWidth=455,
+                  DisplayOrder=4,
+                  IsVisible=true,
+                  UploadDate=DateTime.Now
+                  },
+                 };
+
+            foreach( var sliderImage in sliderImages)
+            {
+                _sliderImageRepo.Insert(sliderImage);
+            }
+          }
       public void SeedMessageTempletes()
         {
             var messageTemplatesList = new List<MessageTemplate>
@@ -2767,15 +2827,17 @@ namespace Dau.Services.Seeding
 DormitoryId = _domritoryId_1,
   PaymentPerSemesterNotYear= true,
 DormitoryBlockId=1,
-     TaxAmount =10,
-      BookingFee =15,
+  
+      MinBookingFee =15,
        SKU = "Er90fd",
      HasDeposit =true,
      ShowPrice =true,
      RoomSize = 43.3,
    
-       Price = 2300,
-        PriceOld =5000,
+       PriceCash = 2300,
+        PriceOldCash =5000,
+         PriceInstallment = 2300,
+        PriceOldInstallment =5000,
          NoRoomQuota= 23,
           PercentageOff = 30, //from database
                                     DealEndTime = DateTime.Now.AddDays(3), //change this to come from db
@@ -2952,8 +3014,8 @@ DormitoryBlockId=1,
                     {
 
                         NoOfStudents =2,
-        TaxAmount =23,
-      BookingFee =0,
+    
+      MinBookingFee =0,
        DormitoryId = _domritoryId_1,
 DormitoryBlockId=2,
         SKU = "5g0fd",
@@ -2963,8 +3025,10 @@ DormitoryBlockId=2,
                                     DisplayDeal = false,
       RoomSize = 15,
       PaymentPerSemesterNotYear= false,
-       Price = 4300,
-        PriceOld =5000,
+       PriceCash = 4300,
+        PriceOldCash =5000,
+        PriceInstallment = 4300,
+        PriceOldInstallment =5000,
 
          NoRoomQuota= 2,
 
@@ -3136,8 +3200,8 @@ DormitoryBlockId=2,
                     {
 
                         NoOfStudents =4,
-                             TaxAmount =50,
-      BookingFee =0,
+          
+      MinBookingFee =0,
 DormitoryId =  _domritoryId_2,
 DormitoryBlockId = 1,
   PaymentPerSemesterNotYear= true,
@@ -3146,8 +3210,10 @@ DormitoryBlockId = 1,
      ShowPrice =true,
       RoomSize = 23.3,
     SKU = "ttdfg4",
-       Price = 4300,
-        PriceOld =5000,
+       PriceCash = 4300,
+        PriceOldCash =5000,
+         PriceInstallment = 4300,
+        PriceOldInstallment =5000,
          NoRoomQuota= 2,
           PercentageOff = 20, //from database
                                     DealEndTime = DateTime.Now.AddDays(6), //change this to come from db

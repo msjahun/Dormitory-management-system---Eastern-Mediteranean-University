@@ -42,7 +42,7 @@
                 <form class="form-horizontal">
                     <div class="box-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col">
                                 <div class="form-group">
                                     <dau-label asp-for="DormitoryBlock"></dau-label>
                                     <dau-select asp-for="DormitoryBlock"></dau-select>
@@ -89,53 +89,14 @@
                         <table id="RoomsNeverReservedTable" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>@Localizer["Name"]</th>
+                                    <th>@Localizer["Dormitory name"]</th>
+                                    <th>@Localizer["Room name"]</th>
+                                    <th>@Localizer["Dormitory block" +
+                                       ""]</th>
                                     <th>@Localizer["View"]</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Alfam B block 113</td>
-                                    <td><a asp-action="RoomEdit" asp-controller="Catalog" asp-area="Admin" class="btn btn-primary "> <i class="fa fa-eye"></i> View</a></td>
-                                </tr>
-                                <tr>
-                                    <td>Alfam B block 113</td>
-                                    <td><button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Alfam B block 113</td>
-                                    <td><button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Alfam B block 113</td>
-                                    <td><button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Alfam B block 113</td>
-                                    <td><button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Alfam B block 113</td>
-                                    <td><button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Alfam B block 113</td>
-                                    <td><button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Alfam B block 113</td>
-                                    <td><button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Alfam B block 113</td>
-                                    <td><button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Alfam B block 113</td>
-                                    <td><button type="submit" class="btn btn-primary "> <i class="fa fa-eye"></i> View</button></td>
-                                </tr>
-                            </tbody>
-
+                         
                         </table>
                     </div>
                 </div>
@@ -248,7 +209,9 @@
                 "columns": [
 
 
-                    { "data": "name" },
+                    { "data": "dormitoryName" },
+                    { "data": "roomName" },
+                    { "data": "dormitoryBlock" },
 
                     {"render": function (data, type, full, meta) {
                         return '<a class="btn btn-primary"  href="/Admin/Catalog/RoomEdit/" ><i class="fa fa-eye"></i> @Localizer["Edit"]</a>'; }
