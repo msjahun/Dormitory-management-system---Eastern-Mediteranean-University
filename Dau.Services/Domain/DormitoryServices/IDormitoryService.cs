@@ -11,6 +11,6 @@ namespace Dau.Services.Domain.DormitoryServices
         bool UpdateDormSeo(DormitoryCrud vm);
         List<DormitoryPicturesTable> GetDormitoryImagesTables(long id);
         string GetDormitoryNameById(long id);
-        List<SEOFriendlyPageNamesTable> GetSEOFriendlyPageNamesTable();
+
     }
 }
