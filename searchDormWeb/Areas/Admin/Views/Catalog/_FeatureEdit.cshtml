@@ -99,14 +99,13 @@
 
 
                                     <div class="form-group">
-                                        <dau-label asp-for="FeatureIcon"></dau-label>
+                                        <dau-label asp-for="FontAwesomeIcon"></dau-label>
                                         <div class="col-sm-8">
-                                            <input type="hidden" asp-for="FeatureIcon" />
+                                            <p>Get Icons from <a target="_blank" href="https://fontawesome.com/icons">this link .</a> Exampole Trash Icon <i class="fa fa-trash"></i> is "fa fa-trash"</p>
 
-                                            <img id="ImagePlaceholder" src="@item.FeatureIcon" height="100" /><br /><br />
-                                            <span class="btn btn-success btn-file">
-                                                @Localizer["Upload file"]  <input id="ImageInput" type="file" name="files" accept="image/*" />
-                                            </span><span id="RemoveLogo" class="btn btn-outline-danger">@Localizer["Remove Logo"]</span>
+                                            <i class="@item.FontAwesomeIcon fa-5x"></i><br /><br />
+                                            <dau-input asp-for="FontAwesomeIcon" type="text"></dau-input>
+                                            <span asp-validation-for="FontAwesomeIcon"></span>
                                         </div>
 
 
