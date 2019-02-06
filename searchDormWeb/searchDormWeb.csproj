@@ -7,16 +7,24 @@
   <ItemGroup>
     <Compile Remove="Areas\Admin\Views\Reviews\**" />
     <Compile Remove="Views\HomeOld\**" />
+    <Compile Remove="wwwroot\demoImages\**" />
     <Compile Remove="wwwroot\frontend_Content\assets\vendor\masonry-layout\**" />
+    <Compile Remove="wwwroot\Images\**" />
     <Content Remove="Areas\Admin\Views\Reviews\**" />
     <Content Remove="Views\HomeOld\**" />
+    <Content Remove="wwwroot\demoImages\**" />
     <Content Remove="wwwroot\frontend_Content\assets\vendor\masonry-layout\**" />
+    <Content Remove="wwwroot\Images\**" />
     <EmbeddedResource Remove="Areas\Admin\Views\Reviews\**" />
     <EmbeddedResource Remove="Views\HomeOld\**" />
+    <EmbeddedResource Remove="wwwroot\demoImages\**" />
     <EmbeddedResource Remove="wwwroot\frontend_Content\assets\vendor\masonry-layout\**" />
+    <EmbeddedResource Remove="wwwroot\Images\**" />
     <None Remove="Areas\Admin\Views\Reviews\**" />
     <None Remove="Views\HomeOld\**" />
+    <None Remove="wwwroot\demoImages\**" />
     <None Remove="wwwroot\frontend_Content\assets\vendor\masonry-layout\**" />
+    <None Remove="wwwroot\Images\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -696,8 +704,6 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\Dashboard\" />
     <Folder Include="Areas\Admin\Views\shared\" />
-    <Folder Include="wwwroot\demoImages\" />
-    <Folder Include="wwwroot\Images\UploadedReceipts\" />
     <Folder Include="wwwroot\viewscss\Admin\" />
     <Folder Include="wwwroot\viewsjs\Admin\" />
   </ItemGroup>
