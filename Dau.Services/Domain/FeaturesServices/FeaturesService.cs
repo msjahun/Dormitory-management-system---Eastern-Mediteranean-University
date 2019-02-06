@@ -84,7 +84,9 @@ namespace Dau.Services.Domain.FeaturesServices
                            {
                                feature.Id,
                                feature.FeaturesCategoryId,
-                               featureTrans.FeatureName
+                               featureTrans.FeatureName,
+                               feature.AllowFiltering,
+                               feature.IconUrl
                            };
 
 
@@ -102,6 +104,8 @@ namespace Dau.Services.Domain.FeaturesServices
                                    feature.Id,
                                    feature.FeatureName,
                                    featureCat.CategoryName,
+                                   feature.IconUrl,
+                                   feature.AllowFiltering
 
                                };
 
@@ -111,8 +115,8 @@ namespace Dau.Services.Domain.FeaturesServices
                                select new RoomFeaturesTable
                                {
                                    FeatureCategory = feature.CategoryName,
-                                   Feature = feature.FeatureName,
-                                   AllowFiltering = true,
+                                   Feature = "<i class=\"" + feature.IconUrl + "\"></i> " + feature.FeatureName,
+                                   AllowFiltering = feature.AllowFiltering,
                                    ShowOnRoomPage = true,
                                    DisplayOrder = 4,
                                    Id=feature.Id
@@ -136,7 +140,8 @@ namespace Dau.Services.Domain.FeaturesServices
                            {
                                feature.Id,
                                feature.FeaturesCategoryId,
-                               featureTrans.FeatureName
+                               featureTrans.FeatureName,
+                               feature.IconUrl
                            };
 
 
@@ -154,6 +159,7 @@ namespace Dau.Services.Domain.FeaturesServices
                                    feature.Id,
                                    feature.FeatureName,
                                    featureCat.CategoryName,
+                                   feature.IconUrl
 
                                };
 
@@ -163,7 +169,7 @@ namespace Dau.Services.Domain.FeaturesServices
                                select new DormitoryFeaturesTable
                                {
                                    FeatureCategory = feature.CategoryName,
-                                   Feature = feature.FeatureName,
+                                   Feature = "<i class=\"" + feature.IconUrl + "\"></i> " + feature.FeatureName,
                                    AllowFiltering = true,
                                    Id=feature.Id
                                };
@@ -291,7 +297,7 @@ namespace Dau.Services.Domain.FeaturesServices
                                    AllowFiltering= feature.AllowFiltering,
                                    Published = feature.IsPublished,
                                    DisplayOrder= feature.DisplayOrder,
-                                   ImageUrl=(feature.IconUrl!=null)?  feature.IconUrl: "/Content/dist/img/default-image_100.png"
+                                   ImageUrl=(feature.IconUrl!=null)?  feature.IconUrl: ""
 
 
 
@@ -337,6 +343,7 @@ namespace Dau.Services.Domain.FeaturesServices
                DisplayOrder = vm.DisplayOrder,
                CreatedOn = DateTime.Now,
                UpdatedOn= DateTime.Now,
+             
                 FeaturesTranslations = new List<FeaturesTranslation>
                         {
                             new FeaturesTranslation
@@ -390,7 +397,7 @@ namespace Dau.Services.Domain.FeaturesServices
 
                },
                     Id = feature.Id,
-                    FeatureIcon = (feature.IconUrl==null)? "/Content/dist/img/default-image_100.png":feature.IconUrl,
+                    FontAwesomeIcon= feature.IconUrl,
                     FeatureCategory = feature.FeaturesCategoryId,
                     DisplayOrder = feature.DisplayOrder,
                     Published = feature.IsPublished,
@@ -427,13 +434,13 @@ namespace Dau.Services.Domain.FeaturesServices
                 TurkishTransFeature.FeatureDescription = vm.localizedFacilityContent[1].Description;
 
                 feature.Id = vm.Id;
-                feature.IconUrl = vm.FeatureIcon;
+                feature.IconUrl = vm.FontAwesomeIcon;
                 feature.FeaturesCategoryId = vm.FeatureCategory;
                 feature.IsPublished = vm.Published;
                 feature.DisplayOrder = vm.DisplayOrder;
                 feature.UpdatedOn = DateTime.Now;
                 feature.AllowFiltering = vm.AllowFiltering;
-
+                
 
                 _featuresRepo.Update(feature);
                 return true;
@@ -484,7 +491,7 @@ namespace Dau.Services.Domain.FeaturesServices
 
         [Display(Name = "Feature Icon",
  Description = "The Icon representing a feature "), DataType(DataType.Text), MaxLength(256)]
-        public string FeatureIcon { get; set; }
+        public string FontAwesomeIcon{ get; set; }
 
         [Required]
         [Display(Name = "Feature Category",

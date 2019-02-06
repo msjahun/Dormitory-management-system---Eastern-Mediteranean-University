@@ -211,7 +211,7 @@ namespace Dau.Services.Domain.DropdownServices
                            select new SelectListItem
                            {
                                Value = feature.Id.ToString(),
-                               Text = featureTrans.FeatureName
+                               Text = "<i class=\"" + feature.IconUrl + "\"></i> " + featureTrans.FeatureName
                            };
            
             return features.ToList();
@@ -227,7 +227,7 @@ namespace Dau.Services.Domain.DropdownServices
                            select new SelectListItem
                            {
                                Value = feature.Id.ToString(),
-                               Text = featureTrans.FeatureName
+                               Text = "<i class=\"" + feature.IconUrl + "\"></i> " +featureTrans.FeatureName
                            };
            
             return features.ToList();
