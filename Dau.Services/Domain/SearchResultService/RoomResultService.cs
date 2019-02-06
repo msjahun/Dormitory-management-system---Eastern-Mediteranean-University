@@ -352,14 +352,14 @@ namespace Dau.Services.Domain.SearchResultService
             var roomDormitory = from room in roomsDormitoryBlock.ToList()
                                 join dorm in dormitoryAndtype.ToList() on room.DormitoryId equals dorm.Id
 
-                                where room.PriceCash >= filters.PriceMin && room.PriceCash <= filters.PriceMax //room price and area filter applied here
-                                      && room.RoomSize <= filters.RoomArea
+                             where room.PriceCash >= filters.PriceMin && room.PriceCash <= filters.PriceMax //room price and area filter applied here
+                                   && room.RoomSize <= filters.RoomArea
 
                                 select new RoomResultViewModel
                                 {
                                     Features = (from roomFeature in _roomFeaturesRepo.List().ToList()
                                                 join feature in features.ToList() on roomFeature.FeaturesId equals feature.Id
-                                                where roomFeature.RoomId == room.Id && feature.IconUrl != null
+                                                where roomFeature.RoomId == room.Id && !string.IsNullOrEmpty(feature.IconUrl) 
                                                 select new FeaturesViewModel
                                                 {
                                                     FeatureName = feature.FeatureName,
