@@ -117,6 +117,7 @@ namespace Dau.Services.Domain.AnnouncementsServices
         public List<ManageAnnoucementsTable> GetAnnoucementsTableList()
         {
             var Annoncements = from ann in _annoucementRepo.List().ToList()
+                               orderby ann.CreatedOn descending
                                select new ManageAnnoucementsTable
                                {
                                    Id = ann.Id,
