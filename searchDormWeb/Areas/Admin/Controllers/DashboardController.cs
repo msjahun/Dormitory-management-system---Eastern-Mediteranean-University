@@ -423,7 +423,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
         [HttpPost("[action]")]
         public ActionResult GetAnnouncements()
         {
-            var model = _annoucementsService.GetAnnoucementsTableList().Where(c=> c.IsActive==true).Take(3);
+            var model = _annoucementsService.GetAnnoucementsTableList() .Where(c=> c.IsActive==true).Take(3).OrderByDescending (c=> c.CreatedOn);
             return Json(model);
         }
 
