@@ -98,18 +98,18 @@
                 {
                     @foreach (var feature in item.Features)
                     {
-                        <span class=" mt-1 facilityCol">
-                            @if (feature.IconUrl != null)
-                            {
-                                <img alt="Image placeholder" src="@feature.IconUrl" style="width: 20px;">
-                            }
-                            @*@feature.FeatureName*@
-                        </span>
+                <span class=" mt-1 facilityCol">
+                    @if (feature.IconUrl != null)
+                    {
+                        <i class="@feature.IconUrl "></i>
+                    }
+                    @feature.FeatureName
+                </span>
                     }
 
                     @if (item.Features.Count > 0)
                     {
-                        <a href="@Url.Content("~/Dormitories/"+item.DormitorySeoFriendlyUrl)#_RoomSection">... @Localizer["view more"]</a>
+                        <a href="@Url.Content("~/Dormitories/"+item.DormitorySeoFriendlyUrl)#_RoomSection"> @Localizer["view more"]</a>
                     }
                 }
 
