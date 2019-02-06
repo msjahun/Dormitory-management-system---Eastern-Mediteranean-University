@@ -5,6 +5,8 @@ namespace Dau.Services.MessageTemplates
 {
     public interface IMessageTemplateService
     {
+        
+
         List<MessageTemplateService.MessageTemplatesTable> GetMessageTemplatesList();
         MessageTemplateService.MessageTemplateEdit GetTemplateById(long id);
         bool UpdateMessageTemplate(MessageTemplateService.MessageTemplateEdit vm);

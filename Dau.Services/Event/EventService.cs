@@ -4,6 +4,7 @@ using Dau.Core.Domain.System;
 using Dau.Core.Domain.Users;
 using Dau.Core.Event;
 using Dau.Data.Repository;
+using Dau.Services.Email;
 using Dau.Services.MessageTemplates;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -78,23 +79,11 @@ namespace Dau.Services.Event
             _paymentStatusTransRepo = paymentStatusTransRepository;
         }
 
-    
 
 
+       
 
-        public  const string Student_BackInStockRoomEmail = "Student.BackInStockRoomEmail";
-        public  const string Student_EmailValidation = "Student.EmailValidation";
-        public  const string Student_WelcomeMessage  = "Student.WelcomeMessage";
-        public  const string Student_BookingCancellation = "Student.BookingCancellation";
-        public  const string Student_BookingCompleted  = "Student.BookingCompleted";
-        public  const string Student_BookingPaid  = "Student.BookingPaid";
-        public  const string DormitoryManager_BookingPaid = "DormitoryManager.BookingPaid";
-        public  const string DormitoryManager_NewBookingAlert = "DormitoryManager.NewBookingAlert";
-        public  const string Student_BookingPlacedSuccessfully = "Student.BookingPlacedSuccessfully";
-        public  const string DormitoryManager_NewReviewInDormitory = "DormitoryManager.NewReviewInDormitory";
-        public  const string DormitoryManager_LowQuotaRoomAlert = "DormitoryManager.LowQuotaRoomAlert";
-        public  const string Administrator_DormitoryInformationChangedAlert = "Administrator.DormitoryInformationChangedAlert";
-        public  const string Administrator_NewRegistration = "Administrator.NewRegistration";
+     
 
 
      
@@ -105,7 +94,7 @@ namespace Dau.Services.Event
             string ToAddress = "mjahun@gmail.com";
 
             var SendLanguageId = 1;
-            var MessageTemplateName = Student_EmailValidation;
+            var MessageTemplateName = EmailTemplateConst.Student_EmailValidation;
             var EmailTokens = new List<Tokens>
                           {
                                 new Tokens {TokenName="%User.Firstname%", TokenValue="" },
@@ -164,7 +153,7 @@ namespace Dau.Services.Event
             string ToAddress = "mjahun@gmail.com";
 
 
-            var MessageTemplateName = Student_BackInStockRoomEmail;
+            var MessageTemplateName = EmailTemplateConst.Student_BackInStockRoomEmail;
             var EmailTokens = new List<Tokens>
                             {
                                 new Tokens{ TokenName="%Dormitory.Url%"  , TokenValue =DormitoryUrl},
@@ -209,7 +198,7 @@ namespace Dau.Services.Event
             string ToAddress = UserEmail;
           
             var SendLanguageId = 1;
-            var MessageTemplateName = Student_EmailValidation;
+            var MessageTemplateName = EmailTemplateConst.Student_EmailValidation;
             var EmailTokens = new List<Tokens>
                           {
                                 new Tokens {TokenName="%User.Firstname%", TokenValue=UserFirstName},
@@ -256,7 +245,7 @@ namespace Dau.Services.Event
             string ToAddress = UserEmail;
          
             var SendLanguageId = 1;
-            var MessageTemplateName = Student_WelcomeMessage;
+            var MessageTemplateName = EmailTemplateConst.Student_WelcomeMessage;
             var EmailTokens = new List<Tokens>
                             {
                                 new Tokens {TokenName ="%User.Firstname%", TokenValue=UserFirstName},
@@ -312,7 +301,7 @@ namespace Dau.Services.Event
             string ToAddress = UserEmail;
       
           
-            var MessageTemplateName = Student_BookingCancellation;
+            var MessageTemplateName = EmailTemplateConst.Student_BookingCancellation;
             var EmailTokens = new List<Tokens>
                              {
                                   new Tokens {TokenName="%Booking.No%", TokenValue = BookingNo},
@@ -377,7 +366,7 @@ namespace Dau.Services.Event
             string ToAddress = UserEmail;
        
            
-            var MessageTemplateName = Student_BookingCompleted;
+            var MessageTemplateName = EmailTemplateConst.Student_BookingCompleted;
             var EmailTokens = new List<Tokens>
                             {
                                 new Tokens{TokenName="%Booking.No%", TokenValue =BookingNo },
@@ -446,7 +435,7 @@ namespace Dau.Services.Event
             string UserFullName = UserFirstName + " " + UserLastName;
             string ToAddress = UserEmail;
 
-            var MessageTemplateName = Student_BookingPaid;
+            var MessageTemplateName = EmailTemplateConst.Student_BookingPaid;
             var EmailTokens = new List<Tokens>
                             {
                             new Tokens {TokenName="%Booking.No%", TokenValue =BookingNo },
@@ -518,7 +507,7 @@ namespace Dau.Services.Event
 
             string UserFullName = DormitoryManagerName;
             string ToAddress = DormitoryEmail;
-            var MessageTemplateName = DormitoryManager_BookingPaid;
+            var MessageTemplateName = EmailTemplateConst.DormitoryManager_BookingPaid;
             var EmailTokens = new List<Tokens>
                             {
                             new Tokens {TokenName ="%Booking.No%", TokenValue = BookingNo},
@@ -587,7 +576,7 @@ namespace Dau.Services.Event
 
             string UserFullName = UserFirstName + " " + UserLastName;
             string ToAddress = UserEmail;
-            var MessageTemplateName = Student_BookingPlacedSuccessfully;
+            var MessageTemplateName = EmailTemplateConst.Student_BookingPlacedSuccessfully;
             var EmailTokens = new List<Tokens>
                            {
                                 new Tokens {TokenName="%Booking.WaitDaysBeforeCancellation%", TokenValue=Dormitory.CancelWaitDays.ToString() },
@@ -660,7 +649,7 @@ namespace Dau.Services.Event
 
             string UserFullName = DormitoryManagerName;
             string ToAddress = DormitoryEmail;
-            var MessageTemplateName = DormitoryManager_NewBookingAlert;
+            var MessageTemplateName = EmailTemplateConst.DormitoryManager_NewBookingAlert;
             var EmailTokens = new List<Tokens>
                             {
                                 new Tokens {TokenName ="%Booking.No%", TokenValue =BookingNo},
@@ -740,7 +729,7 @@ namespace Dau.Services.Event
             string ToAddress = DormitoryEmail;
 
          
-            var MessageTemplateName = DormitoryManager_NewReviewInDormitory;
+            var MessageTemplateName = EmailTemplateConst.DormitoryManager_NewReviewInDormitory;
             var EmailTokens = new List<Tokens>
                             {
                                 new Tokens {TokenName ="%Dormitory.Name%", TokenValue =DormitoryName},
@@ -804,7 +793,7 @@ namespace Dau.Services.Event
             string ToAddress = DormitoryEmail;
 
 
-            var MessageTemplateName = DormitoryManager_LowQuotaRoomAlert;
+            var MessageTemplateName = EmailTemplateConst.DormitoryManager_LowQuotaRoomAlert;
             var EmailTokens = new List<Tokens>
                              {
                                 new Tokens {TokenName ="%Room.Name%", TokenValue =RoomName },
@@ -860,7 +849,7 @@ namespace Dau.Services.Event
             string UserFullName = AdministratorName;
             string ToAddress = AdministratorEmail;
 
-            var MessageTemplateName = Administrator_DormitoryInformationChangedAlert;
+            var MessageTemplateName = EmailTemplateConst.Administrator_DormitoryInformationChangedAlert;
             var EmailTokens = new List<Tokens>
                             {
                                 new Tokens {TokenName ="%Dormitory.Name%", TokenValue =DormitoryName },
@@ -917,7 +906,7 @@ namespace Dau.Services.Event
             string UserFullName = AdministratorName;
             string ToAddress = AdministratorEmail;
             var SendLanguageId = 1;
-            var MessageTemplateName = Administrator_NewRegistration;
+            var MessageTemplateName = EmailTemplateConst.Administrator_NewRegistration;
             var EmailTokens = new List<Tokens>
                              {
                                 new Tokens {TokenName = "%User.Id%", TokenValue =UserId },

@@ -1,5 +1,6 @@
 ﻿using Dau.Core.Domain.ContentManagement;
 using Dau.Data.Repository;
+using Dau.Services.Email;
 using Dau.Services.Event;
 using Dau.Services.Languages;
 using System;
@@ -29,19 +30,8 @@ namespace Dau.Services.MessageTemplates
             _languageService = languageService;
 
         }
-        public const string Student_BackInStockRoomEmail = "Student.BackInStockRoomEmail";
-        public const string Student_EmailValidation = "Student.EmailValidation";
-        public const string Student_WelcomeMessage = "Student.WelcomeMessage";
-        public const string Student_BookingCancellation = "Student.BookingCancellation";
-        public const string Student_BookingCompleted = "Student.BookingCompleted";
-        public const string Student_BookingPaid = "Student.BookingPaid";
-        public const string DormitoryManager_BookingPaid = "DormitoryManager.BookingPaid";
-        public const string DormitoryManager_NewBookingAlert = "DormitoryManager.NewBookingAlert";
-        public const string Student_BookingPlacedSuccessfully = "Student.BookingPlacedSuccessfully";
-        public const string DormitoryManager_NewReviewInDormitory = "DormitoryManager.NewReviewInDormitory";
-        public const string DormitoryManager_LowQuotaRoomAlert = "DormitoryManager.LowQuotaRoomAlert";
-        public const string Administrator_DormitoryInformationChangedAlert = "Administrator.DormitoryInformationChangedAlert";
-        public const string Administrator_NewRegistration = "Administrator.NewRegistration";
+      
+
         public List<MessageTemplatesTable> GetMessageTemplatesList()
         {
             var CurrentLanguageId = _languageService.GetCurrentLanguageId();
@@ -65,9 +55,11 @@ namespace Dau.Services.MessageTemplates
 
         private List<Tokens> ResolveMessageTemplateTokens (string MessageTemplateName)
         {
+            
+          
             switch (MessageTemplateName)
             {
-                case Student_BackInStockRoomEmail:
+                case EmailTemplateConst.Student_BackInStockRoomEmail:
                     {
 
                         return
@@ -84,7 +76,7 @@ namespace Dau.Services.MessageTemplates
                             };
 
                     }
-                case Student_EmailValidation:
+                case EmailTemplateConst.Student_EmailValidation:
                     {
                         return
                           new List<Tokens>
@@ -95,7 +87,7 @@ namespace Dau.Services.MessageTemplates
                           };
 
                     }
-                case Student_WelcomeMessage:
+                case EmailTemplateConst.Student_WelcomeMessage:
                     {
 
                         return
@@ -108,7 +100,7 @@ namespace Dau.Services.MessageTemplates
                             };
 
                     }
-                case Student_BookingCancellation:
+                case EmailTemplateConst.Student_BookingCancellation:
                     {
 
                         return
@@ -125,7 +117,7 @@ namespace Dau.Services.MessageTemplates
                              };
 
                     }
-                case Student_BookingCompleted:
+                case EmailTemplateConst.Student_BookingCompleted:
                     {
 
                         return
@@ -144,7 +136,7 @@ namespace Dau.Services.MessageTemplates
                             };
 
                     }
-                case Student_BookingPaid:
+                case EmailTemplateConst.Student_BookingPaid:
                     {
 
                         return
@@ -166,7 +158,7 @@ namespace Dau.Services.MessageTemplates
                             };
 
                     }
-                case DormitoryManager_BookingPaid:
+                case EmailTemplateConst.DormitoryManager_BookingPaid:
                     {
 
                         return
@@ -185,7 +177,7 @@ namespace Dau.Services.MessageTemplates
                             };
 
                     }
-                case DormitoryManager_NewBookingAlert:
+                case EmailTemplateConst.DormitoryManager_NewBookingAlert:
                     {
 
                         return
@@ -210,7 +202,7 @@ namespace Dau.Services.MessageTemplates
                             };
 
                     }
-                case Student_BookingPlacedSuccessfully:
+                case EmailTemplateConst.Student_BookingPlacedSuccessfully:
                     {
 
                         return
@@ -233,7 +225,7 @@ namespace Dau.Services.MessageTemplates
                            };
 
                     }
-                case DormitoryManager_NewReviewInDormitory:
+                case EmailTemplateConst.DormitoryManager_NewReviewInDormitory:
                     {
 
                         return
@@ -255,7 +247,7 @@ namespace Dau.Services.MessageTemplates
                             };
 
                     }
-                case DormitoryManager_LowQuotaRoomAlert:
+                case EmailTemplateConst.DormitoryManager_LowQuotaRoomAlert:
                     {
 
                         return
@@ -272,7 +264,7 @@ namespace Dau.Services.MessageTemplates
                              };
 
                     }
-                case Administrator_DormitoryInformationChangedAlert:
+                case EmailTemplateConst.Administrator_DormitoryInformationChangedAlert:
                     {
 
                         return
@@ -288,7 +280,7 @@ namespace Dau.Services.MessageTemplates
                             };
 
                     }
-                case Administrator_NewRegistration:
+                case EmailTemplateConst.Administrator_NewRegistration:
                     {
 
                         return
@@ -392,11 +384,14 @@ namespace Dau.Services.MessageTemplates
 
         public string StringToKens(List<Tokens> tokens)
         {
-            string token = " ";
+            string token = "";
 
-            foreach(var tokenString in tokens)
+            for(int i=0; i<tokens.Count; i++)
             {
-                token += tokenString.TokenName + ", ";
+                if(i+1 != tokens.Count)
+                token += tokens[i].TokenName + ", ";
+                else
+                token += tokens[i].TokenName;
             }
 
             return token;
