@@ -61,7 +61,7 @@ namespace searchDormWeb.TagHelpers
                     if (accessList.SelectMany(c => c.Actions).Any(a => a.Id == actionId))
                     {
                         if (!controllerIdsUsed.Contains(actionId)) {
-                        subItemList += $"<li><a href=\"/{MenuItem.AreaName}/{MenuItem.ControllerName}/{item.ActionName}\")\"><i class=\"fa fa-circle-o\"></i> {item.ActionDisplayName}</a></li>";
+                        subItemList += $"<li><a href=\"/{MenuItem.AreaName}/{MenuItem.ControllerName}/{item.ActionName}\")\"><i class=\"far fa-dot-circle\"></i> {item.ActionDisplayName}</a></li>";
                         controllerIdsUsed.Add(actionId);
                         }
                     }
@@ -89,7 +89,7 @@ namespace searchDormWeb.TagHelpers
                     {
                         if (!leveltwoControllerIdsUsed.Contains(actionId))
                         {
-                            leveltwoSubItemList += $"<li><a href=\"/{MenuItem.subMenu.AreaName}/{MenuItem.subMenu.ControllerName}/{item.ActionName}\")\"><i class=\"fa fa-circle-o\"></i> {item.ActionDisplayName}</a></li>";
+                            leveltwoSubItemList += $"<li><a href=\"/{MenuItem.subMenu.AreaName}/{MenuItem.subMenu.ControllerName}/{item.ActionName}\")\"><i class=\"far fa-dot-circle\"></i> {item.ActionDisplayName}</a></li>";
                             leveltwoControllerIdsUsed.Add(actionId);
                         }
                     }
@@ -105,7 +105,7 @@ namespace searchDormWeb.TagHelpers
             if ((leveltwoControllerIdsUsed.Count > 0)) {
                 level2String = $" <li class=\"treeview {LeveltwoIsActive}\">"+
                         "<a href=\"#\">" +
-                          $" <i class=\"fa fa-circle-o\"></i> { MenuItem.subMenu.ControllerDisplayName } "+
+                          $" <i class=\"far fa-dot-circle\"></i> { MenuItem.subMenu.ControllerDisplayName } "+
                            " <span class=\"pull-right-container\">"+
                              "   <i class=\"fa fa-angle-left pull-right\"></i>"+
                           "  </span>"+
