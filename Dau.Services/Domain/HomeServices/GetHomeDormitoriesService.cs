@@ -264,7 +264,7 @@ namespace Dau.Services.Domain.HomeService
 
             var dormitoryAndtype = from dorm in dormitories.ToList()
                                    join dormType in dormitoryType.ToList() on dorm.DormitoryTypeId equals dormType.Id
-                                   where _reviewRepo.List().Where(c => c.DormitoryId == dorm.Id).ToList().Count>0
+                                //   where _reviewRepo.List().Where(c => c.DormitoryId == dorm.Id).ToList().Count>0
                                    select new DormitoryCard
                                    {
                                        // ImageUrls = _imageService.ImageSplitterList(Images.Where(d => d.DormitoryId == dorm.Id).Select(x => x.ImageUrl).ToList(), "_p6"),
