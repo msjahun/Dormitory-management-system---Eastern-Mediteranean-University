@@ -188,15 +188,9 @@ namespace Dau.Services.Domain.CurrencyServices
 
             var currency = _currencyRepo.GetById(dormitory.CurrencyId);
 
-            var format = "{0} {1}";
 
-            if(!string.IsNullOrEmpty(currency.CustomFormatting) && !string.IsNullOrWhiteSpace(currency.CustomFormatting))
-                format = currency.CustomFormatting;
 
-            var formattedString = string.Format(format, Amount.ToString("N2"), currency.CurrencyCode);
-
-            if (!string.IsNullOrEmpty(currency.CustomFormatting) && !string.IsNullOrWhiteSpace(currency.CustomFormatting))
-                formattedString = string.Format(format, Amount.ToString("N2"));
+            var formattedString = CurrencyFormatter(currency.CustomFormatting, currency.CurrencyCode, Amount);
 
             return formattedString;
             //get dormitory,
@@ -205,26 +199,19 @@ namespace Dau.Services.Domain.CurrencyServices
             //return "$ 500" or "500 TL" or "500 USD"
         }
 
-        public string CurrencyFormatterByRoomId(long Id, string Amount)
+
+        public string CurrencyFormatter(string Customformat,string CurrencyCode, double Amount)
         {
-
-            var room = _roomRepo.GetById(Id);
-            if (room == null) return null;
-
-            var dormitory = _dormitoryRepo.GetById(room.DormitoryId);
-            if (dormitory == null) return null;
-
-            if (dormitory.CurrencyId <= 0)
-                return null;
-
-
-            var currency = _currencyRepo.GetById(dormitory.CurrencyId);
-
             var format = "{0} {1}";
+            if (!string.IsNullOrEmpty(Customformat) && !string.IsNullOrWhiteSpace(Customformat))
+                format = Customformat;
 
-            var formattedString = string.Format(format, Amount, currency.CurrencyCode);
+            var formattedString = string.Format(format, Amount.ToString("N2"), CurrencyCode);
+
+            if (!string.IsNullOrEmpty(Customformat) && !string.IsNullOrWhiteSpace(Customformat))
+                formattedString = string.Format(format, Amount.ToString("N2"));
+
             return formattedString;
-       
         }
 
         public string CurrencyFormatterByDormitoryId(long Id, double Amount)
@@ -240,9 +227,8 @@ namespace Dau.Services.Domain.CurrencyServices
 
             var currency = _currencyRepo.GetById(dormitory.CurrencyId);
 
-            var format = "{0} {1}";
+            var formattedString = CurrencyFormatter(currency.CustomFormatting, currency.CurrencyCode, Amount);
 
-            var formattedString = string.Format(format, Amount, currency.CurrencyCode);
             return formattedString;
 
         }

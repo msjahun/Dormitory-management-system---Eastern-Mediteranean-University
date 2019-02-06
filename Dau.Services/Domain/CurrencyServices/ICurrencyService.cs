@@ -12,7 +12,6 @@ namespace Dau.Services.Domain.CurrencyServices
          List<CurrenciesTable> GetCurrenciesTablesList();
         object GetDormitoryCurrencyCode(long id);
         string CurrencyFormatterByRoomId(long Id, double Amount);
-        string CurrencyFormatterByRoomId(long Id, string Amount);
         string CurrencyFormatterByDormitoryId(long Id, double Amount);
 
 
