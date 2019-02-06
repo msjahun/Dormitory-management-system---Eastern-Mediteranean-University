@@ -5,6 +5,7 @@ using Dau.Data.Repository;
 using Dau.Services.Domain.CurrencyServices;
 using Dau.Services.Domain.DormitoryServices;
 using Dau.Services.Domain.ImageServices;
+using Dau.Services.Domain.PriceCalculationService;
 using Dau.Services.Event;
 using Dau.Services.Languages;
 using Dau.Services.Security;
@@ -13,14 +14,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
 
 namespace Dau.Services.Domain.BookingService
 {
-    public class BookingService : IBookingService
+    public partial class BookingService : IBookingService
     {
         private readonly IRepository<Cart> _cartRepository;
         private readonly IRepository<Room> _roomRepository;
@@ -37,6 +36,7 @@ namespace Dau.Services.Domain.BookingService
         private readonly IRepository<BookingStatusTranslation> _bookingStatusTransRepo;
         private readonly IRepository<PaymentStatus> _paymentStatusRepo;
         private readonly IRepository<PaymentStatusTranslation> _paymentStatusTransRepo;
+        private readonly IPriceCalculationService _priceCalcService;
         private readonly ICurrencyService _currencyService;
         private readonly IEventService _eventService;
         private readonly IDormitoryService _dormitoryService;
@@ -69,9 +69,11 @@ namespace Dau.Services.Domain.BookingService
            IUserRolesService userRolesService,
            IDormitoryService dormitoryService,
            IEventService eventService,
-            ICurrencyService currencyService
+            ICurrencyService currencyService,
+            IPriceCalculationService priceCalculationService
             )
         {
+            _priceCalcService = priceCalculationService;
             _currencyService = currencyService;
             _eventService = eventService;
             _dormitoryService = dormitoryService;
@@ -100,14 +102,12 @@ namespace Dau.Services.Domain.BookingService
 
         }
 
-        public BookingCartViewModel GetCheckoutCartService()
-        {
-            //get full room information with translation
-            //get full dormitory information with translation
-            //join them together room and dormitory
 
-            //join everything with cart table
+
+        public bool AddBooking()
+        {
             var CurrentUserId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
             var CurrentLanguageId = _languageService.GetCurrentLanguageId();
 
             var dormitories = from dorm in _dormitoryRepository.List().ToList()
@@ -123,196 +123,22 @@ namespace Dau.Services.Domain.BookingService
             var rooms = from room in _roomRepository.List().ToList()
                         join roomTrans in _roomTransRepository.List().ToList() on room.Id equals roomTrans.RoomNonTransId
                         where roomTrans.LanguageId == CurrentLanguageId
-                        select new { room.Id, room.DormitoryId, room.DormitoryBlockId, roomTrans.RoomName,
-                            room.PriceCash, room.PriceOldCash,
-                            room.PriceInstallment, room.PriceOldInstallment,
-                            room.ShowPrice, room.NoRoomQuota, room.RoomSize, room.PaymentPerSemesterNotYear };
-
-            var roomsDormitoryBlock = from room in rooms.ToList()
-                                      join dormBlock in dormitoryBlock.ToList() on room.DormitoryBlockId equals dormBlock.Id
-                                      select new
-                                      {
-                                          DormitoryBlockPublished = dormBlock.Published,
-                                          DormitoryBlockName = dormBlock.Name,
-                                          room.Id,
-                                          room.DormitoryId,
-                                          room.DormitoryBlockId,
-                                          room.RoomName,
-                                          room.PriceCash,
-                                          room.PriceOldCash,
-                                          room.PriceInstallment,
-                                          room.PriceOldInstallment,
-                                          room.ShowPrice,
-                                          room.NoRoomQuota,
-                                          room.PaymentPerSemesterNotYear,
-                                          room.RoomSize
-                                      };
-
-            var roomDormitory = from room in roomsDormitoryBlock.ToList()
-                                join dorm in dormitories.ToList() on room.DormitoryId equals dorm.Id
-                                select new
-                                {
-                                    room.DormitoryBlockPublished,
-                                    room.DormitoryBlockName,
-                                    room.Id,
-                                    room.DormitoryId,
-                                    room.DormitoryBlockId,
-                                    room.RoomName,
-                                    room.PriceCash,
-                                    room.PriceOldCash,
-                                    room.PriceInstallment,
-                                    room.PriceOldInstallment,
-                                    room.PaymentPerSemesterNotYear,
-                                    room.ShowPrice,
-                                    room.NoRoomQuota,
-                                    room.RoomSize,
-                                    dorm.DormitorySeoId,
-                                    dorm.DormitoryName,
-                                    dorm.DormitoryLogoUrl
-                                };
-
-
-
-            var Carts = from cart in _cartRepository.List().ToList()
-                        where cart.UserId == CurrentUserId
-                        select new { cart.RoomId, cart.UserId, cart.TotalAmount, cart.SemesterPeriodId, cart.Id };
-            var semesterPeriods = from semPeriod in _SemesterPeriodRepo.List().ToList()
-                                  join semPeriodTrans in _semesterPeriodTransRepo.List().ToList() on semPeriod.Id equals semPeriodTrans.SemesterPeriodNonTransId
-                                  where semPeriod.Id != 2
-                                  where semPeriodTrans.LanguageId == CurrentLanguageId
-                                  select new SelectListItem
-                                  {
-                                      Value = semPeriod.Id.ToString(),
-                                      Text = semPeriodTrans.SemesterPeriodName
-                                  };
-
-
-            var CartRoom = from cart in Carts.ToList()
-                           join room in roomDormitory.ToList() on cart.RoomId equals room.Id
-                           select new BookingCartViewModel
-                           {
-                               SemestersList = semesterPeriods.ToList(),
-                               IsPricePerYear = !room.PaymentPerSemesterNotYear,
-                               DormitoryName = room.DormitoryName,
-                               RoomName = room.RoomName,
-                               RoomBlock = room.DormitoryBlockName,
-                               RoomSize = room.RoomSize.ToString("N1") + " m2",
-                               RoomPricePerSemester =_currencyService.CurrencyFormatterByRoomId(room.Id, room.PriceCash),
-                               AmountTotal = _currencyService.CurrencyFormatterByRoomId(room.Id, room.PriceCash),
-                               DormitoryLogoUrl = room.DormitoryLogoUrl,
-                               SemesterPeriodId = cart.SemesterPeriodId,
-                               CartId = cart.Id,
-                               PriceRaw = room.PriceCash,
-                               RoomId = room.Id
-                           };
-
-
-            //var CartsSemesterPeriods = from cart in Carts.ToList()
-            //                           join SemPeriod in semesterPeriods.ToList() on cart.SemesterPeriodId equals SemPeriod.Id
-            //                           select 
-
-            var User = from user in _userManager.Users.ToList()
-                       where user.Id == CurrentUserId
-                       select user;
-
-            //join rooms with dormitories and dormitoryBlock, leave roomId only and other components
-            //get semesterPeriods
-
-            //join Cart with semester periods
-
-            //get the current user, use his id to get specific cart, 
-
-            //join cart with room, dormitoryblock, dormitories join table
-
-            //select the first cart or default and display it to the model
-
-
-            var finalCart = CartRoom.FirstOrDefault();
-
-
-            double priceMultiplier = 1;
-            var userCart = Carts.ToList().FirstOrDefault();
-            if (finalCart != null)
-            {
-                bool IsPerSemester = !finalCart.IsPricePerYear;
-                if (IsPerSemester)
-                {//Persemester
-                    if (userCart.SemesterPeriodId == 3)
-                    {
-                        //1 semester,
-                        priceMultiplier = 4;
-
-
-                    }
-                    else if (userCart.SemesterPeriodId == 4)
-                    {
-                        priceMultiplier = 8;
-                    }
-                }
-                else
-                {//Per Year
-                    if (userCart.SemesterPeriodId == 1)
-                    {
-                        priceMultiplier = 0.5; // half a semester
-                    }
-                    if (userCart.SemesterPeriodId == 3)
-                    {
-                        //1 semester,
-                        priceMultiplier = 1;
-
-
-                    }
-                    else if (userCart.SemesterPeriodId == 4)
-                    {
-                        priceMultiplier = 2;
-                    }
-
-                }
-                finalCart.AmountTotal =_currencyService.CurrencyFormatterByRoomId(finalCart.RoomId, (finalCart.PriceRaw * priceMultiplier));
-
-            }
-            BookingCartViewModel model = finalCart;
-
-
-            //    new BookingCartViewModel
-            //{
-            //    DormitoryName = "Alfam Dormitories",
-            //    RoomName = "Single room",
-            //    RoomBlock = "A. block",
-            //    RoomSize = "42.5 m2",
-            //    RoomPricePerSemester = "{1}900 ",
-            //    AmountTotal = "{1}1,800 ",
-            //    DormitoryLogoUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuzxmbcw2jxGlHQ_ZuICaAowpUUjFoOYTJH9oGmsQmz3WG4IpkSw"
-            //};
-            // return null;
-            return model;
-
-        }
-
-        public BookingCheckoutCustomerInfoViewModel GetCheckoutCustomerService()
-        {
-            var CurrentUserId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var CurrentLanguageId = _languageService.GetCurrentLanguageId();
-
-            var dormitories = from dorm in _dormitoryRepository.List().ToList()
-                              join dormTrans in _dormitoryTranslationRepository.List().ToList() on dorm.Id equals dormTrans.DormitoryNonTransId
-                              where dormTrans.LanguageId == CurrentLanguageId
-                              select new { dorm.Id, DormitorySeoId = dorm.SeoId, dormTrans.DormitoryName, dorm.DormitoryLogoUrl };
-
-            var dormitoryBlock = from dormBlock in _dormitoryBlockRepo.List().ToList()
-                                 join dormBlockTrans in _dormitoryBlockTransRepo.List().ToList() on dormBlock.Id equals dormBlockTrans.DormitoryBlockNonTransId
-                                 where dormBlockTrans.LanguageId == CurrentLanguageId
-                                 select new { dormBlock.Published, dormBlockTrans.Name, dormBlock.Id };
-
-            var rooms = from room in _roomRepository.List().ToList()
-                        join roomTrans in _roomTransRepository.List().ToList() on room.Id equals roomTrans.RoomNonTransId
-                        where roomTrans.LanguageId == CurrentLanguageId
-                        select new { room.Id, room.DormitoryId, room.DormitoryBlockId, roomTrans.RoomName,
+                        select new
+                        {
+                            room.Id,
+                            room.DormitoryId,
+                            room.DormitoryBlockId,
+                            roomTrans.RoomName,
                             room.PriceCash,
                             room.PriceOldCash,
                             room.PriceInstallment,
                             room.PriceOldInstallment,
-                            room.ShowPrice, room.NoRoomQuota, room.RoomSize,room.MinBookingFee };
+                            room.ShowPrice,
+                            room.NoRoomQuota,
+                            room.RoomSize,
+                            room.MinBookingFee,
+                            room.PaymentPerSemesterNotYear
+                        };
 
             var roomsDormitoryBlock = from room in rooms.ToList()
                                       join dormBlock in dormitoryBlock.ToList() on room.DormitoryBlockId equals dormBlock.Id
@@ -331,8 +157,9 @@ namespace Dau.Services.Domain.BookingService
                                           room.ShowPrice,
                                           room.NoRoomQuota,
                                           room.RoomSize,
-                                         
-                                          room.MinBookingFee
+
+                                          room.MinBookingFee,
+                                          room.PaymentPerSemesterNotYear
                                       };
 
             var roomDormitory = from room in roomsDormitoryBlock.ToList()
@@ -352,11 +179,12 @@ namespace Dau.Services.Domain.BookingService
                                     room.ShowPrice,
                                     room.NoRoomQuota,
                                     room.RoomSize,
-                                   
+
                                     room.MinBookingFee,
                                     dorm.DormitorySeoId,
                                     dorm.DormitoryName,
-                                    dorm.DormitoryLogoUrl
+                                    dorm.DormitoryLogoUrl,
+                                    room.PaymentPerSemesterNotYear
                                 };
 
             var semesterPeriods = from semPeriod in _SemesterPeriodRepo.List().ToList()
@@ -369,308 +197,79 @@ namespace Dau.Services.Domain.BookingService
                         where cart.UserId == CurrentUserId
                         select new { cart.RoomId, cart.UserId, cart.TotalAmount, cart.SemesterPeriodId };
 
-            var CartRoom = from cart in Carts.ToList()
-                           join room in roomDormitory.ToList() on cart.RoomId equals room.Id
-                           select new BookingCartViewModel
-                           {
-                               DormitoryName = room.DormitoryName,
-                               RoomName = room.RoomName,
-                               RoomBlock = room.DormitoryBlockName,
-                               RoomSize = room.RoomSize.ToString("N1") + " m2",
-                               RoomPricePerSemester =  _currencyService.CurrencyFormatterByRoomId(room.Id, room.PriceCash),
-                               AmountTotal = _currencyService.CurrencyFormatterByRoomId(room.Id, room.PriceCash),
-                               DormitoryLogoUrl = room.DormitoryLogoUrl,
-                              
-                               BookingFee = _currencyService.CurrencyFormatterByRoomId(room.Id, room.MinBookingFee),
-                               StayDuration = semesterPeriods.Where(c => c.Id == cart.SemesterPeriodId).FirstOrDefault().SemesterPeriodName,
-                               SubtotalAmount = _currencyService.CurrencyFormatterByRoomId(room.Id, room.PriceCash),
-                               PriceRaw = room.PriceCash,
-                               RoomId = room.Id,
-                               BookingFeeRaw = room.MinBookingFee
+
+            var dummyFinalCart = (from cart in Carts.ToList()
+                                  join room in roomDormitory.ToList() on cart.RoomId equals room.Id
+                                  select new
+                                  {
+                                      BookingStatusId = 2,
+                                      PaymentStatusId = 2,
+                                      UserId = CurrentUserId,
+                                      CustomerIpAddress = _httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString(),
+                                      BookingOrderSubtotal = room.PriceCash,
+                                      BookingFee = room.MinBookingFee,
+                                      BookingTotal = room.PriceCash,
+                                      CreatedOn = DateTime.Now,
+                                      RoomId = room.Id,
+                                      room.PriceCash,
+                                      cart.SemesterPeriodId,
+                                      IsPricePerYear = !room.PaymentPerSemesterNotYear,
 
 
-                           };
+                                  }).FirstOrDefault();
 
 
-            var finalCart = CartRoom.FirstOrDefault();
+            var finalCart = (from cart in Carts.ToList()
+                             join room in roomDormitory.ToList() on cart.RoomId equals room.Id
+                             select new Booking
+                             {
+                                 BookingStatusId = 2,
+                                 PaymentStatusId = 2,
+                                 UserId = CurrentUserId,
+                                 CustomerIpAddress = _httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString(),
+                                 BookingOrderSubtotal = room.PriceCash,
+                                 BookingFee = room.MinBookingFee,
+                                 BookingTotal = room.PriceCash,
+                                 CreatedOn = DateTime.Now,
+                                 RoomId = room.Id
 
-            double priceMultiplier = 1;
+                             }).FirstOrDefault();
+
+
+
             var userCart = Carts.ToList().FirstOrDefault();
-            bool IsPerSemester = !finalCart.IsPricePerYear;
-            if (IsPerSemester)
-            {//Persemester
-                if (userCart.SemesterPeriodId == 3)
-                {
-                    //1 semester,
-                    priceMultiplier = 4;
+            finalCart.BookingTotal = _priceCalcService.CalculateBookingTotal(dummyFinalCart.IsPricePerYear, dummyFinalCart.SemesterPeriodId, dummyFinalCart.PriceCash);
 
+            try
+            {//reduce room quota and check if room quota
+                var room = _roomRepository.GetById(finalCart.RoomId);
+                if (room.NoRoomQuota > 0)
+                {
+                    room.NoRoomQuota--;
+                    _roomRepository.Update(room);
+                    var bookingId = _bookingRepository.Insert(finalCart);
+                    _imageService.uploadBookingReceiptImage(bookingId);
+                    //_eventService.Trigger_BookingPlaced_DormitoryManagerNotification_Event(); to notify administrator of booking
+                    _eventService.Trigger_BookingPlaced_DormitoryNotification_Event(bookingId);
+                    _eventService.Trigger_BookingPlaced_StudentNotification_Event(bookingId);
 
-                }
-                else if (userCart.SemesterPeriodId == 4)
-                {
-                    priceMultiplier = 8;
-                }
-            }
-            else
-            {//Per Year
-                if (userCart.SemesterPeriodId == 1)
-                {
-                    priceMultiplier = 0.5; // half a semester
-                }
-                if (userCart.SemesterPeriodId == 3)
-                {
-                    //1 semester,
-                    priceMultiplier = 1;
+                    if (room.NoRoomQuota <= 5)
+                        _eventService.Trigger_RoomQuotaBelow_DormitoryManagerNotification_Event(room.Id);
 
-
+                    return true;
                 }
-                else if (userCart.SemesterPeriodId == 4)
+                else
                 {
-                    priceMultiplier = 2;
+                    return false; //room quota is not enough
                 }
 
             }
-            finalCart.SubtotalAmount = _currencyService.CurrencyFormatterByRoomId(finalCart.RoomId, (finalCart.PriceRaw * priceMultiplier));
-            finalCart.AmountTotal = _currencyService.CurrencyFormatterByRoomId(finalCart.RoomId, (finalCart.PriceRaw * priceMultiplier) );
-
-
-            //var CartsSemesterPeriods = from cart in Carts.ToList()
-            //                           join SemPeriod in semesterPeriods.ToList() on cart.SemesterPeriodId equals SemPeriod.Id
-            //                           select 
-
-            var Users = from _user in _userManager.Users.ToList()
-                        where _user.Id == CurrentUserId
-                        select _user;
-            var user = Users.FirstOrDefault();
-
-
-            BookingCheckoutCustomerInfoViewModel model = new BookingCheckoutCustomerInfoViewModel
+            catch
             {
-                BookingDetails = finalCart,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                StudentNumber = user.StudentNumber,
-                ParmanentAddress = user.ParmanentAddress,
-                Country = user.Country,
-                City = user.City,
-                EmailAddress = user.Email,
-                PhoneNumber = user.PhoneNumber
-            };
-
-
-            return model;
-        }
-
-        public BookingCheckoutCustomerInfoViewModel GetCheckoutPaymentService()
-        {
-            var CurrentUserId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var CurrentLanguageId = _languageService.GetCurrentLanguageId();
-
-            var dormitories = from dorm in _dormitoryRepository.List().ToList()
-                              join dormTrans in _dormitoryTranslationRepository.List().ToList() on dorm.Id equals dormTrans.DormitoryNonTransId
-                              where dormTrans.LanguageId == CurrentLanguageId
-                              select new { dorm.Id, DormitorySeoId = dorm.SeoId, dormTrans.DormitoryName, dorm.DormitoryLogoUrl };
-
-            var dormitoryBlock = from dormBlock in _dormitoryBlockRepo.List().ToList()
-                                 join dormBlockTrans in _dormitoryBlockTransRepo.List().ToList() on dormBlock.Id equals dormBlockTrans.DormitoryBlockNonTransId
-                                 where dormBlockTrans.LanguageId == CurrentLanguageId
-                                 select new { dormBlock.Published, dormBlockTrans.Name, dormBlock.Id };
-
-            var rooms = from room in _roomRepository.List().ToList()
-                        join roomTrans in _roomTransRepository.List().ToList() on room.Id equals roomTrans.RoomNonTransId
-                        where roomTrans.LanguageId == CurrentLanguageId
-                        select new { room.Id, room.DormitoryId, room.DormitoryBlockId, roomTrans.RoomName,
-                            room.PriceCash,
-                            room.PriceOldCash,
-                            room.PriceInstallment,
-                            room.PriceOldInstallment,
-                            room.ShowPrice, room.NoRoomQuota, room.RoomSize,  room.MinBookingFee };
-
-            var roomsDormitoryBlock = from room in rooms.ToList()
-                                      join dormBlock in dormitoryBlock.ToList() on room.DormitoryBlockId equals dormBlock.Id
-                                      select new
-                                      {
-                                          DormitoryBlockPublished = dormBlock.Published,
-                                          DormitoryBlockName = dormBlock.Name,
-                                          room.Id,
-                                          room.DormitoryId,
-                                          room.DormitoryBlockId,
-                                          room.RoomName,
-                                          room.PriceCash,
-                                          room.PriceOldCash,
-                                          room.PriceInstallment,
-                                          room.PriceOldInstallment,
-                                          room.ShowPrice,
-                                          room.NoRoomQuota,
-                                          room.RoomSize,
-                                         
-                                          room.MinBookingFee
-                                      };
-
-            var roomDormitory = from room in roomsDormitoryBlock.ToList()
-                                join dorm in dormitories.ToList() on room.DormitoryId equals dorm.Id
-                                select new
-                                {
-                                    room.DormitoryBlockPublished,
-                                    room.DormitoryBlockName,
-                                    room.Id,
-                                    room.DormitoryId,
-                                    room.DormitoryBlockId,
-                                    room.RoomName,
-                                    room.PriceCash,
-                                    room.PriceOldCash,
-                                    room.PriceInstallment,
-                                    room.PriceOldInstallment,
-                                    room.ShowPrice,
-                                    room.NoRoomQuota,
-                                    room.RoomSize,
-                                     room.MinBookingFee,
-                                    dorm.DormitorySeoId,
-                                    dorm.DormitoryName,
-                                    dorm.DormitoryLogoUrl
-                                };
-
-            var semesterPeriods = from semPeriod in _SemesterPeriodRepo.List().ToList()
-                                  join semPeriodTrans in _semesterPeriodTransRepo.List().ToList() on semPeriod.Id equals semPeriodTrans.SemesterPeriodNonTransId
-                                  where semPeriodTrans.LanguageId == CurrentLanguageId
-                                  select new { semPeriod.Id, semPeriodTrans.SemesterPeriodName };
-
-
-            var Carts = from cart in _cartRepository.List().ToList()
-                        where cart.UserId == CurrentUserId
-                        select new { cart.RoomId, cart.UserId, cart.TotalAmount, cart.SemesterPeriodId };
-
-            var CartRoom = from cart in Carts.ToList()
-                           join room in roomDormitory.ToList() on cart.RoomId equals room.Id
-                           select new BookingCartViewModel
-                           {
-                               DormitoryName = room.DormitoryName,
-                               RoomName = room.RoomName,
-                               RoomBlock = room.DormitoryBlockName,
-                               RoomSize = room.RoomSize.ToString("N1") + " m2",
-
-                               RoomPricePerSemester = _currencyService.CurrencyFormatterByRoomId(room.Id, room.PriceCash),
-                               AmountTotal = _currencyService.CurrencyFormatterByRoomId(room.Id, room.PriceCash ),
-                               DormitoryLogoUrl = room.DormitoryLogoUrl,
-                              
-                               BookingFee = _currencyService.CurrencyFormatterByRoomId(room.Id, room.MinBookingFee),
-                               StayDuration = semesterPeriods.Where(c => c.Id == cart.SemesterPeriodId).FirstOrDefault().SemesterPeriodName,
-                               SubtotalAmount = _currencyService.CurrencyFormatterByRoomId(room.Id, room.PriceCash),
-                               PriceRaw = room.PriceCash,
-                              RoomId = room.Id,
-                               BookingFeeRaw = room.MinBookingFee
-
-                           };
-
-
-            //var CartsSemesterPeriods = from cart in Carts.ToList()
-            //                           join SemPeriod in semesterPeriods.ToList() on cart.SemesterPeriodId equals SemPeriod.Id
-            //                           select 
-
-            var Users = from _user in _userManager.Users.ToList()
-                        where _user.Id == CurrentUserId
-                        select _user;
-            var user = Users.FirstOrDefault();
-
-
-            var finalCart = CartRoom.FirstOrDefault();
-
-            double priceMultiplier = 1;
-            var userCart = Carts.ToList().FirstOrDefault();
-            bool IsPerSemester = !finalCart.IsPricePerYear;
-            if (IsPerSemester)
-            {//Persemester
-                if (userCart.SemesterPeriodId == 3)
-                {
-                    //1 semester,
-                    priceMultiplier = 4;
-
-
-                }
-                else if (userCart.SemesterPeriodId == 4)
-                {
-                    priceMultiplier = 8;
-                }
+                return false;
             }
-            else
-            {//Per Year
-                if (userCart.SemesterPeriodId == 1)
-                {
-                    priceMultiplier = 0.5; // half a semester
-                }
-                if (userCart.SemesterPeriodId == 3)
-                {
-                    //1 semester,
-                    priceMultiplier = 1;
 
 
-                }
-                else if (userCart.SemesterPeriodId == 4)
-                {
-                    priceMultiplier = 2;
-                }
-
-            }
-            finalCart.SubtotalAmount = _currencyService.CurrencyFormatterByRoomId(finalCart.RoomId, (finalCart.PriceRaw * priceMultiplier));
-            finalCart.AmountTotal = _currencyService.CurrencyFormatterByRoomId(finalCart.RoomId, (finalCart.PriceRaw * priceMultiplier));
-
-
-            BookingCheckoutCustomerInfoViewModel model = new BookingCheckoutCustomerInfoViewModel
-            {
-                BookingDetails = finalCart,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                StudentNumber = user.StudentNumber,
-                ParmanentAddress = user.ParmanentAddress,
-                Country = user.Country,
-                City = user.City,
-                EmailAddress = user.Email,
-                PhoneNumber = user.PhoneNumber,
-                DateBookingExpiresWithoutConfirmation = DateTime.Now.AddDays(14).ToString("d"),
-                NumberOfWorkingDaysBeforeBookingExpires = 14,
-
-               //********************** huge flag here, correct this 14 ********
-            };
-
-
-
-            return model;
-        }
-
-        public bool DeleteItemFromCart()
-        {
-            var CurrentUserId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var cartToDelete = (from cart in _cartRepository.List().ToList()
-                                where cart.UserId == CurrentUserId
-                                select cart);
-            foreach (var cart in cartToDelete.ToList())
-            {
-                _cartRepository.Delete(cart);
-            }
-            return true;
-        }
-
-        public bool AddToCart(long RoomId)
-        {
-            var CurrentSemesterId = (from sem in _SemesterPeriodRepo.List().ToList()
-                                     where sem.IsCurrentSemester == true
-                                     select sem).FirstOrDefault().Id;
-            var CurrentUserId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-
-            var oldCartItems = _cartRepository.List().Where(c => c.UserId == CurrentUserId).ToList();
-            foreach (var cartItem in oldCartItems)
-            {
-                _cartRepository.Delete(cartItem);
-            }
-            var Cart = new Cart
-            {
-                RoomId = RoomId,
-                UserId = CurrentUserId,
-                SemesterPeriodId = CurrentSemesterId,  // fix this
-                CreatedOn = DateTime.Now
-            };
-            _cartRepository.Insert(Cart);
-            return true;
         }
 
         public ReservationEdit GetBookingById(long BookingId)
@@ -718,6 +317,10 @@ namespace Dau.Services.Domain.BookingService
             };
             return model;
         }
+
+        //no update and delete methods to complete crud
+
+
         public int GetTotalNumberOfBookings()
         {
             //room Id and dormitoryId
@@ -729,336 +332,12 @@ namespace Dau.Services.Domain.BookingService
             return _cancelBookingRequests.List().ToList().Count;
         }
 
-
-        public List<ReservationListTable> GetBookingTableList()
-        {
-            var CurrentLanguageId = _languageService.GetCurrentLanguageId();
-            var bookingStatus = from bookingStats in _bookingStatusRepo.List().ToList()
-                                join bookingStatsTrans in _bookingStatusTransRepo.List().ToList() on bookingStats.Id equals bookingStatsTrans.BookingStatusNonTransId
-                                where bookingStatsTrans.LanguageId == CurrentLanguageId
-                                select new { bookingStats.Id, bookingStatsTrans.BookingStatus };
-
-            var paymentStatus = from payStats in _paymentStatusRepo.List().ToList()
-                                join payStatsTrans in _paymentStatusTransRepo.List().ToList() on payStats.Id equals payStatsTrans.PaymentStatusNonTransId
-                                where payStatsTrans.LanguageId == CurrentLanguageId
-                                select new { payStats.Id, payStatsTrans.PaymentStatus };
-
-            var dormitoryId = _roomRepository.GetById(1).DormitoryId;
-            //   var numberOfDaysBeforeCancellation = _dormitoryRepository.GetById(_roomRepository.GetById(1).DormitoryId).CancelWaitDays;
-            var Bookings = from booking in _bookingRepository.List().ToList()
-                           orderby booking.Id descending
-                           select new ReservationListTable
-                           {
-                               DormitoryId = _roomRepository.GetById(booking.RoomId).DormitoryId,
-                               BookingNo = booking.Id.ToString(),
-                               BookingStatus = bookingStatus.Where(c => c.Id == booking.BookingStatusId).FirstOrDefault().BookingStatus,
-                               PaymentStatus = paymentStatus.Where(p => p.Id == booking.PaymentStatusId).FirstOrDefault().PaymentStatus,
-                               PaymentStatusId = booking.PaymentStatusId,
-                               BookingStatusId = booking.BookingStatusId,
-                               User = _userManager.Users.Where(c => c.Id == booking.UserId).FirstOrDefault().UserName,
-                               CreatedOn = booking.CreatedOn.ToString("d"),
-                               cancellationDate = DaysRemaining((booking.CreatedOn.AddDays(_dormitoryRepository.GetById(_roomRepository.GetById(booking.RoomId).DormitoryId).CancelWaitDays) - DateTime.Now).TotalDays),
-                               cancellationDays = (booking.CreatedOn.AddDays(_dormitoryRepository.GetById(_roomRepository.GetById(booking.RoomId).DormitoryId).CancelWaitDays) - DateTime.Now).TotalDays,
-                               BookingTotal = _currencyService.CurrencyFormatterByRoomId(booking.RoomId , booking.BookingTotal),
-
-
-                           };
-
-            return Bookings.Where(c => _userRolesService.RoleAccessResolver().Contains(c.DormitoryId)).ToList();
-        }
-
         private string DaysRemaining(double TotalDays)
         {
             int totaldays = (int)(TotalDays);
             var date = DateTime.FromOADate(TotalDays);
             return String.Format("{0} days {1} hours {2} min {3} sec left", totaldays, date.ToString("HH"), date.ToString("mm"), date.ToString("ss"));
 
-        }
-
-        public List<LatestBookingsTable> GetLatestBookingsDashboardList()
-        {
-            var CurrentLanguageId = _languageService.GetCurrentLanguageId();
-            var bookingStatus = from bookingStats in _bookingStatusRepo.List().ToList()
-                                join bookingStatsTrans in _bookingStatusTransRepo.List().ToList() on bookingStats.Id equals bookingStatsTrans.BookingStatusNonTransId
-                                where bookingStatsTrans.LanguageId == CurrentLanguageId
-                                select new { bookingStats.Id, bookingStatsTrans.BookingStatus };
-
-            var paymentStatus = from payStats in _paymentStatusRepo.List().ToList()
-                                join payStatsTrans in _paymentStatusTransRepo.List().ToList() on payStats.Id equals payStatsTrans.PaymentStatusNonTransId
-                                where payStatsTrans.LanguageId == CurrentLanguageId
-                                select new { payStats.Id, payStatsTrans.PaymentStatus };
-
-
-
-            var Bookings = from booking in _bookingRepository.List().ToList()
-                           orderby booking.Id descending
-                           select new LatestBookingsTable
-                           {
-                               DormitoryId = _roomRepository.GetById(booking.RoomId).DormitoryId,
-                               OrderNo = booking.Id.ToString(),
-
-                               OrderStatus = bookingStatus.Where(c => c.Id == booking.BookingStatusId).FirstOrDefault().BookingStatus,
-                               BookingStatusId = booking.BookingStatusId,
-                               Customer = _userManager.Users.Where(c => c.Id == booking.UserId).FirstOrDefault().UserName,
-                               CreatedOn = booking.CreatedOn.ToString("d"),
-
-
-
-                           };
-
-            return Bookings.Where(c => _userRolesService.RoleAccessResolver().Contains(c.DormitoryId)).ToList();
-        }
-
-
-        public bool AddBooking()
-        {
-            var CurrentUserId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-
-            var CurrentLanguageId = _languageService.GetCurrentLanguageId();
-
-            var dormitories = from dorm in _dormitoryRepository.List().ToList()
-                              join dormTrans in _dormitoryTranslationRepository.List().ToList() on dorm.Id equals dormTrans.DormitoryNonTransId
-                              where dormTrans.LanguageId == CurrentLanguageId
-                              select new { dorm.Id, DormitorySeoId = dorm.SeoId, dormTrans.DormitoryName, dorm.DormitoryLogoUrl };
-
-            var dormitoryBlock = from dormBlock in _dormitoryBlockRepo.List().ToList()
-                                 join dormBlockTrans in _dormitoryBlockTransRepo.List().ToList() on dormBlock.Id equals dormBlockTrans.DormitoryBlockNonTransId
-                                 where dormBlockTrans.LanguageId == CurrentLanguageId
-                                 select new { dormBlock.Published, dormBlockTrans.Name, dormBlock.Id };
-
-            var rooms = from room in _roomRepository.List().ToList()
-                        join roomTrans in _roomTransRepository.List().ToList() on room.Id equals roomTrans.RoomNonTransId
-                        where roomTrans.LanguageId == CurrentLanguageId
-                        select new { room.Id, room.DormitoryId, room.DormitoryBlockId, roomTrans.RoomName,
-                            room.PriceCash,
-                            room.PriceOldCash,
-                            room.PriceInstallment,
-                            room.PriceOldInstallment,
-                            room.ShowPrice, room.NoRoomQuota, room.RoomSize, room.MinBookingFee, room.PaymentPerSemesterNotYear };
-
-            var roomsDormitoryBlock = from room in rooms.ToList()
-                                      join dormBlock in dormitoryBlock.ToList() on room.DormitoryBlockId equals dormBlock.Id
-                                      select new
-                                      {
-                                          DormitoryBlockPublished = dormBlock.Published,
-                                          DormitoryBlockName = dormBlock.Name,
-                                          room.Id,
-                                          room.DormitoryId,
-                                          room.DormitoryBlockId,
-                                          room.RoomName,
-                                          room.PriceCash,
-                                          room.PriceOldCash,
-                                          room.PriceInstallment,
-                                          room.PriceOldInstallment,
-                                          room.ShowPrice,
-                                          room.NoRoomQuota,
-                                          room.RoomSize,
-                                        
-                                          room.MinBookingFee,
-                                          room.PaymentPerSemesterNotYear
-                                      };
-
-            var roomDormitory = from room in roomsDormitoryBlock.ToList()
-                                join dorm in dormitories.ToList() on room.DormitoryId equals dorm.Id
-                                select new
-                                {
-                                    room.DormitoryBlockPublished,
-                                    room.DormitoryBlockName,
-                                    room.Id,
-                                    room.DormitoryId,
-                                    room.DormitoryBlockId,
-                                    room.RoomName,
-                                    room.PriceCash,
-                                    room.PriceOldCash,
-                                    room.PriceInstallment,
-                                    room.PriceOldInstallment,
-                                    room.ShowPrice,
-                                    room.NoRoomQuota,
-                                    room.RoomSize,
-                                  
-                                    room.MinBookingFee,
-                                    dorm.DormitorySeoId,
-                                    dorm.DormitoryName,
-                                    dorm.DormitoryLogoUrl,
-                                    room.PaymentPerSemesterNotYear
-                                };
-
-            var semesterPeriods = from semPeriod in _SemesterPeriodRepo.List().ToList()
-                                  join semPeriodTrans in _semesterPeriodTransRepo.List().ToList() on semPeriod.Id equals semPeriodTrans.SemesterPeriodNonTransId
-                                  where semPeriodTrans.LanguageId == CurrentLanguageId
-                                  select new { semPeriod.Id, semPeriodTrans.SemesterPeriodName };
-
-
-            var Carts = from cart in _cartRepository.List().ToList()
-                        where cart.UserId == CurrentUserId
-                        select new { cart.RoomId, cart.UserId, cart.TotalAmount, cart.SemesterPeriodId };
-
-
-            var dummyFinalCart = (from cart in Carts.ToList()
-                                  join room in roomDormitory.ToList() on cart.RoomId equals room.Id
-                                  select new
-                                  {
-                                      BookingStatusId = 2,
-                                      PaymentStatusId = 2,
-                                      UserId = CurrentUserId,
-                                      CustomerIpAddress = _httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString(),
-                                      BookingOrderSubtotal = room.PriceCash,
-                                      BookingFee = room.MinBookingFee,
-                                      BookingTotal = room.PriceCash ,
-                                      CreatedOn = DateTime.Now,
-                                      RoomId = room.Id,
-                                      room.PriceCash,
-                                      cart.SemesterPeriodId,
-                                      IsPricePerYear = !room.PaymentPerSemesterNotYear,
-                                    
-
-                                  }).FirstOrDefault();
-
-
-            var finalCart = (from cart in Carts.ToList()
-                             join room in roomDormitory.ToList() on cart.RoomId equals room.Id
-                             select new Booking
-                             {
-                                 BookingStatusId = 2,
-                                 PaymentStatusId = 2,
-                                 UserId = CurrentUserId,
-                                 CustomerIpAddress = _httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString(),
-                                 BookingOrderSubtotal = room.PriceCash,
-                                 BookingFee = room.MinBookingFee,
-                                 BookingTotal = room.PriceCash,
-                                 CreatedOn = DateTime.Now,
-                                 RoomId = room.Id
-
-                             }).FirstOrDefault();
-
-
-
-            double priceMultiplier = 1;
-            var userCart = Carts.ToList().FirstOrDefault();
-            bool IsPerSemester = !dummyFinalCart.IsPricePerYear;
-            if (IsPerSemester)
-            {//Persemester
-                if (userCart.SemesterPeriodId == 3)
-                {
-                    //1 semester,
-                    priceMultiplier = 4;
-
-
-                }
-                else if (userCart.SemesterPeriodId == 4)
-                {
-                    priceMultiplier = 8;
-                }
-            }
-            else
-            {//Per Year
-                if (userCart.SemesterPeriodId == 1)
-                {
-                    priceMultiplier = 0.5; // half a semester
-                }
-                if (userCart.SemesterPeriodId == 3)
-                {
-                    //1 semester,
-                    priceMultiplier = 1;
-
-
-                }
-                else if (userCart.SemesterPeriodId == 4)
-                {
-                    priceMultiplier = 2;
-                }
-
-            }
-            finalCart.BookingTotal = (dummyFinalCart.PriceCash * priceMultiplier);
-
-            try
-            {//reduce room quota and check if room quota
-                var room = _roomRepository.GetById(finalCart.RoomId);
-                if (room.NoRoomQuota > 0)
-                {
-                    room.NoRoomQuota--;
-                    _roomRepository.Update(room);
-                    var bookingId = _bookingRepository.Insert(finalCart);
-                    _imageService.uploadBookingReceiptImage(bookingId);
-                    //_eventService.Trigger_BookingPlaced_DormitoryManagerNotification_Event(); to notify administrator of booking
-                    _eventService.Trigger_BookingPlaced_DormitoryNotification_Event(bookingId);
-                    _eventService.Trigger_BookingPlaced_StudentNotification_Event(bookingId);
-
-                    if (room.NoRoomQuota <= 5)
-                        _eventService.Trigger_RoomQuotaBelow_DormitoryManagerNotification_Event(room.Id);
-
-                    return true;
-                }
-                else
-                {
-                    return false; //room quota is not enough
-                }
-
-            }
-            catch
-            {
-                return false;
-            }
-
-
-        }
-
-
-        /// <summary>
-        /// Calculates number of business days, taking into account:
-        ///  - weekends (Saturdays and Sundays)
-        ///  - bank holidays in the middle of the week
-        /// </summary>
-        /// <param name="firstDay">First day in the time interval</param>
-        /// <param name="lastDay">Last day in the time interval</param>
-        /// <param name="bankHolidays">List of bank holidays excluding weekends</param>
-        /// <returns>Number of business days during the 'span'</returns>
-        public int BusinessDaysUntil(DateTime firstDay, DateTime lastDay, params DateTime[] Holidays)
-        {
-            firstDay = firstDay.Date;
-            lastDay = lastDay.Date;
-            if (firstDay > lastDay)
-                throw new ArgumentException("Incorrect last day " + lastDay);
-
-            TimeSpan span = lastDay - firstDay;
-            int businessDays = span.Days + 1;
-            int fullWeekCount = businessDays / 7;
-            // find out if there are weekends during the time exceedng the full weeks
-            if (businessDays > fullWeekCount * 7)
-            {
-                // we are here to find out if there is a 1-day or 2-days weekend
-                // in the time interval remaining after subtracting the complete weeks
-                int firstDayOfWeek = firstDay.DayOfWeek == DayOfWeek.Sunday
-                    ? 7 : (int)firstDay.DayOfWeek;
-                int lastDayOfWeek = lastDay.DayOfWeek == DayOfWeek.Sunday
-                    ? 7 : (int)lastDay.DayOfWeek;
-
-
-                if (lastDayOfWeek < firstDayOfWeek)
-                    lastDayOfWeek += 7;
-                if (firstDayOfWeek <= 6)
-                {
-                    if (lastDayOfWeek >= 7)// Both Saturday and Sunday are in the remaining time interval
-                        businessDays -= 2;
-                    else if (lastDayOfWeek >= 6)// Only Saturday is in the remaining time interval
-                        businessDays -= 1;
-                }
-                else if (firstDayOfWeek <= 7 && lastDayOfWeek >= 7)// Only Sunday is in the remaining time interval
-                    businessDays -= 1;
-            }
-
-            // subtract the weekends during the full weeks in the interval
-            businessDays -= fullWeekCount + fullWeekCount;
-
-            //// subtract the number of bank holidays during the time interval
-            //foreach (DateTime Holiday in Holidays)
-            //{
-            //    DateTime b = Holiday.Date;
-            //    if (firstDay <= b && b <= lastDay)
-            //        --businessDays;
-            //}
-
-            return businessDays;
         }
 
         public bool ChangeBookingStatus(long bookingId, long newBookingStatusId)
@@ -1109,6 +388,11 @@ namespace Dau.Services.Domain.BookingService
             }
         }
 
+
+
+
+
+
         public Charts GetBookingsChartById(long id)
         {
 
@@ -1132,7 +416,6 @@ namespace Dau.Services.Domain.BookingService
             }
 
         }
-
 
         private int BookingsPerWeekCounter(DateTime baselineDate)
         {
@@ -1221,500 +504,69 @@ namespace Dau.Services.Domain.BookingService
             return data;
         }
 
-        public List<BookingAccountVM> GetUserBookings(string userId)
+      
+
+
+
+        /// <summary>
+        /// Calculates number of business days, taking into account:
+        ///  - weekends (Saturdays and Sundays)
+        ///  - bank holidays in the middle of the week
+        /// </summary>
+        /// <param name="firstDay">First day in the time interval</param>
+        /// <param name="lastDay">Last day in the time interval</param>
+        /// <param name="bankHolidays">List of bank holidays excluding weekends</param>
+        /// <returns>Number of business days during the 'span'</returns>
+        public int BusinessDaysUntil(DateTime firstDay, DateTime lastDay, params DateTime[] Holidays)
         {
+            firstDay = firstDay.Date;
+            lastDay = lastDay.Date;
+            if (firstDay > lastDay)
+                throw new ArgumentException("Incorrect last day " + lastDay);
 
-            var CurrentLanguageId = _languageService.GetCurrentLanguageId();
-            var bookingStatus = from bookingStats in _bookingStatusRepo.List().ToList()
-                                join bookingStatsTrans in _bookingStatusTransRepo.List().ToList() on bookingStats.Id equals bookingStatsTrans.BookingStatusNonTransId
-                                where bookingStatsTrans.LanguageId == CurrentLanguageId
-                                select new { bookingStats.Id, bookingStatsTrans.BookingStatus };
-
-            var paymentStatus = from payStats in _paymentStatusRepo.List().ToList()
-                                join payStatsTrans in _paymentStatusTransRepo.List().ToList() on payStats.Id equals payStatsTrans.PaymentStatusNonTransId
-                                where payStatsTrans.LanguageId == CurrentLanguageId
-                                select new { payStats.Id, payStatsTrans.PaymentStatus };
-
-
-
-            var Bookings = from booking in _bookingRepository.List().ToList()
-                           where booking.UserId == userId
-                           orderby booking.Id descending
-                           select new BookingAccountVM
-                           {
-
-
-                               BookingId = "#" + booking.Id.ToString(),
-                               PaymentStatusId = booking.PaymentStatusId,
-                               Paymentstatus = paymentStatus.Where(c => c.Id == booking.PaymentStatusId).FirstOrDefault().PaymentStatus,
-                               BookingStatusId = booking.BookingStatusId,
-                               BookingStatus = bookingStatus.Where(c => c.Id == booking.BookingStatusId).FirstOrDefault().BookingStatus,
-                               BookingDate = booking.CreatedOn.ToString("d"),
-                               DormitoryName = _dormitoryService.GetDormitoryNameById(_roomRepository.GetById(booking.RoomId).DormitoryId),
-                               RoomName = _roomTransRepository.List().Where(c => c.LanguageId == CurrentLanguageId && c.RoomNonTransId == booking.RoomId).FirstOrDefault().RoomName,
-                               Price = _currencyService.CurrencyFormatterByRoomId(booking.RoomId, booking.BookingTotal),
-                               ReceiptImageUrl = booking.ReceiptUrl
-
-
-
-                           };
-
-            var model = Bookings.ToList();
-
-            return model;
-        }
-
-        public bool UpdateSemesterPeriod(long id)
-        {
-            try
+            TimeSpan span = lastDay - firstDay;
+            int businessDays = span.Days + 1;
+            int fullWeekCount = businessDays / 7;
+            // find out if there are weekends during the time exceedng the full weeks
+            if (businessDays > fullWeekCount * 7)
             {
-                var CurrentUserId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                var cart = _cartRepository.List().ToList().Where(c => c.UserId == CurrentUserId).FirstOrDefault();
-                if (cart == null) return false;
-                cart.SemesterPeriodId = id;
-                _cartRepository.Update(cart);
+                // we are here to find out if there is a 1-day or 2-days weekend
+                // in the time interval remaining after subtracting the complete weeks
+                int firstDayOfWeek = firstDay.DayOfWeek == DayOfWeek.Sunday
+                    ? 7 : (int)firstDay.DayOfWeek;
+                int lastDayOfWeek = lastDay.DayOfWeek == DayOfWeek.Sunday
+                    ? 7 : (int)lastDay.DayOfWeek;
 
-                return true;
-            }
-            catch
-            {
-                return false;
+
+                if (lastDayOfWeek < firstDayOfWeek)
+                    lastDayOfWeek += 7;
+                if (firstDayOfWeek <= 6)
+                {
+                    if (lastDayOfWeek >= 7)// Both Saturday and Sunday are in the remaining time interval
+                        businessDays -= 2;
+                    else if (lastDayOfWeek >= 6)// Only Saturday is in the remaining time interval
+                        businessDays -= 1;
+                }
+                else if (firstDayOfWeek <= 7 && lastDayOfWeek >= 7)// Only Sunday is in the remaining time interval
+                    businessDays -= 1;
             }
 
-        }
+            // subtract the weekends during the full weeks in the interval
+            businessDays -= fullWeekCount + fullWeekCount;
 
-        public List<CurrentBookingWishListTable> GetBookingCartsListTable()
-        {
+            //// subtract the number of bank holidays during the time interval
+            //foreach (DateTime Holiday in Holidays)
+            //{
+            //    DateTime b = Holiday.Date;
+            //    if (firstDay <= b && b <= lastDay)
+            //        --businessDays;
+            //}
 
-            //  var CurrentUserId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var CurrentLanguageId = _languageService.GetCurrentLanguageId();
-
-            var dormitories = from dorm in _dormitoryRepository.List().ToList()
-                              join dormTrans in _dormitoryTranslationRepository.List().ToList() on dorm.Id equals dormTrans.DormitoryNonTransId
-                              where dormTrans.LanguageId == CurrentLanguageId
-                              select new { dorm.Id, DormitorySeoId = dorm.SeoId, dormTrans.DormitoryName, dorm.DormitoryLogoUrl };
-
-            var dormitoryBlock = from dormBlock in _dormitoryBlockRepo.List().ToList()
-                                 join dormBlockTrans in _dormitoryBlockTransRepo.List().ToList() on dormBlock.Id equals dormBlockTrans.DormitoryBlockNonTransId
-                                 where dormBlockTrans.LanguageId == CurrentLanguageId
-                                 select new { dormBlock.Published, dormBlockTrans.Name, dormBlock.Id };
-
-            var rooms = from room in _roomRepository.List().ToList()
-                        join roomTrans in _roomTransRepository.List().ToList() on room.Id equals roomTrans.RoomNonTransId
-                        where roomTrans.LanguageId == CurrentLanguageId
-                        select new { room.Id, room.DormitoryId, room.DormitoryBlockId, roomTrans.RoomName,
-                            room.PriceCash,
-                            room.PriceOldCash,
-                            room.PriceInstallment,
-                            room.PriceOldInstallment,
-                            room.ShowPrice, room.NoRoomQuota, room.RoomSize, room.MinBookingFee };
-
-            var roomsDormitoryBlock = from room in rooms.ToList()
-                                      join dormBlock in dormitoryBlock.ToList() on room.DormitoryBlockId equals dormBlock.Id
-                                      select new
-                                      {
-                                          DormitoryBlockPublished = dormBlock.Published,
-                                          DormitoryBlockName = dormBlock.Name,
-                                          room.Id,
-                                          room.DormitoryId,
-                                          room.DormitoryBlockId,
-                                          room.RoomName,
-                                          room.PriceCash,
-                                          room.PriceOldCash,
-                                          room.PriceInstallment,
-                                          room.PriceOldInstallment,
-                                          room.ShowPrice,
-                                          room.NoRoomQuota,
-                                          room.RoomSize,
-                                         
-                                          room.MinBookingFee
-                                      };
-
-            var roomDormitory = from room in roomsDormitoryBlock.ToList()
-                                join dorm in dormitories.ToList() on room.DormitoryId equals dorm.Id
-                                select new
-                                {
-                                    room.DormitoryBlockPublished,
-                                    room.DormitoryBlockName,
-                                    room.Id,
-                                    room.DormitoryId,
-                                    room.DormitoryBlockId,
-                                    room.RoomName,
-                                    room.PriceCash,
-                                    room.PriceOldCash,
-                                    room.PriceInstallment,
-                                    room.PriceOldInstallment,
-                                    room.ShowPrice,
-                                    room.NoRoomQuota,
-                                    room.RoomSize,
-                                  
-                                    room.MinBookingFee,
-                                    dorm.DormitorySeoId,
-                                    dorm.DormitoryName,
-                                    dorm.DormitoryLogoUrl
-                                };
-
-            var semesterPeriods = from semPeriod in _SemesterPeriodRepo.List().ToList()
-                                  join semPeriodTrans in _semesterPeriodTransRepo.List().ToList() on semPeriod.Id equals semPeriodTrans.SemesterPeriodNonTransId
-                                  where semPeriodTrans.LanguageId == CurrentLanguageId
-                                  select new { semPeriod.Id, semPeriodTrans.SemesterPeriodName };
-
-
-
-            var CartRoom = from cart in _cartRepository.List().ToList()
-                           join room in roomDormitory.ToList() on cart.RoomId equals room.Id
-                           select new CurrentBookingWishListTable
-                           {
-                               UserId = cart.UserId,
-                               User = _userManager.Users.Where(c => c.Id == cart.UserId).FirstOrDefault().Email,
-                               DormitoryId = room.DormitoryId,
-                               RoomId = room.Id,
-                               DormitoryBlock = room.DormitoryBlockName,
-                               DormitoryName = room.DormitoryName,
-                               RoomName = room.RoomName,
-                               Semester = semesterPeriods.Where(c => c.Id == cart.SemesterPeriodId).FirstOrDefault().SemesterPeriodName,
-                               CartTotalAmount = _currencyService.CurrencyFormatterByRoomId(room.Id, room.PriceCash),
-                               CartSubTotal = _currencyService.CurrencyFormatterByRoomId(room.Id, room.PriceCash),
-                               DateCreated = cart.CreatedOn.ToString()
-
-                           };
-
-            
-            return CartRoom.ToList();
-        }
-
-
-        public List<RoomsNeverBookedTable> GetRoomsNeverBookedTable()
-        {
-            var RoomsBookedIds = _bookingRepository.List().ToList().Select(c => c.RoomId);
-
-            var CurrentLanguageId = _languageService.GetCurrentLanguageId();
-
-
-            var model = from room in _roomRepository.List().ToList()
-
-                        select new RoomsNeverBookedTable
-                        {
-                            DormitoryName = _dormitoryService.GetDormitoryNameById(_roomRepository.GetById(room.Id).DormitoryId),
-                            RoomId = room.Id,
-                            DormitoryBlock = _dormitoryBlockTransRepo.List().Where(c => c.LanguageId == CurrentLanguageId &&
-                                              c.DormitoryBlockNonTransId == _roomRepository.GetById(room.Id).DormitoryBlockId)
-                                             .FirstOrDefault().Name,
-                            RoomName = _roomTransRepository.List().Where(c => c.LanguageId == CurrentLanguageId && c.RoomNonTransId == room.Id).FirstOrDefault().RoomName,
-
-                        };
-
-            model = model.Where(c => !RoomsBookedIds.Contains(c.RoomId)).ToList();
-
-            return model.ToList();
-        }
-
-
-
-        public List<BestSellerRoomsTable> GetBestSellerRoomsTable()
-        {
-            var model = GetBestSellerRooms();
-            return model.OrderByDescending(_ => _.TotalAmount).ToList();
-        }
-
-        public List<BestSellerRoomsTable> GetBestSellerRoomsByPriceDashboardTable()
-        {
-            var model = GetBestSellerRooms();
-            return model.OrderByDescending(_ => _.TotalAmount).Take(10).ToList();
-        }
-
-        public List<BestSellerRoomsTable> GetBestSellerRoomsByQuantityDashboardTable()
-        {
-            var model = GetBestSellerRooms();
-            return model.OrderByDescending(_ => _.TotalQuantity).Take(10).ToList();
-        }
-
-        private List<BestSellerRoomsTable> GetBestSellerRooms()
-        {
-            var CurrentLanguageId = _languageService.GetCurrentLanguageId();
-            //var results = from line in Lines
-            //              group line by line.ProductCode into g
-            //              select new ResultLine
-            //              {
-            //                  ProductName = g.First().Name,
-            //                  Price = g.Sum(_ => _.Price).ToString(),
-            //                  Quantity = g.Count().ToString(),
-            //              };
-
-            var model = from booking in _bookingRepository.List().ToList()
-                        group booking by booking.RoomId into g
-                        select new BestSellerRoomsTable
-                        {
-                            DormitoryName = _dormitoryService.GetDormitoryNameById(_roomRepository.GetById(g.First().RoomId).DormitoryId),
-                            RoomId = g.First().RoomId,
-                            DormitoryBlock = _dormitoryBlockTransRepo.List().Where(c => c.LanguageId == CurrentLanguageId &&
-                                              c.DormitoryBlockNonTransId == _roomRepository.GetById(g.First().RoomId).DormitoryBlockId)
-                                             .FirstOrDefault().Name,
-                            RoomName = _roomTransRepository.List().Where(c => c.LanguageId == CurrentLanguageId && c.RoomNonTransId == g.First().RoomId).FirstOrDefault().RoomName,
-
-                            TotalAmount = _currencyService.CurrencyFormatterByRoomId(g.First().RoomId, g.Sum(_ => _.BookingTotal)),
-                            TotalQuantity = g.Count()
-
-                        };
-
-            return model.ToList();
-
+            return businessDays;
         }
 
     }
 
 
-        public class BestSellerRoomsTable
-    {
-        public long RoomId { get; set; }
-        public string RoomName { get; set; }
-        public string DormitoryName { get; set; }
-        public string DormitoryBlock { get; set; }
-        public double TotalQuantity { get; set; }
-        public string TotalAmount { get; set; }
-        //public string View { get; set; }
-    }
-    public class RoomsNeverBookedTable
-    {
-        public long RoomId { get; set; }
-        public string RoomName { get; set; }
-        public string DormitoryBlock { get; set; }
-        public string DormitoryName { get; set; }
-        //public string View { get; set; }
-    }
 
-    public class CurrentBookingWishListTable
-    {
-        public string UserId { get; set; }
-        public string User { get; set; }
-        public long DormitoryId { get; set; }
-        public long RoomId { get; set; }
-        public string DormitoryBlock { get; set; }
-        public string DormitoryName { get; set; }
-        public string RoomName { get; set; }
-        public string Semester { get; set; }
-        public string CartTotalAmount { get; set; }
-        public string CartSubTotal { get; set; }
-        public string DateCreated { get; set; }
-    }
-    public class BookingAccountVM
-    {
-        public string BookingId { get; set; }
-        public long PaymentStatusId { get; set; }
-        public string Paymentstatus { get; set; }
-        public long BookingStatusId { get; set; }
-        public string BookingStatus { get; set; }
-        public string BookingDate { get; set; }
-        public string DormitoryName { get; set; }
-        public string RoomName { get; set; }
-        public string Price { get; set; }
-        public string ReceiptImageUrl { get; set; }
-    }
-    public class ReservationEdit
-    {
-        //student information
-        public string StudentName { get; set; }
-        public string StudentEmail { get; set; }
-        public string StudentPhoneNumber { get; set; }
-        public string StudentAddress1 { get; set; }
-        public string StudentAddress2 { get; set; }
-        public string Country { get; set; }
-        public string City { get; set; }
-        public string StateProvince { get; set; }
-        public string ZipCode { get; set; }
-
-
-        public string ReceiptUrl { get; set; }
-        [Display(Name = "Booking Status",
-        Description = "The status of the booking"), DataType(DataType.Text), MaxLength(256)]
-        public string BookingStatus { get; set; }
-
-        [Display(Name = "Booking Order Number",
-        Description = "The unique number of this booking order."), DataType(DataType.Text), MaxLength(256)]
-        public string BookingOrderNumber { get; set; }
-
-        [Display(Name = "Dormitory",
-        Description = "A dormitory name in which this booking order was placed."), DataType(DataType.Text), MaxLength(256)]
-        public string Dormitory { get; set; }
-
-        public long RoomId { get; set; }
-
-        [Display(Name = "Student",
-        Description = "The customer who placed this booking order."), DataType(DataType.Text), MaxLength(256)]
-        public string Student { get; set; }
-
-        [Display(Name = "Student Ip Address",
-        Description = "Student IP address"), DataType(DataType.Text), MaxLength(256)]
-        public string StudentIpAddress { get; set; }
-
-        [Display(Name = "Booking Order Subtotal",
-        Description = "The subtotal of this booking order."), DataType(DataType.Text), MaxLength(256)]
-        public string BookingOrderSubtotal { get; set; }
-
-        [Display(Name = "Booking Fee",
-        Description = "The total shipping cost for this booking order."), DataType(DataType.Text), MaxLength(256)]
-        public string BookingFee { get; set; }
-
-        [Display(Name = "Booking Total",
-        Description = "The total cost of this booking order(includes discounts, booking fee & tax)."), DataType(DataType.Text), MaxLength(256)]
-        public string BookingTotal { get; set; }
-
-        [Display(Name = "Profit",
-        Description = "Profit of this order."), DataType(DataType.Text), MaxLength(256)]
-        public string Profit { get; set; }
-
-        [Display(Name = "Payment receipt",
-        Description = "The payment receipt used for this transaction."), DataType(DataType.Text), MaxLength(256)]
-        public string PaymentMethod { get; set; }
-
-
-        [Display(Name = "Payment Status",
-        Description = "The status of the payment."), DataType(DataType.Text), MaxLength(256)]
-        public string PaymentStatus { get; set; }
-
-        [Display(Name = "Created On",
-        Description = "The date/time the booking order was placed/created."), DataType(DataType.Text), MaxLength(256)]
-        public string CreatedOn { get; set; }
-
-
-        [Display(Name = "Student information",
-    Description = "The Student information"), DataType(DataType.Text), MaxLength(256)]
-        public string StudentInformation { get; set; }
-
-
-    public OrderNotesTab orderNotesTab { get; set; }
-    }
-
-    public class BillingAddressTable
-    {
-        public string FullName { get; set; }
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Address1 { get; set; }
-        public string Address2 { get; set; }
-        public string City { get; set; }
-        public string StateProvince { get; set; }
-        public string ZipPostalCode { get; set; }
-        public string Country { get; set; }
-
-    }
-
-    public class RoomResevationTable
-    {
-        public string Picture { get; set; }
-        public string RoomName { get; set; }
-        public string Price { get; set; }
-        public string Quantity { get; set; }
-        public string Discount { get; set; }
-        public string Total { get; set; }
-        public string Edit { get; set; }
-
-    }
-
-    public class OrderNotesTable
-    {
-        public string CreatedOn { get; set; }
-        public string Note { get; set; }
-        public string AttachedFile { get; set; }
-        public string DisplayToStudent { get; set; }
-        public string Delete { get; set; }
-
-    }
-
-
-    public class OrderNotesTab
-    {
-        [Display(Name = "Note",
-        Description = "A note about booking."), DataType(DataType.Text), MaxLength(256)]
-        public string Note { get; set; }
-
-        [Display(Name = "Attached file",
-      Description = "Attached file to this to the order note, e.g booking receipt an so on.")]
-        public bool AttachedFile { get; set; }
-
-
-        [Display(Name = "Display to customer",
-      Description = "Check this option to display this booking note to customer")]
-        public bool DisplayToStudent { get; set; }
-
-    }
-
-    public class LatestBookingsTable
-    {
-        public long DormitoryId { get; set; }
-        public string OrderNo { get; set; }
-        public long BookingStatusId { get; set; }
-        public string OrderStatus { get; set; }
-        public string Customer { get; set; }
-        public string CreatedOn { get; set; }
-        //public button View { get; set; }
-
-
-    }
-
-    public class BookingCartViewModel
-    {
-        public long RoomId { get; set; }
-
-        public List<SelectListItem> SemestersList { get; set; }
-        public string DormitoryName { get; set; }
-        public string DormitoryLogoUrl { get; set; }
-        public string RoomName { get; set; }
-        public string RoomBlock { get; set; }
-        public string RoomSize { get; set; }
-        public string AmountTotal { get; set; }
-        public string StayDuration { get; set; }
-        public string RoomPricePerSemester { get; set; }
-        public bool IsPricePerYear { get; set; }
-        public long CartId { get; set; }
-        public string SubtotalAmount { get; set; }
-        public string BookingFee { get; set; }
-        public string TaxAmount { get; set; }
-        public long SemesterPeriodId { get; set; }
-        public double PriceRaw { get; set; }
-        public double TaxAmountRaw { get; internal set; }
-        public double BookingFeeRaw { get; internal set; }
-    }
-
-    public class SemPeriod
-    {
-        public bool IsSelected { get; set; }
-        public string Value { get; set; }
-        public string Text { get; set; }
-    }
-    public class BookingCheckoutCustomerInfoViewModel
-    {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string StudentNumber { get; set; }
-        public string ParmanentAddress { get; set; }
-        public string Country { get; set; }
-        public string City { get; set; }
-        public string EmailAddress { get; set; }
-        public string PhoneNumber { get; set; }
-        public string DateBookingExpiresWithoutConfirmation { get; set; }
-        public int NumberOfWorkingDaysBeforeBookingExpires { get; set; }
-        public BookingCartViewModel BookingDetails { get; set; }
-        //summary
-
-    }
-
-
-
-    public class ReservationListTable
-    {
-        public long DormitoryId { get; set; }
-        public long PaymentStatusId{ get; set; }
-        public long BookingStatusId
-        { get; set; }
-        public string BookingNo { get; set; }
-        public string BookingStatus { get; set; }
-        public string PaymentStatus { get; set; }
-        public string cancellationDate { get; set; }
-        public double cancellationDays { get; set; }
-        public string User { get; set; }
-        public string CreatedOn { get; set; }
-        public string BookingTotal { get; set; }
-        public string View { get; set; }
-    }
 }
