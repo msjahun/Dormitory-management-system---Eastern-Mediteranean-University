@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Dau.Core.Configuration.AccessControlList;
 using Dau.Core.Domain.SliderImages;
@@ -992,6 +994,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
         #region AccessControl
         [HttpGet("[action]")]
+        [AllowAnonymous]
         public ActionResult AccessControlList()
         { ViewData["CustomerRoles"]= _userRolesService.GetUserRolesItems();
           var mvcControllers = _mvcControllerDiscovery.GetControllers();
@@ -1045,139 +1048,21 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
                 }
-               
 
             }
-
-
 
             ViewData["ActionsList"] = actionList;
             return View("AccessControlList");
         }
 
-         [HttpPost("[action]")]
-
-       
-        public async Task<ActionResult> AccessControlList( List<AclPostData> data)
+        [HttpPost("[action]")]
+        [AllowAnonymous]
+        public async Task<ActionResult> AccessControlList(int dummy)
         {
-           
-        var  roles =  data.Select(s => s.UserRole).Distinct().ToList();
+          
+            bool success =  await _userRolesService.UpdateUserRolesAccessControlAsync();
+            return Json(success);
 
-            List<AclReady> aclReadyList = new List<AclReady>();
-            AclReady aclReady = new AclReady();
-            
-            List<mini> miniList = new List<mini>();
-
-
-
-            foreach (var role in roles)
-            {
-                foreach (var item in data)
-                {
-                   
-                    if (item.UserRole == role)
-                    {
-                        miniList.Add( new mini { Area = item.Area , Controller = item.Controller , Action = item.Action });
-                    }
-                    
-                }
-                
-                aclReadyList.Add(new AclReady { UserRole = role, data = miniList });
-                miniList = new List<mini>();
-            }
-
-            List<AclMvcControllerInfo> mvcControllers = new List<AclMvcControllerInfo>();
-            List<MvcControllerInfo> miniController = new List<MvcControllerInfo>();
-            List<MvcActionInfo> mvcActionInfos = new List<MvcActionInfo>();
-            var controllers = data.Select(s => s.Controller).Distinct().ToList();
-
-            foreach (var role in aclReadyList)
-            {  //mvcController array initiate
-                
-                    //for each controller type traverse data[Area: public, controller: users, Action: GetList]
-
-                  
-                    foreach (var controller in controllers)
-                    {
-
-
-
-                    var controllerName = ""; var areaName = "";
-                            foreach (var i in role.data)
-                            {
-                     
-
-                        
-                                if (controller == i.Controller )
-                                { 
-                                    mvcActionInfos.Add(new MvcActionInfo { Name = i.Action ,ControllerId = i.Area+":"+i.Controller });
-
-                            controllerName = i.Controller;
-                            areaName = i.Area;
-                                }
-
-                        
-                    }
-                            
-                            miniController.Add(new MvcControllerInfo { Name = controllerName, AreaName = areaName, Actions=mvcActionInfos});
-                    mvcActionInfos = new List<MvcActionInfo>();
-                    //add action array to miniController
-
-
-                }
-                    
-
-                
-                mvcControllers.Add(new AclMvcControllerInfo { UserRole = role.UserRole, mvcControllers = miniController });
-                miniController = new List<MvcControllerInfo>();
-                //add all corresponding array to mvcController list
-            }
-
-            var list = aclReadyList;
-
-           
-
-
-            foreach (var role in mvcControllers)
-            {
-                var accessJson = JsonConvert.SerializeObject(role.mvcControllers);
-               var userRole = await _roleManager.FindByNameAsync(role.UserRole);
-                userRole.Access = accessJson;
-               await _roleManager.UpdateAsync(userRole);
-            }
-            
-            var result = data;
-            ViewData["Controllers"] = _mvcControllerDiscovery.GetControllers();
-
-
-         //   var role = new ApplicationRole { Name = viewModel.Name };
-
-            //get role i.e Administrator and set access field of the role
-
-          //  if (viewModel.SelectedControllers != null && viewModel.SelectedControllers.Any())
-            //if (data != null && data.Any())
-            //{
-            //    foreach (var item in data)
-            //        foreach (var Role in item.UserRole)
-            //        {
-            //            //if userrole ==  administrator jsonfy access and save to database//do that for every role
-            //        }
-            //            action.ControllerId = controller.Id;
-
-            //    var accessJson = JsonConvert.SerializeObject(viewModel.SelectedControllers);
-            //    role.Access = accessJson;
-            //}
-
-       
-
-            //foreach (var error in result.Errors)
-            //    ModelState.AddModelError("", error.Description);
-
-            ViewData["Controllers"] = _mvcControllerDiscovery.GetControllers();
-
-            //  return View(viewModel);
-
-            return Content("{success:true}");
         }
 
         #endregion
