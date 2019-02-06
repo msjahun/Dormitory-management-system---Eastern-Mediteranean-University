@@ -261,3 +261,6 @@ __pycache__/
 *.pyc
 /searchDormWeb/wwwroot/Files/Images/DormitoryImages
 /searchDormWeb/wwwroot/Files/Images/RoomImages
+/searchDormWeb/wwwroot/Content/node_modules
+/searchDormWeb/wwwroot/Content/bower_components
+/searchDormWeb/wwwroot/Files/Images/UploadedReceipts
