@@ -1,4 +1,5 @@
-﻿using Dau.Core.Domain.Catalog;
+﻿using Dau.Core.Configuration.AccessControlList;
+using Dau.Core.Domain.Catalog;
 using Dau.Core.Domain.Users;
 using Dau.Data;
 using Dau.Data.Repository;
@@ -6,9 +7,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Security.Claims;
 using System.Text;
 
@@ -66,6 +70,77 @@ namespace Dau.Services.Security
 
         }
 
+
+        public List<AclMvcControllerInfo> ParseAccessControlJson(string bodyStr)
+        {
+            var data = JsonConvert.DeserializeObject<List<AclPostData>>(bodyStr);
+
+            var roles = data.Select(s => s.UserRole).Distinct().ToList();
+
+            List<AclReady> aclReadyList = new List<AclReady>();
+            AclReady aclReady = new AclReady();
+
+            List<mini> miniList = new List<mini>();
+
+
+            foreach (var role in roles)
+            {
+                foreach (var item in data)
+                {
+                    if (item.UserRole == role)
+                    {
+                        miniList.Add(new mini { Area = item.Area, Controller = item.Controller, Action = item.Action });
+                    }
+
+                }
+
+                aclReadyList.Add(new AclReady { UserRole = role, data = miniList });
+                miniList = new List<mini>();
+            }
+
+
+            List<AclMvcControllerInfo> mvcControllers = new List<AclMvcControllerInfo>();
+            List<MvcControllerInfo> miniController = new List<MvcControllerInfo>();
+            List<MvcActionInfo> mvcActionInfos = new List<MvcActionInfo>();
+            var controllers = data.Select(s => s.Controller).Distinct().ToList();
+
+            foreach (var role in aclReadyList)
+            {  //mvcController array initiate
+
+                //for each controller type traverse data[Area: public, controller: users, Action: GetList]
+
+                foreach (var controller in controllers)
+                {
+                    var controllerName = ""; var areaName = "";
+                    foreach (var i in role.data)
+                    {
+                        if (controller == i.Controller)
+                        {
+                            mvcActionInfos.Add(new MvcActionInfo { Name = i.Action, ControllerId = i.Area + ":" + i.Controller });
+                            controllerName = i.Controller;
+                            areaName = i.Area;
+                        }
+                    }
+
+                    miniController.Add(new MvcControllerInfo { Name = controllerName, AreaName = areaName, Actions = mvcActionInfos });
+                    mvcActionInfos = new List<MvcActionInfo>();
+                    //add action array to miniController
+
+
+                }
+
+
+                mvcControllers.Add(new AclMvcControllerInfo { UserRole = role.UserRole, mvcControllers = miniController });
+                miniController = new List<MvcControllerInfo>();
+                //add all corresponding array to mvcController list
+
+            }
+
+
+            return mvcControllers;
+        }
+
+
         public bool IsDormitoryManager()
         {
             // Resolve the user via their email
@@ -106,6 +181,75 @@ namespace Dau.Services.Security
             else
                 return false;
         }
+
+        public async Task<bool> UpdateUserRolesAccessControlAsync()
+        {
+            try
+            {
+                var req = _httpContextAccessor.HttpContext.Request;
+                var bodyStr = "";
+                using (StreamReader reader = new StreamReader(req.Body, Encoding.UTF8, true, 1024, true))
+                {
+                    bodyStr = reader.ReadToEnd();
+                }
+
+                var mvcControllers = ParseAccessControlJson(bodyStr);
+
+                foreach (var role in mvcControllers)
+                {
+                    var accessJson = JsonConvert.SerializeObject(role.mvcControllers);
+                    var userRole = await _roleManager.FindByNameAsync(role.UserRole);
+                    userRole.Access = accessJson;
+                    await _roleManager.UpdateAsync(userRole);
+                }
+
+                return true;
+
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+    }
+
+
+    public class AclReady
+    {
+
+        public string UserRole { get; set; }
+
+        public List<mini> data { get; set; }
+    }
+
+    public class mini
+    {
+        public string Area { get; set; }
+        public string Action { get; set; }
+        public string Controller { get; set; }
+    }
+
+    public class AclPostData
+    {
+        public string UserRole { get; set; }
+
+        public string Area { get; set; }
+        public string Action { get; set; }
+        public string Controller { get; set; }
+
+    }
+
+
+    public class AclMvcControllerInfo
+    {
+        public string UserRole { get; set; }
+        public List<MvcControllerInfo> mvcControllers { get; set; }
+    }
+
+    public class AclMvcControllerInfo2 : AclMvcControllerInfo
+    {
+        public new IEnumerable<MvcControllerInfo> mvcControllers { get; set; }
 
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Dau.Services.Security
 {
@@ -13,5 +14,7 @@ namespace Dau.Services.Security
         bool IsDormitoryManager();
         List<long> RoleAccessResolver();
         bool IsAuthorized(long id);
+        List<AclMvcControllerInfo> ParseAccessControlJson(string bodyStr);
+        Task<bool> UpdateUserRolesAccessControlAsync();
     }
 }
