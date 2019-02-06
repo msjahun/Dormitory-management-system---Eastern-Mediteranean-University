@@ -62,6 +62,8 @@ using Dau.Services.MessageTemplates;
 using Dau.Services.Domain.AnnouncementsServices;
 using Dau.Services.TimeServices;
 using Dau.Services.Domain.CurrencyServices;
+using Dau.Services.Domain.SeoServices;
+using Dau.Services.Domain.PriceCalculationService;
 //this might give issues in production
 
 namespace searchDormWeb
@@ -171,6 +173,8 @@ namespace searchDormWeb
             services.AddScoped < IAnnouncementService, AnnouncementService > ();
             services.AddScoped < ISliderImageService,SliderImageService > ();
             services.AddScoped <  ICurrencyService,CurrencyService > ();
+            services.AddScoped < ISeoService,SeoService > ();
+            services.AddScoped <IPriceCalculationService, PriceCalculationService > ();
           
 
             var connectionString = Configuration.GetValue<string>("DbSettings:SqlConnectionString");
