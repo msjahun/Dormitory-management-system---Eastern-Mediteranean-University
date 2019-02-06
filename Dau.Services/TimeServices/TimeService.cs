@@ -43,18 +43,19 @@ namespace Dau.Services.TimeServices
             if (delta < 48 * HOUR)
                 return _Localizer["yesterday"];
 
-            if (delta < 30 * DAY)
+            if (delta < 4* DAY)
                 return ts.Days + _Localizer[" days ago"];
 
-            if (delta < 12 * MONTH)
-            {
-                int months = Convert.ToInt32(Math.Floor((double)ts.Days / 30));
-                return months <= 1 ? _Localizer["one month ago"] : months + _Localizer[" months ago"];
-            }
+            //if (delta < 12 * MONTH)
+            //{
+            //    int months = Convert.ToInt32(Math.Floor((double)ts.Days / 30));
+            //    return months <= 1 ? _Localizer["one month ago"] : months + _Localizer[" months ago"];
+            //}
             else
             {
-                int years = Convert.ToInt32(Math.Floor((double)ts.Days / 365));
-                return years <= 1 ? _Localizer["one year ago"] : years + _Localizer[" years ago"];
+                //int years = Convert.ToInt32(Math.Floor((double)ts.Days / 365));
+                //return years <= 1 ? _Localizer["one year ago"] : years + _Localizer[" years ago"];
+                return inputDate.ToString("d");
             }
         }
     }
