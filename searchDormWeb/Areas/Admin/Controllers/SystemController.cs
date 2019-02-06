@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dau.Core.Domain.Logging;
 using Dau.Services.Domain.DormitoryServices;
+using Dau.Services.Domain.SeoServices;
 using Dau.Services.Email;
 using Dau.Services.Event;
 using Dau.Services.Logging;
@@ -21,6 +22,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
     [Authorize]
     public class SystemController : Controller
     {
+        private readonly ISeoService _seoService;
         private readonly IEventService _eventService;
         private readonly IDormitoryService _dormitoryService;
         private readonly ILoggingService _loggingService;
@@ -31,8 +33,10 @@ namespace searchDormWeb.Areas.Admin.Controllers
             IHttpContextAccessor httpContextAccessor,
             IMessageQueueService messageQueueService,
             IDormitoryService dormitoryService,
-            IEventService eventService)
+            IEventService eventService,
+            ISeoService seoService)
         {
+            _seoService = seoService;
             _eventService = eventService;
             _dormitoryService = dormitoryService;
             _loggingService = loggingService;
@@ -425,7 +429,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
 
                 // getting all Discount data  
-                var Data = _dormitoryService.GetSEOFriendlyPageNamesTable();
+                var Data = _seoService.GetSEOFriendlyPageNamesTable();
 
                 ////Sorting  
                 //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
