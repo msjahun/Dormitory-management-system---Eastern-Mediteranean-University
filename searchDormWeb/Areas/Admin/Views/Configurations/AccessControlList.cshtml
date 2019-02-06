@@ -67,7 +67,7 @@
 
                                 </tr>
                             </thead>
-
+                            @* I can datatable this without affecting the behaviour *@
                             <tbody>
                                 <form class="form-horizontal" method="post" id="aclForm" asp-controller="Configurations" asp-action="AccessControlList">
                                     @foreach (var controller in controllers)
@@ -191,37 +191,27 @@
               array = [];
             })
 
-            @foreach (var userRole in UserRoleList)
-                                    {
+            @foreach (var userRole in UserRoleList){
 
               @:$("#@userRole.Value").change(function () {
               @:if (this.checked) { $("._@userRole.Value").prop('checked', true); }
               @:else { $("._@userRole.Value").prop('checked', false); }
               @:  });
+                @: $('#saveBtn').click(function () {
+                    @: $('._@userRole.Value:checkbox:checked').each(function () {
+                             @:           var sThisVal = (this.checked ? $(this).val() : "");
 
+                             @:  var Area = sThisVal.substr(0, sThisVal.indexOf('.'));
+                             @:  var controller = sThisVal.substring(sThisVal.lastIndexOf(".") + 1, sThisVal.lastIndexOf(";"));
+                             @: var Action = sThisVal.split(';')[1];
 
-             @:   $('#saveBtn').click(function() {
-
-             @:   $('._@userRole.Value:checkbox:checked').each(function () {
-             @:           var sThisVal = (this.checked ? $(this).val() : "");
-
-        @:  var Area = sThisVal.substr(0, sThisVal.indexOf('.'));
-        @:  var controller = sThisVal.substring(sThisVal.lastIndexOf(".") + 1, sThisVal.lastIndexOf(";"));
-        @: var Action = sThisVal.split(';')[1];
-
-             @: array.push({ "UserRole": "@userRole.Value", "Area": Area, "Controller": controller, "Action": Action});
-             @:       });
-             @:     })
+                             @: array.push({ "UserRole": "@userRole.Value", "Area": Area, "Controller": controller, "Action": Action});
+                    @:       });
+                  @:     })
 
 
 
-            }
-
-
-
-
-
-
+                }
 
             //function ReArrangeDate(Role) {
             //    var row;
@@ -244,23 +234,17 @@
             $('#saveBtn').click(function () {
                // console.log(array);
                 UserRoleArr = [];
-                 @*@foreach (var userRole in UserRoleList)
-                 {
-                    @: mini = [];
-                    @:ReArrangeDate( "@userRole.Value");
-
-                 }*@
-
+                //stringify the array and just send it
              var send =   JSON.stringify(UserRoleArr);
                 console.log(UserRoleArr);
                 $.ajax({
-                type: "POST",
+                    type: "POST",
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
                     url: "/Admin/Configurations/AccessControlList",
-                    data: {
-                        data: array
-                    },
+                    data:  JSON.stringify(array),
                     success: function (result) {
-                        //alert("I have returned");
+                        alert("I have returned");
                         document.getElementById("alertACL").innerHTML = "<div class=\"alert alert-success alert-dismissible\"> <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button> <i class=\"icon fa fa-check\"></i> @Localizer["Access control list updated successfully."]</div>";
                 }
             })
