@@ -604,11 +604,11 @@ namespace Dau.Services.Domain.RoomServices
         public string AdminComment { get; set; }
 
 
-
+        [Range(0, 1000000)]
         [Display(Name = "Price Cash",
         Description = "The price of the room.You can manage currency by selecting Configuration > Currencies.")]
         public double PriceCash { get; set; }
-
+        [Range(0, 1000000)]
         [Display(Name = "Old Price Cash",
         Description = "The old price of the room.If you set an old price, this will display alongside the current price on the room page to show the difference in price.")]
         public double OldPriceCash { get; set; }
