@@ -302,7 +302,7 @@ namespace Dau.Services.Domain.BookingService
                 LastName = user.LastName,
                 StudentNumber = user.StudentNumber,
                 ParmanentAddress = user.ParmanentAddress,
-                Country = user.Country,
+                Country =  user.CountryId,
                 City = user.City,
                 EmailAddress = user.Email,
                 PhoneNumber = user.PhoneNumber
@@ -457,7 +457,7 @@ namespace Dau.Services.Domain.BookingService
                 LastName = user.LastName,
                 StudentNumber = user.StudentNumber,
                 ParmanentAddress = user.ParmanentAddress,
-                Country = user.Country,
+                Country = user.CountryId,
                 City = user.City,
                 EmailAddress = user.Email,
                 PhoneNumber = user.PhoneNumber,

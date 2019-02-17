@@ -231,7 +231,7 @@ namespace Dau.Services.Domain.BookingService
         public string LastName { get; set; }
         public string StudentNumber { get; set; }
         public string ParmanentAddress { get; set; }
-        public string Country { get; set; }
+        public int Country { get; set; }
         public string City { get; set; }
         public string EmailAddress { get; set; }
         public string PhoneNumber { get; set; }
