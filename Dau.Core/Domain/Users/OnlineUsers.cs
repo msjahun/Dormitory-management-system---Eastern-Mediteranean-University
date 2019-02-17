@@ -14,5 +14,6 @@ namespace Dau.Core.Domain.Users
 
         public string LastVisitedPage { get; set; }
         public DateTime LastActivityTime { get; set; }
+        public string UserId { get; set; }
     }
 }
