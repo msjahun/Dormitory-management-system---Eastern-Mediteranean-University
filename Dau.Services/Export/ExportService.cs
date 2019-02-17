@@ -4,6 +4,7 @@ using Dau.Core.Domain.Users;
 using Dau.Data.Repository;
 using Dau.Services.Domain.BookingService;
 using Dau.Services.Domain.DormitoryServices;
+using Dau.Services.Domain.DropdownServices;
 using Dau.Services.Domain.ImageServices;
 using Dau.Services.Languages;
 using Dau.Services.Security;
@@ -24,6 +25,7 @@ namespace Dau.Services.Export
 {
  public   class ExportService : IExportService
     {
+        private readonly IDropdownService _dropdownService;
         private readonly IHostingEnvironment _environment;
         private readonly IRepository<Dormitory> _dormitoryRepo;
         private readonly IRepository<DormitoryTranslation> _dormitoryTransRepo;
@@ -74,8 +76,10 @@ namespace Dau.Services.Export
           IHttpContextAccessor httpContextAccessor,
           IImageService imageService,
            IUserRolesService userRolesService,
-           IDormitoryService dormitoryService)
+           IDormitoryService dormitoryService,
+           IDropdownService dropdownService)
         {
+            _dropdownService = dropdownService;
             _environment = IHostingEnvironment;
             _dormitoryRepo = dormitoryRepository;
             _dormitoryTransRepo = dormitoryTransRepository;
@@ -760,9 +764,9 @@ namespace Dau.Services.Export
                 row.CreateCell(count++).SetCellValue(user.SecurityStamp);
                 row.CreateCell(count++).SetCellValue(user.PasswordHash);
                 row.CreateCell(count++).SetCellValue(user.DateOfBirth.ToString());
-                row.CreateCell(count++).SetCellValue(user.Gender);
+                row.CreateCell(count++).SetCellValue(_dropdownService.ResolveDropdown( user.GenderId, _dropdownService.Gender()));
                 row.CreateCell(count++).SetCellValue(user.City);
-                row.CreateCell(count++).SetCellValue(user.Country);
+                row.CreateCell(count++).SetCellValue(_dropdownService.ResolveDropdown( user.CountryId, _dropdownService.Country()));
                 row.CreateCell(count++).SetCellValue(user.StudentNumber);
                 row.CreateCell(count++).SetCellValue(user.ParmanentAddress);
                 row.CreateCell(count++).SetCellValue(user.AffiliateId);

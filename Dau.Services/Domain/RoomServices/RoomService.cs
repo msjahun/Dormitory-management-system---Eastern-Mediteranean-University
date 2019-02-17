@@ -1,5 +1,6 @@
 ﻿using Dau.Core.Domain.Catalog;
 using Dau.Data.Repository;
+using Dau.Services.Domain.CurrencyServices;
 using Dau.Services.Event;
 using Dau.Services.Languages;
 using Dau.Services.Security;
@@ -25,6 +26,7 @@ namespace Dau.Services.Domain.RoomServices
         private readonly IRepository<RoomCatalogImage> _roomImageRepo;
         private readonly IRepository<CatalogImage> _imageRepo;
         private readonly IRepository<DormitoryBlockTranslation> _dormitoryBlockTransRepo;
+        private readonly ICurrencyService _currencyService;
 
         public RoomService(
             ILanguageService languageService,
@@ -36,8 +38,9 @@ namespace Dau.Services.Domain.RoomServices
             IRepository<CatalogImage> imageRepository,
             IRepository<DormitoryBlock> dormitoryBlockRepository,
             IRepository<DormitoryBlockTranslation> dormitoryBlockTransRepo,
-             IUserRolesService userRolesService,
-             IEventService eventservice
+            IUserRolesService userRolesService,
+            ICurrencyService currencyService,
+            IEventService eventservice
             )
         {
             _eventService = eventservice;
@@ -51,6 +54,7 @@ namespace Dau.Services.Domain.RoomServices
             _roomImageRepo = roomImageRepository;
             _imageRepo = imageRepository;
             _dormitoryBlockTransRepo = dormitoryBlockTransRepo;
+            _currencyService = currencyService;
 
 
         }
@@ -93,7 +97,7 @@ namespace Dau.Services.Domain.RoomServices
                                     // Picture = RoomImages.ToList().Where(c=> c.RoomId == room.Id).FirstOrDefault().ImageUrl,
                                     RoomName = room.RoomName,
                                     SKU = room.SKU,
-                                    Price = room.PriceCash,
+                                    Price = _currencyService.CurrencyFormatterByRoomId(room.Id, room.PriceCash),
                                     Quota = room.NoRoomQuota,
                                     Published = room.Published
                                 };
@@ -131,7 +135,7 @@ namespace Dau.Services.Domain.RoomServices
                                     // Picture = RoomImages.ToList().Where(c=> c.RoomId == room.Id).FirstOrDefault().ImageUrl,
                                     RoomName = room.RoomName,
                                     SKU = room.SKU,
-                                    Price = room.PriceCash,
+                                    Price = _currencyService.CurrencyFormatterByRoomId(room.Id, room.PriceCash),
                                     Quota = room.NoRoomQuota,
                                     Published = room.Published
                                 };
@@ -509,7 +513,7 @@ namespace Dau.Services.Domain.RoomServices
         public string Picture { get; set; }
         public string RoomName { get; set; }
         public string SKU { get; set; }
-        public double Price { get; set; }
+        public string Price { get; set; }
         public int Quota { get; set; }
         public bool Published { get; set; }
         //public string Edit { get; set; }
