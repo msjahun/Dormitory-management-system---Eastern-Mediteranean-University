@@ -69,6 +69,12 @@ namespace searchDormWeb.Controllers
              
                 if (result.Succeeded)
                 {
+                    //save last login date
+                    var User = _userManager.Users.Where(c => c.Email == vm.Email).FirstOrDefault();
+                    user.LastLoginDateUtc = DateTime.UtcNow;
+                   await _userManager.UpdateAsync(User);
+
+
                     _logger.LogInformation("Successful login.");
                     var st = vm.ReturnUrl;
                     if (st!=null) 
@@ -94,6 +100,7 @@ namespace searchDormWeb.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("", "Home");
         }
+
 
 
 
