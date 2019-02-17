@@ -38,10 +38,10 @@
                                 <span class="btn-inner--icon"> <i class="fas fa-user-circle "></i></span>
                                 <span class="btn-inner--text d-none d-md-inline-block">@Localizer["Profile"]</span>
                             </a> 
-                            <a  asp-controller="Account" asp-action="Settings" class="btn btn-icon btn-group-nav shadow btn-secondary   @(currentAction == "Settings" ? "active" : "") ">
+                            @*<a  asp-controller="Account" asp-action="Settings" class="btn btn-icon btn-group-nav shadow btn-secondary   @(currentAction == "Settings" ? "active" : "") ">
                                 <span class="btn-inner--icon"><i class="fas fa-cog "></i></span>
                                 <span class="btn-inner--text d-none d-md-inline-block"> @Localizer["Settings"]</span>
-                            </a>
+                            </a>*@
                              
                             <a asp-controller="Account" asp-action="Billing"  class="btn btn-icon btn-group-nav shadow btn-secondary @(currentAction == "Billing" ? "active" : "") ">
                                 <span class="btn-inner--icon"><i class="fas fa-credit-card"></i></span>
