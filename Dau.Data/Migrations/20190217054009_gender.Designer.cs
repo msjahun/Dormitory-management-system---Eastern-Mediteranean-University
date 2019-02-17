@@ -4,14 +4,16 @@ using Dau.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Dau.Data.Migrations
 {
     [DbContext(typeof(Fees_and_facilitiesContext))]
-    partial class Fees_and_facilitiesContextModelSnapshot : ModelSnapshot
+    [Migration("20190217054009_gender")]
+    partial class gender
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2151,6 +2153,8 @@ namespace Dau.Data.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<string>("Country");
+
                     b.Property<int>("CountryId");
 
                     b.Property<DateTime>("CreatedOnUtc");
@@ -2167,6 +2171,8 @@ namespace Dau.Data.Migrations
                     b.Property<bool>("EmailConfirmed");
 
                     b.Property<string>("FirstName");
+
+                    b.Property<string>("Gender");
 
                     b.Property<int>("GenderId");
 
