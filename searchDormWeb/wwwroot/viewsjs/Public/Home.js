@@ -186,7 +186,7 @@ $(window).resize(function () {
 
     }
     if (ww > 468 && ww <= 1000) {
-        swiper1.params.slidesPerView = swiper2.params.slidesPerView = swiper3.params.slidesPerView = 2;
+        swiper1.params.slidesPerView = swiper2.params.slidesPerView = swiper3.params.slidesPerView = 1;
 
     }
     if (ww <= 468) {
