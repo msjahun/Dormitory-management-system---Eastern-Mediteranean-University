@@ -33,6 +33,7 @@ namespace Dau.Services.Domain.DropdownServices
              List<SelectListItem> GetDormitoryBlockByDormitoryIdDropdown(long DormitoryId);
         List<SelectListItem> TravelModes();
         List<SelectListItem> Currencies();
+        List<SelectListItem> Gender();
 
 
 
