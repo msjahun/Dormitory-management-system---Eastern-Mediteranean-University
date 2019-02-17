@@ -28,6 +28,7 @@
     <Compile Remove="Migrations\20190107190432_sortedLocationInformation.cs" />
     <Compile Remove="Migrations\20190107190936_sortedOUtlocations.cs" />
     <Compile Remove="Migrations\20190107191228_sdfsf.cs" />
+    <Compile Remove="Migrations\20190217053510_gender.cs" />
   </ItemGroup>
 
   <ItemGroup>
