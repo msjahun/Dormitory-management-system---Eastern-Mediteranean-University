@@ -32,11 +32,12 @@
 
 .header-account-page-sm {
     @include media-breakpoint-up(md) {
-        height: 160px;
+        height: 120px;
     }
 
     @include media-breakpoint-down(md) {
         padding-top: 9rem;
+   
     }
 
     .btn-group-nav {
