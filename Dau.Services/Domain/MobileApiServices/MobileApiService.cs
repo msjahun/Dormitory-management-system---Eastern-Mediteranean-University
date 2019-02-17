@@ -274,12 +274,12 @@ namespace Dau.Services.Domain.MobileApiServices
                 response = "Success",
                 body = new BodyAuthentication
                 {
-                  UserId =user.Id,
-                  UserName  =user.UserName,
-                  UserFirstName=user.FirstName,
-                  UserLastName=user.LastName,
-                  UserImageUrl =user.UserImageUrl,
-                  UserGender =user.Gender
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    UserFirstName = user.FirstName,
+                    UserLastName = user.LastName,
+                    UserImageUrl = user.UserImageUrl,
+                    UserGender = _dropdownService.ResolveDropdown(user.GenderId, _dropdownService.Gender())
                  }
 
             };
@@ -345,7 +345,7 @@ namespace Dau.Services.Domain.MobileApiServices
                   UserFirstName=user.FirstName,
                   UserLastName=user.LastName,
                   UserImageUrl =user.UserImageUrl,
-                  UserGender =user.Gender
+                  UserGender =_dropdownService.ResolveDropdown(user.GenderId, _dropdownService.Gender())
                  }
 
             };
