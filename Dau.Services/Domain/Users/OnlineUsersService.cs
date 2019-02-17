@@ -5,16 +5,22 @@ using System.Text;
 using Dau.Core.Domain.Users;
 using System.Linq;
 using Dau.Data.Repository;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 namespace Dau.Services.Domain.Users
 {
    public class OnlineUsersService : IOnlineUsersService
     {
         private readonly IRepository<OnlineUsers> _onlineUsersRepository;
+        private readonly UserManager<User> _userManager;
+        private readonly Fees_and_facilitiesContext _dbContext;
 
-        public OnlineUsersService(IRepository<OnlineUsers> OnlineUsersRepository)
+        public OnlineUsersService(IRepository<OnlineUsers> OnlineUsersRepository, UserManager<User> userManager, Fees_and_facilitiesContext dbContext)
         {
             _onlineUsersRepository = OnlineUsersRepository;
+            _userManager = userManager;
+            _dbContext = dbContext;
         }
 
         public List<OnlineUsers> GetOnlineUsers()
@@ -25,7 +31,7 @@ namespace Dau.Services.Domain.Users
         }
 
 
-        public  void UpdateOnlineUserAsync(OnlineUsers user)
+        public async Task UpdateOnlineUserAsync(OnlineUsers user)
         {
             var userInDb = _onlineUsersRepository.List().Where(d => d.UserInfo == user.UserInfo && d.IpAddress == user.IpAddress).FirstOrDefault();
             if (userInDb != null)
@@ -45,6 +51,19 @@ namespace Dau.Services.Domain.Users
              
                 //if user exist update time, use ip address and userInfo for checking
             }
+
+            if(user!=null && !string.IsNullOrEmpty(user.UserId))
+            {
+                var User = _userManager.Users.Where(c => c.Id == user.UserId).FirstOrDefault();
+                if (User != null)
+                {
+                    User.LastActivityDateUtc = DateTime.UtcNow;
+                //var result = await    _userManager.UpdateAsync(User);
+                }
+            }
+
+
+
         }
 
 

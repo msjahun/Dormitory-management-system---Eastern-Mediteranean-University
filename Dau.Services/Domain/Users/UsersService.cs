@@ -5,6 +5,7 @@ using System.Text;
 using Dau.Core.Domain.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using System.Threading.Tasks;
 namespace Dau.Services.Users
 {
    public class UsersService : IUsersService
@@ -168,5 +169,96 @@ namespace Dau.Services.Users
             return data;
         }
 
+        public async Task<AccountProfileVm> GetUserDetailsAsync(string userId)
+        {
+
+           var User = await _userManager.FindByIdAsync(userId);
+
+            if (User == null)
+                return null;
+
+            var model = new AccountProfileVm
+            {
+                StudentNumber = User.StudentNumber,
+                FirstName = User.FirstName,
+                LastName = User.LastName,
+                DateOfBirth = User.DateOfBirth,
+                Gender = User.GenderId,
+                Email = User.Email,
+                PhoneNumber = User.PhoneNumber,
+                Address = User.ParmanentAddress,
+                CountryId = User.CountryId,
+                City = User.City
+
+
+
+            };
+
+            return model;
+        }
+
+        public async Task<bool> UpdateUserInfoAsync(string userId,AccountProfileVm vm)
+        {
+            try
+            {
+                var User = await _userManager.FindByIdAsync(userId);
+                if (User == null) return false;
+
+                User.StudentNumber = vm.StudentNumber;
+                User.FirstName = vm.FirstName;
+                User.LastName = vm.LastName;
+                User.GenderId = vm.Gender;
+                User.PhoneNumber = vm.PhoneNumber;
+                User.ParmanentAddress = vm.Address;
+                User.City = vm.City;
+                User.CountryId = vm.CountryId;
+
+                    await _userManager.UpdateAsync(User);
+
+                return true;
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
+
+
+        }
     }
+
+
+
+
+    public class AccountProfileVm
+    {
+        public bool SavedSuccessfully { get; set; }
+        public string SuccessMessage { get; set; }
+
+        public string StudentNumber { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public DateTime DateOfBirth { get; set; }
+        public int Gender { get; set; }
+        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
+
+        public string Address { get; set; }
+        public string City { get; set; }
+
+
+        public int CountryId { get; set; }
+
+
+        public bool SetPassword { get; set; }
+        //[Required]
+        public string OldPassword { get; set; }
+
+        //[Required, MinLength(6), MaxLength(50), DataType(DataType.Password), Display(Name = "Password")]
+        public string Password { get; set; }
+
+        //[Required, MinLength(6), MaxLength(50), DataType(DataType.Password), Display(Name = "Confirm Password")]
+        // [Compare("Password", ErrorMessage = "The password does not match the confirmation password.")]
+        public string ConfirmPassword { get; set; }
+    }
+
 }
