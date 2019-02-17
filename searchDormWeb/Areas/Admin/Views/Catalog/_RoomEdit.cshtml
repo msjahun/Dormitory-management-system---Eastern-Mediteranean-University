@@ -555,75 +555,76 @@
                                         @Localizer["Specificatino attributes are room features i.e, Bed size, room size and so on. Specification attributes can be used for filtering rooms"+
                                         "on the Dormitory detail page. Unlike room attributes, specification attributes are used for information purpose only."]
                                     </p>
+                                    <div class="class=" overflow">
 
-                                    <table id="featuresTable" class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr>
+                                        <table id="featuresTable" class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
 
-                                                <th>@Localizer["Feature"]</th>
-                                                <th>@Localizer["Feature Category"]</th>
-                                                <th>@Localizer["Allow filtering"]</th>
+                                                    <th>@Localizer["Feature"]</th>
+                                                    <th>@Localizer["Feature Category"]</th>
+                                                    <th>@Localizer["Allow filtering"]</th>
 
 
 
-                                            </tr>
-                                        </thead>
-                                        <tbody></tbody>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
 
-                                    </table>
-
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="box box-solid ">
-                                <div class="box-header">@Localizer["Add a new room specification attribute"] </div>
+                                    <div class="box box-solid ">
+                                        <div class="box-header">@Localizer["Add a new room specification attribute"] </div>
 
-                                <div class="box-body">
-                                    <form class="form-horizontal" method="post" id="RoomFeaturesForm">
-                                        <div style="color:red;" asp-validation-summary="All"></div>
+                                        <div class="box-body">
+                                            <form class="form-horizontal" method="post" id="RoomFeaturesForm">
+                                                <div style="color:red;" asp-validation-summary="All"></div>
 
 
-                                        <div class="form-group">
+                                                <div class="form-group">
 
-                                            <dau-label asp-for="facilitiesTab.FeatureCategory"> </dau-label>
-                                            <div class="col-sm-8">
-                                                <select asp-for="facilitiesTab.FeatureCategory" asp-items="_dropdown.FeatureCategory()" id="FeatureCategoryselect" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                                                    <option></option>
-                                                </select>
-                                            </div>
-                                            <span asp-validation-for="facilitiesTab.FeatureCategory"></span>
+                                                    <dau-label asp-for="facilitiesTab.FeatureCategory"> </dau-label>
+                                                    <div class="col-sm-8">
+                                                        <select asp-for="facilitiesTab.FeatureCategory" asp-items="_dropdown.FeatureCategory()" id="FeatureCategoryselect" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                            <option></option>
+                                                        </select>
+                                                    </div>
+                                                    <span asp-validation-for="facilitiesTab.FeatureCategory"></span>
+                                                </div>
+
+
+                                                <div class="form-group">
+
+                                                    <dau-label asp-for="facilitiesTab.Feature"> </dau-label>
+                                                    <div class="col-sm-8">
+                                                        <select asp-for="facilitiesTab.Feature" id="FeaturesSelect" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true"> </select>
+                                                    </div>
+                                                    <span asp-validation-for="facilitiesTab.Feature"></span>
+
+                                                </div>
+
+
+
+
+
+                                                <div class="form-group">
+                                                    <label for="" class="col-sm-3 control-label"></label>
+
+                                                    <div class="col-sm-8">
+
+                                                        <button type='button' onClick='resolveButton("AddRoomFeature")' class="btn btn-primary">@Localizer["Add Room feature"]</button>
+                                                    </div>
+
+                                                </div>
+                                            </form>
+
+
                                         </div>
-
-
-                                        <div class="form-group">
-
-                                            <dau-label asp-for="facilitiesTab.Feature"> </dau-label>
-                                            <div class="col-sm-8">
-                                                <select asp-for="facilitiesTab.Feature" id="FeaturesSelect" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true"> </select>
-                                            </div>
-                                            <span asp-validation-for="facilitiesTab.Feature"></span>
-
-                                        </div>
-
-
-
-
-
-                                        <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label"></label>
-
-                                            <div class="col-sm-8">
-
-                                                <button type='button' onClick='resolveButton("AddRoomFeature")' class="btn btn-primary">@Localizer["Add Room feature"]</button>
-                                            </div>
-
-                                        </div>
-                                    </form>
-
-
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
                     </div>
                     <!-- /.tab-content -->
                 </div>
