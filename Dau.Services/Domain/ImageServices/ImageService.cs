@@ -361,6 +361,18 @@ namespace Dau.Services.Domain.ImageServices
                 return false;
             }
         }
+
+        public string UploadUserImage()
+        {
+            var imagePath = UploadImage("Files/Images/ProfilePhotos/");
+            if (imagePath == null || imagePath.Length <= 0) return null;
+            //map the image to room and catalogImage in the database
+            //insert it in CatalogImage, get id then
+            //insert foreignkeys in RoomCatalog image
+
+         return "/" + imagePath;
+      
+        }
     }
 
 

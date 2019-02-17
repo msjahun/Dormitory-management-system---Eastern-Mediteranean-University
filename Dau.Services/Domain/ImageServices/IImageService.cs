@@ -16,5 +16,6 @@ namespace Dau.Services.Domain.ImageServices
         bool uploadBookingReceiptImage(long BookingId);
         bool UploadFeatureImage(long id);
         bool UploadSliderImage(DormitoryCrud vm);
+        string UploadUserImage();
     }
 }
