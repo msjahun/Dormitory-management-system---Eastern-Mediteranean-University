@@ -181,8 +181,8 @@ namespace searchDormWeb.Areas.Admin.Controllers
             {
                 var user = new User { UserName = vm.Email, Email = vm.Email,
                     FirstName = vm.FirstName, LastName = vm.LastName, Active = vm.Active, AdminComment = vm.AdminComment,
-                    NewsletterSubscription = vm.NewsletterSubscription, Country = vm.Country, City = vm.City,
-                    DateOfBirth = vm.DateOfBirth, Gender = vm.Gender, 
+                    NewsletterSubscription = vm.NewsletterSubscription, CountryId = vm.Country, City = vm.City,
+                    DateOfBirth = vm.DateOfBirth, GenderId = vm.Gender, 
                     CreatedOnUtc = DateTime.UtcNow, LastIpAddress = _accessor.HttpContext.Connection.RemoteIpAddress.ToString(),
                     PhoneNumber = vm.PhoneNumber
 
@@ -261,17 +261,21 @@ namespace searchDormWeb.Areas.Admin.Controllers
                 Id = editUser.Id,
                 Email = editUser.Email,
                 ManagerOfDormitory = GetUserDormitoryById(editUser.Id),
-                Gender = editUser.Gender,
+                Gender = editUser.GenderId,
                 FirstName = editUser.FirstName,
                 LastName = editUser.LastName,
                 PhoneNumber = editUser.PhoneNumber,
                 DateOfBirth = editUser.DateOfBirth,
                 City = editUser.City,
-                Country = editUser.Country,
+                Country = editUser.CountryId,
                 AdminComment = editUser.AdminComment,
                 NewsletterSubscription = editUser.NewsletterSubscription,
                 Active = editUser.Active,
-                CustomerRole =  (List<string>)await _userManager.GetRolesAsync(editUser)
+                CustomerRole =  (List<string>)await _userManager.GetRolesAsync(editUser),
+                LastActivityTime= editUser.LastActivityDateUtc.ToString(),
+                LastLoginTime = editUser.LastLoginDateUtc.ToString()
+                ,CreatedOn = editUser.CreatedOnUtc.ToString()
+                
 
             };
             //send languageId through here
@@ -320,10 +324,10 @@ namespace searchDormWeb.Areas.Admin.Controllers
                     editUser.Active = vm.Active;
                     editUser.AdminComment = vm.AdminComment;
                     editUser.NewsletterSubscription = vm.NewsletterSubscription;
-                    editUser.Country = vm.Country;
+                    editUser.CountryId = vm.Country;
                     editUser.City = vm.City;
                     editUser.DateOfBirth = vm.DateOfBirth;
-                    editUser.Gender = vm.Gender;
+                    editUser.GenderId = vm.Gender;
                     //editUser.DormitoryId = vm.ManagerOfDormitory;
                     
                     editUser.PhoneNumber = vm.PhoneNumber;
@@ -676,9 +680,12 @@ namespace searchDormWeb.Areas.Admin.Controllers
             //  var url = HttpContext.context.Request.Path;
             // var remoteIpAddress = HttpContext.Connection.RemoteIpAddress;
             var name = "Guest";
+            string userId = "";
             if (isAuthenticated) { 
            
                 name = User.Identity.Name;
+                //get user Id also
+                userId = _userManager.GetUserId(User);
             }
 
             var OnlineUser = new OnlineUsers()
@@ -687,6 +694,7 @@ namespace searchDormWeb.Areas.Admin.Controllers
 
                 IpAddress = _accessor.HttpContext.Connection.RemoteIpAddress.ToString(),
                 LastVisitedPage = LastVisitedPage,
+                UserId = userId,
                 UserInfo = name,
                 Location = " ",
                 LastActivity = " ",

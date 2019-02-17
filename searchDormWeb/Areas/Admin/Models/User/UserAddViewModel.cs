@@ -33,7 +33,7 @@ namespace searchDormWeb.Areas.Admin.Models.User
 
 
         [Display(Name = "Gender")]
-        public string Gender { get; set; }
+        public int Gender { get; set; }
 
         public List<SelectListItem> Genders { get; } = new List<SelectListItem>
         {
@@ -72,14 +72,9 @@ namespace searchDormWeb.Areas.Admin.Models.User
 
 
         [Display(Name = "Country")]
-        public string Country { get; set; }
+        public int Country { get; set; }
 
-        public List<SelectListItem> Countries { get; } = new List<SelectListItem>
-        {
-            new SelectListItem { Value = "", Text = "" },
-            new SelectListItem { Value = "TR", Text = "Turkey" },
-            new SelectListItem { Value = "CY", Text = "Cyprus"  },
-        };
+
 
 
         [Display(Name = "Admin Comment")]

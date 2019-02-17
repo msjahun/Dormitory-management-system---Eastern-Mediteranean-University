@@ -144,7 +144,7 @@
 
                                         <div class="col-sm-6">
 
-                                            <select asp-for="Gender" asp-items="modelx.Genders" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true"></select>
+                                            <select asp-for="Gender" asp-items="_dropdown.Gender()" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true"></select>
 
 
                                         </div>
@@ -181,7 +181,7 @@
                                         <label for="inputPassword3" class="col-sm-3 control-label"><label asp-for="Country"></label> <i class="fa fa-question-circle" aria-hidden="true"></i></label>
 
                                         <div class="col-sm-6">
-                                            <select asp-for="Country" asp-items="modelx.Countries" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true"></select>
+                                            <select asp-for="Country" asp-items="_dropdown.Country()" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true"></select>
                                         </div>
 
                                         <span class="help-block" style="color:red;" asp-validation-for="Country"></span>
