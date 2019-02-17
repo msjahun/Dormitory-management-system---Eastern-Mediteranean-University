@@ -48,7 +48,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="form-control-label">@Localizer["Student Number (Application No. for new students)"]</label>
-                                <input class="form-control"  disabled  value="@item.StudentNumber"  type="text" placeholder="@Localizer["Student Number or Admission no"]">
+                                <input class="form-control"   value="@item.StudentNumber"  type="text" placeholder="@Localizer["Student Number or Admission no"]">
                             </div>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="form-control-label">@Localizer["Address"]</label>
-                                <input class="form-control"  disabled  value="@item.ParmanentAddress" type="text" placeholder="@Localizer["Address, Number"]">
+                                <input class="form-control"   value="@item.ParmanentAddress" type="text" placeholder="@Localizer["Address, Number"]">
                             </div>
                         </div>
                     </div>
@@ -65,16 +65,16 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-control-label">@Localizer["Country"]</label>
-                                <select class="form-control" disabled data-toggle="select" title="@Localizer["Country"]">
-                                    <option>@Localizer["Select your country"]</option>
-                                    <option selected value="4">@item.Country</option>
+                                <select class="form-control"  data-toggle="select" asp-for="Country" asp-items="_dropdown.Country()" title="@Localizer["Country"]">
+                                    <option></option>
+                                   
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-control-label">@Localizer["City"]</label>
-                                <select class="form-control"   disabled  data-toggle="select" title="@Localizer["City"]">
+                                <select class="form-control"   data-toggle="select" title="@Localizer["City"]">
                                     <option >@Localizer["Select your city"]</option>
                                    
                              

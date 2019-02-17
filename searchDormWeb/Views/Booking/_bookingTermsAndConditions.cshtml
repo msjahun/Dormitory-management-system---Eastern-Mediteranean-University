@@ -1,0 +1,32 @@
+﻿@using Dau.Services.Domain.BookingService
+@model BookingCartViewModel
+@{
+    var item = Model;
+}
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+
+<div class="card mt-4">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-8">
+
+                <h5>@Localizer["Terms and conditions"]</h5>
+                <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input" id="customCheckUniversityTandC">
+                    <label class="custom-control-label" for="customCheckUniversityTandC">@Localizer["I have read and agreed to the "]<a href="#">@Localizer["University terms and conditions"]</a></label>
+                </div>
+
+                <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input" id="customCheckDormitoryTandC">
+                    <label class="custom-control-label" for="customCheckDormitoryTandC">@Localizer["I have read and agreed to the "]<a href="#">@Localizer["{0} terms and conditions", item.DormitoryName]</a></label>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+

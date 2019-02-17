@@ -17,7 +17,7 @@
     <div class="container">
         <div class="row row-grid">
             <div class="col-lg-8">
-                <form id="bookingForm" method="post" name="bookingForm" enctype="multipart/form-data"  >
+                <form id="bookingForm" method="post" name="bookingForm" enctype="multipart/form-data">
                     <div>
 
                         <div class="page-inner-header mb-4">
@@ -33,6 +33,15 @@
                                 <div class="row">
                                     <div class="col-8">
                                         <div class="custom-control custom-radio mb-3">
+                                            <input type="radio" name="radio-payment" class="custom-control-input" id="radio-payment-upload-later">
+                                            <label class="custom-control-label h6 lh-160" for="radio-payment-upload-later">@Localizer["Upload payment receipt Later"] </label>
+                                        </div>
+                                        <p class="text-muted text-sm  mt-2">@Localizer["To upload bank receipt later, go to My Account >> Bookings to upload the receipt"]</p>
+
+
+
+
+                                        <div class="custom-control  mt-1 custom-radio mb-3">
                                             <input type="radio" name="radio-payment" class="custom-control-input" id="radio-payment-upload-now">
                                             <label class="custom-control-label h6 lh-160" for="radio-payment-upload-now">@Localizer["Upload payment receipt now"] </label>
                                         </div>
@@ -43,21 +52,19 @@
                                         <img id="ImagePlaceholder" src="/Content/dist/img/default-image_100.png" height="100" /><br /><br />
 
 
-                                        <div class="mt-4" >
-                                            <input type="file" name="files" id="file-2"  class="custom-input-file custom-input-file--2" accept="image/*" />
+                                        <div class="mt-4">
+                                            <input type="file" name="files" id="file-2" class="custom-input-file custom-input-file--2" accept="image/*" />
                                             <label for="file-2">
                                                 <i class="fa fa-upload"></i>
                                                 <span id="fileNameId">@Localizer["Choose a file"]…</span>
                                             </label>
                                         </div>
 
-                                   
 
-                                        <div class="custom-control delimiter-top mt-5 custom-radio mb-3">
-                                            <input type="radio" name="radio-payment" class="custom-control-input" id="radio-payment-upload-later">
-                                            <label class="custom-control-label h6 lh-160" for="radio-payment-upload-later">@Localizer["Upload payment receipt Later"] </label>
-                                        </div>
-                                        <p class="text-muted text-sm  mt-2">@Localizer["To upload bank receipt later, go to My Account >> Bookings to upload the receipt"]</p>
+
+
+
+
 
 
                                     </div>
@@ -67,6 +74,10 @@
                         </div>
 
                     </div>
+
+                    @{await Html.RenderPartialAsync("/Views/Booking/_bookingTermsAndConditions.cshtml", item.BookingDetails);}
+
+
                     <div class="mt-5 text-right">
                         <button type="button" id="buttonNext5" class="btn  text-sm text-dark font-weight-bold">@Localizer["Previous step"]</button>
                         <button type="button" id="CompleteBooking" class="btn btn-sm btn-success">@Localizer["Complete booking order"]</button>

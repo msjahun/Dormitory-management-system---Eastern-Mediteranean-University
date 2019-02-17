@@ -1,12 +1,24 @@
-﻿
+﻿@using Dau.Services.Users
+@model AccountProfileVm
+
 @{
     ViewData["Title"] = Localizer["AccountSettings"];
     Layout = "~/Views/Shared/_LayoutMyAccount.cshtml";
 }
 
-<div class="col-lg-8">
-    <form>
+
+<div class="col-lg-6">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <span class="alert-inner--icon"><i class="fas fa-check"></i></span>
+        <span class="alert-inner--text"><strong>Success!</strong> Password updated successfully</span>
+
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form method="post" id="editForm" asp-controller="Account" asp-action="ChangePassword">
         <!-- Password -->
+        <div style="color:red;" asp-validation-summary="All"></div>
 
         <div class="page-inner-header mb-4">
             <h5 class="mb-1">@Localizer["Change password"]</h5>
@@ -16,30 +28,43 @@
         </div>
 
         <div class="row">
+
+
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-control-label">@Localizer["Old password"]</label>
-                    <input class="form-control form-control-sm" type="password">
+                    <input class="form-control form-control-sm" asp-for="OldPassword" type="password">
                 </div>
+                <span style="color:red;" asp-validation-for="OldPassword"></span>
             </div>
+
+
         </div>
         <div class="row">
+
+
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-control-label">@Localizer["New password"]</label>
-                    <input class="form-control form-control-sm" type="password">
+                    <input class="form-control form-control-sm" asp-for="Password" type="password">
                 </div>
+                <span style="color:red;" asp-validation-for="Password"></span>
             </div>
+
+
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-control-label">@Localizer["Confirm password"]</label>
-                    <input class="form-control form-control-sm" type="password">
+                    <input class="form-control form-control-sm" asp-for="ConfirmPassword" type="password">
                 </div>
+                <span style="color:red;" asp-validation-for="ConfirmPassword"></span>
             </div>
+
+
         </div>
         <div class="mt-4">
-            <button type="button" class="btn btn-sm btn-primary">@Localizer["Update password"]</button>
-            <a href="recover.html" class="btn btn-sm btn-secondary">@Localizer["I forgot my password"]</a>
+            <button type="submit" class="btn btn-sm btn-primary">@Localizer["Update password"]</button>
+            <a asp-action="RecoverAccount" asp-controller="Login" class="btn btn-sm btn-secondary">@Localizer["I forgot my password"]</a>
         </div>
     </form>
 
@@ -96,7 +121,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-sm btn-secondary text-danger" data-dismiss="modal">@Localizer["Download GDPR DATA"]</button>
+                            <button type="button" id="DownloadGdprData" class="btn btn-sm btn-secondary text-danger" data-dismiss="modal">@Localizer["Download GDPR DATA"]</button>
                         </div>
                     </div>
                 </form>
@@ -141,7 +166,7 @@
                                 <input class="form-control form-control-sm" type="password">
                             </div>
                             <div class="mt-4">
-                                <button type="button" class="btn btn-block btn-sm btn-white text-danger">@Localizer["Delete my account"]</button>
+                                <button type="button" id="DeleteMyAccount" class="btn btn-block btn-sm btn-white text-danger">@Localizer["Delete my account"]</button>
                                 <button type="button" class="btn btn-block btn-sm btn-link text-light mt-4" data-dismiss="modal">@Localizer["Not this time"]</button>
                             </div>
                         </div>
@@ -151,3 +176,21 @@
         </div>
     </div>
 </div>
+
+
+
+@section scripts
+    {
+
+    <script>
+        $("#DeleteMyAccount").click(function () {
+            alert("Delete My Account");
+        });
+
+        $("#DownloadGdprData").click(function () {
+            alert("Download Gdpr Data");
+        });
+
+
+    </script>
+}

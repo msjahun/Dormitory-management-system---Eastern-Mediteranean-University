@@ -2,7 +2,13 @@
 @{
     ViewData["Title"] = Localizer["AccountProfile"];
     Layout = "~/Views/Shared/_LayoutMyAccount.cshtml";
+
+    var item = Model;
 }
+
+@using searchDormWeb.Controllers
+@model AccountProfileVm
+
 
 @using Microsoft.AspNetCore.Identity
 @using Dau.Core.Domain.Users;
@@ -12,47 +18,81 @@
 @inject UserManager<User> UserManager
 @inject IUsersService _userService
 @inject IBookingService _bookingService
-<div class="col-lg-9">
-    <!-- Change avatar -->
-    <!-- Change avatar -->
+
+<div class="col-lg-12">
+
+    @if (item != null && item.SavedSuccessfully == true)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <span class="alert-inner--icon"><i class="fas fa-check"></i></span>
+            <span class="alert-inner--text"><strong>Success!</strong> @item.SuccessMessage</span>
+
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+
 
     <div class="card bg-gradient-warning border-0 shadow mb-4">
         <div class="card-body py-3">
             <div class="row row-grid align-items-center">
-                <div class="col-lg-8">
+                <div class="col-lg-12">
                     <div class="media align-items-center">
 
                         @if (_userService.GetUserPhotoUrl(SignInManager.UserManager.GetUserId(User)) == null)
                         {
-                           
-                        <a href="#" class="avatar avatar-lg rounded-circle mr-3"> <i class="fas fa-user-circle fa-2x"></i> </a>
+
+                            <a href="#" class="avatar avatar-lg rounded-circle mr-3"> <i class="fas fa-user-circle fa-2x"></i> </a>
                         }
                         else
                         { <a href="#" class="avatar avatar-lg rounded-circle mr-3">
-                                <img alt="Image placeholder" src="@_userService.GetUserPhotoUrl(SignInManager.UserManager.GetUserId(User))">
+                                <img alt="Image placeholder" id="ImagePlaceholder" src="@_userService.GetUserPhotoUrl(SignInManager.UserManager.GetUserId(User))">
                             </a>
                         }
-                        
+
                         <div class="media-body">
                             <h5 class="text-white mb-0">@_userService.GetFirstLastNames(SignInManager.UserManager.GetUserId(User))</h5>
                             <div>
-                                <form>
-                                    <input type="file" name="file-1[]" id="file-1" class="custom-input-file custom-input-file-link" data-multiple-caption="{count} files selected" multiple />
-                                    <label for="file-1">
+                                <form method="post" id="pictureUploadForm" enctype="multipart/form-data"asp-controller="Account" asp-action="UpdateProfilePhoto">
+                                    <input type="file"  name="files" id="file-2" class="custom-input-file custom-input-file-link" accept="image/*" />
+                                    <label for="file-2">
                                         <span class="text-white">@Localizer["Change photo"]</span>
                                     </label>
+
+                                    <button type="submit" id="saveProfilePhoto" class="btn btn-secondary btn-sm d-none" >@Localizer["Save photo"]</button>
                                 </form>
                             </div>
+
+
+
                         </div>
+
+
+                        <a asp-controller="Account" asp-action="Billing" class="btn btn-sm btn-white btn-icon shadow  btn-circle float-right">
+                            <span class="btn-inner--icon"></span>
+                            <span class="btn-inner--text ">@Localizer["View Bookings"]</span>
+                        </a>
                     </div>
+
                 </div>
+
+
 
             </div>
         </div>
-    </div>
+    </div>   
+    <div style="color:red;" asp-validation-summary="All"></div>
+
+</div>
+<div class="col-lg-6">
+    <!-- Change avatar -->
+    <!-- Change avatar -->
 
 
-    <form>
+
+    <form  method="post" id="editForm" asp-controller="Account" asp-action="GeneralInformation">
         <!-- General -->
 
         <div class="page-inner-header mb-4">
@@ -61,56 +101,85 @@
             <p class="text-muted mb-0">@Localizer["You can help us, by filling your data, create you a much better experience using our website."]</p>
 
         </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label class="form-control-label">@Localizer["Student Number/ Application Number(for new students)"]</label>
+                    <input class="form-control" type="text" asp-for="StudentNumber" placeholder="">
+                </div>
+            </div>
+            <span style="color:red;" asp-validation-for="StudentNumber"></span>
+
+        </div>
+
 
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-control-label">@Localizer["First name"]</label>
-                    <input class="form-control" type="text" placeholder="@Localizer["Enter your first name"]">
+                    <input class="form-control" type="text" asp-for="FirstName" placeholder="@Localizer["Enter your first name"]">
                 </div>
+                <span style="color:red;" asp-validation-for="FirstName"></span>
+
             </div>
+
+
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-control-label">@Localizer["Last name"]</label>
-                    <input class="form-control" type="text" placeholder="@Localizer["Also your last name"]">
+                    <input class="form-control" type="text" asp-for="LastName" placeholder="@Localizer["Also your last name"]">
                 </div>
+                <span style="color:red;" asp-validation-for="LastName"></span>
+
             </div>
         </div>
+
+
         <div class="row align-items-center">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="form-control-label">@Localizer["Birthday"]</label>
-                    <input type="text" class="form-control" data-toggle="date" placeholder="@Localizer["Select your birth date"]">
+                    <label class="form-control-label">@Localizer["Date of birth"]</label>
+                    <input type="date" class="form-control" data-toggle="date" asp-for="DateOfBirth" placeholder="@Localizer["Select your birth date"]">
                 </div>
+                <span style="color:red;" asp-validation-for="DateOfBirth"></span>
+
             </div>
+
+
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-control-label">@Localizer["Gender"]</label>
-                    <select class="form-control" data-toggle="select" placeholder="@Localizer["You gender"]">
-                        <option value="1">@Localizer["Female"]</option>
-                        <option value="2">@Localizer["Male"]</option>
-                        <option value="2">@Localizer["Rather not say"]</option>
+                    <select class="form-control" data-toggle="select" asp-for="Gender" asp-items="_dropdown.Gender()" placeholder="@Localizer["You gender"]">
+                        <option> </option>
+
                     </select>
                 </div>
+                <span style="color:red;" asp-validation-for="Gender"></span>
+
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col">
                 <div class="form-group">
                     <label class="form-control-label">@Localizer["Email"]</label>
-                    <input class="form-control" type="email" placeholder="name@exmaple.com">
-                    <small class="form-text text-muted mt-2">@Localizer["This is the main email address that we'll send notifications to."]<a href="account-notifications.html">@Localizer["Manage you notifications"]</a> @Localizer["in order to receive only the thing that matter to you most."]</small>
+                    <input class="form-control" type="email" disabled asp-for="Email" placeholder="name@exmaple.com">
+                    <small class="form-text text-muted mt-2">@Localizer["This is the main email address that we'll send notifications to. "]<a asp-controller="Account" asp-action="Notifications">@Localizer["Manage you notifications "]</a> @Localizer["in order to receive only the thing that matter to you most."]</small>
                 </div>
+                <span style="color:red;" asp-validation-for="Email"></span>
+
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col">
                 <div class="form-group">
                     <label class="form-control-label">@Localizer["Phone"]</label>
-                    <input class="form-control" type="text" placeholder="+90 5** ***** **">
+                    <input class="form-control" type="text" asp-for="PhoneNumber" placeholder="+90 5** ***** **">
                 </div>
+                <span style="color:red;" asp-validation-for="PhoneNumber"></span>
             </div>
         </div>
+
+
 
         <!-- Address -->
         <div class="pt-5 mt-5 delimiter-top">
@@ -126,24 +195,29 @@
                 <div class="col">
                     <div class="form-group">
                         <label class="form-control-label">@Localizer["Address"]</label>
-                        <input class="form-control" type="text" placeholder="@Localizer["Enter your home address"]">
+                        <input class="form-control" asp-for="Address" type="text" placeholder="@Localizer["Enter your home address"]">
                     </div>
+                    <span style="color:red;" asp-validation-for="Address"></span>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="form-control-label">@Localizer["City"]</label>
-                        <input class="form-control" type="text" placeholder="@Localizer["City"]">
-                    </div>
-                </div>
+
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="form-control-label">@Localizer["Country"]</label>
-                        <select class="form-control" data-toggle="select" title="Country" data-live-search="true" data-live-search-placeholder="@Localizer["Country"]">
-                       
+                        <select class="form-control" asp-for="CountryId" asp-items="_dropdown.Country()" data-toggle="select" title="Country" data-live-search="true" data-live-search-placeholder="@Localizer["Country"]">
+                            <option> </option>
                         </select>
                     </div>
+                    <span style="color:red;" asp-validation-for="CountryId"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-control-label">@Localizer["City"]</label>
+                        <input class="form-control" asp-for="City" type="text" placeholder="@Localizer["City"]">
+                    </div>
+                    <span style="color:red;" asp-validation-for="City"></span>
                 </div>
             </div>
         </div>
@@ -151,8 +225,222 @@
 
 
         <div class="pt-5 mt-5 delimiter-top">
-            <button type="button" class="btn btn-sm btn-primary">@Localizer["Save changes"]</button>
-            <button type="button" class="btn btn-link">@Localizer["Cancel"]</button>
+            <button type="submit" class="btn btn-sm btn-primary">@Localizer["Save changes"]</button>
+            <button type="reset"  class="btn btn-link">@Localizer["Cancel"]</button>
         </div>
     </form>
 </div>
+<div class="col-lg-6">
+
+    <form method="post" id="editForm" asp-controller="Account" asp-action="ChangePassword">
+        <!-- Password -->
+       
+        <div class="page-inner-header mb-4">
+            <h5 class="mb-1">@Localizer["Change password"]</h5>
+
+            <p class="text-muted mb-0">@Localizer["Change your password from here."]</p>
+
+        </div>
+
+        <div class="row">
+
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-control-label">@Localizer["Old password"]</label>
+                    <input class="form-control form-control-sm" asp-for="OldPassword" type="password">
+                </div>
+                <span style="color:red;" asp-validation-for="OldPassword"></span>
+            </div>
+
+
+        </div>
+        <div class="row">
+
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-control-label">@Localizer["New password"]</label>
+                    <input class="form-control form-control-sm" asp-for="Password" type="password">
+                </div>
+                <span style="color:red;" asp-validation-for="Password"></span>
+            </div>
+
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-control-label">@Localizer["Confirm password"]</label>
+                    <input class="form-control form-control-sm" asp-for="ConfirmPassword" type="password">
+                </div>
+                <span style="color:red;" asp-validation-for="ConfirmPassword"></span>
+            </div>
+
+
+        </div>
+        <div class="mt-4">
+            <button type="submit" class="btn btn-sm btn-primary">@Localizer["Update password"]</button>
+            <a asp-action="RecoverAccount" asp-controller="Login" class="btn btn-sm btn-secondary">@Localizer["I forgot my password"]</a>
+        </div>
+    </form>
+
+    <!-- Username -->
+    <div class="mt-5 pt-5 delimiter-top">
+
+        <div class="page-inner-header mb-4">
+            <h5 class="mb-1">@Localizer["GDPR Complience"]</h5>
+
+            <p class="text-muted mb-0">@Localizer["GDPR is a regulation that requires businesses to protect the personal data and privacy of EU citizens for transactions that occur within EU member states."]</p>
+
+        </div>
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-change-username">@Localizer["Download GDPR DATA"]</button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modal-change-username" tabindex="-1" role="dialog" aria-labelledby="modal-change-username" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <form>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="modal-title d-flex align-items-center" id="modal-title-change-username">
+                                <div>
+                                    <div class="icon icon-sm icon-shape icon-teal rounded-circle shadow mr-3">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0">@Localizer["GDPR Complience"]</h6>
+                                </div>
+                            </div>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label">@Localizer["Email"]</label>
+                                        <input class="form-control form-control-sm" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label">@Localizer["Password"]</label>
+                                        <input class="form-control form-control-sm" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="px-5 pt-4 mt-4 delimiter-top text-center">
+                                <p class="text-muted text-sm">@Localizer["GDPR is a regulation that requires businesses to protect the personal data and privacy of EU citizens for transactions that occur within EU member states."]</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="DownloadGdprData" class="btn btn-sm btn-secondary text-danger" data-dismiss="modal">@Localizer["Download GDPR DATA"]</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete -->
+    <div class="mt-5 pt-5 delimiter-top">
+
+        <div class="page-inner-header mb-4">
+            <h5 class="mb-1 text-danger">@Localizer["Delete account"]</h5>
+
+            <p class="text-muted mb-0">@Localizer["Deleting your account is ireversible and will ensure all your previous actity is deleted an inaccesible."]</p>
+
+        </div>
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-delete-account">@Localizer["Delete account"]</button>
+
+        <!-- Modal -->
+        <div class="modal modal-danger fade" id="modal-delete-account" tabindex="-1" role="dialog" aria-labelledby="modal-delete-account" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <form class="form-danger">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="text-center">
+                                <i class="fas fa-exclamation-circle fa-3x opacity-8"></i>
+                                <h5 class="text-white mt-4">@Localizer["Should we stop now?"]</h5>
+                                <p class="text-sm text-sm">@Localizer["All your data will be erased. You will no longer be billed or receive notifications."]</p>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label text-white">@Localizer["You email or username"]</label>
+                                <input class="form-control form-control-sm" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label text-white">@Localizer["To verify, type"] <span class="font-italic">@Localizer["delete my account"]</span> @Localizer["below"]</label>
+                                <input class="form-control form-control-sm" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label text-white">@Localizer["Your password"]</label>
+                                <input class="form-control form-control-sm" type="password">
+                            </div>
+                            <div class="mt-4">
+                                <button type="button" id="DeleteMyAccount" class="btn btn-block btn-sm btn-white text-danger">@Localizer["Delete my account"]</button>
+                                <button type="button" class="btn btn-block btn-sm btn-link text-light mt-4" data-dismiss="modal">@Localizer["Not this time"]</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts
+    {
+
+    <script>
+  
+        
+                                    function readURL(input) {
+
+                           if (input.files && input.files[0]) {
+                               var reader = new FileReader();
+
+                               reader.onload = function (e) {
+                                   if (input.files[0].size > 3145728) {
+                            $('#ImagePlaceholder').attr('src', '@_userService.GetUserPhotoUrl(SignInManager.UserManager.GetUserId(User))');
+
+                                   }
+
+                                   else
+                        $('#ImagePlaceholder').attr('src', e.target.result);
+
+                               }
+
+                               reader.readAsDataURL(input.files[0]);
+                           }
+                       }
+
+                    $("#file-2").change(function () {
+                        readURL(this); //resolveUploadFields(true);
+                        $("#saveProfilePhoto").removeClass("d-none");
+                           if (this.files[0].size > 3145728) {
+                               alert("@Localizer["file size too big, please upload something less than 3 Mb"]");
+                               document.getElementById("ImageInput").value = "";
+                           }
+
+
+
+
+                       });
+
+        $("#DeleteMyAccount").click(function () {
+            alert("Dear User you are not allowed to delete your account at this time, try again later");
+        });
+
+        $("#DownloadGdprData").click(function () {
+            alert("Gdpr data download feature is not avaible at the moment");
+        });
+
+
+    </script>
+}

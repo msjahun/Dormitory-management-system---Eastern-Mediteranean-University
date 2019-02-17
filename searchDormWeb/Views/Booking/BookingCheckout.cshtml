@@ -239,12 +239,26 @@
                                     $("#warningMessage").html("Please upload a file");
                                     return;
                                 }
+                               
 
+                                if (!$('#customCheckUniversityTandC').is(':checked') || !$('#customCheckDormitoryTandC').is(':checked')) {
+                                    $("#warningMessage").html("Please agree to the terms and conditions before you proceed");
+                                    return;
+                                }
+                                //check if terms and conditions are checked
                                 $('#bookingForm').attr('action', "/Booking/BookingConfirmation").submit();
-
+                                $(this).prop("disabled", true);
 
                             } else {
+                  
+
+                                //check if terms and conditions are checked
+                                if (!$('#customCheckUniversityTandC').is(':checked') || !$('#customCheckDormitoryTandC').is(':checked')) {
+                                    $("#warningMessage").html("Please agree to the terms and conditions before you proceed");
+                                    return;
+                                }
                                 $('#bookingForm').attr('action', "/Booking/BookingConfirmation").submit();
+                                $(this).prop("disabled", true);
                                 //alert("ready to submit 2");
                             }
 

@@ -6,8 +6,8 @@
 @{
     var item = Model;
 }
-<div class="swiper-js-container">
-    <div id="@item.DormitoryPartialModel.SwiperId" class="swiper-container swiper-container-horizontal" data-swiper-items="1" data-swiper-space-between="20" data-swiper-sm-items="2" data-swiper-sm-space-between="20" data-swiper-lg-items="4" data-swiper-lg-space-between="20" data-swiper-xl-items="4" data-swiper-xl-space-between="20" style="cursor: grab;">
+<div class="swiper-js-container" >
+    <div id="@item.DormitoryPartialModel.SwiperId" class="swiper-container swiper-container-horizontal" data-swiper-items="3" data-swiper-space-between="20" data-swiper-sm-items="3" data-swiper-sm-space-between="20" data-swiper-lg-items="4" data-swiper-lg-space-between="20" data-swiper-xl-items="4" data-swiper-xl-space-between="20" style="cursor: grab;">
         <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px); transition-duration: 5ms;">
 
             @foreach (var Dormitory in item.DormitoryCardsList)
@@ -18,7 +18,7 @@
 
 
 
-                    <div class="card overflow-hidden" data-animate-hover="2">
+                    <div class="card overflow-hidden" data-animate-hover="2" >
                         <div class="overflow-hidden">
                             <div class="animate-this">
                                 <a href="Dormitories/@Dormitory.DormitorySeoFriendlyUrl">
