@@ -8,13 +8,14 @@ namespace Dau.Core.Domain.Users
     {
       
 
-     
-        public string Gender { get; set; }
+     public int GenderId { get; set; }
+      
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string City { get; set; }
-        public string Country { get; set; }
+       
+        public int CountryId { get; set; }
         public string StudentNumber { get; set; }
         public string ParmanentAddress { get; set; }
 
