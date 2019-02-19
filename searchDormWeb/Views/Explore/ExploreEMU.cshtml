@@ -6,7 +6,7 @@
 
 
 <!-- Spotlight -->
-<section class="bg-primary" >
+<section class="bg-primary">
     <div class="spotlight overflow-hidden bg-cover bg-size--cover" data-spotlight="fullscreen" style="background-image: url('https://dormitories.emu.edu.tr/PublishingImages/Stock/akdeniz.jpg?RenditionID=10'); background-position: center center" data-separator="rounded-left" data-separator-orientation="bottom">
         <span class="mask bg-gradient-primary opacity-7--hover"></span>
 
@@ -91,70 +91,9 @@
 
 
 @section styles
-    {  
+    {
 
-    <style>
-
-        @@media only screen and (min-width: 600px) {
-
-            .grid__col-sizer,
-            .photo-item {
-                width: 100%;
-            }
-
-            .grid__gutter-sizer {
-                width: 0%;
-            }
-
-            .photo-item {
-                margin-bottom: 0.1%;
-                float: left;
-            }
-        }
-
-        .grid__col-sizer,
-        .photo-item {
-            width: 33.26%;
-        }
-
-        .grid__gutter-sizer {
-            width: 0.1%;
-        }
-
-        .photo-item {
-            margin-bottom: 0.1%;
-            float: left;
-        }
-
-        .photo-item__image {
-            display: block;
-            max-width: 100%;
-        }
-
-        .photo-item__caption {
-            position: absolute;
-            left: 10px;
-            bottom: 10px;
-            margin: 0;
-        }
-
-            .photo-item__caption a {
-                color: white;
-                font-size: 0.8em;
-                text-decoration: none;
-            }
-
-        .page-load-status {
-            display: none; /* hidden by default */
-            padding-top: 20px;
-            border-top: 1px solid #DDD;
-            text-align: center;
-            color: #777;
-        }
-
-        /* loader ellips in separate pen CSS */
-
-    </style>
+    <link type="text/css" href="@Url.Content("~/viewscss/Public")/ExploreEmu.css" rel="stylesheet">
 
 }
 
@@ -164,7 +103,7 @@
 
     <script src="@Url.Content("~/frontend_Content")/node_modules/masonry-layout/dist/masonry.pkgd.min.js"></script>
     <script src="@Url.Content("~/frontend_Content")/node_modules/infinite-scroll/dist/infinite-scroll.pkgd.min.js"></script>
- 
+
     <!-- Page plugins -->
     <!-- .photo-item template HTML -->
     <script type="text/html" id="photo-item-template">

@@ -1,0 +1,92 @@
+﻿
+
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 600px) {
+    .grid__col-sizer,
+    .photo-item {
+        width: 100%;
+    }
+
+ 
+
+    .grid__gutter-sizer {
+        width: 0%;
+    }
+
+    .photo-item {
+        margin-bottom: 0.1%;
+        float: left;
+    }
+}
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+ 
+
+    .grid__col-sizer,
+    .photo-item {
+        width: 100%;
+    }
+
+    .grid__gutter-sizer {
+        width: 0%;
+    }
+
+    .photo-item {
+        margin-bottom: 0.1%;
+        float: left;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+
+
+    .grid__col-sizer,
+    .photo-item {
+        width:33%;
+    }
+
+    .grid__gutter-sizer {
+        width: 0%;
+    }
+
+    .photo-item {
+        margin-bottom: 0.1%;
+        float: left;
+    }
+}
+
+
+
+
+
+
+
+
+.photo-item__image {
+    display: block;
+    max-width: 100%;
+}
+
+.photo-item__caption {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    margin: 0;
+}
+
+    .photo-item__caption a {
+        color: white;
+        font-size: 0.8em;
+        text-decoration: none;
+    }
+
+.page-load-status {
+    display: none; /* hidden by default */
+    padding-top: 20px;
+    border-top: 1px solid #DDD;
+    text-align: center;
+    color: #777;
+}
