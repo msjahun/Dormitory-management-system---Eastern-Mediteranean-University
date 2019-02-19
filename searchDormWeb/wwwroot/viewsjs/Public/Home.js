@@ -53,8 +53,8 @@ $(window).scroll(function () {
                 //     alert(result);
                 $("#CoolOfferAndDeals").html(result);
                 swiper3 = new Swiper('#swiper-row3', {
-                    slidesPerView: slidesPerView(),
-                    centeredSlides: true,
+                    slidesPerView: slidesPerViewSmall(),
+                    centeredSlides: false,
 
                     spaceBetween: 20,
 
@@ -98,7 +98,7 @@ $(window).scroll(function () {
                 $("#HighlyRatedDormitories").html(result);
                 swiper2 = new Swiper('#swiper-row2', {
                     slidesPerView: slidesPerView(),
-                    centeredSlides: true,
+                    centeredSlides: false,
                     resize: true,
                     spaceBetween: 20,
                     navigation: {
@@ -125,74 +125,65 @@ $(window).scroll(function () {
 });
 
 
-var lockPopularDormitories = true;
-$(window).scroll(function () {
-    var hT = $('#PopularDormitories').offset().top,
-        hH = $('#PopularDormitories').outerHeight(),
-        wH = $(window).height(),
-        wS = $(this).scrollTop();
-   // console.log((hT - wH), wS);
-    if (wS > (hT + hH- wH) && lockPopularDormitories) {
-        //alert('I have scrolled to Highly Rated Dormitories');
-        lockPopularDormitories = false;
+//var lockPopularDormitories = false; //locked this
+//$(window).scroll(function () {
+//    var hT = $('#PopularDormitories').offset().top,
+//        hH = $('#PopularDormitories').outerHeight(),
+//        wH = $(window).height(),
+//        wS = $(this).scrollTop();
+//   // console.log((hT - wH), wS);
+//    if (wS > (hT + hH- wH) && lockPopularDormitories) {
+//        //alert('I have scrolled to Highly Rated Dormitories');
+//        lockPopularDormitories = false;
 
 
-        $.ajax({
-            type: "POST",
-            url: "Home/GetPopularDormitories",
-            data: {
-                SectionId: "PopularDormitories",
-                SwiperId: "swiper-row1"
-            },
-            success: function (result) {
-                //     alert(result);
-                $("#PopularDormitories").html(result);
-                swiper1 = new Swiper('#swiper-row1', {
-                    slidesPerView: slidesPerView(),
-                    centeredSlides: true,
-                    resize: true,
-                    spaceBetween: 20,
-                    navigation: {
-                        nextEl: '.swiper-button-next',
-                        prevEl: '.swiper-button-prev'
-                    },
-                    autoplay: {
-                        delay: 3000,
-                        disableOnInteraction: true
-                    },
-                    loop: true,
-                    pagination: {
-                        el: '.swiper-pagination',
-                        clickable: true
-                    }
-                });
+//        $.ajax({
+//            type: "POST",
+//            url: "Home/GetPopularDormitories",
+//            data: {
+//                SectionId: "PopularDormitories",
+//                SwiperId: "swiper-row1"
+//            },
+//            success: function (result) {
+//                //     alert(result);
+//                $("#PopularDormitories").html(result);
+//                swiper1 = new Swiper('#swiper-row1', {
+//                    slidesPerView: slidesPerView(),
+//                    centeredSlides: true,
+//                    resize: true,
+//                    spaceBetween: 20,
+//                    navigation: {
+//                        nextEl: '.swiper-button-next',
+//                        prevEl: '.swiper-button-prev'
+//                    },
+//                    autoplay: {
+//                        delay: 3000,
+//                        disableOnInteraction: true
+//                    },
+//                    loop: true,
+//                    pagination: {
+//                        el: '.swiper-pagination',
+//                        clickable: true
+//                    }
+//                });
 
 
-            }
-        });
+//            }
+//        });
 
 
 
-    }
-});
+//    }
+//});
 
 
 
 
 $(window).resize(function () {
-    var ww = $(window).width()
-    if (ww > 1000) {
-        swiper1.params.slidesPerView = swiper2.params.slidesPerView = swiper3.params.slidesPerView = 4;
+swiper3.params.slidesPerView = slidesPerViewSmall();
+    swiper2.params.slidesPerView = swiper1.params.slidesPerView  = slidesPerView();
 
-    }
-    if (ww > 468 && ww <= 1000) {
-        swiper1.params.slidesPerView = swiper2.params.slidesPerView = swiper3.params.slidesPerView = 1;
-
-    }
-    if (ww <= 468) {
-        swiper1.params.slidesPerView = swiper2.params.slidesPerView = swiper3.params.slidesPerView = 1;
-
-    }
+   
 
 });
 $(window).trigger('resize');
@@ -200,7 +191,7 @@ $(window).trigger('resize');
 
 function slidesPerView() {
 
-    var ww = $(window).width()
+    var ww = $(window).width();
     if (ww > 1000) {
         return 4;
 
@@ -210,7 +201,25 @@ function slidesPerView() {
 
     }
     if (ww <= 468) {
-        return 1;
+        return 1.3;
+
+    }
+}
+
+
+function slidesPerViewSmall() {
+
+    var ww = $(window).width();
+    if (ww > 1000) {
+        return 2.5;
+
+    }
+    if (ww > 468 && ww <= 1000) {
+        return 2;
+
+    }
+    if (ww <= 468) {
+        return 1.3;
 
     }
 }
