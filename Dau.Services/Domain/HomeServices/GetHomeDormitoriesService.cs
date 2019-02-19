@@ -150,6 +150,7 @@ namespace Dau.Services.Domain.HomeService
                                        // RatingText = Localizer["Excellent"],
                                        RatingNo = dorm.RatingNo,
                                        ReviewsNo = _reviewRepo.List().Where(c => c.DormitoryId == dorm.Id).ToList().Count,
+                                       DormitoryType = dormitoryType.Where(c => c.Id == dorm.DormitoryTypeId).FirstOrDefault().Title
                                    };
             HomePageModel model= new HomePageModel();
 
@@ -202,23 +203,24 @@ namespace Dau.Services.Domain.HomeService
                                        DormitorySeoFriendlyUrl = _seoRepo.List().ToList().Where(c => c.Id == dorm.DormitorySeoId).FirstOrDefault().SearchEngineFriendlyPageName, //use seo table
                                                                                                                                                                                  //  RatingNo = dorm.RatingNo.ToString("N1"),
                                        RatingText = _reviewService.ResolveRatingText(dorm.RatingNo), //create a service that resolves this
-                                                                 // ReviewNo = _reviewRepo.List().Where(c => c.DormitoryId == dorm.Id).ToList().Count,
-                                                                 // Location = dorm.Location,
-                                                                 // ShortDescription = dorm.DormitoryDescription,
-                                                                 // ReservationPosibleWithoutCreditCard = false, //
-                                                                 // DormitoryStreetAddress = dorm.DormitoryStreetAddress,
-                                                                 // MapSection = _mapService.GetMapSectionById(dorm.MapSectionId),
-                                                                 //
-                                                                 //
-                                                                 // ClosestLandMark = _locationService.GetClosestLandmark(dorm.Id),
-                                                                 // ClosestLandMarkMapSection = _locationService.GetClosestLandmarkMapSection(dorm.Id),
-                                                                 // DormitoryName = "Alfam dormitory",
-                                                                 // DormitorySeoFriendlyUrl = "Alfam-dormitory",
+                                                                                                     // ReviewNo = _reviewRepo.List().Where(c => c.DormitoryId == dorm.Id).ToList().Count,
+                                                                                                     // Location = dorm.Location,
+                                                                                                     // ShortDescription = dorm.DormitoryDescription,
+                                                                                                     // ReservationPosibleWithoutCreditCard = false, //
+                                                                                                     // DormitoryStreetAddress = dorm.DormitoryStreetAddress,
+                                                                                                     // MapSection = _mapService.GetMapSectionById(dorm.MapSectionId),
+                                                                                                     //
+                                                                                                     //
+                                                                                                     // ClosestLandMark = _locationService.GetClosestLandmark(dorm.Id),
+                                                                                                     // ClosestLandMarkMapSection = _locationService.GetClosestLandmarkMapSection(dorm.Id),
+                                                                                                     // DormitoryName = "Alfam dormitory",
+                                                                                                     // DormitorySeoFriendlyUrl = "Alfam-dormitory",
                                        DormitoryId = dorm.Id,
                                        ImageUrl = _imageService.ImageSplitter(Images.Where(d => d.DormitoryId == dorm.Id).Select(x => x.ImageUrl).FirstOrDefault(), "_p6"),
                                        // RatingText = Localizer["Excellent"],
                                        RatingNo = dorm.RatingNo,
-                                       ReviewsNo = _reviewRepo.List().Where(c => c.DormitoryId == dorm.Id).ToList().Count
+                                       ReviewsNo = _reviewRepo.List().Where(c => c.DormitoryId == dorm.Id).ToList().Count,
+                                       DormitoryType = dormitoryType.Where(c => c.Id == dorm.DormitoryTypeId).FirstOrDefault().Title
                                    };
             HomePageModel model = new HomePageModel();
 
@@ -290,7 +292,8 @@ namespace Dau.Services.Domain.HomeService
                                        // RatingText = Localizer["Excellent"],
                                        RatingNo = dorm.RatingNo,
                                        ReviewsNo = _reviewRepo.List().Where(c => c.DormitoryId == dorm.Id).ToList().Count,
-                                       DealsNo= dorm.HasDeals
+                                       DealsNo= dorm.HasDeals,
+                                       DormitoryType = dormitoryType.Where(c => c.Id == dorm.DormitoryTypeId).FirstOrDefault().Title
                                    };
             HomePageModel model = new HomePageModel();
 
@@ -316,6 +319,7 @@ namespace Dau.Services.Domain.HomeService
         public long DormitoryId { get; set; }
         public string DormitorySeoFriendlyUrl { get; set; }
         public string ImageUrl { get; set; }
+        public string DormitoryType { get; set; }
         public string DormitoryName { get; set; }
         public string RatingText { get; set; }
         public double RatingNo { get; set; }
